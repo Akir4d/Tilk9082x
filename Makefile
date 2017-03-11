@@ -1593,7 +1593,7 @@ endif
 
 ifneq ($(KERNELRELEASE),)
 
-rtk_core :=	core/tlw_cmd.o \
+tlk_core :=	core/tlw_cmd.o \
 		core/tlw_security.o \
 		core/tlw_debug.o \
 		core/tlw_io.o \
@@ -1620,7 +1620,7 @@ rtk_core :=	core/tlw_cmd.o \
 		core/tlw_odm.o \
 		core/efuse/tlw_efuse.o 
 
-$(MODULE_NAME)-y += $(rtk_core)
+$(MODULE_NAME)-y += $(tlk_core)
 
 $(MODULE_NAME)-$(CONFIG_INTEL_WIDI) += core/tlw_intel_widi.o
 
