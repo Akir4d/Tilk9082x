@@ -130,27 +130,27 @@
 #define ODM_RT_TRACE(pDM_Odm, comp, level, fmt)									\
 		if(((comp) & pDM_Odm->DebugComponents) && (level <= pDM_Odm->DebugLevel || level == ODM_DBG_SERIOUS))	\
 		{																			\
-			if(pDM_Odm->SupportICType == ODM_RTL8192C)								\
+			if(pDM_Odm->SupportICType == ODM_TLL8192C)								\
 				DbgPrint("[ODM-92C] ");												\
-			else if(pDM_Odm->SupportICType == ODM_RTL8192D)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8192D)							\
 				DbgPrint("[ODM-92D] ");												\
-			else if(pDM_Odm->SupportICType == ODM_RTL8723A)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8723A)							\
 				DbgPrint("[ODM-8723A] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL9083E)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL9083E)							\
 				DbgPrint("[ODM-9083E] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8192E) 						\
+			else if(pDM_Odm->SupportICType == ODM_TLL8192E) 						\
 				DbgPrint("[ODM-8192E] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8812)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8812)							\
 				DbgPrint("[ODM-8812] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8821)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8821)							\
 				DbgPrint("[ODM-8821] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8814A)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8814A)							\
 				DbgPrint("[ODM-8814] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8703B)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8703B)							\
 				DbgPrint("[ODM-8703B] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8822B)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL8822B)							\
 				DbgPrint("[ODM-8822] ");											\
-			else if (pDM_Odm->SupportICType == ODM_RTL9083F)							\
+			else if (pDM_Odm->SupportICType == ODM_TLL9083F)							\
 				DbgPrint("[ODM-9083F] ");											\
 			RT_PRINTK fmt;															\
 		}

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8192E_RF_H__
-#define __RTL8192E_RF_H__
+#ifndef __TLL8192E_RF_H__
+#define __TLL8192E_RF_H__
 
 VOID
 PHY_RF6052SetBandwidth8192E(
@@ -30,5 +30,5 @@ int
 PHY_RF6052_Config_8192E(
 	IN	PADAPTER	Adapter	);
 
-#endif//__RTL8192E_RF_H__
+#endif//__TLL8192E_RF_H__
 

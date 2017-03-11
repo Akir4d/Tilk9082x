@@ -22,7 +22,7 @@
 
 #include "../phydm_precomp.h"
 
-#if (RTL9083E_SUPPORT == 1)  
+#if (TLL9083E_SUPPORT == 1)  
 
 void
 odm_ConfigRFReg_9083E(

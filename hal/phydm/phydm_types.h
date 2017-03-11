@@ -142,7 +142,7 @@ typedef enum _RT_SPINLOCK_TYPE{
 	/*#define CONFIG_RA_DYNAMIC_RTY_LIMIT*/
 	
 	//2 [ Configure Antenna Diversity ]
-#if defined(CONFIG_RTL_8881A_ANT_SWITCH) || defined(CONFIG_SLOT_0_ANT_SWITCH) || defined(CONFIG_SLOT_1_ANT_SWITCH)
+#if defined(CONFIG_TLL_8881A_ANT_SWITCH) || defined(CONFIG_SLOT_0_ANT_SWITCH) || defined(CONFIG_SLOT_1_ANT_SWITCH)
 	#define CONFIG_HW_ANTENNA_DIVERSITY 
 	#define ODM_EVM_ENHANCE_ANTDIV
 
@@ -294,7 +294,7 @@ typedef enum _RT_SPINLOCK_TYPE{
 	#define	FOR_BRAZIL_PRETEST 0
 	/*#define	BT_30_SUPPORT			0*/
 	#define	FPGA_TWO_MAC_VERIFICATION	0
-	#define	RTL8881A_SUPPORT	0
+	#define	TLL8881A_SUPPORT	0
 
 	#if (defined(TESTCHIP_SUPPORT))
 		#define	PHYDM_TESTCHIP_SUPPORT 1

@@ -34,22 +34,22 @@ int platform_wifi_power_on(void)
 	int ret = 0;
 
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 	tlw_wifi_gpio_wlan_ctrl(WLAN_POWER_ON);
-#endif // CONFIG_RTL9083E
+#endif // CONFIG_TLL9083E
 
 	/* Pull up pwd pin, make wifi leave power down mode. */
 	tlw_wifi_gpio_init();
 	tlw_wifi_gpio_wlan_ctrl(WLAN_PWDN_ON);
 
-#if (MP_DRIVER == 1) && (defined(CONFIG_RTL8723A)||defined(CONFIG_RTL8723B))
+#if (MP_DRIVER == 1) && (defined(CONFIG_TLL8723A)||defined(CONFIG_TLL8723B))
 	// Pull up BT reset pin.
 	tlw_wifi_gpio_wlan_ctrl(WLAN_BT_PWDN_ON);
 #endif
 	tlw_mdelay_os(5);
 
 	sdhci_bus_scan();
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 	//YJ,test,130305
 	tlw_mdelay_os(1000);
 #endif
@@ -78,9 +78,9 @@ void platform_wifi_power_off(void)
 	tlw_mdelay_os(5);
 	tlw_wifi_gpio_deinit();
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 	tlw_wifi_gpio_wlan_ctrl(WLAN_POWER_OFF);
-#endif // CONFIG_RTL9083E
+#endif // CONFIG_TLL9083E
 
 #ifdef CONFIG_WOWLAN
 	if(mmc_host)

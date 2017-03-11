@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_XMIT_H__
-#define __RTL8814A_XMIT_H__
+#ifndef __TLL8814A_XMIT_H__
+#define __TLL8814A_XMIT_H__
 
 typedef struct txdescriptor_8814
 {
@@ -41,7 +41,7 @@ typedef struct txdescriptor_8814
 #endif //CONFIG_SDIO_HCI
 
 //-----------------------------------------------------------------
-//	RTL8814A TX BUFFER DESC
+//	TLL8814A TX BUFFER DESC
 //-----------------------------------------------------------------
 /*
 - Each TXBD has 4 segment.
@@ -303,5 +303,5 @@ BWMapping_8814(
 );
 
 
-#endif /* __RTL8814_XMIT_H__ */
+#endif /* __TLL8814_XMIT_H__ */
 

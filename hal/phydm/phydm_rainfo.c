@@ -328,15 +328,15 @@ odm_RA_ParaAdjust_init(
 		odm_RA_ParaAdjust_Send_H2C(pDM_Odm);
 	}
 
-	if (pDM_Odm->SupportICType == ODM_RTL8192E)
+	if (pDM_Odm->SupportICType == ODM_TLL8192E)
 		pRA_Table->rate_length = ODM_RATEMCS15;
-	else if ((pDM_Odm->SupportICType == ODM_RTL8723B) || (pDM_Odm->SupportICType == ODM_RTL9083E))
+	else if ((pDM_Odm->SupportICType == ODM_TLL8723B) || (pDM_Odm->SupportICType == ODM_TLL9083E))
 		pRA_Table->rate_length = ODM_RATEMCS7;
-	else if ((pDM_Odm->SupportICType == ODM_RTL8821) || (pDM_Odm->SupportICType == ODM_RTL8881A))
+	else if ((pDM_Odm->SupportICType == ODM_TLL8821) || (pDM_Odm->SupportICType == ODM_TLL8881A))
 		pRA_Table->rate_length = ODM_RATEVHTSS1MCS9;
-	else if (pDM_Odm->SupportICType == ODM_RTL8812)
+	else if (pDM_Odm->SupportICType == ODM_TLL8812)
 		pRA_Table->rate_length = ODM_RATEVHTSS2MCS9;
-	else if (pDM_Odm->SupportICType == ODM_RTL8814A)
+	else if (pDM_Odm->SupportICType == ODM_TLL8814A)
 		pRA_Table->rate_length = ODM_RATEVHTSS3MCS9;
 	else
 		pRA_Table->rate_length = ODM_RATEVHTSS4MCS9;
@@ -408,7 +408,7 @@ phydm_reset_retry_limit_table(
 	#if (DM_ODM_SUPPORT_TYPE == ODM_WIN) /*support all IC platform*/
 
 	#else
-		#if ((RTL8192E_SUPPORT == 1) || (RTL8723B_SUPPORT == 1) || (RTL9083E_SUPPORT == 1)) 
+		#if ((TLL8192E_SUPPORT == 1) || (TLL8723B_SUPPORT == 1) || (TLL9083E_SUPPORT == 1)) 
 			u1Byte per_rate_retrylimit_table_20M[ODM_RATEMCS15+1] = {
 				1, 1, 2, 4,					/*CCK*/
 				2, 2, 4, 6, 8, 12, 16, 18,		/*OFDM*/
@@ -422,11 +422,11 @@ phydm_reset_retry_limit_table(
 				4, 8, 12, 16, 24, 32, 32, 32		/*40M HT-2SS*/
 			};
 
-		#elif (RTL8821A_SUPPORT == 1) || (RTL8881A_SUPPORT == 1) 
+		#elif (TLL8821A_SUPPORT == 1) || (TLL8881A_SUPPORT == 1) 
 
-		#elif (RTL8812A_SUPPORT == 1)
+		#elif (TLL8812A_SUPPORT == 1)
 
-		#elif(RTL8814A_SUPPORT == 1)
+		#elif(TLL8814A_SUPPORT == 1)
 
 		#else
 
@@ -514,13 +514,13 @@ phydm_ra_dynamic_rate_id_on_assoc(
 	
 	if ((pDM_Odm->RFType == ODM_2T2R) | (pDM_Odm->RFType == ODM_2T2R_GREEN) | (pDM_Odm->RFType == ODM_2T3R) | (pDM_Odm->RFType == ODM_2T4R)) {
 		
-		if ((pDM_Odm->SupportICType & (ODM_RTL8812|ODM_RTL8192E)) &&
+		if ((pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL8192E)) &&
 			(wireless_mode & (ODM_WM_N24G | ODM_WM_N5G))
 			){
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_RATE_ADAPTIVE, ODM_DBG_LOUD, ("[ON ASSOC] set N-2SS ARFR5 table\n"));
 			ODM_SetMACReg(pDM_Odm, 0x4a4, bMaskDWord, 0xfc1ffff);	/*N-2SS, ARFR5, rate_id = 0xe*/
 			ODM_SetMACReg(pDM_Odm, 0x4a8, bMaskDWord, 0x0);		/*N-2SS, ARFR5, rate_id = 0xe*/
-		} else if ((pDM_Odm->SupportICType & (ODM_RTL8812)) &&
+		} else if ((pDM_Odm->SupportICType & (ODM_TLL8812)) &&
 			(wireless_mode & (ODM_WM_AC_5G | ODM_WM_AC_24G | ODM_WM_AC_ONLY))
 			){
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_RATE_ADAPTIVE, ODM_DBG_LOUD, ("[ON ASSOC] set AC-2SS ARFR0 table\n"));
@@ -538,7 +538,7 @@ phydm_ra_dynamic_rate_id_init(
 {
 	PDM_ODM_T	pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	
-	if (pDM_Odm->SupportICType & (ODM_RTL8812|ODM_RTL8192E)) {
+	if (pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL8192E)) {
 		
 		ODM_SetMACReg(pDM_Odm, 0x4a4, bMaskDWord, 0xfc1ffff);	/*N-2SS, ARFR5, rate_id = 0xe*/
 		ODM_SetMACReg(pDM_Odm, 0x4a8, bMaskDWord, 0x0);		/*N-2SS, ARFR5, rate_id = 0xe*/
@@ -658,7 +658,7 @@ phydm_c2h_ra_report_handler(
 
 
 	#if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	if (pDM_Odm->SupportICType & (ODM_RTL8812|ODM_RTL8192E))
+	if (pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL8192E))
 		phydm_update_rate_id(pDM_Odm, rate, macid);
 	#endif
 
@@ -817,7 +817,7 @@ odm_RSSIMonitorCheckMP(
 
 
 	/*
-		if(pDM_Odm->SupportICType == ODM_RTL9083E && (pDefaultMgntInfo->CustomerID==RT_CID_819x_HP))
+		if(pDM_Odm->SupportICType == ODM_TLL9083E && (pDefaultMgntInfo->CustomerID==RT_CID_819x_HP))
 		{
 			if(curRxOkCnt >(curTxOkCnt*6))
 				PlatformEFIOWrite4Byte(Adapter, REG_ARFR0, 0x8f015);
@@ -826,8 +826,8 @@ odm_RSSIMonitorCheckMP(
 		}
 
 
-		if(pDM_Odm->SupportICType == ODM_RTL8812 || pDM_Odm->SupportICType == ODM_RTL8821 ||
-		   pDM_Odm->SupportICType == ODM_RTL8814A|| pDM_Odm->SupportICType == ODM_RTL8822B)
+		if(pDM_Odm->SupportICType == ODM_TLL8812 || pDM_Odm->SupportICType == ODM_TLL8821 ||
+		   pDM_Odm->SupportICType == ODM_TLL8814A|| pDM_Odm->SupportICType == ODM_TLL8822B)
 		{
 			if(curRxOkCnt >(curTxOkCnt*6))
 				H2C_Parameter[3]|=RAINFO_BE_RX_STATE;
@@ -986,7 +986,7 @@ odm_RSSIMonitorCheckMP(
 	} else
 		PlatformEFIOWrite1Byte(Adapter, 0x4fe, (u1Byte)pHalData->UndecoratedSmoothedPWDB);
 
-	if ((pDM_Odm->SupportICType == ODM_RTL8812) || (pDM_Odm->SupportICType == ODM_RTL8192E))
+	if ((pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8192E))
 		odm_RSSIDumpToRegister(pDM_Odm);
 
 
@@ -1042,8 +1042,8 @@ odm_RSSIMonitorCheckCE(
 	if (pDM_Odm->bLinked != _TRUE)
 		return;
 
-#if((RTL8812A_SUPPORT==1)||(RTL8821A_SUPPORT==1))
-	if ((pDM_Odm->SupportICType == ODM_RTL8812) || (pDM_Odm->SupportICType == ODM_RTL8821)) {
+#if((TLL8812A_SUPPORT==1)||(TLL8821A_SUPPORT==1))
+	if ((pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8821)) {
 		u64	curTxOkCnt = pdvobjpriv->traffic_stat.cur_tx_bytes;
 		u64	curRxOkCnt = pdvobjpriv->traffic_stat.cur_rx_bytes;
 
@@ -1091,7 +1091,7 @@ odm_RSSIMonitorCheckCE(
 				if (psta->rssi_stat.UndecoratedSmoothedPWDB != (-1)) {
 
 #ifdef CONFIG_80211N_HT
-					if (pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8812) {
+					if (pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8812) {
 #ifdef CONFIG_BEAMFORMING
 						BEAMFORMING_CAP Beamform_cap = beamforming_get_entry_beam_cap_by_mac_id(&Adapter->mlmepriv, psta->mac_id);
 
@@ -1115,7 +1115,7 @@ odm_RSSIMonitorCheckCE(
 					}
 #endif
 
-					if ((pDM_Odm->SupportICType == ODM_RTL8192E) || (pDM_Odm->SupportICType == ODM_RTL8812) || (pDM_Odm->SupportICType == ODM_RTL8821)) {
+					if ((pDM_Odm->SupportICType == ODM_TLL8192E) || (pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8821)) {
 						PWDB_rssi[sta_cnt++] = (((u8)(psta->mac_id & 0xFF)) | ((psta->rssi_stat.UndecoratedSmoothedPWDB & 0x7F) << 16) | (STBC_TX << 25) | (NoiseState<<26) | (FirstConnect << 29) | (TxBF_EN << 30));
 					}
 					else
@@ -1130,38 +1130,38 @@ odm_RSSIMonitorCheckCE(
 		for (i = 0; i < sta_cnt; i++) {
 			if (PWDB_rssi[i] != (0)) {
 				if (pHalData->fw_ractrl == _TRUE) { // Report every sta's RSSI to FW
-#if((RTL8812A_SUPPORT==1)||(RTL8821A_SUPPORT==1))
-					if ((pDM_Odm->SupportICType == ODM_RTL8812) || (pDM_Odm->SupportICType == ODM_RTL8821)) {
+#if((TLL8812A_SUPPORT==1)||(TLL8821A_SUPPORT==1))
+					if ((pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8821)) {
 						PWDB_rssi[i] |= (UL_DL_STATE << 24);
 						ttl8812_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 					}
 #endif
-#if(RTL8192E_SUPPORT==1)
-					if (pDM_Odm->SupportICType == ODM_RTL8192E)
+#if(TLL8192E_SUPPORT==1)
+					if (pDM_Odm->SupportICType == ODM_TLL8192E)
 						ttl8192e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
-#if(RTL8723B_SUPPORT==1)
-					if (pDM_Odm->SupportICType == ODM_RTL8723B)
+#if(TLL8723B_SUPPORT==1)
+					if (pDM_Odm->SupportICType == ODM_TLL8723B)
 						ttl8723b_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 
-#if(RTL9083E_SUPPORT==1)
-					if (pDM_Odm->SupportICType == ODM_RTL9083E)
+#if(TLL9083E_SUPPORT==1)
+					if (pDM_Odm->SupportICType == ODM_TLL9083E)
 						ttl9083e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 
-#if (RTL8814A_SUPPORT == 1)
-					if (pDM_Odm->SupportICType == ODM_RTL8814A)
+#if (TLL8814A_SUPPORT == 1)
+					if (pDM_Odm->SupportICType == ODM_TLL8814A)
 						ttl8814_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
-#if (RTL9083F_SUPPORT == 1)
-					if (pDM_Odm->SupportICType == ODM_RTL9083F) {
+#if (TLL9083F_SUPPORT == 1)
+					if (pDM_Odm->SupportICType == ODM_TLL9083F) {
 						ttl9083f_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 					}
 #endif
 				} else {
-#if((RTL9083E_SUPPORT==1)&&(RATE_ADAPTIVE_SUPPORT == 1))
-					if (pDM_Odm->SupportICType == ODM_RTL9083E) {
+#if((TLL9083E_SUPPORT==1)&&(RATE_ADAPTIVE_SUPPORT == 1))
+					if (pDM_Odm->SupportICType == ODM_TLL9083E) {
 						ODM_RA_SetRSSI_9083E(
 							&(pHalData->odmpriv), (PWDB_rssi[i] & 0xFF), (u8)((PWDB_rssi[i] >> 16) & 0xFF));
 					}
@@ -1197,7 +1197,7 @@ odm_RSSIMonitorCheckAP(
 )
 {
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-#if (RTL8812A_SUPPORT||RTL8881A_SUPPORT||RTL8192E_SUPPORT||RTL8814A_SUPPORT)
+#if (TLL8812A_SUPPORT||TLL8881A_SUPPORT||TLL8192E_SUPPORT||TLL8814A_SUPPORT)
 
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	u1Byte 			H2C_Parameter[4] = {0};
@@ -1352,7 +1352,7 @@ odm_RateAdaptiveMaskInit(
 	pOdmRA->RATRState = DM_RATR_STA_INIT;
 
 #if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-	if (pDM_Odm->SupportICType == ODM_RTL8812)
+	if (pDM_Odm->SupportICType == ODM_TLL8812)
 		pOdmRA->LdpcThres = 50;
 	else
 		pOdmRA->LdpcThres = 35;
@@ -1527,18 +1527,18 @@ odm_RefreshRateAdaptiveMaskCE(
 			if (IS_MCAST(pstat->hwaddr))
 				continue;
 
-#if((RTL8812A_SUPPORT==1)||(RTL8821A_SUPPORT==1))
-			if ((pDM_Odm->SupportICType == ODM_RTL8812) || (pDM_Odm->SupportICType == ODM_RTL8821)) {
+#if((TLL8812A_SUPPORT==1)||(TLL8821A_SUPPORT==1))
+			if ((pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8821)) {
 				if (pstat->rssi_stat.UndecoratedSmoothedPWDB < pRA->LdpcThres) {
 					pRA->bUseLdpc = TRUE;
 					pRA->bLowerRtsRate = TRUE;
-					if ((pDM_Odm->SupportICType == ODM_RTL8821) && (pDM_Odm->CutVersion == ODM_CUT_A))
+					if ((pDM_Odm->SupportICType == ODM_TLL8821) && (pDM_Odm->CutVersion == ODM_CUT_A))
 						Set_RA_LDPC_8812(pstat, TRUE);
 					//DbgPrint("RSSI=%d, bUseLdpc = TRUE\n", pHalData->UndecoratedSmoothedPWDB);
 				} else if (pstat->rssi_stat.UndecoratedSmoothedPWDB > (pRA->LdpcThres - 5)) {
 					pRA->bUseLdpc = FALSE;
 					pRA->bLowerRtsRate = FALSE;
-					if ((pDM_Odm->SupportICType == ODM_RTL8821) && (pDM_Odm->CutVersion == ODM_CUT_A))
+					if ((pDM_Odm->SupportICType == ODM_TLL8821) && (pDM_Odm->CutVersion == ODM_CUT_A))
 						Set_RA_LDPC_8812(pstat, FALSE);
 					//DbgPrint("RSSI=%d, bUseLdpc = FALSE\n", pHalData->UndecoratedSmoothedPWDB);
 				}
@@ -1600,12 +1600,12 @@ odm_RefreshRateAdaptiveMaskAPADSL(
 					GET_HAL_INTERFACE(priv)->UpdateHalRAMaskHandler(priv, pstat, pstat->rssi_level);
 				} else
 #endif
-#ifdef CONFIG_RTL_8812_SUPPORT
+#ifdef CONFIG_TLL_8812_SUPPORT
 					if (GET_CHIP_VER(priv) == VERSION_8812E)
 						UpdateHalRAMask8812(priv, pstat, 3);
 					else
 #endif
-#ifdef CONFIG_RTL_88E_SUPPORT
+#ifdef CONFIG_TLL_88E_SUPPORT
 						if (GET_CHIP_VER(priv) == VERSION_9083E) {
 #ifdef TXREPORT
 							add_RATid(priv, pstat);
@@ -1613,7 +1613,7 @@ odm_RefreshRateAdaptiveMaskAPADSL(
 						} else
 #endif
 						{
-#if defined(CONFIG_RTL_92D_SUPPORT) || defined(CONFIG_RTL_92C_SUPPORT)
+#if defined(CONFIG_TLL_92D_SUPPORT) || defined(CONFIG_TLL_92C_SUPPORT)
 							add_update_RATid(priv, pstat);
 #endif
 						}
@@ -1650,7 +1650,7 @@ ODM_RAStateCheck(
 	// Here GoUpGap is added to solve the boundary's level alternation issue.
 #if (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	u1Byte UltraLowRSSIThreshForRA = pRA->UltraLowRSSIThresh;
-	if (pDM_Odm->SupportICType == ODM_RTL8881A)
+	if (pDM_Odm->SupportICType == ODM_TLL8881A)
 		LowRSSIThreshForRA = 30;		// for LDPC / BCC switch
 #endif
 
@@ -1722,7 +1722,7 @@ odm_RefreshBasicRateMask(
 	PMGNT_INFO		pMgntInfo = GetDefaultMgntInfo(Adapter);
 	u1Byte 			RateSet[5] = {MGN_1M, MGN_2M, MGN_5_5M, MGN_11M, MGN_6M};
 
-	if (pDM_Odm->SupportICType != ODM_RTL8812 && pDM_Odm->SupportICType != ODM_RTL8821)
+	if (pDM_Odm->SupportICType != ODM_TLL8812 && pDM_Odm->SupportICType != ODM_TLL8821)
 		return;
 
 	if (pDM_Odm->bLinked == FALSE)	// unlink Default port information
@@ -1888,8 +1888,8 @@ ODM_UpdateNoisyState(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 
 	/*DbgPrint("Get C2H Command! NoisyState=0x%x\n ", bNoisyStateFromC2H);*/
-	if (pDM_Odm->SupportICType == ODM_RTL8821  || pDM_Odm->SupportICType == ODM_RTL8812  ||
-		pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL9083E)
+	if (pDM_Odm->SupportICType == ODM_TLL8821  || pDM_Odm->SupportICType == ODM_TLL8812  ||
+		pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL9083E)
 		pDM_Odm->bNoisyState = bNoisyStateFromC2H;
 	odm_Set_RA_DM_ARFB_by_Noisy(pDM_Odm);
 };
@@ -1973,36 +1973,36 @@ ODM_UpdateInitRate(
 
 	ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("Get C2H Command! Rate=0x%x\n", Rate));
 
-	if (pDM_Odm->SupportICType == ODM_RTL8821  || pDM_Odm->SupportICType == ODM_RTL8812  ||
-		pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL9083E) {
+	if (pDM_Odm->SupportICType == ODM_TLL8821  || pDM_Odm->SupportICType == ODM_TLL8812  ||
+		pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL9083E) {
 		pDM_Odm->TxRate = Rate;
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 #if DEV_BUS_TYPE == RT_PCI_INTERFACE
 #if USE_WORKITEM
 		PlatformScheduleWorkItem(&pDM_Odm->RaRptWorkitem);
 #else
-		if (pDM_Odm->SupportICType == ODM_RTL8821) {
-#if (RTL8821A_SUPPORT == 1)
+		if (pDM_Odm->SupportICType == ODM_TLL8821) {
+#if (TLL8821A_SUPPORT == 1)
 			ODM_TxPwrTrackSetPwr8821A(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 #endif
-		} else if (pDM_Odm->SupportICType == ODM_RTL8812) {
+		} else if (pDM_Odm->SupportICType == ODM_TLL8812) {
 			for (p = ODM_RF_PATH_A; p < MAX_PATH_NUM_8812A; p++) {
-#if (RTL8812A_SUPPORT == 1)
+#if (TLL8812A_SUPPORT == 1)
 				ODM_TxPwrTrackSetPwr8812A(pDM_Odm, MIX_MODE, p, 0);
 #endif
 			}
-		} else if (pDM_Odm->SupportICType == ODM_RTL8723B) {
-#if (RTL8723B_SUPPORT == 1)
+		} else if (pDM_Odm->SupportICType == ODM_TLL8723B) {
+#if (TLL8723B_SUPPORT == 1)
 			ODM_TxPwrTrackSetPwr_8723B(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 #endif
-		} else if (pDM_Odm->SupportICType == ODM_RTL8192E) {
+		} else if (pDM_Odm->SupportICType == ODM_TLL8192E) {
 			for (p = ODM_RF_PATH_A; p < MAX_PATH_NUM_8192E; p++) {
-#if (RTL8192E_SUPPORT == 1)
+#if (TLL8192E_SUPPORT == 1)
 				ODM_TxPwrTrackSetPwr92E(pDM_Odm, MIX_MODE, p, 0);
 #endif
 			}
-		} else if (pDM_Odm->SupportICType == ODM_RTL9083E) {
-#if (RTL9083E_SUPPORT == 1)
+		} else if (pDM_Odm->SupportICType == ODM_TLL9083E) {
+#if (TLL9083E_SUPPORT == 1)
 			ODM_TxPwrTrackSetPwr88E(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 #endif
 		}
@@ -2025,7 +2025,7 @@ odm_RSSIDumpToRegister(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 
-	if (pDM_Odm->SupportICType == ODM_RTL8812) {
+	if (pDM_Odm->SupportICType == ODM_TLL8812) {
 		PlatformEFIOWrite1Byte(Adapter, rA_RSSIDump_Jaguar, Adapter->RxStats.RxRSSIPercentage[0]);
 		PlatformEFIOWrite1Byte(Adapter, rB_RSSIDump_Jaguar, Adapter->RxStats.RxRSSIPercentage[1]);
 
@@ -2044,7 +2044,7 @@ odm_RSSIDumpToRegister(
 		/* Rx Cfo_Tail*/
 		PlatformEFIOWrite2Byte(Adapter, rA_CfoLongDump_Jaguar, Adapter->RxStats.RxCfoTail[0]);
 		PlatformEFIOWrite2Byte(Adapter, rB_CfoLongDump_Jaguar, Adapter->RxStats.RxCfoTail[1]);
-	} else if (pDM_Odm->SupportICType == ODM_RTL8192E) {
+	} else if (pDM_Odm->SupportICType == ODM_TLL8192E) {
 		PlatformEFIOWrite1Byte(Adapter, rA_RSSIDump_92E, Adapter->RxStats.RxRSSIPercentage[0]);
 		PlatformEFIOWrite1Byte(Adapter, rB_RSSIDump_92E, Adapter->RxStats.RxRSSIPercentage[1]);
 		/* Rx EVM*/
@@ -2075,12 +2075,12 @@ odm_RefreshLdpcRtsMP(
 	PMGNT_INFO				pMgntInfo = GetDefaultMgntInfo(pAdapter);
 	PODM_RATE_ADAPTIVE		pRA = &pDM_Odm->RateAdaptive;
 
-	if (pDM_Odm->SupportICType != ODM_RTL8821 && pDM_Odm->SupportICType != ODM_RTL8812)
+	if (pDM_Odm->SupportICType != ODM_TLL8821 && pDM_Odm->SupportICType != ODM_TLL8812)
 		return;
 
-	if ((pDM_Odm->SupportICType == ODM_RTL8821) && (pDM_Odm->CutVersion == ODM_CUT_A))
+	if ((pDM_Odm->SupportICType == ODM_TLL8821) && (pDM_Odm->CutVersion == ODM_CUT_A))
 		bCtlLdpc = TRUE;
-	else if (pDM_Odm->SupportICType == ODM_RTL8812 &&
+	else if (pDM_Odm->SupportICType == ODM_TLL8812 &&
 			 IOTPeer == HT_IOT_PEER_REALTEK_JAGUAR_CCUTAP)
 		bCtlLdpc = TRUE;
 
@@ -2107,7 +2107,7 @@ ODM_DynamicARFBSelect(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	pRA_T			pRA_Table = &pDM_Odm->DM_RA_Table;
 
-	if (pDM_Odm->SupportICType != ODM_RTL8192E)
+	if (pDM_Odm->SupportICType != ODM_TLL8192E)
 		return;
 
 	if (Collision_State == pRA_Table->PT_collision_pre)

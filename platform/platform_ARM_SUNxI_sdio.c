@@ -26,7 +26,7 @@
 #define SDIOID (CONFIG_CHIP_ID==1123 ? 3 : 1)
 #endif // !CONFIG_WITS_EVB_V13
 
-#define SUNXI_SDIO_WIFI_NUM_RTL9082ES  10
+#define SUNXI_SDIO_WIFI_NUM_TLL9082ES  10
 extern void sunximmc_rescan_card(unsigned id, unsigned insert);
 extern int mmc_pm_get_mod_type(void);
 extern int mmc_pm_gpio_ctrl(char* name, int level);
@@ -70,7 +70,7 @@ int platform_wifi_power_on(void)
 
 
 #ifdef CONFIG_MMC_SUNXI_POWER_CONTROL
-	if (mod_sel == SUNXI_SDIO_WIFI_NUM_RTL9082ES) {
+	if (mod_sel == SUNXI_SDIO_WIFI_NUM_TLL9082ES) {
 		ttl9082xs_sdio_powerup();
 		sunximmc_rescan_card(SDIOID, 1);
 		printk("[ttl9082xs] %s: power up, rescan card.\n", __FUNCTION__);
@@ -87,9 +87,9 @@ void platform_wifi_power_off(void)
 {
 #ifdef CONFIG_MMC_SUNXI_POWER_CONTROL
 	sunximmc_rescan_card(SDIOID, 0);
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 	ttl9082xs_sdio_poweroff();
 	printk("[ttl9082xs] %s: remove card, power off.\n", __FUNCTION__);
-#endif // CONFIG_RTL9083E
+#endif // CONFIG_TLL9083E
 #endif // CONFIG_MMC_SUNXI_POWER_CONTROL
 }

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083F_RECV_H__
-#define __RTL9083F_RECV_H__
+#ifndef __TLL9083F_RECV_H__
+#define __TLL9083F_RECV_H__
 
 #if defined(CONFIG_USB_HCI)
 	#ifndef MAX_RECVBUF_SZ
@@ -69,5 +69,5 @@ void ttl9083fe_free_recv_priv(PADAPTER padapter);
 
 void ttl9083f_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
-#endif /* __RTL9083F_RECV_H__ */
+#endif /* __TLL9083F_RECV_H__ */
 

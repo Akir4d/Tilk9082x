@@ -25,7 +25,7 @@
 #include "../../hal/phydm/phydm_precomp.h"
 
 
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 #include <tlw_bt_mp.h>
 #endif
 
@@ -390,7 +390,7 @@ int tlw_mp_start(struct net_device *dev,
 		MPT_PwrCtlDM(padapter, 0);
 	}
 	padapter->mppriv.bmac_filter = _FALSE;
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 #ifdef CONFIG_USB_HCI
 	tlw_write32(padapter, 0x765, 0x0000);
 	tlw_write32(padapter, 0x948, 0x0280);
@@ -398,7 +398,7 @@ int tlw_mp_start(struct net_device *dev,
 	tlw_write32(padapter, 0x765, 0x0000);
 	tlw_write32(padapter, 0x948, 0x0000);
 #endif
-#ifdef CONFIG_FOR_RTL8723BS_VQ0
+#ifdef CONFIG_FOR_TLL8723BS_VQ0
 	tlw_write32(padapter, 0x765, 0x0000);
 	tlw_write32(padapter, 0x948, 0x0280);
 #endif
@@ -1072,22 +1072,22 @@ int tlw_mp_thermal(struct net_device *dev,
 	u8 val;
 	int bwrite = 1;
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 	u16 addr = EEPROM_THERMAL_METER_88E;
 #endif
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8814A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL8814A)
 	u16 addr = EEPROM_THERMAL_METER_8812;
 #endif
-#ifdef CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
 	u16 addr = EEPROM_THERMAL_METER_8192E;
 #endif
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 	u16 addr = EEPROM_THERMAL_METER_8723B;
 #endif
-#ifdef CONFIG_RTL8703B
+#ifdef CONFIG_TLL8703B
 	u16 addr = EEPROM_THERMAL_METER_8703B;
 #endif
-#ifdef CONFIG_RTL9083F
+#ifdef CONFIG_TLL9083F
 	u16 addr = EEPROM_THERMAL_METER_9083F;
 #endif
 	u16 cnt = 1;
@@ -1419,7 +1419,7 @@ int tlw_mp_pretx_proc(PADAPTER padapter, u8 bStartTest, char *extra)
 		} else
 			pmp_priv->mode = MP_ON;
 
-#if defined(CONFIG_RTL8812A)
+#if defined(CONFIG_TLL8812A)
 			if (IS_HARDWARE_TYPE_8812AU(padapter)) {
 				/* <20130425, Kordan> Turn off OFDM Rx to prevent from CCA causing Tx hang.*/
 				if (pmp_priv->mode == MP_PACKET_TX)
@@ -1735,7 +1735,7 @@ int tlw_mp_hwtx(struct net_device *dev,
 	struct mp_priv *pmp_priv = &padapter->mppriv;
 	PMPT_CONTEXT		pMptCtx = &(padapter->mppriv.MptCtx);
 
-#if defined(CONFIG_RTL8814A) || defined(CONFIG_RTL8821B) || defined(CONFIG_RTL8822B) || defined(CONFIG_RTL8821C)
+#if defined(CONFIG_TLL8814A) || defined(CONFIG_TLL8821B) || defined(CONFIG_TLL8822B) || defined(CONFIG_TLL8821C)
 	u8		input[wrqu->data.length];
 
 	if (copy_from_user(input, wrqu->data.pointer, wrqu->data.length))
@@ -1828,7 +1828,7 @@ int tlw_efuse_file_map(struct net_device *dev,
 	return 0;
 }
 
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 int tlw_mp_SetBT(struct net_device *dev,
 				 struct iw_request_info *info,
 				 union iwreq_data *wrqu, char *extra)
@@ -1968,7 +1968,7 @@ int tlw_mp_SetBT(struct net_device *dev,
 #endif
 		DBG_871X(" FirmwareDownload!\n");
 
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 		status = ttl8723b_FirmwareDownload(padapter, _FALSE);
 #endif
 		DBG_871X("Wait for FirmwareDownloadBT fw boot!\n");
@@ -2166,6 +2166,6 @@ exit:
 	return status;
 }
 
-#endif /*#ifdef CONFIG_RTL8723B*/
+#endif /*#ifdef CONFIG_TLL8723B*/
 
 #endif

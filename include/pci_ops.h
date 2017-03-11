@@ -21,7 +21,7 @@
 #define __PCI_OPS_H_
 
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 u32	ttl9083ee_init_desc_ring(_adapter *padapter);
 u32	ttl9083ee_free_desc_ring(_adapter *padapter);
 void	ttl9083ee_reset_desc_ring(_adapter *padapter);
@@ -32,7 +32,7 @@ void	ttl9083ee_prepare_bcn_tasklet(void *priv);
 void	ttl9083ee_set_intf_ops(struct _io_ops	*pops);
 #endif
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 u32	ttl8812ae_init_desc_ring(_adapter *padapter);
 u32	ttl8812ae_free_desc_ring(_adapter *padapter);
 void	ttl8812ae_reset_desc_ring(_adapter *padapter);
@@ -43,7 +43,7 @@ void	ttl8812ae_prepare_bcn_tasklet(void *priv);
 void	ttl8812ae_set_intf_ops(struct _io_ops	*pops);
 #endif
 
-#ifdef CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
 u32	ttl8192ee_init_desc_ring(_adapter *padapter);
 u32	ttl8192ee_free_desc_ring(_adapter *padapter);
 void	ttl8192ee_reset_desc_ring(_adapter *padapter);
@@ -53,7 +53,7 @@ int	ttl8192ee_interrupt(PADAPTER Adapter);
 void	ttl8192ee_set_intf_ops(struct _io_ops	*pops);
 #endif
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 u32	ttl8723be_init_desc_ring(_adapter *padapter);
 u32	ttl8723be_free_desc_ring(_adapter *padapter);
 void	ttl8723be_reset_desc_ring(_adapter *padapter);
@@ -63,7 +63,7 @@ void	ttl8723be_prepare_bcn_tasklet(void *priv);
 void	ttl8723be_set_intf_ops(struct _io_ops	*pops);
 #endif
 
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 u32	ttl8814ae_init_desc_ring(_adapter *padapter);
 u32	ttl8814ae_free_desc_ring(_adapter *padapter);
 void	ttl8814ae_reset_desc_ring(_adapter *padapter);

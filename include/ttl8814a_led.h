@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_LED_H__
-#define __RTL8814A_LED_H__
+#ifndef __TLL8814A_LED_H__
+#define __TLL8814A_LED_H__
 
 
 //================================================================================
@@ -37,5 +37,5 @@ void ttl8814s_InitSwLeds(PADAPTER padapter);
 void ttl8814s_DeInitSwLeds(PADAPTER padapter);
 #endif //CONFIG_SDIO_HCI
 
-#endif //__RTL8814A_LED_H__
+#endif //__TLL8814A_LED_H__
 

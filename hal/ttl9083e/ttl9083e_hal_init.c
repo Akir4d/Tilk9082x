@@ -1177,7 +1177,7 @@ hal_EfusePgPacketWriteData(
 	IN	BOOLEAN			bPseudoTest);
 
 static VOID
-hal_EfusePowerSwitch_RTL9083E(
+hal_EfusePowerSwitch_TLL9083E(
 	IN	PADAPTER	pAdapter,
 	IN	u8		bWrite,
 	IN	u8		PwrState)
@@ -1243,7 +1243,7 @@ ttl9083e_EfusePowerSwitch(
 	IN	u8		bWrite,
 	IN	u8		PwrState)
 {
-	hal_EfusePowerSwitch_RTL9083E(pAdapter, bWrite, PwrState);	
+	hal_EfusePowerSwitch_TLL9083E(pAdapter, bWrite, PwrState);	
 }
 
 
@@ -2734,11 +2734,11 @@ static void read_chip_version_9083e(PADAPTER padapter)
 
 	value32 = tlw_read32(padapter, REG_SYS_CFG);
 	pHalData->VersionID.ICType = CHIP_9083E ;
-	pHalData->VersionID.ChipType = ((value32 & RTL_ID) ? TEST_CHIP : NORMAL_CHIP);
+	pHalData->VersionID.ChipType = ((value32 & TLL_ID) ? TEST_CHIP : NORMAL_CHIP);
 
 	pHalData->VersionID.RFType = RF_TYPE_1T1R;
 	pHalData->VersionID.VendorType = ((value32 & VENDOR_ID) ? CHIP_VENDOR_UMC : CHIP_VENDOR_TSMC);
-	pHalData->VersionID.CUTVersion = (value32 & CHIP_VER_RTL_MASK)>>CHIP_VER_RTL_SHIFT; // IC version (CUT)
+	pHalData->VersionID.CUTVersion = (value32 & CHIP_VER_TLL_MASK)>>CHIP_VER_TLL_SHIFT; // IC version (CUT)
 
 	// For regulator mode. by tynli. 2011.01.14
 	pHalData->RegulatorMode = ((value32 & TRP_BT_EN) ? RT_LDO_REGULATOR : RT_SWITCHING_REGULATOR);
@@ -3107,7 +3107,7 @@ Hal_EfuseParseIDCode88E(
 
 	// Checl 0x8129 again for making sure autoload status!!
 	EEPROMId = le16_to_cpu(*((u16*)hwinfo));
-	if (EEPROMId != RTL_EEPROM_ID)
+	if (EEPROMId != TLL_EEPROM_ID)
 	{
 		DBG_8192C("EEPROM ID(%#x) is invalid!!\n", EEPROMId);
 		pHalData->bautoload_fail_flag = _TRUE;
@@ -3711,7 +3711,7 @@ void Hal_DetectWoWMode(PADAPTER pAdapter)
 // We just reserve the value of the register in variable pHalData->RegBcnCtrlVal and then operate
 // the value of the register via atomic operation.
 // This prevents from race condition when setting this register.
-// The value of pHalData->RegBcnCtrlVal is initialized in HwConfigureRTL8192CE() function.
+// The value of pHalData->RegBcnCtrlVal is initialized in HwConfigureTLL8192CE() function.
 //
 void SetBcnCtrlReg(
 	PADAPTER	padapter,

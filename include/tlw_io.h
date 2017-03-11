@@ -538,21 +538,21 @@ extern u32 _ioreq2rwmem(struct io_queue *pio_q);
 extern void dev_power_down(_adapter * Adapter, u8 bpwrup);
 
 /*
-#define RTL_R8(reg)		tlw_read8(padapter, reg)
-#define RTL_R16(reg)            tlw_read16(padapter, reg)
-#define RTL_R32(reg)            tlw_read32(padapter, reg)
-#define RTL_W8(reg, val8)       tlw_write8(padapter, reg, val8)
-#define RTL_W16(reg, val16)     tlw_write16(padapter, reg, val16)
-#define RTL_W32(reg, val32)     tlw_write32(padapter, reg, val32)
+#define TLL_R8(reg)		tlw_read8(padapter, reg)
+#define TLL_R16(reg)            tlw_read16(padapter, reg)
+#define TLL_R32(reg)            tlw_read32(padapter, reg)
+#define TLL_W8(reg, val8)       tlw_write8(padapter, reg, val8)
+#define TLL_W16(reg, val16)     tlw_write16(padapter, reg, val16)
+#define TLL_W32(reg, val32)     tlw_write32(padapter, reg, val32)
 */
 
 /*
-#define RTL_W8_ASYNC(reg, val8) tlw_write32_async(padapter, reg, val8)
-#define RTL_W16_ASYNC(reg, val16) tlw_write32_async(padapter, reg, val16)
-#define RTL_W32_ASYNC(reg, val32) tlw_write32_async(padapter, reg, val32)
+#define TLL_W8_ASYNC(reg, val8) tlw_write32_async(padapter, reg, val8)
+#define TLL_W16_ASYNC(reg, val16) tlw_write32_async(padapter, reg, val16)
+#define TLL_W32_ASYNC(reg, val32) tlw_write32_async(padapter, reg, val32)
 
-#define RTL_WRITE_BB(reg, val32)	phy_SetUsbBBReg(padapter, reg, val32)
-#define RTL_READ_BB(reg)	phy_QueryUsbBBReg(padapter, reg)
+#define TLL_WRITE_BB(reg, val32)	phy_SetUsbBBReg(padapter, reg, val32)
+#define TLL_READ_BB(reg)	phy_QueryUsbBBReg(padapter, reg)
 */
 
 #define PlatformEFIOWrite1Byte(_a,_b,_c)		\

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTL9083F_SRESET_H_
-#define _RTL9083F_SRESET_H_
+#ifndef _TLL9083F_SRESET_H_
+#define _TLL9083F_SRESET_H_
 
 #include <tlw_sreset.h>
 

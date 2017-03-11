@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL8814A_SPEC_H__
-#define __RTL8814A_SPEC_H__
+#ifndef __TLL8814A_SPEC_H__
+#define __TLL8814A_SPEC_H__
 
 #include <drv_conf.h>
 
@@ -635,4 +635,4 @@ So the following defines for 92C is not entire!!!!!!
 #define MACID_NUM_8814A 128
 #define CAM_ENTRY_NUM_8814A 64
 
-#endif //__RTL8814A_SPEC_H__
+#endif //__TLL8814A_SPEC_H__

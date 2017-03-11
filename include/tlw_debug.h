@@ -129,13 +129,13 @@
 	#define	_MODULE_DEFINE_	_module_ttl871x_ioctl_os_c
 #elif defined _TTL9022_CMD_C_
 	#define	_MODULE_DEFINE_	_module_ttl8712_cmd_c_
-#elif defined _RTL8192C_XMIT_C_
+#elif defined _TLL8192C_XMIT_C_
 	#define	_MODULE_DEFINE_	1
-#elif defined _RTL8723AS_XMIT_C_
+#elif defined _TLL8723AS_XMIT_C_
 	#define	_MODULE_DEFINE_	1
 #elif defined _TTL9022_RECV_C_
 	#define	_MODULE_DEFINE_	_module_ttl8712_recv_c_
-#elif defined _RTL8192CU_RECV_C_
+#elif defined _TLL8192CU_RECV_C_
 	#define	_MODULE_DEFINE_	_module_ttl8712_recv_c_
 #elif defined _TTL902X_MLME_EXT_C_
 	#define _MODULE_DEFINE_	_module_mlme_osdep_c_

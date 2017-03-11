@@ -63,7 +63,7 @@
 #define NAT25_APPLE		04
 #define NAT25_PPPOE		05
 
-#define RTL_RELAY_TAG_LEN (ETH_ALEN)
+#define TLL_RELAY_TAG_LEN (ETH_ALEN)
 #define TAG_HDR_LEN		4
 
 #define MAGIC_CODE		0x8186
@@ -1219,12 +1219,12 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 							pOldTag = (struct pppoe_tag *)__nat25_find_pppoe_tag(ph, ntohs(PTT_RELAY_SID));
 							if (pOldTag) { // if SID existed, copy old value and delete it
 								old_tag_len = ntohs(pOldTag->tag_len);
-								if (old_tag_len+TAG_HDR_LEN+MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN > sizeof(tag_buf)) {
+								if (old_tag_len+TAG_HDR_LEN+MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN > sizeof(tag_buf)) {
 									DEBUG_ERR("SID tag length too long!\n");
 									return -1;
 								}
 
-								memcpy(tag->tag_data+MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN,
+								memcpy(tag->tag_data+MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN,
 									pOldTag->tag_data, old_tag_len);
 
 								if (skb_pull_and_merge(skb, (unsigned char *)pOldTag, TAG_HDR_LEN+old_tag_len) < 0) {
@@ -1235,7 +1235,7 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 							}
 
 							tag->tag_type = PTT_RELAY_SID;
-							tag->tag_len = htons(MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN+old_tag_len);
+							tag->tag_len = htons(MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN+old_tag_len);
 
 							// insert the magic_code+client mac in relay tag
 							pMagic = (unsigned short *)tag->tag_data;
@@ -1300,7 +1300,7 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 						tagType = (unsigned short)((ptr[0] << 8) + ptr[1]);
 						tagLen = (unsigned short)((ptr[2] << 8) + ptr[3]);
 
-						if((tagType != ntohs(PTT_RELAY_SID)) || (tagLen < (MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN))) {
+						if((tagType != ntohs(PTT_RELAY_SID)) || (tagLen < (MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN))) {
 							DEBUG_ERR("Invalid PTT_RELAY_SID tag length [%d]!\n", tagLen);
 							return -1;
 						}
@@ -1314,16 +1314,16 @@ int nat25_db_handle(_adapter *priv, struct sk_buff *skb, int method)
 
 						memcpy(skb->data, tag->tag_data+MAGIC_CODE_LEN, ETH_ALEN);
 
-						if (tagLen > MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN)
+						if (tagLen > MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN)
 							offset = TAG_HDR_LEN;
 
-						if (skb_pull_and_merge(skb, ptr+offset, TAG_HDR_LEN+MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN-offset) < 0) {
+						if (skb_pull_and_merge(skb, ptr+offset, TAG_HDR_LEN+MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN-offset) < 0) {
 							DEBUG_ERR("call skb_pull_and_merge() failed in PADO packet!\n");
 							return -1;
 						}
-						ph->length = htons(ntohs(ph->length)-(TAG_HDR_LEN+MAGIC_CODE_LEN+RTL_RELAY_TAG_LEN-offset));
+						ph->length = htons(ntohs(ph->length)-(TAG_HDR_LEN+MAGIC_CODE_LEN+TLL_RELAY_TAG_LEN-offset));
 						if (offset > 0)
-							tag->tag_len = htons(tagLen-MAGIC_CODE_LEN-RTL_RELAY_TAG_LEN);
+							tag->tag_len = htons(tagLen-MAGIC_CODE_LEN-TLL_RELAY_TAG_LEN);
 
 						DBG_871X("NAT25: Lookup PPPoE, forward %s Packet from %s\n",
 							(ph->code == PADO_CODE ? "PADO" : "PADS"),	skb->dev->name);

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8812A_HAL_H__
-#define __RTL8812A_HAL_H__
+#ifndef __TLL8812A_HAL_H__
+#define __TLL8812A_HAL_H__
 
 //#include "hal_com.h"
 #include "hal_data.h"
@@ -41,38 +41,38 @@
 
 
 //---------------------------------------------------------------------
-//		RTL8812AU From header
+//		TLL8812AU From header
 //---------------------------------------------------------------------
-		#define RTL8812_FW_IMG						"ttl8812a/FW_NIC.bin"
-		#define RTL8812_FW_WW_IMG				"ttl8812a/FW_WoWLAN.bin"
-		#define RTL8812_PHY_REG					"ttl8812a/PHY_REG.txt" 
-		#define RTL8812_PHY_RADIO_A				"ttl8812a/RadioA.txt"
-		#define RTL8812_PHY_RADIO_B				"ttl8812a/RadioB.txt"
-		#define RTL8812_TXPWR_TRACK				"ttl8812a/TxPowerTrack.txt"			
-		#define RTL8812_AGC_TAB					"ttl8812a/AGC_TAB.txt"
-		#define RTL8812_PHY_MACREG 				"ttl8812a/MAC_REG.txt"
-		#define RTL8812_PHY_REG_PG					"ttl8812a/PHY_REG_PG.txt"
-		#define RTL8812_PHY_REG_MP 				"ttl8812a/PHY_REG_MP.txt" 
-		#define RTL8812_TXPWR_LMT					"ttl8812a/TXPWR_LMT.txt" 
-		#define RTL8812_WIFI_ANT_ISOLATION		"ttl8812a/wifi_ant_isolation.txt"
+		#define TLL8812_FW_IMG						"ttl8812a/FW_NIC.bin"
+		#define TLL8812_FW_WW_IMG				"ttl8812a/FW_WoWLAN.bin"
+		#define TLL8812_PHY_REG					"ttl8812a/PHY_REG.txt" 
+		#define TLL8812_PHY_RADIO_A				"ttl8812a/RadioA.txt"
+		#define TLL8812_PHY_RADIO_B				"ttl8812a/RadioB.txt"
+		#define TLL8812_TXPWR_TRACK				"ttl8812a/TxPowerTrack.txt"			
+		#define TLL8812_AGC_TAB					"ttl8812a/AGC_TAB.txt"
+		#define TLL8812_PHY_MACREG 				"ttl8812a/MAC_REG.txt"
+		#define TLL8812_PHY_REG_PG					"ttl8812a/PHY_REG_PG.txt"
+		#define TLL8812_PHY_REG_MP 				"ttl8812a/PHY_REG_MP.txt" 
+		#define TLL8812_TXPWR_LMT					"ttl8812a/TXPWR_LMT.txt" 
+		#define TLL8812_WIFI_ANT_ISOLATION		"ttl8812a/wifi_ant_isolation.txt"
 
 //---------------------------------------------------------------------
-//		RTL8821U From file
+//		TLL8821U From file
 //---------------------------------------------------------------------
-		#define RTL8821_FW_IMG						"ttl8821a/FW_NIC.bin"
-		#define RTL8821_FW_WW_IMG				"ttl8821a/FW_WoWLAN.bin"
-		#define RTL8821_PHY_REG					"ttl8821a/PHY_REG.txt" 
-		#define RTL8821_PHY_RADIO_A				"ttl8821a/RadioA.txt"
-		#define RTL8821_PHY_RADIO_B				"ttl8821a/RadioB.txt" 
-		#define RTL8821_TXPWR_TRACK				"ttl8821a/TxPowerTrack.txt"		
-		#define RTL8821_AGC_TAB					"ttl8821a/AGC_TAB.txt"
-		#define RTL8821_PHY_MACREG 				"ttl8821a/MAC_REG.txt"
-		#define RTL8821_PHY_REG_PG					"ttl8821a/PHY_REG_PG.txt"
-		#define RTL8821_PHY_REG_MP 				"ttl8821a/PHY_REG_MP.txt"
-		#define RTL8821_TXPWR_LMT					"ttl8821a/TXPWR_LMT.txt" 
+		#define TLL8821_FW_IMG						"ttl8821a/FW_NIC.bin"
+		#define TLL8821_FW_WW_IMG				"ttl8821a/FW_WoWLAN.bin"
+		#define TLL8821_PHY_REG					"ttl8821a/PHY_REG.txt" 
+		#define TLL8821_PHY_RADIO_A				"ttl8821a/RadioA.txt"
+		#define TLL8821_PHY_RADIO_B				"ttl8821a/RadioB.txt" 
+		#define TLL8821_TXPWR_TRACK				"ttl8821a/TxPowerTrack.txt"		
+		#define TLL8821_AGC_TAB					"ttl8821a/AGC_TAB.txt"
+		#define TLL8821_PHY_MACREG 				"ttl8821a/MAC_REG.txt"
+		#define TLL8821_PHY_REG_PG					"ttl8821a/PHY_REG_PG.txt"
+		#define TLL8821_PHY_REG_MP 				"ttl8821a/PHY_REG_MP.txt"
+		#define TLL8821_TXPWR_LMT					"ttl8821a/TXPWR_LMT.txt" 
 
 //---------------------------------------------------------------------
-//		RTL8812 Power Configuration CMDs for PCIe interface
+//		TLL8812 Power Configuration CMDs for PCIe interface
 //---------------------------------------------------------------------
 #define Rtl8812_NIC_PWR_ON_FLOW				ttl8812_power_on_flow
 #define Rtl8812_NIC_RF_OFF_FLOW				ttl8812_radio_off_flow
@@ -85,7 +85,7 @@
 #define Rtl8812_NIC_LPS_LEAVE_FLOW				ttl8812_leave_lps_flow		
 
 //---------------------------------------------------------------------
-//		RTL8821 Power Configuration CMDs for PCIe interface
+//		TLL8821 Power Configuration CMDs for PCIe interface
 //---------------------------------------------------------------------
 #define Rtl8821A_NIC_PWR_ON_FLOW				ttl8821A_power_on_flow
 #define Rtl8821A_NIC_RF_OFF_FLOW				ttl8821A_radio_off_flow
@@ -99,7 +99,7 @@
 
 
 #if 1 // download firmware related data structure
-#define FW_SIZE_8812			0x8000 // Compatible with RTL8723 Maximal RAM code size 24K.   modified to 32k, TO compatible with 92d maximal fw size 32k
+#define FW_SIZE_8812			0x8000 // Compatible with TLL8723 Maximal RAM code size 24K.   modified to 32k, TO compatible with 92d maximal fw size 32k
 #define FW_START_ADDRESS		0x1000
 #define FW_END_ADDRESS		0x5FFF
 
@@ -355,5 +355,5 @@ void ttl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
 
-#endif //__RTL9083E_HAL_H__
+#endif //__TLL9083E_HAL_H__
 

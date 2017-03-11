@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8723B_HAL_H__
-#define __RTL8723B_HAL_H__
+#ifndef __TLL8723B_HAL_H__
+#define __TLL8723B_HAL_H__
 
 #include "hal_data.h"
 
@@ -38,22 +38,22 @@
 
 
 //---------------------------------------------------------------------
-//		RTL8723B From file
+//		TLL8723B From file
 //---------------------------------------------------------------------
-	#define RTL8723B_FW_IMG					"ttl8723b/FW_NIC.bin"
-	#define RTL8723B_FW_WW_IMG				"ttl8723b/FW_WoWLAN.bin"
-	#define RTL8723B_PHY_REG					"ttl8723b/PHY_REG.txt"
-	#define RTL8723B_PHY_RADIO_A				"ttl8723b/RadioA.txt"
-	#define RTL8723B_PHY_RADIO_B				"ttl8723b/RadioB.txt"
-	#define RTL8723B_TXPWR_TRACK				"ttl8723b/TxPowerTrack.txt" 
-	#define RTL8723B_AGC_TAB					"ttl8723b/AGC_TAB.txt"
-	#define RTL8723B_PHY_MACREG 				"ttl8723b/MAC_REG.txt"
-	#define RTL8723B_PHY_REG_PG				"ttl8723b/PHY_REG_PG.txt"
-	#define RTL8723B_PHY_REG_MP				"ttl8723b/PHY_REG_MP.txt"
-	#define RTL8723B_TXPWR_LMT 				"ttl8723b/TXPWR_LMT.txt"
+	#define TLL8723B_FW_IMG					"ttl8723b/FW_NIC.bin"
+	#define TLL8723B_FW_WW_IMG				"ttl8723b/FW_WoWLAN.bin"
+	#define TLL8723B_PHY_REG					"ttl8723b/PHY_REG.txt"
+	#define TLL8723B_PHY_RADIO_A				"ttl8723b/RadioA.txt"
+	#define TLL8723B_PHY_RADIO_B				"ttl8723b/RadioB.txt"
+	#define TLL8723B_TXPWR_TRACK				"ttl8723b/TxPowerTrack.txt" 
+	#define TLL8723B_AGC_TAB					"ttl8723b/AGC_TAB.txt"
+	#define TLL8723B_PHY_MACREG 				"ttl8723b/MAC_REG.txt"
+	#define TLL8723B_PHY_REG_PG				"ttl8723b/PHY_REG_PG.txt"
+	#define TLL8723B_PHY_REG_MP				"ttl8723b/PHY_REG_MP.txt"
+	#define TLL8723B_TXPWR_LMT 				"ttl8723b/TXPWR_LMT.txt"
 
 //---------------------------------------------------------------------
-//		RTL8723B From header
+//		TLL8723B From header
 //---------------------------------------------------------------------
 
 #if MP_DRIVER == 1
@@ -204,8 +204,8 @@ typedef struct _RT_8723B_FIRMWARE_HDR
 #define EFUSE_IC_ID_OFFSET			506	//For some inferiority IC purpose. added by Roger, 2009.09.02.
 #define AVAILABLE_EFUSE_ADDR(addr) 	(addr < EFUSE_REAL_CONTENT_LEN_8723B)
 
-#define EFUSE_ACCESS_ON			0x69	// For RTL8723 only.
-#define EFUSE_ACCESS_OFF			0x00	// For RTL8723 only.
+#define EFUSE_ACCESS_ON			0x69	// For TLL8723 only.
+#define EFUSE_ACCESS_OFF			0x00	// For TLL8723 only.
 
 //========================================================
 //			EFUSE for BT definition

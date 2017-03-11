@@ -52,7 +52,7 @@ enum{
 #include <usb_ops_linux.h>
 #endif //PLATFORM_LINUX
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 void ttl9083eu_set_hw_type(struct dvobj_priv *pdvobj);
 void ttl9083eu_set_intf_ops(struct _io_ops *pops);
 #ifdef CONFIG_SUPPORT_USB_INT
@@ -60,7 +60,7 @@ void interrupt_handler_9083eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 #endif
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 void ttl8812au_set_hw_type(struct dvobj_priv *pdvobj);
 void ttl8812au_set_intf_ops(struct _io_ops *pops);
 #ifdef CONFIG_SUPPORT_USB_INT
@@ -68,15 +68,15 @@ void interrupt_handler_8812au(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 #endif
 
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 void ttl8814au_set_hw_type(struct dvobj_priv *pdvobj);
 void ttl8814au_set_intf_ops(struct _io_ops	*pops);
 #ifdef CONFIG_SUPPORT_USB_INT
 void interrupt_handler_8814au(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
-#endif /* CONFIG_RTL8814 */
+#endif /* CONFIG_TLL8814 */
 
-#ifdef CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
 void ttl8192eu_set_hw_type(struct dvobj_priv *pdvobj);
 void ttl8192eu_set_intf_ops(struct _io_ops *pops);
 #ifdef CONFIG_SUPPORT_USB_INT
@@ -85,7 +85,7 @@ void interrupt_handler_8192eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 
 #endif
 
-#ifdef CONFIG_RTL9083F
+#ifdef CONFIG_TLL9083F
 void ttl9083fu_set_hw_type(struct dvobj_priv *pdvobj);
 void ttl9083fu_set_intf_ops(struct _io_ops *pops);
 void ttl9083fu_recv_tasklet(void *priv);
@@ -95,7 +95,7 @@ void interrupt_handler_9083fu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 #endif
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 void ttl8723bu_set_hw_type(struct dvobj_priv *pdvobj);
 void ttl8723bu_set_intf_ops(struct _io_ops *pops);
 void ttl8723bu_recv_tasklet(void *priv);

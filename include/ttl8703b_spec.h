@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL8703B_SPEC_H__
-#define __RTL8703B_SPEC_H__
+#ifndef __TLL8703B_SPEC_H__
+#define __TLL8703B_SPEC_H__
 
 #include <drv_conf.h>
 
@@ -395,7 +395,7 @@
 
 #ifdef CONFIG_RF_GAIN_OFFSET
 
-#ifdef CONFIG_RTL8703B
+#ifdef CONFIG_TLL8703B
 #define EEPROM_RF_GAIN_OFFSET			0xC1
 #endif
 
@@ -470,5 +470,5 @@
 #define MACID_NUM_8703B 128
 #define CAM_ENTRY_NUM_8703B 16
 
-#endif /* __RTL8703B_SPEC_H__ */
+#endif /* __TLL8703B_SPEC_H__ */
 

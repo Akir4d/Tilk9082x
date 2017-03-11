@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_CMD_H__
-#define __RTL8814A_CMD_H__
+#ifndef __TLL8814A_CMD_H__
+#define __TLL8814A_CMD_H__
 #include "hal_com_h2c.h"
 
 //_RSVDPAGE_LOC_CMD0
@@ -115,7 +115,7 @@
 #define SET_8814A_H2CCMD_P2P_PS_OFFLOAD_DISCOVERY(__pH2CCmd, __Value)			SET_BITS_TO_LE_1BYTE(__pH2CCmd, 6, 1, __Value)
 
 
-typedef enum _RTL8814A_C2H_EVT
+typedef enum _TLL8814A_C2H_EVT
 {
 	C2H_8814A_DBG = 0,
 	C2H_8814A_LB = 1,
@@ -125,7 +125,7 @@ typedef enum _RTL8814A_C2H_EVT
 	C2H_8814A_BT_MP = 11,
 	C2H_8814A_RA_PARA_RPT = 14,
 	MAX_8814A_C2HEVENT
-}RTL8814A_C2H_EVT;
+}TLL8814A_C2H_EVT;
 
 s32 FillH2CCmd_8814(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
 void ttl8814_set_raid_cmd(PADAPTER padapter, u64 bitmap, u8* arg);
@@ -162,5 +162,5 @@ _C2HContentParsing8814(
 	IN	u8 			*tmpBuf
 );
 
-#endif/* __RTL8814A_CMD_H__ */
+#endif/* __TLL8814A_CMD_H__ */
 

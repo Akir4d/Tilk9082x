@@ -159,18 +159,18 @@ void tlw_rf_set_tx_gain_offset(_adapter *adapter, u8 path, s8 offset)
 	u8 write_value;
 
 	switch (tlw_get_chip_type(adapter)) {
-#ifdef CONFIG_RTL9083F
-	case RTL9083F:
+#ifdef CONFIG_TLL9083F
+	case TLL9083F:
 		write_value = RF_TX_GAIN_OFFSET_9083F(offset);
 		tlw_hal_write_rfreg(adapter, path, 0x55, 0x0fc000, write_value);
 		break;
-#endif /* CONFIG_RTL9083F */
-#ifdef CONFIG_RTL8821A
-	case RTL8821:
+#endif /* CONFIG_TLL9083F */
+#ifdef CONFIG_TLL8821A
+	case TLL8821:
 		write_value = RF_TX_GAIN_OFFSET_8821A(offset);
 		tlw_hal_write_rfreg(adapter, path, 0x55, 0x0f8000, write_value);
 		break;
-#endif /* CONFIG_RTL8821A */
+#endif /* CONFIG_TLL8821A */
 	default:
 		tlw_warn_on(1);
 		break;

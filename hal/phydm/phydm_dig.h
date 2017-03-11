@@ -91,7 +91,7 @@ typedef struct _FALSE_ALARM_STATISTICS{
 	u4Byte	Cnt_Crc8_fail;
 	u4Byte	Cnt_Mcs_fail;
 	u4Byte	Cnt_Ofdm_fail;
-	u4Byte	Cnt_Ofdm_fail_pre;	//For RTL8881A
+	u4Byte	Cnt_Ofdm_fail_pre;	//For TLL8881A
 	u4Byte	Cnt_Cck_fail;
 	u4Byte	Cnt_all;
 	u4Byte	Cnt_Fast_Fsync;

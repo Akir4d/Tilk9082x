@@ -49,7 +49,7 @@ odm_DynamicBBPowerSaving(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE & (ODM_WIN|ODM_CE))
 
-	if (pDM_Odm->SupportICType != ODM_RTL8723A)
+	if (pDM_Odm->SupportICType != ODM_TLL8723A)
 		return;
 	if(!(pDM_Odm->SupportAbility & ODM_BB_PWR_SAVE))
 		return;
@@ -57,7 +57,7 @@ odm_DynamicBBPowerSaving(
 		return;
 	
 	//1 2.Power Saving for 92C
-	if((pDM_Odm->SupportICType == ODM_RTL8192C) &&(pDM_Odm->RFType == ODM_2T2R))
+	if((pDM_Odm->SupportICType == ODM_TLL8192C) &&(pDM_Odm->RFType == ODM_2T2R))
 	{
 		odm_1R_CCA(pDM_Odm);
 	}
@@ -187,7 +187,7 @@ ODM_RF_Saving(
 		{
 			// <tynli_note> 8723 RSSI report will be wrong. Set 0x874[5]=1 when enter BB power saving mode.
 			// Suggested by SD3 Yu-Nan. 2011.01.20.
-			if(pDM_Odm->SupportICType == ODM_RTL8723A)
+			if(pDM_Odm->SupportICType == ODM_TLL8723A)
 			{
 				ODM_SetBBReg(pDM_Odm, 0x874  , BIT5, 0x1); //Reg874[5]=1b'1
 			}
@@ -207,7 +207,7 @@ ODM_RF_Saving(
 			ODM_SetBBReg(pDM_Odm, 0xa74, 0xF000, pDM_PSTable->RegA74); 
 			ODM_SetBBReg(pDM_Odm,0x818, BIT28, 0x0);  
 
-			if(pDM_Odm->SupportICType == ODM_RTL8723A)
+			if(pDM_Odm->SupportICType == ODM_TLL8723A)
 			{
 				ODM_SetBBReg(pDM_Odm,0x874  , BIT5, 0x0); //Reg874[5]=1b'0
 			}

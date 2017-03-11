@@ -125,7 +125,7 @@ void EnableGpio5ClockReq(PADAPTER Adapter, u8 in_interrupt, u32 Enable)
 	if(IS_D_CUT(pHalData->VersionID))
 		return;
 
-	//dbgdump("%s Enable:%x time:%d", __RTL_FUNC__, Enable, tlw_get_current_time());
+	//dbgdump("%s Enable:%x time:%d", __TLL_FUNC__, Enable, tlw_get_current_time());
 
 	if(in_interrupt)
 		value32 = _sdio_read32(Adapter, REG_GPIO_PIN_CTRL);
@@ -469,7 +469,7 @@ static void _init_available_page_threshold(PADAPTER padapter, u8 numHQ, u8 numNQ
 
 static void _InitQueueReservedPage(PADAPTER padapter)
 {
-#ifdef RTL9083ES_MAC_LOOPBACK	
+#ifdef TLL9083ES_MAC_LOOPBACK	
 
 //#define MAC_LOOPBACK_PAGE_NUM_PUBQ		0x26
 //#define MAC_LOOPBACK_PAGE_NUM_HPQ		0x0b
@@ -1441,7 +1441,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_LLTT);
 		RT_TRACE(_module_hci_hal_init_c_, _drv_info_,("EarlyMode Enabled!!!\n"));
 
 		value8 = tlw_read8(padapter, REG_EARLY_MODE_CONTROL);
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1
 		value8 = value8|0x1f;
 #else
 		value8 = value8|0xf;
@@ -1563,7 +1563,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC11);
 	tlw_write8(padapter, REG_HWSEQ_CTRL, 0xFF);
 
 
-#ifdef RTL9083ES_MAC_LOOPBACK
+#ifdef TLL9083ES_MAC_LOOPBACK
 	value8 = tlw_read8(padapter, REG_SYS_FUNC_EN);
 	value8 &= ~(FEN_BBRSTB|FEN_BB_GLB_RSTn);
 	tlw_write8(padapter, REG_SYS_FUNC_EN, value8);//disable BB, CCK/OFDM
@@ -1725,7 +1725,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 	tlw_write16(padapter,REG_TXDMA_OFFSET_CHK, (tlw_read16(padapter,REG_TXDMA_OFFSET_CHK) | DROP_DATA_EN));
 
 //#debug print for checking compile flags
-	//DBG_8192C("RTL9083E_FPGA_TRUE_PHY_VERIFICATION=%d\n", RTL9083E_FPGA_TRUE_PHY_VERIFICATION);
+	//DBG_8192C("TLL9083E_FPGA_TRUE_PHY_VERIFICATION=%d\n", TLL9083E_FPGA_TRUE_PHY_VERIFICATION);
 	DBG_8192C("DISABLE_BB_RF=%d\n", DISABLE_BB_RF);	
 	DBG_8192C("IS_HARDWARE_TYPE_9083ES=%d\n", IS_HARDWARE_TYPE_9083ES(padapter));
 //#

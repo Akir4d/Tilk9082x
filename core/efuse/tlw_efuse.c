@@ -854,58 +854,58 @@ efuse_IsMasked(
 		return FALSE;
 		
 #if DEV_BUS_TYPE == RT_USB_INTERFACE
-#if defined(CONFIG_RTL9083E)
+#if defined(CONFIG_TLL9083E)
 	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
 		return (IS_MASKED(9083E,_MUSB,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8812A)
+#if defined(CONFIG_TLL8812A)
 	if (IS_HARDWARE_TYPE_8812(pAdapter))  
 		return (IS_MASKED(8812A,_MUSB,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8821A)
 	//if (IS_HARDWARE_TYPE_8811AU(pAdapter))  
 	//	return (IS_MASKED(8811A,_MUSB,Offset)) ? TRUE : FALSE;
 	if (IS_HARDWARE_TYPE_8821(pAdapter))  
 		return (IS_MASKED(8821A,_MUSB,Offset)) ? TRUE : FALSE;		
 #endif		
-#if defined(CONFIG_RTL8192E)
+#if defined(CONFIG_TLL8192E)
 	if (IS_HARDWARE_TYPE_8192E(pAdapter))  
 		return (IS_MASKED(8192E,_MUSB,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 	if (IS_HARDWARE_TYPE_8723B(pAdapter))  
 		return (IS_MASKED(8723B,_MUSB,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8814A)
+#if defined(CONFIG_TLL8814A)
 	if (IS_HARDWARE_TYPE_8814A(pAdapter))
 		return (IS_MASKED(8814A, _MUSB, Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL9083F)
+#if defined(CONFIG_TLL9083F)
 	if (IS_HARDWARE_TYPE_9083F(pAdapter))
 		return (IS_MASKED(9083F, _MUSB, Offset)) ? TRUE : FALSE;
 #endif
 #elif DEV_BUS_TYPE == RT_PCI_INTERFACE
-#if defined(CONFIG_RTL9083E)
+#if defined(CONFIG_TLL9083E)
 	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
 		return (IS_MASKED(9083E,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8192E)
+#if defined(CONFIG_TLL8192E)
    	if (IS_HARDWARE_TYPE_8192E(pAdapter))	
 		return (IS_MASKED(8192E,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif	
-#if defined(CONFIG_RTL8812A)
+#if defined(CONFIG_TLL8812A)
 	if (IS_HARDWARE_TYPE_8812(pAdapter))  
 		return (IS_MASKED(8812A,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif	
-#if defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8821A)
 	if (IS_HARDWARE_TYPE_8821(pAdapter))  
 		return (IS_MASKED(8821A,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 	if (IS_HARDWARE_TYPE_8723B(pAdapter))  
 		return (IS_MASKED(8723B,_MPCIE,Offset)) ? TRUE : FALSE; 
 #endif
-#if defined(CONFIG_RTL8814A)
+#if defined(CONFIG_TLL8814A)
 	if (IS_HARDWARE_TYPE_8814A(pAdapter))
 		return (IS_MASKED(8814A, _MPCIE, Offset)) ? TRUE : FALSE;
 #endif
@@ -913,11 +913,11 @@ efuse_IsMasked(
 	//	return (IS_MASKED(8821B,_MPCIE,Offset)) ? TRUE : FALSE; 
 
 #elif DEV_BUS_TYPE == RT_SDIO_INTERFACE
-#ifdef CONFIG_RTL9083E_SDIO
+#ifdef CONFIG_TLL9083E_SDIO
 	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
 		return (IS_MASKED(9083E,_MSDIO,Offset)) ? TRUE : FALSE;
 #endif
-#ifdef CONFIG_RTL9083F_SDIO
+#ifdef CONFIG_TLL9083F_SDIO
 	if (IS_HARDWARE_TYPE_9083F(pAdapter))  
 		return (IS_MASKED(9083F, _MSDIO, Offset)) ? TRUE : FALSE;
 #endif
@@ -994,7 +994,7 @@ u8 tlw_efuse_map_write(PADAPTER padapter, u16 addr, u16 cnts, u8 *data)
 			{
 				word_en &= ~BIT(i >> 1);
 				newdata[i] = data[idx];
-#ifdef CONFIG_RTL8723B					
+#ifdef CONFIG_TLL8723B					
 				 if( addr + idx == 0x8)
 				 {	
 					if (IS_C_CUT(pHalData->VersionID) || IS_B_CUT(pHalData->VersionID))

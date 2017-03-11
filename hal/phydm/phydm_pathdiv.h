@@ -89,7 +89,7 @@ typedef struct _ODM_PATH_DIVERSITY_
 	u2Byte	PathA_Cnt[ODM_ASSOCIATE_ENTRY_NUM];
 	u2Byte	PathB_Cnt[ODM_ASSOCIATE_ENTRY_NUM];
 	u1Byte	path_div_type;
-  #if RTL8814A_SUPPORT
+  #if TLL8814A_SUPPORT
 	
 	u4Byte	path_a_sum_all;
 	u4Byte	path_b_sum_all;

@@ -24,7 +24,7 @@
 //
 //
 //============================================================
-#define _RTL9083E_DM_C_
+#define _TLL9083E_DM_C_
 
 //============================================================
 // include files
@@ -254,7 +254,7 @@ static void Init_ODM_ComInfo_88E(PADAPTER	Adapter)
 
 	Init_ODM_ComInfo(Adapter);
 
-	ODM_CmnInfoInit(pDM_Odm,ODM_CMNINFO_IC_TYPE,ODM_RTL9083E);
+	ODM_CmnInfoInit(pDM_Odm,ODM_CMNINFO_IC_TYPE,ODM_TLL9083E);
 
 	fab_ver = ODM_TSMC;
 	cut_ver = ODM_CUT_A;

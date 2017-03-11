@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9083E_PHYCFG_C_
+#define _TLL9083E_PHYCFG_C_
 
 #include <drv_types.h>
 #include <ttl9083e_hal.h>
@@ -112,7 +112,7 @@ sic_Read4Byte(
 	)
 {
 	u32	u4ret=0xffffffff;
-#if RTL9083E_SUPPORT == 1
+#if TLL9083E_SUPPORT == 1
 	u8	retry = 0;
 #endif
 
@@ -135,7 +135,7 @@ sic_Read4Byte(
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_READ);
 		//RTPRINT(FPHY, PHY_SICR, ("write cmdreg 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_READ));
 
-#if RTL9083E_SUPPORT == 1
+#if TLL9083E_SUPPORT == 1
 		retry = 4;
 		while(retry--){			
 			tlw_udelay_os(50);
@@ -165,7 +165,7 @@ sic_Write4Byte(
 	u32		data
 	)
 {
-#if RTL9083E_SUPPORT == 1
+#if TLL9083E_SUPPORT == 1
 	u8	retry = 6;
 #endif
 	//DbgPrint("=>Write 0x%x = 0x%x\n", offset, data);
@@ -189,7 +189,7 @@ sic_Write4Byte(
 		tlw_write8(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
 		//RTPRINT(FPHY, PHY_SICW, ("write data 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_WRITE));
-#if RTL9083E_SUPPORT == 1
+#if TLL9083E_SUPPORT == 1
 		while(retry--){
 			tlw_udelay_os(50);
 			//PlatformStallExecution(50);
@@ -548,11 +548,11 @@ phy_RFSerialRead(
 *			This function is equal to the combination of RF_ReadReg() and  RFLSSIRead()
  *
  * Note: 		  For RF8256 only
- *			 The total count of RTL8256(Zebra4) register is around 36 bit it only employs
- *			 4-bit RF address. RTL8256 uses "register mode control bit" (Reg00[12], Reg00[10])
+ *			 The total count of TLL8256(Zebra4) register is around 36 bit it only employs
+ *			 4-bit RF address. TLL8256 uses "register mode control bit" (Reg00[12], Reg00[10])
  *			 to access register address bigger than 0xf. See "Appendix-4 in PHY Configuration
  *			 programming guide" for more details.
- *			 Thus, we define a sub-finction for RTL8526 register address conversion
+ *			 Thus, we define a sub-finction for TLL8526 register address conversion
  *		       ===========================================================
  *			 Register Mode		RegCTL[1]		RegCTL[0]		Note
  *								(Reg00[12])		(Reg00[10])
@@ -784,7 +784,7 @@ s32 PHY_MACConfig9083E(PADAPTER Adapter)
 	int		rtStatus = _SUCCESS;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 	s8		*pszMACRegFile;
-	s8		sz9083EMACRegFile[] = RTL9083E_PHY_MACREG;
+	s8		sz9083EMACRegFile[] = TLL9083E_PHY_MACREG;
 	u16		val=0;
 
 	pszMACRegFile = sz9083EMACRegFile;
@@ -1043,11 +1043,11 @@ phy_BB9083E_Config_ParaFile(
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(Adapter);
 	int			rtStatus = _SUCCESS;
 
-	u8	sz9083EBBRegFile[] = RTL9083E_PHY_REG;
-	u8	sz9083EAGCTableFile[] = RTL9083E_AGC_TAB;
-	u8	sz9083EBBRegPgFile[] = RTL9083E_PHY_REG_PG;
-	u8	sz9083EBBRegMpFile[] = RTL9083E_PHY_REG_MP;
-	u8	sz9083EBBRegLimitFile[] = RTL9083E_TXPWR_LMT;
+	u8	sz9083EBBRegFile[] = TLL9083E_PHY_REG;
+	u8	sz9083EAGCTableFile[] = TLL9083E_AGC_TAB;
+	u8	sz9083EBBRegPgFile[] = TLL9083E_PHY_REG_PG;
+	u8	sz9083EBBRegMpFile[] = TLL9083E_PHY_REG_MP;
+	u8	sz9083EBBRegLimitFile[] = TLL9083E_TXPWR_LMT;
 
 	u8	*pszBBRegFile = NULL, *pszAGCTableFile = NULL, *pszBBRegPgFile = NULL, *pszBBRegMpFile=NULL,
 		*pszRFTxPwrLmtFile = NULL;

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083E_XMIT_H__
-#define __RTL9083E_XMIT_H__
+#ifndef __TLL9083E_XMIT_H__
+#define __TLL9083E_XMIT_H__
 
 
 
@@ -295,5 +295,5 @@ void handle_txrpt_ccx_88e(_adapter *adapter, u8 *buf);
 #endif //CONFIG_XMIT_ACK
 
 void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc);
-#endif //__RTL9083E_XMIT_H__
+#endif //__TLL9083E_XMIT_H__
 

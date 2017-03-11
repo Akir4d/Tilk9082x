@@ -30,19 +30,19 @@
 #endif
 
 #if (DM_ODM_SUPPORT_TYPE ==ODM_CE) 
-#define 	RTL8192CE_SUPPORT 				0
-#define 	RTL8192CU_SUPPORT 				0
-#define 	RTL8192C_SUPPORT 				0	
+#define 	TLL8192CE_SUPPORT 				0
+#define 	TLL8192CU_SUPPORT 				0
+#define 	TLL8192C_SUPPORT 				0	
 
-#define 	RTL8192DE_SUPPORT 				0
-#define 	RTL8192DU_SUPPORT 				0
-#define 	RTL8192D_SUPPORT 				0	
+#define 	TLL8192DE_SUPPORT 				0
+#define 	TLL8192DU_SUPPORT 				0
+#define 	TLL8192D_SUPPORT 				0	
 
-#define 	RTL8723AU_SUPPORT				0
-#define 	RTL8723AS_SUPPORT				0
-#define 	RTL8723AE_SUPPORT				0
-#define 	RTL8723A_SUPPORT				0
-#define 	RTL8723_FPGA_VERIFICATION		0
+#define 	TLL8723AU_SUPPORT				0
+#define 	TLL8723AS_SUPPORT				0
+#define 	TLL8723AE_SUPPORT				0
+#define 	TLL8723A_SUPPORT				0
+#define 	TLL8723_FPGA_VERIFICATION		0
 #endif
 
 //2 Config Flags and Structs - defined by each ODM Type
@@ -87,8 +87,8 @@
 
 
 #if (DM_ODM_SUPPORT_TYPE & ODM_CE)
-#define RTL8821B_SUPPORT		0
-#define RTL8822B_SUPPORT		0
+#define TLL8821B_SUPPORT		0
+#define TLL8822B_SUPPORT		0
 
 VOID
 PHY_SetTxPowerLimit(
@@ -105,22 +105,22 @@ PHY_SetTxPowerLimit(
 #endif
 
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
-#define RTL8821B_SUPPORT		0
-#define RTL8822B_SUPPORT		0
-#define RTL8703B_SUPPORT		0
-#define RTL9083F_SUPPORT		0
+#define TLL8821B_SUPPORT		0
+#define TLL8822B_SUPPORT		0
+#define TLL8703B_SUPPORT		0
+#define TLL9083F_SUPPORT		0
 #endif
 
-#if RTL9083E_SUPPORT == 1
-#define RTL9083E_T_SUPPORT 1
+#if TLL9083E_SUPPORT == 1
+#define TLL9083E_T_SUPPORT 1
 #ifdef CONFIG_SFW_SUPPORTED
-#define RTL9083E_S_SUPPORT 1
+#define TLL9083E_S_SUPPORT 1
 #else
-#define RTL9083E_S_SUPPORT 0
+#define TLL9083E_S_SUPPORT 0
 #endif
 #endif
 
-#if (RTL9083E_SUPPORT==1) 
+#if (TLL9083E_SUPPORT==1) 
 #include "ttl9083e/hal9083erateadaptive.h"//for  RA,Power training
 #include "ttl9083e/halhwimg9083e_mac.h"
 #include "ttl9083e/halhwimg9083e_rf.h"
@@ -142,7 +142,7 @@ PHY_SetTxPowerLimit(
 #endif
 #endif  //88E END
 
-#if (RTL8192E_SUPPORT==1) 
+#if (TLL8192E_SUPPORT==1) 
 
 	#if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 		#include "ttl8192e/halphyrf_8192e_win.h" /*FOR_8192E_IQK*/
@@ -166,7 +166,7 @@ PHY_SetTxPowerLimit(
 #endif
 #endif  //92E END
 
-#if (RTL8812A_SUPPORT==1)
+#if (TLL8812A_SUPPORT==1)
 
     #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
         #include "ttl8812a/halphyrf_8812a_win.h"
@@ -192,7 +192,7 @@ PHY_SetTxPowerLimit(
 
 #endif //8812 END
 
-#if (RTL8814A_SUPPORT==1)
+#if (TLL8814A_SUPPORT==1)
 
 #include "ttl8814a/halhwimg8814a_mac.h"
 #include "ttl8814a/halhwimg8814a_rf.h"
@@ -215,7 +215,7 @@ PHY_SetTxPowerLimit(
 #endif
 #endif //8814 END
 
-#if (RTL8881A_SUPPORT==1)//FOR_8881_IQK
+#if (TLL8881A_SUPPORT==1)//FOR_8881_IQK
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 #include "ttl8821a/phydm_iqk_8821a_win.h"
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
@@ -229,7 +229,7 @@ PHY_SetTxPowerLimit(
 //#include "ttl8881a/odm_RegConfig8881A.h"
 #endif
 
-#if (RTL8723B_SUPPORT==1) 
+#if (TLL8723B_SUPPORT==1) 
 #include "ttl8723b/halhwimg8723b_mac.h"
 #include "ttl8723b/halhwimg8723b_rf.h"
 #include "ttl8723b/halhwimg8723b_bb.h"
@@ -246,7 +246,7 @@ PHY_SetTxPowerLimit(
 #endif
 #endif
 
-#if (RTL8821A_SUPPORT==1) 
+#if (TLL8821A_SUPPORT==1) 
 #include "ttl8821a/halhwimg8821a_mac.h"
 #include "ttl8821a/halhwimg8821a_rf.h"
 #include "ttl8821a/halhwimg8821a_bb.h"
@@ -264,7 +264,7 @@ PHY_SetTxPowerLimit(
 #endif
 #endif
 
-#if (RTL8821B_SUPPORT==1) 
+#if (TLL8821B_SUPPORT==1) 
 #include "ttl8821b/halhwimg8821b_mac.h"
 #include "ttl8821b/halhwimg8821b_rf.h"
 #include "ttl8821b/halhwimg8821b_bb.h"
@@ -277,7 +277,7 @@ PHY_SetTxPowerLimit(
 #include "ttl8821b/halphyrf_8821b.h"
 #endif
 
-#if (RTL8822B_SUPPORT==1) 
+#if (TLL8822B_SUPPORT==1) 
 #include "ttl8822B/HalHWImg8822B_MAC.h"
 #include "ttl8822B/HalHWImg8822B_RF.h"
 #include "ttl8822B/HalHWImg8822B_BB.h"
@@ -290,7 +290,7 @@ PHY_SetTxPowerLimit(
 #include "ttl8822b/HalPhyRf_8822B.h"
 #endif
 
-#if (RTL8703B_SUPPORT==1) 
+#if (TLL8703B_SUPPORT==1) 
 #include "ttl8703b/phydm_regconfig8703b.h"
 #include "ttl8703b/halhwimg8703b_mac.h"
 #include "ttl8703b/halhwimg8703b_rf.h"
@@ -302,7 +302,7 @@ PHY_SetTxPowerLimit(
 #endif
 #endif
 
-#if (RTL9083F_SUPPORT == 1) 
+#if (TLL9083F_SUPPORT == 1) 
 #include "ttl9083f/halhwimg9083f_mac.h"
 #include "ttl9083f/halhwimg9083f_rf.h"
 #include "ttl9083f/halhwimg9083f_bb.h"

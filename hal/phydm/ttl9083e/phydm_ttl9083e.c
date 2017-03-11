@@ -26,7 +26,7 @@
 
 #include "../phydm_precomp.h"
 
-#if (RTL9083E_SUPPORT == 1)
+#if (TLL9083E_SUPPORT == 1)
 
 VOID
 ODM_DIG_LowerBound_88E(
@@ -118,7 +118,7 @@ odm_DynamicPrimaryCCA(
 	if(!(pDM_Odm->SupportAbility & ODM_BB_PRIMARY_CCA))
 		return;
 
-	if(pDM_Odm->SupportICType != ODM_RTL9083E) 
+	if(pDM_Odm->SupportICType != ODM_TLL9083E) 
 		return;
 
 	Is40MHz = *(pDM_Odm->pBandWidth);
@@ -455,7 +455,7 @@ odm_DynamicPrimaryCCA(
 	Client_40MHz_pre = Client_40MHz;
 #endif
 }
-#else //#if (RTL9083E_SUPPORT == 1)
+#else //#if (TLL9083E_SUPPORT == 1)
 
 VOID
 odm_PrimaryCCA_Init(
@@ -475,5 +475,5 @@ ODM_DynamicPrimaryCCA_DupRTS(
 {
 	return FALSE;
 }
-#endif //#if (RTL9083E_SUPPORT == 1)
+#endif //#if (TLL9083E_SUPPORT == 1)
 

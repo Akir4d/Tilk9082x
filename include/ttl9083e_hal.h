@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083E_HAL_H__
-#define __RTL9083E_HAL_H__
+#ifndef __TLL9083E_HAL_H__
+#define __TLL9083E_HAL_H__
 
 //#include "hal_com.h"
 #include "hal_data.h"
@@ -49,20 +49,20 @@
 #endif
 
 
-	#define RTL9083E_FW_IMG					"ttl9083e/FW_NIC.bin"
-	#define RTL9083E_FW_WW_IMG				"ttl9083e/FW_WoWLAN.bin"
-	#define RTL9083E_PHY_REG					"ttl9083e/PHY_REG.txt" 
-	#define RTL9083E_PHY_RADIO_A				"ttl9083e/RadioA.txt"
-	#define RTL9083E_PHY_RADIO_B				"ttl9083e/RadioB.txt"
-	#define RTL9083E_TXPWR_TRACK				"ttl9083e/TxPowerTrack.txt"			
-	#define RTL9083E_AGC_TAB					"ttl9083e/AGC_TAB.txt"
-	#define RTL9083E_PHY_MACREG 				"ttl9083e/MAC_REG.txt"
-	#define RTL9083E_PHY_REG_PG				"ttl9083e/PHY_REG_PG.txt"
-	#define RTL9083E_PHY_REG_MP 				"ttl9083e/PHY_REG_MP.txt" 
-	#define RTL9083E_TXPWR_LMT				"ttl9083e/TXPWR_LMT.txt" 
+	#define TLL9083E_FW_IMG					"ttl9083e/FW_NIC.bin"
+	#define TLL9083E_FW_WW_IMG				"ttl9083e/FW_WoWLAN.bin"
+	#define TLL9083E_PHY_REG					"ttl9083e/PHY_REG.txt" 
+	#define TLL9083E_PHY_RADIO_A				"ttl9083e/RadioA.txt"
+	#define TLL9083E_PHY_RADIO_B				"ttl9083e/RadioB.txt"
+	#define TLL9083E_TXPWR_TRACK				"ttl9083e/TxPowerTrack.txt"			
+	#define TLL9083E_AGC_TAB					"ttl9083e/AGC_TAB.txt"
+	#define TLL9083E_PHY_MACREG 				"ttl9083e/MAC_REG.txt"
+	#define TLL9083E_PHY_REG_PG				"ttl9083e/PHY_REG_PG.txt"
+	#define TLL9083E_PHY_REG_MP 				"ttl9083e/PHY_REG_MP.txt" 
+	#define TLL9083E_TXPWR_LMT				"ttl9083e/TXPWR_LMT.txt" 
 
 	//---------------------------------------------------------------------
-	//		RTL9083E Power Configuration CMDs for USB/SDIO/PCIE interfaces
+	//		TLL9083E Power Configuration CMDs for USB/SDIO/PCIE interfaces
 	//---------------------------------------------------------------------
 	#define Rtl9083E_NIC_PWR_ON_FLOW				ttl9083E_power_on_flow
 	#define Rtl9083E_NIC_RF_OFF_FLOW				ttl9083E_radio_off_flow
@@ -327,5 +327,5 @@ GetHalDefVar9083E(
 	IN	HAL_DEF_VARIABLE		eVariable,
 	IN	PVOID					pValue
 	);
-#endif //__RTL9083E_HAL_H__
+#endif //__TLL9083E_HAL_H__
 

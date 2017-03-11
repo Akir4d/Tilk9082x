@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083F_XMIT_H__
-#define __RTL9083F_XMIT_H__
+#ifndef __TLL9083F_XMIT_H__
+#define __TLL9083F_XMIT_H__
 
 
 #define MAX_TID (15)

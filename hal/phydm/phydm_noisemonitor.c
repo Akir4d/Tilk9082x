@@ -189,7 +189,7 @@ odm_InbandNoise_Monitor_ACSeries(PDM_ODM_T	pDM_Odm, u8 bPauseDIG, u8 IGIValue, u
 	u32 start = 0, func_start = 0, func_end = 0;
 
 
-	if (!(pDM_Odm->SupportICType & (ODM_RTL8812 | ODM_RTL8821)))
+	if (!(pDM_Odm->SupportICType & (ODM_TLL8812 | ODM_TLL8821)))
 		return 0;
 	
 	func_start = ODM_GetCurrentTime(pDM_Odm);

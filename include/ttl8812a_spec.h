@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL8812A_SPEC_H__
-#define __RTL8812A_SPEC_H__
+#ifndef __TLL8812A_SPEC_H__
+#define __TLL8812A_SPEC_H__
 
 #include <drv_conf.h>
 
@@ -256,9 +256,9 @@
 #define MACID_NUM_8812A 128
 #define CAM_ENTRY_NUM_8812A 64
 
-#endif /* __RTL8812A_SPEC_H__ */
+#endif /* __TLL8812A_SPEC_H__ */
 
-#ifdef CONFIG_RTL8821A
+#ifdef CONFIG_TLL8821A
 #include "ttl8821a_spec.h"
-#endif /* CONFIG_RTL8821A */
+#endif /* CONFIG_TLL8821A */
 

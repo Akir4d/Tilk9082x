@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8821A_XMIT_H__
-#define __RTL8821A_XMIT_H__
+#ifndef __TLL8821A_XMIT_H__
+#define __TLL8821A_XMIT_H__
 
 #include <drv_types.h>
 
@@ -176,5 +176,5 @@ void ttl8821e_xmit_tasklet(void *priv);
 #endif // CONFIG_PCI_HCI
 #endif
 
-#endif //__RTL8821_XMIT_H__
+#endif //__TLL8821_XMIT_H__
 

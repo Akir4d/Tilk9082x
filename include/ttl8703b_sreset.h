@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTL8703B_SRESET_H_
-#define _RTL8703B_SRESET_H_
+#ifndef _TLL8703B_SRESET_H_
+#define _TLL8703B_SRESET_H_
 
 #include <tlw_sreset.h>
 

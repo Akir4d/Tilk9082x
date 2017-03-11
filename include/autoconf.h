@@ -152,8 +152,8 @@
 /*
  * Auto Config Section
  */
-#if defined(CONFIG_RTL9083E) && defined(CONFIG_SDIO_HCI)
-#define CONFIG_RTL9083E_SDIO 
+#if defined(CONFIG_TLL9083E) && defined(CONFIG_SDIO_HCI)
+#define CONFIG_TLL9083E_SDIO 
 #define CONFIG_XMIT_THREAD_MODE
 #endif
 
@@ -218,7 +218,7 @@
 
 //#define 	CONFIG_TX_EARLY_MODE
 #ifdef CONFIG_TX_EARLY_MODE
-#define	RTL9083E_EARLY_MODE_PKT_NUM_10	0
+#define	TLL9083E_EARLY_MODE_PKT_NUM_10	0
 #endif
 //#endif
 
@@ -229,7 +229,7 @@
  */
 
 //for FPGA VERIFICATION config
-#define RTL9083E_FPGA_TRUE_PHY_VERIFICATION 0
+#define TLL9083E_FPGA_TRUE_PHY_VERIFICATION 0
 
 #define DISABLE_BB_RF	0
 

@@ -39,7 +39,7 @@
 #include "phydm_adaptivity.h"
 
 
-#if (RTL8814A_SUPPORT == 1)
+#if (TLL8814A_SUPPORT == 1)
 #include "ttl8814a/phydm_iqk_8814a.h"
 #endif
 
@@ -199,7 +199,7 @@ __PACK typedef struct _ODM_Phy_Status_Info_
 	u1Byte		RxMIMOSignalStrength[4];		/* in 0~100 index */
 	s1Byte		RxMIMOSignalQuality[4];		/* EVM */
 	s1Byte		RxSNR[4];					/* per-path's SNR */
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 	u1Byte		RxCount;						/* RX path counter---*/
 #endif
 	u1Byte		BandWidth;
@@ -237,7 +237,7 @@ typedef struct _ODM_Phy_Status_Info_
 	u1Byte		SignalStrength;				/* in 0-100 index. */
 	s1Byte		RxPwr[4];					/* per-path's pwdb */
 	s1Byte		RxSNR[4];					/* per-path's SNR	*/
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 	u1Byte		RxCount:2;					/* RX path counter---*/
 	u1Byte		BandWidth:2;
 	u1Byte		rxsc:4;						/* sub-channel---*/
@@ -245,7 +245,7 @@ typedef struct _ODM_Phy_Status_Info_
 	u1Byte		BandWidth;
 #endif
 	u1Byte		btCoexPwrAdjust;
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 	u1Byte		channel;						/* channel number---*/
 	BOOLEAN		bMuPacket;					/* is MU packet or not---*/
 	BOOLEAN		bBeamformed;				/* BF packet---*/
@@ -272,7 +272,7 @@ typedef struct _ODM_Phy_Dbg_Info_
 	u4Byte		NumQryPhyStatus;
 	u4Byte		NumQryPhyStatusCCK;
 	u4Byte		NumQryPhyStatusOFDM;
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 	u4Byte		NumQryMuPkt;
 	u4Byte		NumQryBfPkt;
 #endif
@@ -872,9 +872,9 @@ typedef  struct DM_Out_Source_Dynamic_Mechanism_Structure
 	ACS							DM_ACS;
 
 
-#if (RTL8814A_SUPPORT == 1)
+#if (TLL8814A_SUPPORT == 1)
 	IQK_INFO	IQK_info;
-#endif /* (RTL8814A_SUPPORT==1) */
+#endif /* (TLL8814A_SUPPORT==1) */
 
 
 #if (DM_ODM_SUPPORT_TYPE & ODM_WIN)

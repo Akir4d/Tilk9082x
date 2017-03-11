@@ -314,13 +314,13 @@
 //    RF-0222D 0x00-3F
 //
 //Zebra1
-#define RTL92SE_FPGA_VERIFY 0
+#define TLL92SE_FPGA_VERIFY 0
 #define		rZebra1_HSSIEnable				0x0	// Useless now
 #define		rZebra1_TRxEnable1				0x1
 #define		rZebra1_TRxEnable2				0x2
 #define		rZebra1_AGC					0x4
 #define		rZebra1_ChargePump			0x5
-//#if (RTL92SE_FPGA_VERIFY == 1)
+//#if (TLL92SE_FPGA_VERIFY == 1)
 #define		rZebra1_Channel				0x7	// RF channel switch
 //#else
 
@@ -332,13 +332,13 @@
 
 //Zebra4
 #define		rGlobalCtrl						0	// Useless now
-#define		rRTL8256_TxLPF					19
-#define		rRTL8256_RxLPF					11
+#define		rTLL8256_TxLPF					19
+#define		rTLL8256_RxLPF					11
 
-//RTL8258
-#define		rRTL8258_TxLPF					0x11	// Useless now
-#define		rRTL8258_RxLPF					0x13
-#define		rRTL8258_RSSILPF				0xa
+//TLL8258
+#define		rTLL8258_TxLPF					0x11	// Useless now
+#define		rTLL8258_RxLPF					0x13
+#define		rTLL8258_RSSILPF				0xa
 
 //
 // RL6052 Register definition
@@ -530,13 +530,13 @@
 #define		bLSIG_Length              		0x1fffe
 #define		bLSIG_Parity              			0x20
 #define		bCCKRxPhase               		0x4
-#if (RTL92SE_FPGA_VERIFY == 1)
+#if (TLL92SE_FPGA_VERIFY == 1)
 #define		bLSSIReadAddress          		0x3f000000   //LSSI "Read" Address	// Reg 0x824 rFPGA0_XA_HSSIParameter2
 #else
 #define		bLSSIReadAddress          		0x7f800000   // T65 RF
 #endif
 #define		bLSSIReadEdge             		0x80000000   //LSSI "Read" edge signal
-#if (RTL92SE_FPGA_VERIFY == 1)
+#if (TLL92SE_FPGA_VERIFY == 1)
 #define		bLSSIReadBackData         		0xfff		// Reg 0x8a0 rFPGA0_XA_LSSIReadBack
 #else
 #define		bLSSIReadBackData         		0xfffff		// T65 RF
@@ -985,15 +985,15 @@
 #define		bZebra1_RxLPFBW           0x600
 
 //Zebra4
-#define		bRTL8256RegModeCtrl1      0x100	// Useless
-#define		bRTL8256RegModeCtrl0      0x40
-#define		bRTL8256_TxLPFBW          0x18
-#define		bRTL8256_RxLPFBW          0x600
+#define		bTLL8256RegModeCtrl1      0x100	// Useless
+#define		bTLL8256RegModeCtrl0      0x40
+#define		bTLL8256_TxLPFBW          0x18
+#define		bTLL8256_RxLPFBW          0x600
 
-//RTL8258
-#define		bRTL8258_TxLPFBW          0xc	// Useless
-#define		bRTL8258_RxLPFBW          0xc00
-#define		bRTL8258_RSSILPFBW        0xc0
+//TLL8258
+#define		bTLL8258_TxLPFBW          0xc	// Useless
+#define		bTLL8258_RxLPFBW          0xc00
+#define		bTLL8258_RSSILPFBW        0xc0
 
 
 //
@@ -1024,7 +1024,7 @@
 #define		bMask12Bits		0xfff
 
 //for PutRFRegsetting & GetRFRegSetting BitMask
-#if (RTL92SE_FPGA_VERIFY == 1)
+#if (TLL92SE_FPGA_VERIFY == 1)
 //#define		bMask12Bits               0xfff	// RF Reg mask bits
 //#define		bMask20Bits               0xfff	// RF Reg mask bits T65 RF
 #define 		bRFRegOffsetMask	0xfff		

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8192E_RECV_H__
-#define __RTL8192E_RECV_H__
+#ifndef __TLL8192E_RECV_H__
+#define __TLL8192E_RECV_H__
 
 #if defined(CONFIG_USB_HCI)
 
@@ -174,5 +174,5 @@ void ttl8192ee_free_recv_priv(PADAPTER padapter);
 
 void ttl8192e_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
-#endif /* __RTL8192E_RECV_H__ */
+#endif /* __TLL8192E_RECV_H__ */
 

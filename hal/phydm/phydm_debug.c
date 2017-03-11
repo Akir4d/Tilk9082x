@@ -937,36 +937,36 @@ VOID phydm_BasicProfile(
 
 	PHYDM_SNPRINTF((output + used, out_len - used, "%-35s\n", "% Basic Profile %"));
 
-	if (pDM_Odm->SupportICType == ODM_RTL8192C)			
-		ICType = "RTL8192C";
-	else if (pDM_Odm->SupportICType == ODM_RTL8192D)
-		ICType = "RTL8192D";
-	else if (pDM_Odm->SupportICType == ODM_RTL8723A)
-		ICType = "RTL8723A";
-	else if (pDM_Odm->SupportICType == ODM_RTL9083E)
-		ICType = "RTL9083E";
-	else if (pDM_Odm->SupportICType == ODM_RTL8812)
-		ICType = "RTL8812A";
-	else if (pDM_Odm->SupportICType == ODM_RTL8821)
-		ICType = "RTL8821A";
-	else if (pDM_Odm->SupportICType == ODM_RTL8192E)
-		ICType = "RTL8192E";
-	else if (pDM_Odm->SupportICType == ODM_RTL8723B)
-		ICType = "RTL8723B";
-	else if (pDM_Odm->SupportICType == ODM_RTL8814A)
-		ICType = "RTL8814A";
-	else if (pDM_Odm->SupportICType == ODM_RTL8881A)
-		ICType = "RTL8881A";
-	else if (pDM_Odm->SupportICType == ODM_RTL8821B)
-		ICType = "RTL8821B";
-	else if (pDM_Odm->SupportICType == ODM_RTL8822B)
-		ICType = "RTL8822B";
-	else if (pDM_Odm->SupportICType == ODM_RTL8703B)
-		ICType = "RTL8703B";
-	else if (pDM_Odm->SupportICType == ODM_RTL8195A)
-		ICType = "RTL8195A";
-	else if (pDM_Odm->SupportICType == ODM_RTL9083F)
-		ICType = "RTL9083F";
+	if (pDM_Odm->SupportICType == ODM_TLL8192C)			
+		ICType = "TLL8192C";
+	else if (pDM_Odm->SupportICType == ODM_TLL8192D)
+		ICType = "TLL8192D";
+	else if (pDM_Odm->SupportICType == ODM_TLL8723A)
+		ICType = "TLL8723A";
+	else if (pDM_Odm->SupportICType == ODM_TLL9083E)
+		ICType = "TLL9083E";
+	else if (pDM_Odm->SupportICType == ODM_TLL8812)
+		ICType = "TLL8812A";
+	else if (pDM_Odm->SupportICType == ODM_TLL8821)
+		ICType = "TLL8821A";
+	else if (pDM_Odm->SupportICType == ODM_TLL8192E)
+		ICType = "TLL8192E";
+	else if (pDM_Odm->SupportICType == ODM_TLL8723B)
+		ICType = "TLL8723B";
+	else if (pDM_Odm->SupportICType == ODM_TLL8814A)
+		ICType = "TLL8814A";
+	else if (pDM_Odm->SupportICType == ODM_TLL8881A)
+		ICType = "TLL8881A";
+	else if (pDM_Odm->SupportICType == ODM_TLL8821B)
+		ICType = "TLL8821B";
+	else if (pDM_Odm->SupportICType == ODM_TLL8822B)
+		ICType = "TLL8822B";
+	else if (pDM_Odm->SupportICType == ODM_TLL8703B)
+		ICType = "TLL8703B";
+	else if (pDM_Odm->SupportICType == ODM_TLL8195A)
+		ICType = "TLL8195A";
+	else if (pDM_Odm->SupportICType == ODM_TLL9083F)
+		ICType = "TLL9083F";
 	PHYDM_SNPRINTF((output + used, out_len - used, "  %-35s: %s (MP Chip: %s)\n", "IC Type", ICType, pDM_Odm->bIsMPChip ? "Yes" : "No"));
 
 	if (pDM_Odm->CutVersion == ODM_CUT_A)			

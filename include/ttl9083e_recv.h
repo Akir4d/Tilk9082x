@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083E_RECV_H__
-#define __RTL9083E_RECV_H__
+#ifndef __TLL9083E_RECV_H__
+#define __TLL9083E_RECV_H__
 
 #define RECV_BLK_SZ 512
 #define RECV_BLK_CNT 16
@@ -171,5 +171,5 @@ void ttl9083ee_free_recv_priv(PADAPTER padapter);
 
 void ttl9083e_query_rx_desc_status(union recv_frame *precvframe, struct recv_stat *prxstat);
 
-#endif /* __RTL9083E_RECV_H__ */
+#endif /* __TLL9083E_RECV_H__ */
 

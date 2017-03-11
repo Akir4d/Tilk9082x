@@ -364,13 +364,13 @@
 
 //Zebra4
 #define		rGlobalCtrl						0	// Useless now
-#define		rRTL8256_TxLPF					19
-#define		rRTL8256_RxLPF					11
+#define		rTLL8256_TxLPF					19
+#define		rTLL8256_RxLPF					11
 
-//RTL8258
-#define		rRTL8258_TxLPF					0x11	// Useless now
-#define		rRTL8258_RxLPF					0x13
-#define		rRTL8258_RSSILPF				0xa
+//TLL8258
+#define		rTLL8258_TxLPF					0x11	// Useless now
+#define		rTLL8258_RxLPF					0x13
+#define		rTLL8258_RSSILPF				0xa
 
 //
 // RL6052 Register definition
@@ -1030,15 +1030,15 @@
 #define		bZebra1_RxLPFBW		0x600
 
 //Zebra4
-#define		bRTL8256RegModeCtrl1	0x100	// Useless
-#define		bRTL8256RegModeCtrl0	0x40
-#define		bRTL8256_TxLPFBW		0x18
-#define		bRTL8256_RxLPFBW		0x600
+#define		bTLL8256RegModeCtrl1	0x100	// Useless
+#define		bTLL8256RegModeCtrl0	0x40
+#define		bTLL8256_TxLPFBW		0x18
+#define		bTLL8256_RxLPFBW		0x600
 
-//RTL8258
-#define		bRTL8258_TxLPFBW		0xc	// Useless
-#define		bRTL8258_RxLPFBW		0xc00
-#define		bRTL8258_RSSILPFBW	0xc0
+//TLL8258
+#define		bTLL8258_TxLPFBW		0xc	// Useless
+#define		bTLL8258_RxLPFBW		0xc00
+#define		bTLL8258_RSSILPFBW	0xc0
 
 
 //

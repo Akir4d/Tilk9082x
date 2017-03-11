@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_DM_H__
-#define __RTL8814A_DM_H__
+#ifndef __TLL8814A_DM_H__
+#define __TLL8814A_DM_H__
 
 void ttl8814_init_dm_priv(IN PADAPTER Adapter);
 void ttl8814_deinit_dm_priv(IN PADAPTER Adapter);

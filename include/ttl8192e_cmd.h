@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8192E_CMD_H__
-#define __RTL8192E_CMD_H__
+#ifndef __TLL8192E_CMD_H__
+#define __TLL8192E_CMD_H__
 
-typedef enum _RTL8192E_H2C_CMD 
+typedef enum _TLL8192E_H2C_CMD 
 {
 	H2C_8192E_RSVDPAGE	= 0x00,
 	H2C_8192E_MSRRPT	= 0x01,
@@ -54,9 +54,9 @@ typedef enum _RTL8192E_H2C_CMD
 	H2C_8192E_P2P_PS_MODE,
 	H2C_8192E_PSD_RESULT,
 	MAX_8192E_H2CCMD
-}RTL8192E_H2C_CMD;
+}TLL8192E_H2C_CMD;
 
-typedef enum _RTL8192E_C2H_EVT
+typedef enum _TLL8192E_C2H_EVT
 {
 	C2H_8192E_DBG = 0,
 	C2H_8192E_LB = 1,
@@ -69,12 +69,12 @@ typedef enum _RTL8192E_C2H_EVT
 	C2H_8192E_RA_PARA_RPT = 14,
 	C2H_8192E_EXTEND = 0xff,
 	MAX_8192E_C2HEVENT	
-}RTL8192E_C2H_EVT;
+}TLL8192E_C2H_EVT;
 
-typedef enum _RTL8192E_EXTEND_C2H_EVT {
+typedef enum _TLL8192E_EXTEND_C2H_EVT {
 	EXTEND_C2H_8192E_DBG_PRINT = 0
 
-} RTL8192E_EXTEND_C2H_EVT;
+} TLL8192E_EXTEND_C2H_EVT;
 
 struct cmd_msg_parm {
 	u8 eid; //element id
@@ -193,4 +193,4 @@ C2HPacketHandler_8192E(
 	IN	u1Byte			Length
 );
 
-#endif//__RTL8192E_CMD_H__
+#endif//__TLL8192E_CMD_H__

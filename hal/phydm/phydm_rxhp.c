@@ -103,7 +103,7 @@ PatchDCTone(
 	//2 Switch to CH11 to patch CH9 and CH13 DC tone
 	ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, 0x3FF, 11);
 	
-	if(pDM_Odm->SupportICType== ODM_RTL8192D)
+	if(pDM_Odm->SupportICType== ODM_TLL8192D)
 	{
 		if((*(pDM_Odm->pMacPhyMode) == ODM_SMSP)||(*(pDM_Odm->pMacPhyMode) == ODM_DMSP))
 		{
@@ -135,7 +135,7 @@ PatchDCTone(
 	ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, 0x3FF, 3);
 
 	
-	if(pDM_Odm->SupportICType==ODM_RTL8192D)
+	if(pDM_Odm->SupportICType==ODM_TLL8192D)
 	{
 		if((*(pDM_Odm->pMacPhyMode) == ODM_SMSP)||(*(pDM_Odm->pMacPhyMode) == ODM_DMSP))
 		{
@@ -188,7 +188,7 @@ GoodChannelDecision(
 	
 //	RegB34 = PHY_QueryBBReg(Adapter,0xB34, bMaskDWord)&0xFF;
 
-	if((pDM_Odm->SupportICType == ODM_RTL8192C)||(pDM_Odm->SupportICType == ODM_RTL8192D))
+	if((pDM_Odm->SupportICType == ODM_TLL8192C)||(pDM_Odm->SupportICType == ODM_TLL8192D))
        {
             TH1 = RSSI_BT + 0x14;  
 	}
@@ -203,7 +203,7 @@ GoodChannelDecision(
 	Smooth_Interval[1]=15;
 	Smooth_Interval[2]=13;
 	good_cnt = 0;
-	if(pDM_Odm->SupportICType==ODM_RTL8723A)
+	if(pDM_Odm->SupportICType==ODM_TLL8723A)
 	{
 		//2 Threshold  
 
@@ -240,14 +240,14 @@ GoodChannelDecision(
 
 
 
-	if(pDM_Odm->SupportICType==ODM_RTL8723A)
+	if(pDM_Odm->SupportICType==ODM_TLL8723A)
 	{
 		TH1 =TH1-SIR_STEP_SIZE;
 	}
 	while (good_cnt < PSD_CHMIN)
 	{
 		good_cnt = 0;
-		if(pDM_Odm->SupportICType==ODM_RTL8723A)
+		if(pDM_Odm->SupportICType==ODM_TLL8723A)
 		{
 		if(TH1 ==TH2)
 			break;
@@ -411,7 +411,7 @@ odm_PSD_Monitor(
 	if( (*(pDM_Odm->pbScanInProcess)) ||
 		pDM_Odm->bLinkInProcess)
 	{
-		if((pDM_Odm->SupportICType==ODM_RTL8723A)&(pDM_Odm->SupportInterface==ODM_ITRF_PCIE))
+		if((pDM_Odm->SupportICType==ODM_TLL8723A)&(pDM_Odm->SupportInterface==ODM_ITRF_PCIE))
 		{
 			ODM_SetTimer( pDM_Odm, &pDM_Odm->PSDTimer, 1500); //ms	
 			//psd_cnt=0;
@@ -448,7 +448,7 @@ odm_PSD_Monitor(
 	//1 Backup Current Settings
 	CurrentChannel = ODM_GetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, bRFRegOffsetMask);
 /*
-	if(pDM_Odm->SupportICType==ODM_RTL8192D)
+	if(pDM_Odm->SupportICType==ODM_TLL8192D)
 	{
 		//2 Record Current synthesizer parameters based on current channel
 		if((*pDM_Odm->MacPhyMode92D == SINGLEMAC_SINGLEPHY)||(*pDM_Odm->MacPhyMode92D == DUALMAC_SINGLEPHY))
@@ -528,7 +528,7 @@ odm_PSD_Monitor(
        //else if((IS_HARDWARE_TYPE_8192C(Adapter))||(IS_HARDWARE_TYPE_8192D(Adapter)))      // Add by Gary
        //    RSSI_BT = RSSI_BT_new;
 
-	if((pDM_Odm->SupportICType==ODM_RTL8723A)&(pDM_Odm->SupportInterface==ODM_ITRF_PCIE))
+	if((pDM_Odm->SupportICType==ODM_TLL8723A)&(pDM_Odm->SupportInterface==ODM_ITRF_PCIE))
 	RSSI_BT=pDM_Odm->RSSI_BT;		//need to check C2H to pDM_Odm RSSI BT
 
 	if(RSSI_BT>=47)
@@ -536,7 +536,7 @@ odm_PSD_Monitor(
 	   
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_PSD, DBG_LOUD,("PSD: RSSI_BT= %d\n", RSSI_BT));
 	
-	if(pDM_Odm->SupportICType==ODM_RTL8723A)
+	if(pDM_Odm->SupportICType==ODM_TLL8723A)
 	{
 	       //Neil add--2011--10--12
 		//2 Initial Gain index 
@@ -586,7 +586,7 @@ odm_PSD_Monitor(
 		initial_gain_psd = initialGainUpper;
 	*/
 
-	//if(pDM_Odm->SupportICType==ODM_RTL8723A)
+	//if(pDM_Odm->SupportICType==ODM_TLL8723A)
 	SSBT = RSSI_BT  * 2 +0x3E;
 	
 	
@@ -651,7 +651,7 @@ odm_PSD_Monitor(
 	wlan_channel = CurrentChannel & 0x0f;
 
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_PSD,DBG_LOUD,("PSD: current channel: %x, BW:%d \n", wlan_channel, Is40MHz));
-	if(pDM_Odm->SupportICType==ODM_RTL8723A)
+	if(pDM_Odm->SupportICType==ODM_TLL8723A)
 	{
 		if(pDM_Odm->bBtHsOperation)
 		{
@@ -781,7 +781,7 @@ odm_PSD_Monitor(
 
 		GoodChannelDecision(pDM_Odm, PSD_report, PSD_bitmap,RSSI_BT, PSD_bitmap_memory);
 
-		if(pDM_Odm->SupportICType==ODM_RTL8723A)
+		if(pDM_Odm->SupportICType==ODM_TLL8723A)
 		{
 			cur_byte_idx=0;
 			cur_bit_idx=0;
@@ -858,7 +858,7 @@ ODM_PSDMonitor(
 	
 	//if(IS_HARDWARE_TYPE_8723AE(Adapter))
 	
-	if(pDM_Odm->SupportICType == ODM_RTL8723A)   //may need to add other IC type
+	if(pDM_Odm->SupportICType == ODM_TLL8723A)   //may need to add other IC type
 	{
 		if(pDM_Odm->SupportInterface==ODM_ITRF_PCIE)
 		{
@@ -1017,7 +1017,7 @@ odm_PSD_RXHP(
 
 	//1 Backup Current Settings
 	CurrentChannel = ODM_GetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, bRFRegOffsetMask);
-	if(pDM_Odm->SupportICType == ODM_RTL8192D)
+	if(pDM_Odm->SupportICType == ODM_TLL8192D)
 	{
 		//2 Record Current synthesizer parameters based on current channel
 		if((*(pDM_Odm->pMacPhyMode)==ODM_SMSP)||(*(pDM_Odm->pMacPhyMode)==ODM_DMSP))
@@ -1142,7 +1142,7 @@ odm_PSD_RXHP(
  		if((n%20)==0)
  		{
 			channel = (n/20)*4 + 1;
-			if(pDM_Odm->SupportICType == ODM_RTL8192D)
+			if(pDM_Odm->SupportICType == ODM_TLL8192D)
 			{
 				switch(channel)
 				{
@@ -1213,7 +1213,7 @@ odm_PSD_RXHP(
 	ODM_Write_DIG(pDM_Odm,(u1Byte) initial_gain);
 	// restore originl center frequency
 	ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, bRFRegOffsetMask, CurrentChannel);
-	if(pDM_Odm->SupportICType == ODM_RTL8192D)
+	if(pDM_Odm->SupportICType == ODM_TLL8192D)
 	{
 		if((*(pDM_Odm->pMacPhyMode)==ODM_SMSP)||(*(pDM_Odm->pMacPhyMode)==ODM_DMSP))
 		{
@@ -1332,10 +1332,10 @@ void odm_RXHP(
 #endif	   
 	static u1Byte		LatchCnt = 0;
 	
-	if(pDM_Odm->SupportICType & (ODM_RTL8723A|ODM_RTL9083E))
+	if(pDM_Odm->SupportICType & (ODM_TLL8723A|ODM_TLL9083E))
 		return;
 	//AGC RX High Power Mode is only applied on 2G band in 92D!!!
-	if(pDM_Odm->SupportICType == ODM_RTL8192D)
+	if(pDM_Odm->SupportICType == ODM_TLL8192D)
 	{
 		if(*(pDM_Odm->pBandType) != ODM_BAND_2_4G)
 			return;

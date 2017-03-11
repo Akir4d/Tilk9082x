@@ -670,7 +670,7 @@ s32 c2h_evt_read(_adapter *adapter, u8 *buf)
 	if (buf == NULL)
 		goto exit;
 
-#if defined (CONFIG_RTL9083E)
+#if defined (CONFIG_TLL9083E)
 
 	trigger = tlw_read8(adapter, REG_C2HEVT_CLEAR);
 
@@ -730,7 +730,7 @@ s32 c2h_evt_read_88xx(_adapter *adapter, u8 *buf)
 	if (buf == NULL)
 		goto exit;
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8192E) || defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8703B)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL8192E) || defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B)
 
 	trigger = tlw_read8(adapter, REG_C2HEVT_CLEAR);
 
@@ -986,7 +986,7 @@ void hw_var_port_switch(_adapter *adapter)
 
 	/* write bcn ctl */
 #ifdef CONFIG_BT_COEXIST
-#if defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8703B)
+#if defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B)
 	// always enable port0 beacon function for PSTDMA
 	bcn_ctrl_1 |= EN_BCN_FUNCTION;
 	// always disable port1 beacon function for PSTDMA
@@ -6355,28 +6355,28 @@ int check_phy_efuse_tx_power_info_valid(PADAPTER padapter) {
 	u16 tx_index_offset = 0x0000;
 
 	switch (tlw_get_chip_type(padapter)) {
-		case RTL8723B:
+		case TLL8723B:
 			tx_index_offset = EEPROM_TX_PWR_INX_8723B;
 		break;
-		case RTL8703B:
+		case TLL8703B:
 			tx_index_offset = EEPROM_TX_PWR_INX_8703B;
 		break;
-		case RTL9083E:
+		case TLL9083E:
 			tx_index_offset = EEPROM_TX_PWR_INX_88E;
 		break;
-		case RTL9083F:
+		case TLL9083F:
 			tx_index_offset = EEPROM_TX_PWR_INX_9083F;
 		break;
-		case RTL8192E:
+		case TLL8192E:
 			tx_index_offset = EEPROM_TX_PWR_INX_8192E;
 		break;
-		case RTL8821:
+		case TLL8821:
 			tx_index_offset = EEPROM_TX_PWR_INX_8821;
 		break;
-		case RTL8812:
+		case TLL8812:
 			tx_index_offset = EEPROM_TX_PWR_INX_8812;
 		break;
-		case RTL8814A:
+		case TLL8814A:
 			tx_index_offset = EEPROM_TX_PWR_INX_8814;
 		break;
 		default:
@@ -6400,8 +6400,8 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 	interface_type = tlw_get_intf_type(adapter);
 
 	switch (tlw_get_chip_type(adapter)) {
-#ifdef CONFIG_RTL8723B
-	case RTL8723B:
+#ifdef CONFIG_TLL8723B
+	case TLL8723B:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8723BU;
 		else if (interface_type == TLW_SDIO)
@@ -6410,14 +6410,14 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_8723BE;
 		break;
 #endif
-#ifdef CONFIG_RTL8703B
-	case RTL8703B:
+#ifdef CONFIG_TLL8703B
+	case TLL8703B:
 		if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_8703BS;
 	break;
 #endif
-#ifdef CONFIG_RTL9083E
-	case RTL9083E:
+#ifdef CONFIG_TLL9083E
+	case TLL9083E:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_88EU;
 		else if (interface_type == TLW_SDIO)
@@ -6426,24 +6426,24 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_88EE;
 		break;
 #endif
-#ifdef CONFIG_RTL9083F
-	case RTL9083F:
+#ifdef CONFIG_TLL9083F
+	case TLL9083F:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_9083FU;
 		else if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_9083FS;
 		break;
 #endif
-#ifdef CONFIG_RTL8812A
-	case RTL8812:
+#ifdef CONFIG_TLL8812A
+	case TLL8812:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8812AU;
 		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_8812AE;
 		break;
 #endif
-#ifdef CONFIG_RTL8821A
-	case RTL8821:
+#ifdef CONFIG_TLL8821A
+	case TLL8821:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8821AU;
 		else if (interface_type == TLW_SDIO)
@@ -6452,8 +6452,8 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_8821AE;
 		break;
 #endif
-#ifdef CONFIG_RTL8192E
-	case RTL8192E:
+#ifdef CONFIG_TLL8192E
+	case TLL8192E:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8192EU;
 		else if (interface_type == TLW_SDIO)
@@ -6462,8 +6462,8 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_8192EE;
 		break;
 #endif
-#ifdef CONFIG_RTL8814A
-	case RTL8814A:
+#ifdef CONFIG_TLL8814A
+	case TLL8814A:
 		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8814AU;
 		else if (interface_type == TLW_PCIE)
@@ -6598,7 +6598,7 @@ void tlw_bb_rf_gain_offset(_adapter *padapter)
 	pu4Byte    Array	   = Array_kfreemap;
 	u4Byte v1=0,v2=0,GainValue,target=0; 
 	//DBG_871X("+%s value: 0x%02x+\n", __func__, value);
-#if defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8703B)
+#if defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B)
 	if (value & BIT4) {
 		DBG_871X("Offset RF Gain.\n");
 		DBG_871X("Offset RF Gain.  pHalData->EEPROMRFGainVal=0x%x\n",pHalData->EEPROMRFGainVal);
@@ -6641,7 +6641,7 @@ void tlw_bb_rf_gain_offset(_adapter *padapter)
 		DBG_871X("Using the default RF gain.\n");
 	}
 
-#elif defined(CONFIG_RTL9083E)
+#elif defined(CONFIG_TLL9083E)
 	if (value & BIT4) {
 		DBG_871X("9083ES Offset RF Gain.\n");
 		DBG_871X("9083ES Offset RF Gain. EEPROMRFGainVal=0x%x\n",

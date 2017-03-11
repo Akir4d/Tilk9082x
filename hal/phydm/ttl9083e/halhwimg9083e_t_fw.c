@@ -22,7 +22,7 @@
 #include "mp_precomp.h"
 #include "../phydm_precomp.h"
 
-#if (RTL9083E_T_SUPPORT == 1)
+#if (TLL9083E_T_SUPPORT == 1)
 #if (defined(CONFIG_AP_WOWLAN) || (DM_ODM_SUPPORT_TYPE & (ODM_AP)))
 
 

@@ -34,7 +34,7 @@
 #include <hal_gspi.h>
 #endif
 //
-// <Roger_Notes> For RTL8723 WiFi/BT/GPS multi-function configuration. 2010.10.06.
+// <Roger_Notes> For TLL8723 WiFi/BT/GPS multi-function configuration. 2010.10.06.
 //
 typedef enum _RT_MULTI_FUNC{
 	RT_MULTI_FUNC_NONE	= 0x00,
@@ -43,14 +43,14 @@ typedef enum _RT_MULTI_FUNC{
 	RT_MULTI_FUNC_GPS 	= 0x04,
 }RT_MULTI_FUNC,*PRT_MULTI_FUNC;
 //
-// <Roger_Notes> For RTL8723 WiFi PDn/GPIO polarity control configuration. 2010.10.08.
+// <Roger_Notes> For TLL8723 WiFi PDn/GPIO polarity control configuration. 2010.10.08.
 //
 typedef enum _RT_POLARITY_CTL {
 	RT_POLARITY_LOW_ACT 	= 0,
 	RT_POLARITY_HIGH_ACT 	= 1,	
 } RT_POLARITY_CTL, *PRT_POLARITY_CTL;
 
-// For RTL8723 regulator mode. by tynli. 2011.01.14.
+// For TLL8723 regulator mode. by tynli. 2011.01.14.
 typedef enum _RT_REGULATOR_MODE {
 	RT_SWITCHING_REGULATOR 	= 0,
 	RT_LDO_REGULATOR 			= 1,
@@ -179,7 +179,7 @@ struct auto_chan_sel {
 struct kfree_data_t {
 	u8 flag;
 	s8 bb_gain[BB_GAIN_NUM][RF_PATH_MAX];
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 	s8 pa_bias_5g[RF_PATH_MAX];
 	s8 pad_bias_5g[RF_PATH_MAX];
 #endif
@@ -277,7 +277,7 @@ typedef struct hal_com_data
 	struct kfree_data_t kfree_data;
 #endif /*CONFIG_RF_GAIN_OFFSET*/
 
-#if defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8703B)
+#if defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B)
 	u8	adjuseVoltageVal;
 #endif
 	u8	EfuseUsedPercentage;
@@ -549,13 +549,13 @@ typedef struct hal_com_data
 	BT_COEXIST		bt_coexist;
 #endif // CONFIG_BT_COEXIST
 
-#if defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8703B) || defined(CONFIG_RTL9083F)
+#if defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B) || defined(CONFIG_TLL9083F)
 	#ifndef CONFIG_PCI_HCI	// mutual exclusive with PCI -- so they're SDIO and GSPI 
 	// Interrupt relatd register information.
 	u32			SysIntrStatus;
 	u32			SysIntrMask;
 	#endif
-#endif /*endif CONFIG_RTL8723B	*/
+#endif /*endif CONFIG_TLL8723B	*/
 
 #ifdef CONFIG_LOAD_PHY_PARA_FROM_FILE
 	char	para_file_buf[MAX_PARA_FILE_BUF_LEN];

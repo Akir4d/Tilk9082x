@@ -25,28 +25,28 @@ void usb_free_recv_priv (_adapter *padapter, u16 ini_in_buf_sz);
 
 u8 tlw_set_hal_ops(_adapter *padapter);
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 void ttl9083eu_set_hal_ops(_adapter * padapter);
 #endif
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 void ttl8812au_set_hal_ops(_adapter * padapter);
 #endif
 
-#ifdef CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
 void ttl8192eu_set_hal_ops(_adapter * padapter);
 #endif
 
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 void ttl8723bu_set_hal_ops(_adapter * padapter);
 #endif
 
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 void ttl8814au_set_hal_ops(_adapter * padapter);
-#endif /* CONFIG_RTL8814A */
+#endif /* CONFIG_TLL8814A */
 
-#ifdef CONFIG_RTL9083F
+#ifdef CONFIG_TLL9083F
 void ttl9083fu_set_hal_ops(_adapter *padapter);
 #endif
 

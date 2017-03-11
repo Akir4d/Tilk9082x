@@ -4,7 +4,7 @@
 #include "HalPwrSeqCmd.h"
 
 /* 
-	Check document WM-20130815-JackieLau-RTL9083F_Power_Architecture v08.vsd
+	Check document WM-20130815-JackieLau-TLL9083F_Power_Architecture v08.vsd
 	There are 6 HW Power States:
 	0: POFF--Power Off
 	1: PDN--Power Down
@@ -24,20 +24,20 @@
 
 	TRANS_END
 */
-#define	RTL9083F_TRANS_CARDEMU_TO_ACT_STEPS	13
-#define	RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS	15
-#define	RTL9083F_TRANS_CARDEMU_TO_SUS_STEPS	14
-#define	RTL9083F_TRANS_SUS_TO_CARDEMU_STEPS	15
-#define	RTL9083F_TRANS_CARDEMU_TO_PDN_STEPS	15
-#define	RTL9083F_TRANS_PDN_TO_CARDEMU_STEPS	15
-#define	RTL9083F_TRANS_ACT_TO_LPS_STEPS		11
-#define	RTL9083F_TRANS_LPS_TO_ACT_STEPS		13	
-#define	RTL9083F_TRANS_ACT_TO_SWLPS_STEPS		21
-#define	RTL9083F_TRANS_SWLPS_TO_ACT_STEPS		14
-#define	RTL9083F_TRANS_END_STEPS		1
+#define	TLL9083F_TRANS_CARDEMU_TO_ACT_STEPS	13
+#define	TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS	15
+#define	TLL9083F_TRANS_CARDEMU_TO_SUS_STEPS	14
+#define	TLL9083F_TRANS_SUS_TO_CARDEMU_STEPS	15
+#define	TLL9083F_TRANS_CARDEMU_TO_PDN_STEPS	15
+#define	TLL9083F_TRANS_PDN_TO_CARDEMU_STEPS	15
+#define	TLL9083F_TRANS_ACT_TO_LPS_STEPS		11
+#define	TLL9083F_TRANS_LPS_TO_ACT_STEPS		13	
+#define	TLL9083F_TRANS_ACT_TO_SWLPS_STEPS		21
+#define	TLL9083F_TRANS_SWLPS_TO_ACT_STEPS		14
+#define	TLL9083F_TRANS_END_STEPS		1
 
 
-#define RTL9083F_TRANS_CARDEMU_TO_ACT 														\
+#define TLL9083F_TRANS_CARDEMU_TO_ACT 														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT2, 0},/* disable SW LPS 0x04[10]=0*/	\
@@ -48,7 +48,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT0, 0},/**/	 \
 	{0x0027, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, 0xff, 0x35}, /*0x27<=35 to reduce RF noise*/
 
-#define RTL9083F_TRANS_ACT_TO_CARDEMU													\
+#define TLL9083F_TRANS_ACT_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x001F, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0},/*0x1F[7:0] = 0 turn off RF*/	\
@@ -57,7 +57,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT1, BIT1}, /*0x04[9] = 1 turn off MAC by HW state machine*/	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT1, 0}, /*wait till 0x04[9] = 0 polling until return 0 to disable*/	\
 
-#define RTL9083F_TRANS_CARDEMU_TO_SUS													\
+#define TLL9083F_TRANS_CARDEMU_TO_SUS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0007, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x00}, /*0x07=0x00 , SOP option to disable BG/MB*/	\
@@ -66,7 +66,7 @@
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, 0}, /*wait power state to suspend*/ \
 	{0x00C4, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT4, BIT4},/* 0xC4[4] <= 1, turn off USB APHY LDO under suspend mode*/
 
-#define RTL9083F_TRANS_SUS_TO_CARDEMU													\
+#define TLL9083F_TRANS_SUS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, 0}, /*Set SDIO suspend local register*/	\
@@ -74,7 +74,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3|BIT4, 0}, /*0x04[12:11] = 2b'01enable WL suspend*/	\
 	{0x00C4, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT4, 0},/* 0xC4[4] <= 1, turn off USB APHY LDO under suspend mode*/
 
-#define RTL9083F_TRANS_CARDEMU_TO_CARDDIS													\
+#define TLL9083F_TRANS_CARDEMU_TO_CARDDIS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0007, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x00}, /*0x07=0x00 , SOP option to disable BG/MB*/	\
@@ -83,7 +83,7 @@
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, 0}, /*wait power state to suspend*/ \
 	{0x00C4, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT4, BIT4},/* 0xC4[4] <= 1, turn off USB APHY LDO under suspend mode*/
 
-#define RTL9083F_TRANS_CARDDIS_TO_CARDEMU													\
+#define TLL9083F_TRANS_CARDDIS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, 0}, /*Set SDIO suspend local register*/	\
@@ -92,18 +92,18 @@
 	{0x00C4, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT4, 0},/* 0xC4[4] <= 1, turn off USB APHY LDO under suspend mode*/
 
 
-#define RTL9083F_TRANS_CARDEMU_TO_PDN												\
+#define TLL9083F_TRANS_CARDEMU_TO_PDN												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0006, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, 0},/* 0x04[16] = 0*/\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, BIT7},/* 0x04[15] = 1*/
 
-#define RTL9083F_TRANS_PDN_TO_CARDEMU												\
+#define TLL9083F_TRANS_PDN_TO_CARDEMU												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 0},/* 0x04[15] = 0*/
 
-#define RTL9083F_TRANS_ACT_TO_LPS														\
+#define TLL9083F_TRANS_ACT_TO_LPS														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0139, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, BIT0},/*set RPWM IMR*/	\
@@ -119,7 +119,7 @@
 	{0x0553, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT5, BIT5},/*Respond TxOK to scheduler*/
 
 
-#define RTL9083F_TRANS_LPS_TO_ACT															\
+#define TLL9083F_TRANS_LPS_TO_ACT															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0080, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, 0xFF, 0x84},  /*SDIO RPWM*/\
@@ -135,7 +135,7 @@
 	{0x0522, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0}, /*.	0x522 = 0*/
  
  
- #define RTL9083F_TRANS_ACT_TO_SWLPS														\
+ #define TLL9083F_TRANS_ACT_TO_SWLPS														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0139, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT0, BIT0},/*set RPWM IMR*/	\
@@ -160,7 +160,7 @@
 	{0x0090, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK, PWR_BASEADDR_MAC, PWR_CMD_WRITE, BIT0, BIT0}, /* enable WL_LPS_EN*/
 
 
-#define RTL9083F_TRANS_SWLPS_TO_ACT															\
+#define TLL9083F_TRANS_SWLPS_TO_ACT															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0109, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 0},/*polling TSF stable*/\
@@ -178,22 +178,22 @@
 	{0x0002, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, BIT0}, /*.	0x02[1:0] = 2b'11	 enable BB macro*/\
 	{0x0522, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0}, /*.	0x522 = 0*/
 	
-#define RTL9083F_TRANS_END															\
+#define TLL9083F_TRANS_END															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0xFFFF, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,0,PWR_CMD_END, 0, 0}, //
 
 
-extern WLAN_PWR_CFG ttl9083F_power_on_flow[RTL9083F_TRANS_CARDEMU_TO_ACT_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_radio_off_flow[RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_card_disable_flow[RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS+RTL9083F_TRANS_CARDEMU_TO_PDN_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_card_enable_flow[RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS+RTL9083F_TRANS_CARDEMU_TO_PDN_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_suspend_flow[RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS+RTL9083F_TRANS_CARDEMU_TO_SUS_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_resume_flow[RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS+RTL9083F_TRANS_CARDEMU_TO_SUS_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_hwpdn_flow[RTL9083F_TRANS_ACT_TO_CARDEMU_STEPS+RTL9083F_TRANS_CARDEMU_TO_PDN_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_enter_lps_flow[RTL9083F_TRANS_ACT_TO_LPS_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_leave_lps_flow[RTL9083F_TRANS_LPS_TO_ACT_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_enter_swlps_flow[RTL9083F_TRANS_ACT_TO_SWLPS_STEPS+RTL9083F_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl9083F_leave_swlps_flow[RTL9083F_TRANS_SWLPS_TO_ACT_STEPS+RTL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_power_on_flow[TLL9083F_TRANS_CARDEMU_TO_ACT_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_radio_off_flow[TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_card_disable_flow[TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS+TLL9083F_TRANS_CARDEMU_TO_PDN_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_card_enable_flow[TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS+TLL9083F_TRANS_CARDEMU_TO_PDN_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_suspend_flow[TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS+TLL9083F_TRANS_CARDEMU_TO_SUS_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_resume_flow[TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS+TLL9083F_TRANS_CARDEMU_TO_SUS_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_hwpdn_flow[TLL9083F_TRANS_ACT_TO_CARDEMU_STEPS+TLL9083F_TRANS_CARDEMU_TO_PDN_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_enter_lps_flow[TLL9083F_TRANS_ACT_TO_LPS_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_leave_lps_flow[TLL9083F_TRANS_LPS_TO_ACT_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_enter_swlps_flow[TLL9083F_TRANS_ACT_TO_SWLPS_STEPS+TLL9083F_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9083F_leave_swlps_flow[TLL9083F_TRANS_SWLPS_TO_ACT_STEPS+TLL9083F_TRANS_END_STEPS];
 #endif
 

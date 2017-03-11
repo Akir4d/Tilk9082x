@@ -242,7 +242,7 @@ odm_SignalScaleMapping(
 	IN	s4Byte CurrSig 
 	);
 
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 /*For 8822B only!! need to move to FW finally */
 /*==============================================*/
 VOID

@@ -28,27 +28,27 @@ u8 sd_int_isr(PADAPTER padapter);
 void sd_int_dpc(PADAPTER padapter);
 u8 tlw_set_hal_ops(_adapter *padapter);
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 void ttl9083es_set_hal_ops(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 void ttl8723bs_set_hal_ops(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_RTL8821A
+#ifdef CONFIG_TLL8821A
 void ttl8821as_set_hal_ops(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
 void ttl8192es_set_hal_ops(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_RTL8703B
+#ifdef CONFIG_TLL8703B
 void ttl8703bs_set_hal_ops(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_RTL9083F
+#ifdef CONFIG_TLL9083F
 void ttl9083fs_set_hal_ops(PADAPTER padapter);
 #endif
 

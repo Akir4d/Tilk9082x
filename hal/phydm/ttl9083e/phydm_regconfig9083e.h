@@ -20,7 +20,7 @@
 #ifndef __INC_ODM_REGCONFIG_H_9083E
 #define __INC_ODM_REGCONFIG_H_9083E
  
-#if (RTL9083E_SUPPORT == 1)
+#if (TLL9083E_SUPPORT == 1)
 
 void
 odm_ConfigRFReg_9083E(

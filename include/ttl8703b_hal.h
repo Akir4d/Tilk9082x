@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8703B_HAL_H__
-#define __RTL8703B_HAL_H__
+#ifndef __TLL8703B_HAL_H__
+#define __TLL8703B_HAL_H__
 
 #include "hal_data.h"
 
@@ -38,22 +38,22 @@
 
 
 //---------------------------------------------------------------------
-//		RTL8703B From file
+//		TLL8703B From file
 //---------------------------------------------------------------------
-	#define RTL8703B_FW_IMG					"ttl8703b/FW_NIC.bin"
-	#define RTL8703B_FW_WW_IMG				"ttl8703b/FW_WoWLAN.bin"
-	#define RTL8703B_PHY_REG					"ttl8703b/PHY_REG.txt"
-	#define RTL8703B_PHY_RADIO_A				"ttl8703b/RadioA.txt"
-	#define RTL8703B_PHY_RADIO_B				"ttl8703b/RadioB.txt"
-	#define RTL8703B_TXPWR_TRACK				"ttl8703b/TxPowerTrack.txt" 
-	#define RTL8703B_AGC_TAB					"ttl8703b/AGC_TAB.txt"
-	#define RTL8703B_PHY_MACREG 				"ttl8703b/MAC_REG.txt"
-	#define RTL8703B_PHY_REG_PG				"ttl8703b/PHY_REG_PG.txt"
-	#define RTL8703B_PHY_REG_MP				"ttl8703b/PHY_REG_MP.txt"
-	#define RTL8703B_TXPWR_LMT 				"ttl8703b/TXPWR_LMT.txt"
+	#define TLL8703B_FW_IMG					"ttl8703b/FW_NIC.bin"
+	#define TLL8703B_FW_WW_IMG				"ttl8703b/FW_WoWLAN.bin"
+	#define TLL8703B_PHY_REG					"ttl8703b/PHY_REG.txt"
+	#define TLL8703B_PHY_RADIO_A				"ttl8703b/RadioA.txt"
+	#define TLL8703B_PHY_RADIO_B				"ttl8703b/RadioB.txt"
+	#define TLL8703B_TXPWR_TRACK				"ttl8703b/TxPowerTrack.txt" 
+	#define TLL8703B_AGC_TAB					"ttl8703b/AGC_TAB.txt"
+	#define TLL8703B_PHY_MACREG 				"ttl8703b/MAC_REG.txt"
+	#define TLL8703B_PHY_REG_PG				"ttl8703b/PHY_REG_PG.txt"
+	#define TLL8703B_PHY_REG_MP				"ttl8703b/PHY_REG_MP.txt"
+	#define TLL8703B_TXPWR_LMT 				"ttl8703b/TXPWR_LMT.txt"
 
 //---------------------------------------------------------------------
-//		RTL8703B From header
+//		TLL8703B From header
 //---------------------------------------------------------------------
 
 #if MP_DRIVER == 1

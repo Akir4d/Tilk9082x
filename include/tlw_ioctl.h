@@ -162,7 +162,7 @@ struct oid_obj_priv {
 };
 
 #if (defined(CONFIG_MP_INCLUDED) && defined(_TLW_MP_IOCTL_C_)) || \
-	(defined(PLATFORM_WINDOWS) && defined(_TLW_IOCTL_RTL_C_))
+	(defined(PLATFORM_WINDOWS) && defined(_TLW_IOCTL_TLL_C_))
 static NDIS_STATUS oid_null_function(struct oid_par_priv* poid_par_priv)
 {
 	_func_enter_;

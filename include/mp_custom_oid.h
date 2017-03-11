@@ -21,9 +21,9 @@
 #define __CUSTOM_OID_H
 
 // by Owen
-// 0xFF818000 - 0xFF81802F		RTL8180 Mass Production Kit
-// 0xFF818500 - 0xFF81850F		RTL8185 Setup Utility
-// 0xFF818580 - 0xFF81858F		RTL8185 Phy Status Utility
+// 0xFF818000 - 0xFF81802F		TLL8180 Mass Production Kit
+// 0xFF818500 - 0xFF81850F		TLL8185 Setup Utility
+// 0xFF818580 - 0xFF81858F		TLL8185 Phy Status Utility
 
 //
 
@@ -97,7 +97,7 @@
 //========================================================================
 
 
-// by Owen for RTL8185 Phy Status Report Utility
+// by Owen for TLL8185 Phy Status Report Utility
 #define OID_RT_UTILITY_FALSE_ALARM_COUNTERS				0xFF818580
 #define OID_RT_UTILITY_SELECT_DEBUG_MODE				0xFF818581
 #define OID_RT_UTILITY_SELECT_SUBCARRIER_NUMBER				0xFF818582
@@ -107,7 +107,7 @@
 #define OID_RT_UTILITY_GET_CHANNEL_ESTIMATION_STATUS			0xFF818586
 //
 
-// by Owen on 03/09/19-03/09/22 for RTL8185
+// by Owen on 03/09/19-03/09/22 for TLL8185
 #define OID_RT_WIRELESS_MODE				0xFF818500
 #define OID_RT_SUPPORTED_RATES				0xFF818501
 #define OID_RT_DESIRED_RATES				0xFF818502

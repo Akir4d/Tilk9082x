@@ -129,7 +129,7 @@
 #define MACID_NUM_SW_LIMIT 32
 #define CAM_ENTRY_NUM_SW_LIMIT 32
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8814A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL8814A)
 	#define CONFIG_IEEE80211_BAND_5GHZ
 #endif
 

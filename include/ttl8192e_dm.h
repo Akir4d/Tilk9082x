@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8192E_DM_H__
-#define __RTL8192E_DM_H__
+#ifndef __TLL8192E_DM_H__
+#define __TLL8192E_DM_H__
 
 
 void ttl8192e_init_dm_priv(IN PADAPTER Adapter);

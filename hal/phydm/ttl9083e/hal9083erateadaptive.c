@@ -709,7 +709,7 @@ ODM_RASupport_Init(
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_RATE_ADAPTIVE, ODM_DBG_LOUD, ("=====>ODM_RASupport_Init()\n"));
 
 	// 2012/02/14 MH Be noticed, the init must be after IC type is recognized!!!!!
-	if (pDM_Odm->SupportICType == ODM_RTL9083E)
+	if (pDM_Odm->SupportICType == ODM_TLL9083E)
 		pDM_Odm->RaSupport88E = TRUE;
 			
 		}
@@ -1130,11 +1130,11 @@ ODM_RA_TxRPT2Handle_9083E(
 #endif
 
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
-				extern void RTL9083E_SetStationTxRateInfo(PDM_ODM_T, PODM_RA_INFO_T, int);
-				RTL9083E_SetStationTxRateInfo(pDM_Odm, pRAInfo, MacId);
+				extern void TLL9083E_SetStationTxRateInfo(PDM_ODM_T, PODM_RA_INFO_T, int);
+				TLL9083E_SetStationTxRateInfo(pDM_Odm, pRAInfo, MacId);
 #ifdef DETECT_STA_EXISTANCE
-				void RTL9083E_DetectSTAExistance(PDM_ODM_T	pDM_Odm, PODM_RA_INFO_T pRAInfo, int MacID);
-				RTL9083E_DetectSTAExistance(pDM_Odm, pRAInfo, MacId);
+				void TLL9083E_DetectSTAExistance(PDM_ODM_T	pDM_Odm, PODM_RA_INFO_T pRAInfo, int MacID);
+				TLL9083E_DetectSTAExistance(pDM_Odm, pRAInfo, MacId);
 #endif			
 #endif
 

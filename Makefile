@@ -25,14 +25,14 @@ CONFIG_AUTOCFG_CP = n
 
 ########################## WIFI IC ############################
 CONFIG_MULTIDRV = n
-CONFIG_RTL9083E = y
-CONFIG_RTL8812A = n
-CONFIG_RTL8821A = n
-CONFIG_RTL8192E = n
-CONFIG_RTL8723B = n
-CONFIG_RTL8814A = n
-CONFIG_RTL8703B = n
-CONFIG_RTL9083F = n
+CONFIG_TLL9083E = y
+CONFIG_TLL8812A = n
+CONFIG_TLL8821A = n
+CONFIG_TLL8192E = n
+CONFIG_TLL8723B = n
+CONFIG_TLL8814A = n
+CONFIG_TLL8703B = n
+CONFIG_TLL9083F = n
 ######################### Interface ###########################
 CONFIG_USB_HCI = n
 CONFIG_PCI_HCI = n
@@ -227,8 +227,8 @@ _OUTSRC_FILES += hal/btc/HalBtc8192e1Ant.o \
 endif
 
 
-########### HAL_RTL9083E #################################
-ifeq ($(CONFIG_RTL9083E), y)
+########### HAL_TLL9083E #################################
+ifeq ($(CONFIG_TLL9083E), y)
 
 TTL902X = ttl9083e
 ifeq ($(CONFIG_SDIO_HCI), y)
@@ -246,7 +246,7 @@ endif
 ifeq ($(CONFIG_PCI_HCI), y)
 MODULE_NAME = 9083ee
 endif
-EXTRA_CFLAGS += -DCONFIG_RTL9083E
+EXTRA_CFLAGS += -DCONFIG_TLL9083E
 
 _HAL_INTFS_FILES +=	hal/HalPwrSeqCmd.o \
 					hal/$(TTL902X)/Hal9083EPwrSeq.o\
@@ -297,8 +297,8 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg9083e_mac.o\
 
 endif
 
-########### HAL_RTL8192E #################################
-ifeq ($(CONFIG_RTL8192E), y)
+########### HAL_TLL8192E #################################
+ifeq ($(CONFIG_TLL8192E), y)
 
 TTL902X = ttl8192e
 ifeq ($(CONFIG_SDIO_HCI), y)
@@ -312,7 +312,7 @@ endif
 ifeq ($(CONFIG_PCI_HCI), y)
 MODULE_NAME = 8192ee
 endif
-EXTRA_CFLAGS += -DCONFIG_RTL8192E
+EXTRA_CFLAGS += -DCONFIG_TLL8192E
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
 					hal/$(TTL902X)/Hal8192EPwrSeq.o\
 					hal/$(TTL902X)/$(TTL902X)_xmit.o\
@@ -357,9 +357,9 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8192e_mac.o\
 
 endif
 
-########### HAL_RTL8812A_RTL8821A #################################
+########### HAL_TLL8812A_TLL8821A #################################
 
-ifneq ($(CONFIG_RTL8812A)_$(CONFIG_RTL8821A), n_n)
+ifneq ($(CONFIG_TLL8812A)_$(CONFIG_TLL8821A), n_n)
 
 TTL902X = ttl8812a
 ifeq ($(CONFIG_USB_HCI), y)
@@ -399,7 +399,7 @@ _HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 endif
 endif
 
-ifeq ($(CONFIG_RTL8812A), y)
+ifeq ($(CONFIG_TLL8812A), y)
 ifeq ($(CONFIG_USB_HCI), y)
 _HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8812A_USB.o
 endif
@@ -407,7 +407,7 @@ ifeq ($(CONFIG_PCI_HCI), y)
 _HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8812A_PCIE.o
 endif
 endif
-ifeq ($(CONFIG_RTL8821A), y)
+ifeq ($(CONFIG_TLL8821A), y)
 ifeq ($(CONFIG_USB_HCI), y)
 _HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8821A_USB.o
 endif
@@ -416,8 +416,8 @@ _HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8821A_PCIE.o
 endif
 endif
 
-ifeq ($(CONFIG_RTL8812A), y)
-EXTRA_CFLAGS += -DCONFIG_RTL8812A
+ifeq ($(CONFIG_TLL8812A), y)
+EXTRA_CFLAGS += -DCONFIG_TLL8812A
 _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8812a_fw.o\
 		hal/phydm/$(TTL902X)/halhwimg8812a_mac.o\
 		hal/phydm/$(TTL902X)/halhwimg8812a_bb.o\
@@ -427,9 +427,9 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8812a_fw.o\
 		hal/phydm/$(TTL902X)/phydm_ttl8812a.o
 endif
 
-ifeq ($(CONFIG_RTL8821A), y)
+ifeq ($(CONFIG_TLL8821A), y)
 
-ifeq ($(CONFIG_RTL8812A), n)
+ifeq ($(CONFIG_TLL8812A), n)
 
 TTL902X = ttl8821a
 ifeq ($(CONFIG_USB_HCI), y)
@@ -444,7 +444,7 @@ endif
 
 endif
 
-EXTRA_CFLAGS += -DCONFIG_RTL8821A
+EXTRA_CFLAGS += -DCONFIG_TLL8821A
 _OUTSRC_FILES += hal/phydm/ttl8821a/halhwimg8821a_fw.o\
 		hal/phydm/ttl8821a/halhwimg8821a_mac.o\
 		hal/phydm/ttl8821a/halhwimg8821a_bb.o\
@@ -459,8 +459,8 @@ endif
 
 endif
 
-########### HAL_RTL8723B #################################
-ifeq ($(CONFIG_RTL8723B), y)
+########### HAL_TLL8723B #################################
+ifeq ($(CONFIG_TLL8723B), y)
 
 TTL902X = ttl8723b
 ifeq ($(CONFIG_USB_HCI), y)
@@ -473,7 +473,7 @@ ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 8723bs
 endif
 
-EXTRA_CFLAGS += -DCONFIG_RTL8723B
+EXTRA_CFLAGS += -DCONFIG_TLL8723B
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
 					hal/$(TTL902X)/Hal8723BPwrSeq.o\
@@ -517,8 +517,8 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8723b_bb.o\
 
 endif
 
-########### HAL_RTL8814A #################################
-ifeq ($(CONFIG_RTL8814A), y)
+########### HAL_TLL8814A #################################
+ifeq ($(CONFIG_TLL8814A), y)
 
 TTL902X = ttl8814a
 ifeq ($(CONFIG_USB_HCI), y)
@@ -531,7 +531,7 @@ ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 8814as
 endif
 
-EXTRA_CFLAGS += -DCONFIG_RTL8814A
+EXTRA_CFLAGS += -DCONFIG_TLL8814A
 
 _HAL_INTFS_FILES +=  hal/HalPwrSeqCmd.o \
 					hal/$(TTL902X)/Hal8814PwrSeq.o \
@@ -581,8 +581,8 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8814a_bb.o\
 endif
 
 
-########### HAL_RTL8703B #################################
-ifeq ($(CONFIG_RTL8703B), y)
+########### HAL_TLL8703B #################################
+ifeq ($(CONFIG_TLL8703B), y)
 
 TTL902X = ttl8703b
 ifeq ($(CONFIG_USB_HCI), y)
@@ -595,7 +595,7 @@ ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 8703bs
 endif
 
-EXTRA_CFLAGS += -DCONFIG_RTL8703B
+EXTRA_CFLAGS += -DCONFIG_TLL8703B
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
 					hal/$(TTL902X)/Hal8703BPwrSeq.o\
@@ -636,8 +636,8 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8703b_bb.o\
 								hal/phydm/$(TTL902X)/halphyrf_8703b.o
 endif
 
-########### HAL_RTL9083F #################################
-ifeq ($(CONFIG_RTL9083F), y)
+########### HAL_TLL9083F #################################
+ifeq ($(CONFIG_TLL9083F), y)
 
 TTL902X = ttl9083f
 ifeq ($(CONFIG_USB_HCI), y)
@@ -650,7 +650,7 @@ ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 9082fs
 endif
 
-EXTRA_CFLAGS += -DCONFIG_RTL9083F
+EXTRA_CFLAGS += -DCONFIG_TLL9083F
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
 					hal/$(TTL902X)/Hal9083FPwrSeq.o\
@@ -701,9 +701,9 @@ ifeq ($(CONFIG_AUTOCFG_CP), y)
 ifeq ($(CONFIG_MULTIDRV), y)
 $(shell cp $(TopDIR)/autoconf_multidrv_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
-ifeq ($(CONFIG_RTL9083E)$(CONFIG_SDIO_HCI),yy)
+ifeq ($(CONFIG_TLL9083E)$(CONFIG_SDIO_HCI),yy)
 $(shell cp $(TopDIR)/autoconf_ttl9082x_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
-else ifeq ($(CONFIG_RTL9083F)$(CONFIG_SDIO_HCI),yy)
+else ifeq ($(CONFIG_TLL9083F)$(CONFIG_SDIO_HCI),yy)
 $(shell cp $(TopDIR)/autoconf_ttl9082f_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
 $(shell cp $(TopDIR)/autoconf_$(TTL902X)_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
@@ -1634,10 +1634,10 @@ $(MODULE_NAME)-y += $(_PLATFORM_FILES)
 
 $(MODULE_NAME)-$(CONFIG_MP_INCLUDED) += core/tlw_mp.o
 
-ifeq ($(CONFIG_RTL8723B), y)
+ifeq ($(CONFIG_TLL8723B), y)
 $(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/tlw_bt_mp.o
 endif
-ifeq ($(CONFIG_RTL8821A), y)
+ifeq ($(CONFIG_TLL8821A), y)
 $(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/tlw_bt_mp.o
 endif
 
@@ -1645,7 +1645,7 @@ obj-m := $(MODULE_NAME).o
 
 else
 
-export CONFIG_RTL9082ES = m
+export CONFIG_TLL9082ES = m
 
 all: modules
 

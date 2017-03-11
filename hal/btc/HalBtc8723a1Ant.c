@@ -1,7 +1,7 @@
 //============================================================
 // Description:
 //
-// This file is for RTL8723A Co-exist mechanism
+// This file is for TLL8723A Co-exist mechanism
 //
 // History
 // 2012/08/22 Cosa first check in.

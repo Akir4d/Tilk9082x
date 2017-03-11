@@ -232,7 +232,7 @@ void mac_reg_dump(void *sel, _adapter *adapter)
 			DBG_871X_SEL(sel, "\n");
 	}
 	
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 	{
 		for(i=0x1000;i<0x1650;i+=4)
 		{
@@ -243,7 +243,7 @@ void mac_reg_dump(void *sel, _adapter *adapter)
 				DBG_871X_SEL(sel, "\n");
 		}
 	}
-#endif /* CONFIG_RTL8814A */
+#endif /* CONFIG_TLL8814A */
 }
 
 void bb_reg_dump(void *sel, _adapter *adapter)
@@ -2004,7 +2004,7 @@ int proc_get_mac_rptbuf(struct seq_file *m, void *v)
 	u16 mac_id;
 	u32 shcut_addr = 0;
 	u32 read_addr = 0;
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 	DBG_871X_SEL_NL(m, "TX ShortCut:\n");
 	for (mac_id = 0; mac_id < 64; mac_id++) {
 		tlw_write16(padapter, 0x140, 0x662 | ((mac_id & BIT5)>>5));
@@ -2021,7 +2021,7 @@ int proc_get_mac_rptbuf(struct seq_file *m, void *v)
 				DBG_871X_SEL_NL(m, "\n");
 		}
 	}
-#endif /* CONFIG_RTL8814A */
+#endif /* CONFIG_TLL8814A */
 	return 0;
 }
 

@@ -937,7 +937,7 @@ _PHY_PathAFillIQKMatrix(
 
 		reg = result[final_candidate][2];
 #if (DM_ODM_SUPPORT_TYPE==ODM_AP)		
-		if( RTL_ABS(reg ,0x100) >= 16) 
+		if( TLL_ABS(reg ,0x100) >= 16) 
 			reg = 0x100;
 #endif
 		ODM_SetBBReg(pDM_Odm, rOFDM0_XARxIQImbalance, 0x3FF, reg);

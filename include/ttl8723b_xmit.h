@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8723B_XMIT_H__
-#define __RTL8723B_XMIT_H__
+#ifndef __TLL8723B_XMIT_H__
+#define __TLL8723B_XMIT_H__
 
 
 #define MAX_TID (15)

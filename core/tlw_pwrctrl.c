@@ -1318,14 +1318,14 @@ _func_enter_;
 			else
 			#endif
 			{
-#if defined(CONFIG_FWLPS_IN_IPS) || defined(CONFIG_SWLPS_IN_IPS) || defined(CONFIG_RTL9083E)
+#if defined(CONFIG_FWLPS_IN_IPS) || defined(CONFIG_SWLPS_IN_IPS) || defined(CONFIG_TLL9083E)
 				#ifdef CONFIG_IPS
 				if(_FALSE == ips_leave(pri_padapter))
 				{
 					DBG_871X("======> ips_leave fail.............\n");			
 				}
 				#endif
-#endif //CONFIG_SWLPS_IN_IPS || (CONFIG_PLATFORM_SPRD && CONFIG_RTL9083E)
+#endif //CONFIG_SWLPS_IN_IPS || (CONFIG_PLATFORM_SPRD && CONFIG_TLL9083E)
 			}
 		}
 	}
@@ -1400,14 +1400,14 @@ _func_enter_;
 			else
 			#endif
 			{
-#if defined(CONFIG_FWLPS_IN_IPS) || defined(CONFIG_SWLPS_IN_IPS) || (defined(CONFIG_PLATFORM_SPRD) && defined(CONFIG_RTL9083E))
+#if defined(CONFIG_FWLPS_IN_IPS) || defined(CONFIG_SWLPS_IN_IPS) || (defined(CONFIG_PLATFORM_SPRD) && defined(CONFIG_TLL9083E))
 				#ifdef CONFIG_IPS
 				if(_FALSE == ips_leave(Adapter))
 				{
 					DBG_871X("======> ips_leave fail.............\n");			
 				}
 				#endif
-#endif //CONFIG_SWLPS_IN_IPS || (CONFIG_PLATFORM_SPRD && CONFIG_RTL9083E)
+#endif //CONFIG_SWLPS_IN_IPS || (CONFIG_PLATFORM_SPRD && CONFIG_TLL9083E)
 			}				
 		}	
 	}

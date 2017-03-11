@@ -4140,7 +4140,7 @@ unsigned int tlw_restructure_ht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, ui
 	*/
 
 	/*
-	#if defined(CONFIG_RTL9083E )&& defined (CONFIG_SDIO_HCI)
+	#if defined(CONFIG_TLL9083E )&& defined (CONFIG_SDIO_HCI)
 	ht_capie.ampdu_params_info = 2;
 	#else
 	ht_capie.ampdu_params_info = (IEEE80211_HT_CAP_AMPDU_FACTOR&0x03);

@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9082ES_XMIT_C_
+#define _TLL9082ES_XMIT_C_
 
 #include <drv_types.h>
 #include <ttl9083e_hal.h>
@@ -680,7 +680,7 @@ s32 ttl9083es_xmit_buf_handler(PADAPTER padapter)
  *	-2	Software resource(xmitbuf) not ready
  */
 #ifdef CONFIG_TX_EARLY_MODE
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1	
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1	
 	#define EARLY_MODE_MAX_PKT_NUM	10
 #else
 	#define EARLY_MODE_MAX_PKT_NUM	5
@@ -699,7 +699,7 @@ InsertEMContent_9083E(
 	IN pu1Byte	VirtualAddress)
 {
 
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	u1Byte index=0;
 	u4Byte	dwtmp=0;
 #endif
@@ -719,7 +719,7 @@ InsertEMContent_9083E(
 	}
 	#endif
 	
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	SET_EARLYMODE_PKTNUM(VirtualAddress, pEMInfo->EMPktNum);
 
 	if(pEMInfo->EMPktNum == 1){

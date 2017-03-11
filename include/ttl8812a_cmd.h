@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8812A_CMD_H__
-#define __RTL8812A_CMD_H__
+#ifndef __TLL8812A_CMD_H__
+#define __TLL8812A_CMD_H__
 
-typedef enum _RTL8812_H2C_CMD 
+typedef enum _TLL8812_H2C_CMD 
 {
 	H2C_8812_RSVDPAGE = 0,
 	H2C_8812_MSRRPT = 1,
@@ -55,10 +55,10 @@ typedef enum _RTL8812_H2C_CMD
 	H2C_8812_TSF_RESET = 0xC0,
 
 	MAX_8812_H2CCMD
-}RTL8812_H2C_CMD;
+}TLL8812_H2C_CMD;
 
 
-typedef enum _RTL8812_C2H_EVT
+typedef enum _TLL8812_C2H_EVT
 {
 	C2H_8812_DBG = 0,
 	C2H_8812_LB = 1,
@@ -76,12 +76,12 @@ typedef enum _RTL8812_C2H_EVT
 	C2H_8812_EXTEND = 0xff,
 #endif //CONFIG_FW_C2H_DEBUG
 	MAX_8812_C2HEVENT
-}RTL8812_C2H_EVT;
+}TLL8812_C2H_EVT;
 
-typedef enum _RTL8812_EXTEND_C2H_EVT {
+typedef enum _TLL8812_EXTEND_C2H_EVT {
 	EXTEND_C2H_8812_DBG_PRINT = 0
 
-} RTL8812_EXTEND_C2H_EVT;
+} TLL8812_EXTEND_C2H_EVT;
 
 
 struct cmd_msg_parm {
@@ -207,5 +207,5 @@ _C2HContentParsing8812(
 );
 void	C2HPacketHandler_8812(PADAPTER Adapter, u8 *Buffer, u8 Length);
 
-#endif//__RTL8812A_CMD_H__
+#endif//__TLL8812A_CMD_H__
 

@@ -153,9 +153,9 @@ odm_EdcaTurboCheckCE(
 		return;
 	}
 
-	if(	(pDM_Odm->SupportICType == ODM_RTL8192C) ||
-		(pDM_Odm->SupportICType == ODM_RTL8723A) ||
-		(pDM_Odm->SupportICType == ODM_RTL9083E))
+	if(	(pDM_Odm->SupportICType == ODM_TLL8192C) ||
+		(pDM_Odm->SupportICType == ODM_TLL8723A) ||
+		(pDM_Odm->SupportICType == ODM_TLL9083E))
 	{
 		if((IOTPeer == HT_IOT_PEER_RALINK)||(IOTPeer == HT_IOT_PEER_ATHEROS))
 			bBiasOnRx = _TRUE;
@@ -193,7 +193,7 @@ odm_EdcaTurboCheckCE(
 
 		//if ((pDM_Odm->DM_EDCA_Table.prv_traffic_idx != trafficIndex) || (!pDM_Odm->DM_EDCA_Table.bCurrentTurboEDCA))
 		{
-			if (ICType == ODM_RTL8192D) {
+			if (ICType == ODM_TLL8192D) {
 				// Single PHY
 				if (pDM_Odm->RFType == ODM_2T2R) {
 					EDCA_BE_UL = 0x60a42b;    //0x5ea42b;
@@ -206,7 +206,7 @@ odm_EdcaTurboCheckCE(
 			else
 			{
 				if(pDM_Odm->SupportInterface==ODM_ITRF_PCIE) {
-					if((ICType==ODM_RTL8192C)&&(pDM_Odm->RFType==ODM_2T2R)) {
+					if((ICType==ODM_TLL8192C)&&(pDM_Odm->RFType==ODM_2T2R)) {
 						EDCA_BE_UL = 0x60a42b;
 						EDCA_BE_DL = 0x60a42b;
 					} else {
@@ -217,7 +217,7 @@ odm_EdcaTurboCheckCE(
 			}
 		
 			//92D txop can't be set to 0x3e for cisco1250
-			if((ICType!=ODM_RTL8192D) && (IOTPeer== HT_IOT_PEER_CISCO) &&(WirelessMode==ODM_WM_N24G))
+			if((ICType!=ODM_TLL8192D) && (IOTPeer== HT_IOT_PEER_CISCO) &&(WirelessMode==ODM_WM_N24G))
 			{
 				EDCA_BE_DL = edca_setting_DL[IOTPeer];
 				EDCA_BE_UL = edca_setting_UL[IOTPeer];
@@ -242,7 +242,7 @@ odm_EdcaTurboCheckCE(
 				EDCA_BE_DL = edca_setting_DL[IOTPeer];
 			}
 
-			if((ICType==ODM_RTL8812)||(ICType==ODM_RTL8821)||(ICType==ODM_RTL8192E))           //add 8812AU/8812AE
+			if((ICType==ODM_TLL8812)||(ICType==ODM_TLL8821)||(ICType==ODM_TLL8192E))           //add 8812AU/8812AE
 			{
 				EDCA_BE_UL = 0x5ea42b;
 				EDCA_BE_DL = 0x5ea42b;
@@ -654,7 +654,7 @@ ODM_EdcaParaSelByIot(
 	GetTwoPortSharedResource(Adapter,TWO_PORT_SHARED_OBJECT__STATUS,NULL,&TwoPortStatus);
 
 
-	if(ICType==ODM_RTL8192D)
+	if(ICType==ODM_TLL8192D)
 	{      
 		// Single PHY
 		if(pDM_Odm->RFType==ODM_2T2R)
@@ -678,7 +678,7 @@ ODM_EdcaParaSelByIot(
 	{
 
 		if(pDM_Odm->SupportInterface==ODM_ITRF_PCIE){
-			if((ICType==ODM_RTL8192C)&&(pDM_Odm->RFType==ODM_2T2R))			{
+			if((ICType==ODM_TLL8192C)&&(pDM_Odm->RFType==ODM_2T2R))			{
 				(*EDCA_BE_UL) = 0x60a42b;
 				(*EDCA_BE_DL) = 0x60a42b;
 			}
@@ -713,7 +713,7 @@ ODM_EdcaParaSelByIot(
 		}
 		
 		//92D txop can't be set to 0x3e for cisco1250
-		if((ICType!=ODM_RTL8192D) && (IOTPeer== HT_IOT_PEER_CISCO) &&(WirelessMode==ODM_WM_N24G))
+		if((ICType!=ODM_TLL8192D) && (IOTPeer== HT_IOT_PEER_CISCO) &&(WirelessMode==ODM_WM_N24G))
 		{
 			(*EDCA_BE_DL) = edca_setting_DL[IOTPeer];
 			(*EDCA_BE_UL) = edca_setting_UL[IOTPeer];
@@ -741,13 +741,13 @@ ODM_EdcaParaSelByIot(
 			else
 				(*EDCA_BE_DL) = edca_setting_DL[IOTPeer];
 
-			if(ICType == ODM_RTL8821)
+			if(ICType == ODM_TLL8821)
 				 (*EDCA_BE_DL) = 0x5ea630;
 			
 		}
 	}
 
-    	if((ICType == ODM_RTL8192D)&&(IOTPeerSubType == HT_IOT_PEER_LINKSYS_E4200_V1)&&((WirelessMode==ODM_WM_N5G)))
+    	if((ICType == ODM_TLL8192D)&&(IOTPeerSubType == HT_IOT_PEER_LINKSYS_E4200_V1)&&((WirelessMode==ODM_WM_N5G)))
 	{
 		(*EDCA_BE_DL) = 0x432b;
 		(*EDCA_BE_UL) = 0x432b;
@@ -755,7 +755,7 @@ ODM_EdcaParaSelByIot(
 
 
 
-	if((ICType==ODM_RTL8812)||(ICType==ODM_RTL8192E))           //add 8812AU/8812AE
+	if((ICType==ODM_TLL8812)||(ICType==ODM_TLL8192E))           //add 8812AU/8812AE
 	{
 		(*EDCA_BE_UL) = 0x5ea42b;
 		(*EDCA_BE_DL) = 0x5ea42b;
@@ -763,7 +763,7 @@ ODM_EdcaParaSelByIot(
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_EDCA_TURBO,ODM_DBG_LOUD,("8812A: EDCA_BE_UL=0x%lx EDCA_BE_DL =0x%lx\n",(*EDCA_BE_UL),(*EDCA_BE_DL)));
 	}
 
-	if((ICType==ODM_RTL8814A) && (IOTPeer == HT_IOT_PEER_REALTEK))           /*8814AU and 8814AR*/
+	if((ICType==ODM_TLL8814A) && (IOTPeer == HT_IOT_PEER_REALTEK))           /*8814AU and 8814AR*/
 	{
 		(*EDCA_BE_UL) = 0x5ea42b;
 		(*EDCA_BE_DL) = 0xa42b;
@@ -774,7 +774,7 @@ ODM_EdcaParaSelByIot(
 	
 
 	// Revised for Atheros DIR-655 IOT issue to improve down link TP, added by Roger, 2013.03.22.
-	if((ICType == ODM_RTL8723A) && (IOTPeerSubType== HT_IOT_PEER_ATHEROS_DIR655) && 
+	if((ICType == ODM_TLL8723A) && (IOTPeerSubType== HT_IOT_PEER_ATHEROS_DIR655) && 
 		(pMgntInfo->dot11CurrentChannelNumber == 6))
 	{
 		(*EDCA_BE_DL) = 0xa92b;

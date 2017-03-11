@@ -49,28 +49,28 @@ void ConfigureTxpowerTrack(
 	)
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
-#if RTL8812A_SUPPORT
+#if TLL8812A_SUPPORT
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 	//if (IS_HARDWARE_TYPE_8812(pDM_Odm->Adapter))
-	if(pDM_Odm->SupportICType==ODM_RTL8812)
+	if(pDM_Odm->SupportICType==ODM_TLL8812)
 		ConfigureTxpowerTrack_8812A(pConfig);
 	//else
 #endif
 #endif
 
-#if RTL8814A_SUPPORT
-	if(pDM_Odm->SupportICType== ODM_RTL8814A)
+#if TLL8814A_SUPPORT
+	if(pDM_Odm->SupportICType== ODM_TLL8814A)
 		ConfigureTxpowerTrack_8814A(pConfig);
 #endif
 
 
-#if RTL9083E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL9083E)
+#if TLL9083E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL9083E)
 		ConfigureTxpowerTrack_9083E(pConfig);
 #endif 
 }
 
-#if (RTL8192E_SUPPORT==1) 
+#if (TLL8192E_SUPPORT==1) 
 VOID
 ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -173,9 +173,9 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("\n******** START POWER TRACKING ********\n")); 					
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("\nReadback Thermal Meter = 0x%x pre thermal meter 0x%x EEPROMthermalmeter 0x%x\n", ThermalValue, priv->pshare->ThermalValue, priv->pmib->dot11RFEntry.ther)); 			
 
-		delta = RTL_ABS(ThermalValue, priv->pmib->dot11RFEntry.ther);
-		delta_IQK = RTL_ABS(ThermalValue, priv->pshare->ThermalValue_IQK);
-		delta_LCK = RTL_ABS(ThermalValue, priv->pshare->ThermalValue_LCK);
+		delta = TLL_ABS(ThermalValue, priv->pmib->dot11RFEntry.ther);
+		delta_IQK = TLL_ABS(ThermalValue, priv->pshare->ThermalValue_IQK);
+		delta_LCK = TLL_ABS(ThermalValue, priv->pshare->ThermalValue_LCK);
 		is_decrease = ((ThermalValue < priv->pmib->dot11RFEntry.ther) ? 1 : 0);
 		
 #ifdef _TRACKING_TABLE_FILE
@@ -283,14 +283,14 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 		}
 
 		if (delta_LCK > 8) {
-			RTL_W8(0x522, 0xff);
+			TLL_W8(0x522, 0xff);
 			Reg0x18 = PHY_QueryRFReg(priv, RF_PATH_A, 0x18, bMask20Bits, 1);
 			PHY_SetRFReg(priv, RF_PATH_A, 0xB4, BIT(14), 1);			
 			PHY_SetRFReg(priv, RF_PATH_A, 0x18, BIT(15), 1);
 			delay_ms(1);
 			PHY_SetRFReg(priv, RF_PATH_A, 0xB4, BIT(14), 0);
 			PHY_SetRFReg(priv, RF_PATH_A, 0x18, bMask20Bits, Reg0x18);		
-			RTL_W8(0x522, 0x0);
+			TLL_W8(0x522, 0x0);
 			priv->pshare->ThermalValue_LCK = ThermalValue;
 		}	
 	}
@@ -305,7 +305,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 }
 #endif
 
-#if (RTL8814A_SUPPORT ==1)					
+#if (TLL8814A_SUPPORT ==1)					
 		
 VOID
 ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
@@ -352,7 +352,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
 	(*c.GetDeltaSwingTable)(pDM_Odm, (pu1Byte*)&deltaSwingTableIdx_TUP_A, (pu1Byte*)&deltaSwingTableIdx_TDOWN_A,
 									  (pu1Byte*)&deltaSwingTableIdx_TUP_B, (pu1Byte*)&deltaSwingTableIdx_TDOWN_B);
 
-	if(pDM_Odm->SupportICType & ODM_RTL8814A)	// for 8814 path C & D
+	if(pDM_Odm->SupportICType & ODM_TLL8814A)	// for 8814 path C & D
 	(*c.GetDeltaSwingTable8814only)(pDM_Odm, (pu1Byte*)&deltaSwingTableIdx_TUP_C, (pu1Byte*)&deltaSwingTableIdx_TDOWN_C,
 									  (pu1Byte*)&deltaSwingTableIdx_TUP_D, (pu1Byte*)&deltaSwingTableIdx_TDOWN_D);
 	
@@ -417,9 +417,9 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
 	}
 
 	//4 Calculate delta, delta_LCK, delta_IQK.
-	delta = RTL_ABS(ThermalValue, priv->pmib->dot11RFEntry.ther);	
-	delta_LCK = RTL_ABS(ThermalValue, pDM_Odm->RFCalibrateInfo.ThermalValue_LCK);
-	delta_IQK = RTL_ABS(ThermalValue, pDM_Odm->RFCalibrateInfo.ThermalValue_IQK);
+	delta = TLL_ABS(ThermalValue, priv->pmib->dot11RFEntry.ther);	
+	delta_LCK = TLL_ABS(ThermalValue, pDM_Odm->RFCalibrateInfo.ThermalValue_LCK);
+	delta_IQK = TLL_ABS(ThermalValue, pDM_Odm->RFCalibrateInfo.ThermalValue_IQK);
 	is_increase = ((ThermalValue < priv->pmib->dot11RFEntry.ther) ? 0 : 1);
 
 	//4 if necessary, do LCK.
@@ -597,8 +597,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 		channel = (priv->pmib->dot11RFEntry.dot11channel);
 	}
 
-#if RTL8881A_SUPPORT
-	if (pDM_Odm->SupportICType == ODM_RTL8881A) {
+#if TLL8881A_SUPPORT
+	if (pDM_Odm->SupportICType == ODM_TLL8881A) {
 		max_rf_path = 1;
 		if ((get_bonding_type_8881A() == BOND_8881AM ||get_bonding_type_8881A() == BOND_8881AN) 			
 			&& priv->pshare->rf_ft_var.use_intpa8881A && (priv->pmib->dot11RFEntry.phyBandSelect == PHY_BAND_2G))			
@@ -684,8 +684,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 	if (ThermalValue != priv->pshare->ThermalValue) {
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("\n******** START POWER TRACKING ********\n")); 					
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("\nReadback Thermal Meter = 0x%x pre thermal meter 0x%x EEPROMthermalmeter 0x%x\n", ThermalValue, priv->pshare->ThermalValue, priv->pmib->dot11RFEntry.ther)); 			
-		delta = RTL_ABS(ThermalValue, priv->pmib->dot11RFEntry.ther);
-		delta_LCK = RTL_ABS(ThermalValue, priv->pshare->ThermalValue_LCK);
+		delta = TLL_ABS(ThermalValue, priv->pmib->dot11RFEntry.ther);
+		delta_LCK = TLL_ABS(ThermalValue, priv->pshare->ThermalValue_LCK);
 		is_decrease = ((ThermalValue < priv->pmib->dot11RFEntry.ther) ? 1 : 0);
 		//if (priv->pmib->dot11RFEntry.phyBandSelect == PHY_BAND_5G) 
 		{
@@ -697,8 +697,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 						OFDM_index[rf_path] = priv->pshare->OFDM_index0[rf_path] + get_tx_tracking_index(priv, channel, rf_path, delta, is_decrease, 0);
 						OFDM_index[rf_path] = ((OFDM_index[rf_path] > (OFDM_TABLE_SIZE_8812 - 1)) ? (OFDM_TABLE_SIZE_8812 - 1) : OFDM_index[rf_path]);
 						ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,(">>> decrese power ---> new OFDM_INDEX:%d (%d + %d)\n", OFDM_index[rf_path], priv->pshare->OFDM_index0[rf_path], get_tx_tracking_index(priv, channel, rf_path, delta, is_decrease, 0)));
-#if 0// RTL8881A_SUPPORT
-						if (pDM_Odm->SupportICType == ODM_RTL8881A){
+#if 0// TLL8881A_SUPPORT
+						if (pDM_Odm->SupportICType == ODM_TLL8881A){
 							if(priv->pshare->rf_ft_var.pwrtrk_TxAGC_enable){
 								if(priv->pshare->AddTxAGC){//TxAGC has been added
 									AddTxPower88XX_AC(priv,0); 
@@ -711,8 +711,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 					} else {
 
 						OFDM_index[rf_path] = priv->pshare->OFDM_index0[rf_path] - get_tx_tracking_index(priv, channel, rf_path, delta, is_decrease, 0);
-#if 0// RTL8881A_SUPPORT
-						if(pDM_Odm->SupportICType == ODM_RTL8881A){ 
+#if 0// TLL8881A_SUPPORT
+						if(pDM_Odm->SupportICType == ODM_TLL8881A){ 
 							if(priv->pshare->rf_ft_var.pwrtrk_TxAGC_enable){
 								if(OFDM_index[i] < OFDM_min_index){
 									priv->pshare->AddTxAGC_index = (OFDM_min_index - OFDM_index[i])/2;  // Calculate Remnant TxAGC Value,  2 index for 1 TxAGC 
@@ -745,18 +745,18 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 
 		}
 		if (delta_LCK > 8) {
-			RTL_W8(0x522, 0xff);
+			TLL_W8(0x522, 0xff);
 			Reg0x18 = PHY_QueryRFReg(priv, RF_PATH_A, 0x18, bMask20Bits, 1);
 			PHY_SetRFReg(priv, RF_PATH_A, 0xB4, BIT(14), 1);			
 			PHY_SetRFReg(priv, RF_PATH_A, 0x18, BIT(15), 1);
             delay_ms(200); // frequency deviation
 			PHY_SetRFReg(priv, RF_PATH_A, 0xB4, BIT(14), 0);
 			PHY_SetRFReg(priv, RF_PATH_A, 0x18, bMask20Bits, Reg0x18);
-			#ifdef CONFIG_RTL_8812_SUPPORT
+			#ifdef CONFIG_TLL_8812_SUPPORT
 			if (GET_CHIP_VER(priv)== VERSION_8812E)			
 				UpdateBBRFVal8812(priv, priv->pmib->dot11RFEntry.dot11channel);	
 			#endif
-			RTL_W8(0x522, 0x0);
+			TLL_W8(0x522, 0x0);
 			priv->pshare->ThermalValue_LCK = ThermalValue;
 		}	
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("\n******** END:%s() ********\n", __FUNCTION__));
@@ -782,8 +782,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	PODM_RF_CAL_T	pRFCalibrateInfo = &(pDM_Odm->RFCalibrateInfo);
-#if (RTL8814A_SUPPORT == 1)		//use this function to do power tracking after 8814 by YuChen
-	if (pDM_Odm->SupportICType & ODM_RTL8814A) {
+#if (TLL8814A_SUPPORT == 1)		//use this function to do power tracking after 8814 by YuChen
+	if (pDM_Odm->SupportICType & ODM_TLL8814A) {
 		ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(pDM_Odm);
 		return;
 		}
@@ -794,8 +794,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 	}
 #endif
 
-#if (RTL8192E_SUPPORT == 1)
-	if (pDM_Odm->SupportICType==ODM_RTL8192E) {
+#if (TLL8192E_SUPPORT == 1)
+	if (pDM_Odm->SupportICType==ODM_TLL8192E) {
 		ODM_TXPowerTrackingCallback_ThermalMeter_92E(pDM_Odm);
 		return;
 	}
@@ -2609,7 +2609,7 @@ odm_IQCalibrate(
 #endif
 #endif
 	
-#if (RTL8821A_SUPPORT == 1)
+#if (TLL8821A_SUPPORT == 1)
 	if (pDM_Odm->bLinked) {
 		if ((*pDM_Odm->pChannel != pDM_Odm->preChannel) && (!*pDM_Odm->pbScanInProcess)) {
 			pDM_Odm->preChannel = *pDM_Odm->pChannel;
@@ -2645,8 +2645,8 @@ void phydm_rf_init(IN	PVOID		pDM_VOID)
 #endif
 
 #if (DM_ODM_SUPPORT_TYPE & (ODM_AP))
-#if (RTL8814A_SUPPORT == 1)		
-	if (pDM_Odm->SupportICType & ODM_RTL8814A)
+#if (TLL8814A_SUPPORT == 1)		
+	if (pDM_Odm->SupportICType & ODM_TLL8814A)
 		PHY_IQCalibrate_8814A_Init(pDM_Odm);
 #endif	
 #endif

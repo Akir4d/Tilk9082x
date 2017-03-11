@@ -34,7 +34,7 @@ extern int tlw_ht_enable;
 #endif
 
 
-#define RTL_IOCTL_WPA_SUPPLICANT	SIOCIWFIRSTPRIV+30
+#define TLL_IOCTL_WPA_SUPPLICANT	SIOCIWFIRSTPRIV+30
 
 #define SCAN_ITEM_SIZE 768
 #define MAX_CUSTOM_LEN 64
@@ -10155,30 +10155,30 @@ static int tlw_mp_efuse_get(struct net_device *dev,
 	}
 	else if (strcmp(tmp[0], "vidpid") == 0)
 	{
-		#ifdef CONFIG_RTL9083E
+		#ifdef CONFIG_TLL9083E
 			#ifdef CONFIG_USB_HCI
 			addr = EEPROM_VID_88EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_88EE;
 			#endif
-		#endif // CONFIG_RTL9083E
+		#endif // CONFIG_TLL9083E
 
-		#ifdef CONFIG_RTL8192E
+		#ifdef CONFIG_TLL8192E
 			#ifdef CONFIG_USB_HCI
 			addr = EEPROM_VID_8192EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_8192EE;
 			#endif
-		#endif // CONFIG_RTL8192E
-		#ifdef CONFIG_RTL8723B
+		#endif // CONFIG_TLL8192E
+		#ifdef CONFIG_TLL8723B
 		addr = EEPROM_VID_8723BU;
-		#endif // CONFIG_RTL8192E
+		#endif // CONFIG_TLL8192E
 
-		#ifdef CONFIG_RTL9083F
+		#ifdef CONFIG_TLL9083F
 		addr = EEPROM_VID_9083FU;
-		#endif /* CONFIG_RTL9083F */
+		#endif /* CONFIG_TLL9083F */
 
 		cnts = 4;
 
@@ -10749,29 +10749,29 @@ static int tlw_mp_efuse_set(struct net_device *dev,
 		}
 
 		// pidvid,da0b7881		
-		#ifdef CONFIG_RTL9083E
+		#ifdef CONFIG_TLL9083E
 			#ifdef CONFIG_USB_HCI
 			addr = EEPROM_VID_88EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_88EE;
 			#endif
-		#endif // CONFIG_RTL9083E
+		#endif // CONFIG_TLL9083E
 
-		#ifdef CONFIG_RTL8192E
+		#ifdef CONFIG_TLL8192E
 			#ifdef CONFIG_USB_HCI
 			addr = EEPROM_VID_8192EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_8192EE;
 			#endif
-		#endif // CONFIG_RTL9083E
+		#endif // CONFIG_TLL9083E
 
-		#ifdef CONFIG_RTL8723B
+		#ifdef CONFIG_TLL8723B
 		addr = EEPROM_VID_8723BU;
 		#endif
 
-		#ifdef CONFIG_RTL9083F
+		#ifdef CONFIG_TLL9083F
 		addr = EEPROM_VID_9083FU;
 		#endif
 
@@ -11526,7 +11526,7 @@ static int tlw_priv_get(struct net_device *dev,
 	}
 	
 	switch (subcmd) {
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 	case MP_SetBT:		
 			DBG_871X("set MP_SetBT\n");
 			tlw_mp_SetBT(dev, info, wdata, extra);
@@ -12445,7 +12445,7 @@ static int tlw_widi_set_probe_request(struct net_device *dev,
 
 #ifdef CONFIG_MAC_LOOPBACK_DRIVER
 
-#if defined(CONFIG_RTL9083E)
+#if defined(CONFIG_TLL9083E)
 #include <ttl9083e_hal.h>
 extern void ttl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
 #define cal_txdesc_chksum ttl9083e_cal_txdesc_chksum
@@ -12453,29 +12453,29 @@ extern void ttl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
 extern void ttl9083es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
 #define fill_default_txdesc ttl9083es_fill_default_txdesc
 #endif // CONFIG_SDIO_HCI
-#endif // CONFIG_RTL9083E
-#if defined(CONFIG_RTL8723B)
+#endif // CONFIG_TLL9083E
+#if defined(CONFIG_TLL8723B)
 extern void ttl8723b_cal_txdesc_chksum(struct tx_desc *ptxdesc);
 #define cal_txdesc_chksum ttl8723b_cal_txdesc_chksum
 extern void ttl8723b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
 #define fill_default_txdesc ttl8723b_fill_default_txdesc
-#endif // CONFIG_RTL8723B
+#endif // CONFIG_TLL8723B
 
-#if defined(CONFIG_RTL8703B)
+#if defined(CONFIG_TLL8703B)
 /* extern void ttl8703b_cal_txdesc_chksum(struct tx_desc *ptxdesc); */
 #define cal_txdesc_chksum ttl8703b_cal_txdesc_chksum
 /* extern void ttl8703b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf); */
 #define fill_default_txdesc ttl8703b_fill_default_txdesc
-#endif /* CONFIG_RTL8703B */
+#endif /* CONFIG_TLL8703B */
 
-#if defined(CONFIG_RTL8192E)
+#if defined(CONFIG_TLL8192E)
 extern void ttl8192e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
 #define cal_txdesc_chksum ttl8192e_cal_txdesc_chksum
 #ifdef CONFIG_SDIO_HCI || defined(CONFIG_GSPI_HCI)
 extern void ttl8192es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
 #define fill_default_txdesc ttl8192es_fill_default_txdesc
 #endif // CONFIG_SDIO_HCI
-#endif //CONFIG_RTL8192E
+#endif //CONFIG_TLL8192E
 
 static s32 initLoopback(PADAPTER padapter)
 {
@@ -13300,7 +13300,7 @@ static const struct iw_priv_args tlw_private_args[] = {
 	{ SIOCIWFIRSTPRIV + 0x0E, IW_PRIV_TYPE_CHAR | 1024, 0 , ""},  //set 
 	{ SIOCIWFIRSTPRIV + 0x0F, IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | IW_PRIV_SIZE_MASK , ""},//get
 /* --- sub-ioctls definitions --- */   
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 		{ MP_SetBT, IW_PRIV_TYPE_CHAR | 1024, IW_PRIV_TYPE_CHAR | IW_PRIV_SIZE_MASK, "mp_setbt" },
         { MP_DISABLE_BT_COEXIST, IW_PRIV_TYPE_CHAR | 1024, 0, "mp_disa_btcoex"},
 #endif
@@ -13944,11 +13944,11 @@ int tlw_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)
 
 	switch (cmd)
 	{
-		case RTL_IOCTL_WPA_SUPPLICANT:
+		case TLL_IOCTL_WPA_SUPPLICANT:
 			ret = wpa_supplicant_ioctl(dev, &wrq->u.data);
 			break;
 #ifdef CONFIG_AP_MODE
-		case RTL_IOCTL_HOSTAPD:
+		case TLL_IOCTL_HOSTAPD:
 			ret = tlw_hostapd_ioctl(dev, &wrq->u.data);
 			break;
 #ifdef CONFIG_WIRELESS_EXT

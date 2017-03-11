@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_HAL_H__
-#define __RTL8814A_HAL_H__
+#ifndef __TLL8814A_HAL_H__
+#define __TLL8814A_HAL_H__
 
 //#include "hal_com.h"
 #include "hal_data.h"
@@ -51,7 +51,7 @@ enum{
 		VOLTAGE_V25						= 0x03,
 		LDOE25_SHIFT					= 28 ,
 	};
-#define FW_SIZE					      0x10000  // Compatible with RTL8723 Maximal RAM code size 24K.   modified to 32k, TO compatible with 92d maximal fw size 32k
+#define FW_SIZE					      0x10000  // Compatible with TLL8723 Maximal RAM code size 24K.   modified to 32k, TO compatible with 92d maximal fw size 32k
 #define FW_START_ADDRESS   0x1000
 typedef struct _RT_FIRMWARE_8814 {
 	FIRMWARE_SOURCE	eFWSource;
@@ -67,22 +67,22 @@ typedef struct _RT_FIRMWARE_8814 {
 #define BCNQ_PAGE_NUM_8814		0x08
 
 //---------------------------------------------------------------------
-//		RTL8814AU From header
+//		TLL8814AU From header
 //---------------------------------------------------------------------
-		#define RTL8814A_FW_IMG					"ttl8814a/FW_NIC.bin"
-		#define RTL8814A_FW_WW_IMG				"ttl8814a/FW_WoWLAN.bin"
-		#define RTL8814A_PHY_REG					"ttl8814a/PHY_REG.txt" 
-		#define RTL8814A_PHY_RADIO_A				"ttl8814a/RadioA.txt"
-		#define RTL8814A_PHY_RADIO_B				"ttl8814a/RadioB.txt"
-		#define RTL8814A_PHY_RADIO_C				"ttl8814a/RadioC.txt"
-		#define RTL8814A_PHY_RADIO_D				"ttl8814a/RadioD.txt"
-		#define RTL8814A_TXPWR_TRACK				"ttl8814a/TxPowerTrack.txt"			
-		#define RTL8814A_AGC_TAB					"ttl8814a/AGC_TAB.txt"
-		#define RTL8814A_PHY_MACREG 				"ttl8814a/MAC_REG.txt"
-		#define RTL8814A_PHY_REG_PG				"ttl8814a/PHY_REG_PG.txt"
-		#define RTL8814A_PHY_REG_MP 				"ttl8814a/PHY_REG_MP.txt" 
-		#define RTL8814A_TXPWR_LMT				"ttl8814a/TXPWR_LMT.txt" 
-		#define RTL8814A_WIFI_ANT_ISOLATION		"ttl8814a/wifi_ant_isolation.txt"
+		#define TLL8814A_FW_IMG					"ttl8814a/FW_NIC.bin"
+		#define TLL8814A_FW_WW_IMG				"ttl8814a/FW_WoWLAN.bin"
+		#define TLL8814A_PHY_REG					"ttl8814a/PHY_REG.txt" 
+		#define TLL8814A_PHY_RADIO_A				"ttl8814a/RadioA.txt"
+		#define TLL8814A_PHY_RADIO_B				"ttl8814a/RadioB.txt"
+		#define TLL8814A_PHY_RADIO_C				"ttl8814a/RadioC.txt"
+		#define TLL8814A_PHY_RADIO_D				"ttl8814a/RadioD.txt"
+		#define TLL8814A_TXPWR_TRACK				"ttl8814a/TxPowerTrack.txt"			
+		#define TLL8814A_AGC_TAB					"ttl8814a/AGC_TAB.txt"
+		#define TLL8814A_PHY_MACREG 				"ttl8814a/MAC_REG.txt"
+		#define TLL8814A_PHY_REG_PG				"ttl8814a/PHY_REG_PG.txt"
+		#define TLL8814A_PHY_REG_MP 				"ttl8814a/PHY_REG_MP.txt" 
+		#define TLL8814A_TXPWR_LMT				"ttl8814a/TXPWR_LMT.txt" 
+		#define TLL8814A_WIFI_ANT_ISOLATION		"ttl8814a/wifi_ant_isolation.txt"
 
 #define Rtl8814A_NIC_PWR_ON_FLOW				ttl8814A_power_on_flow
 #define Rtl8814A_NIC_RF_OFF_FLOW				ttl8814A_radio_off_flow
@@ -214,7 +214,7 @@ Chip specific
 
 /* pic buffer descriptor */
 #if 1 /* according to the define in the tlw_xmit.h, tlw_recv.h */
-#define RTL8814AE_SEG_NUM  TX_BUFFER_SEG_NUM /* 0:2 seg, 1: 4 seg, 2: 8 seg */
+#define TLL8814AE_SEG_NUM  TX_BUFFER_SEG_NUM /* 0:2 seg, 1: 4 seg, 2: 8 seg */
 #define TX_DESC_NUM_8814A  TXDESC_NUM   /* 128 */
 #define RX_DESC_NUM_8814A  PCI_MAX_RX_COUNT /* 128 */
 #ifdef CONFIG_CONCURRENT_MODE
@@ -223,7 +223,7 @@ Chip specific
 #define BE_QUEUE_TX_DESC_NUM_8814A  (TXDESC_NUM+(TXDESC_NUM>>1)) /* 192 */
 #endif
 #else
-#define RTL8814AE_SEG_NUM  TX_BUFFER_SEG_NUM /* 0:2 seg, 1: 4 seg, 2: 8 seg */
+#define TLL8814AE_SEG_NUM  TX_BUFFER_SEG_NUM /* 0:2 seg, 1: 4 seg, 2: 8 seg */
 #define TX_DESC_NUM_8814A  128 /* 1024//2048 change by ylb 20130624 */
 #define RX_DESC_NUM_8814A  128 /* 1024 //512 change by ylb 20130624 */
 #endif
@@ -320,5 +320,5 @@ u16	get_txbd_idx_addr(u16 ff_hwaddr);
 void ttl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
-#endif //__RTL9083E_HAL_H__
+#endif //__TLL9083E_HAL_H__
 

@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL8192E_SPEC_H__
-#define __RTL8192E_SPEC_H__
+#ifndef __TLL8192E_SPEC_H__
+#define __TLL8192E_SPEC_H__
 
 #include <drv_conf.h>
 
@@ -320,5 +320,5 @@
 #define MACID_NUM_8192E 128
 #define CAM_ENTRY_NUM_8192E 64
 
-#endif //__RTL8192E_SPEC_H__
+#endif //__TLL8192E_SPEC_H__
 

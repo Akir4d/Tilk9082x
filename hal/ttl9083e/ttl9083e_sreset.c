@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9083E_SRESET_C_
+#define _TLL9083E_SRESET_C_
 
 //#include <ttl9083e_sreset.h>
 #include <ttl9083e_hal.h>

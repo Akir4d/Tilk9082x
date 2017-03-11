@@ -1,7 +1,7 @@
 #ifndef __HAL8723PWRSEQ_H__
 #define __HAL8723PWRSEQ_H__
 /*
-	Check document WM-20110607-Paul-RTL8723A_Power_Architecture-R02.vsd
+	Check document WM-20110607-Paul-TLL8723A_Power_Architecture-R02.vsd
 	There are 6 HW Power States:
 	0: POFF--Power Off
 	1: PDN--Power Down
@@ -23,18 +23,18 @@
 */
 #include "HalPwrSeqCmd.h"
 
-#define	RTL8723A_TRANS_CARDEMU_TO_ACT_STEPS	15
-#define	RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS	15
-#define	RTL8723A_TRANS_CARDEMU_TO_SUS_STEPS	15
-#define	RTL8723A_TRANS_SUS_TO_CARDEMU_STEPS	15
-#define	RTL8723A_TRANS_CARDEMU_TO_PDN_STEPS	15
-#define	RTL8723A_TRANS_PDN_TO_CARDEMU_STEPS	15
-#define	RTL8723A_TRANS_ACT_TO_LPS_STEPS	15
-#define	RTL8723A_TRANS_LPS_TO_ACT_STEPS	15
-#define	RTL8723A_TRANS_END_STEPS	1
+#define	TLL8723A_TRANS_CARDEMU_TO_ACT_STEPS	15
+#define	TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS	15
+#define	TLL8723A_TRANS_CARDEMU_TO_SUS_STEPS	15
+#define	TLL8723A_TRANS_SUS_TO_CARDEMU_STEPS	15
+#define	TLL8723A_TRANS_CARDEMU_TO_PDN_STEPS	15
+#define	TLL8723A_TRANS_PDN_TO_CARDEMU_STEPS	15
+#define	TLL8723A_TRANS_ACT_TO_LPS_STEPS	15
+#define	TLL8723A_TRANS_LPS_TO_ACT_STEPS	15
+#define	TLL8723A_TRANS_END_STEPS	1
 
 
-#define RTL8723A_TRANS_CARDEMU_TO_ACT 														\
+#define TLL8723A_TRANS_CARDEMU_TO_ACT 														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0020, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK|PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, BIT0}, /*0x20[0] = 1b'1 enable LDOA12 MACRO block for all interface*/   \
@@ -50,7 +50,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT0, 0},/**/	\
 	{0x004E, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 1},/*0x4C[23] = 0x4E[7] = 1, switch DPDT_SEL_P output from WL BB */\
 
-#define RTL8723A_TRANS_ACT_TO_CARDEMU													\
+#define TLL8723A_TRANS_ACT_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x001F, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0},/*0x1F[7:0] = 0 turn off RF*/	\
@@ -61,7 +61,7 @@
 	{0x0020, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK|PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, 0}, /*0x20[0] = 1b'0 disable LDOA12 MACRO block*/   \
 
 
-#define RTL8723A_TRANS_CARDEMU_TO_SUS													\
+#define TLL8723A_TRANS_CARDEMU_TO_SUS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT4|BIT3, (BIT4|BIT3)}, /*0x04[12:11] = 2b'11 enable WL suspend for PCIe*/	\
@@ -72,7 +72,7 @@
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, BIT0}, /*Set SDIO suspend local register*/	\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, 0}, /*wait power state to suspend*/
 
-#define RTL8723A_TRANS_SUS_TO_CARDEMU													\
+#define TLL8723A_TRANS_SUS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3 | BIT7, 0}, /*clear suspend enable and power down enable*/	\
@@ -81,7 +81,7 @@
 	{0x0023, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT4, 0}, /*0x23[4] = 1b'0 12H LDO enter normal mode*/   \
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3|BIT4, 0}, /*0x04[12:11] = 2b'01enable WL suspend*/
 
-#define RTL8723A_TRANS_CARDEMU_TO_CARDDIS													\
+#define TLL8723A_TRANS_CARDEMU_TO_CARDDIS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0007, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x20}, /*0x07=0x20 , SOP option to disable BG/MB*/	\
@@ -92,7 +92,7 @@
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, BIT0}, /*Set SDIO suspend local register*/	\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, 0}, /*wait power state to suspend*/
 
-#define RTL8723A_TRANS_CARDDIS_TO_CARDEMU													\
+#define TLL8723A_TRANS_CARDDIS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3 | BIT7, 0}, /*clear suspend enable and power down enable*/	\
@@ -104,7 +104,7 @@
 	{0x0301, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0},/*PCIe DMA start*/
 
 
-#define RTL8723A_TRANS_CARDEMU_TO_PDN												\
+#define TLL8723A_TRANS_CARDEMU_TO_PDN												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0023, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT4, BIT4}, /*0x23[4] = 1b'1 12H LDO enter sleep mode*/   \
@@ -112,12 +112,12 @@
 	{0x0006, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, 0},/* 0x04[16] = 0*/\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, BIT7},/* 0x04[15] = 1*/
 
-#define RTL8723A_TRANS_PDN_TO_CARDEMU												\
+#define TLL8723A_TRANS_PDN_TO_CARDEMU												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 0},/* 0x04[15] = 0*/
 
-#define RTL8723A_TRANS_ACT_TO_LPS														\
+#define TLL8723A_TRANS_ACT_TO_LPS														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0301, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0xFF},/*PCIe DMA stop*/	\
@@ -135,7 +135,7 @@
 	{0x0553, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT5, BIT5},/*Respond TxOK to scheduler*/	\
 
 
-#define RTL8723A_TRANS_LPS_TO_ACT															\
+#define TLL8723A_TRANS_LPS_TO_ACT															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0080, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, 0xFF, 0x84}, /*SDIO RPWM*/\
@@ -150,21 +150,21 @@
 	{0x0002, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT1|BIT0, BIT1|BIT0}, /*.	0x02[1:0] = 2b'11	 enable BB macro*/\
 	{0x0522, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0}, /*.	0x522 = 0*/
 
-#define RTL8723A_TRANS_END															\
+#define TLL8723A_TRANS_END															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0xFFFF, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,0,PWR_CMD_END, 0, 0}, //
 
 
-extern WLAN_PWR_CFG ttl8723A_power_on_flow[RTL8723A_TRANS_CARDEMU_TO_ACT_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_radio_off_flow[RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_card_disable_flow[RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS+RTL8723A_TRANS_CARDEMU_TO_PDN_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_card_enable_flow[RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS+RTL8723A_TRANS_CARDEMU_TO_PDN_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_suspend_flow[RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS+RTL8723A_TRANS_CARDEMU_TO_SUS_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_resume_flow[RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS+RTL8723A_TRANS_CARDEMU_TO_SUS_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_hwpdn_flow[RTL8723A_TRANS_ACT_TO_CARDEMU_STEPS+RTL8723A_TRANS_CARDEMU_TO_PDN_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_enter_lps_flow[RTL8723A_TRANS_ACT_TO_LPS_STEPS+RTL8723A_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8723A_leave_lps_flow[RTL8723A_TRANS_LPS_TO_ACT_STEPS+RTL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_power_on_flow[TLL8723A_TRANS_CARDEMU_TO_ACT_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_radio_off_flow[TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_card_disable_flow[TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS+TLL8723A_TRANS_CARDEMU_TO_PDN_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_card_enable_flow[TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS+TLL8723A_TRANS_CARDEMU_TO_PDN_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_suspend_flow[TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS+TLL8723A_TRANS_CARDEMU_TO_SUS_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_resume_flow[TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS+TLL8723A_TRANS_CARDEMU_TO_SUS_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_hwpdn_flow[TLL8723A_TRANS_ACT_TO_CARDEMU_STEPS+TLL8723A_TRANS_CARDEMU_TO_PDN_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_enter_lps_flow[TLL8723A_TRANS_ACT_TO_LPS_STEPS+TLL8723A_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8723A_leave_lps_flow[TLL8723A_TRANS_LPS_TO_ACT_STEPS+TLL8723A_TRANS_END_STEPS];
 
 #endif
 

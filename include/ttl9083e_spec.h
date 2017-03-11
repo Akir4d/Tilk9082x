@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL9083E_SPEC_H__
-#define __RTL9083E_SPEC_H__
+#ifndef __TLL9083E_SPEC_H__
+#define __TLL9083E_SPEC_H__
 
 
 //============================================================
@@ -43,10 +43,10 @@
 #define REG_HMEBOX_EXT_1				0x01F4
 #define REG_HMEBOX_EXT_2				0x01F8
 #define REG_HMEBOX_EXT_3				0x01FC
-#define REG_HIMR_88E					0x00B0 //RTL9083E
-#define REG_HISR_88E					0x00B4 //RTL9083E
-#define REG_HIMRE_88E					0x00B8 //RTL9083E
-#define REG_HISRE_88E					0x00BC //RTL9083E
+#define REG_HIMR_88E					0x00B0 //TLL9083E
+#define REG_HISR_88E					0x00B4 //TLL9083E
+#define REG_HIMRE_88E					0x00B8 //TLL9083E
+#define REG_HISRE_88E					0x00BC //TLL9083E
 #define REG_MACID_NO_LINK_0			0x0484
 #define REG_MACID_NO_LINK_1			0x0488
 #define REG_MACID_PAUSE_0			0x048c
@@ -154,8 +154,8 @@
 //       8192C EEPROM/EFUSE share register definition.
 //----------------------------------------------------------------------------
 
-#define EFUSE_ACCESS_ON			0x69	// For RTL8723 only.
-#define EFUSE_ACCESS_OFF			0x00	// For RTL8723 only.
+#define EFUSE_ACCESS_ON			0x69	// For TLL8723 only.
+#define EFUSE_ACCESS_OFF			0x00	// For TLL8723 only.
 
-#endif /* __RTL9083E_SPEC_H__ */
+#endif /* __TLL9083E_SPEC_H__ */
 

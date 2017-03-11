@@ -663,7 +663,7 @@ u1Byte CCKSwingTable_Ch14_92E[CCK_TABLE_SIZE_92E][8] = {
 };
 #endif
 
-#if(RTL8814A_SUPPORT == 1)
+#if(TLL8814A_SUPPORT == 1)
 u4Byte TxScalingTable_Jaguar[TXSCALE_TABLE_SIZE] =
 {
 	0x081, // 0,  -12.0dB
@@ -764,7 +764,7 @@ odm_TXPowerTrackingInit(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	if(!(pDM_Odm->SupportICType & (ODM_RTL8814A|ODM_IC_11N_SERIES)))
+	if(!(pDM_Odm->SupportICType & (ODM_TLL8814A|ODM_IC_11N_SERIES)))
 		return;
 #endif
 
@@ -793,7 +793,7 @@ odm_TXPowerTrackingThermalMeterInit(
 		pHalData->TxPowerTrackControl = TRUE;
 	ODM_RT_TRACE(pDM_Odm,COMP_POWER_TRACKING, DBG_LOUD, ("pMgntInfo->bTXPowerTracking = %d\n", pMgntInfo->bTXPowerTracking));
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
-	#ifdef CONFIG_RTL9083E
+	#ifdef CONFIG_TLL9083E
 	{
 		pDM_Odm->RFCalibrateInfo.bTXPowerTracking = _TRUE;
 		pDM_Odm->RFCalibrateInfo.TXPowercount = 0;
@@ -823,10 +823,10 @@ odm_TXPowerTrackingThermalMeterInit(
 		MSG_8192C("pdmpriv->TxPowerTrackControl = %d\n", pdmpriv->TxPowerTrackControl);
 	
 	}	
-	#endif//endif (CONFIG_RTL9083E==1)	
+	#endif//endif (CONFIG_TLL9083E==1)	
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 
-	#ifdef RTL9083E_SUPPORT
+	#ifdef TLL9083E_SUPPORT
 	{
 		pDM_Odm->RFCalibrateInfo.bTXPowerTracking = _TRUE;
 		pDM_Odm->RFCalibrateInfo.TXPowercount = 0;
@@ -845,9 +845,9 @@ odm_TXPowerTrackingThermalMeterInit(
 	pRFCalibrateInfo->DefaultOfdmIndex = 28;
 
 	
-#if RTL9083E_SUPPORT	
+#if TLL9083E_SUPPORT	
 	pRFCalibrateInfo->DefaultCckIndex = 20;	// -6 dB	
-#elif RTL8192E_SUPPORT
+#elif TLL8192E_SUPPORT
 	pRFCalibrateInfo->DefaultCckIndex = 8;	// -12 dB
 #endif
 	pRFCalibrateInfo->BbSwingIdxOfdmBase = pRFCalibrateInfo->DefaultOfdmIndex;
@@ -914,17 +914,17 @@ odm_TXPowerTrackingCheckCE(
 #if (DM_ODM_SUPPORT_TYPE == ODM_CE)
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	PADAPTER	Adapter = pDM_Odm->Adapter;
-	#if( (RTL8192C_SUPPORT==1) ||  (RTL8723A_SUPPORT==1) )
+	#if( (TLL8192C_SUPPORT==1) ||  (TLL8723A_SUPPORT==1) )
 	ttl8192c_odm_CheckTXPowerTracking(Adapter);
 	#endif
 
-	#if (RTL8192D_SUPPORT==1) 
-	#if (RTL8192D_EASY_SMART_CONCURRENT == 1)
+	#if (TLL8192D_SUPPORT==1) 
+	#if (TLL8192D_EASY_SMART_CONCURRENT == 1)
 	if(!Adapter->bSlaveOfDMSP)
 	#endif
 		ttl8192d_odm_CheckTXPowerTracking(Adapter);
 	#endif
-	#if(RTL9083E_SUPPORT==1)
+	#if(TLL9083E_SUPPORT==1)
 
 	//if(!pMgntInfo->bTXPowerTracking /*|| (!pdmpriv->TxPowerTrackControl && pdmpriv->bAPKdone)*/)
 	if(!(pDM_Odm->SupportAbility & ODM_RF_TX_PWR_TRACK))
@@ -984,18 +984,18 @@ odm_TXPowerTrackingCheckAP(
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 	pttl8192cd_priv	priv		= pDM_Odm->priv;
 
-#if ((RTL9083E_SUPPORT==1)||(RTL8192E_SUPPORT==1) ||(RTL8812E_SUPPORT==1)||(RTL8881A_SUPPORT==1)||(RTL8814A_SUPPORT==1))	
-	if (pDM_Odm->SupportICType & (ODM_RTL9083E|ODM_RTL8192E|ODM_RTL8812|ODM_RTL8881A|ODM_RTL8814A))
+#if ((TLL9083E_SUPPORT==1)||(TLL8192E_SUPPORT==1) ||(TLL8812E_SUPPORT==1)||(TLL8881A_SUPPORT==1)||(TLL8814A_SUPPORT==1))	
+	if (pDM_Odm->SupportICType & (ODM_TLL9083E|ODM_TLL8192E|ODM_TLL8812|ODM_TLL8881A|ODM_TLL8814A))
 		ODM_TXPowerTrackingCallback_ThermalMeter(pDM_Odm);
 	else
 #endif
-#if (RTL8192D_SUPPORT==1) 
-	if (pDM_Odm->SupportICType==ODM_RTL8192D)
+#if (TLL8192D_SUPPORT==1) 
+	if (pDM_Odm->SupportICType==ODM_TLL8192D)
 		tx_power_tracking_92D(priv);
 	else 
 #endif
-#if (RTL8192C_SUPPORT==1) 			
-	if (pDM_Odm->SupportICType==ODM_RTL8192C)
+#if (TLL8192C_SUPPORT==1) 			
+	if (pDM_Odm->SupportICType==ODM_TLL8192C)
 		tx_power_tracking(priv);
 	else
 #endif
@@ -1013,7 +1013,7 @@ odm_TXPowerTrackingThermalMeterCheck(
 	)
 {
 #ifndef AP_BUILD_WORKAROUND
-#if (HAL_CODE_BASE==RTL8192_C)
+#if (HAL_CODE_BASE==TLL8192_C)
 	PMGNT_INFO      		pMgntInfo = &Adapter->MgntInfo;
 	//HAL_DATA_TYPE			*pHalData = GET_HAL_DATA(Adapter);
 	static u1Byte			TM_Trigger = 0;

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083E_CMD_H__
-#define __RTL9083E_CMD_H__
+#ifndef __TLL9083E_CMD_H__
+#define __TLL9083E_CMD_H__
 
 #if 0
 enum cmd_msg_element_id
@@ -38,7 +38,7 @@ enum cmd_msg_element_id
 	MAX_CMDMSG_EID	 
 };
 #else
-typedef enum _RTL9083E_H2C_CMD_ID
+typedef enum _TLL9083E_H2C_CMD_ID
 {
 	//Class Common
 	H2C_COM_RSVD_PAGE			=0x00,
@@ -82,7 +82,7 @@ typedef enum _RTL9083E_H2C_CMD_ID
 
 	//Class 
 	 //H2C_RESET_TSF				=0xc0,
-}RTL9083E_H2C_CMD_ID;
+}TLL9083E_H2C_CMD_ID;
 	
 #endif
 
@@ -182,6 +182,6 @@ void SetFwRelatedForWoWLAN9083ES(_adapter* padapter, u8 bHostIsGoingtoSleep);
 #define SET_9083E_H2CCMD_AOAC_RSVDPAGE_LOC_REMOTE_WAKE_CTRL_INFO(__pH2CCmd, __Value)        SET_BITS_TO_LE_1BYTE((__pH2CCmd), 0, 8, __Value)
 #define SET_9083E_H2CCMD_AOAC_RSVDPAGE_LOC_ARP_RSP(__pH2CCmd, __Value)                  SET_BITS_TO_LE_1BYTE((__pH2CCmd)+1, 0, 8, __Value)
 */
-#endif//__RTL9083E_CMD_H__
+#endif//__TLL9083E_CMD_H__
 
 

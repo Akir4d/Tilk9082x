@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083E_DM_H__
-#define __RTL9083E_DM_H__
+#ifndef __TLL9083E_DM_H__
+#define __TLL9083E_DM_H__
 
 void ttl9083e_init_dm_priv(IN PADAPTER Adapter);
 void ttl9083e_deinit_dm_priv(IN PADAPTER Adapter);

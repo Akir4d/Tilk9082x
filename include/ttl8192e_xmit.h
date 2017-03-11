@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8192E_XMIT_H__
-#define __RTL8192E_XMIT_H__
+#ifndef __TLL8192E_XMIT_H__
+#define __TLL8192E_XMIT_H__
 
 typedef struct txdescriptor_8192e
 {
@@ -446,6 +446,6 @@ void fill_txdesc_vcs(struct pkt_attrib *pattrib, u8 *ptxdesc);
 void fill_txdesc_sectype(struct pkt_attrib *pattrib, u8 *ptxdesc);
 void ttl8192e_fixed_rate(_adapter *padapter,u8 *ptxdesc);
 
-#endif //__RTL8192E_XMIT_H__
+#endif //__TLL8192E_XMIT_H__
 
 

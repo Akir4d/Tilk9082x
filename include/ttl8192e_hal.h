@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8192E_HAL_H__
-#define __RTL8192E_HAL_H__
+#ifndef __TLL8192E_HAL_H__
+#define __TLL8192E_HAL_H__
 
 //#include "hal_com.h"
 
@@ -43,23 +43,23 @@
 
 
 //---------------------------------------------------------------------
-//		RTL8192E From header
+//		TLL8192E From header
 //---------------------------------------------------------------------
-	#define RTL8192E_FW_IMG					"ttl8192e/FW_NIC.bin"
-	#define RTL8192E_FW_WW_IMG				"ttl8192e/FW_WoWLAN.bin"
-	#define RTL8192E_PHY_REG					"ttl8192e/PHY_REG.txt" 
-	#define RTL8192E_PHY_RADIO_A				"ttl8192e/RadioA.txt"
-	#define RTL8192E_PHY_RADIO_B				"ttl8192e/RadioB.txt"
-	#define RTL8192E_TXPWR_TRACK				"ttl8192e/TxPowerTrack.txt"
-	#define RTL8192E_AGC_TAB					"ttl8192e/AGC_TAB.txt"
-	#define RTL8192E_PHY_MACREG 				"ttl8192e/MAC_REG.txt"
-	#define RTL8192E_PHY_REG_PG				"ttl8192e/PHY_REG_PG.txt"
-	#define RTL8192E_PHY_REG_MP 				"ttl8192e/PHY_REG_MP.txt" 
-	#define RTL8192E_TXPWR_LMT					"ttl8192e/TXPWR_LMT.txt"
-	#define RTL8192E_WIFI_ANT_ISOLATION		"ttl8192e/wifi_ant_isolation.txt"
+	#define TLL8192E_FW_IMG					"ttl8192e/FW_NIC.bin"
+	#define TLL8192E_FW_WW_IMG				"ttl8192e/FW_WoWLAN.bin"
+	#define TLL8192E_PHY_REG					"ttl8192e/PHY_REG.txt" 
+	#define TLL8192E_PHY_RADIO_A				"ttl8192e/RadioA.txt"
+	#define TLL8192E_PHY_RADIO_B				"ttl8192e/RadioB.txt"
+	#define TLL8192E_TXPWR_TRACK				"ttl8192e/TxPowerTrack.txt"
+	#define TLL8192E_AGC_TAB					"ttl8192e/AGC_TAB.txt"
+	#define TLL8192E_PHY_MACREG 				"ttl8192e/MAC_REG.txt"
+	#define TLL8192E_PHY_REG_PG				"ttl8192e/PHY_REG_PG.txt"
+	#define TLL8192E_PHY_REG_MP 				"ttl8192e/PHY_REG_MP.txt" 
+	#define TLL8192E_TXPWR_LMT					"ttl8192e/TXPWR_LMT.txt"
+	#define TLL8192E_WIFI_ANT_ISOLATION		"ttl8192e/wifi_ant_isolation.txt"
 
 //---------------------------------------------------------------------
-//		RTL8192E Power Configuration CMDs for PCIe interface
+//		TLL8192E Power Configuration CMDs for PCIe interface
 //---------------------------------------------------------------------
 #define Rtl8192E_NIC_PWR_ON_FLOW				ttl8192E_power_on_flow
 #define Rtl8192E_NIC_RF_OFF_FLOW				ttl8192E_radio_off_flow
@@ -73,7 +73,7 @@
 
 
 #if 1 // download firmware related data structure
-#define FW_SIZE_8192E			0x8000 // Compatible with RTL8192e Maximal RAM code size 32k
+#define FW_SIZE_8192E			0x8000 // Compatible with TLL8192e Maximal RAM code size 32k
 #define FW_START_ADDRESS		0x1000
 #define FW_END_ADDRESS			0x5FFF
 
@@ -200,7 +200,7 @@ Total page numbers : 256(0x100)
 //-------------------------------------------------------------------------
 
 // pic buffer descriptor
-#define RTL8192EE_SEG_NUM			TX_BUFFER_SEG_NUM
+#define TLL8192EE_SEG_NUM			TX_BUFFER_SEG_NUM
 #define TX_DESC_NUM_92E			128
 #define RX_DESC_NUM_92E			128
 
@@ -279,7 +279,7 @@ void Hal_DetectWoWMode(PADAPTER pAdapter);
 #endif //CONFIG_WOWLAN
 
 /***********************************************************/
-// RTL8192E-MAC Setting
+// TLL8192E-MAC Setting
 VOID _InitQueueReservedPage_8192E(IN  PADAPTER Adapter);
 VOID _InitQueuePriority_8192E(IN	PADAPTER Adapter);
 VOID _InitTxBufferBoundary_8192E(IN PADAPTER Adapter,IN u8 txpktbuf_bndy);
@@ -303,7 +303,7 @@ VOID _InitBeaconMaxError_8192E(
 	);
 void SetBeaconRelatedRegisters8192E(PADAPTER padapter);
 VOID hal_ReadRFType_8192E(PADAPTER	Adapter);
-// RTL8192E-MAC Setting
+// TLL8192E-MAC Setting
 /***********************************************************/
 
 void SetHwReg8192E(PADAPTER Adapter, u8 variable, u8* val);
@@ -344,5 +344,5 @@ void _init_available_page_threshold(PADAPTER padapter, u8 numHQ, u8 numNQ, u8 nu
 void ttl8192e_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
-#endif //__RTL8192E_HAL_H__
+#endif //__TLL8192E_HAL_H__
 

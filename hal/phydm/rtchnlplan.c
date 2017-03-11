@@ -148,7 +148,7 @@
 //						
 /*
 
-	2.4G Band		Regulatory Domains																RTL8192D	
+	2.4G Band		Regulatory Domains																TLL8192D	
 	Channel Number	Channel Frequency	US		Canada	Europe	Spain	France	Japan	Japan		20M		40M
 					(MHz)				(FCC)	(IC)	(ETSI)							(MPHPT)				
 	1				2412				v		v		v								v			v		
@@ -175,7 +175,7 @@
 //
 /*
 
-	5G Band		RTL8192D	RTL8195 (Jaguar)				Jaguar 2	Regulatory Domains											
+	5G Band		TLL8192D	TLL8195 (Jaguar)				Jaguar 2	Regulatory Domains											
 	Channel Number	Channel Frequency	Global	Global				Global	"US
 (FCC 15.407)"	"Canada
 (FCC, except 5.6~5.65GHz)"	Argentina, Australia, New Zealand, Brazil, S. Africa (FCC/ETSI)	"Europe

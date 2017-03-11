@@ -193,7 +193,7 @@ struct phy_info
 	u8			SignalStrength;				/* in 0-100 index. */
 	s8			RxPwr[4];					/* per-path's pwdb */
 	s8			RxSNR[4];
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 	u8			RxCount:2;
 	u8			BandWidth:2;
 	u8			rxsc:4;
@@ -201,7 +201,7 @@ struct phy_info
 	u8			BandWidth;
 #endif
 	u8			btCoexPwrAdjust;
-#if (RTL8822B_SUPPORT == 1)
+#if (TLL8822B_SUPPORT == 1)
 	u8			channel;						/* channel number---*/
 	BOOLEAN		bMuPacket;					/* is MU packet or not---*/
 	BOOLEAN		bBeamformed;
@@ -294,7 +294,7 @@ struct rx_pkt_attrib	{
 
 #define RECVBUFF_ALIGN_SZ 8
 
-#if defined(CONFIG_RTL8192E) || defined(CONFIG_RTL8814A)
+#if defined(CONFIG_TLL8192E) || defined(CONFIG_TLL8814A)
 	#ifdef CONFIG_PCI_HCI
 		#define RXDESC_SIZE 16
 		#define RX_WIFI_INFO_SIZE	24
@@ -312,7 +312,7 @@ struct recv_stat
 
 	unsigned int rxdw1;
 
-#if !((defined(CONFIG_RTL8192E) || defined(CONFIG_RTL8814A)) && defined(CONFIG_PCI_HCI))  /* exclude 8192ee, 8814ae */
+#if !((defined(CONFIG_TLL8192E) || defined(CONFIG_TLL8814A)) && defined(CONFIG_PCI_HCI))  /* exclude 8192ee, 8814ae */
 	unsigned int rxdw2;
 
 	unsigned int rxdw3;

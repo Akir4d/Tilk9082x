@@ -67,7 +67,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 #endif
 	);
 
-#if (RTL8192E_SUPPORT==1) 
+#if (TLL8192E_SUPPORT==1) 
 VOID
 ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -78,7 +78,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 	);
 #endif
 
-#if (RTL8814A_SUPPORT == 1)
+#if (TLL8814A_SUPPORT == 1)
 VOID
 ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)

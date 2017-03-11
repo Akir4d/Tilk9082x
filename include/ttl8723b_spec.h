@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL8723B_SPEC_H__
-#define __RTL8723B_SPEC_H__
+#ifndef __TLL8723B_SPEC_H__
+#define __TLL8723B_SPEC_H__
 
 #include <drv_conf.h>
 
@@ -213,7 +213,7 @@
 //-----------------------------------------------------
 #ifdef CONFIG_RF_GAIN_OFFSET
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 #define EEPROM_RF_GAIN_OFFSET			0xC1
 #endif
 
@@ -288,5 +288,5 @@
 #define MACID_NUM_8723B 128
 #define CAM_ENTRY_NUM_8723B 64
 
-#endif /* __RTL8723B_SPEC_H__ */
+#endif /* __TLL8723B_SPEC_H__ */
 

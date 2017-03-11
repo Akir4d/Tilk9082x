@@ -25,7 +25,7 @@
 #include "HalPwrSeqCmd.h"
 
 /* 
-	Check document WB-110628-DZ-RTL8195 (Jaguar) Power Architecture-R04.pdf
+	Check document WB-110628-DZ-TLL8195 (Jaguar) Power Architecture-R04.pdf
 	There are 6 HW Power States:
 	0: POFF--Power Off
 	1: PDN--Power Down
@@ -45,18 +45,18 @@
 
 	TRANS_END
 */
-#define	RTL8812_TRANS_CARDEMU_TO_ACT_STEPS	15
-#define	RTL8812_TRANS_ACT_TO_CARDEMU_STEPS	15
-#define	RTL8812_TRANS_CARDEMU_TO_SUS_STEPS	15
-#define	RTL8812_TRANS_SUS_TO_CARDEMU_STEPS	15
-#define	RTL8812_TRANS_CARDEMU_TO_PDN_STEPS	15
-#define	RTL8812_TRANS_PDN_TO_CARDEMU_STEPS	15
-#define	RTL8812_TRANS_ACT_TO_LPS_STEPS	15
-#define	RTL8812_TRANS_LPS_TO_ACT_STEPS	15	
-#define	RTL8812_TRANS_END_STEPS	1
+#define	TLL8812_TRANS_CARDEMU_TO_ACT_STEPS	15
+#define	TLL8812_TRANS_ACT_TO_CARDEMU_STEPS	15
+#define	TLL8812_TRANS_CARDEMU_TO_SUS_STEPS	15
+#define	TLL8812_TRANS_SUS_TO_CARDEMU_STEPS	15
+#define	TLL8812_TRANS_CARDEMU_TO_PDN_STEPS	15
+#define	TLL8812_TRANS_PDN_TO_CARDEMU_STEPS	15
+#define	TLL8812_TRANS_ACT_TO_LPS_STEPS	15
+#define	TLL8812_TRANS_LPS_TO_ACT_STEPS	15	
+#define	TLL8812_TRANS_END_STEPS	1
 
 
-#define RTL8812_TRANS_CARDEMU_TO_ACT 														\
+#define TLL8812_TRANS_CARDEMU_TO_ACT 														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT2, 0},/* disable SW LPS 0x04[10]=0*/	\
@@ -66,7 +66,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, BIT0},/* polling until return 0*/	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT0, 0},/**/
 
-#define RTL8812_TRANS_ACT_TO_CARDEMU													\
+#define TLL8812_TRANS_ACT_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0c00, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x04}, /* 0xc00[7:0] = 4	turn off 3-wire */	\
@@ -82,7 +82,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT1, BIT1}, /*0x04[9] = 1 turn off MAC by HW state machine*/	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT1, 0}, /*wait till 0x04[9] = 0 polling until return 0 to disable*/	
 
-#define RTL8812_TRANS_CARDEMU_TO_SUS													\
+#define TLL8812_TRANS_CARDEMU_TO_SUS													\
 	/* format */								\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0042, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xF0, 0xcc},\
@@ -98,7 +98,7 @@
 	{0x0008, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0x02, 0},/*0x8[1] = 0 ANA clk =500k */	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3, BIT3}, /*0x04[11] = 2b'11 enable WL suspend for PCIe*/	
 
-#define RTL8812_TRANS_SUS_TO_CARDEMU													\
+#define TLL8812_TRANS_SUS_TO_CARDEMU													\
 	/* format */								\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3, 0}, /*0x04[11] = 2b'01enable WL suspend*/   \
@@ -108,7 +108,7 @@
 	{0x0046, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x00},/* gpio0~7 input mode */	\
 	{0x0043, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x00},/* gpio11 input mode, gpio10~8 input mode */
 
-#define RTL8812_TRANS_CARDEMU_TO_CARDDIS													\
+#define TLL8812_TRANS_CARDEMU_TO_CARDDIS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	/**{0x0194, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, 0}, //0x194[0]=0 , disable 32K clock*/	\
@@ -131,7 +131,7 @@
 	{0x0076, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_USB_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT1, 0}, /*0x076[1]=0 , disable RFC_1  control REG_OPT_CTRL_8812 +2 */	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3, BIT3}, /*0x04[11] = 2b'01 enable WL suspend*/	
 
-#define RTL8812_TRANS_CARDDIS_TO_CARDEMU													\
+#define TLL8812_TRANS_CARDDIS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/                       \
 	{0x0012, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, BIT0},/*0x12[0] = 1 force PWM mode */	\
@@ -146,17 +146,17 @@
 	{0x0301, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0},/*PCIe DMA start*/
 
 
-#define RTL8812_TRANS_CARDEMU_TO_PDN												\
+#define TLL8812_TRANS_CARDEMU_TO_PDN												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, BIT7},/* 0x04[15] = 1*/
 
-#define RTL8812_TRANS_PDN_TO_CARDEMU												\
+#define TLL8812_TRANS_PDN_TO_CARDEMU												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/	\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 0},/* 0x04[15] = 0*/
 
-#define RTL8812_TRANS_ACT_TO_LPS														\
+#define TLL8812_TRANS_ACT_TO_LPS														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0301, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0xFF},/*PCIe DMA stop*/	\
@@ -175,7 +175,7 @@
 	{0x0553, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT5, BIT5},/*Respond TxOK to scheduler*/	
 
 
-#define RTL8812_TRANS_LPS_TO_ACT															\
+#define TLL8812_TRANS_LPS_TO_ACT															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/	\
 	{0x0080, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, 0xFF, 0x84}, /*SDIO RPWM*/	\
@@ -190,21 +190,21 @@
 	{0x0002, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT1|BIT0, BIT1|BIT0}, /*.	0x02[1:0] = 2b'11	 enable BB macro*/	\
 	{0x0522, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0}, /*.	0x522 = 0*/
  
-#define RTL8812_TRANS_END																\
+#define TLL8812_TRANS_END																\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/		\
 	{0xFFFF, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,0,PWR_CMD_END, 0, 0}, //
 
 
-extern WLAN_PWR_CFG ttl8812_power_on_flow[RTL8812_TRANS_CARDEMU_TO_ACT_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_radio_off_flow[RTL8812_TRANS_ACT_TO_CARDEMU_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_card_disable_flow[RTL8812_TRANS_ACT_TO_CARDEMU_STEPS+RTL8812_TRANS_CARDEMU_TO_PDN_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_card_enable_flow[RTL8812_TRANS_ACT_TO_CARDEMU_STEPS+RTL8812_TRANS_CARDEMU_TO_PDN_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_suspend_flow[RTL8812_TRANS_ACT_TO_CARDEMU_STEPS+RTL8812_TRANS_CARDEMU_TO_SUS_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_resume_flow[RTL8812_TRANS_ACT_TO_CARDEMU_STEPS+RTL8812_TRANS_CARDEMU_TO_SUS_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_hwpdn_flow[RTL8812_TRANS_ACT_TO_CARDEMU_STEPS+RTL8812_TRANS_CARDEMU_TO_PDN_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_enter_lps_flow[RTL8812_TRANS_ACT_TO_LPS_STEPS+RTL8812_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8812_leave_lps_flow[RTL8812_TRANS_LPS_TO_ACT_STEPS+RTL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_power_on_flow[TLL8812_TRANS_CARDEMU_TO_ACT_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_radio_off_flow[TLL8812_TRANS_ACT_TO_CARDEMU_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_card_disable_flow[TLL8812_TRANS_ACT_TO_CARDEMU_STEPS+TLL8812_TRANS_CARDEMU_TO_PDN_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_card_enable_flow[TLL8812_TRANS_ACT_TO_CARDEMU_STEPS+TLL8812_TRANS_CARDEMU_TO_PDN_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_suspend_flow[TLL8812_TRANS_ACT_TO_CARDEMU_STEPS+TLL8812_TRANS_CARDEMU_TO_SUS_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_resume_flow[TLL8812_TRANS_ACT_TO_CARDEMU_STEPS+TLL8812_TRANS_CARDEMU_TO_SUS_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_hwpdn_flow[TLL8812_TRANS_ACT_TO_CARDEMU_STEPS+TLL8812_TRANS_CARDEMU_TO_PDN_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_enter_lps_flow[TLL8812_TRANS_ACT_TO_LPS_STEPS+TLL8812_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl8812_leave_lps_flow[TLL8812_TRANS_LPS_TO_ACT_STEPS+TLL8812_TRANS_END_STEPS];
 
 #endif //__HAL8812PWRSEQ_H__
 

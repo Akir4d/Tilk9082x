@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083E_RF_H__
-#define __RTL9083E_RF_H__
+#ifndef __TLL9083E_RF_H__
+#define __TLL9083E_RF_H__
 
 
 
@@ -29,5 +29,5 @@ void		ttl9083e_PHY_RF6052SetBandwidth(
 										IN	PADAPTER				Adapter,
 										IN	CHANNEL_WIDTH		Bandwidth);
 
-#endif//__RTL9083E_RF_H__
+#endif//__TLL9083E_RF_H__
 

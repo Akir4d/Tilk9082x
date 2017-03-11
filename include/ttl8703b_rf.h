@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8703B_RF_H__
-#define __RTL8703B_RF_H__
+#ifndef __TLL8703B_RF_H__
+#define __TLL8703B_RF_H__
 
 int	PHY_RF6052_Config8703B(	IN	PADAPTER		Adapter	);
 

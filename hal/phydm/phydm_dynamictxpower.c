@@ -166,15 +166,15 @@ odm_DynamicTxPowerNIC(
 	
 #if (DM_ODM_SUPPORT_TYPE & (ODM_WIN|ODM_CE))
 
-	if(pDM_Odm->SupportICType == ODM_RTL8192C)	
+	if(pDM_Odm->SupportICType == ODM_TLL8192C)	
 	{
 		odm_DynamicTxPower_92C(pDM_Odm);
 	}
-	else if(pDM_Odm->SupportICType == ODM_RTL8192D)
+	else if(pDM_Odm->SupportICType == ODM_TLL8192D)
 	{
 		odm_DynamicTxPower_92D(pDM_Odm);
 	}
-	else if (pDM_Odm->SupportICType == ODM_RTL8821)
+	else if (pDM_Odm->SupportICType == ODM_TLL8821)
 	{
 #if (DM_ODM_SUPPORT_TYPE & (ODM_WIN))
 		PADAPTER		Adapter	 =  pDM_Odm->Adapter;
@@ -206,7 +206,7 @@ odm_DynamicTxPowerAP(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 
-//#if ((RTL8192C_SUPPORT==1) || (RTL8192D_SUPPORT==1) || (RTL9083E_SUPPORT==1) || (RTL8812E_SUPPORT==1))
+//#if ((TLL8192C_SUPPORT==1) || (TLL8192D_SUPPORT==1) || (TLL9083E_SUPPORT==1) || (TLL8812E_SUPPORT==1))
 
 
 	pttl8192cd_priv	priv		= pDM_Odm->priv;
@@ -216,12 +216,12 @@ odm_DynamicTxPowerAP(
 	if(!priv->pshare->rf_ft_var.tx_pwr_ctrl)
 		return;
 	
-#if ((RTL8812E_SUPPORT==1) || (RTL8881A_SUPPORT==1) || (RTL8814A_SUPPORT==1))
-	if (pDM_Odm->SupportICType & (ODM_RTL8812 | ODM_RTL8881A | ODM_RTL8814A))
+#if ((TLL8812E_SUPPORT==1) || (TLL8881A_SUPPORT==1) || (TLL8814A_SUPPORT==1))
+	if (pDM_Odm->SupportICType & (ODM_TLL8812 | ODM_TLL8881A | ODM_TLL8814A))
 		pwr_thd = TX_POWER_NEAR_FIELD_THRESH_8812;
 #endif
 
-#if defined(CONFIG_RTL_92D_SUPPORT) || defined(CONFIG_RTL_92C_SUPPORT)
+#if defined(CONFIG_TLL_92D_SUPPORT) || defined(CONFIG_TLL_92C_SUPPORT)
 	if(CHIP_VER_92X_SERIES(priv))
 	{
 #ifdef HIGH_POWER_EXT_PA
@@ -235,7 +235,7 @@ odm_DynamicTxPowerAP(
 	 */
 
 	if ((priv->up_time % 3) == 0 )  {
-		int disable_pwr_ctrl = ((pDM_Odm->FalseAlmCnt.Cnt_all > 1000 ) || ((pDM_Odm->FalseAlmCnt.Cnt_all > 300 ) && ((RTL_R8(0xc50) & 0x7f) >= 0x32))) ? 1 : 0;
+		int disable_pwr_ctrl = ((pDM_Odm->FalseAlmCnt.Cnt_all > 1000 ) || ((pDM_Odm->FalseAlmCnt.Cnt_all > 300 ) && ((TLL_R8(0xc50) & 0x7f) >= 0x32))) ? 1 : 0;
 			
 		for(i=0; i<ODM_ASSOCIATE_ENTRY_NUM; i++){
 			PSTA_INFO_T pstat = pDM_Odm->pODM_StaInfo[i];
@@ -417,7 +417,7 @@ odm_DynamicTxPower_92D(
 	IN		PVOID					pDM_VOID
 	)
 {
-#if (RTL8192D_SUPPORT==1)
+#if (TLL8192D_SUPPORT==1)
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 	PADAPTER Adapter = pDM_Odm->Adapter;

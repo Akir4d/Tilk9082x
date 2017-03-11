@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8723B_RECV_H__
-#define __RTL8723B_RECV_H__
+#ifndef __TLL8723B_RECV_H__
+#define __TLL8723B_RECV_H__
 
 #define RECV_BLK_SZ 512
 #define RECV_BLK_CNT 16
@@ -88,5 +88,5 @@ void ttl8723be_free_recv_priv(PADAPTER padapter);
 
 void ttl8723b_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
-#endif /* __RTL8723B_RECV_H__ */
+#endif /* __TLL8723B_RECV_H__ */
 

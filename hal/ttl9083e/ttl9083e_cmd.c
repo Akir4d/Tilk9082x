@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9083E_CMD_C_
+#define _TLL9083E_CMD_C_
 
 #include <drv_types.h>
 #include <ttl9083e_hal.h>
@@ -25,10 +25,10 @@
 
 #define CONFIG_H2C_EF
 
-#define RTL88E_MAX_H2C_BOX_NUMS	4
-#define RTL88E_MAX_CMD_LEN	7
-#define RTL88E_MESSAGE_BOX_SIZE		4
-#define RTL88E_EX_MESSAGE_BOX_SIZE	4
+#define TLL88E_MAX_H2C_BOX_NUMS	4
+#define TLL88E_MAX_CMD_LEN	7
+#define TLL88E_MESSAGE_BOX_SIZE		4
+#define TLL88E_EX_MESSAGE_BOX_SIZE	4
 
 static u8 _is_fw_read_cmd_down(_adapter* padapter, u8 msgbox_num)
 {
@@ -91,7 +91,7 @@ _func_enter_;
 	if (!pCmdBuffer) {
 		goto exit;
 	}
-	if (CmdLen > RTL88E_MAX_CMD_LEN) {
+	if (CmdLen > TLL88E_MAX_CMD_LEN) {
 		goto exit;
 	}
 	if (tlw_is_surprise_removed(padapter))
@@ -118,7 +118,7 @@ _func_enter_;
 			_tlw_memcpy((u8*)(&h2c_cmd_ex), pCmdBuffer+3,ext_cmd_len );
 
 			//Write Ext command
-			msgbox_ex_addr = REG_HMEBOX_EXT_0 + (h2c_box_num *RTL88E_EX_MESSAGE_BOX_SIZE);
+			msgbox_ex_addr = REG_HMEBOX_EXT_0 + (h2c_box_num *TLL88E_EX_MESSAGE_BOX_SIZE);
 			#ifdef CONFIG_H2C_EF
 			for(cmd_idx=0;cmd_idx<ext_cmd_len;cmd_idx++ ){
 				tlw_write8(padapter,msgbox_ex_addr+cmd_idx,*((u8*)(&h2c_cmd_ex)+cmd_idx));
@@ -129,9 +129,9 @@ _func_enter_;
 			#endif
 		}
 		// Write command
-		msgbox_addr =REG_HMEBOX_0 + (h2c_box_num *RTL88E_MESSAGE_BOX_SIZE);
+		msgbox_addr =REG_HMEBOX_0 + (h2c_box_num *TLL88E_MESSAGE_BOX_SIZE);
 		#ifdef CONFIG_H2C_EF
-		for(cmd_idx=0;cmd_idx<RTL88E_MESSAGE_BOX_SIZE;cmd_idx++ ){
+		for(cmd_idx=0;cmd_idx<TLL88E_MESSAGE_BOX_SIZE;cmd_idx++ ){
 			tlw_write8(padapter,msgbox_addr+cmd_idx,*((u8*)(&h2c_cmd)+cmd_idx));
 		}
 		#else
@@ -143,7 +143,7 @@ _func_enter_;
 	//	DBG_8192C("MSG_BOX:%d,CmdLen(%d), reg:0x%x =>h2c_cmd:0x%x, reg:0x%x =>h2c_cmd_ex:0x%x ..\n"
 	//	 	,pHalData->LastHMEBoxNum ,CmdLen,msgbox_addr,h2c_cmd,msgbox_ex_addr,h2c_cmd_ex);
 
-		pHalData->LastHMEBoxNum = (h2c_box_num+1) % RTL88E_MAX_H2C_BOX_NUMS;
+		pHalData->LastHMEBoxNum = (h2c_box_num+1) % TLL88E_MAX_H2C_BOX_NUMS;
 
 	}while(0);
 

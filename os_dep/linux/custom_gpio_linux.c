@@ -28,10 +28,10 @@
 
 #if !(defined ANDROID_2X)
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 #include <mach/regulator.h>
 #include <linux/regulator/consumer.h>
-#endif // CONFIG_RTL9083E
+#endif // CONFIG_TLL9083E
 
 #ifndef GPIO_WIFI_POWER
 #define GPIO_WIFI_POWER -1
@@ -71,7 +71,7 @@ int tlw_wifi_gpio_init(void)
 		gpio_request(GPIO_WIFI_POWER, "wifi_power");
 
 #ifdef CONFIG_SDIO_HCI
-#if (defined(CONFIG_RTL8723B)) && (MP_DRIVER == 1) 
+#if (defined(CONFIG_TLL8723B)) && (MP_DRIVER == 1) 
 	if(tlw_mp_mode==1){
 		DBG_871X("%s GPIO_BT_RESET pin special for mp_test\n", __func__);	
 		if (GPIO_BT_RESET > 0)
@@ -94,7 +94,7 @@ int tlw_wifi_gpio_deinit(void)
 		gpio_free(GPIO_WIFI_POWER);
 
 #ifdef CONFIG_SDIO_HCI
-#if ( defined(CONFIG_RTL8723B)) && (MP_DRIVER == 1) 
+#if ( defined(CONFIG_TLL8723B)) && (MP_DRIVER == 1) 
 	if(tlw_mp_mode==1){
 		DBG_871X("%s GPIO_BT_RESET pin special for mp_test\n", __func__);
 		if (GPIO_BT_RESET > 0)
@@ -134,7 +134,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		case WLAN_POWER_ON:
 		break;
 #ifdef CONFIG_SDIO_HCI
-#if ( defined(CONFIG_RTL8723B)) && (MP_DRIVER == 1) 
+#if ( defined(CONFIG_TLL8723B)) && (MP_DRIVER == 1) 
 		case WLAN_BT_PWDN_OFF:
 		if(tlw_mp_mode==1)
 		{
@@ -164,17 +164,17 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 
 #include <mach/ldo.h>
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 extern int sprd_3rdparty_gpio_wifi_power;
 #endif
 extern int sprd_3rdparty_gpio_wifi_pwd;
-#if  defined(CONFIG_RTL8723B)
+#if  defined(CONFIG_TLL8723B)
 extern int sprd_3rdparty_gpio_bt_reset;
 #endif
 
 int tlw_wifi_gpio_init(void)
 {
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 	if (sprd_3rdparty_gpio_bt_reset > 0)
 		gpio_direction_output(sprd_3rdparty_gpio_bt_reset, 1);
 #endif
@@ -221,7 +221,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_POWER_OFF:
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 #ifdef CONFIG_WIF1_LDO
 			DBG_8192C("%s: turn off VDD-WIFI0 1.2V\n", __FUNCTION__);
 			LDO_TurnOffLDO(LDO_LDO_WIF1);
@@ -238,7 +238,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_POWER_ON:
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 			DBG_8192C("%s: call customer specific GPIO(%d) to turn on wifi power\n",
 				__FUNCTION__, sprd_3rdparty_gpio_wifi_power);
 			if (sprd_3rdparty_gpio_wifi_power != 65535)
@@ -259,7 +259,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		case WLAN_BT_PWDN_OFF:
 			DBG_8192C("%s: call customer specific GPIO to set bt power down pin to 0\n",
 				__FUNCTION__);
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 			if (sprd_3rdparty_gpio_bt_reset > 0)
 				gpio_set_value(sprd_3rdparty_gpio_bt_reset, 0);
 #endif
@@ -268,7 +268,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		case WLAN_BT_PWDN_ON:
 			DBG_8192C("%s: callc customer specific GPIO to set bt power down pin to 1\n",
 				__FUNCTION__);
-#if defined(CONFIG_RTL8723B)
+#if defined(CONFIG_TLL8723B)
 			if (sprd_3rdparty_gpio_bt_reset > 0)
 				gpio_set_value(sprd_3rdparty_gpio_bt_reset, 1);
 #endif

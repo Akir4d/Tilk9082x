@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_RF_H__
-#define __RTL8814A_RF_H__
+#ifndef __TLL8814A_RF_H__
+#define __TLL8814A_RF_H__
 
 VOID
 PHY_RF6052SetBandwidth8814A(
@@ -30,5 +30,5 @@ int
 PHY_RF6052_Config_8814A(
 	IN	PADAPTER	Adapter	);
 
-#endif//__RTL9083E_RF_H__
+#endif//__TLL9083E_RF_H__
 

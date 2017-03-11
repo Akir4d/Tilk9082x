@@ -664,7 +664,7 @@ struct	wlan_network {
 
 };
 
-enum VRTL_CARRIER_SENSE
+enum VTLL_CARRIER_SENSE
 {
     DISABLE_VCS,	
     ENABLE_VCS,	

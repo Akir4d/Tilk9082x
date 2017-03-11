@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9083E_REDESC_C_
+#define _TLL9083E_REDESC_C_
 
 #include <drv_types.h>
 #include <ttl9083e_hal.h>

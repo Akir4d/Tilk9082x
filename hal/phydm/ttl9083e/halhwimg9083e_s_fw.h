@@ -19,7 +19,7 @@
 ******************************************************************************/
 
 /*Image2HeaderVersion: 2.16*/
-#if (RTL9083E_S_SUPPORT == 1)
+#if (TLL9083E_S_SUPPORT == 1)
 #ifndef __INC_MP_FW_HW_IMG_9083E_S_H
 #define __INC_MP_FW_HW_IMG_9083E_S_H
 

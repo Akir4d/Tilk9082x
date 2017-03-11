@@ -337,10 +337,10 @@ VOID tlw_odm_radar_detect_reset(_adapter *adapter)
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
 
-	if (pDM_Odm->SupportICType & ODM_RTL8192D) {
+	if (pDM_Odm->SupportICType & ODM_TLL8192D) {
 		ODM_SetBBReg(pDM_Odm, 0xc84 , BIT25, 0);
 		ODM_SetBBReg(pDM_Odm, 0xc84 , BIT25, 1);
-	} else if (pDM_Odm->SupportICType & ODM_RTL8821) {
+	} else if (pDM_Odm->SupportICType & ODM_TLL8821) {
 		ODM_SetBBReg(pDM_Odm, 0x924 , BIT15, 0);
 		ODM_SetBBReg(pDM_Odm, 0x924 , BIT15, 1);
 	} else {
@@ -354,9 +354,9 @@ VOID tlw_odm_radar_detect_disable(_adapter *adapter)
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
 
-	if (pDM_Odm->SupportICType & ODM_RTL8192D)
+	if (pDM_Odm->SupportICType & ODM_TLL8192D)
 		ODM_SetBBReg(pDM_Odm, 0xc84 , BIT25, 0);
-	else if (pDM_Odm->SupportICType & ODM_RTL8821)
+	else if (pDM_Odm->SupportICType & ODM_TLL8821)
 		ODM_SetBBReg(pDM_Odm, 0x924 , BIT15, 0);
 	else
 		tlw_warn_on(1);
@@ -368,13 +368,13 @@ VOID tlw_odm_radar_detect_enable(_adapter *adapter)
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
 
-	if (pDM_Odm->SupportICType & ODM_RTL8192D) {
+	if (pDM_Odm->SupportICType & ODM_TLL8192D) {
 		ODM_SetBBReg(pDM_Odm, 0xc38, BIT23 | BIT22, 2);
 		ODM_SetBBReg(pDM_Odm, 0x814, bMaskDWord, 0x04cc4d10);
 		ODM_SetBBReg(pDM_Odm, 0xc8c, BIT23 | BIT22, 3);
 		ODM_SetBBReg(pDM_Odm, 0xc30, 0xf, 0xa);
 		ODM_SetBBReg(pDM_Odm, 0xcdc, 0xf0000, 4);
-	} else if (pDM_Odm->SupportICType & ODM_RTL8821) {
+	} else if (pDM_Odm->SupportICType & ODM_TLL8821) {
 		ODM_SetBBReg(pDM_Odm, 0x814, 0x3fffffff, 0x04cc4d10);
 		ODM_SetBBReg(pDM_Odm, 0x834, bMaskByte0, 0x06);
 		ODM_SetBBReg(pDM_Odm, 0x918, bMaskDWord, 0x1c16ecdf);
@@ -407,26 +407,26 @@ BOOLEAN tlw_odm_radar_detect(_adapter *adapter)
 	last_rx_unicast = *(pDM_Odm->pNumRxBytesUnicast);
 
 	if (throughput>>18 > tp_th) {
-		if (pDM_Odm->SupportICType & ODM_RTL8192D)
+		if (pDM_Odm->SupportICType & ODM_TLL8192D)
 			ODM_SetBBReg(pDM_Odm, 0xcdc, BIT8|BIT9, 0);
 		bypass = TRUE;
 	} else {
-		if (pDM_Odm->SupportICType & ODM_RTL8192D)
+		if (pDM_Odm->SupportICType & ODM_TLL8192D)
 			ODM_SetBBReg(pDM_Odm, 0xcdc, BIT8|BIT9, 1);
 	}
 
-	if (pDM_Odm->SupportICType & ODM_RTL8192D) {
+	if (pDM_Odm->SupportICType & ODM_TLL8192D) {
 		if (ODM_GetBBReg(pDM_Odm , 0xc84, BIT25))
 			enable_DFS = TRUE;
-	} else if (pDM_Odm->SupportICType & ODM_RTL8821) {
+	} else if (pDM_Odm->SupportICType & ODM_TLL8821) {
 		if (ODM_GetBBReg(pDM_Odm , 0x924, BIT15))
 			enable_DFS = TRUE;
 	}
 
-	if (pDM_Odm->SupportICType & ODM_RTL8192D) {
+	if (pDM_Odm->SupportICType & ODM_TLL8192D) {
 		if (ODM_GetBBReg(pDM_Odm , 0xcf8, BIT23))
 			radar_detected = TRUE;
-	} else if (pDM_Odm->SupportICType & ODM_RTL8821) {
+	} else if (pDM_Odm->SupportICType & ODM_TLL8821) {
 		if (ODM_GetBBReg(pDM_Odm , 0xf98, BIT17))
 			radar_detected = TRUE;
 	}

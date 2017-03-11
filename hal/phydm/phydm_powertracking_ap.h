@@ -42,7 +42,7 @@
 #define IQK_MAC_REG_NUM		4
 #define IQK_ADDA_REG_NUM		16
 #define IQK_BB_REG_NUM_MAX	10
-#if (RTL8192D_SUPPORT==1) 
+#if (TLL8192D_SUPPORT==1) 
 #define IQK_BB_REG_NUM		10
 #else
 #define IQK_BB_REG_NUM		9
@@ -92,7 +92,7 @@ extern	u1Byte CCKSwingTable_Ch14_92E[CCK_TABLE_SIZE_92E][8];
 #define	OFDM_TABLE_SIZE_8812 	43
 #define	AVG_THERMAL_NUM_8812	4
 
-#if(RTL8814A_SUPPORT == 1)
+#if(TLL8814A_SUPPORT == 1)
 extern u4Byte TxScalingTable_Jaguar[TXSCALE_TABLE_SIZE];
 #elif(ODM_IC_11AC_SERIES_SUPPORT)
 extern unsigned int OFDMSwingTable_8812[OFDM_TABLE_SIZE_8812];

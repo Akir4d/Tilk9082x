@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9082ES_LED_C_
+#define _TLL9082ES_LED_C_
 
 #include "drv_types.h"
 #include "ttl9083e_hal.h"

@@ -81,19 +81,19 @@
 #define REG_FSISR						0x0054
 #define REG_HSIMR						0x0058
 #define REG_HSISR						0x005c
-#define REG_GPIO_PIN_CTRL_2			0x0060 // RTL8723 WIFI/BT/GPS Multi-Function GPIO Pin Control.
-#define REG_GPIO_IO_SEL_2				0x0062 // RTL8723 WIFI/BT/GPS Multi-Function GPIO Select.
-#define REG_MULTI_FUNC_CTRL			0x0068 // RTL8723 WIFI/BT/GPS Multi-Function control source.
+#define REG_GPIO_PIN_CTRL_2			0x0060 // TLL8723 WIFI/BT/GPS Multi-Function GPIO Pin Control.
+#define REG_GPIO_IO_SEL_2				0x0062 // TLL8723 WIFI/BT/GPS Multi-Function GPIO Select.
+#define REG_MULTI_FUNC_CTRL			0x0068 // TLL8723 WIFI/BT/GPS Multi-Function control source.
 #define REG_GSSR						0x006c
-#define REG_AFE_XTAL_CTRL_EXT			0x0078 //RTL9083E
-#define REG_XCK_OUT_CTRL				0x007c //RTL9083E
+#define REG_AFE_XTAL_CTRL_EXT			0x0078 //TLL9083E
+#define REG_XCK_OUT_CTRL				0x007c //TLL9083E
 #define REG_MCUFWDL					0x0080
-#define REG_WOL_EVENT					0x0081 //RTL9083E
+#define REG_WOL_EVENT					0x0081 //TLL9083E
 #define REG_MCUTSTCFG					0x0084
 #define REG_FDHM0						0x0088
-#define REG_HOST_SUSP_CNT				0x00BC	// RTL8192C Host suspend counter on FPGA platform
+#define REG_HOST_SUSP_CNT				0x00BC	// TLL8192C Host suspend counter on FPGA platform
 #define REG_SYSTEM_ON_CTRL			0x00CC	// For 8723AE Reset after S3
-#define REG_EFUSE_ACCESS				0x00CF	// Efuse access protection for RTL8723
+#define REG_EFUSE_ACCESS				0x00CF	// Efuse access protection for TLL8723
 #define REG_BIST_SCAN					0x00D0
 #define REG_BIST_RPT					0x00D4
 #define REG_BIST_ROM_RPT				0x00D8
@@ -102,7 +102,7 @@
 #define REG_PCIE_MIO_INTD				0x00E8
 #define REG_HPON_FSM					0x00EC
 #define REG_SYS_CFG						0x00F0
-#define REG_GPIO_OUTSTS				0x00F4	// For RTL8723 only.
+#define REG_GPIO_OUTSTS				0x00F4	// For TLL8723 only.
 #define REG_TYPE_ID						0x00FC
 
 //
@@ -131,7 +131,7 @@
 #define REG_FWIMR						0x0130
 #define REG_FWISR						0x0134
 #define REG_FTIMR						0x0138
-#define REG_FTISR						0x013C //RTL8192C
+#define REG_FTISR						0x013C //TLL8192C
 #define REG_PKTBUF_DBG_CTRL			0x0140
 #define REG_RXPKTBUF_CTRL				(REG_PKTBUF_DBG_CTRL+2)
 #define REG_PKTBUF_DBG_DATA_L			0x0144
@@ -146,7 +146,7 @@
 #define REG_MBIST_START				0x0174
 #define REG_MBIST_DONE					0x0178
 #define REG_MBIST_FAIL					0x017C
-#define REG_32K_CTRL					0x0194 //RTL9083E
+#define REG_32K_CTRL					0x0194 //TLL9083E
 #define REG_C2HEVT_MSG_NORMAL		0x01A0
 #define REG_C2HEVT_CLEAR				0x01AF
 #define REG_MCUTST_1					0x01c0
@@ -214,7 +214,7 @@
 #define REG_WATCH_DOG					0x0368
 #define REG_RX_RXBD_NUM					0x0382
 
-// RTL8723 series -------------------------------
+// TLL8723 series -------------------------------
 #define REG_PCIE_HISR_EN				0x0394	/* PCIE Local Interrupt Enable Register */
 #define REG_PCIE_HISR					0x03A0
 #define REG_PCIE_HISRE					0x03A4
@@ -525,7 +525,7 @@
 #define REG_NORMAL_SIE_EP				0xFE65		// 0xFE65~0xFE67
 #define REG_NORMAL_SIE_PHY			0xFE68		// 0xFE68~0xFE6B
 #define REG_NORMAL_SIE_OPTIONAL2		0xFE6C
-#define REG_NORMAL_SIE_GPS_EP			0xFE6D		// 0xFE6D, for RTL8723 only.
+#define REG_NORMAL_SIE_GPS_EP			0xFE6D		// 0xFE6D, for TLL8723 only.
 #define REG_NORMAL_SIE_MAC_ADDR		0xFE70		// 0xFE70~0xFE75
 #define REG_NORMAL_SIE_STRING			0xFE80		// 0xFE80~0xFEDF
 
@@ -1051,7 +1051,7 @@ Current IOREG MAP
 	//		 8192C (TXPAUSE) transmission pause 	(Offset 0x522, 8 bits)
 	//----------------------------------------------------------------------------
 // Note:
-//	The the bits of stoping AC(VO/VI/BE/BK) queue in datasheet RTL8192S/RTL8192C are wrong,
+//	The the bits of stoping AC(VO/VI/BE/BK) queue in datasheet TLL8192S/TLL8192C are wrong,
 //	the correct arragement is VO - Bit0, VI - Bit1, BE - Bit2, and BK - Bit3.
 //	8723 and 88E may be not correct either in the eralier version. Confirmed with DD Tim.
 // By Bruce, 2011-09-22.
@@ -1195,7 +1195,7 @@ Current IOREG MAP
 
 
 
-//2 EFUSE_TEST (For RTL8723 partially)
+//2 EFUSE_TEST (For TLL8723 partially)
 #define EF_TRPT					BIT(7)
 #define EF_CELL_SEL				(BIT(8)|BIT(9)) // 00: Wifi Efuse, 01: BT Efuse0, 10: BT Efuse1, 11: BT Efuse2
 #define LDOE25_EN				BIT(31)
@@ -1237,24 +1237,24 @@ Current IOREG MAP
 #define CHIP_VER				(BIT(12)|BIT(13)|BIT(14)|BIT(15))
 #define BT_FUNC					BIT(16)
 #define VENDOR_ID				BIT(19)
-#define EXT_VENDOR_ID			(BIT(18)|BIT(19)) //Currently only for RTL8723B
+#define EXT_VENDOR_ID			(BIT(18)|BIT(19)) //Currently only for TLL8723B
 #define PAD_HWPD_IDN			BIT(22)
-#define TRP_VAUX_EN				BIT(23)	// RTL ID
+#define TRP_VAUX_EN				BIT(23)	// TLL ID
 #define TRP_BT_EN				BIT(24)
 #define BD_PKG_SEL				BIT(25)
 #define BD_HCI_SEL				BIT(26)
 #define TYPE_ID					BIT(27)
 #define RF_TYPE_ID				BIT(27)
 
-#define RTL_ID					BIT(23) // TestChip ID, 1:Test(RLE); 0:MP(RL)
+#define TLL_ID					BIT(23) // TestChip ID, 1:Test(RLE); 0:MP(RL)
 #define SPS_SEL					BIT(24) // 1:LDO regulator mode; 0:Switching regulator mode
 
 
-#define CHIP_VER_RTL_MASK		0xF000	//Bit 12 ~ 15
-#define CHIP_VER_RTL_SHIFT		12
+#define CHIP_VER_TLL_MASK		0xF000	//Bit 12 ~ 15
+#define CHIP_VER_TLL_SHIFT		12
 #define EXT_VENDOR_ID_SHIFT	18
 
-//2 REG_GPIO_OUTSTS (For RTL8723 only)
+//2 REG_GPIO_OUTSTS (For TLL8723 only)
 #define EFS_HCI_SEL				(BIT(0)|BIT(1))
 #define PAD_HCI_SEL				(BIT(2)|BIT(3))
 #define HCI_SEL					(BIT(4)|BIT(5)) 
@@ -1614,7 +1614,7 @@ Current IOREG MAP
 
 #define SDIO_HIMR_DISABLED			0
 
-// RTL8723/RTL9083E SDIO Host Interrupt Mask Register
+// TLL8723/TLL9083E SDIO Host Interrupt Mask Register
 #define SDIO_HIMR_RX_REQUEST_MSK		BIT0
 #define SDIO_HIMR_AVAL_MSK			BIT1
 #define SDIO_HIMR_TXERR_MSK			BIT2
@@ -1636,7 +1636,7 @@ Current IOREG MAP
 #define SDIO_HIMR_ATIMEND_E_MSK		BIT26
 #define SDIO_HIMR_CTWEND_MSK			BIT27
 
-//RTL9083E SDIO Specific
+//TLL9083E SDIO Specific
 #define SDIO_HIMR_MCU_ERR_MSK			BIT28
 #define SDIO_HIMR_TSF_BIT32_TOGGLE_MSK		BIT29
 
@@ -1662,7 +1662,7 @@ Current IOREG MAP
 #define SDIO_HISR_ATIMEND_E			BIT26
 #define SDIO_HISR_CTWEND				BIT27
 
-//RTL9083E SDIO Specific
+//TLL9083E SDIO Specific
 #define SDIO_HISR_MCU_ERR				BIT28
 #define SDIO_HISR_TSF_BIT32_TOGGLE	BIT29
 
@@ -1722,7 +1722,7 @@ Current IOREG MAP
 #define C2H_EVT_FW_CLOSE		0xFF	// Set by FW indicating that FW had set the C2H command message and it's not yet read by driver.
 
 
-//2REG_MULTI_FUNC_CTRL(For RTL8723 Only)
+//2REG_MULTI_FUNC_CTRL(For TLL8723 Only)
 #define WL_HWPDN_EN			BIT0	// Enable GPIO[9] as WiFi HW PDn source
 #define WL_HWPDN_SL			BIT1	// WiFi HW PDn polarity control
 #define WL_FUNC_EN				BIT2	// WiFi function enable
@@ -1764,7 +1764,7 @@ Current IOREG MAP
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_9083F		255
 
 #define POLLING_LLT_THRESHOLD				20
-#if defined(CONFIG_RTL8723B) && defined(CONFIG_PCI_HCI)
+#if defined(CONFIG_TLL8723B) && defined(CONFIG_PCI_HCI)
 #define POLLING_READY_TIMEOUT_COUNT		6000
 #else
 #define POLLING_READY_TIMEOUT_COUNT		1000

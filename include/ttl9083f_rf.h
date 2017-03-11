@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083F_RF_H__
-#define __RTL9083F_RF_H__
+#ifndef __TLL9083F_RF_H__
+#define __TLL9083F_RF_H__
 
 int	PHY_RF6052_Config9083F(	IN	PADAPTER		Adapter	);
 

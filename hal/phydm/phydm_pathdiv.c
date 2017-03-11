@@ -25,7 +25,7 @@
 #include "phydm_precomp.h"
 
 #if(defined(CONFIG_PATH_DIVERSITY))
-#if RTL8814A_SUPPORT
+#if TLL8814A_SUPPORT
 
 VOID
 phydm_dtp_fix_tx_path(
@@ -590,8 +590,8 @@ phydm_process_rssi_for_path_div(
 		{
 			if(pDM_PathDiv->path_div_type == PHYDM_4R_PATH_DIV)
 			{
-				#if RTL8814A_SUPPORT
-				if(pDM_Odm->SupportICType & ODM_RTL8814A)
+				#if TLL8814A_SUPPORT
+				if(pDM_Odm->SupportICType & ODM_TLL8814A)
 				{
 					pDM_PathDiv->path_a_sum_all+=pPhyInfo->RxMIMOSignalStrength[0];
 					pDM_PathDiv->path_a_cnt_all++;
@@ -621,7 +621,7 @@ phydm_process_rssi_for_path_div(
 	
 }
 
-#endif //#if RTL8814A_SUPPORT
+#endif //#if TLL8814A_SUPPORT
 
 VOID
 odm_pathdiv_debug(
@@ -707,15 +707,15 @@ odm_PathDiversity(
 		return;
 	}
 
-	#if RTL8812A_SUPPORT
+	#if TLL8812A_SUPPORT
 
-	if(pDM_Odm->SupportICType & ODM_RTL8812)
+	if(pDM_Odm->SupportICType & ODM_TLL8812)
 			ODM_PathDiversity_8812A(pDM_Odm);
 		else
 	#endif
 
-	#if RTL8814A_SUPPORT
-		if(pDM_Odm->SupportICType & ODM_RTL8814A)
+	#if TLL8814A_SUPPORT
+		if(pDM_Odm->SupportICType & ODM_TLL8814A)
 			phydm_dynamic_tx_path(pDM_Odm);
 		else
 	#endif
@@ -742,14 +742,14 @@ odm_PathDiversityInit(
 		return;
 	}
 
-#if RTL8812A_SUPPORT
-		if(pDM_Odm->SupportICType & ODM_RTL8812)
+#if TLL8812A_SUPPORT
+		if(pDM_Odm->SupportICType & ODM_TLL8812)
 			ODM_PathDiversityInit_8812A(pDM_Odm);
 		else
 	#endif
 
-	#if RTL8814A_SUPPORT
-		if(pDM_Odm->SupportICType & ODM_RTL8814A)
+	#if TLL8814A_SUPPORT
+		if(pDM_Odm->SupportICType & ODM_TLL8814A)
 			phydm_dynamic_tx_path_init(pDM_Odm);
 		else
 	#endif	
@@ -763,7 +763,7 @@ odm_PathDiversityInit(
 //
 // 2011/12/02 MH Copy from MP oursrc for temporarily test.
 //
-#if RTL8192C_SUPPORT
+#if TLL8192C_SUPPORT
 BOOLEAN
 odm_IsConnected_92C(
 	IN	PADAPTER	Adapter
@@ -1530,7 +1530,7 @@ odm_PathDivChkAntSwitch(
 	}
 
 	// Condition that does not need to use antenna diversity.
-	if(pDM_Odm->SupportICType != ODM_RTL8192D)
+	if(pDM_Odm->SupportICType != ODM_TLL8192D)
 	{
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_PATH_DIV, ODM_DBG_LOUD, ("odm_PathDiversityMechanims(): No PathDiv Mechanism.\n"));
 		return;

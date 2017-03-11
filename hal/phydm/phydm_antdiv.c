@@ -47,7 +47,7 @@ ODM_SetAntConfig(
 	)
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
-	if(pDM_Odm->SupportICType == ODM_RTL8723B)
+	if(pDM_Odm->SupportICType == ODM_TLL8723B)
 	{
 		if(antSetting == 0)		// ant A
 			ODM_SetBBReg(pDM_Odm, 0x948, bMaskDWord, 0x00000000);
@@ -69,7 +69,7 @@ ODM_SwAntDivRestAfterLink(
 	pFAT_T		pDM_FatTable = &pDM_Odm->DM_FatTable;
 	u4Byte             i;
 
-	if(pDM_Odm->SupportICType == ODM_RTL8723A)
+	if(pDM_Odm->SupportICType == ODM_TLL8723A)
 	{
 	    pDM_SWAT_Table->RSSI_cnt_A = 0;
 	    pDM_SWAT_Table->RSSI_cnt_B = 0;
@@ -79,7 +79,7 @@ ODM_SwAntDivRestAfterLink(
 	    pDM_SWAT_Table->SelectAntennaMap=0xAA;
 	
 	}
-	else if(pDM_Odm->SupportICType & (ODM_RTL8723B|ODM_RTL8821))
+	else if(pDM_Odm->SupportICType & (ODM_TLL8723B|ODM_TLL8821))
 	{
 		pDM_Odm->RSSI_test = FALSE;
 		pDM_SWAT_Table->try_flag = 0xff;
@@ -124,13 +124,13 @@ odm_AntDiv_on_off(
 		else if(pDM_Odm->SupportICType & ODM_AC_ANTDIV_SUPPORT)
 		{
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("(( Turn %s )) AC-Series HW-AntDiv block\n",(swch==ANTDIV_ON)?"ON" : "OFF"));
-			if (pDM_Odm->SupportICType == ODM_RTL8812) {
+			if (pDM_Odm->SupportICType == ODM_TLL8812) {
 				ODM_SetBBReg(pDM_Odm, 0xc50 , BIT7, swch); //OFDM AntDiv function block enable
 				ODM_SetBBReg(pDM_Odm, 0xa00 , BIT15, swch); //CCK AntDiv function block enable
 			} else {
 				ODM_SetBBReg(pDM_Odm, 0x8D4 , BIT24, swch); //OFDM AntDiv function block enable
 				
-				if( (pDM_Odm->CutVersion >= ODM_CUT_C) && (pDM_Odm->SupportICType == ODM_RTL8821) && ( pDM_Odm->AntDivType != S0S1_SW_ANTDIV))
+				if( (pDM_Odm->CutVersion >= ODM_CUT_C) && (pDM_Odm->SupportICType == ODM_TLL8821) && ( pDM_Odm->AntDivType != S0S1_SW_ANTDIV))
 				{
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("(( Turn %s )) CCK HW-AntDiv block\n",(swch==ANTDIV_ON)?"ON" : "OFF"));
 					ODM_SetBBReg(pDM_Odm, 0x800 , BIT25, swch); 
@@ -157,12 +157,12 @@ odm_FastTraining_enable(
 	else
 		enable=0;
 
-	if(pDM_Odm->SupportICType == ODM_RTL9083E)
+	if(pDM_Odm->SupportICType == ODM_TLL9083E)
 	{
            
             ODM_SetBBReg(pDM_Odm, 0xe08 , BIT16, enable);	//enable fast training
         }
-        else if(pDM_Odm->SupportICType == ODM_RTL8192E)
+        else if(pDM_Odm->SupportICType == ODM_TLL8192E)
         {
 	    ODM_SetBBReg(pDM_Odm, 0xB34 , BIT28, enable);	//enable fast training (path-A)
 	    //ODM_SetBBReg(pDM_Odm, 0xB34 , BIT29, enable);	//enable fast training (path-B)
@@ -215,7 +215,7 @@ ODM_UpdateRxIdleAnt(
 	{
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[ Update Rx-Idle-Ant ] RxIdleAnt =%s\n",(Ant==MAIN_ANT)?"MAIN_ANT":"AUX_ANT"));
 
-		if(!(pDM_Odm->SupportICType & ODM_RTL8723B))
+		if(!(pDM_Odm->SupportICType & ODM_TLL8723B))
                 	pDM_FatTable->RxIdleAnt = Ant;
 
 		if(Ant == MAIN_ANT)
@@ -231,14 +231,14 @@ ODM_UpdateRxIdleAnt(
 	
 		if(pDM_Odm->SupportICType & ODM_N_ANTDIV_SUPPORT)
 		{
-			if(pDM_Odm->SupportICType==ODM_RTL8192E)
+			if(pDM_Odm->SupportICType==ODM_TLL8192E)
 			{
 				ODM_SetBBReg(pDM_Odm, 0xB38 , BIT5|BIT4|BIT3, DefaultAnt); //Default RX
 				ODM_SetBBReg(pDM_Odm, 0xB38 , BIT8|BIT7|BIT6, OptionalAnt);//Optional RX
 				ODM_SetBBReg(pDM_Odm, 0x860, BIT14|BIT13|BIT12, DefaultAnt);//Default TX	
 			}
-			#if (RTL8723B_SUPPORT == 1)
-			else if(pDM_Odm->SupportICType==ODM_RTL8723B)
+			#if (TLL8723B_SUPPORT == 1)
+			else if(pDM_Odm->SupportICType==ODM_TLL8723B)
 			{
 				value32 = ODM_GetBBReg(pDM_Odm, 0x948, 0xFFF);
 			
@@ -274,7 +274,7 @@ ODM_UpdateRxIdleAnt(
 			*/
 		}
 
-		if(pDM_Odm->SupportICType==ODM_RTL9083E)
+		if(pDM_Odm->SupportICType==ODM_TLL9083E)
 		{		
 			ODM_SetMACReg(pDM_Odm, 0x6D8 , BIT7|BIT6, DefaultAnt);	//PathA Resp Tx
 		}
@@ -342,12 +342,12 @@ odm_BDC_Init(
 	pDM_BdcTable->BDCcoexType_wBfer=0;
 	pDM_Odm->bdc_holdstate=0xff;
 	
-	if(pDM_Odm->SupportICType == ODM_RTL8192E)
+	if(pDM_Odm->SupportICType == ODM_TLL8192E)
 	{
 		ODM_SetBBReg(pDM_Odm, 0xd7c , 0x0FFFFFFF, 0x1081008); 
 		ODM_SetBBReg(pDM_Odm, 0xd80 , 0x0FFFFFFF, 0); 
 	}
-	else if(pDM_Odm->SupportICType == ODM_RTL8812)
+	else if(pDM_Odm->SupportICType == ODM_TLL8812)
 	{
 		ODM_SetBBReg(pDM_Odm, 0x9b0 , 0x0FFFFFFF, 0x1081008);     //0x9b0[30:0] = 01081008
 		ODM_SetBBReg(pDM_Odm, 0x9b4 , 0x0FFFFFFF, 0);                 //0x9b4[31:0] = 00000000
@@ -365,11 +365,11 @@ odm_CSI_on_off(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	if(CSI_en==CSI_ON)
 	{
-		if(pDM_Odm->SupportICType == ODM_RTL8192E)
+		if(pDM_Odm->SupportICType == ODM_TLL8192E)
 		{
 			ODM_SetMACReg(pDM_Odm, 0xd84 , BIT11, 1);  //0xd84[11]=1
 		}
-		else if(pDM_Odm->SupportICType == ODM_RTL8812)
+		else if(pDM_Odm->SupportICType == ODM_TLL8812)
 		{
 			ODM_SetMACReg(pDM_Odm, 0x9b0 , BIT31, 1);  //0x9b0[31]=1
 		}
@@ -377,11 +377,11 @@ odm_CSI_on_off(
 	}
 	else if(CSI_en==CSI_OFF)
 	{
-		if(pDM_Odm->SupportICType == ODM_RTL8192E)
+		if(pDM_Odm->SupportICType == ODM_TLL8192E)
 		{
 			ODM_SetMACReg(pDM_Odm, 0xd84 , BIT11, 0);  //0xd84[11]=0
 		}
-		else if(pDM_Odm->SupportICType == ODM_RTL8812)
+		else if(pDM_Odm->SupportICType == ODM_TLL8812)
 		{
 			ODM_SetMACReg(pDM_Odm, 0x9b0 , BIT31, 0);  //0x9b0[31]=0
 		}
@@ -797,7 +797,7 @@ odm_BDCcoex_BFeeRxDiv_Arbitration(
 #endif //#ifdef BEAMFORMING_SUPPORT
 
 
-#if (RTL9083E_SUPPORT == 1)
+#if (TLL9083E_SUPPORT == 1)
 
 
 VOID
@@ -997,10 +997,10 @@ odm_Smart_HWAntDiv_Init_88E(
 }
 #endif
 
-#endif //#if (RTL9083E_SUPPORT == 1)
+#endif //#if (TLL9083E_SUPPORT == 1)
 
 
-#if (RTL8192E_SUPPORT == 1)
+#if (TLL8192E_SUPPORT == 1)
 VOID
 odm_RX_HWAntDiv_Init_92E(
 	IN		PVOID		pDM_VOID
@@ -1137,10 +1137,10 @@ odm_Smart_HWAntDiv_Init_92E(
 }
 #endif
 
-#endif //#if (RTL8192E_SUPPORT == 1)
+#endif //#if (TLL8192E_SUPPORT == 1)
 
 
-#if (RTL8723B_SUPPORT == 1)
+#if (TLL8723B_SUPPORT == 1)
 VOID
 odm_TRX_HWAntDiv_Init_8723B(
 	IN		PVOID		pDM_VOID
@@ -1327,7 +1327,7 @@ ODM_UpdateRxIdleAnt_8723B(
 	ODM_FillH2CCmd(pDM_Odm, ODM_H2C_WIFI_CALIBRATION, 1, &H2C_Parameter);
 
 }
-#else /*#if (RTL8723B_SUPPORT == 1)*/
+#else /*#if (TLL8723B_SUPPORT == 1)*/
 VOID
 ODM_UpdateRxIdleAnt_8723B(
 	IN		PVOID			pDM_VOID,
@@ -1336,9 +1336,9 @@ ODM_UpdateRxIdleAnt_8723B(
 	IN		u4Byte			OptionalAnt
 	){}
 
-#endif //#if (RTL8723B_SUPPORT == 1)
+#endif //#if (TLL8723B_SUPPORT == 1)
 
-#if (RTL8821A_SUPPORT == 1)
+#if (TLL8821A_SUPPORT == 1)
 VOID
 odm_TRX_HWAntDiv_Init_8821A(
 	IN		PVOID		pDM_VOID
@@ -1456,9 +1456,9 @@ odm_S0S1_SWAntDiv_Init_8821A(
 	pDM_SWAT_Table->SWAS_NoLink_State = 0;
 
 }
-#endif //#if (RTL8821A_SUPPORT == 1)
+#endif //#if (TLL8821A_SUPPORT == 1)
 
-#if (RTL8881A_SUPPORT == 1)
+#if (TLL8881A_SUPPORT == 1)
 VOID
 odm_RX_HWAntDiv_Init_8881A(
 	IN		PVOID		pDM_VOID
@@ -1509,10 +1509,10 @@ odm_TRX_HWAntDiv_Init_8881A(
 	ODM_SetBBReg(pDM_Odm, 0x900 , BIT18, 0); //TX Ant  by Reg //  A-cut bug
 }
 
-#endif //#if (RTL8881A_SUPPORT == 1)
+#endif //#if (TLL8881A_SUPPORT == 1)
 
 
-#if (RTL8812A_SUPPORT == 1)
+#if (TLL8812A_SUPPORT == 1)
 VOID
 odm_TRX_HWAntDiv_Init_8812A(
 	IN		PVOID		pDM_VOID
@@ -1555,7 +1555,7 @@ odm_TRX_HWAntDiv_Init_8812A(
 	
 }
 
-#endif //#if (RTL8812A_SUPPORT == 1)
+#endif //#if (TLL8812A_SUPPORT == 1)
 
 
 
@@ -1903,20 +1903,20 @@ odm_HW_AntDiv(
 			odm_AntDiv_on_off(pDM_Odm, ANTDIV_ON);
 			odm_Tx_By_TxDesc_or_Reg(pDM_Odm , TX_BY_DESC);
 			
-			//if(pDM_Odm->SupportICType == ODM_RTL8821 )
+			//if(pDM_Odm->SupportICType == ODM_TLL8821 )
 				//ODM_SetBBReg(pDM_Odm, 0x800 , BIT25, 0); //CCK AntDiv function disable
 				
 			//#if(DM_ODM_SUPPORT_TYPE  == ODM_AP)
-			//else if(pDM_Odm->SupportICType == ODM_RTL8881A)
+			//else if(pDM_Odm->SupportICType == ODM_TLL8881A)
 			//	ODM_SetBBReg(pDM_Odm, 0x800 , BIT25, 0); //CCK AntDiv function disable
 			//#endif
 			
-			//else if(pDM_Odm->SupportICType == ODM_RTL8723B ||pDM_Odm->SupportICType == ODM_RTL8812)
+			//else if(pDM_Odm->SupportICType == ODM_TLL8723B ||pDM_Odm->SupportICType == ODM_TLL8812)
 				//ODM_SetBBReg(pDM_Odm, 0xA00 , BIT15, 0); //CCK AntDiv function disable
 			
 			pDM_FatTable->bBecomeLinked = pDM_Odm->bLinked;
 
-			if(pDM_Odm->SupportICType==ODM_RTL8723B && pDM_Odm->AntDivType == CG_TRX_HW_ANTDIV)
+			if(pDM_Odm->SupportICType==ODM_TLL8723B && pDM_Odm->AntDivType == CG_TRX_HW_ANTDIV)
 			{
 				ODM_SetBBReg(pDM_Odm, 0x930 , 0xF0, 8); // DPDT_P = ANTSEL[0]   // for 8723B AntDiv function patch.  BB  Dino  130412	
 				ODM_SetBBReg(pDM_Odm, 0x930 , 0xF, 8); // DPDT_N = ANTSEL[0]
@@ -2162,7 +2162,7 @@ odm_HW_AntDiv(
 
 
 
-#if (RTL8723B_SUPPORT == 1)||(RTL8821A_SUPPORT == 1)
+#if (TLL8723B_SUPPORT == 1)||(TLL8821A_SUPPORT == 1)
 VOID
 odm_S0S1_SwAntDiv(
 	IN		PVOID			pDM_VOID,	
@@ -2190,7 +2190,7 @@ odm_S0S1_SwAntDiv(
 		if(pDM_FatTable->bBecomeLinked == TRUE)
 		{
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("Set REG 948[9:6]=0x0 \n"));
-			if(pDM_Odm->SupportICType == ODM_RTL8723B)
+			if(pDM_Odm->SupportICType == ODM_TLL8723B)
 				ODM_SetBBReg(pDM_Odm, 0x948 , BIT9|BIT8|BIT7|BIT6, 0x0); 
 			
 			pDM_FatTable->bBecomeLinked = pDM_Odm->bLinked;
@@ -2203,7 +2203,7 @@ odm_S0S1_SwAntDiv(
 		{
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[Linked !!!]\n"));
 			
-			if(pDM_Odm->SupportICType == ODM_RTL8723B)
+			if(pDM_Odm->SupportICType == ODM_TLL8723B)
 			{
 				value32 = ODM_GetBBReg(pDM_Odm, 0x864, BIT5|BIT4|BIT3);
 				
@@ -2771,7 +2771,7 @@ odm_S0S1_SwAntDivByCtrlFrame_ProcessRSSI(
 #endif  //#if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 
 
-#endif //#if (RTL8723B_SUPPORT == 1)||(RTL8821A_SUPPORT == 1)
+#endif //#if (TLL8723B_SUPPORT == 1)||(TLL8821A_SUPPORT == 1)
 
 
 #if( defined(CONFIG_5G_CG_SMART_ANT_DIVERSITY) ) ||( defined(CONFIG_2G_CG_SMART_ANT_DIVERSITY) )
@@ -2888,7 +2888,7 @@ odm_FastAntTraining(
 	u4Byte	MaxRSSI_pathA=0, Pckcnt_pathA=0;
 	u1Byte	i,TargetAnt_pathA=0;
 	BOOLEAN	bPktFilterMacth_pathA = FALSE;
-	#if(RTL8192E_SUPPORT == 1)
+	#if(TLL8192E_SUPPORT == 1)
 	u4Byte	MaxRSSI_pathB=0, Pckcnt_pathB=0;
 	u1Byte	TargetAnt_pathB=0;
 	BOOLEAN	bPktFilterMacth_pathB = FALSE;
@@ -2919,12 +2919,12 @@ odm_FastAntTraining(
 	}
 
 		
-        if(pDM_Odm->SupportICType == ODM_RTL9083E)
+        if(pDM_Odm->SupportICType == ODM_TLL9083E)
 	{
            ODM_SetBBReg(pDM_Odm, 0x864 , BIT2|BIT1|BIT0, ((pDM_Odm->fat_comb_a)-1));
         }
-	#if(RTL8192E_SUPPORT == 1)
-        else if(pDM_Odm->SupportICType == ODM_RTL8192E)
+	#if(TLL8192E_SUPPORT == 1)
+        else if(pDM_Odm->SupportICType == ODM_TLL8192E)
         {
            ODM_SetBBReg(pDM_Odm, 0xB38 , BIT2|BIT1|BIT0, ((pDM_Odm->fat_comb_a)-1) );	   //path-A  // ant combination=regB38[2:0]+1
 	   ODM_SetBBReg(pDM_Odm, 0xB38 , BIT18|BIT17|BIT16, ((pDM_Odm->fat_comb_b)-1) );  //path-B  // ant combination=regB38[18:16]+1
@@ -2970,7 +2970,7 @@ odm_FastAntTraining(
 
 
 		/*
-		#if(RTL8192E_SUPPORT == 1)
+		#if(TLL8192E_SUPPORT == 1)
 		//3 [path-B]---------------------------
 		for (i=0; i<(pDM_Odm->fat_comb_b); i++)
 		{
@@ -3022,11 +3022,11 @@ odm_FastAntTraining(
 			ODM_RT_TRACE("TargetAnt_pathA = (( %d )) , MaxRSSI_pathA = (( %d )) \n",TargetAnt_pathA,MaxRSSI_pathA);
 
 			//3 [ update RX-optional ant ]        Default RX is Omni, Optional RX is the best decision by FAT
-			if(pDM_Odm->SupportICType == ODM_RTL9083E)
+			if(pDM_Odm->SupportICType == ODM_TLL9083E)
 			{
 				ODM_SetBBReg(pDM_Odm, 0x864 , BIT8|BIT7|BIT6, TargetAnt_pathA);	
 			}
-			else if(pDM_Odm->SupportICType == ODM_RTL8192E)
+			else if(pDM_Odm->SupportICType == ODM_TLL8192E)
 			{
 				ODM_SetBBReg(pDM_Odm, 0xB38 , BIT8|BIT7|BIT6, TargetAnt_pathA);//Optional RX [pth-A]
 			}
@@ -3037,7 +3037,7 @@ odm_FastAntTraining(
 				odm_AntDiv_on_off(pDM_Odm, ANTDIV_OFF);
 		}
 		/*
-		#if(RTL8192E_SUPPORT == 1)
+		#if(TLL8192E_SUPPORT == 1)
 		//3 [path-B]---------------------------
 		if(bPktFilterMacth_pathB == FALSE)
 		{
@@ -3068,7 +3068,7 @@ odm_FastAntTraining(
 			pDM_FatTable->antRSSIcnt[i] = 0;
 		}
 		/*
-		#if(RTL8192E_SUPPORT == 1)
+		#if(TLL8192E_SUPPORT == 1)
 		for(i=0; i<=(pDM_Odm->fat_comb_b); i++)
 		{
 			pDM_FatTable->antSumRSSI_pathB[i] = 0;
@@ -3209,9 +3209,9 @@ ODM_AntDivInit(
 
 		
 	//2 [--88E---]
-	if(pDM_Odm->SupportICType == ODM_RTL9083E)
+	if(pDM_Odm->SupportICType == ODM_TLL9083E)
 	{
-	#if (RTL9083E_SUPPORT == 1)
+	#if (TLL9083E_SUPPORT == 1)
 		//pDM_Odm->AntDivType = CGCS_RX_HW_ANTDIV;
 		//pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
 		//pDM_Odm->AntDivType = CG_TRX_SMART_ANTDIV;
@@ -3235,8 +3235,8 @@ ODM_AntDivInit(
 	}
 	
 	//2 [--92E---]
-	#if (RTL8192E_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8192E)
+	#if (TLL8192E_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8192E)
 	{	
 		//pDM_Odm->AntDivType = CGCS_RX_HW_ANTDIV;
 		//pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
@@ -3262,8 +3262,8 @@ ODM_AntDivInit(
 	#endif	
 	
 	//2 [--8723B---]
-	#if (RTL8723B_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8723B)
+	#if (TLL8723B_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8723B)
 	{		
 		//pDM_Odm->AntDivType = S0S1_SW_ANTDIV;
 		//pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
@@ -3283,8 +3283,8 @@ ODM_AntDivInit(
 	#endif
 	
 	//2 [--8811A 8821A---]
-	#if (RTL8821A_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8821)
+	#if (TLL8821A_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8821)
 	{
 		//pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
 		pDM_Odm->AntDivType = S0S1_SW_ANTDIV;
@@ -3303,8 +3303,8 @@ ODM_AntDivInit(
 	#endif
 	
 	//2 [--8881A---]
-	#if (RTL8881A_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8881A)
+	#if (TLL8881A_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8881A)
 	{
 			//pDM_Odm->AntDivType = CGCS_RX_HW_ANTDIV;
 			//pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
@@ -3323,8 +3323,8 @@ ODM_AntDivInit(
 	#endif
 	
 	//2 [--8812---]
-	#if (RTL8812A_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8812)
+	#if (TLL8812A_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8812)
 	{	
 			//pDM_Odm->AntDivType = CG_TRX_HW_ANTDIV;
 			
@@ -3491,9 +3491,9 @@ ODM_AntDiv(
 	
 	//3 -----------------------------------------------------------------------------------------------------------
 	//2 [--88E---]
-	if(pDM_Odm->SupportICType == ODM_RTL9083E)
+	if(pDM_Odm->SupportICType == ODM_TLL9083E)
 	{
-		#if (RTL9083E_SUPPORT == 1)
+		#if (TLL9083E_SUPPORT == 1)
 		if(pDM_Odm->AntDivType==CG_TRX_HW_ANTDIV ||pDM_Odm->AntDivType==CGCS_RX_HW_ANTDIV)
 			odm_HW_AntDiv(pDM_Odm);
 
@@ -3506,8 +3506,8 @@ ODM_AntDiv(
 
 	}
 	//2 [--92E---]	
-	#if (RTL8192E_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8192E)
+	#if (TLL8192E_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8192E)
 	{
 		if(pDM_Odm->AntDivType==CGCS_RX_HW_ANTDIV || pDM_Odm->AntDivType==CG_TRX_HW_ANTDIV)
 			odm_HW_AntDiv(pDM_Odm);
@@ -3520,9 +3520,9 @@ ODM_AntDiv(
 	}
 	#endif
 
-	#if (RTL8723B_SUPPORT == 1)	
+	#if (TLL8723B_SUPPORT == 1)	
 	//2 [--8723B---]
-	else if(pDM_Odm->SupportICType == ODM_RTL8723B)
+	else if(pDM_Odm->SupportICType == ODM_TLL8723B)
 	{
 		if (pDM_Odm->AntDivType==S0S1_SW_ANTDIV)
 			odm_S0S1_SwAntDiv(pDM_Odm, SWAW_STEP_PEAK);
@@ -3532,8 +3532,8 @@ ODM_AntDiv(
 	#endif
 	
 	//2 [--8821A---]
-	#if (RTL8821A_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8821)
+	#if (TLL8821A_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8821)
 	{
 		if(!pDM_Odm->bBtEnabled)  //BT disabled
 		{
@@ -3565,14 +3565,14 @@ ODM_AntDiv(
 	#endif
 	
 	//2 [--8881A---]
-	#if (RTL8881A_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8881A)		
+	#if (TLL8881A_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8881A)		
 		odm_HW_AntDiv(pDM_Odm);
 	#endif
 	
 	//2 [--8812A---]
-	#if (RTL8812A_SUPPORT == 1)
-	else if(pDM_Odm->SupportICType == ODM_RTL8812)
+	#if (TLL8812A_SUPPORT == 1)
+	else if(pDM_Odm->SupportICType == ODM_TLL8812)
 		odm_HW_AntDiv(pDM_Odm);
 	#endif
 }
@@ -3654,8 +3654,8 @@ ODM_Process_RSSIForAntDiv(
 	CCKMaxRate=ODM_RATE11M;
 	isCCKrate = (pPktinfo->DataRate <= CCKMaxRate)?TRUE:FALSE;
 
-#if ((RTL8192C_SUPPORT == 1) ||(RTL8192D_SUPPORT == 1))
-		if(pDM_Odm->SupportICType & ODM_RTL8192C|ODM_RTL8192D)
+#if ((TLL8192C_SUPPORT == 1) ||(TLL8192D_SUPPORT == 1))
+		if(pDM_Odm->SupportICType & ODM_TLL8192C|ODM_TLL8192D)
 		{
 				if(pPktinfo->bPacketToSelf || pPktinfo->bPacketBeacon)
 				{
@@ -3664,7 +3664,7 @@ ODM_Process_RSSIForAntDiv(
 		}
 #endif
 		
-	if(  (pDM_Odm->SupportICType == ODM_RTL8192E||pDM_Odm->SupportICType == ODM_RTL8812)   && (pPktinfo->DataRate > CCKMaxRate) )
+	if(  (pDM_Odm->SupportICType == ODM_TLL8192E||pDM_Odm->SupportICType == ODM_TLL8812)   && (pPktinfo->DataRate > CCKMaxRate) )
 	{
 		RxPower_Ant0 = pPhyInfo->RxMIMOSignalStrength[0];
 		RxPower_Ant1= pPhyInfo->RxMIMOSignalStrength[1];
@@ -3689,7 +3689,7 @@ ODM_Process_RSSIForAntDiv(
 	{
 		if ((pDM_Odm->SupportICType & ODM_ANTDIV_SUPPORT) && (pPktinfo->bPacketToSelf || pDM_FatTable->use_ctrl_frame_antdiv))
 		{
-			if(pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8192E)
+			if(pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E)
 			{
 				odm_AntselStatistics(pDM_Odm, pDM_FatTable->antsel_rx_keep_0, pPktinfo->StationID,RxPower_Ant0,RSSI_METHOD);
 
@@ -3700,7 +3700,7 @@ ODM_Process_RSSIForAntDiv(
 				}
 				#endif
 			}
-			else// SupportICType == ODM_RTL8821 and ODM_RTL8723B and ODM_RTL8812)
+			else// SupportICType == ODM_TLL8821 and ODM_TLL8723B and ODM_TLL8812)
 			{
 				if(isCCKrate && (pDM_Odm->AntDivType == S0S1_SW_ANTDIV))
 				{
@@ -3748,20 +3748,20 @@ ODM_SetTxAntByTxInfo(
 		return;
 
 
-	if (pDM_Odm->SupportICType == ODM_RTL8723B) {
-#if (RTL8723B_SUPPORT == 1)
+	if (pDM_Odm->SupportICType == ODM_TLL8723B) {
+#if (TLL8723B_SUPPORT == 1)
 		SET_TX_DESC_ANTSEL_A_8723B(pDesc, pDM_FatTable->antsel_a[macId]);
 		/*ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[8723B] SetTxAntByTxInfo_WIN: MacID=%d, antsel_tr_mux=3'b%d%d%d\n", 
 			macId, pDM_FatTable->antsel_c[macId], pDM_FatTable->antsel_b[macId], pDM_FatTable->antsel_a[macId]));*/
 #endif
-	} else if (pDM_Odm->SupportICType == ODM_RTL8821) {
-#if (RTL8821A_SUPPORT == 1)
+	} else if (pDM_Odm->SupportICType == ODM_TLL8821) {
+#if (TLL8821A_SUPPORT == 1)
 		SET_TX_DESC_ANTSEL_A_8812(pDesc, pDM_FatTable->antsel_a[macId]);
 		/*ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("[8821A] SetTxAntByTxInfo_WIN: MacID=%d, antsel_tr_mux=3'b%d%d%d\n", 
 			macId, pDM_FatTable->antsel_c[macId], pDM_FatTable->antsel_b[macId], pDM_FatTable->antsel_a[macId]));*/
 #endif
-	} else if (pDM_Odm->SupportICType == ODM_RTL9083E) {
-#if (RTL9083E_SUPPORT == 1)
+	} else if (pDM_Odm->SupportICType == ODM_TLL9083E) {
+#if (TLL9083E_SUPPORT == 1)
 		SET_TX_DESC_ANTSEL_A_88E(pDesc, pDM_FatTable->antsel_a[macId]);
 		SET_TX_DESC_ANTSEL_B_88E(pDesc, pDM_FatTable->antsel_b[macId]);
 		SET_TX_DESC_ANTSEL_C_88E(pDesc, pDM_FatTable->antsel_c[macId]);
@@ -3782,15 +3782,15 @@ ODM_SetTxAntByTxInfo(
 	pFAT_T		pDM_FatTable = &priv->pshare->_dmODM.DM_FatTable;
 	u4Byte		SupportICType = priv->pshare->_dmODM.SupportICType;
 
-	if (SupportICType == ODM_RTL8881A) {
+	if (SupportICType == ODM_TLL8881A) {
 		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8881E******\n",__FUNCTION__,__LINE__);	*/
 		pdesc->Dword6 &= set_desc(~(BIT(18)|BIT(17)|BIT(16)));	
 		pdesc->Dword6 |= set_desc(pDM_FatTable->antsel_a[aid]<<16);
-	} else if (SupportICType == ODM_RTL8192E) {
+	} else if (SupportICType == ODM_TLL8192E) {
 		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8192E******\n",__FUNCTION__,__LINE__);	*/
 		pdesc->Dword6 &= set_desc(~(BIT(18)|BIT(17)|BIT(16)));	
 		pdesc->Dword6 |= set_desc(pDM_FatTable->antsel_a[aid]<<16);
-	} else if (SupportICType == ODM_RTL9083E) {
+	} else if (SupportICType == ODM_TLL9083E) {
 		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_9083E******\n",__FUNCTION__,__LINE__);*/
 		pdesc->Dword2 &= set_desc(~BIT(24));
 		pdesc->Dword2 &= set_desc(~BIT(25));
@@ -3801,7 +3801,7 @@ ODM_SetTxAntByTxInfo(
 		pdesc->Dword7 |= set_desc(pDM_FatTable->antsel_c[aid]<<29);
 			
 		
-	} else if (SupportICType == ODM_RTL8812) {
+	} else if (SupportICType == ODM_TLL8812) {
 		/*[path-A]*/
 		/*panic_printk("[%s] [%d]   ******ODM_SetTxAntByTxInfo_8881E******\n",__FUNCTION__,__LINE__);*/
 			
@@ -3827,7 +3827,7 @@ ODM_AntDiv_Config(
 	pFAT_T			pDM_FatTable = &pDM_Odm->DM_FatTable;
 #if (DM_ODM_SUPPORT_TYPE & (ODM_WIN))
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_ANT_DIV, ODM_DBG_LOUD, ("WIN Config Antenna Diversity\n"));
-		if(pDM_Odm->SupportICType==ODM_RTL8723B)
+		if(pDM_Odm->SupportICType==ODM_TLL8723B)
 		{
 			if((!pDM_Odm->DM_SWAT_Table.ANTA_ON || !pDM_Odm->DM_SWAT_Table.ANTB_ON))
 				pDM_Odm->SupportAbility &= ~(ODM_BB_ANT_DIV);
@@ -3840,7 +3840,7 @@ ODM_AntDiv_Config(
 			pDM_Odm->SupportAbility |= ODM_BB_ANT_DIV;	
 		}
 		
-		if(pDM_Odm->SupportICType==ODM_RTL8723B)
+		if(pDM_Odm->SupportICType==ODM_TLL8723B)
 		{
 			pDM_Odm->AntDivType = S0S1_SW_ANTDIV;
 		}				
@@ -3971,7 +3971,7 @@ ODM_AntDivTimers(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	if(state==INIT_ANTDIV_TIMMER)
 	{
-		#if (RTL8723B_SUPPORT == 1)||(RTL8821A_SUPPORT == 1)
+		#if (TLL8723B_SUPPORT == 1)||(TLL8821A_SUPPORT == 1)
 			ODM_InitializeTimer(pDM_Odm,&pDM_Odm->DM_SWAT_Table.SwAntennaSwitchTimer_8723B,
 			(RT_TIMER_CALL_BACK)ODM_SW_AntDiv_Callback, NULL, "SwAntennaSwitchTimer_8723B");
 		#elif ( defined(CONFIG_5G_CG_SMART_ANT_DIVERSITY) ) ||( defined(CONFIG_2G_CG_SMART_ANT_DIVERSITY) )
@@ -3986,7 +3986,7 @@ ODM_AntDivTimers(
 	}
 	else if(state==CANCEL_ANTDIV_TIMMER)
 	{
-		#if (RTL8723B_SUPPORT == 1)||(RTL8821A_SUPPORT == 1)
+		#if (TLL8723B_SUPPORT == 1)||(TLL8821A_SUPPORT == 1)
 			ODM_CancelTimer(pDM_Odm,&pDM_Odm->DM_SWAT_Table.SwAntennaSwitchTimer_8723B);
 		#elif ( defined(CONFIG_5G_CG_SMART_ANT_DIVERSITY) ) ||( defined(CONFIG_2G_CG_SMART_ANT_DIVERSITY) )
 			ODM_CancelTimer(pDM_Odm,&pDM_Odm->FastAntTrainingTimer);
@@ -3998,7 +3998,7 @@ ODM_AntDivTimers(
 	}
 	else if(state==RELEASE_ANTDIV_TIMMER)
 	{
-		#if (RTL8723B_SUPPORT == 1)||(RTL8821A_SUPPORT == 1)
+		#if (TLL8723B_SUPPORT == 1)||(TLL8821A_SUPPORT == 1)
 			ODM_ReleaseTimer(pDM_Odm,&pDM_Odm->DM_SWAT_Table.SwAntennaSwitchTimer_8723B);
 		#elif ( defined(CONFIG_5G_CG_SMART_ANT_DIVERSITY) ) ||( defined(CONFIG_2G_CG_SMART_ANT_DIVERSITY) )
 			ODM_ReleaseTimer(pDM_Odm,&pDM_Odm->FastAntTrainingTimer);
@@ -4020,8 +4020,8 @@ ODM_AntDivReset(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	//2 [--8723B---]
-#if (RTL8723B_SUPPORT == 1)
-	if(pDM_Odm->SupportICType == ODM_RTL8723B)
+#if (TLL8723B_SUPPORT == 1)
+	if(pDM_Odm->SupportICType == ODM_TLL8723B)
 	{
 		#if(defined(CONFIG_HW_ANTENNA_DIVERSITY))
 		odm_S0S1_SWAntDiv_Reset_8723B(pDM_Odm);
@@ -4041,7 +4041,7 @@ odm_AntennaDiversityInit(
 	
 	if(pDM_Odm->SupportICType & (ODM_OLD_IC_ANTDIV_SUPPORT))
 	{
-		#if (RTL8192C_SUPPORT==1) 
+		#if (TLL8192C_SUPPORT==1) 
 		#if (!(DM_ODM_SUPPORT_TYPE & (ODM_AP)))
 		ODM_OldIC_AntDiv_Init(pDM_Odm);
 		#endif
@@ -4067,7 +4067,7 @@ odm_AntennaDiversity(
 
 	if(pDM_Odm->SupportICType & (ODM_OLD_IC_ANTDIV_SUPPORT))
 	{
-		#if (RTL8192C_SUPPORT==1)
+		#if (TLL8192C_SUPPORT==1)
 		#if (!(DM_ODM_SUPPORT_TYPE & (ODM_AP)))
 		ODM_OldIC_AntDiv(pDM_Odm);
 		#endif

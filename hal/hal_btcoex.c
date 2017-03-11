@@ -1513,7 +1513,7 @@ u8 EXhalbtcoutsrc_IsTfbgaPackageType(PADAPTER padapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 	if ((pHalData->PackageType == PACKAGE_TFBGA79) || (pHalData->PackageType == PACKAGE_TFBGA80)
 		|| (pHalData->PackageType == PACKAGE_TFBGA90)) {
 		return _TRUE;
@@ -2592,7 +2592,7 @@ void EXhalbtcoutsrc_SetChipType(u8 chipType)
 		case BT_2WIRE:
 		case BT_ISSC_3WIRE:
 		case BT_ACCEL:
-		case BT_RTL8756:
+		case BT_TLL8756:
 			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_UNDEF;
 			break;
 		case BT_CSR_BC4:
@@ -2601,14 +2601,14 @@ void EXhalbtcoutsrc_SetChipType(u8 chipType)
 		case BT_CSR_BC8:
 			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_CSR_BC8;
 			break;
-		case BT_RTL8723A:
-			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_RTL8723A;
+		case BT_TLL8723A:
+			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_TLL8723A;
 			break;
-		case BT_RTL8821:
-			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_RTL8821;
+		case BT_TLL8821:
+			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_TLL8821;
 			break;
-		case BT_RTL8723B:
-			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_RTL8723B;
+		case BT_TLL8723B:
+			GLBtCoexist.boardInfo.btChipType = BTC_CHIP_TLL8723B;
 			break;
 	}
 }

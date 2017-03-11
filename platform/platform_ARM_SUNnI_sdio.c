@@ -96,10 +96,10 @@ int platform_wifi_power_on(void)
 #ifdef CONFIG_PLATFORM_ARM_SUN8I_W5P1
 	type = script_get_item("wifi_para", "wl_host_wake", &val);
 #else
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 	type = script_get_item("wifi_para", "ttl8723bs_wl_host_wake", &val);
 #endif
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 	type = script_get_item("wifi_para", "ttl9082xs_host_wake", &val);
 #endif
 #endif /* CONFIG_PLATFORM_ARM_SUN8I_W5P1 */

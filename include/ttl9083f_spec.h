@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110, USA
  *
  *******************************************************************************/
-#ifndef __RTL9083F_SPEC_H__
-#define __RTL9083F_SPEC_H__
+#ifndef __TLL9083F_SPEC_H__
+#define __TLL9083F_SPEC_H__
 
 #include <drv_conf.h>
 
@@ -295,5 +295,5 @@
 #define MACID_NUM_9083F 16
 #define CAM_ENTRY_NUM_9083F 16
 
-#endif /* __RTL9083F_SPEC_H__ */
+#endif /* __TLL9083F_SPEC_H__ */
 

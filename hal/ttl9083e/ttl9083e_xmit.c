@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL9083E_XMIT_C_
+#define _TLL9083E_XMIT_C_
 
 #include <drv_types.h>
 #include <ttl9083e_hal.h>
@@ -112,7 +112,7 @@ void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc)
 
 //#define DBG_EMINFO
 
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1	
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1	
 	#define EARLY_MODE_MAX_PKT_NUM	10
 #else
 	#define EARLY_MODE_MAX_PKT_NUM	5
@@ -131,7 +131,7 @@ InsertEMContent_9083E(
 	IN pu1Byte	VirtualAddress)
 {
 
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	u1Byte index=0;
 	u4Byte	dwtmp=0;
 #endif
@@ -151,7 +151,7 @@ InsertEMContent_9083E(
 	}
 	#endif
 	
-#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
+#if TLL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	SET_EARLYMODE_PKTNUM(VirtualAddress, pEMInfo->EMPktNum);
 
 	if(pEMInfo->EMPktNum == 1){

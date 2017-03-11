@@ -37,7 +37,7 @@
 							_offset = _size-1;\
 					} while(0)
 
-#if (RTL8192C_SUPPORT||RTL8192D_SUPPORT||RTL8723A_SUPPORT)
+#if (TLL8192C_SUPPORT||TLL8192D_SUPPORT||TLL8723A_SUPPORT)
 void phydm_txpwrtrack_setpwr_dummy(
 	PDM_ODM_T			pDM_Odm,
 	PWRTRACK_METHOD 	Method,
@@ -86,55 +86,55 @@ void ConfigureTxpowerTrack(
 	)
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
-#if RTL8192C_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8192C)
+#if TLL8192C_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8192C)
 		configure_txpower_track_dummy(pConfig);
 #endif
 
-#if RTL8192D_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8192D)
+#if TLL8192D_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8192D)
 		configure_txpower_track_dummy(pConfig);
 #endif
 
-#if RTL8723A_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8723A)
+#if TLL8723A_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8723A)
 		configure_txpower_track_dummy(pConfig);
 #endif
 
-#if RTL8192E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8192E)
+#if TLL8192E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8192E)
 		ConfigureTxpowerTrack_8192E(pConfig);
 #endif	
-#if RTL8821A_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8821)
+#if TLL8821A_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8821)
 		ConfigureTxpowerTrack_8821A(pConfig);
 #endif
-#if RTL8812A_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8812)
+#if TLL8812A_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8812)
 		ConfigureTxpowerTrack_8812A(pConfig);
 #endif
-#if RTL9083E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL9083E)
+#if TLL9083E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL9083E)
 		ConfigureTxpowerTrack_9083E(pConfig);
 #endif 
 
-#if RTL8723B_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8723B)
+#if TLL8723B_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8723B)
 		ConfigureTxpowerTrack_8723B(pConfig);
 #endif
 
-#if RTL8814A_SUPPORT
-	if (pDM_Odm->SupportICType == ODM_RTL8814A)
+#if TLL8814A_SUPPORT
+	if (pDM_Odm->SupportICType == ODM_TLL8814A)
 		ConfigureTxpowerTrack_8814A(pConfig);
 #endif
 
-#if RTL8703B_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8703B)
+#if TLL8703B_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL8703B)
 		ConfigureTxpowerTrack_8703B(pConfig);
 #endif
 
-#if RTL9083F_SUPPORT
-	if (pDM_Odm->SupportICType == ODM_RTL9083F)
+#if TLL9083F_SUPPORT
+	if (pDM_Odm->SupportICType == ODM_TLL9083F)
 		ConfigureTxpowerTrack_9083F(pConfig);
 #endif 
 }
@@ -236,7 +236,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 	(*c.GetDeltaSwingTable)(pDM_Odm, (pu1Byte*)&deltaSwingTableIdx_TUP_A, (pu1Byte*)&deltaSwingTableIdx_TDOWN_A,
 									  (pu1Byte*)&deltaSwingTableIdx_TUP_B, (pu1Byte*)&deltaSwingTableIdx_TDOWN_B);	
 	
-	if (pDM_Odm->SupportICType & ODM_RTL8814A)	/*for 8814 path C & D*/
+	if (pDM_Odm->SupportICType & ODM_TLL8814A)	/*for 8814 path C & D*/
 		(*c.GetDeltaSwingTable8814only)(pDM_Odm, (pu1Byte *)&deltaSwingTableIdx_TUP_C, (pu1Byte *)&deltaSwingTableIdx_TDOWN_C,
 			(pu1Byte *)&deltaSwingTableIdx_TUP_D, (pu1Byte *)&deltaSwingTableIdx_TDOWN_D);
 	
@@ -552,9 +552,9 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) higher than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));			
 
-			if (pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8821 ||
-				pDM_Odm->SupportICType == ODM_RTL8812 || pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8814A || 
-				pDM_Odm->SupportICType == ODM_RTL8822B) {
+			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8821 ||
+				pDM_Odm->SupportICType == ODM_TLL8812 || pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8814A || 
+				pDM_Odm->SupportICType == ODM_TLL8822B) {
 				ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("**********Enter POWER Tracking MIX_MODE**********\n"));
 				for (p = ODM_RF_PATH_A; p < c.RfPathCount; p++)
 						(*c.ODM_TxPwrTrackSetPwr)(pDM_Odm, MIX_MODE, p, 0);
@@ -571,9 +571,9 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) lower than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));
 
-			if (pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8821 ||
-				pDM_Odm->SupportICType == ODM_RTL8812 || pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8814A ||
-				pDM_Odm->SupportICType == ODM_RTL8822B) {
+			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8821 ||
+				pDM_Odm->SupportICType == ODM_TLL8812 || pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8814A ||
+				pDM_Odm->SupportICType == ODM_TLL8822B) {
 
 				ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("**********Enter POWER Tracking MIX_MODE**********\n"));
 				for (p = ODM_RF_PATH_A; p < c.RfPathCount; p++)
@@ -608,7 +608,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 				(*c.DoIQK)(pDM_Odm, delta_IQK, ThermalValue, 8);
 		}
 	}	
-	if (!(pDM_Odm->SupportICType & ODM_RTL8814A)) {
+	if (!(pDM_Odm->SupportICType & ODM_TLL8814A)) {
 		if (pDM_Odm->RFCalibrateInfo.DpkThermal[ODM_RF_PATH_A] != 0) {
 			if (diff_DPK[ODM_RF_PATH_A] >= c.Threshold_DPK) { 
 				ODM_SetBBReg(pDM_Odm, 0x82c, BIT(31), 0x1);
@@ -736,7 +736,7 @@ odm_IQCalibrate(
 #endif
 #endif
 	
-#if (RTL8821A_SUPPORT == 1)
+#if (TLL8821A_SUPPORT == 1)
 	if (pDM_Odm->bLinked) {
 		if ((*pDM_Odm->pChannel != pDM_Odm->preChannel) && (!*pDM_Odm->pbScanInProcess)) {
 			pDM_Odm->preChannel = *pDM_Odm->pChannel;
@@ -772,8 +772,8 @@ void phydm_rf_init(IN	PVOID		pDM_VOID)
 #endif
 
 #if (DM_ODM_SUPPORT_TYPE & (ODM_AP))
-#if (RTL8814A_SUPPORT == 1)		
-	if (pDM_Odm->SupportICType & ODM_RTL8814A)
+#if (TLL8814A_SUPPORT == 1)		
+	if (pDM_Odm->SupportICType & ODM_TLL8814A)
 		PHY_IQCalibrate_8814A_Init(pDM_Odm);
 #endif	
 #endif

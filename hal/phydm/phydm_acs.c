@@ -112,7 +112,7 @@ odm_AutoChannelSelectInit(
 		pACS->Channel_Info_2G[1][i] = 0;
 	}
 
-	if(pDM_Odm->SupportICType & (ODM_IC_11AC_SERIES|ODM_RTL8192D))
+	if(pDM_Odm->SupportICType & (ODM_IC_11AC_SERIES|ODM_TLL8192D))
 	{
 		for (i = 0; i < ODM_MAX_CHANNEL_5G; ++i)
 		{
@@ -463,7 +463,7 @@ int phydm_AutoChannelSelectAP(
     int                     i, j, idx=0, idx_2G_end=-1, idx_5G_begin=-1, minChan=0;
 	struct bss_desc *pBss=NULL;
 
-#ifdef _DEBUG_RTL8192CD_
+#ifdef _DEBUG_TLL8192CD_
 	char tmpbuf[400];
 	int len=0;
 #endif
@@ -486,7 +486,7 @@ int phydm_AutoChannelSelectAP(
 	}
 
 // DELETE
-#ifndef CONFIG_RTL_NEW_AUTOCH
+#ifndef CONFIG_TLL_NEW_AUTOCH
 	for (i=0; i<priv->site_survey->count; i++) {
 		pBss = &priv->site_survey->bss[i];
 		for (idx=0; idx<priv->available_chnl_num; idx++) {
@@ -508,7 +508,7 @@ int phydm_AutoChannelSelectAP(
 		for (i=idx_5G_begin; i<priv->available_chnl_num; i++)
 			score[i] = score5G[i - idx_5G_begin];
 		
-#ifdef CONFIG_RTL_NEW_AUTOCH
+#ifdef CONFIG_TLL_NEW_AUTOCH
 	{
 		u4Byte y, ch_begin=0, ch_end= priv->available_chnl_num;
 
@@ -531,19 +531,19 @@ int phydm_AutoChannelSelectAP(
 		printk("\n");
 #endif
 
-#if defined(CONFIG_RTL_88E_SUPPORT) || defined(CONFIG_WLAN_HAL_8192EE)
-        if( pDM_Odm->SupportICType&(ODM_RTL9083E|ODM_RTL8192E)&& priv->pmib->dot11RFEntry.acs_type )
+#if defined(CONFIG_TLL_88E_SUPPORT) || defined(CONFIG_WLAN_HAL_8192EE)
+        if( pDM_Odm->SupportICType&(ODM_TLL9083E|ODM_TLL8192E)&& priv->pmib->dot11RFEntry.acs_type )
 		{
 			u4Byte tmp_score[MAX_BSS_NUM];
 			memcpy(tmp_score, score, sizeof(score));
 			if (find_clean_channel(priv, ch_begin, ch_end, tmp_score)) {
 				//memcpy(score, tmp_score, sizeof(score));
-#ifdef _DEBUG_RTL8192CD_
+#ifdef _DEBUG_TLL8192CD_
 				printk("!! Found clean channel, select minimum FA channel\n");
 #endif
 				goto USE_CLN_CH;
 			}
-#ifdef _DEBUG_RTL8192CD_
+#ifdef _DEBUG_TLL8192CD_
 			printk("!! Not found clean channel, use NHM algorithm\n");
 #endif
 			use_nhm = 1;
@@ -556,7 +556,7 @@ USE_CLN_CH:
 					score[y] += val32;
 				}
 
-#ifdef _DEBUG_RTL8192CD_				
+#ifdef _DEBUG_TLL8192CD_				
 				printk("nhm_cnt_%d: H<-[ %3d %3d %3d %3d %3d %3d %3d %3d %3d %3d]->L, score: %d\n", 
 					y+1, priv->nhm_cnt[y][9], priv->nhm_cnt[y][8], priv->nhm_cnt[y][7], 
 					priv->nhm_cnt[y][6], priv->nhm_cnt[y][5], priv->nhm_cnt[y][4],
@@ -935,7 +935,7 @@ choose_ch:
 	
 //------------------------------------------------------------------
 
-#ifdef _DEBUG_RTL8192CD_
+#ifdef _DEBUG_TLL8192CD_
 	for (i=0; i<priv->available_chnl_num; i++) {
 		len += sprintf(tmpbuf+len, "ch%d:%u ", priv->available_chnl[i], score[i]);		
 	}
@@ -1150,8 +1150,8 @@ choose_ch:
 	}
 #endif
 
-#ifdef CONFIG_RTL_NEW_AUTOCH
-	RTL_W32(RXERR_RPT, RXERR_RPT_RST);
+#ifdef CONFIG_TLL_NEW_AUTOCH
+	TLL_W32(RXERR_RPT, RXERR_RPT_RST);
 #endif
 
 // auto adjust contro-sideband
@@ -1172,7 +1172,7 @@ choose_ch:
 #endif		
 		{
 #if 0
-#ifdef CONFIG_RTL_NEW_AUTOCH
+#ifdef CONFIG_TLL_NEW_AUTOCH
 			unsigned int ch_max;
 
 			if (priv->available_chnl[idx_2G_end] >= 13)
@@ -1208,7 +1208,7 @@ choose_ch:
 #if defined(__ECOS) && defined(CONFIG_SDIO_HCI)
 	panic_printk("Auto channel choose ch:%d\n", minChan);
 #else
-#ifdef _DEBUG_RTL8192CD_
+#ifdef _DEBUG_TLL8192CD_
 	panic_printk("Auto channel choose ch:%d\n", minChan);
 #endif
 #endif

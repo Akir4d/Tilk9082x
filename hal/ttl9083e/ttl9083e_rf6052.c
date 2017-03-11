@@ -39,7 +39,7 @@
  *
 ******************************************************************************/
 
-#define _RTL9083E_RF6052_C_
+#define _TLL9083E_RF6052_C_
 
 #include <drv_types.h>
 #include <ttl9083e_hal.h>
@@ -79,7 +79,7 @@ void ttl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
 										IN	u16		DataRate)
 {
 // We do not support gain table change inACUT now !!!! Delete later !!!
-#if 0//(RTL92SE_FPGA_VERIFY == 0)
+#if 0//(TLL92SE_FPGA_VERIFY == 0)
 	static	u1Byte	RF_Path_Type = 2;	// 1 = 1T 2= 2T
 	static	u4Byte	tx_gain_tbl1[6]
 			= {0x17f50, 0x11f40, 0x0cf30, 0x08720, 0x04310, 0x00100};
@@ -178,9 +178,9 @@ phy_RF6052_Config_ParaFile(
 	int					rtStatus = _SUCCESS;
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(Adapter);
 
-	static char			sz88eRadioAFile[] = RTL9083E_PHY_RADIO_A;
-	static char			sz88eRadioBFile[] = RTL9083E_PHY_RADIO_B;
-	static char 			sz9083ETxPwrTrack[] = RTL9083E_TXPWR_TRACK;
+	static char			sz88eRadioAFile[] = TLL9083E_PHY_RADIO_A;
+	static char			sz88eRadioBFile[] = TLL9083E_PHY_RADIO_B;
+	static char 			sz9083ETxPwrTrack[] = TLL9083E_TXPWR_TRACK;
 	char					*pszRadioAFile, *pszRadioBFile, *pszTxPwrTrack;
 
 

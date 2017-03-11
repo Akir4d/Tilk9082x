@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define  _TLW_IOCTL_RTL_C_
+#define  _TLW_IOCTL_TLL_C_
 
 #include <drv_types.h>
 

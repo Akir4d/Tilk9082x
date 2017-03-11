@@ -20,25 +20,25 @@
 #define _HAL_MP_C_
 #ifdef CONFIG_MP_INCLUDED
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 #include <ttl9083e_hal.h>
 #endif
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 #include <ttl8723b_hal.h>
 #endif
-#ifdef CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
 #include <ttl8192e_hal.h>
 #endif
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 #include <ttl8814a_hal.h>
 #endif
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 #include <ttl8812a_hal.h>
 #endif
-#ifdef CONFIG_RTL8703B
+#ifdef CONFIG_TLL8703B
 #include <ttl8703b_hal.h>
 #endif
-#ifdef CONFIG_RTL9083F
+#ifdef CONFIG_TLL9083F
 #include <ttl9083f_hal.h>
 #endif
 
@@ -499,7 +499,7 @@ void hal_mpt_SetDataRate(PADAPTER pAdapter)
 	hal_mpt_SwitchRfSetting(pAdapter);
 
 	hal_mpt_CCKTxPowerAdjust(pAdapter, pHalData->bCCKinCH14);
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 	if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_9083F(pAdapter)) {
 		if (IS_CCK_RATE(DataRate)) {
 			if (pMptCtx->MptRfPath == ODM_RF_PATH_A)
@@ -527,7 +527,7 @@ void hal_mpt_SetDataRate(PADAPTER pAdapter)
 
 #define RF_PATH_AB	22
 
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 VOID mpt_ToggleIG_8814A(PADAPTER	pAdapter)
 {
 	u1Byte Path = 0;
@@ -886,7 +886,7 @@ mpt_SetSingleTone_8814A(
 
 #endif
 
-#if	defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if	defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 void mpt_SetRFPath_8812A(PADAPTER pAdapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(pAdapter);
@@ -958,7 +958,7 @@ void mpt_SetRFPath_8812A(PADAPTER pAdapter)
 }
 #endif
 
-#ifdef CONFIG_RTL9083F
+#ifdef CONFIG_TLL9083F
 
 void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 {
@@ -1059,7 +1059,7 @@ void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 #endif
 
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(pAdapter);
@@ -1322,25 +1322,25 @@ void hal_mpt_SetAntenna(PADAPTER	pAdapter)
 
 {
 	DBG_871X("Do %s\n", __func__);
-#ifdef	CONFIG_RTL8814A
+#ifdef	CONFIG_TLL8814A
 	if (IS_HARDWARE_TYPE_8814A(pAdapter)) {
 		mpt_SetRFPath_8814A(pAdapter);
 		return;
 	}
 #endif
-#if	defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if	defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 	if (IS_HARDWARE_TYPE_JAGUAR(pAdapter)) {
 		mpt_SetRFPath_8812A(pAdapter);
 		return;
 	}
 #endif
-#ifdef	CONFIG_RTL8723B
+#ifdef	CONFIG_TLL8723B
 	if (IS_HARDWARE_TYPE_8723B(pAdapter)) {
 		mpt_SetRFPath_8723B(pAdapter);
 		return;
 	}	
 #endif	
-#ifdef	CONFIG_RTL9083F
+#ifdef	CONFIG_TLL9083F
 	if (IS_HARDWARE_TYPE_9083F(pAdapter)) {
 		mpt_SetRFPath_9083F(pAdapter);
 		return;
@@ -1439,7 +1439,7 @@ void hal_mpt_SetSingleCarrierTx(PADAPTER pAdapter, u8 bStart)
 		PHY_SetBBReg(pAdapter, rCCK0_System, bCCKScramble, 1);
 
 		/*/ 4. Turn On Continue Tx and turn off the other test modes.*/
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) ||  defined(CONFIG_RTL8814A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) ||  defined(CONFIG_TLL8814A)
 		if (IS_HARDWARE_TYPE_JAGUAR(pAdapter) || IS_HARDWARE_TYPE_8814A(pAdapter) /*|| IS_HARDWARE_TYPE_8822B(pAdapter)*/)
 			PHY_SetBBReg(pAdapter, rSingleTone_ContTx_Jaguar, BIT18|BIT17|BIT16, OFDM_SingleCarrier);
 		else
@@ -1450,7 +1450,7 @@ void hal_mpt_SetSingleCarrierTx(PADAPTER pAdapter, u8 bStart)
 		/*/ Stop Single Carrier.*/
 		/*/ Stop Single Carrier.*/
 		/*/ Turn off all test modes.*/
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) ||  defined(CONFIG_RTL8814A)		
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) ||  defined(CONFIG_TLL8814A)		
 		if (IS_HARDWARE_TYPE_JAGUAR(pAdapter) || IS_HARDWARE_TYPE_8814A(pAdapter) /*|| IS_HARDWARE_TYPE_8822B(pAdapter)*/)
 			PHY_SetBBReg(pAdapter, rSingleTone_ContTx_Jaguar, BIT18|BIT17|BIT16, OFDM_ALL_OFF);
 		else
@@ -1524,7 +1524,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 				PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, 0x76, 0xF, 0x1); /*/ RF LO enabled*/
 			}
 		} else if (IS_HARDWARE_TYPE_JAGUAR(pAdapter)) {
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 			u1Byte p = ODM_RF_PATH_A;
 			
 			regRF = PHY_QueryRFReg(pAdapter, ODM_RF_PATH_A, RF_AC_Jaguar, bRFRegOffsetMask);
@@ -1559,7 +1559,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 			}
 #endif
 		}
-#ifdef CONFIG_RTL8814A 
+#ifdef CONFIG_TLL8814A 
 		else if (IS_HARDWARE_TYPE_8814A(pAdapter))
 			mpt_SetSingleTone_8814A(pAdapter, TRUE, FALSE);
 #endif
@@ -1601,7 +1601,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 				PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, 0x76, 0xF, 0x0); /*/ RF LO disabled*/
 				}
 		} else if (IS_HARDWARE_TYPE_JAGUAR(pAdapter)) {
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 			u1Byte p = ODM_RF_PATH_A;
 			
 			PHY_SetBBReg(pAdapter, rOFDMCCKEN_Jaguar, BIT29|BIT28, 0x3); /*/ Disable CCK and OFDM*/
@@ -1622,7 +1622,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 			PHY_SetBBReg(pAdapter, rB_RFE_Pinmux_Jaguar+4, bMaskDWord, regBB3);
 #endif
 		}
-#ifdef CONFIG_RTL8814A		
+#ifdef CONFIG_TLL8814A		
 		else if (IS_HARDWARE_TYPE_8814A(pAdapter))
 			mpt_SetSingleTone_8814A(pAdapter, FALSE, FALSE);
 

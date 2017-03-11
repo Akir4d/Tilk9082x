@@ -540,7 +540,7 @@ Beamforming_GidPAid(
 	PMGNT_INFO	pMgntInfo = &(Adapter->MgntInfo);
 	pu1Byte		pHeader = GET_FRAME_OF_FIRST_FRAG(Adapter, pTcb);
 
-	if(Adapter->HardwareType < HARDWARE_TYPE_RTL8192EE)
+	if(Adapter->HardwareType < HARDWARE_TYPE_TLL8192EE)
 		return;
 	else if(IS_WIRELESS_MODE_N(Adapter) == FALSE)
 		return;
@@ -1304,14 +1304,14 @@ phydm_beamforming_SoundingMode(
 	}	
 	else if(BeamEntry.BeamformEntryCap & BEAMFORMER_CAP_VHT_SU)
 	{
-		if((SupportInterface == ODM_ITRF_USB) && (pDM_Odm->SupportICType!= ODM_RTL8814A))
+		if((SupportInterface == ODM_ITRF_USB) && (pDM_Odm->SupportICType!= ODM_TLL8814A))
 			Mode = SOUNDING_FW_VHT_TIMER;
 		else
 			Mode = SOUNDING_SW_VHT_TIMER;
 	}
 	else if(BeamEntry.BeamformEntryCap & BEAMFORMER_CAP_HT_EXPLICIT)
 	{
-		if((SupportInterface == ODM_ITRF_USB) && (pDM_Odm->SupportICType != ODM_RTL8814A))
+		if((SupportInterface == ODM_ITRF_USB) && (pDM_Odm->SupportICType != ODM_TLL8814A))
 		Mode = SOUNDING_FW_HT_TIMER;
 	else
 		Mode = SOUNDING_SW_HT_TIMER;

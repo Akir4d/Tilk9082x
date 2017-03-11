@@ -50,27 +50,27 @@ static struct mmc_host *mmc_host = NULL;
 
 static const struct sdio_device_id sdio_ids[] =
 {
-#ifdef CONFIG_RTL8723B
-	{ SDIO_DEVICE(0x024c, 0xB723),.driver_data = RTL8723B},
+#ifdef CONFIG_TLL8723B
+	{ SDIO_DEVICE(0x024c, 0xB723),.driver_data = TLL8723B},
 #endif
-#ifdef CONFIG_RTL9083E
-	{ SDIO_DEVICE(0x02e7, 0x9082),.driver_data = RTL9083E},
-#endif //CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
+	{ SDIO_DEVICE(0x02e7, 0x9082),.driver_data = TLL9083E},
+#endif //CONFIG_TLL9083E
 
-#ifdef CONFIG_RTL8821A
-	{ SDIO_DEVICE(0x024c, 0x8821),.driver_data = RTL8821},
-#endif //CONFIG_RTL8821A
+#ifdef CONFIG_TLL8821A
+	{ SDIO_DEVICE(0x024c, 0x8821),.driver_data = TLL8821},
+#endif //CONFIG_TLL8821A
 
-#ifdef CONFIG_RTL8192E
-	{ SDIO_DEVICE(0x024c, 0x818B),.driver_data = RTL8192E},
-#endif //CONFIG_RTL8192E
+#ifdef CONFIG_TLL8192E
+	{ SDIO_DEVICE(0x024c, 0x818B),.driver_data = TLL8192E},
+#endif //CONFIG_TLL8192E
 
-#ifdef CONFIG_RTL8703B
-	{ SDIO_DEVICE(0x024c, 0xB703), .driver_data = RTL8703B},
+#ifdef CONFIG_TLL8703B
+	{ SDIO_DEVICE(0x024c, 0xB703), .driver_data = TLL8703B},
 #endif
 
-#ifdef CONFIG_RTL9083F
-	{SDIO_DEVICE(0x024c, 0xF179), .driver_data = RTL9083F},
+#ifdef CONFIG_TLL9083F
+	{SDIO_DEVICE(0x024c, 0xF179), .driver_data = TLL9083F},
 #endif
 
 #if defined(TLW_ENABLE_WIFI_CONTROL_FUNC) /* temporarily add this to accept all sdio wlan id */
@@ -328,43 +328,43 @@ static void tlw_decide_chip_type_by_device_id(struct dvobj_priv *dvobj, const st
 {
 	dvobj->chip_type = pdid->driver_data;
 
-#if defined(CONFIG_RTL9083E)
-	if (dvobj->chip_type == RTL9083E) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL9083ES;
-		DBG_871X("CHIP TYPE: RTL9083E\n");
+#if defined(CONFIG_TLL9083E)
+	if (dvobj->chip_type == TLL9083E) {
+		dvobj->HardwareType = HARDWARE_TYPE_TLL9083ES;
+		DBG_871X("CHIP TYPE: TLL9083E\n");
 	}
 #endif
 
-#if defined(CONFIG_RTL8723B)
-	dvobj->chip_type = RTL8723B;
-	dvobj->HardwareType = HARDWARE_TYPE_RTL8723BS;
+#if defined(CONFIG_TLL8723B)
+	dvobj->chip_type = TLL8723B;
+	dvobj->HardwareType = HARDWARE_TYPE_TLL8723BS;
 #endif
 
-#if defined(CONFIG_RTL8821A)
-	if (dvobj->chip_type == RTL8821) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL8821S;
-		DBG_871X("CHIP TYPE: RTL8821A\n");
+#if defined(CONFIG_TLL8821A)
+	if (dvobj->chip_type == TLL8821) {
+		dvobj->HardwareType = HARDWARE_TYPE_TLL8821S;
+		DBG_871X("CHIP TYPE: TLL8821A\n");
 	}
 #endif
 
-#if defined(CONFIG_RTL8192E)
-	if (dvobj->chip_type == RTL8192E) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL8192ES;
-		DBG_871X("CHIP TYPE: RTL8192E\n");
+#if defined(CONFIG_TLL8192E)
+	if (dvobj->chip_type == TLL8192E) {
+		dvobj->HardwareType = HARDWARE_TYPE_TLL8192ES;
+		DBG_871X("CHIP TYPE: TLL8192E\n");
 	}
 #endif
 
-#if defined(CONFIG_RTL8703B)
-	if (dvobj->chip_type == RTL8703B) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL8703BS;
-		DBG_871X("CHIP TYPE: RTL8703B\n");
+#if defined(CONFIG_TLL8703B)
+	if (dvobj->chip_type == TLL8703B) {
+		dvobj->HardwareType = HARDWARE_TYPE_TLL8703BS;
+		DBG_871X("CHIP TYPE: TLL8703B\n");
 	}
 #endif
 
-#if defined(CONFIG_RTL9083F)
-	if (dvobj->chip_type == RTL9083F) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL9083FS;
-		DBG_871X("CHIP TYPE: RTL9083F\n");
+#if defined(CONFIG_TLL9083F)
+	if (dvobj->chip_type == TLL9083F) {
+		dvobj->HardwareType = HARDWARE_TYPE_TLL9083FS;
+		DBG_871X("CHIP TYPE: TLL9083F\n");
 	}
 #endif
 }
@@ -430,33 +430,33 @@ u8 tlw_set_hal_ops(PADAPTER padapter)
 	if(tlw_hal_data_init(padapter) == _FAIL)
 		return _FAIL;
 
-#if defined(CONFIG_RTL9083E)
-	if (tlw_get_chip_type(padapter) == RTL9083E)
+#if defined(CONFIG_TLL9083E)
+	if (tlw_get_chip_type(padapter) == TLL9083E)
 		ttl9083es_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_RTL8723B)
-	if (tlw_get_chip_type(padapter) == RTL8723B)
+#if defined(CONFIG_TLL8723B)
+	if (tlw_get_chip_type(padapter) == TLL8723B)
 		ttl8723bs_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_RTL8821A)
-	if (tlw_get_chip_type(padapter) == RTL8821)
+#if defined(CONFIG_TLL8821A)
+	if (tlw_get_chip_type(padapter) == TLL8821)
 		ttl8821as_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_RTL8192E)
-	if (tlw_get_chip_type(padapter) == RTL8192E)
+#if defined(CONFIG_TLL8192E)
+	if (tlw_get_chip_type(padapter) == TLL8192E)
 		ttl8192es_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_RTL8703B)
-	if (tlw_get_chip_type(padapter) == RTL8703B)
+#if defined(CONFIG_TLL8703B)
+	if (tlw_get_chip_type(padapter) == TLL8703B)
 		ttl8703bs_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_RTL9083F)
-	if (tlw_get_chip_type(padapter) == RTL9083F)
+#if defined(CONFIG_TLL9083F)
+	if (tlw_get_chip_type(padapter) == TLL9083F)
 		ttl9083fs_set_hal_ops(padapter);
 #endif
 

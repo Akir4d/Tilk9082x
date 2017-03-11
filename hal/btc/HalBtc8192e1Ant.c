@@ -1,7 +1,7 @@
 //============================================================
 // Description:
 //
-// This file is for RTL8192E Co-exist mechanism
+// This file is for TLL8192E Co-exist mechanism
 //
 // History
 // 2012/11/15 Cosa first check in.

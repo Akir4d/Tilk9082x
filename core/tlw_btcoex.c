@@ -776,7 +776,7 @@ u8 tlw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 
 	DBG_871X("BTLinkStatusNotify\n");
 
-	// Current only RTL8723 support this command.
+	// Current only TLL8723 support this command.
 	//pBtMgnt->bSupportProfile = TRUE;
 	pBtMgnt->bSupportProfile = _FALSE;
 

@@ -22,7 +22,7 @@
 //
 // Description:
 //
-// This file is for RTL9083E register definition.
+// This file is for TLL9083E register definition.
 //
 //
 //============================================================

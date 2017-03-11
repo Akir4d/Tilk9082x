@@ -21,7 +21,7 @@
 #define __GSPI_OPS_H__
 
 /* follwing defination is based on
- * GSPI spec of RTL8723, we temp
+ * GSPI spec of TLL8723, we temp
  * suppose that it will be the same
  * for diff chips of GSPI, if not
  * we should move it to HAL folder */
@@ -146,7 +146,7 @@ struct spi_more_data {
 	unsigned long len;
 };
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 void ttl9083es_set_hal_ops(PADAPTER padapter);
 #define set_hal_ops ttl9083es_set_hal_ops
 #endif
@@ -160,7 +160,7 @@ extern void EnableInterrupt8723ASdio(PADAPTER padapter);
 extern void DisableInterrupt8723ASdio(PADAPTER padapter);
 extern void spi_int_hdl(PADAPTER padapter);
 extern u8 HalQueryTxBufferStatus8723ASdio(PADAPTER padapter);
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 extern void InitInterrupt8723BSdio(PADAPTER padapter);
 extern void InitSysInterrupt8723BSdio(PADAPTER padapter);
 extern void EnableInterrupt8723BSdio(PADAPTER padapter);
@@ -168,7 +168,7 @@ extern void DisableInterrupt8723BSdio(PADAPTER padapter);
 extern u8 HalQueryTxBufferStatus8723BSdio(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 extern void InitInterrupt9083EGspi(PADAPTER padapter);
 extern void EnableInterrupt9083EGspi(PADAPTER padapter);
 extern void DisableInterrupt9083EGspi(PADAPTER padapter);
@@ -177,7 +177,7 @@ extern u8 HalQueryTxBufferStatus9082EGspi(PADAPTER padapter);
 extern u8 HalQueryTxOQTBufferStatus9082EGspi(PADAPTER padapter);
 extern void ClearInterrupt9083EGspi(PADAPTER padapter);
 extern u8 CheckIPSStatus(PADAPTER padapter);
-#endif // CONFIG_RTL9083E
+#endif // CONFIG_TLL9083E
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
 extern u8 RecvOnePkt(PADAPTER padapter, u32 size);
 #endif // CONFIG_WOWLAN

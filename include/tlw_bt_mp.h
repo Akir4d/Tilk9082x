@@ -95,12 +95,12 @@ typedef enum _MP_BT_TEST_CTRL{
 }MP_BT_TEST_CTRL,*PMP_BT_TEST_CTRL;
 
 
-typedef enum _RTL_EXT_C2H_EVT
+typedef enum _TLL_EXT_C2H_EVT
 {
 	EXT_C2H_WIFI_FW_ACTIVE_RSP = 0,
 	EXT_C2H_TRIG_BY_BT_FW = 1,
 	MAX_EXT_C2HEVENT
-}RTL_EXT_C2H_EVT;
+}TLL_EXT_C2H_EVT;
 
 
 // return status definition to the user layer

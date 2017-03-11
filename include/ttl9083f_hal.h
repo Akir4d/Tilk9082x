@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL9083F_HAL_H__
-#define __RTL9083F_HAL_H__
+#ifndef __TLL9083F_HAL_H__
+#define __TLL9083F_HAL_H__
 
 #include "hal_data.h"
 
@@ -38,22 +38,22 @@
 
 
 //---------------------------------------------------------------------
-//		RTL9083F From file
+//		TLL9083F From file
 //---------------------------------------------------------------------
-	#define RTL9083F_FW_IMG					"ttl9083f/FW_NIC.bin"
-	#define RTL9083F_FW_WW_IMG				"ttl9083f/FW_WoWLAN.bin"
-	#define RTL9083F_PHY_REG					"ttl9083f/PHY_REG.txt"
-	#define RTL9083F_PHY_RADIO_A				"ttl9083f/RadioA.txt"
-	#define RTL9083F_PHY_RADIO_B				"ttl9083f/RadioB.txt"
-	#define RTL9083F_TXPWR_TRACK				"ttl9083f/TxPowerTrack.txt" 
-	#define RTL9083F_AGC_TAB					"ttl9083f/AGC_TAB.txt"
-	#define RTL9083F_PHY_MACREG 				"ttl9083f/MAC_REG.txt"
-	#define RTL9083F_PHY_REG_PG				"ttl9083f/PHY_REG_PG.txt"
-	#define RTL9083F_PHY_REG_MP				"ttl9083f/PHY_REG_MP.txt"
-	#define RTL9083F_TXPWR_LMT 				"ttl9083f/TXPWR_LMT.txt"
+	#define TLL9083F_FW_IMG					"ttl9083f/FW_NIC.bin"
+	#define TLL9083F_FW_WW_IMG				"ttl9083f/FW_WoWLAN.bin"
+	#define TLL9083F_PHY_REG					"ttl9083f/PHY_REG.txt"
+	#define TLL9083F_PHY_RADIO_A				"ttl9083f/RadioA.txt"
+	#define TLL9083F_PHY_RADIO_B				"ttl9083f/RadioB.txt"
+	#define TLL9083F_TXPWR_TRACK				"ttl9083f/TxPowerTrack.txt" 
+	#define TLL9083F_AGC_TAB					"ttl9083f/AGC_TAB.txt"
+	#define TLL9083F_PHY_MACREG 				"ttl9083f/MAC_REG.txt"
+	#define TLL9083F_PHY_REG_PG				"ttl9083f/PHY_REG_PG.txt"
+	#define TLL9083F_PHY_REG_MP				"ttl9083f/PHY_REG_MP.txt"
+	#define TLL9083F_TXPWR_LMT 				"ttl9083f/TXPWR_LMT.txt"
 
 //---------------------------------------------------------------------
-//		RTL9083F From header
+//		TLL9083F From header
 //---------------------------------------------------------------------
 
 #if MP_DRIVER == 1
@@ -205,8 +205,8 @@ typedef struct _RT_9083F_FIRMWARE_HDR
 #define EFUSE_IC_ID_OFFSET			506	//For some inferiority IC purpose. added by Roger, 2009.09.02.
 #define AVAILABLE_EFUSE_ADDR(addr) 	(addr < EFUSE_REAL_CONTENT_LEN_9083F)
 
-#define EFUSE_ACCESS_ON			0x69	// For RTL9083 only.
-#define EFUSE_ACCESS_OFF			0x00	// For RTL9083 only.
+#define EFUSE_ACCESS_ON			0x69	// For TLL9083 only.
+#define EFUSE_ACCESS_OFF			0x00	// For TLL9083 only.
 
 //========================================================
 //			EFUSE for BT definition

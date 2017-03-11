@@ -37,7 +37,7 @@ ODM_Read1Byte(
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	pttl8192cd_priv	priv	= pDM_Odm->priv;
-	return	RTL_R8(RegAddr);
+	return	TLL_R8(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	return tlw_read8(Adapter,RegAddr);
@@ -57,7 +57,7 @@ ODM_Read2Byte(
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	pttl8192cd_priv	priv	= pDM_Odm->priv;
-	return	RTL_R16(RegAddr);
+	return	TLL_R16(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	return tlw_read16(Adapter,RegAddr);
@@ -77,7 +77,7 @@ ODM_Read4Byte(
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	pttl8192cd_priv	priv	= pDM_Odm->priv;
-	return	RTL_R32(RegAddr);
+	return	TLL_R32(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	return tlw_read32(Adapter,RegAddr);
@@ -98,7 +98,7 @@ ODM_Write1Byte(
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	pttl8192cd_priv	priv	= pDM_Odm->priv;
-	RTL_W8(RegAddr, Data);
+	TLL_W8(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	tlw_write8(Adapter,RegAddr, Data);
@@ -119,7 +119,7 @@ ODM_Write2Byte(
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	pttl8192cd_priv	priv	= pDM_Odm->priv;
-	RTL_W16(RegAddr, Data);
+	TLL_W16(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	tlw_write16(Adapter,RegAddr, Data);
@@ -140,7 +140,7 @@ ODM_Write4Byte(
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	pttl8192cd_priv	priv	= pDM_Odm->priv;
-	RTL_W32(RegAddr, Data);
+	TLL_W32(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	tlw_write32(Adapter,RegAddr, Data);
@@ -548,7 +548,7 @@ ODM_SetTimer(
 	)
 {
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
-	mod_timer(pTimer, jiffies + RTL_MILISECONDS_TO_JIFFIES(msDelay));
+	mod_timer(pTimer, jiffies + TLL_MILISECONDS_TO_JIFFIES(msDelay));
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	_set_timer(pTimer,msDelay ); //ms
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
@@ -571,7 +571,7 @@ ODM_InitializeTimer(
 	init_timer(pTimer);
 	pTimer->function = CallBackFunc;
 	pTimer->data = (unsigned long)pDM_Odm;
-	mod_timer(pTimer, jiffies+RTL_MILISECONDS_TO_JIFFIES(10));	
+	mod_timer(pTimer, jiffies+TLL_MILISECONDS_TO_JIFFIES(10));	
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER Adapter = pDM_Odm->Adapter;
 	_init_timer(pTimer,Adapter->pnetdev,CallBackFunc,pDM_Odm);
@@ -641,11 +641,11 @@ phydm_trans_h2c_id(
 		case ODM_H2C_RSSI_REPORT:
 
 			#if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-				if(pDM_Odm->SupportICType == ODM_RTL9083E)
+				if(pDM_Odm->SupportICType == ODM_TLL9083E)
 				{
 					platform_h2c_id = H2C_88E_RSSI_REPORT;
 				}
-				else if(pDM_Odm->SupportICType == ODM_RTL8814A)
+				else if(pDM_Odm->SupportICType == ODM_TLL8814A)
 				{
 					platform_h2c_id =H2C_8814A_RSSI_REPORT;                            
 				}
@@ -655,34 +655,34 @@ phydm_trans_h2c_id(
 				}
 				
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-				#if((RTL8812A_SUPPORT==1) ||(RTL8821A_SUPPORT==1))
+				#if((TLL8812A_SUPPORT==1) ||(TLL8821A_SUPPORT==1))
 					platform_h2c_id = H2C_8812_RSSI_REPORT;
-				#elif(RTL8814A_SUPPORT == 1)
+				#elif(TLL8814A_SUPPORT == 1)
 					platform_h2c_id = H2C_RSSI_SETTING;
-				#elif(RTL8192E_SUPPORT==1)
+				#elif(TLL8192E_SUPPORT==1)
 					platform_h2c_id =H2C_8192E_RSSI_REPORT;
-				#elif(RTL8723B_SUPPORT==1)
+				#elif(TLL8723B_SUPPORT==1)
 					platform_h2c_id =H2C_8723B_RSSI_SETTING;
-				#elif(RTL9083E_SUPPORT==1)
+				#elif(TLL9083E_SUPPORT==1)
 					platform_h2c_id =H2C_RSSI_REPORT;
-				#elif(RTL8723A_SUPPORT==1)
+				#elif(TLL8723A_SUPPORT==1)
 					platform_h2c_id =RSSI_SETTING_EID;
-				#elif(RTL8192D_SUPPORT==1)
+				#elif(TLL8192D_SUPPORT==1)
 					platform_h2c_id =H2C_RSSI_REPORT;
-				#elif(RTL8192C_SUPPORT==1)
+				#elif(TLL8192C_SUPPORT==1)
 					platform_h2c_id =RSSI_SETTING_EID;
 				#endif
 				
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)
-				#if((RTL8881A_SUPPORT==1)||(RTL8192E_SUPPORT==1)||(RTL8814A_SUPPORT==1) )
-					if(pDM_Odm->SupportICType == ODM_RTL8881A || pDM_Odm->SupportICType == ODM_RTL8192E|| pDM_Odm->SupportICType == ODM_RTL8814A) 
+				#if((TLL8881A_SUPPORT==1)||(TLL8192E_SUPPORT==1)||(TLL8814A_SUPPORT==1) )
+					if(pDM_Odm->SupportICType == ODM_TLL8881A || pDM_Odm->SupportICType == ODM_TLL8192E|| pDM_Odm->SupportICType == ODM_TLL8814A) 
 					{
 						platform_h2c_id =H2C_88XX_RSSI_REPORT;				
 						//ODM_RT_TRACE(pDM_Odm,PHYDM_COMP_RA_DBG, ODM_DBG_LOUD, ("[H2C] H2C_88XX_RSSI_REPORT CMD_ID = (( %d )) \n", platform_h2c_id));
 					} else
 				#endif
-				#if(RTL8812A_SUPPORT==1) 
-					if(pDM_Odm->SupportICType == ODM_RTL8812)
+				#if(TLL8812A_SUPPORT==1) 
+					if(pDM_Odm->SupportICType == ODM_TLL8812)
 					{
 						platform_h2c_id = H2C_8812_RSSI_REPORT;
 					} else
@@ -698,7 +698,7 @@ phydm_trans_h2c_id(
 					platform_h2c_id =H2C_WIFI_CALIBRATION;
 			
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-				#if(RTL8723B_SUPPORT==1) 
+				#if(TLL8723B_SUPPORT==1) 
 					platform_h2c_id = H2C_8723B_BT_WLAN_CALIBRATION;
 				#endif
 				
@@ -716,7 +716,7 @@ phydm_trans_h2c_id(
 				platform_h2c_id =H2C_IQ_CALIBRATION;
 			
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-				#if((RTL8812A_SUPPORT==1) ||(RTL8821A_SUPPORT==1))
+				#if((TLL8812A_SUPPORT==1) ||(TLL8821A_SUPPORT==1))
 				platform_h2c_id = H2C_8812_IQ_CALIBRATION;
 				#endif
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -729,7 +729,7 @@ phydm_trans_h2c_id(
 		case ODM_H2C_RA_PARA_ADJUST:
 
 			#if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-				if(pDM_Odm->SupportICType == ODM_RTL8814A)
+				if(pDM_Odm->SupportICType == ODM_TLL8814A)
 				{
 					platform_h2c_id =H2C_8814A_RA_PARA_ADJUST;                            
 				}
@@ -738,26 +738,26 @@ phydm_trans_h2c_id(
 				platform_h2c_id = H2C_RA_PARA_ADJUST;
 				}
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-				#if((RTL8812A_SUPPORT==1) ||(RTL8821A_SUPPORT==1))
+				#if((TLL8812A_SUPPORT==1) ||(TLL8821A_SUPPORT==1))
 					platform_h2c_id = H2C_8812_RA_PARA_ADJUST;
-				#elif(RTL8814A_SUPPORT == 1)
+				#elif(TLL8814A_SUPPORT == 1)
 					platform_h2c_id = H2C_RA_PARA_ADJUST;
-				#elif(RTL8192E_SUPPORT==1)
+				#elif(TLL8192E_SUPPORT==1)
 					platform_h2c_id =H2C_8192E_RA_PARA_ADJUST;
-				#elif(RTL8723B_SUPPORT==1) 
+				#elif(TLL8723B_SUPPORT==1) 
 					platform_h2c_id =H2C_8723B_RA_PARA_ADJUST;
 				#endif
 				
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)
-				#if((RTL8881A_SUPPORT==1)||(RTL8192E_SUPPORT==1)||(RTL8814A_SUPPORT==1)) 
-					if (pDM_Odm->SupportICType == ODM_RTL8881A || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8814A) 
+				#if((TLL8881A_SUPPORT==1)||(TLL8192E_SUPPORT==1)||(TLL8814A_SUPPORT==1)) 
+					if (pDM_Odm->SupportICType == ODM_TLL8881A || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8814A) 
 					{
 						platform_h2c_id =H2C_88XX_RA_PARA_ADJUST;				
 						/*ODM_RT_TRACE(pDM_Odm,PHYDM_COMP_RA_DBG, ODM_DBG_LOUD, ("[H2C] H2C_88XX_RA_PARA_ADJUST CMD_ID = (( %d ))\n", platform_h2c_id));*/
 					} else
 				#endif
-				#if(RTL8812A_SUPPORT==1) 
-					if(pDM_Odm->SupportICType == ODM_RTL8812)
+				#if(TLL8812A_SUPPORT==1) 
+					if(pDM_Odm->SupportICType == ODM_TLL8812)
 					{
 						platform_h2c_id = H2C_8812_RA_PARA_ADJUST;
 					} else
@@ -772,18 +772,18 @@ phydm_trans_h2c_id(
 		case PHYDM_H2C_DYNAMIC_TX_PATH:
 
 			#if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-				if(pDM_Odm->SupportICType == ODM_RTL8814A)
+				if(pDM_Odm->SupportICType == ODM_TLL8814A)
 				{
 					platform_h2c_id =H2C_8814A_DYNAMIC_TX_PATH;
 				}
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-				#if (RTL8814A_SUPPORT == 1)
-				if (pDM_Odm->SupportICType == ODM_RTL8814A)
+				#if (TLL8814A_SUPPORT == 1)
+				if (pDM_Odm->SupportICType == ODM_TLL8814A)
 					platform_h2c_id = H2C_DYNAMIC_TX_PATH;
 				#endif
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)
-				#if(RTL8814A_SUPPORT==1)
-					if( pDM_Odm->SupportICType == ODM_RTL8814A)
+				#if(TLL8814A_SUPPORT==1)
+					if( pDM_Odm->SupportICType == ODM_TLL8814A)
 					{
 						platform_h2c_id = H2C_88XX_DYNAMIC_TX_PATH;				
 					} 
@@ -797,7 +797,7 @@ phydm_trans_h2c_id(
 		case PHYDM_H2C_FW_TRACE_EN:
 
 			#if (DM_ODM_SUPPORT_TYPE & ODM_WIN)
-				if (pDM_Odm->SupportICType == ODM_RTL8814A)
+				if (pDM_Odm->SupportICType == ODM_TLL8814A)
 					platform_h2c_id = H2C_8814A_FW_TRACE_EN;
 				else 
 					platform_h2c_id = H2C_FW_TRACE_EN;
@@ -806,13 +806,13 @@ phydm_trans_h2c_id(
 
 				
 			#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)
-				#if ((RTL8881A_SUPPORT == 1) || (RTL8192E_SUPPORT == 1) || (RTL8814A_SUPPORT == 1))
-					if (pDM_Odm->SupportICType == ODM_RTL8881A || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8814A) {
+				#if ((TLL8881A_SUPPORT == 1) || (TLL8192E_SUPPORT == 1) || (TLL8814A_SUPPORT == 1))
+					if (pDM_Odm->SupportICType == ODM_TLL8881A || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8814A) {
 						platform_h2c_id  = H2C_88XX_FW_TRACE_EN;
 					} else
 				#endif
-				#if (RTL8812A_SUPPORT == 1) 
-					if (pDM_Odm->SupportICType == ODM_RTL8812) {
+				#if (TLL8812A_SUPPORT == 1) 
+					if (pDM_Odm->SupportICType == ODM_TLL8812) {
 						platform_h2c_id = H2C_8812_FW_TRACE_EN;
 					} else
 				#endif
@@ -855,16 +855,16 @@ ODM_FillH2CCmd(
 	}
 
 	#if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-		if(pDM_Odm->SupportICType == ODM_RTL9083E)
+		if(pDM_Odm->SupportICType == ODM_TLL9083E)
 		{
 			if(!pDM_Odm->RaSupport88E)
 				FillH2CCmd88E(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
 		}
-		else if(pDM_Odm->SupportICType == ODM_RTL8192C)
+		else if(pDM_Odm->SupportICType == ODM_TLL8192C)
 		{
 			FillH2CCmd92C(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
 		}
-		else if(pDM_Odm->SupportICType == ODM_RTL8814A)
+		else if(pDM_Odm->SupportICType == ODM_TLL8814A)
 		{
 			FillH2CCmd8814A(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
 		}
@@ -876,15 +876,15 @@ ODM_FillH2CCmd(
 		tlw_hal_fill_h2c_cmd(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
 
 	#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)	
-		#if((RTL8881A_SUPPORT==1)||(RTL8192E_SUPPORT==1)||(RTL8814A_SUPPORT==1)) 
-			if(pDM_Odm->SupportICType == ODM_RTL8881A || pDM_Odm->SupportICType == ODM_RTL8192E|| pDM_Odm->SupportICType == ODM_RTL8814A) 
+		#if((TLL8881A_SUPPORT==1)||(TLL8192E_SUPPORT==1)||(TLL8814A_SUPPORT==1)) 
+			if(pDM_Odm->SupportICType == ODM_TLL8881A || pDM_Odm->SupportICType == ODM_TLL8192E|| pDM_Odm->SupportICType == ODM_TLL8814A) 
 			{
 				GET_HAL_INTERFACE(pDM_Odm->priv)->FillH2CCmdHandler(pDM_Odm->priv, platform_h2c_id, CmdLen, pCmdBuffer);
 				//FillH2CCmd88XX(pDM_Odm->priv, platform_h2c_id, CmdLen, pCmdBuffer);				
 			} else
 		#endif
-		#if(RTL8812A_SUPPORT==1) 
-			if(pDM_Odm->SupportICType == ODM_RTL8812)
+		#if(TLL8812A_SUPPORT==1) 
+			if(pDM_Odm->SupportICType == ODM_TLL8812)
 			{
 				FillH2CCmd8812(pDM_Odm->priv, platform_h2c_id, CmdLen, pCmdBuffer);
 			} else

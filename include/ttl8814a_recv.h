@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8814A_RECV_H__
-#define __RTL8814A_RECV_H__
+#ifndef __TLL8814A_RECV_H__
+#define __TLL8814A_RECV_H__
 
 #if defined(CONFIG_USB_HCI)
 
@@ -184,5 +184,5 @@ void FreeRecvPriv8821AS(PADAPTER padapter);
 
 void ttl8814_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
-#endif /* __RTL8814A_RECV_H__ */
+#endif /* __TLL8814A_RECV_H__ */
 

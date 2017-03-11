@@ -20,23 +20,23 @@
 #ifndef __PCI_HAL_H__
 #define __PCI_HAL_H__
 
-#ifdef CONFIG_RTL9083E
+#ifdef CONFIG_TLL9083E
 void ttl9083ee_set_hal_ops(_adapter *padapter);
 #endif
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 void ttl8812ae_set_hal_ops(_adapter *padapter);
 #endif
 
-#if defined(CONFIG_RTL8192E)
+#if defined(CONFIG_TLL8192E)
 void ttl8192ee_set_hal_ops(_adapter *padapter);
 #endif
 
-#ifdef CONFIG_RTL8723B
+#ifdef CONFIG_TLL8723B
 void ttl8723be_set_hal_ops(_adapter *padapter);
 #endif
 
-#ifdef CONFIG_RTL8814A
+#ifdef CONFIG_TLL8814A
 void ttl8814ae_set_hal_ops(_adapter *padapter);
 #endif
 
