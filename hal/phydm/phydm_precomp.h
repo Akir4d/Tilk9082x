@@ -108,37 +108,37 @@ PHY_SetTxPowerLimit(
 #define RTL8821B_SUPPORT		0
 #define RTL8822B_SUPPORT		0
 #define RTL8703B_SUPPORT		0
-#define RTL8188F_SUPPORT		0
+#define RTL9083F_SUPPORT		0
 #endif
 
-#if RTL8188E_SUPPORT == 1
-#define RTL8188E_T_SUPPORT 1
+#if RTL9083E_SUPPORT == 1
+#define RTL9083E_T_SUPPORT 1
 #ifdef CONFIG_SFW_SUPPORTED
-#define RTL8188E_S_SUPPORT 1
+#define RTL9083E_S_SUPPORT 1
 #else
-#define RTL8188E_S_SUPPORT 0
+#define RTL9083E_S_SUPPORT 0
 #endif
 #endif
 
-#if (RTL8188E_SUPPORT==1) 
-#include "rtl8188e/hal8188erateadaptive.h"//for  RA,Power training
-#include "rtl8188e/halhwimg8188e_mac.h"
-#include "rtl8188e/halhwimg8188e_rf.h"
-#include "rtl8188e/halhwimg8188e_bb.h"
-#include "rtl8188e/halhwimg8188e_t_fw.h"
-#include "rtl8188e/halhwimg8188e_s_fw.h"
-#include "rtl8188e/phydm_regconfig8188e.h"
-#include "rtl8188e/phydm_rtl8188e.h"
-#include "rtl8188e/hal8188ereg.h"
+#if (RTL9083E_SUPPORT==1) 
+#include "rtl9083e/hal9083erateadaptive.h"//for  RA,Power training
+#include "rtl9083e/halhwimg9083e_mac.h"
+#include "rtl9083e/halhwimg9083e_rf.h"
+#include "rtl9083e/halhwimg9083e_bb.h"
+#include "rtl9083e/halhwimg9083e_t_fw.h"
+#include "rtl9083e/halhwimg9083e_s_fw.h"
+#include "rtl9083e/phydm_regconfig9083e.h"
+#include "rtl9083e/phydm_rtl9083e.h"
+#include "rtl9083e/hal9083ereg.h"
 #if (DM_ODM_SUPPORT_TYPE == ODM_CE)
-	#include "rtl8188e_hal.h" 
-	#include "rtl8188e/halphyrf_8188e_ce.h"
+	#include "rtl9083e_hal.h" 
+	#include "rtl9083e/halphyrf_9083e_ce.h"
 #endif
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
-	#include "rtl8188e/halphyrf_8188e_win.h"
+	#include "rtl9083e/halphyrf_9083e_win.h"
 #endif
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	#include "rtl8188e/halphyrf_8188e_ap.h"
+	#include "rtl9083e/halphyrf_9083e_ap.h"
 #endif
 #endif  //88E END
 
@@ -302,17 +302,17 @@ PHY_SetTxPowerLimit(
 #endif
 #endif
 
-#if (RTL8188F_SUPPORT == 1) 
-#include "rtl8188f/halhwimg8188f_mac.h"
-#include "rtl8188f/halhwimg8188f_rf.h"
-#include "rtl8188f/halhwimg8188f_bb.h"
-#include "rtl8188f/halhwimg8188f_fw.h"
-#include "rtl8188f/hal8188freg.h"
-#include "rtl8188f/phydm_rtl8188f.h"
-#include "rtl8188f/phydm_regconfig8188f.h"
-#include "rtl8188f/halphyrf_8188f.h" /* for IQK,LCK,Power-tracking */
+#if (RTL9083F_SUPPORT == 1) 
+#include "rtl9083f/halhwimg9083f_mac.h"
+#include "rtl9083f/halhwimg9083f_rf.h"
+#include "rtl9083f/halhwimg9083f_bb.h"
+#include "rtl9083f/halhwimg9083f_fw.h"
+#include "rtl9083f/hal9083freg.h"
+#include "rtl9083f/phydm_rtl9083f.h"
+#include "rtl9083f/phydm_regconfig9083f.h"
+#include "rtl9083f/halphyrf_9083f.h" /* for IQK,LCK,Power-tracking */
 #if (DM_ODM_SUPPORT_TYPE == ODM_CE)
-#include "rtl8188f_hal.h"
+#include "rtl9083f_hal.h"
 #endif
 #endif
 

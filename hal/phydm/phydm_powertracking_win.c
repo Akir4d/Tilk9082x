@@ -374,7 +374,7 @@ getSwingIndex(
 	u4Byte 			swingTableSize;
 	pu4Byte 			pSwingTable;
 
-	if (pDM_Odm->SupportICType == ODM_RTL8188E || pDM_Odm->SupportICType == ODM_RTL8723B ||
+	if (pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8723B ||
 		pDM_Odm->SupportICType == ODM_RTL8192E) 
 	{
 		bbSwing = PHY_QueryBBReg(Adapter, rOFDM0_XATxIQImbalance, 0xFFC00000);
@@ -415,7 +415,7 @@ odm_TXPowerTrackingThermalMeterInit(
 	if(pDM_Odm->mp_mode == FALSE)
 		pRFCalibrateInfo->TxPowerTrackControl = TRUE;
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
-	#ifdef CONFIG_RTL8188E
+	#ifdef CONFIG_RTL9083E
 	{
 		pRFCalibrateInfo->bTXPowerTracking = _TRUE;
 		pRFCalibrateInfo->TXPowercount = 0;
@@ -442,9 +442,9 @@ odm_TXPowerTrackingThermalMeterInit(
 		MSG_8192C("pdmpriv->TxPowerTrackControl = %d\n", pdmpriv->TxPowerTrackControl);
 	
 	}	
-	#endif//endif (CONFIG_RTL8188E==1)	
+	#endif//endif (CONFIG_RTL9083E==1)	
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	#ifdef RTL8188E_SUPPORT
+	#ifdef RTL9083E_SUPPORT
 	{
 		pRFCalibrateInfo->bTXPowerTracking = _TRUE;
 		pRFCalibrateInfo->TXPowercount = 0;
@@ -460,7 +460,7 @@ odm_TXPowerTrackingThermalMeterInit(
 	pRFCalibrateInfo->ThermalValue_LCK 	= pHalData->EEPROMThermalMeter;	
 
 	// The index of "0 dB" in SwingTable.
-	if (pDM_Odm->SupportICType == ODM_RTL8188E || pDM_Odm->SupportICType == ODM_RTL8723B ||
+	if (pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8723B ||
 		pDM_Odm->SupportICType == ODM_RTL8192E) 
 	{
 		pRFCalibrateInfo->DefaultOfdmIndex = (defaultSwingIndex >= OFDM_TABLE_SIZE) ? 30 : defaultSwingIndex;
@@ -538,7 +538,7 @@ odm_TXPowerTrackingCheckCE(
 	#endif
 		rtl8192d_odm_CheckTXPowerTracking(Adapter);
 	#endif
-	#if(RTL8188E_SUPPORT==1)
+	#if(RTL9083E_SUPPORT==1)
 
 	if(!(pDM_Odm->SupportAbility & ODM_RF_TX_PWR_TRACK))
 	{
@@ -557,7 +557,7 @@ odm_TXPowerTrackingCheckCE(
 	else
 	{
 		//DBG_8192C("Schedule TxPowerTracking direct call!!\n");
-		odm_TXPowerTrackingCallback_ThermalMeter_8188E(Adapter);
+		odm_TXPowerTrackingCallback_ThermalMeter_9083E(Adapter);
 		pRFCalibrateInfo->TM_Trigger = 0;
 	}
 	#endif
@@ -679,7 +679,7 @@ odm_TXPowerTrackingThermalMeterCheck(
 	{
 		if(IS_HARDWARE_TYPE_8192D(Adapter))
 			PHY_SetRFReg(Adapter, ODM_RF_PATH_A, RF_T_METER_92D, BIT17 | BIT16, 0x03);
-		else if(IS_HARDWARE_TYPE_8188E(Adapter) || IS_HARDWARE_TYPE_JAGUAR(Adapter) || IS_HARDWARE_TYPE_8192E(Adapter) ||
+		else if(IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_JAGUAR(Adapter) || IS_HARDWARE_TYPE_8192E(Adapter) ||
 			    IS_HARDWARE_TYPE_8723B(Adapter) || IS_HARDWARE_TYPE_8814A(Adapter))
 			PHY_SetRFReg(Adapter, ODM_RF_PATH_A, RF_T_METER_88E, BIT17 | BIT16, 0x03);
 		else

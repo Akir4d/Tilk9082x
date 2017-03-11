@@ -25,14 +25,14 @@ CONFIG_AUTOCFG_CP = n
 
 ########################## WIFI IC ############################
 CONFIG_MULTIDRV = n
-CONFIG_RTL8188E = y
+CONFIG_RTL9083E = y
 CONFIG_RTL8812A = n
 CONFIG_RTL8821A = n
 CONFIG_RTL8192E = n
 CONFIG_RTL8723B = n
 CONFIG_RTL8814A = n
 CONFIG_RTL8703B = n
-CONFIG_RTL8188F = n
+CONFIG_RTL9083F = n
 ######################### Interface ###########################
 CONFIG_USB_HCI = n
 CONFIG_PCI_HCI = n
@@ -227,10 +227,10 @@ _OUTSRC_FILES += hal/btc/HalBtc8192e1Ant.o \
 endif
 
 
-########### HAL_RTL8188E #################################
-ifeq ($(CONFIG_RTL8188E), y)
+########### HAL_RTL9083E #################################
+ifeq ($(CONFIG_RTL9083E), y)
 
-TTL902X = rtl8188e
+TTL902X = rtl9083e
 ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 9082es
 endif
@@ -240,16 +240,16 @@ MODULE_NAME = 9082es
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-MODULE_NAME = 8188eu
+MODULE_NAME = 9083eu
 endif
 
 ifeq ($(CONFIG_PCI_HCI), y)
-MODULE_NAME = 8188ee
+MODULE_NAME = 9083ee
 endif
-EXTRA_CFLAGS += -DCONFIG_RTL8188E
+EXTRA_CFLAGS += -DCONFIG_RTL9083E
 
 _HAL_INTFS_FILES +=	hal/HalPwrSeqCmd.o \
-					hal/$(TTL902X)/Hal8188EPwrSeq.o\
+					hal/$(TTL902X)/Hal9083EPwrSeq.o\
  					hal/$(TTL902X)/$(TTL902X)_xmit.o\
 					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
@@ -275,25 +275,25 @@ endif
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188E_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9083E_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188E_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9083E_PCIE.o
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188E_SDIO.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9083E_SDIO.o
 endif
 
-#hal/OUTSRC/$(TTL902X)/Hal8188EFWImg_CE.o
-_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8188e_mac.o\
-		hal/phydm/$(TTL902X)/halhwimg8188e_bb.o\
-		hal/phydm/$(TTL902X)/halhwimg8188e_rf.o\
-		hal/phydm/$(TTL902X)/halhwimg8188e_t_fw.o\
-		hal/phydm/$(TTL902X)/halhwimg8188e_s_fw.o\
-		hal/phydm/$(TTL902X)/halphyrf_8188e_ce.o\
-		hal/phydm/$(TTL902X)/phydm_regconfig8188e.o\
-		hal/phydm/$(TTL902X)/hal8188erateadaptive.o\
-		hal/phydm/$(TTL902X)/phydm_rtl8188e.o
+#hal/OUTSRC/$(TTL902X)/Hal9083EFWImg_CE.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg9083e_mac.o\
+		hal/phydm/$(TTL902X)/halhwimg9083e_bb.o\
+		hal/phydm/$(TTL902X)/halhwimg9083e_rf.o\
+		hal/phydm/$(TTL902X)/halhwimg9083e_t_fw.o\
+		hal/phydm/$(TTL902X)/halhwimg9083e_s_fw.o\
+		hal/phydm/$(TTL902X)/halphyrf_9083e_ce.o\
+		hal/phydm/$(TTL902X)/phydm_regconfig9083e.o\
+		hal/phydm/$(TTL902X)/hal9083erateadaptive.o\
+		hal/phydm/$(TTL902X)/phydm_rtl9083e.o
 
 endif
 
@@ -346,7 +346,7 @@ ifeq ($(CONFIG_PCI_HCI), y)
 _HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8192E_PCIE.o
 endif
 
-#hal/OUTSRC/$(TTL902X)/HalHWImg8188E_FW.o
+#hal/OUTSRC/$(TTL902X)/HalHWImg9083E_FW.o
 _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8192e_mac.o\
 		hal/phydm/$(TTL902X)/halhwimg8192e_bb.o\
 		hal/phydm/$(TTL902X)/halhwimg8192e_rf.o\
@@ -636,24 +636,24 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8703b_bb.o\
 								hal/phydm/$(TTL902X)/halphyrf_8703b.o
 endif
 
-########### HAL_RTL8188F #################################
-ifeq ($(CONFIG_RTL8188F), y)
+########### HAL_RTL9083F #################################
+ifeq ($(CONFIG_RTL9083F), y)
 
-TTL902X = rtl8188f
+TTL902X = rtl9083f
 ifeq ($(CONFIG_USB_HCI), y)
-MODULE_NAME = 8188fu
+MODULE_NAME = 9083fu
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-MODULE_NAME = 8188fe
+MODULE_NAME = 9083fe
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 9082fs
 endif
 
-EXTRA_CFLAGS += -DCONFIG_RTL8188F
+EXTRA_CFLAGS += -DCONFIG_RTL9083F
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
-					hal/$(TTL902X)/Hal8188FPwrSeq.o\
+					hal/$(TTL902X)/Hal9083FPwrSeq.o\
 					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
 _HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
@@ -677,20 +677,20 @@ _HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188F_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9083F_USB.o
 endif
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188F_SDIO.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9083F_SDIO.o
 endif
 
-_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8188f_bb.o\
-								hal/phydm/$(TTL902X)/halhwimg8188f_mac.o\
-								hal/phydm/$(TTL902X)/halhwimg8188f_rf.o\
-								hal/phydm/$(TTL902X)/halhwimg8188f_fw.o\
-								hal/phydm/$(TTL902X)/phydm_regconfig8188f.o\
-								hal/phydm/$(TTL902X)/halphyrf_8188f.o \
-								hal/phydm/$(TTL902X)/phydm_rtl8188f.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg9083f_bb.o\
+								hal/phydm/$(TTL902X)/halhwimg9083f_mac.o\
+								hal/phydm/$(TTL902X)/halhwimg9083f_rf.o\
+								hal/phydm/$(TTL902X)/halhwimg9083f_fw.o\
+								hal/phydm/$(TTL902X)/phydm_regconfig9083f.o\
+								hal/phydm/$(TTL902X)/halphyrf_9083f.o \
+								hal/phydm/$(TTL902X)/phydm_rtl9083f.o
 
 endif
 
@@ -701,9 +701,9 @@ ifeq ($(CONFIG_AUTOCFG_CP), y)
 ifeq ($(CONFIG_MULTIDRV), y)
 $(shell cp $(TopDIR)/autoconf_multidrv_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
-ifeq ($(CONFIG_RTL8188E)$(CONFIG_SDIO_HCI),yy)
+ifeq ($(CONFIG_RTL9083E)$(CONFIG_SDIO_HCI),yy)
 $(shell cp $(TopDIR)/autoconf_ttl9082x_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
-else ifeq ($(CONFIG_RTL8188F)$(CONFIG_SDIO_HCI),yy)
+else ifeq ($(CONFIG_RTL9083F)$(CONFIG_SDIO_HCI),yy)
 $(shell cp $(TopDIR)/autoconf_rtl9082f_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
 $(shell cp $(TopDIR)/autoconf_$(TTL902X)_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
@@ -1484,7 +1484,7 @@ endif
 EXTRA_CFLAGS += -DCONFIG_PLATFORM_SPRD
 EXTRA_CFLAGS += -DPLATFORM_SPREADTRUM_6820
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
-ifeq ($(TTL902X), rtl8188e)
+ifeq ($(TTL902X), rtl9083e)
 EXTRA_CFLAGS += -DSOFTAP_PS_DURATION=50
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)
@@ -1500,7 +1500,7 @@ endif
 EXTRA_CFLAGS += -DCONFIG_PLATFORM_SPRD
 EXTRA_CFLAGS += -DPLATFORM_SPREADTRUM_8810
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
-ifeq ($(TTL902X), rtl8188e)
+ifeq ($(TTL902X), rtl9083e)
 EXTRA_CFLAGS += -DSOFTAP_PS_DURATION=50
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)

@@ -25,8 +25,8 @@ void usb_free_recv_priv (_adapter *padapter, u16 ini_in_buf_sz);
 
 u8 rtw_set_hal_ops(_adapter *padapter);
 
-#ifdef CONFIG_RTL8188E
-void rtl8188eu_set_hal_ops(_adapter * padapter);
+#ifdef CONFIG_RTL9083E
+void rtl9083eu_set_hal_ops(_adapter * padapter);
 #endif
 
 #if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
@@ -46,8 +46,8 @@ void rtl8723bu_set_hal_ops(_adapter * padapter);
 void rtl8814au_set_hal_ops(_adapter * padapter);
 #endif /* CONFIG_RTL8814A */
 
-#ifdef CONFIG_RTL8188F
-void rtl8188fu_set_hal_ops(_adapter *padapter);
+#ifdef CONFIG_RTL9083F
+void rtl9083fu_set_hal_ops(_adapter *padapter);
 #endif
 
 #ifdef CONFIG_INTEL_PROXIM	

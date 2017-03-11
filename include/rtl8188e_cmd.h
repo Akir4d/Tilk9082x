@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188E_CMD_H__
-#define __RTL8188E_CMD_H__
+#ifndef __RTL9083E_CMD_H__
+#define __RTL9083E_CMD_H__
 
 #if 0
 enum cmd_msg_element_id
@@ -38,7 +38,7 @@ enum cmd_msg_element_id
 	MAX_CMDMSG_EID	 
 };
 #else
-typedef enum _RTL8188E_H2C_CMD_ID
+typedef enum _RTL9083E_H2C_CMD_ID
 {
 	//Class Common
 	H2C_COM_RSVD_PAGE			=0x00,
@@ -82,7 +82,7 @@ typedef enum _RTL8188E_H2C_CMD_ID
 
 	//Class 
 	 //H2C_RESET_TSF				=0xc0,
-}RTL8188E_H2C_CMD_ID;
+}RTL9083E_H2C_CMD_ID;
 	
 #endif
 
@@ -139,33 +139,33 @@ typedef struct _RSVDPAGE_LOC_88E {
 */
 
 // host message to firmware cmd
-void rtl8188e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode);
-void rtl8188e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus);
-u8 rtl8188e_set_rssi_cmd(PADAPTER padapter, u8 *param);
-u8 rtl8188e_set_raid_cmd(_adapter *padapter, u32 bitmap, u8 *arg);
-void rtl8188e_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
+void rtl9083e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode);
+void rtl9083e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus);
+u8 rtl9083e_set_rssi_cmd(PADAPTER padapter, u8 *param);
+u8 rtl9083e_set_raid_cmd(_adapter *padapter, u32 bitmap, u8 *arg);
+void rtl9083e_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
 s32 FillH2CCmd_88E(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
 //u8 rtl8192c_set_FwSelectSuspend_cmd(PADAPTER padapter, u8 bfwpoll, u16 period);
-u8 GetTxBufferRsvdPageNum8188E(_adapter *padapter, bool wowlan);
+u8 GetTxBufferRsvdPageNum9083E(_adapter *padapter, bool wowlan);
 
 
 #ifdef CONFIG_P2P
-void rtl8188e_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
+void rtl9083e_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
 #endif //CONFIG_P2P
 
 void CheckFwRsvdPageContent(PADAPTER padapter);
-void rtl8188e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt );
+void rtl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt );
 
 #ifdef CONFIG_TSF_RESET_OFFLOAD
-//u8 rtl8188e_reset_tsf(_adapter *padapter, u8 reset_port);
+//u8 rtl9083e_reset_tsf(_adapter *padapter, u8 reset_port);
 int reset_tsf(PADAPTER Adapter, u8 reset_port );
 #endif	// CONFIG_TSF_RESET_OFFLOAD
 
-//#define H2C_8188E_RSVDPAGE_LOC_LEN      5
-//#define H2C_8188E_AOAC_RSVDPAGE_LOC_LEN 7
+//#define H2C_9083E_RSVDPAGE_LOC_LEN      5
+//#define H2C_9083E_AOAC_RSVDPAGE_LOC_LEN 7
 
 #ifdef CONFIG_WOWLAN
-void SetFwRelatedForWoWLAN8188ES(_adapter* padapter, u8 bHostIsGoingtoSleep);
+void SetFwRelatedForWoWLAN9083ES(_adapter* padapter, u8 bHostIsGoingtoSleep);
 #endif//CONFIG_WOWLAN
 
 //---------------------------------------------------------------------------------------------------------//
@@ -174,14 +174,14 @@ void SetFwRelatedForWoWLAN8188ES(_adapter* padapter, u8 bHostIsGoingtoSleep);
 //
 /* move to hal_com_h2c.h
 //_RSVDPAGE_LOC_CMD_0x00
-#define SET_8188E_H2CCMD_RSVDPAGE_LOC_PROBE_RSP(__pH2CCmd, __Value)     SET_BITS_TO_LE_1BYTE(__pH2CCmd, 0, 8, __Value)
-#define SET_8188E_H2CCMD_RSVDPAGE_LOC_PSPOLL(__pH2CCmd, __Value)            SET_BITS_TO_LE_1BYTE((__pH2CCmd)+1, 0, 8, __Value)
-#define SET_8188E_H2CCMD_RSVDPAGE_LOC_NULL_DATA(__pH2CCmd, __Value)     SET_BITS_TO_LE_1BYTE((__pH2CCmd)+2, 0, 8, __Value)
-#define SET_8188E_H2CCMD_RSVDPAGE_LOC_QOS_NULL_DATA(__pH2CCmd, __Value)     SET_BITS_TO_LE_1BYTE((__pH2CCmd)+3, 0, 8, __Value)
+#define SET_9083E_H2CCMD_RSVDPAGE_LOC_PROBE_RSP(__pH2CCmd, __Value)     SET_BITS_TO_LE_1BYTE(__pH2CCmd, 0, 8, __Value)
+#define SET_9083E_H2CCMD_RSVDPAGE_LOC_PSPOLL(__pH2CCmd, __Value)            SET_BITS_TO_LE_1BYTE((__pH2CCmd)+1, 0, 8, __Value)
+#define SET_9083E_H2CCMD_RSVDPAGE_LOC_NULL_DATA(__pH2CCmd, __Value)     SET_BITS_TO_LE_1BYTE((__pH2CCmd)+2, 0, 8, __Value)
+#define SET_9083E_H2CCMD_RSVDPAGE_LOC_QOS_NULL_DATA(__pH2CCmd, __Value)     SET_BITS_TO_LE_1BYTE((__pH2CCmd)+3, 0, 8, __Value)
 // AOAC_RSVDPAGE_LOC_0x83
-#define SET_8188E_H2CCMD_AOAC_RSVDPAGE_LOC_REMOTE_WAKE_CTRL_INFO(__pH2CCmd, __Value)        SET_BITS_TO_LE_1BYTE((__pH2CCmd), 0, 8, __Value)
-#define SET_8188E_H2CCMD_AOAC_RSVDPAGE_LOC_ARP_RSP(__pH2CCmd, __Value)                  SET_BITS_TO_LE_1BYTE((__pH2CCmd)+1, 0, 8, __Value)
+#define SET_9083E_H2CCMD_AOAC_RSVDPAGE_LOC_REMOTE_WAKE_CTRL_INFO(__pH2CCmd, __Value)        SET_BITS_TO_LE_1BYTE((__pH2CCmd), 0, 8, __Value)
+#define SET_9083E_H2CCMD_AOAC_RSVDPAGE_LOC_ARP_RSP(__pH2CCmd, __Value)                  SET_BITS_TO_LE_1BYTE((__pH2CCmd)+1, 0, 8, __Value)
 */
-#endif//__RTL8188E_CMD_H__
+#endif//__RTL9083E_CMD_H__
 
 

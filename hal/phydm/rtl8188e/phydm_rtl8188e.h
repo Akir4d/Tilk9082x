@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef	__ODM_RTL8188E_H__
-#define __ODM_RTL8188E_H__
+#ifndef	__ODM_RTL9083E_H__
+#define __ODM_RTL9083E_H__
 
 
 #define	MAIN_ANT_CG_TRX	1

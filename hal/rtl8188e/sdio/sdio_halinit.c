@@ -20,7 +20,7 @@
 #define _SDIO_HALINIT_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 #include "hal_com_h2c.h"
 #ifndef CONFIG_SDIO_HCI
 #error "CONFIG_SDIO_HCI shall be on!\n"
@@ -180,7 +180,7 @@ void _InitClockTo26MHz(
 #endif
 
 
-static void rtl8188es_interface_configure(PADAPTER padapter)
+static void rtl9083es_interface_configure(PADAPTER padapter)
 {
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(padapter);
 	struct dvobj_priv		*pdvobjpriv = adapter_to_dvobj(padapter);
@@ -250,7 +250,7 @@ static u8 _CardEnable(PADAPTER padapter)
 		rtw_write8(padapter, 0x4, val8);
 #endif // CONFIG_PLATFORM_SPRD
 
-		ret = HalPwrSeqCmdParsing(padapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl8188E_NIC_ENABLE_FLOW);
+		ret = HalPwrSeqCmdParsing(padapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl9083E_NIC_ENABLE_FLOW);
 		if (ret == _SUCCESS) {
 			u8 bMacPwrCtrlOn = _TRUE;
 			rtw_hal_set_hwreg(padapter, HW_VAR_APFM_ON_MAC, &bMacPwrCtrlOn);
@@ -275,7 +275,7 @@ static u8 _CardEnable(PADAPTER padapter)
 	
 }
 
-static u32 _InitPowerOn_8188ES(PADAPTER padapter)
+static u32 _InitPowerOn_9083ES(PADAPTER padapter)
 {
 	u8 value8;
 	u16 value16;
@@ -323,7 +323,7 @@ static u32 _InitPowerOn_8188ES(PADAPTER padapter)
 	
 }
 
-static void hal_poweroff_8188es(PADAPTER padapter)
+static void hal_poweroff_9083es(PADAPTER padapter)
 {
 	u8		u1bTmp;
 	u16		u2bTmp;
@@ -370,7 +370,7 @@ static void hal_poweroff_8188es(PADAPTER padapter)
 
 
 	// Run LPS WL RFOFF flow	
-	ret = HalPwrSeqCmdParsing(padapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl8188E_NIC_LPS_ENTER_FLOW);
+	ret = HalPwrSeqCmdParsing(padapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl9083E_NIC_LPS_ENTER_FLOW);
 	if (ret == _FALSE) {
 		DBG_871X("%s: run RF OFF flow fail!\n", __func__);
 	}
@@ -408,14 +408,14 @@ static void hal_poweroff_8188es(PADAPTER padapter)
 	{// Power Down
 		
 		// Card disable power action flow
-		ret = HalPwrSeqCmdParsing(Adapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl8188E_NIC_PDN_FLOW);	
+		ret = HalPwrSeqCmdParsing(Adapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl9083E_NIC_PDN_FLOW);	
 	}	
 	else
 */	
 	{ // Non-Power Down
 
 		// Card disable power action flow
-		ret = HalPwrSeqCmdParsing(padapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl8188E_NIC_DISABLE_FLOW);
+		ret = HalPwrSeqCmdParsing(padapter, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK, Rtl9083E_NIC_DISABLE_FLOW);
 
 		 
 		if (ret == _FALSE) {
@@ -469,7 +469,7 @@ static void _init_available_page_threshold(PADAPTER padapter, u8 numHQ, u8 numNQ
 
 static void _InitQueueReservedPage(PADAPTER padapter)
 {
-#ifdef RTL8188ES_MAC_LOOPBACK	
+#ifdef RTL9083ES_MAC_LOOPBACK	
 
 //#define MAC_LOOPBACK_PAGE_NUM_PUBQ		0x26
 //#define MAC_LOOPBACK_PAGE_NUM_HPQ		0x0b
@@ -837,7 +837,7 @@ void _InitRetryFunction(PADAPTER padapter)
 	rtw_write8(padapter, REG_ACKTO, 0x40);
 }
 
-static void HalRxAggr8188ESdio(PADAPTER padapter)
+static void HalRxAggr9083ESdio(PADAPTER padapter)
 {
 #if 1
 	struct registry_priv *pregistrypriv;
@@ -917,7 +917,7 @@ void _initSdioAggregationSetting(PADAPTER padapter)
 	//sdio_AggSettingTxUpdate(padapter);
 
 	// Rx aggregation setting
-	HalRxAggr8188ESdio(padapter);
+	HalRxAggr9083ESdio(padapter);
 	sdio_AggSettingRxUpdate(padapter);
 #else
 	DBG_871X("%s SDIO Aggregation default off\n", __func__);
@@ -1014,8 +1014,8 @@ void _InitBeaconParameters(PADAPTER padapter)
 
 	// TODO: Remove these magic number
 	rtw_write16(padapter, REG_TBTT_PROHIBIT, 0x6404);// ms
-	rtw_write8(padapter, REG_DRVERLYINT, DRIVER_EARLY_INT_TIME_8188E);//ms
-	rtw_write8(padapter, REG_BCNDMATIM, BCN_DMA_ATIME_INT_TIME_8188E);
+	rtw_write8(padapter, REG_DRVERLYINT, DRIVER_EARLY_INT_TIME_9083E);//ms
+	rtw_write8(padapter, REG_BCNDMATIM, BCN_DMA_ATIME_INT_TIME_9083E);
 
 	// Suggested by designer timchen. Change beacon AIFS to the largest number
 	// beacause test chip does not contension before sending beacon. by tynli. 2009.11.03
@@ -1049,18 +1049,18 @@ void _InitInterrupt(PADAPTER padapter)
 	//
 	// Initialize and enable SDIO Host Interrupt.
 	//
-	InitInterrupt8188ESdio(padapter);
+	InitInterrupt9083ESdio(padapter);
 
 
 	//
 	// Initialize and enable system Host Interrupt.
 	//
-	//InitSysInterrupt8188ESdio(Adapter);//TODO:
+	//InitSysInterrupt9083ESdio(Adapter);//TODO:
 	
 	//
 	// Enable SDIO Host Interrupt.
 	//
-	//EnableInterrupt8188ESdio(padapter);//Move to sd_intf_start()/stop
+	//EnableInterrupt9083ESdio(padapter);//Move to sd_intf_start()/stop
 	
 }
 
@@ -1141,7 +1141,7 @@ static void _InitPABias(PADAPTER padapter)
 
 #if 0
 VOID
-_InitRDGSetting_8188E(
+_InitRDGSetting_9083E(
 	IN	PADAPTER Adapter
 	)
 {
@@ -1151,7 +1151,7 @@ _InitRDGSetting_8188E(
 }
 #endif
 
-static u32 rtl8188es_hal_init(PADAPTER padapter)
+static u32 rtl9083es_hal_init(PADAPTER padapter)
 {
 	s32 ret;
 	u8	txpktbuf_bndy;
@@ -1234,12 +1234,12 @@ static u32 rtl8188es_hal_init(PADAPTER padapter)
 	#define HAL_INIT_PROFILE_TAG(stage) do {} while(0)
 #endif //DBG_HAL_INIT_PROFILING
 
-	DBG_8192C("+rtl8188es_hal_init\n");
+	DBG_8192C("+rtl9083es_hal_init\n");
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BEGIN);
 	// Disable Interrupt first.
 //	rtw_hal_disable_interrupt(padapter);
-//	DisableInterrupt8188ESdio(padapter);
+//	DisableInterrupt9083ESdio(padapter);
 	
 
 	if(rtw_read8(padapter, REG_MCUFWDL) == 0xc6) {
@@ -1281,14 +1281,14 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BEGIN);
 		} while (1);
 		_exit_pwrlock(&pwrctrlpriv->lock);
 		
-		hal_poweroff_8188es(padapter);
+		hal_poweroff_9083es(padapter);
 #endif
 	} else {
 		DBG_871X("FW does not exit before power on!!\n");
 	}
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_PW_ON);
-	ret = _InitPowerOn_8188ES(padapter);
+	ret = _InitPowerOn_9083ES(padapter);
 	if (_FAIL == ret) {
 		RT_TRACE(_module_hci_hal_init_c_, _drv_err_, ("Failed to init Power On!\n"));
 		goto exit;
@@ -1297,7 +1297,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_PW_ON);
 	ret = PowerOnCheck(padapter);
 	if (_FAIL == ret ) {
 		DBG_871X("Power on Fail! do it again\n");
-		ret = _InitPowerOn_8188ES(padapter);
+		ret = _InitPowerOn_9083ES(padapter);
 		if (_FAIL == ret) {
 			DBG_871X("Failed to init Power On!\n");
 			goto exit;
@@ -1343,7 +1343,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_DOWNLOAD_FW);
 	pHalData->fw_ractrl = _FALSE;
 #else
 
-	ret = rtl8188e_FirmwareDownload(padapter, _FALSE);
+	ret = rtl9083e_FirmwareDownload(padapter, _FALSE);
 
 	if (ret != _SUCCESS) {
 		DBG_871X("%s: Download Firmware failed!!\n", __FUNCTION__);
@@ -1354,7 +1354,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_DOWNLOAD_FW);
 		RT_TRACE(_module_hci_hal_init_c_, _drv_info_, ("Initializepadapter8192CSdio(): Download Firmware Success!!\n"));
 		padapter->bFWReady = _TRUE;
 		#ifdef CONFIG_SFW_SUPPORTED
-		pHalData->fw_ractrl = IS_VENDOR_8188E_I_CUT_SERIES(padapter)?_TRUE:_FALSE;
+		pHalData->fw_ractrl = IS_VENDOR_9083E_I_CUT_SERIES(padapter)?_TRUE:_FALSE;
 		#else
 		pHalData->fw_ractrl = _FALSE;
 		#endif
@@ -1362,11 +1362,11 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_DOWNLOAD_FW);
 #endif
 	}
 
-	rtl8188e_InitializeFirmwareVars(padapter);
+	rtl9083e_InitializeFirmwareVars(padapter);
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MAC);
 #if (HAL_MAC_ENABLE == 1)
-	ret = PHY_MACConfig8188E(padapter);
+	ret = PHY_MACConfig9083E(padapter);
 	if(ret != _SUCCESS){
 //		RT_TRACE(COMP_INIT, DBG_LOUD, ("Initializepadapter8192CSdio(): Fail to configure MAC!!\n"));
 		goto exit;
@@ -1378,7 +1378,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BB);
 	//d. Initialize BB related configurations.
 	//
 #if (HAL_BB_ENABLE == 1)
-	ret = PHY_BBConfig8188E(padapter);
+	ret = PHY_BBConfig9083E(padapter);
 	if(ret != _SUCCESS){
 //		RT_TRACE(COMP_INIT, DBG_SERIOUS, ("Initializepadapter8192CSdio(): Fail to configure BB!!\n"));
 		goto exit;
@@ -1389,7 +1389,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BB);
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_RF);
 
 #if (HAL_RF_ENABLE == 1)
-	ret = PHY_RFConfig8188E(padapter);
+	ret = PHY_RFConfig9083E(padapter);
 
 	if(ret != _SUCCESS){
 //		RT_TRACE(COMP_INIT, DBG_LOUD, ("Initializepadapter8192CSdio(): Fail to configure RF!!\n"));
@@ -1397,9 +1397,9 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_RF);
 	}
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_EFUSE_PATCH);
 #if defined(CONFIG_IOL_EFUSE_PATCH)	
-	ret = rtl8188e_iol_efuse_patch(padapter);
+	ret = rtl9083e_iol_efuse_patch(padapter);
 	if(ret != _SUCCESS){
-		DBG_871X("%s  rtl8188e_iol_efuse_patch failed \n",__FUNCTION__);
+		DBG_871X("%s  rtl9083e_iol_efuse_patch failed \n",__FUNCTION__);
 		goto exit;
 	}
 #endif
@@ -1431,7 +1431,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_LLTT);
 
 #if 0
 	if(pHTInfo->bRDGEnable){
-		_InitRDGSetting_8188E(Adapter);
+		_InitRDGSetting_9083E(Adapter);
 	}
 #endif
 
@@ -1441,7 +1441,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_LLTT);
 		RT_TRACE(_module_hci_hal_init_c_, _drv_info_,("EarlyMode Enabled!!!\n"));
 
 		value8 = rtw_read8(padapter, REG_EARLY_MODE_CONTROL);
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
 		value8 = value8|0x1f;
 #else
 		value8 = value8|0xf;
@@ -1543,7 +1543,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_SECURITY);
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC11);
 	// 2010/12/17 MH We need to set TX power according to EFUSE content at first.
-	PHY_SetTxPowerLevel8188E(padapter, pHalData->CurrentChannel);
+	PHY_SetTxPowerLevel9083E(padapter, pHalData->CurrentChannel);
 	// Record original value for template. This is arough data, we can only use the data
 	// for power adjust. The value can not be adjustde according to different power!!!
 //	pHalData->OriginalCckTxPwrIdx = pHalData->CurrentCckTxPwrIdx;
@@ -1563,7 +1563,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC11);
 	rtw_write8(padapter, REG_HWSEQ_CTRL, 0xFF);
 
 
-#ifdef RTL8188ES_MAC_LOOPBACK
+#ifdef RTL9083ES_MAC_LOOPBACK
 	value8 = rtw_read8(padapter, REG_SYS_FUNC_EN);
 	value8 &= ~(FEN_BBRSTB|FEN_BB_GLB_RSTn);
 	rtw_write8(padapter, REG_SYS_FUNC_EN, value8);//disable BB, CCK/OFDM
@@ -1577,7 +1577,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC11);
 	
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_HAL_DM);
 	//	InitHalDm(padapter);
-	rtl8188e_InitHalDm(padapter);
+	rtl9083e_InitHalDm(padapter);
 		
 
 #if (MP_DRIVER == 1)
@@ -1632,12 +1632,12 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_HAL_DM);
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_IQK);
 		if(pHalData->bIQKInitialized){
 //			PHY_IQCalibrate(padapter, _TRUE);
-			PHY_IQCalibrate_8188E(padapter,_TRUE);
+			PHY_IQCalibrate_9083E(padapter,_TRUE);
 		}
 		else
 		{
 //			PHY_IQCalibrate(padapter, _FALSE);
-			PHY_IQCalibrate_8188E(padapter,_FALSE);
+			PHY_IQCalibrate_9083E(padapter,_FALSE);
 			pHalData->bIQKInitialized = _TRUE;
 		}
 
@@ -1648,7 +1648,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_PW_TRACK);
 		ODM_TXPowerTrackingCheck(&pHalData->odmpriv );
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_LCK);
-		PHY_LCCalibrate_8188E(&pHalData->odmpriv );
+		PHY_LCCalibrate_9083E(&pHalData->odmpriv );
 
 		
 	}
@@ -1699,7 +1699,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 		rtw_write8(padapter,REG_NAV_UPPER ,0x0);
 	}
 
-	if(IS_HARDWARE_TYPE_8188ES(padapter))
+	if(IS_HARDWARE_TYPE_9083ES(padapter))
 	{
 		value8= rtw_read8(padapter, 0x4d3);
 		rtw_write8(padapter, 0x4d3, (value8|0x1));		
@@ -1718,16 +1718,16 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 	PlatformEFIOWrite1Byte(Adapter, REG_EARLY_MODE_CONTROL+3, 0x01);
 
 */	
-	//RT_TRACE(COMP_INIT, DBG_TRACE, ("InitializeAdapter8188EUsb() <====\n"));
+	//RT_TRACE(COMP_INIT, DBG_TRACE, ("InitializeAdapter9083EUsb() <====\n"));
 
 	
 	//enable tx DMA to drop the redundate data of packet
 	rtw_write16(padapter,REG_TXDMA_OFFSET_CHK, (rtw_read16(padapter,REG_TXDMA_OFFSET_CHK) | DROP_DATA_EN));
 
 //#debug print for checking compile flags
-	//DBG_8192C("RTL8188E_FPGA_TRUE_PHY_VERIFICATION=%d\n", RTL8188E_FPGA_TRUE_PHY_VERIFICATION);
+	//DBG_8192C("RTL9083E_FPGA_TRUE_PHY_VERIFICATION=%d\n", RTL9083E_FPGA_TRUE_PHY_VERIFICATION);
 	DBG_8192C("DISABLE_BB_RF=%d\n", DISABLE_BB_RF);	
-	DBG_8192C("IS_HARDWARE_TYPE_8188ES=%d\n", IS_HARDWARE_TYPE_8188ES(padapter));
+	DBG_8192C("IS_HARDWARE_TYPE_9083ES=%d\n", IS_HARDWARE_TYPE_9083ES(padapter));
 //#
 
 #ifdef CONFIG_PLATFORM_SPRD
@@ -1753,7 +1753,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 				rOFDM0_ECCAThreshold, bMaskDWord, 0x00fe0301);
 
 	//RT_TRACE(COMP_INIT, DBG_LOUD, ("<---Initializepadapter8192CSdio()\n"));
-	DBG_8192C("-rtl8188es_hal_init\n");
+	DBG_8192C("-rtl9083es_hal_init\n");
 
 exit:
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_END);
@@ -1779,19 +1779,19 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_END);
 
 
 
-static u32 rtl8188es_hal_deinit(PADAPTER padapter)
+static u32 rtl9083es_hal_deinit(PADAPTER padapter)
 {
 	DBG_871X("=>%s\n", __FUNCTION__);
 
 	if (rtw_is_hw_init_completed(padapter))
-		hal_poweroff_8188es(padapter);
+		hal_poweroff_9083es(padapter);
 	
 	DBG_871X("<=%s\n", __FUNCTION__);
 
 	return _SUCCESS;
 }
 
-static void rtl8188es_init_default_value(PADAPTER padapter)
+static void rtl9083es_init_default_value(PADAPTER padapter)
 {
 	PHAL_DATA_TYPE pHalData;
 	struct pwrctrl_priv *pwrctrlpriv;
@@ -1800,7 +1800,7 @@ static void rtl8188es_init_default_value(PADAPTER padapter)
 	pHalData = GET_HAL_DATA(padapter);
 	pwrctrlpriv = adapter_to_pwrctl(padapter);
 
-	rtl8188e_init_default_value(padapter);
+	rtl9083e_init_default_value(padapter);
 
 	//init default value
 	pHalData->fw_ractrl = _FALSE;		
@@ -1869,7 +1869,7 @@ _ReadRFType(
 }
 
 static void
-Hal_EfuseParsePIDVID_8188ES(
+Hal_EfuseParsePIDVID_9083ES(
 	IN	PADAPTER		pAdapter,
 	IN	u8*			hwinfo,
 	IN	BOOLEAN			AutoLoadFail
@@ -1888,7 +1888,7 @@ Hal_EfuseParsePIDVID_8188ES(
 }
 
 static VOID
-readAdapterInfo_8188ES(
+readAdapterInfo_9083ES(
 	IN PADAPTER			padapter
 	)
 {
@@ -1896,13 +1896,13 @@ readAdapterInfo_8188ES(
 
 	/* parse the eeprom/efuse content */
 	Hal_EfuseParseIDCode88E(padapter, pHalData->efuse_eeprom_data);
-	Hal_EfuseParsePIDVID_8188ES(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
+	Hal_EfuseParsePIDVID_9083ES(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	hal_config_macaddr(padapter, pHalData->bautoload_fail_flag);
 	Hal_ReadPowerSavingMode88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_ReadTxPowerInfo88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_EfuseParseEEPROMVer88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
-	rtl8188e_EfuseParseChnlPlan(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
-	Hal_EfuseParseXtal_8188E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
+	rtl9083e_EfuseParseChnlPlan(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
+	Hal_EfuseParseXtal_9083E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_EfuseParseCustomerID88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	//Hal_ReadAntennaDiversity88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_EfuseParseBoardType88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
@@ -1940,7 +1940,7 @@ static void _ReadPROMContent(
 
 
 	Hal_InitPGData88E(padapter);
-	readAdapterInfo_8188ES(padapter);
+	readAdapterInfo_9083ES(padapter);
 }
 
 static VOID
@@ -1969,12 +1969,12 @@ _InitOtherVariable(
 //		PASSIVE_LEVEL (SDIO interface)
 //
 //
-static s32 _ReadAdapterInfo8188ES(PADAPTER padapter)
+static s32 _ReadAdapterInfo9083ES(PADAPTER padapter)
 {
 	u32 start;
 
 		
-	RT_TRACE(_module_hci_hal_init_c_, _drv_info_, ("+_ReadAdapterInfo8188ES\n"));
+	RT_TRACE(_module_hci_hal_init_c_, _drv_info_, ("+_ReadAdapterInfo9083ES\n"));
 
 	// before access eFuse, make sure card enable has been called
 	if(_CardEnable(padapter) == _FAIL)
@@ -1997,20 +1997,20 @@ static s32 _ReadAdapterInfo8188ES(PADAPTER padapter)
 
 
 	//MSG_8192C("%s()(done), rf_chip=0x%x, rf_type=0x%x\n",  __FUNCTION__, pHalData->rf_chip, pHalData->rf_type);
-	MSG_8192C("<==== ReadAdapterInfo8188ES in %d ms\n", rtw_get_passing_time_ms(start));
+	MSG_8192C("<==== ReadAdapterInfo9083ES in %d ms\n", rtw_get_passing_time_ms(start));
 
 	return _SUCCESS;
 }
 
-static void ReadAdapterInfo8188ES(PADAPTER padapter)
+static void ReadAdapterInfo9083ES(PADAPTER padapter)
 {
 	// Read EEPROM size before call any EEPROM function
-	padapter->EepromAddressSize = GetEEPROMSize8188E(padapter);
+	padapter->EepromAddressSize = GetEEPROMSize9083E(padapter);
 
-	_ReadAdapterInfo8188ES(padapter);
+	_ReadAdapterInfo9083ES(padapter);
 }
 
-static void SetHwReg8188ES(PADAPTER Adapter, u8 variable, u8* val)
+static void SetHwReg9083ES(PADAPTER Adapter, u8 variable, u8* val)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 	
@@ -2047,14 +2047,14 @@ _func_enter_;
 #endif
 			break;
 		default:
-			SetHwReg8188E(Adapter, variable, val);
+			SetHwReg9083E(Adapter, variable, val);
 			break;
 	}
 
 _func_exit_;
 }
 
-static void GetHwReg8188ES(PADAPTER padapter, u8 variable, u8 *val)
+static void GetHwReg9083ES(PADAPTER padapter, u8 variable, u8 *val)
 {
 	PHAL_DATA_TYPE 	pHalData= GET_HAL_DATA(padapter);	
 _func_enter_;
@@ -2065,7 +2065,7 @@ _func_enter_;
 			*val = rtw_read8(padapter, SDIO_LOCAL_BASE|SDIO_REG_HCPWM1);
 			break;
 		default:
-			GetHwReg8188E(padapter, variable, val);
+			GetHwReg9083E(padapter, variable, val);
 			break;
 	}
 
@@ -2077,7 +2077,7 @@ _func_exit_;
 //		Query setting of specified variable.
 //
 u8
-GetHalDefVar8188ESDIO(
+GetHalDefVar9083ESDIO(
 	IN	PADAPTER				Adapter,
 	IN	HAL_DEF_VARIABLE		eVariable,
 	IN	PVOID					pValue
@@ -2103,7 +2103,7 @@ GetHalDefVar8188ESDIO(
 			*((u8 *)pValue) = 1;
 			break;
 		default:
-			bResult = GetHalDefVar8188E(Adapter, eVariable, pValue);
+			bResult = GetHalDefVar9083E(Adapter, eVariable, pValue);
 			break;
 	}
 
@@ -2118,7 +2118,7 @@ GetHalDefVar8188ESDIO(
 //		Change default setting of specified variable.
 //
 u8
-SetHalDefVar8188ESDIO(
+SetHalDefVar9083ESDIO(
 	IN	PADAPTER				Adapter,
 	IN	HAL_DEF_VARIABLE		eVariable,
 	IN	PVOID					pValue
@@ -2150,7 +2150,7 @@ _BeaconFunctionEnable(
 	rtw_write8(padapter, REG_RD_CTRL+1, 0x6F);
 }
 
-void SetBeaconRelatedRegisters8188ESdio(PADAPTER padapter)
+void SetBeaconRelatedRegisters9083ESdio(PADAPTER padapter)
 {
 	u32	value32;
 	//HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -2219,57 +2219,57 @@ void SetBeaconRelatedRegisters8188ESdio(PADAPTER padapter)
 	rtw_write8(padapter, bcn_ctrl_reg, rtw_read8(padapter, bcn_ctrl_reg)|BIT(1));
 }
 
-void rtl8188es_set_hal_ops(PADAPTER padapter)
+void rtl9083es_set_hal_ops(PADAPTER padapter)
 {
 	struct hal_ops *pHalFunc = &padapter->HalFunc;
 
 _func_enter_;
 
-	pHalFunc->hal_power_on = _InitPowerOn_8188ES;
-	pHalFunc->hal_power_off = hal_poweroff_8188es;
+	pHalFunc->hal_power_on = _InitPowerOn_9083ES;
+	pHalFunc->hal_power_off = hal_poweroff_9083es;
 	
-	pHalFunc->hal_init = &rtl8188es_hal_init;
-	pHalFunc->hal_deinit = &rtl8188es_hal_deinit;
+	pHalFunc->hal_init = &rtl9083es_hal_init;
+	pHalFunc->hal_deinit = &rtl9083es_hal_deinit;
 
-	pHalFunc->init_xmit_priv = &rtl8188es_init_xmit_priv;
-	pHalFunc->free_xmit_priv = &rtl8188es_free_xmit_priv;
+	pHalFunc->init_xmit_priv = &rtl9083es_init_xmit_priv;
+	pHalFunc->free_xmit_priv = &rtl9083es_free_xmit_priv;
 
-	pHalFunc->init_recv_priv = &rtl8188es_init_recv_priv;
-	pHalFunc->free_recv_priv = &rtl8188es_free_recv_priv;
+	pHalFunc->init_recv_priv = &rtl9083es_init_recv_priv;
+	pHalFunc->free_recv_priv = &rtl9083es_free_recv_priv;
 
-	pHalFunc->InitSwLeds = &rtl8188es_InitSwLeds;
-	pHalFunc->DeInitSwLeds = &rtl8188es_DeInitSwLeds;
+	pHalFunc->InitSwLeds = &rtl9083es_InitSwLeds;
+	pHalFunc->DeInitSwLeds = &rtl9083es_DeInitSwLeds;
 
-	pHalFunc->init_default_value = &rtl8188es_init_default_value;
-	pHalFunc->intf_chip_configure = &rtl8188es_interface_configure;
-	pHalFunc->read_adapter_info = &ReadAdapterInfo8188ES;
+	pHalFunc->init_default_value = &rtl9083es_init_default_value;
+	pHalFunc->intf_chip_configure = &rtl9083es_interface_configure;
+	pHalFunc->read_adapter_info = &ReadAdapterInfo9083ES;
 
-	pHalFunc->enable_interrupt = &EnableInterrupt8188ESdio;
-	pHalFunc->disable_interrupt = &DisableInterrupt8188ESdio;
+	pHalFunc->enable_interrupt = &EnableInterrupt9083ESdio;
+	pHalFunc->disable_interrupt = &DisableInterrupt9083ESdio;
 	pHalFunc->check_ips_status = &CheckIPSStatus;
 	
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
-	pHalFunc->clear_interrupt = &ClearInterrupt8188ESdio;
+	pHalFunc->clear_interrupt = &ClearInterrupt9083ESdio;
 #endif
-	pHalFunc->SetHwRegHandler = &SetHwReg8188ES;
-	pHalFunc->GetHwRegHandler = &GetHwReg8188ES;
+	pHalFunc->SetHwRegHandler = &SetHwReg9083ES;
+	pHalFunc->GetHwRegHandler = &GetHwReg9083ES;
 
-	pHalFunc->GetHalDefVarHandler = &GetHalDefVar8188ESDIO;
- 	pHalFunc->SetHalDefVarHandler = &SetHalDefVar8188ESDIO;
+	pHalFunc->GetHalDefVarHandler = &GetHalDefVar9083ESDIO;
+ 	pHalFunc->SetHalDefVarHandler = &SetHalDefVar9083ESDIO;
 
-	pHalFunc->SetBeaconRelatedRegistersHandler = &SetBeaconRelatedRegisters8188ESdio;
+	pHalFunc->SetBeaconRelatedRegistersHandler = &SetBeaconRelatedRegisters9083ESdio;
 
-	pHalFunc->hal_xmit = &rtl8188es_hal_xmit;
-	pHalFunc->mgnt_xmit = &rtl8188es_mgnt_xmit;
-	pHalFunc->hal_xmitframe_enqueue = &rtl8188es_hal_xmitframe_enqueue;
+	pHalFunc->hal_xmit = &rtl9083es_hal_xmit;
+	pHalFunc->mgnt_xmit = &rtl9083es_mgnt_xmit;
+	pHalFunc->hal_xmitframe_enqueue = &rtl9083es_hal_xmitframe_enqueue;
 
 #ifdef CONFIG_HOSTAPD_MLME
 	pHalFunc->hostap_mgnt_xmit_entry = NULL;
 #endif
 #ifdef CONFIG_XMIT_THREAD_MODE
-	pHalFunc->xmit_thread_handler = &rtl8188es_xmit_buf_handler;
+	pHalFunc->xmit_thread_handler = &rtl9083es_xmit_buf_handler;
 #endif
-	rtl8188e_set_hal_ops(pHalFunc);
+	rtl9083e_set_hal_ops(pHalFunc);
 _func_exit_;
 
 }

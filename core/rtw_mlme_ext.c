@@ -9768,7 +9768,7 @@ static int issue_action_ba(_adapter *padapter, unsigned char *raddr, unsigned ch
 				} while (pmlmeinfo->dialogToken == 0);
 				pframe = rtw_set_fixed_ie(pframe, 1, &(pmlmeinfo->dialogToken), &(pattrib->pktlen));
 
-				#if defined(CONFIG_RTL8188E) && defined(CONFIG_SDIO_HCI)
+				#if defined(CONFIG_RTL9083E) && defined(CONFIG_SDIO_HCI)
 				BA_para_set = (0x0802 | ((tid & 0xf) << 2)); /* immediate ack & 16 buffer size */
 				#else
 				BA_para_set = (0x1002 | ((tid & 0xf) << 2)); /* immediate ack & 64 buffer size */

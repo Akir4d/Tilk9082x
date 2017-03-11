@@ -22,11 +22,11 @@
 #include "mp_precomp.h"
 #include "../phydm_precomp.h"
 
-#if (RTL8188E_T_SUPPORT == 1)
+#if (RTL9083E_T_SUPPORT == 1)
 #if (defined(CONFIG_AP_WOWLAN) || (DM_ODM_SUPPORT_TYPE & (ODM_AP)))
 
 
-u1Byte Array_MP_8188E_T_FW_AP[] = {
+u1Byte Array_MP_9083E_T_FW_AP[] = {
 0xE1, 0x88, 0x20, 0x00, 0x17, 0x00, 0x00, 0x00, 0x10, 0x27, 0x15, 0x19, 0xEC, 0x3A, 0x00, 0x00, 
 0x0C, 0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 0x02, 0x45, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -973,22 +973,22 @@ u1Byte Array_MP_8188E_T_FW_AP[] = {
 0x82, 0xE4, 0x34, 0xFB, 0xF5, 0x83, 0xE0, 0x22, 0xE0, 0x7C, 0x00, 0x24, 0x00, 0xFF, 0xEC, 0x3E, 
 0x22, 0x2F, 0xF8, 0xE6, 0xFE, 0xED, 0xF4, 0x5E, 0x22, 0x00, 0x00, 0x66, 
 };
-u4Byte ArrayLength_MP_8188E_T_FW_AP = 15116;
+u4Byte ArrayLength_MP_9083E_T_FW_AP = 15116;
 
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_AP(
+ODM_ReadFirmware_MP_9083E_T_FW_AP(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
 )
 {
 #if (DM_ODM_SUPPORT_TYPE & (ODM_CE))
-	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_8188E_T_FW_AP;
+	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_9083E_T_FW_AP;
 #else
-	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_8188E_T_FW_AP, ArrayLength_MP_8188E_T_FW_AP);
+	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_9083E_T_FW_AP, ArrayLength_MP_9083E_T_FW_AP);
 #endif
-	*pFirmwareSize = ArrayLength_MP_8188E_T_FW_AP;
+	*pFirmwareSize = ArrayLength_MP_9083E_T_FW_AP;
 }
 
 
@@ -998,7 +998,7 @@ ODM_ReadFirmware_MP_8188E_T_FW_AP(
 #if (DM_ODM_SUPPORT_TYPE & (ODM_WIN)) || (DM_ODM_SUPPORT_TYPE & (ODM_CE))
 
 
-u1Byte Array_MP_8188E_T_FW_NIC[] = {
+u1Byte Array_MP_9083E_T_FW_NIC[] = {
 0xE1, 0x88, 0x10, 0x00, 0x17, 0x00, 0x00, 0x00, 0x10, 0x27, 0x15, 0x19, 0x94, 0x3A, 0x00, 0x00, 
 0x0C, 0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 0x02, 0x45, 0x9F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -1940,26 +1940,26 @@ u1Byte Array_MP_8188E_T_FW_NIC[] = {
 0x22, 0x90, 0x81, 0x87, 0xE0, 0x13, 0x13, 0x13, 0x22, 0x2F, 0xF8, 0xE6, 0xFE, 0xED, 0xF4, 0x5E, 
 0x22, 0x00, 0x7C, 0xBD, 
 };
-u4Byte ArrayLength_MP_8188E_T_FW_NIC = 15028;
+u4Byte ArrayLength_MP_9083E_T_FW_NIC = 15028;
 
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_NIC(
+ODM_ReadFirmware_MP_9083E_T_FW_NIC(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
 )
 {
 #if (DM_ODM_SUPPORT_TYPE & (ODM_CE))
-	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_8188E_T_FW_NIC;
+	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_9083E_T_FW_NIC;
 #else
-	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_8188E_T_FW_NIC, ArrayLength_MP_8188E_T_FW_NIC);
+	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_9083E_T_FW_NIC, ArrayLength_MP_9083E_T_FW_NIC);
 #endif
-	*pFirmwareSize = ArrayLength_MP_8188E_T_FW_NIC;
+	*pFirmwareSize = ArrayLength_MP_9083E_T_FW_NIC;
 }
 
 
-u1Byte Array_MP_8188E_T_FW_NIC_89EM[] = {
+u1Byte Array_MP_9083E_T_FW_NIC_89EM[] = {
 0xE1, 0x88, 0x40, 0x00, 0x17, 0x00, 0x00, 0x00, 0x10, 0x27, 0x15, 0x20, 0x40, 0x37, 0x00, 0x00, 
 0x0C, 0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 0x02, 0x45, 0x74, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -2848,26 +2848,26 @@ u1Byte Array_MP_8188E_T_FW_NIC_89EM[] = {
 0xE0, 0x13, 0x13, 0x13, 0x22, 0x2F, 0xF8, 0xE6, 0xFE, 0xED, 0xF4, 0x5E, 0x22, 0x00, 0xB0, 0x4D, 
 
 };
-u4Byte ArrayLength_MP_8188E_T_FW_NIC_89EM = 14176;
+u4Byte ArrayLength_MP_9083E_T_FW_NIC_89EM = 14176;
 
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_NIC_89EM(
+ODM_ReadFirmware_MP_9083E_T_FW_NIC_89EM(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
 )
 {
 #if (DM_ODM_SUPPORT_TYPE & (ODM_CE))
-	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_8188E_T_FW_NIC_89EM;
+	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_9083E_T_FW_NIC_89EM;
 #else
-	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_8188E_T_FW_NIC_89EM, ArrayLength_MP_8188E_T_FW_NIC_89EM);
+	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_9083E_T_FW_NIC_89EM, ArrayLength_MP_9083E_T_FW_NIC_89EM);
 #endif
-	*pFirmwareSize = ArrayLength_MP_8188E_T_FW_NIC_89EM;
+	*pFirmwareSize = ArrayLength_MP_9083E_T_FW_NIC_89EM;
 }
 
 
-u1Byte Array_MP_8188E_T_FW_WoWLAN[] = {
+u1Byte Array_MP_9083E_T_FW_WoWLAN[] = {
 0xE1, 0x88, 0x30, 0x00, 0x17, 0x00, 0x00, 0x00, 0x10, 0x27, 0x15, 0x19, 0x0E, 0x3E, 0x00, 0x00, 
 0x0C, 0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 0x02, 0x47, 0x17, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -3864,22 +3864,22 @@ u1Byte Array_MP_8188E_T_FW_WoWLAN[] = {
 0xE0, 0xC4, 0x54, 0x0F, 0x22, 0x7D, 0x01, 0x7F, 0x02, 0x02, 0x51, 0x51, 0x90, 0x81, 0x51, 0xE0, 
 0x90, 0x05, 0x73, 0x22, 0x2F, 0xF8, 0xE6, 0xFE, 0xED, 0xF4, 0x5E, 0x22, 0xC4, 0x11, 
 };
-u4Byte ArrayLength_MP_8188E_T_FW_WoWLAN = 15918;
+u4Byte ArrayLength_MP_9083E_T_FW_WoWLAN = 15918;
 
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_WoWLAN(
+ODM_ReadFirmware_MP_9083E_T_FW_WoWLAN(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
 )
 {
 #if (DM_ODM_SUPPORT_TYPE & (ODM_CE))
-	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_8188E_T_FW_WoWLAN;
+	*((SIZE_PTR *)pFirmware) = (SIZE_PTR)Array_MP_9083E_T_FW_WoWLAN;
 #else
-	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_8188E_T_FW_WoWLAN, ArrayLength_MP_8188E_T_FW_WoWLAN);
+	ODM_MoveMemory(pDM_Odm, pFirmware, Array_MP_9083E_T_FW_WoWLAN, ArrayLength_MP_9083E_T_FW_WoWLAN);
 #endif
-	*pFirmwareSize = ArrayLength_MP_8188E_T_FW_WoWLAN;
+	*pFirmwareSize = ArrayLength_MP_9083E_T_FW_WoWLAN;
 }
 
 

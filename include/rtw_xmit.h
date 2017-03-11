@@ -162,10 +162,10 @@ do{\
 #endif
 #endif
 
-#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8192E) || defined(CONFIG_RTL8814A) || defined(CONFIG_RTL8703B) || defined(CONFIG_RTL8188F)
+#if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8192E) || defined(CONFIG_RTL8814A) || defined(CONFIG_RTL8703B) || defined(CONFIG_RTL9083F)
 #define TXDESC_SIZE 40
 #else
-#define TXDESC_SIZE 32 /* old IC (ex: 8188E) */
+#define TXDESC_SIZE 32 /* old IC (ex: 9083E) */
 #endif
 
 #ifdef CONFIG_TX_EARLY_MODE
@@ -195,7 +195,7 @@ do{\
 #else
 /* tx desc and payload are NOT in the same buf */
 #define TXDESC_OFFSET (0)
-/* 8188ee/8723be/8812ae/8821ae has extra PCI DMA info in tx desc */
+/* 9083ee/8723be/8812ae/8821ae has extra PCI DMA info in tx desc */
 #define TX_DESC_NEXT_DESC_OFFSET	(TXDESC_SIZE + 8)
 #endif
 #endif /* CONFIG_PCI_HCI */
@@ -209,7 +209,7 @@ enum TXDESC_SC{
 
 #ifdef CONFIG_PCI_HCI
 #define TXDESC_64_BYTES
-#elif defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8723B) || defined(CONFIG_RTL8188F)
+#elif defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8723B) || defined(CONFIG_RTL9083F)
 #define TXDESC_40_BYTES
 #endif
 

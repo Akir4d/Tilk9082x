@@ -87,9 +87,9 @@ void platform_wifi_power_off(void)
 {
 #ifdef CONFIG_MMC_SUNXI_POWER_CONTROL
 	sunximmc_rescan_card(SDIOID, 0);
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 	ttl9082xs_sdio_poweroff();
 	printk("[ttl9082xs] %s: remove card, power off.\n", __FUNCTION__);
-#endif // CONFIG_RTL8188E
+#endif // CONFIG_RTL9083E
 #endif // CONFIG_MMC_SUNXI_POWER_CONTROL
 }

@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188E_RECV_H__
-#define __RTL8188E_RECV_H__
+#ifndef __RTL9083E_RECV_H__
+#define __RTL9083E_RECV_H__
 
 #define RECV_BLK_SZ 512
 #define RECV_BLK_CNT 16
@@ -65,7 +65,7 @@
 
 #define TX_RPT1_PKT_LEN 8
 
-typedef struct rxreport_8188e
+typedef struct rxreport_9083e
 {
 	//Offset 0
 	u32 pktlen:14;
@@ -151,25 +151,25 @@ typedef struct rxreport_8188e
 
 
 #if defined (CONFIG_SDIO_HCI)||defined(CONFIG_GSPI_HCI)
-s32 rtl8188es_init_recv_priv(PADAPTER padapter);
-void rtl8188es_free_recv_priv(PADAPTER padapter);
-void rtl8188es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+s32 rtl9083es_init_recv_priv(PADAPTER padapter);
+void rtl9083es_free_recv_priv(PADAPTER padapter);
+void rtl9083es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
 #endif
 
 #ifdef CONFIG_USB_HCI
-void rtl8188eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
-s32 rtl8188eu_init_recv_priv(PADAPTER padapter);
-void rtl8188eu_free_recv_priv(PADAPTER padapter);
-void rtl8188eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
-void rtl8188eu_recv_tasklet(void *priv);
+void rtl9083eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+s32 rtl9083eu_init_recv_priv(PADAPTER padapter);
+void rtl9083eu_free_recv_priv(PADAPTER padapter);
+void rtl9083eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+void rtl9083eu_recv_tasklet(void *priv);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8188ee_init_recv_priv(PADAPTER padapter);
-void rtl8188ee_free_recv_priv(PADAPTER padapter);
+s32 rtl9083ee_init_recv_priv(PADAPTER padapter);
+void rtl9083ee_free_recv_priv(PADAPTER padapter);
 #endif
 
-void rtl8188e_query_rx_desc_status(union recv_frame *precvframe, struct recv_stat *prxstat);
+void rtl9083e_query_rx_desc_status(union recv_frame *precvframe, struct recv_stat *prxstat);
 
-#endif /* __RTL8188E_RECV_H__ */
+#endif /* __RTL9083E_RECV_H__ */
 

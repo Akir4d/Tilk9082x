@@ -26,15 +26,15 @@
 
 
 u2Byte
-EFUSE_GetArrayLen_MP_8188E_MUSB(VOID);
+EFUSE_GetArrayLen_MP_9083E_MUSB(VOID);
 
 VOID
-EFUSE_GetMaskArray_MP_8188E_MUSB(
+EFUSE_GetMaskArray_MP_9083E_MUSB(
 	IN 	OUT pu1Byte Array
 );
 
 BOOLEAN
-EFUSE_IsAddressMasked_MP_8188E_MUSB( // TC: Test Chip, MP: MP Chip
+EFUSE_IsAddressMasked_MP_9083E_MUSB( // TC: Test Chip, MP: MP Chip
 	IN   u2Byte  Offset
 );
 

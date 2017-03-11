@@ -1072,7 +1072,7 @@ int rtw_mp_thermal(struct net_device *dev,
 	u8 val;
 	int bwrite = 1;
 
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 	u16 addr = EEPROM_THERMAL_METER_88E;
 #endif
 #if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A) || defined(CONFIG_RTL8814A)
@@ -1087,8 +1087,8 @@ int rtw_mp_thermal(struct net_device *dev,
 #ifdef CONFIG_RTL8703B
 	u16 addr = EEPROM_THERMAL_METER_8703B;
 #endif
-#ifdef CONFIG_RTL8188F
-	u16 addr = EEPROM_THERMAL_METER_8188F;
+#ifdef CONFIG_RTL9083F
+	u16 addr = EEPROM_THERMAL_METER_9083F;
 #endif
 	u16 cnt = 1;
 	u16 max_available_size = 0;

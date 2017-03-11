@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188F_LED_H__
-#define __RTL8188F_LED_H__
+#ifndef __RTL9083F_LED_H__
+#define __RTL9083F_LED_H__
 
 #include <drv_conf.h>
 #include <osdep_service.h>
@@ -29,20 +29,20 @@
 // Interface to manipulate LED objects.
 //================================================================================
 #ifdef CONFIG_USB_HCI
-void rtl8188fu_InitSwLeds(PADAPTER padapter);
-void rtl8188fu_DeInitSwLeds(PADAPTER padapter);
+void rtl9083fu_InitSwLeds(PADAPTER padapter);
+void rtl9083fu_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_SDIO_HCI
-void rtl8188fs_InitSwLeds(PADAPTER padapter);
-void rtl8188fs_DeInitSwLeds(PADAPTER padapter);
+void rtl9083fs_InitSwLeds(PADAPTER padapter);
+void rtl9083fs_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_GSPI_HCI
-void rtl8188fs_InitSwLeds(PADAPTER padapter);
-void rtl8188fs_DeInitSwLeds(PADAPTER padapter);
+void rtl9083fs_InitSwLeds(PADAPTER padapter);
+void rtl9083fs_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_PCI_HCI
-void rtl8188fe_InitSwLeds(PADAPTER padapter);
-void rtl8188fe_DeInitSwLeds(PADAPTER padapter);
+void rtl9083fe_InitSwLeds(PADAPTER padapter);
+void rtl9083fe_DeInitSwLeds(PADAPTER padapter);
 #endif
 
 #endif

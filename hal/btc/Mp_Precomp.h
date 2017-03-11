@@ -70,7 +70,7 @@ do {\
 #endif
 
 #include "HalBtcOutSrc.h"
-#include "HalBtc8188c2Ant.h"
+#include "HalBtc9083c2Ant.h"
 #include "HalBtc8192d2Ant.h"
 #include "HalBtc8192e1Ant.h"
 #include "HalBtc8192e2Ant.h"

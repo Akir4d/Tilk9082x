@@ -18,8 +18,8 @@
  *
  ******************************************************************************/
 
-#ifndef __HAL_PHY_RF_8188E_H__
-#define __HAL_PHY_RF_8188E_H__
+#ifndef __HAL_PHY_RF_9083E_H__
+#define __HAL_PHY_RF_9083E_H__
 
 /*--------------------------Define Parameters-------------------------------*/
 #define	IQK_DELAY_TIME_88E		10		//ms
@@ -28,11 +28,11 @@
 
 #include "../halphyrf_ap.h"
 
-void ConfigureTxpowerTrack_8188E(
+void ConfigureTxpowerTrack_9083E(
 	PTXPWRTRACK_CFG	pConfig
 	);
 
-void DoIQK_8188E(
+void DoIQK_9083E(
 	PVOID		pDM_VOID,
 	u1Byte 		DeltaThermalIndex,
 	u1Byte		ThermalValue,	
@@ -50,7 +50,7 @@ ODM_TxPwrTrackSetPwr88E(
 //1 7.	IQK
 
 void	
-PHY_IQCalibrate_8188E(	
+PHY_IQCalibrate_9083E(	
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	IN PDM_ODM_T		pDM_Odm,
 #else
@@ -63,7 +63,7 @@ PHY_IQCalibrate_8188E(
 // LC calibrate
 //
 void	
-PHY_LCCalibrate_8188E(
+PHY_LCCalibrate_9083E(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	IN PDM_ODM_T		pDM_Odm
 #else
@@ -75,7 +75,7 @@ PHY_LCCalibrate_8188E(
 // AP calibrate
 //
 void	
-PHY_APCalibrate_8188E(		
+PHY_APCalibrate_9083E(		
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	IN PDM_ODM_T		pDM_Odm,
 #else
@@ -83,7 +83,7 @@ PHY_APCalibrate_8188E(
 #endif
 							IN 	s1Byte		delta);
 void	
-PHY_DigitalPredistortion_8188E(		IN	PADAPTER	pAdapter);
+PHY_DigitalPredistortion_9083E(		IN	PADAPTER	pAdapter);
 
 
 VOID
@@ -132,5 +132,5 @@ _PHY_PathAStandBy(
 	);
 
 								
-#endif	// #ifndef __HAL_PHY_RF_8188E_H__								
+#endif	// #ifndef __HAL_PHY_RF_9083E_H__								
 

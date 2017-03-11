@@ -28,10 +28,10 @@
 
 #if !(defined ANDROID_2X)
 
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 #include <mach/regulator.h>
 #include <linux/regulator/consumer.h>
-#endif // CONFIG_RTL8188E
+#endif // CONFIG_RTL9083E
 
 #ifndef GPIO_WIFI_POWER
 #define GPIO_WIFI_POWER -1
@@ -164,7 +164,7 @@ void rtw_wifi_gpio_wlan_ctrl(int onoff)
 
 #include <mach/ldo.h>
 
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 extern int sprd_3rdparty_gpio_wifi_power;
 #endif
 extern int sprd_3rdparty_gpio_wifi_pwd;
@@ -221,7 +221,7 @@ void rtw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_POWER_OFF:
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 #ifdef CONFIG_WIF1_LDO
 			DBG_8192C("%s: turn off VDD-WIFI0 1.2V\n", __FUNCTION__);
 			LDO_TurnOffLDO(LDO_LDO_WIF1);
@@ -238,7 +238,7 @@ void rtw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_POWER_ON:
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 			DBG_8192C("%s: call customer specific GPIO(%d) to turn on wifi power\n",
 				__FUNCTION__, sprd_3rdparty_gpio_wifi_power);
 			if (sprd_3rdparty_gpio_wifi_power != 65535)

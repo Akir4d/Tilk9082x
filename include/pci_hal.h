@@ -20,8 +20,8 @@
 #ifndef __PCI_HAL_H__
 #define __PCI_HAL_H__
 
-#ifdef CONFIG_RTL8188E
-void rtl8188ee_set_hal_ops(_adapter *padapter);
+#ifdef CONFIG_RTL9083E
+void rtl9083ee_set_hal_ops(_adapter *padapter);
 #endif
 
 #if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)

@@ -53,9 +53,9 @@ static const struct sdio_device_id sdio_ids[] =
 #ifdef CONFIG_RTL8723B
 	{ SDIO_DEVICE(0x024c, 0xB723),.driver_data = RTL8723B},
 #endif
-#ifdef CONFIG_RTL8188E
-	{ SDIO_DEVICE(0x02e7, 0x9082),.driver_data = RTL8188E},
-#endif //CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
+	{ SDIO_DEVICE(0x02e7, 0x9082),.driver_data = RTL9083E},
+#endif //CONFIG_RTL9083E
 
 #ifdef CONFIG_RTL8821A
 	{ SDIO_DEVICE(0x024c, 0x8821),.driver_data = RTL8821},
@@ -69,8 +69,8 @@ static const struct sdio_device_id sdio_ids[] =
 	{ SDIO_DEVICE(0x024c, 0xB703), .driver_data = RTL8703B},
 #endif
 
-#ifdef CONFIG_RTL8188F
-	{SDIO_DEVICE(0x024c, 0xF179), .driver_data = RTL8188F},
+#ifdef CONFIG_RTL9083F
+	{SDIO_DEVICE(0x024c, 0xF179), .driver_data = RTL9083F},
 #endif
 
 #if defined(RTW_ENABLE_WIFI_CONTROL_FUNC) /* temporarily add this to accept all sdio wlan id */
@@ -328,10 +328,10 @@ static void rtw_decide_chip_type_by_device_id(struct dvobj_priv *dvobj, const st
 {
 	dvobj->chip_type = pdid->driver_data;
 
-#if defined(CONFIG_RTL8188E)
-	if (dvobj->chip_type == RTL8188E) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL8188ES;
-		DBG_871X("CHIP TYPE: RTL8188E\n");
+#if defined(CONFIG_RTL9083E)
+	if (dvobj->chip_type == RTL9083E) {
+		dvobj->HardwareType = HARDWARE_TYPE_RTL9083ES;
+		DBG_871X("CHIP TYPE: RTL9083E\n");
 	}
 #endif
 
@@ -361,10 +361,10 @@ static void rtw_decide_chip_type_by_device_id(struct dvobj_priv *dvobj, const st
 	}
 #endif
 
-#if defined(CONFIG_RTL8188F)
-	if (dvobj->chip_type == RTL8188F) {
-		dvobj->HardwareType = HARDWARE_TYPE_RTL8188FS;
-		DBG_871X("CHIP TYPE: RTL8188F\n");
+#if defined(CONFIG_RTL9083F)
+	if (dvobj->chip_type == RTL9083F) {
+		dvobj->HardwareType = HARDWARE_TYPE_RTL9083FS;
+		DBG_871X("CHIP TYPE: RTL9083F\n");
 	}
 #endif
 }
@@ -430,9 +430,9 @@ u8 rtw_set_hal_ops(PADAPTER padapter)
 	if(rtw_hal_data_init(padapter) == _FAIL)
 		return _FAIL;
 
-#if defined(CONFIG_RTL8188E)
-	if (rtw_get_chip_type(padapter) == RTL8188E)
-		rtl8188es_set_hal_ops(padapter);
+#if defined(CONFIG_RTL9083E)
+	if (rtw_get_chip_type(padapter) == RTL9083E)
+		rtl9083es_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8723B)
@@ -455,9 +455,9 @@ u8 rtw_set_hal_ops(PADAPTER padapter)
 		rtl8703bs_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_RTL8188F)
-	if (rtw_get_chip_type(padapter) == RTL8188F)
-		rtl8188fs_set_hal_ops(padapter);
+#if defined(CONFIG_RTL9083F)
+	if (rtw_get_chip_type(padapter) == RTL9083F)
+		rtl9083fs_set_hal_ops(padapter);
 #endif
 
 	if( rtw_hal_ops_check(padapter) == _FAIL)

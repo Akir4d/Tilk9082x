@@ -30,5 +30,5 @@ int
 PHY_RF6052_Config_8814A(
 	IN	PADAPTER	Adapter	);
 
-#endif//__RTL8188E_RF_H__
+#endif//__RTL9083E_RF_H__
 

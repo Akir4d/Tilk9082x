@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188E_XMIT_H__
-#define __RTL8188E_XMIT_H__
+#ifndef __RTL9083E_XMIT_H__
+#define __RTL9083E_XMIT_H__
 
 
 
@@ -194,7 +194,7 @@ typedef struct txdesc_88e
 	u32 sw0:8; /* offset 30 */
 	u32 sw1:4;
 	u32 mcs15_sgi_max_len:4;
-}TXDESC_8188E, *PTXDESC_8188E;
+}TXDESC_9083E, *PTXDESC_9083E;
 
 #define txdesc_set_ccx_sw_88e(txdesc, value) \
 	do { \
@@ -239,51 +239,51 @@ struct txrpt_ccx_88e {
 #define txrpt_ccx_sw_88e(txrpt_ccx) ((txrpt_ccx)->sw0 + ((txrpt_ccx)->sw1<<8))
 #define txrpt_ccx_qtime_88e(txrpt_ccx) ((txrpt_ccx)->ccx_qtime0+((txrpt_ccx)->ccx_qtime1<<8))
 
-#define SET_TX_DESC_SEC_TYPE_8188E(__pTxDesc, __Value) SET_BITS_TO_LE_4BYTE(__pTxDesc+4, 22, 2, __Value)
+#define SET_TX_DESC_SEC_TYPE_9083E(__pTxDesc, __Value) SET_BITS_TO_LE_4BYTE(__pTxDesc+4, 22, 2, __Value)
 
-void rtl8188e_fill_fake_txdesc(PADAPTER	padapter,u8*pDesc,u32 BufferLen,
+void rtl9083e_fill_fake_txdesc(PADAPTER	padapter,u8*pDesc,u32 BufferLen,
 		u8 IsPsPoll,u8	IsBTQosNull, u8 bDataFrame);
-void rtl8188e_cal_txdesc_chksum(struct tx_desc	*ptxdesc);
+void rtl9083e_cal_txdesc_chksum(struct tx_desc	*ptxdesc);
 
 #if defined(CONFIG_SDIO_HCI)||defined (CONFIG_GSPI_HCI)
-s32 rtl8188es_init_xmit_priv(PADAPTER padapter);
-void rtl8188es_free_xmit_priv(PADAPTER padapter);
-s32 rtl8188es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8188es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	rtl8188es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-thread_return rtl8188es_xmit_thread(thread_context context);
-s32 rtl8188es_xmit_buf_handler(PADAPTER padapter);
+s32 rtl9083es_init_xmit_priv(PADAPTER padapter);
+void rtl9083es_free_xmit_priv(PADAPTER padapter);
+s32 rtl9083es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 rtl9083es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	rtl9083es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+thread_return rtl9083es_xmit_thread(thread_context context);
+s32 rtl9083es_xmit_buf_handler(PADAPTER padapter);
 
 #ifdef CONFIG_SDIO_TX_TASKLET
-void rtl8188es_xmit_tasklet(void *priv);
+void rtl9083es_xmit_tasklet(void *priv);
 #endif
 #endif
 
 #ifdef CONFIG_USB_HCI
-s32 rtl8188eu_init_xmit_priv(PADAPTER padapter);
-void rtl8188eu_free_xmit_priv(PADAPTER padapter);
-s32 rtl8188eu_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8188eu_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	rtl8188eu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-s32 rtl8188eu_xmit_buf_handler(PADAPTER padapter);
-void rtl8188eu_xmit_tasklet(void *priv);
-s32 rtl8188eu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+s32 rtl9083eu_init_xmit_priv(PADAPTER padapter);
+void rtl9083eu_free_xmit_priv(PADAPTER padapter);
+s32 rtl9083eu_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 rtl9083eu_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	rtl9083eu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+s32 rtl9083eu_xmit_buf_handler(PADAPTER padapter);
+void rtl9083eu_xmit_tasklet(void *priv);
+s32 rtl9083eu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8188ee_init_xmit_priv(PADAPTER padapter);
-void rtl8188ee_free_xmit_priv(PADAPTER padapter);
-void	rtl8188ee_xmitframe_resume(_adapter *padapter);
-s32 rtl8188ee_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8188ee_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	rtl8188ee_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-void rtl8188ee_xmit_tasklet(void *priv);
+s32 rtl9083ee_init_xmit_priv(PADAPTER padapter);
+void rtl9083ee_free_xmit_priv(PADAPTER padapter);
+void	rtl9083ee_xmitframe_resume(_adapter *padapter);
+s32 rtl9083ee_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 rtl9083ee_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	rtl9083ee_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+void rtl9083ee_xmit_tasklet(void *priv);
 #endif
 
 
 
 #ifdef CONFIG_TX_EARLY_MODE
-void UpdateEarlyModeInfo8188E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf );
+void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf );
 #endif
 
 #ifdef CONFIG_XMIT_ACK
@@ -295,5 +295,5 @@ void handle_txrpt_ccx_88e(_adapter *adapter, u8 *buf);
 #endif //CONFIG_XMIT_ACK
 
 void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc);
-#endif //__RTL8188E_XMIT_H__
+#endif //__RTL9083E_XMIT_H__
 

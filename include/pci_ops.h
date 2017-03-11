@@ -21,15 +21,15 @@
 #define __PCI_OPS_H_
 
 
-#ifdef CONFIG_RTL8188E
-u32	rtl8188ee_init_desc_ring(_adapter *padapter);
-u32	rtl8188ee_free_desc_ring(_adapter *padapter);
-void	rtl8188ee_reset_desc_ring(_adapter *padapter);
-int	rtl8188ee_interrupt(PADAPTER Adapter);
-void	rtl8188ee_xmit_tasklet(void *priv);
-void	rtl8188ee_recv_tasklet(void *priv);
-void	rtl8188ee_prepare_bcn_tasklet(void *priv);
-void	rtl8188ee_set_intf_ops(struct _io_ops	*pops);
+#ifdef CONFIG_RTL9083E
+u32	rtl9083ee_init_desc_ring(_adapter *padapter);
+u32	rtl9083ee_free_desc_ring(_adapter *padapter);
+void	rtl9083ee_reset_desc_ring(_adapter *padapter);
+int	rtl9083ee_interrupt(PADAPTER Adapter);
+void	rtl9083ee_xmit_tasklet(void *priv);
+void	rtl9083ee_recv_tasklet(void *priv);
+void	rtl9083ee_prepare_bcn_tasklet(void *priv);
+void	rtl9083ee_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)

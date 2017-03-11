@@ -19,9 +19,9 @@
 ******************************************************************************/
 
 /*Image2HeaderVersion: 2.18*/
-#if (RTL8188E_SUPPORT == 1)
-#ifndef __INC_MP_MAC_HW_IMG_8188E_H
-#define __INC_MP_MAC_HW_IMG_8188E_H
+#if (RTL9083E_SUPPORT == 1)
+#ifndef __INC_MP_MAC_HW_IMG_9083E_H
+#define __INC_MP_MAC_HW_IMG_9083E_H
 
 
 /******************************************************************************
@@ -29,10 +29,10 @@
 ******************************************************************************/
 
 void
-ODM_ReadAndConfig_MP_8188E_MAC_REG(/* TC: Test Chip, MP: MP Chip*/
+ODM_ReadAndConfig_MP_9083E_MAC_REG(/* TC: Test Chip, MP: MP Chip*/
 	IN   PDM_ODM_T  pDM_Odm
 );
-u4Byte ODM_GetVersion_MP_8188E_MAC_REG(void);
+u4Byte ODM_GetVersion_MP_9083E_MAC_REG(void);
 
 #endif
 #endif /* end of HWIMG_SUPPORT*/

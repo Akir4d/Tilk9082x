@@ -449,7 +449,7 @@ efuse_OneByteRead(
 	
 	if(	IS_HARDWARE_TYPE_8723B(pAdapter) ||
 		(IS_HARDWARE_TYPE_8192E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
-		(IS_VENDOR_8188E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
+		(IS_VENDOR_9083E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
 	  )
 	{
 		// <20130121, Kordan> For SMIC EFUSE specificatoin.
@@ -525,7 +525,7 @@ efuse_OneByteWrite(
 	// <20130227, Kordan> 8192E MP chip A-cut had better not set 0x34[11] until B-Cut.
 	if (	IS_HARDWARE_TYPE_8723B(pAdapter) ||
 		(IS_HARDWARE_TYPE_8192E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
-		(IS_VENDOR_8188E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
+		(IS_VENDOR_9083E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
 		) {
 		// <20130121, Kordan> For SMIC EFUSE specificatoin.
 		//0x34[11]: SW force PGMEN input of efuse to high. (for the bank selected by 0x34[9:8])
@@ -558,7 +558,7 @@ efuse_OneByteWrite(
 	// disable Efuse program enable
 	if (	IS_HARDWARE_TYPE_8723B(pAdapter) ||
 		(IS_HARDWARE_TYPE_8192E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
-		(IS_VENDOR_8188E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
+		(IS_VENDOR_9083E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
 		) {
 		PHY_SetMacReg(pAdapter, EFUSE_TEST, BIT(11), 0);
 	}
@@ -854,9 +854,9 @@ efuse_IsMasked(
 		return FALSE;
 		
 #if DEV_BUS_TYPE == RT_USB_INTERFACE
-#if defined(CONFIG_RTL8188E)
-	if (IS_HARDWARE_TYPE_8188E(pAdapter))  
-		return (IS_MASKED(8188E,_MUSB,Offset)) ? TRUE : FALSE;
+#if defined(CONFIG_RTL9083E)
+	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
+		return (IS_MASKED(9083E,_MUSB,Offset)) ? TRUE : FALSE;
 #endif
 #if defined(CONFIG_RTL8812A)
 	if (IS_HARDWARE_TYPE_8812(pAdapter))  
@@ -880,14 +880,14 @@ efuse_IsMasked(
 	if (IS_HARDWARE_TYPE_8814A(pAdapter))
 		return (IS_MASKED(8814A, _MUSB, Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_RTL8188F)
-	if (IS_HARDWARE_TYPE_8188F(pAdapter))
-		return (IS_MASKED(8188F, _MUSB, Offset)) ? TRUE : FALSE;
+#if defined(CONFIG_RTL9083F)
+	if (IS_HARDWARE_TYPE_9083F(pAdapter))
+		return (IS_MASKED(9083F, _MUSB, Offset)) ? TRUE : FALSE;
 #endif
 #elif DEV_BUS_TYPE == RT_PCI_INTERFACE
-#if defined(CONFIG_RTL8188E)
-	if (IS_HARDWARE_TYPE_8188E(pAdapter))  
-		return (IS_MASKED(8188E,_MPCIE,Offset)) ? TRUE : FALSE;
+#if defined(CONFIG_RTL9083E)
+	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
+		return (IS_MASKED(9083E,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif
 #if defined(CONFIG_RTL8192E)
    	if (IS_HARDWARE_TYPE_8192E(pAdapter))	
@@ -913,13 +913,13 @@ efuse_IsMasked(
 	//	return (IS_MASKED(8821B,_MPCIE,Offset)) ? TRUE : FALSE; 
 
 #elif DEV_BUS_TYPE == RT_SDIO_INTERFACE
-#ifdef CONFIG_RTL8188E_SDIO
-	if (IS_HARDWARE_TYPE_8188E(pAdapter))  
-		return (IS_MASKED(8188E,_MSDIO,Offset)) ? TRUE : FALSE;
+#ifdef CONFIG_RTL9083E_SDIO
+	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
+		return (IS_MASKED(9083E,_MSDIO,Offset)) ? TRUE : FALSE;
 #endif
-#ifdef CONFIG_RTL8188F_SDIO
-	if (IS_HARDWARE_TYPE_8188F(pAdapter))  
-		return (IS_MASKED(8188F, _MSDIO, Offset)) ? TRUE : FALSE;
+#ifdef CONFIG_RTL9083F_SDIO
+	if (IS_HARDWARE_TYPE_9083F(pAdapter))  
+		return (IS_MASKED(9083F, _MSDIO, Offset)) ? TRUE : FALSE;
 #endif
 #endif
 

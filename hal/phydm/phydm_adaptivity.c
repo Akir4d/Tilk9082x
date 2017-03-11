@@ -401,7 +401,7 @@ Phydm_SearchPwdBLowerBound(
 			else if (pDM_Odm->SupportICType & ODM_IC_11AC_SERIES)
 				value32 = ODM_GetBBReg(pDM_Odm, ODM_REG_RPT_11AC, bMaskDWord);
 #endif
-			if (value32 & BIT30 && (pDM_Odm->SupportICType & (ODM_RTL8723A | ODM_RTL8723B | ODM_RTL8188E)))
+			if (value32 & BIT30 && (pDM_Odm->SupportICType & (ODM_RTL8723A | ODM_RTL8723B | ODM_RTL9083E)))
 				txEdcca1 = txEdcca1 + 1;
 			else if (value32 & BIT29)
 				txEdcca1 = txEdcca1 + 1;

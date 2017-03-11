@@ -641,7 +641,7 @@ phydm_trans_h2c_id(
 		case ODM_H2C_RSSI_REPORT:
 
 			#if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-				if(pDM_Odm->SupportICType == ODM_RTL8188E)
+				if(pDM_Odm->SupportICType == ODM_RTL9083E)
 				{
 					platform_h2c_id = H2C_88E_RSSI_REPORT;
 				}
@@ -663,7 +663,7 @@ phydm_trans_h2c_id(
 					platform_h2c_id =H2C_8192E_RSSI_REPORT;
 				#elif(RTL8723B_SUPPORT==1)
 					platform_h2c_id =H2C_8723B_RSSI_SETTING;
-				#elif(RTL8188E_SUPPORT==1)
+				#elif(RTL9083E_SUPPORT==1)
 					platform_h2c_id =H2C_RSSI_REPORT;
 				#elif(RTL8723A_SUPPORT==1)
 					platform_h2c_id =RSSI_SETTING_EID;
@@ -855,7 +855,7 @@ ODM_FillH2CCmd(
 	}
 
 	#if(DM_ODM_SUPPORT_TYPE & ODM_WIN)
-		if(pDM_Odm->SupportICType == ODM_RTL8188E)
+		if(pDM_Odm->SupportICType == ODM_RTL9083E)
 		{
 			if(!pDM_Odm->RaSupport88E)
 				FillH2CCmd88E(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);

@@ -18,7 +18,7 @@
  *******************************************************************************/
 #define _SDIO_OPS_C_
 
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
 //#define SDIO_DEBUG_IO 1
 
@@ -1230,7 +1230,7 @@ DumpHardwareProfile8723Sdio(
 //
 //	Created by Roger, 2011.02.11.
 //
-void InitInterrupt8188ESdio(PADAPTER padapter)
+void InitInterrupt9083ESdio(PADAPTER padapter)
 {
 	HAL_DATA_TYPE *pHalData;
 
@@ -1294,7 +1294,7 @@ void ClearInterrupt8723ASdio(PADAPTER padapter)
 //
 //	Created by Roger, 2011.02.11.
 //
-void EnableInterrupt8188ESdio(PADAPTER padapter)
+void EnableInterrupt9083ESdio(PADAPTER padapter)
 {
 	PHAL_DATA_TYPE pHalData;
 	u32 himr;
@@ -1322,7 +1322,7 @@ void EnableInterrupt8188ESdio(PADAPTER padapter)
 //
 //	Created by Roger, 2011.02.11.
 //
-void DisableInterrupt8188ESdio(PADAPTER padapter)
+void DisableInterrupt9083ESdio(PADAPTER padapter)
 {
 	u32 himr;
 
@@ -1341,7 +1341,7 @@ void DisableInterrupt8188ESdio(PADAPTER padapter)
 //
 //	Created by Roger, 2011.02.11.
 //
-void UpdateInterruptMask8188ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR)
+void UpdateInterruptMask9083ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR)
 {
 	HAL_DATA_TYPE *pHalData;
 	pHalData = GET_HAL_DATA(padapter);
@@ -1352,8 +1352,8 @@ void UpdateInterruptMask8188ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR)
 	if (RemoveMSR)
 		pHalData->sdio_himr &= (~RemoveMSR);
 
-	DisableInterrupt8188ESdio(padapter);
-	EnableInterrupt8188ESdio(padapter);
+	DisableInterrupt9083ESdio(padapter);
+	EnableInterrupt9083ESdio(padapter);
 }
 
 //
@@ -1378,7 +1378,7 @@ u8 CheckIPSStatus(PADAPTER padapter)
 
 
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
-void ClearInterrupt8188ESdio(PADAPTER padapter)
+void ClearInterrupt9083ESdio(PADAPTER padapter)
 {
     HAL_DATA_TYPE   *pHalData = GET_HAL_DATA(padapter);
     u32 v32 = 0;

@@ -82,7 +82,7 @@ ODM_REG(DIG,_pDM_Odm)
 //		((_ic_type) & ODM_RTL8192D)? _func##_ic(_name, _8192D):		\
 //		((_ic_type) & ODM_RTL8192S)? _func##_ic(_name, _8192S):		\
 //		((_ic_type) & ODM_RTL8723A)? _func##_ic(_name, _8723A):		\
-//		((_ic_type) & ODM_RTL8188E)? _func##_ic(_name, _8188E):		\
+//		((_ic_type) & ODM_RTL9083E)? _func##_ic(_name, _9083E):		\
 //		_func##_ic(_name, _8195)									\
 //	)
 */

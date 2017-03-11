@@ -57,24 +57,24 @@ ODM_RAInfo_Init(
 	);
 
 u1Byte 
-ODM_RA_GetShortGI_8188E(
+ODM_RA_GetShortGI_9083E(
 	IN 	PDM_ODM_T 	pDM_Odm, 
 	IN 	u1Byte 		MacID
 	);
 
 u1Byte 
-ODM_RA_GetDecisionRate_8188E(
+ODM_RA_GetDecisionRate_9083E(
 	IN 	PDM_ODM_T 	pDM_Odm, 
 	IN 	u1Byte 		MacID
 	);
 
 u1Byte
-ODM_RA_GetHwPwrStatus_8188E(
+ODM_RA_GetHwPwrStatus_9083E(
 	IN 	PDM_ODM_T 	pDM_Odm, 
 	IN 	u1Byte 		MacID
 	);
 VOID 
-ODM_RA_UpdateRateInfo_8188E(
+ODM_RA_UpdateRateInfo_9083E(
 	IN PDM_ODM_T pDM_Odm,
 	IN u1Byte MacID,
 	IN u1Byte RateID, 
@@ -83,14 +83,14 @@ ODM_RA_UpdateRateInfo_8188E(
 	);
 
 VOID 
-ODM_RA_SetRSSI_8188E(
+ODM_RA_SetRSSI_9083E(
 	IN 	PDM_ODM_T 		pDM_Odm, 
 	IN 	u1Byte 			MacID, 
 	IN 	u1Byte 			Rssi
 	);
 
 VOID
-ODM_RA_TxRPT2Handle_8188E(	
+ODM_RA_TxRPT2Handle_9083E(	
 	IN	PDM_ODM_T		pDM_Odm,
 	IN	pu1Byte			TxRPT_Buf,
 	IN	u2Byte			TxRPT_Len,

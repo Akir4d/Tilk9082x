@@ -445,8 +445,8 @@ ODM_DMInit(
 		odm_DynamicBBPowerSavingInit(pDM_Odm);
 		odm_DynamicTxPowerInit(pDM_Odm);
 
-#if (RTL8188E_SUPPORT == 1)
-		if(pDM_Odm->SupportICType==ODM_RTL8188E)
+#if (RTL9083E_SUPPORT == 1)
+		if(pDM_Odm->SupportICType==ODM_RTL9083E)
 		{
 			odm_PrimaryCCA_Init(pDM_Odm);
 			ODM_RAInfo_Init_all(pDM_Odm);
@@ -646,8 +646,8 @@ ODM_DMWatchdog(
 	if(pDM_Odm->SupportICType & ODM_IC_11N_SERIES)
 	{
 	        
-#if (RTL8188E_SUPPORT == 1)
-	        if(pDM_Odm->SupportICType==ODM_RTL8188E)
+#if (RTL9083E_SUPPORT == 1)
+	        if(pDM_Odm->SupportICType==ODM_RTL9083E)
 	                odm_DynamicPrimaryCCA(pDM_Odm);	
 #endif
 
@@ -1702,7 +1702,7 @@ ODM_UpdateInitRateWorkItemCallback(
 			ODM_TxPwrTrackSetPwr92E(pDM_Odm, MIX_MODE, p, 0);
 		}
 	}
-	else if(pDM_Odm->SupportICType == ODM_RTL8188E)
+	else if(pDM_Odm->SupportICType == ODM_RTL9083E)
 	{
 			ODM_TxPwrTrackSetPwr88E(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 	}
@@ -1740,7 +1740,7 @@ ODM_AsocEntry_Init(
 		}
 		
 		TotalAssocEntryNum+= index;
-		if(IS_HARDWARE_TYPE_8188E((pDM_Odm->Adapter)))
+		if(IS_HARDWARE_TYPE_9083E((pDM_Odm->Adapter)))
 			pLoopAdapter->RASupport = TRUE;
 		pLoopAdapter = GetNextExtAdapter(pLoopAdapter);
 	}

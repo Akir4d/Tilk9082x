@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __INC_HAL8188FPHYCFG_H__
-#define __INC_HAL8188FPHYCFG_H__
+#ifndef __INC_HAL9083FPHYCFG_H__
+#define __INC_HAL9083FPHYCFG_H__
 
 /*--------------------------Define Parameters-------------------------------*/
 #define LOOP_LIMIT				5
@@ -43,14 +43,14 @@
 
 /*--------------------------Exported Function prototype---------------------*/
 u32
-PHY_QueryBBReg_8188F(
+PHY_QueryBBReg_9083F(
 	IN	PADAPTER	Adapter,
 	IN	u32		RegAddr,
 	IN	u32		BitMask
 	);
 
 VOID
-PHY_SetBBReg_8188F(
+PHY_SetBBReg_9083F(
 	IN	PADAPTER	Adapter,
 	IN	u32		RegAddr,
 	IN	u32		BitMask,
@@ -58,7 +58,7 @@ PHY_SetBBReg_8188F(
 	);
 
 u32
-PHY_QueryRFReg_8188F(
+PHY_QueryRFReg_9083F(
 	IN	PADAPTER			Adapter,
 	IN	u8				eRFPath,
 	IN	u32				RegAddr,
@@ -66,7 +66,7 @@ PHY_QueryRFReg_8188F(
 	);
 
 VOID
-PHY_SetRFReg_8188F(
+PHY_SetRFReg_9083F(
 	IN	PADAPTER			Adapter,
 	IN	u8				eRFPath,
 	IN	u32				RegAddr,
@@ -75,21 +75,21 @@ PHY_SetRFReg_8188F(
 	);
 
 /* MAC/BB/RF HAL config */
-int PHY_BBConfig8188F(PADAPTER	Adapter	);
+int PHY_BBConfig9083F(PADAPTER	Adapter	);
 
-int PHY_RFConfig8188F(PADAPTER	Adapter	);
+int PHY_RFConfig9083F(PADAPTER	Adapter	);
 
-s32 PHY_MACConfig8188F(PADAPTER padapter);
+s32 PHY_MACConfig9083F(PADAPTER padapter);
 
 int
-PHY_ConfigRFWithParaFile_8188F(
+PHY_ConfigRFWithParaFile_9083F(
 	IN	PADAPTER			Adapter,
 	IN	u8* 				pFileName,
 	RF_PATH				eRFPath
 );
 
 VOID
-PHY_SetTxPowerIndex_8188F(
+PHY_SetTxPowerIndex_9083F(
 	IN	PADAPTER			Adapter,
 	IN	u32					PowerIndex,
 	IN	u8					RFPath,	
@@ -97,7 +97,7 @@ PHY_SetTxPowerIndex_8188F(
 	);
 
 u8
-PHY_GetTxPowerIndex_8188F(
+PHY_GetTxPowerIndex_9083F(
 	IN	PADAPTER			pAdapter,
 	IN	u8					RFPath,
 	IN	u8					Rate,	
@@ -106,32 +106,32 @@ PHY_GetTxPowerIndex_8188F(
 	);
 
 VOID	
-PHY_GetTxPowerLevel8188F(			
+PHY_GetTxPowerLevel9083F(			
 	IN	PADAPTER		Adapter,
 	OUT s32*		    		powerlevel	
 	);
 
 VOID
-PHY_SetTxPowerLevel8188F(
+PHY_SetTxPowerLevel9083F(
 	IN	PADAPTER		Adapter,
 	IN	u8			channel
 	);
 
 VOID
-PHY_SetBWMode8188F(
+PHY_SetBWMode9083F(
 	IN	PADAPTER				Adapter,
 	IN	CHANNEL_WIDTH			Bandwidth,	// 20M or 40M
 	IN	unsigned char				Offset		// Upper, Lower, or Don't care
 );
 
 VOID
-PHY_SwChnl8188F(	// Call after initialization
+PHY_SwChnl9083F(	// Call after initialization
 	IN	PADAPTER	Adapter,
 	IN	u8		channel
 	);
 
 VOID
-PHY_SetSwChnlBWMode8188F(
+PHY_SetSwChnlBWMode9083F(
 	IN	PADAPTER			Adapter,
 	IN	u8					channel,
 	IN	CHANNEL_WIDTH		Bandwidth,
@@ -139,7 +139,7 @@ PHY_SetSwChnlBWMode8188F(
 	IN	u8					Offset80
 );
 
-VOID PHY_SetRFPathSwitch_8188F(
+VOID PHY_SetRFPathSwitch_9083F(
 	IN	PADAPTER	pAdapter,
 	IN	BOOLEAN		bMain
 	);

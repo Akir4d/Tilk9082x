@@ -592,7 +592,7 @@ ODM_SwAntDivCheckBeforeLink(
 		ScanChannel = odm_SwAntDivSelectScanChnl(Adapter);
 
 		
-		if(pDM_Odm->SupportICType & (ODM_RTL8188E|ODM_RTL8821))
+		if(pDM_Odm->SupportICType & (ODM_RTL9083E|ODM_RTL8821))
 		{
 			if(pDM_FatTable->RxIdleAnt == MAIN_ANT)
 				ODM_UpdateRxIdleAnt(pDM_Odm, AUX_ANT);
@@ -769,7 +769,7 @@ ODM_SwAntDivCheckBeforeLink(
 		}
 		}
 
-		if(pDM_Odm->SupportICType & (ODM_RTL8188E|ODM_RTL8821))
+		if(pDM_Odm->SupportICType & (ODM_RTL9083E|ODM_RTL8821))
 		{
 			if(pMgntInfo->NumBssDesc!=0 && Score<0)
 			{

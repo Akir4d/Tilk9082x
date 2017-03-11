@@ -24,8 +24,8 @@
 void spi_int_dpc(PADAPTER padapter, u32 sdio_hisr);
 u8 rtw_set_hal_ops(_adapter *padapter);
 
-#ifdef CONFIG_RTL8188E
-void rtl8188es_set_hal_ops(PADAPTER padapter);
+#ifdef CONFIG_RTL9083E
+void rtl9083es_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_RTL8723B

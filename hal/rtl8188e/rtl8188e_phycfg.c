@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#define _RTL8188E_PHYCFG_C_
+#define _RTL9083E_PHYCFG_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
 
 /*---------------------------Define Local Constant---------------------------*/
@@ -112,7 +112,7 @@ sic_Read4Byte(
 	)
 {
 	u32	u4ret=0xffffffff;
-#if RTL8188E_SUPPORT == 1
+#if RTL9083E_SUPPORT == 1
 	u8	retry = 0;
 #endif
 
@@ -135,7 +135,7 @@ sic_Read4Byte(
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_READ);
 		//RTPRINT(FPHY, PHY_SICR, ("write cmdreg 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_READ));
 
-#if RTL8188E_SUPPORT == 1
+#if RTL9083E_SUPPORT == 1
 		retry = 4;
 		while(retry--){			
 			rtw_udelay_os(50);
@@ -165,7 +165,7 @@ sic_Write4Byte(
 	u32		data
 	)
 {
-#if RTL8188E_SUPPORT == 1
+#if RTL9083E_SUPPORT == 1
 	u8	retry = 6;
 #endif
 	//DbgPrint("=>Write 0x%x = 0x%x\n", offset, data);
@@ -189,7 +189,7 @@ sic_Write4Byte(
 		rtw_write8(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
 		//RTPRINT(FPHY, PHY_SICW, ("write data 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_WRITE));
-#if RTL8188E_SUPPORT == 1
+#if RTL9083E_SUPPORT == 1
 		while(retry--){
 			rtw_udelay_os(50);
 			//PlatformStallExecution(50);
@@ -339,7 +339,7 @@ SIC_LedOff(
 * Note:		This function is equal to "GetRegSetting" in PHY programming guide
 */
 u32
-PHY_QueryBBReg8188E(
+PHY_QueryBBReg9083E(
 	IN	PADAPTER	Adapter,
 	IN	u32		RegAddr,
 	IN	u32		BitMask
@@ -389,7 +389,7 @@ PHY_QueryBBReg8188E(
 */
 
 VOID
-PHY_SetBBReg8188E(
+PHY_SetBBReg9083E(
 	IN	PADAPTER	Adapter,
 	IN	u32		RegAddr,
 	IN	u32		BitMask,
@@ -641,7 +641,7 @@ phy_RFSerialWrite(
 * Note:		This function is equal to "GetRFRegSetting" in PHY programming guide
 */
 u32
-PHY_QueryRFReg8188E(
+PHY_QueryRFReg9083E(
 	IN	PADAPTER		Adapter,
 	IN	u8				eRFPath,
 	IN	u32				RegAddr,
@@ -704,7 +704,7 @@ PHY_QueryRFReg8188E(
 * Note:		This function is equal to "PutRFRegSetting" in PHY programming guide
 */
 VOID
-PHY_SetRFReg8188E(
+PHY_SetRFReg9083E(
 	IN	PADAPTER		Adapter,
 	IN	u8				eRFPath,
 	IN	u32				RegAddr,
@@ -779,15 +779,15 @@ PHY_SetRFReg8188E(
  *  08/12/2008	MHC		Create Version 0.
  *
  *---------------------------------------------------------------------------*/
-s32 PHY_MACConfig8188E(PADAPTER Adapter)
+s32 PHY_MACConfig9083E(PADAPTER Adapter)
 {
 	int		rtStatus = _SUCCESS;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 	s8		*pszMACRegFile;
-	s8		sz8188EMACRegFile[] = RTL8188E_PHY_MACREG;
+	s8		sz9083EMACRegFile[] = RTL9083E_PHY_MACREG;
 	u16		val=0;
 
-	pszMACRegFile = sz8188EMACRegFile;
+	pszMACRegFile = sz9083EMACRegFile;
 
 	//
 	// Config MAC
@@ -1036,18 +1036,18 @@ phy_BB8190_Config_HardCode(
 }
 
 static	int
-phy_BB8188E_Config_ParaFile(
+phy_BB9083E_Config_ParaFile(
 	IN	PADAPTER	Adapter
 	)
 {
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(Adapter);
 	int			rtStatus = _SUCCESS;
 
-	u8	sz8188EBBRegFile[] = RTL8188E_PHY_REG;
-	u8	sz8188EAGCTableFile[] = RTL8188E_AGC_TAB;
-	u8	sz8188EBBRegPgFile[] = RTL8188E_PHY_REG_PG;
-	u8	sz8188EBBRegMpFile[] = RTL8188E_PHY_REG_MP;
-	u8	sz8188EBBRegLimitFile[] = RTL8188E_TXPWR_LMT;
+	u8	sz9083EBBRegFile[] = RTL9083E_PHY_REG;
+	u8	sz9083EAGCTableFile[] = RTL9083E_AGC_TAB;
+	u8	sz9083EBBRegPgFile[] = RTL9083E_PHY_REG_PG;
+	u8	sz9083EBBRegMpFile[] = RTL9083E_PHY_REG_MP;
+	u8	sz9083EBBRegLimitFile[] = RTL9083E_TXPWR_LMT;
 
 	u8	*pszBBRegFile = NULL, *pszAGCTableFile = NULL, *pszBBRegPgFile = NULL, *pszBBRegMpFile=NULL,
 		*pszRFTxPwrLmtFile = NULL;
@@ -1055,11 +1055,11 @@ phy_BB8188E_Config_ParaFile(
 
 	//RT_TRACE(COMP_INIT, DBG_TRACE, ("==>phy_BB8192S_Config_ParaFile\n"));
 
-	pszBBRegFile = sz8188EBBRegFile ;
-	pszAGCTableFile = sz8188EAGCTableFile;
-	pszBBRegPgFile = sz8188EBBRegPgFile;
-	pszBBRegMpFile = sz8188EBBRegMpFile;
-	pszRFTxPwrLmtFile = sz8188EBBRegLimitFile;
+	pszBBRegFile = sz9083EBBRegFile ;
+	pszAGCTableFile = sz9083EAGCTableFile;
+	pszBBRegPgFile = sz9083EBBRegPgFile;
+	pszBBRegMpFile = sz9083EBBRegMpFile;
+	pszRFTxPwrLmtFile = sz9083EBBRegLimitFile;
 
 	PHY_InitTxPowerLimit( Adapter );
 
@@ -1077,7 +1077,7 @@ phy_BB8188E_Config_ParaFile(
 		}
 
 		if(rtStatus != _SUCCESS){
-			DBG_871X("phy_BB8188E_Config_ParaFile():Read Tx power limit fail!!\n");
+			DBG_871X("phy_BB9083E_Config_ParaFile():Read Tx power limit fail!!\n");
 			goto phy_BB8190_Config_ParaFile_Fail;
 		}
  	}
@@ -1117,7 +1117,7 @@ phy_BB8188E_Config_ParaFile(
 		}
 
 		if(rtStatus != _SUCCESS){
-			DBG_871X("phy_BB8188E_Config_ParaFile():Write BB Reg MP Fail!!");
+			DBG_871X("phy_BB9083E_Config_ParaFile():Write BB Reg MP Fail!!");
 			goto phy_BB8190_Config_ParaFile_Fail;
 		}
 	}
@@ -1181,7 +1181,7 @@ phy_BB8190_Config_ParaFile_Fail:
 
 
 int
-PHY_BBConfig8188E(
+PHY_BBConfig9083E(
 	IN	PADAPTER	Adapter
 	)
 {
@@ -1237,7 +1237,7 @@ PHY_BBConfig8188E(
 	//
 	// Config BB and AGC
 	//
-	rtStatus = phy_BB8188E_Config_ParaFile(Adapter);
+	rtStatus = phy_BB9083E_Config_ParaFile(Adapter);
 
 	// write 0x24[16:11] = 0x24[22:17] = CrystalCap
 	CrystalCap = pHalData->CrystalCap & 0x3F;
@@ -1249,7 +1249,7 @@ PHY_BBConfig8188E(
 
 
 int
-PHY_RFConfig8188E(
+PHY_RFConfig9083E(
 	IN	PADAPTER	Adapter
 	)
 {
@@ -1259,7 +1259,7 @@ PHY_RFConfig8188E(
 	//
 	// RF config
 	//
-	rtStatus = PHY_RF6052_Config8188E(Adapter);
+	rtStatus = PHY_RF6052_Config9083E(Adapter);
 #if 0
 	switch(pHalData->rf_chip)
 	{
@@ -1301,7 +1301,7 @@ PHY_RFConfig8188E(
  * Note:		Delay may be required for RF configuration
  *---------------------------------------------------------------------------*/
 int
-rtl8188e_PHY_ConfigRFWithParaFile(
+rtl9083e_PHY_ConfigRFWithParaFile(
 	IN	PADAPTER		Adapter,
 	IN	u8* 				pFileName,
 	IN	u8				eRFPath
@@ -1350,7 +1350,7 @@ u32 Rtl8192S_HighPower_RadioA_Array[HighPowerRadioAArrayLen] = {
  *
  *---------------------------------------------------------------------------*/
 VOID
-PHY_GetTxPowerLevel8188E(
+PHY_GetTxPowerLevel9083E(
 	IN	PADAPTER	Adapter,
 	OUT s32*		  	powerlevel
 	)
@@ -1359,7 +1359,7 @@ PHY_GetTxPowerLevel8188E(
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 	PMGNT_INFO		pMgntInfo = &(Adapter->MgntInfo);
 	s4Byte			TxPwrDbm = 13;
-	RT_TRACE(COMP_TXAGC, DBG_LOUD, ("PHY_GetTxPowerLevel8188E(): TxPowerLevel: %#x\n", TxPwrDbm));
+	RT_TRACE(COMP_TXAGC, DBG_LOUD, ("PHY_GetTxPowerLevel9083E(): TxPowerLevel: %#x\n", TxPwrDbm));
 
 	if ( pMgntInfo->ClientConfigPwrInDbm != UNSPECIFIED_PWR_DBM )
 		*powerlevel = pMgntInfo->ClientConfigPwrInDbm;
@@ -1386,20 +1386,20 @@ PHY_GetTxPowerLevel8188E(
  *
  *---------------------------------------------------------------------------*/
 VOID
-PHY_SetTxPowerLevel8188E(
+PHY_SetTxPowerLevel9083E(
 	IN	PADAPTER	Adapter,
 	IN	u8			Channel
 	)
 {		
-	//DBG_871X("==>PHY_SetTxPowerLevel8188E()\n");
+	//DBG_871X("==>PHY_SetTxPowerLevel9083E()\n");
 
 	PHY_SetTxPowerLevelByPath(Adapter, Channel, ODM_RF_PATH_A);
 	
-	//DBG_871X("<==PHY_SetTxPowerLevel8188E()\n");
+	//DBG_871X("<==PHY_SetTxPowerLevel9083E()\n");
 }
 
 VOID
-PHY_SetTxPowerIndex_8188E(
+PHY_SetTxPowerIndex_9083E(
 	IN	PADAPTER			Adapter,
 	IN	u32					PowerIndex,
 	IN	u8					RFPath,	
@@ -1501,7 +1501,7 @@ PHY_SetTxPowerIndex_8188E(
 }
 
 u8
-phy_GetCurrentTxNum_8188E(
+phy_GetCurrentTxNum_9083E(
 	IN	PADAPTER	pAdapter,
 	IN	u8			Rate
 	)
@@ -1534,7 +1534,7 @@ s8 tx_power_extra_bias(
 }
 
 u8
-PHY_GetTxPowerIndex_8188E(
+PHY_GetTxPowerIndex_9083E(
 	IN	PADAPTER		pAdapter,
 	IN	u8				RFPath,
 	IN	u8				Rate,	
@@ -1545,7 +1545,7 @@ PHY_GetTxPowerIndex_8188E(
 	PHAL_DATA_TYPE pHalData = GET_HAL_DATA(pAdapter);
 	u8 base_index = 0;
 	s8 by_rate_diff = 0, txPower = 0, limit = 0, track_diff = 0, extra_bias = 0;
-	u8 txNum = phy_GetCurrentTxNum_8188E(pAdapter, Rate);
+	u8 txNum = phy_GetCurrentTxNum_9083E(pAdapter, Rate);
 	BOOLEAN bIn24G = _FALSE;
 
 	base_index = PHY_GetTxPowerIndexBase(pAdapter,RFPath, Rate, BandWidth, Channel, &bIn24G);
@@ -1580,7 +1580,7 @@ PHY_GetTxPowerIndex_8188E(
 //	By Bruce, 2008-02-04.
 //
 BOOLEAN
-PHY_UpdateTxPowerDbm8188E(
+PHY_UpdateTxPowerDbm9083E(
 	IN	PADAPTER	Adapter,
 	IN	int		powerInDbm
 	)
@@ -1589,7 +1589,7 @@ PHY_UpdateTxPowerDbm8188E(
 }
 
 VOID
-PHY_ScanOperationBackup8188E(
+PHY_ScanOperationBackup9083E(
 	IN	PADAPTER	Adapter,
 	IN	u8		Operation
 	)
@@ -1619,13 +1619,13 @@ PHY_ScanOperationBackup8188E(
 #endif
 }
 void 
-phy_SpurCalibration_8188E(
+phy_SpurCalibration_9083E(
 	IN	PADAPTER			Adapter
 	)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 	
-	//DbgPrint("===> phy_SpurCalibration_8188E  CurrentChannelBW = %d, CurrentChannel = %d\n", pHalData->CurrentChannelBW, pHalData->CurrentChannel);
+	//DbgPrint("===> phy_SpurCalibration_9083E  CurrentChannelBW = %d, CurrentChannel = %d\n", pHalData->CurrentChannelBW, pHalData->CurrentChannel);
 	if(pHalData->CurrentChannelBW == CHANNEL_WIDTH_20 &&( pHalData->CurrentChannel == 13 || pHalData->CurrentChannel == 14)){
 		PHY_SetBBReg(Adapter, rOFDM0_RxDSP, BIT(9), 0x1);                     	//enable notch filter
 		PHY_SetBBReg(Adapter, rOFDM1_IntfDet, BIT(8)|BIT(7)|BIT(6), 0x2);	//intf_TH
@@ -1790,7 +1790,7 @@ _PHY_SetBWMode88E(
 			break;
 
 		case RF_6052:
-			rtl8188e_PHY_RF6052SetBandwidth(Adapter, pHalData->CurrentChannelBW);
+			rtl9083e_PHY_RF6052SetBandwidth(Adapter, pHalData->CurrentChannelBW);
 			break;
 
 		default:
@@ -1819,7 +1819,7 @@ _PHY_SetBWMode88E(
  * Note:		We do not take j mode into consideration now
  *---------------------------------------------------------------------------*/
 VOID
-PHY_SetBWMode8188E(
+PHY_SetBWMode9083E(
 	IN	PADAPTER					Adapter,
 	IN	CHANNEL_WIDTH	Bandwidth,	// 20M or 40M
 	IN	unsigned char	Offset		// Upper, Lower, or Don't care
@@ -1874,8 +1874,8 @@ PHY_SetBWMode8188E(
 		_PHY_SetBWMode88E(Adapter);
 	#endif
 	#if defined(CONFIG_USB_HCI) || defined(CONFIG_SDIO_HCI)
-		if(IS_VENDOR_8188E_I_CUT_SERIES(Adapter))
-			phy_SpurCalibration_8188E( Adapter);
+		if(IS_VENDOR_9083E_I_CUT_SERIES(Adapter))
+			phy_SpurCalibration_9083E( Adapter);
 	#endif
 	}
 	else
@@ -1888,7 +1888,7 @@ PHY_SetBWMode8188E(
 }
 
 
-static void _PHY_SwChnl8188E(PADAPTER Adapter, u8 channel)
+static void _PHY_SwChnl9083E(PADAPTER Adapter, u8 channel)
 {
 	u8 eRFPath;
 	u32 param1, param2;
@@ -1900,7 +1900,7 @@ static void _PHY_SwChnl8188E(PADAPTER Adapter, u8 channel)
 	}
 
 	//s1. pre common command - CmdID_SetTxPowerLevel
-	PHY_SetTxPowerLevel8188E(Adapter, channel);
+	PHY_SetTxPowerLevel9083E(Adapter, channel);
 
 	//s2. RF dependent command - CmdID_RF_WriteReg, param1=RF_CHNLBW, param2=channel
 	param1 = RF_CHNLBW;
@@ -1916,7 +1916,7 @@ static void _PHY_SwChnl8188E(PADAPTER Adapter, u8 channel)
 
 }
 VOID
-PHY_SwChnl8188E(	// Call after initialization
+PHY_SwChnl9083E(	// Call after initialization
 	IN	PADAPTER	Adapter,
 	IN	u8		channel
 	)
@@ -1979,12 +1979,12 @@ PHY_SwChnl8188E(	// Call after initialization
 		#if 0
 		//PlatformSetTimer(Adapter, &(pHalData->SwChnlTimer), 0);
 		#else
-		_PHY_SwChnl8188E(Adapter, channel);
+		_PHY_SwChnl9083E(Adapter, channel);
 		#endif
 
 		#if defined(CONFIG_USB_HCI) || defined(CONFIG_SDIO_HCI)
-		if(IS_VENDOR_8188E_I_CUT_SERIES(Adapter))
-			phy_SpurCalibration_8188E( Adapter);
+		if(IS_VENDOR_9083E_I_CUT_SERIES(Adapter))
+			phy_SpurCalibration_9083E( Adapter);
 		#endif
 
 		
@@ -2016,7 +2016,7 @@ PHY_SwChnl8188E(	// Call after initialization
 }
 
 VOID
-PHY_SetSwChnlBWMode8188E(
+PHY_SetSwChnlBWMode9083E(
 	IN	PADAPTER			Adapter,
 	IN	u8					channel,
 	IN	CHANNEL_WIDTH	Bandwidth,
@@ -2026,8 +2026,8 @@ PHY_SetSwChnlBWMode8188E(
 {
 	//DBG_871X("%s()===>\n",__FUNCTION__);
 
-	PHY_SwChnl8188E(Adapter, channel);
-	PHY_SetBWMode8188E(Adapter, Bandwidth, Offset40);
+	PHY_SwChnl9083E(Adapter, channel);
+	PHY_SetBWMode9083E(Adapter, Bandwidth, Offset40);
 
 	//DBG_871X("<==%s()\n",__FUNCTION__);
 }

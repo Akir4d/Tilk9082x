@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#define _RTL8188E_XMIT_C_
+#define _RTL9083E_XMIT_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
 #ifdef CONFIG_XMIT_ACK
 void dump_txrpt_ccx_88e(void *buf)
@@ -112,7 +112,7 @@ void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc)
 
 //#define DBG_EMINFO
 
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1	
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1	
 	#define EARLY_MODE_MAX_PKT_NUM	10
 #else
 	#define EARLY_MODE_MAX_PKT_NUM	5
@@ -126,12 +126,12 @@ struct EMInfo{
 
 
 void
-InsertEMContent_8188E(
+InsertEMContent_9083E(
 	struct EMInfo *pEMInfo,
 	IN pu1Byte	VirtualAddress)
 {
 
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	u1Byte index=0;
 	u4Byte	dwtmp=0;
 #endif
@@ -151,7 +151,7 @@ InsertEMContent_8188E(
 	}
 	#endif
 	
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	SET_EARLYMODE_PKTNUM(VirtualAddress, pEMInfo->EMPktNum);
 
 	if(pEMInfo->EMPktNum == 1){
@@ -210,12 +210,12 @@ InsertEMContent_8188E(
 
 
 
-void UpdateEarlyModeInfo8188E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf )
+void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf )
 {
 	//_adapter *padapter, struct xmit_frame *pxmitframe,struct tx_servq	*ptxservq
 	int index,j;
 	u16 offset,pktlen;
-	PTXDESC_8188E ptxdesc;
+	PTXDESC_9083E ptxdesc;
 	
 	u8 *pmem,*pEMInfo_mem;
 	s8 node_num_0=0,node_num_1=0;
@@ -265,19 +265,19 @@ void UpdateEarlyModeInfo8188E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 			
 		if(pmem){
 			if(index==0){
-				ptxdesc = (PTXDESC_8188E)(pmem);
+				ptxdesc = (PTXDESC_9083E)(pmem);
 				pEMInfo_mem = ((u8 *)ptxdesc)+TXDESC_SIZE;				
 			}
 			else{
 				pmem = pmem + pxmitpriv->agg_pkt[index-1].offset;
-				ptxdesc = (PTXDESC_8188E)(pmem);
+				ptxdesc = (PTXDESC_9083E)(pmem);
 				pEMInfo_mem = ((u8 *)ptxdesc)+TXDESC_SIZE;					
 			}
 			
 			#ifdef DBG_EMINFO
 			DBG_8192C("%s ==> desc.pkt_len=%d\n",__FUNCTION__,ptxdesc->pktlen);
 			#endif
-			InsertEMContent_8188E(&eminfo,pEMInfo_mem);
+			InsertEMContent_9083E(&eminfo,pEMInfo_mem);
 		}	
 		
 		
@@ -287,7 +287,7 @@ void UpdateEarlyModeInfo8188E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 }
 #endif
 
-void rtl8188e_cal_txdesc_chksum(struct tx_desc *ptxdesc)
+void rtl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc)
 {
 	u16	*usPtr = (u16*)ptxdesc;
 	u32 count = 16;		// (32 bytes / 2 bytes per XOR) => 16 times

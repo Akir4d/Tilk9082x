@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __INC_HAL8188EPHYCFG_H__
-#define __INC_HAL8188EPHYCFG_H__
+#ifndef __INC_HAL9083EPHYCFG_H__
+#define __INC_HAL9083EPHYCFG_H__
 
 
 /*--------------------------Define Parameters-------------------------------*/
@@ -40,7 +40,7 @@
 
 /*------------------------------Define structure----------------------------*/ 
 
-#define	MAX_TX_COUNT_8188E			1
+#define	MAX_TX_COUNT_9083E			1
 
 /* BB/RF related */
 
@@ -60,18 +60,18 @@
 //
 // BB and RF register read/write
 //
-u32	PHY_QueryBBReg8188E(	IN	PADAPTER	Adapter,
+u32	PHY_QueryBBReg9083E(	IN	PADAPTER	Adapter,
 								IN	u32		RegAddr,
 								IN	u32		BitMask	);
-void	PHY_SetBBReg8188E(	IN	PADAPTER	Adapter,
+void	PHY_SetBBReg9083E(	IN	PADAPTER	Adapter,
 								IN	u32		RegAddr,
 								IN	u32		BitMask,
 								IN	u32		Data	);
-u32	PHY_QueryRFReg8188E(	IN	PADAPTER	Adapter,
+u32	PHY_QueryRFReg9083E(	IN	PADAPTER	Adapter,
 								IN	u8				eRFPath,
 								IN	u32				RegAddr,
 								IN	u32				BitMask	);
-void	PHY_SetRFReg8188E(	IN	PADAPTER		Adapter,
+void	PHY_SetRFReg9083E(	IN	PADAPTER		Adapter,
 								IN	u8				eRFPath,
 								IN	u32				RegAddr,
 								IN	u32				BitMask,
@@ -81,12 +81,12 @@ void	PHY_SetRFReg8188E(	IN	PADAPTER		Adapter,
 // Initialization related function
 //
 /* MAC/BB/RF HAL config */
-int	PHY_MACConfig8188E(IN	PADAPTER	Adapter	);
-int	PHY_BBConfig8188E(IN	PADAPTER	Adapter	);
-int	PHY_RFConfig8188E(IN	PADAPTER	Adapter	);
+int	PHY_MACConfig9083E(IN	PADAPTER	Adapter	);
+int	PHY_BBConfig9083E(IN	PADAPTER	Adapter	);
+int	PHY_RFConfig9083E(IN	PADAPTER	Adapter	);
 
 /* RF config */
-int	rtl8188e_PHY_ConfigRFWithParaFile(IN PADAPTER Adapter, IN u8 * pFileName, u8 eRFPath);
+int	rtl9083e_PHY_ConfigRFWithParaFile(IN PADAPTER Adapter, IN u8 * pFileName, u8 eRFPath);
 
 //
 // RF Power setting
@@ -97,15 +97,15 @@ int	rtl8188e_PHY_ConfigRFWithParaFile(IN PADAPTER Adapter, IN u8 * pFileName, u8
 //
 // BB TX Power R/W
 //
-void	PHY_GetTxPowerLevel8188E(	IN	PADAPTER		Adapter,
+void	PHY_GetTxPowerLevel9083E(	IN	PADAPTER		Adapter,
 											OUT s32*    		powerlevel	);
-void	PHY_SetTxPowerLevel8188E(	IN	PADAPTER		Adapter,
+void	PHY_SetTxPowerLevel9083E(	IN	PADAPTER		Adapter,
 											IN	u8			channel	);
-BOOLEAN	PHY_UpdateTxPowerDbm8188E(	IN	PADAPTER	Adapter,
+BOOLEAN	PHY_UpdateTxPowerDbm9083E(	IN	PADAPTER	Adapter,
 											IN	int		powerInDbm	);
 
 VOID
-PHY_SetTxPowerIndex_8188E(
+PHY_SetTxPowerIndex_9083E(
 	IN	PADAPTER			Adapter,
 	IN	u32					PowerIndex,
 	IN	u8					RFPath,	
@@ -113,7 +113,7 @@ PHY_SetTxPowerIndex_8188E(
 	);
 
 u8
-PHY_GetTxPowerIndex_8188E(
+PHY_GetTxPowerIndex_9083E(
 	IN	PADAPTER		pAdapter,
 	IN	u8				RFPath,
 	IN	u8				Rate,	
@@ -125,7 +125,7 @@ PHY_GetTxPowerIndex_8188E(
 // Switch bandwidth for 8192S
 //
 //extern	void	PHY_SetBWModeCallback8192C(	IN	PRT_TIMER		pTimer	);
-void	PHY_SetBWMode8188E(	IN	PADAPTER			pAdapter,
+void	PHY_SetBWMode9083E(	IN	PADAPTER			pAdapter,
 									IN	CHANNEL_WIDTH	ChnlWidth,
 									IN	unsigned char	Offset	);
 
@@ -147,11 +147,11 @@ extern	void FillA2Entry8192C(		IN	PADAPTER			Adapter,
 // channel switch related funciton
 //
 //extern	void	PHY_SwChnlCallback8192C(	IN	PRT_TIMER		pTimer	);
-void	PHY_SwChnl8188E(	IN	PADAPTER		pAdapter,
+void	PHY_SwChnl9083E(	IN	PADAPTER		pAdapter,
 									IN	u8			channel	);
 
 VOID
-PHY_SetSwChnlBWMode8188E(
+PHY_SetSwChnlBWMode9083E(
 	IN	PADAPTER			Adapter,
 	IN	u8					channel,
 	IN	CHANNEL_WIDTH	Bandwidth,
@@ -168,7 +168,7 @@ void	PHY_SetMonitorMode8192C(IN	PADAPTER	pAdapter,
 BOOLEAN	PHY_CheckIsLegalRfPath8192C(IN	PADAPTER	pAdapter,
 											IN	u32		eRFPath	);
 
-VOID PHY_SetRFPathSwitch_8188E(IN	PADAPTER	pAdapter, IN	BOOLEAN		bMain);
+VOID PHY_SetRFPathSwitch_9083E(IN	PADAPTER	pAdapter, IN	BOOLEAN		bMain);
 
 extern	VOID
 PHY_SwitchEphyParameter(
@@ -211,7 +211,7 @@ storePwrIndexDiffRateOffset(
 //	2) "#define RTL8723_FPGA_VERIFICATION	1"				in Precomp.h.WlanE.Windows
 //	3) "#define RTL8190_Download_Firmware_From_Header	0"	in Precomp.h.WlanE.Windows if needed.
 //
-#if (RTL8188E_SUPPORT == 1) && (RTL8188E_FPGA_TRUE_PHY_VERIFICATION == 1)
+#if (RTL9083E_SUPPORT == 1) && (RTL9083E_FPGA_TRUE_PHY_VERIFICATION == 1)
 #define	SIC_ENABLE				1
 #define	SIC_HW_SUPPORT		1
 #else
@@ -226,7 +226,7 @@ storePwrIndexDiffRateOffset(
 #if(SIC_HW_SUPPORT == 1)
 #define	SIC_CMD_READY			0
 #define	SIC_CMD_PREWRITE		0x1
-#if(RTL8188E_SUPPORT == 1)
+#if(RTL9083E_SUPPORT == 1)
 #define	SIC_CMD_WRITE			0x40
 #define	SIC_CMD_PREREAD		0x2
 #define	SIC_CMD_READ			0x80
@@ -254,7 +254,7 @@ storePwrIndexDiffRateOffset(
 #define	SIC_CMD_WRITE			1
 #define	SIC_CMD_READ			2
 
-#if(RTL8188E_SUPPORT == 1)
+#if(RTL9083E_SUPPORT == 1)
 #define	SIC_CMD_REG			0x1EB		// 1byte
 #define	SIC_ADDR_REG			0x1E8		// 1b9~1ba, 2 bytes
 #define	SIC_DATA_REG			0x1EC		// 1bc~1bf

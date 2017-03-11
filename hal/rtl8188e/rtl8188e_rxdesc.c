@@ -17,12 +17,12 @@
  *
  *
  ******************************************************************************/
-#define _RTL8188E_REDESC_C_
+#define _RTL9083E_REDESC_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
-void rtl8188e_query_rx_desc_status(
+void rtl9083e_query_rx_desc_status(
 	union recv_frame *precvframe,
 	struct recv_stat *prxstat)
 {

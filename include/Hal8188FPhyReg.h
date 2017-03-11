@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __INC_HAL8188FPHYREG_H__
-#define __INC_HAL8188FPHYREG_H__
+#ifndef __INC_HAL9083FPHYREG_H__
+#define __INC_HAL9083FPHYREG_H__
 
 /*--------------------------Define Parameters-------------------------------*/
 
@@ -455,7 +455,7 @@
 #define 	RF_WE_LUT					0xEF	
 #define 	RF_S0S1 					0xB0
 
-#define RF_TX_GAIN_OFFSET_8188F(_val) (abs((_val)) | (((_val) > 0) ? BIT5 : 0))
+#define RF_TX_GAIN_OFFSET_9083F(_val) (abs((_val)) | (((_val) > 0) ? BIT5 : 0))
 
 //
 //Bit Mask

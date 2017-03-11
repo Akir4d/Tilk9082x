@@ -10155,14 +10155,14 @@ static int rtw_mp_efuse_get(struct net_device *dev,
 	}
 	else if (strcmp(tmp[0], "vidpid") == 0)
 	{
-		#ifdef CONFIG_RTL8188E
+		#ifdef CONFIG_RTL9083E
 			#ifdef CONFIG_USB_HCI
 			addr = EEPROM_VID_88EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_88EE;
 			#endif
-		#endif // CONFIG_RTL8188E
+		#endif // CONFIG_RTL9083E
 
 		#ifdef CONFIG_RTL8192E
 			#ifdef CONFIG_USB_HCI
@@ -10176,9 +10176,9 @@ static int rtw_mp_efuse_get(struct net_device *dev,
 		addr = EEPROM_VID_8723BU;
 		#endif // CONFIG_RTL8192E
 
-		#ifdef CONFIG_RTL8188F
-		addr = EEPROM_VID_8188FU;
-		#endif /* CONFIG_RTL8188F */
+		#ifdef CONFIG_RTL9083F
+		addr = EEPROM_VID_9083FU;
+		#endif /* CONFIG_RTL9083F */
 
 		cnts = 4;
 
@@ -10749,14 +10749,14 @@ static int rtw_mp_efuse_set(struct net_device *dev,
 		}
 
 		// pidvid,da0b7881		
-		#ifdef CONFIG_RTL8188E
+		#ifdef CONFIG_RTL9083E
 			#ifdef CONFIG_USB_HCI
 			addr = EEPROM_VID_88EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_88EE;
 			#endif
-		#endif // CONFIG_RTL8188E
+		#endif // CONFIG_RTL9083E
 
 		#ifdef CONFIG_RTL8192E
 			#ifdef CONFIG_USB_HCI
@@ -10765,14 +10765,14 @@ static int rtw_mp_efuse_set(struct net_device *dev,
 			#ifdef CONFIG_PCI_HCI
 			addr = EEPROM_VID_8192EE;
 			#endif
-		#endif // CONFIG_RTL8188E
+		#endif // CONFIG_RTL9083E
 
 		#ifdef CONFIG_RTL8723B
 		addr = EEPROM_VID_8723BU;
 		#endif
 
-		#ifdef CONFIG_RTL8188F
-		addr = EEPROM_VID_8188FU;
+		#ifdef CONFIG_RTL9083F
+		addr = EEPROM_VID_9083FU;
 		#endif
 
 		cnts = strlen(tmp[1]);
@@ -12445,15 +12445,15 @@ static int rtw_widi_set_probe_request(struct net_device *dev,
 
 #ifdef CONFIG_MAC_LOOPBACK_DRIVER
 
-#if defined(CONFIG_RTL8188E)
-#include <rtl8188e_hal.h>
-extern void rtl8188e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
-#define cal_txdesc_chksum rtl8188e_cal_txdesc_chksum
+#if defined(CONFIG_RTL9083E)
+#include <rtl9083e_hal.h>
+extern void rtl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
+#define cal_txdesc_chksum rtl9083e_cal_txdesc_chksum
 #ifdef CONFIG_SDIO_HCI || defined(CONFIG_GSPI_HCI)
-extern void rtl8188es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
-#define fill_default_txdesc rtl8188es_fill_default_txdesc
+extern void rtl9083es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
+#define fill_default_txdesc rtl9083es_fill_default_txdesc
 #endif // CONFIG_SDIO_HCI
-#endif // CONFIG_RTL8188E
+#endif // CONFIG_RTL9083E
 #if defined(CONFIG_RTL8723B)
 extern void rtl8723b_cal_txdesc_chksum(struct tx_desc *ptxdesc);
 #define cal_txdesc_chksum rtl8723b_cal_txdesc_chksum

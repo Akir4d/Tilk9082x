@@ -1332,7 +1332,7 @@ void odm_RXHP(
 #endif	   
 	static u1Byte		LatchCnt = 0;
 	
-	if(pDM_Odm->SupportICType & (ODM_RTL8723A|ODM_RTL8188E))
+	if(pDM_Odm->SupportICType & (ODM_RTL8723A|ODM_RTL9083E))
 		return;
 	//AGC RX High Power Mode is only applied on 2G band in 92D!!!
 	if(pDM_Odm->SupportICType == ODM_RTL8192D)

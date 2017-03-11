@@ -532,7 +532,7 @@ int phydm_AutoChannelSelectAP(
 #endif
 
 #if defined(CONFIG_RTL_88E_SUPPORT) || defined(CONFIG_WLAN_HAL_8192EE)
-        if( pDM_Odm->SupportICType&(ODM_RTL8188E|ODM_RTL8192E)&& priv->pmib->dot11RFEntry.acs_type )
+        if( pDM_Odm->SupportICType&(ODM_RTL9083E|ODM_RTL8192E)&& priv->pmib->dot11RFEntry.acs_type )
 		{
 			u4Byte tmp_score[MAX_BSS_NUM];
 			memcpy(tmp_score, score, sizeof(score));

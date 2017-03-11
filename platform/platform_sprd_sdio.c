@@ -34,9 +34,9 @@ int platform_wifi_power_on(void)
 	int ret = 0;
 
 
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 	rtw_wifi_gpio_wlan_ctrl(WLAN_POWER_ON);
-#endif // CONFIG_RTL8188E
+#endif // CONFIG_RTL9083E
 
 	/* Pull up pwd pin, make wifi leave power down mode. */
 	rtw_wifi_gpio_init();
@@ -78,9 +78,9 @@ void platform_wifi_power_off(void)
 	rtw_mdelay_os(5);
 	rtw_wifi_gpio_deinit();
 
-#ifdef CONFIG_RTL8188E
+#ifdef CONFIG_RTL9083E
 	rtw_wifi_gpio_wlan_ctrl(WLAN_POWER_OFF);
-#endif // CONFIG_RTL8188E
+#endif // CONFIG_RTL9083E
 
 #ifdef CONFIG_WOWLAN
 	if(mmc_host)

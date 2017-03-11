@@ -17,17 +17,17 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188E_RF_H__
-#define __RTL8188E_RF_H__
+#ifndef __RTL9083E_RF_H__
+#define __RTL9083E_RF_H__
 
 
 
-int	PHY_RF6052_Config8188E(	IN	PADAPTER		Adapter	);
-void		rtl8188e_RF_ChangeTxPath(	IN	PADAPTER	Adapter, 
+int	PHY_RF6052_Config9083E(	IN	PADAPTER		Adapter	);
+void		rtl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter, 
 										IN	u16		DataRate);
-void		rtl8188e_PHY_RF6052SetBandwidth(	
+void		rtl9083e_PHY_RF6052SetBandwidth(	
 										IN	PADAPTER				Adapter,
 										IN	CHANNEL_WIDTH		Bandwidth);
 
-#endif//__RTL8188E_RF_H__
+#endif//__RTL9083E_RF_H__
 

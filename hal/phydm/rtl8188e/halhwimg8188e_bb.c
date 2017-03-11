@@ -22,7 +22,7 @@
 #include "mp_precomp.h"
 #include "../phydm_precomp.h"
 
-#if (RTL8188E_SUPPORT == 1)
+#if (RTL9083E_SUPPORT == 1)
 static BOOLEAN
 CheckPositive(
 	IN  PDM_ODM_T     pDM_Odm,
@@ -119,7 +119,7 @@ CheckNegative(
 *                           AGC_TAB.TXT
 ******************************************************************************/
 
-u4Byte Array_MP_8188E_AGC_TAB[] = { 
+u4Byte Array_MP_9083E_AGC_TAB[] = { 
 	0x88000001,	0x00000000,	0x40000000,	0x00000000,
 		0xC78, 0xF6000001,
 		0xC78, 0xF5010001,
@@ -780,19 +780,19 @@ u4Byte Array_MP_8188E_AGC_TAB[] = {
 };
 
 void
-ODM_ReadAndConfig_MP_8188E_AGC_TAB(
+ODM_ReadAndConfig_MP_9083E_AGC_TAB(
 	IN   PDM_ODM_T  pDM_Odm
 )
 {
 	u4Byte     i         = 0;
 	u1Byte     cCond;
 	BOOLEAN bMatched = TRUE, bSkipped = FALSE;
-	u4Byte     ArrayLen    = sizeof(Array_MP_8188E_AGC_TAB)/sizeof(u4Byte);
-	pu4Byte    Array       = Array_MP_8188E_AGC_TAB;
+	u4Byte     ArrayLen    = sizeof(Array_MP_9083E_AGC_TAB)/sizeof(u4Byte);
+	pu4Byte    Array       = Array_MP_9083E_AGC_TAB;
 	
 	u4Byte	v1 = 0, v2 = 0, pre_v1 = 0, pre_v2 = 0;
 
-	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_8188E_AGC_TAB\n"));
+	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_9083E_AGC_TAB\n"));
 
 	while ((i + 1) < ArrayLen) {
 		v1 = Array[i];
@@ -827,14 +827,14 @@ ODM_ReadAndConfig_MP_8188E_AGC_TAB(
 			}
 		} else {
 			if (bMatched)
-				odm_ConfigBB_AGC_8188E(pDM_Odm, v1, bMaskDWord, v2);
+				odm_ConfigBB_AGC_9083E(pDM_Odm, v1, bMaskDWord, v2);
 		}
 		i = i + 2;
 	}
 }
 
 u4Byte
-ODM_GetVersion_MP_8188E_AGC_TAB(void)
+ODM_GetVersion_MP_9083E_AGC_TAB(void)
 {
 	   return 69;
 }
@@ -843,7 +843,7 @@ ODM_GetVersion_MP_8188E_AGC_TAB(void)
 *                           PHY_REG.TXT
 ******************************************************************************/
 
-u4Byte Array_MP_8188E_PHY_REG[] = { 
+u4Byte Array_MP_9083E_PHY_REG[] = { 
 		0x800, 0x80040000,
 		0x804, 0x00000003,
 		0x808, 0x0000FC00,
@@ -1254,19 +1254,19 @@ u4Byte Array_MP_8188E_PHY_REG[] = {
 };
 
 void
-ODM_ReadAndConfig_MP_8188E_PHY_REG(
+ODM_ReadAndConfig_MP_9083E_PHY_REG(
 	IN   PDM_ODM_T  pDM_Odm
 )
 {
 	u4Byte     i         = 0;
 	u1Byte     cCond;
 	BOOLEAN bMatched = TRUE, bSkipped = FALSE;
-	u4Byte     ArrayLen    = sizeof(Array_MP_8188E_PHY_REG)/sizeof(u4Byte);
-	pu4Byte    Array       = Array_MP_8188E_PHY_REG;
+	u4Byte     ArrayLen    = sizeof(Array_MP_9083E_PHY_REG)/sizeof(u4Byte);
+	pu4Byte    Array       = Array_MP_9083E_PHY_REG;
 	
 	u4Byte	v1 = 0, v2 = 0, pre_v1 = 0, pre_v2 = 0;
 
-	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_8188E_PHY_REG\n"));
+	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_9083E_PHY_REG\n"));
 
 	while ((i + 1) < ArrayLen) {
 		v1 = Array[i];
@@ -1301,14 +1301,14 @@ ODM_ReadAndConfig_MP_8188E_PHY_REG(
 			}
 		} else {
 			if (bMatched)
-				odm_ConfigBB_PHY_8188E(pDM_Odm, v1, bMaskDWord, v2);
+				odm_ConfigBB_PHY_9083E(pDM_Odm, v1, bMaskDWord, v2);
 		}
 		i = i + 2;
 	}
 }
 
 u4Byte
-ODM_GetVersion_MP_8188E_PHY_REG(void)
+ODM_GetVersion_MP_9083E_PHY_REG(void)
 {
 	   return 69;
 }
@@ -1317,7 +1317,7 @@ ODM_GetVersion_MP_8188E_PHY_REG(void)
 *                           PHY_REG_PG.TXT
 ******************************************************************************/
 
-u4Byte Array_MP_8188E_PHY_REG_PG[] = { 
+u4Byte Array_MP_9083E_PHY_REG_PG[] = { 
 	0, 0, 0, 0x00000e08, 0x0000ff00, 0x00003800,
 	0, 0, 0, 0x0000086c, 0xffffff00, 0x32343600,
 	0, 0, 0, 0x00000e00, 0xffffffff, 0x40424446,
@@ -1327,13 +1327,13 @@ u4Byte Array_MP_8188E_PHY_REG_PG[] = {
 };
 
 void
-ODM_ReadAndConfig_MP_8188E_PHY_REG_PG(
+ODM_ReadAndConfig_MP_9083E_PHY_REG_PG(
 	IN   PDM_ODM_T  pDM_Odm
 )
 {
 	u4Byte     i         = 0;
-	u4Byte     ArrayLen    = sizeof(Array_MP_8188E_PHY_REG_PG)/sizeof(u4Byte);
-	pu4Byte    Array       = Array_MP_8188E_PHY_REG_PG;
+	u4Byte     ArrayLen    = sizeof(Array_MP_9083E_PHY_REG_PG)/sizeof(u4Byte);
+	pu4Byte    Array       = Array_MP_9083E_PHY_REG_PG;
 
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
@@ -1343,7 +1343,7 @@ ODM_ReadAndConfig_MP_8188E_PHY_REG_PG(
 	pHalData->nLinesReadPwrByRate = ArrayLen/6;
 #endif
 
-	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_8188E_PHY_REG_PG\n"));
+	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_9083E_PHY_REG_PG\n"));
 
 	pDM_Odm->PhyRegPgVersion = 1;
 	pDM_Odm->PhyRegPgValueType = PHY_REG_PG_EXACT_VALUE;
@@ -1356,7 +1356,7 @@ ODM_ReadAndConfig_MP_8188E_PHY_REG_PG(
 		u4Byte v5 = Array[i+4];
 		u4Byte v6 = Array[i+5];
 
-	    odm_ConfigBB_PHY_REG_PG_8188E(pDM_Odm, v1, v2, v3, v4, v5, v6);
+	    odm_ConfigBB_PHY_REG_PG_9083E(pDM_Odm, v1, v2, v3, v4, v5, v6);
 
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 	rsprintf((char *)pHalData->BufOfLinesPwrByRate[i/6], 100, "%s, %s, %s, 0x%X, 0x%08X, 0x%08X,",

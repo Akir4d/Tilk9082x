@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __INC_HAL8188EPHYREG_H__
-#define __INC_HAL8188EPHYREG_H__
+#ifndef __INC_HAL9083EPHYREG_H__
+#define __INC_HAL9083EPHYREG_H__
 /*--------------------------Define Parameters-------------------------------*/
 //
 // BB-PHY register PMAC 0x100 PHY 0x800 - 0xEFF

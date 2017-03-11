@@ -49,7 +49,7 @@ odm_SetCrystalCap(
 		ODM_SetBBReg(pDM_Odm, REG_AFE_XTAL_CTRL, 0x000000F0, CrystalCap & 0x0F);
 		ODM_SetBBReg(pDM_Odm, REG_AFE_PLL_CTRL, 0xF0000000, ((CrystalCap & 0xF0) >> 4));
 	}
-	else if(pDM_Odm->SupportICType & (ODM_RTL8188E | ODM_RTL8188F))
+	else if(pDM_Odm->SupportICType & (ODM_RTL9083E | ODM_RTL9083F))
 	{
 		// write 0x24[22:17] = 0x24[16:11] = CrystalCap
 		CrystalCap = CrystalCap & 0x3F;

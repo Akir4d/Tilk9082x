@@ -113,9 +113,9 @@ void ConfigureTxpowerTrack(
 	if(pDM_Odm->SupportICType==ODM_RTL8812)
 		ConfigureTxpowerTrack_8812A(pConfig);
 #endif
-#if RTL8188E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8188E)
-		ConfigureTxpowerTrack_8188E(pConfig);
+#if RTL9083E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_RTL9083E)
+		ConfigureTxpowerTrack_9083E(pConfig);
 #endif 
 
 #if RTL8723B_SUPPORT
@@ -133,9 +133,9 @@ void ConfigureTxpowerTrack(
 		ConfigureTxpowerTrack_8703B(pConfig);
 #endif
 
-#if RTL8188F_SUPPORT
-	if (pDM_Odm->SupportICType == ODM_RTL8188F)
-		ConfigureTxpowerTrack_8188F(pConfig);
+#if RTL9083F_SUPPORT
+	if (pDM_Odm->SupportICType == ODM_RTL9083F)
+		ConfigureTxpowerTrack_9083F(pConfig);
 #endif 
 }
 
@@ -552,7 +552,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) higher than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));			
 
-			if (pDM_Odm->SupportICType == ODM_RTL8188E || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8821 ||
+			if (pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8821 ||
 				pDM_Odm->SupportICType == ODM_RTL8812 || pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8814A || 
 				pDM_Odm->SupportICType == ODM_RTL8822B) {
 				ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("**********Enter POWER Tracking MIX_MODE**********\n"));
@@ -571,7 +571,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) lower than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));
 
-			if (pDM_Odm->SupportICType == ODM_RTL8188E || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8821 ||
+			if (pDM_Odm->SupportICType == ODM_RTL9083E || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8821 ||
 				pDM_Odm->SupportICType == ODM_RTL8812 || pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8814A ||
 				pDM_Odm->SupportICType == ODM_RTL8822B) {
 

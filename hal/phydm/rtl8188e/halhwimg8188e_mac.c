@@ -22,7 +22,7 @@
 #include "mp_precomp.h"
 #include "../phydm_precomp.h"
 
-#if (RTL8188E_SUPPORT == 1)
+#if (RTL9083E_SUPPORT == 1)
 static BOOLEAN
 CheckPositive(
 	IN  PDM_ODM_T     pDM_Odm,
@@ -119,7 +119,7 @@ CheckNegative(
 *                           MAC_REG.TXT
 ******************************************************************************/
 
-u4Byte Array_MP_8188E_MAC_REG[] = { 
+u4Byte Array_MP_9083E_MAC_REG[] = { 
 		0x026, 0x00000041,
 		0x027, 0x00000035,
 	0x80000002,	0x00000000,	0x40000000,	0x00000000,
@@ -224,19 +224,19 @@ u4Byte Array_MP_8188E_MAC_REG[] = {
 };
 
 void
-ODM_ReadAndConfig_MP_8188E_MAC_REG(
+ODM_ReadAndConfig_MP_9083E_MAC_REG(
 	IN   PDM_ODM_T  pDM_Odm
 )
 {
 	u4Byte     i         = 0;
 	u1Byte     cCond;
 	BOOLEAN bMatched = TRUE, bSkipped = FALSE;
-	u4Byte     ArrayLen    = sizeof(Array_MP_8188E_MAC_REG)/sizeof(u4Byte);
-	pu4Byte    Array       = Array_MP_8188E_MAC_REG;
+	u4Byte     ArrayLen    = sizeof(Array_MP_9083E_MAC_REG)/sizeof(u4Byte);
+	pu4Byte    Array       = Array_MP_9083E_MAC_REG;
 	
 	u4Byte	v1 = 0, v2 = 0, pre_v1 = 0, pre_v2 = 0;
 
-	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_8188E_MAC_REG\n"));
+	ODM_RT_TRACE(pDM_Odm, ODM_COMP_INIT, ODM_DBG_LOUD, ("===> ODM_ReadAndConfig_MP_9083E_MAC_REG\n"));
 
 	while ((i + 1) < ArrayLen) {
 		v1 = Array[i];
@@ -271,14 +271,14 @@ ODM_ReadAndConfig_MP_8188E_MAC_REG(
 			}
 		} else {
 			if (bMatched)
-				odm_ConfigMAC_8188E(pDM_Odm, v1, (u1Byte)v2);
+				odm_ConfigMAC_9083E(pDM_Odm, v1, (u1Byte)v2);
 		}
 		i = i + 2;
 	}
 }
 
 u4Byte
-ODM_GetVersion_MP_8188E_MAC_REG(void)
+ODM_GetVersion_MP_9083E_MAC_REG(void)
 {
 	   return 69;
 }

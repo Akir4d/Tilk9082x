@@ -24,13 +24,13 @@
 //
 //
 //============================================================
-#define _RTL8188E_DM_C_
+#define _RTL9083E_DM_C_
 
 //============================================================
 // include files
 //============================================================
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
 //============================================================
 // Global var
@@ -96,14 +96,14 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 
 #ifdef CONFIG_USB_HCI
 	tmp1byte = rtw_read8(padapter, GPIO_IO_SEL);
-	tmp1byte |= (HAL_8188E_HW_GPIO_WPS_BIT);
+	tmp1byte |= (HAL_9083E_HW_GPIO_WPS_BIT);
 	rtw_write8(padapter, GPIO_IO_SEL, tmp1byte);	//enable GPIO[2] as output mode
 
-	tmp1byte &= ~(HAL_8188E_HW_GPIO_WPS_BIT);
+	tmp1byte &= ~(HAL_9083E_HW_GPIO_WPS_BIT);
 	rtw_write8(padapter,  GPIO_IN, tmp1byte);		//reset the floating voltage level
 
 	tmp1byte = rtw_read8(padapter, GPIO_IO_SEL);
-	tmp1byte &= ~(HAL_8188E_HW_GPIO_WPS_BIT);
+	tmp1byte &= ~(HAL_9083E_HW_GPIO_WPS_BIT);
 	rtw_write8(padapter, GPIO_IO_SEL, tmp1byte);	//enable GPIO[2] as input mode
 
 	tmp1byte =rtw_read8(padapter, GPIO_IN);
@@ -111,7 +111,7 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 	if (tmp1byte == 0xff)
 		return ;
 
-	if (tmp1byte&HAL_8188E_HW_GPIO_WPS_BIT)
+	if (tmp1byte&HAL_9083E_HW_GPIO_WPS_BIT)
 	{
 		bPbcPressed = _TRUE;
 	}
@@ -122,7 +122,7 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 	if (tmp1byte == 0xff || padapter->init_adpt_in_progress)
 		return ;
 
-	if((tmp1byte&HAL_8188E_HW_GPIO_WPS_BIT)==0)
+	if((tmp1byte&HAL_9083E_HW_GPIO_WPS_BIT)==0)
 	{
 		bPbcPressed = _TRUE;
 	}
@@ -254,12 +254,12 @@ static void Init_ODM_ComInfo_88E(PADAPTER	Adapter)
 
 	Init_ODM_ComInfo(Adapter);
 
-	ODM_CmnInfoInit(pDM_Odm,ODM_CMNINFO_IC_TYPE,ODM_RTL8188E);
+	ODM_CmnInfoInit(pDM_Odm,ODM_CMNINFO_IC_TYPE,ODM_RTL9083E);
 
 	fab_ver = ODM_TSMC;
 	cut_ver = ODM_CUT_A;
 
-	if(IS_VENDOR_8188E_I_CUT_SERIES(Adapter))
+	if(IS_VENDOR_9083E_I_CUT_SERIES(Adapter))
 		cut_ver = ODM_CUT_I;
 
 	ODM_CmnInfoInit(pDM_Odm,ODM_CMNINFO_FAB_VER,fab_ver);
@@ -334,7 +334,7 @@ static void Update_ODM_ComInfo_88E(PADAPTER	Adapter)
 }
 
 void
-rtl8188e_InitHalDm(
+rtl9083e_InitHalDm(
 	IN	PADAPTER	Adapter
 	)
 {
@@ -354,7 +354,7 @@ rtl8188e_InitHalDm(
 
 
 VOID
-rtl8188e_HalDmWatchDog(
+rtl9083e_HalDmWatchDog(
 	IN	PADAPTER	Adapter
 	)
 {
@@ -447,7 +447,7 @@ skip_dm:
 	return;
 }
 
-void rtl8188e_init_dm_priv(IN PADAPTER Adapter)
+void rtl9083e_init_dm_priv(IN PADAPTER Adapter)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(Adapter);
 	PDM_ODM_T 		podmpriv = &pHalData->odmpriv;
@@ -458,7 +458,7 @@ void rtl8188e_init_dm_priv(IN PADAPTER Adapter)
 	PHYDM_InitDebugSetting(podmpriv);	
 }
 
-void rtl8188e_deinit_dm_priv(IN PADAPTER Adapter)
+void rtl9083e_deinit_dm_priv(IN PADAPTER Adapter)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(Adapter);
 	PDM_ODM_T 		podmpriv = &pHalData->odmpriv;
@@ -471,7 +471,7 @@ void rtl8188e_deinit_dm_priv(IN PADAPTER Adapter)
 // Add new function to reset the state of antenna diversity before link.
 //
 // Compare RSSI for deciding antenna
-void	AntDivCompare8188E(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src)
+void	AntDivCompare9083E(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src)
 {
 	//PADAPTER Adapter = pDM_Odm->Adapter ;
 	
@@ -490,7 +490,7 @@ void	AntDivCompare8188E(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src
 }
 
 // Add new function to reset the state of antenna diversity before link.
-u8 AntDivBeforeLink8188E(PADAPTER Adapter )
+u8 AntDivBeforeLink9083E(PADAPTER Adapter )
 {
 	
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);	

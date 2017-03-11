@@ -26,9 +26,9 @@
 	#define		RTL8723S_HWIMG_SUPPORT					0
 
 	//For 88E
-	#define		RTL8188EE_HWIMG_SUPPORT					0
-	#define		RTL8188EU_HWIMG_SUPPORT					0
-	#define		RTL8188ES_HWIMG_SUPPORT					0
+	#define		RTL9083EE_HWIMG_SUPPORT					0
+	#define		RTL9083EU_HWIMG_SUPPORT					0
+	#define		RTL9083ES_HWIMG_SUPPORT					0
 	
 	#elif (DEV_BUS_TYPE == RT_USB_INTERFACE)
 	// For 92C
@@ -49,9 +49,9 @@
 	#define 	RTL8723S_HWIMG_SUPPORT					0
 
 	//For 88E
-	#define		RTL8188EE_HWIMG_SUPPORT					0
-	#define		RTL8188EU_HWIMG_SUPPORT					0
-	#define		RTL8188ES_HWIMG_SUPPORT					0
+	#define		RTL9083EE_HWIMG_SUPPORT					0
+	#define		RTL9083EU_HWIMG_SUPPORT					0
+	#define		RTL9083ES_HWIMG_SUPPORT					0
 	
 	#elif (DEV_BUS_TYPE == RT_SDIO_INTERFACE)
 	// For 92C
@@ -72,9 +72,9 @@
 	#define 	RTL8723S_HWIMG_SUPPORT					1
 
 	//For 88E
-	#define		RTL8188EE_HWIMG_SUPPORT					0
-	#define		RTL8188EU_HWIMG_SUPPORT					0
-	#define		RTL8188ES_HWIMG_SUPPORT					0
+	#define		RTL9083EE_HWIMG_SUPPORT					0
+	#define		RTL9083EU_HWIMG_SUPPORT					0
+	#define		RTL9083ES_HWIMG_SUPPORT					0
 	#endif
 
 #else	// PLATFORM_WINDOWS & MacOSX
@@ -98,9 +98,9 @@
 	#define		RTL8723S_HWIMG_SUPPORT					1
 
 	// For 88E
-	#define		RTL8188EE_HWIMG_SUPPORT					0
-	#define		RTL8188EU_HWIMG_SUPPORT					0
-	#define		RTL8188ES_HWIMG_SUPPORT					0
+	#define		RTL9083EE_HWIMG_SUPPORT					0
+	#define		RTL9083EU_HWIMG_SUPPORT					0
+	#define		RTL9083ES_HWIMG_SUPPORT					0
 
 	#else 
 
@@ -113,9 +113,9 @@
 	//#define		RTL_8723S_TEST_HWIMG_SUPPORT			1
 
 	//For 88E
-	#define		RTL8188EE_HWIMG_SUPPORT					1
-	#define		RTL8188EU_HWIMG_SUPPORT					1
-	#define		RTL8188ES_HWIMG_SUPPORT					1
+	#define		RTL9083EE_HWIMG_SUPPORT					1
+	#define		RTL9083EU_HWIMG_SUPPORT					1
+	#define		RTL9083ES_HWIMG_SUPPORT					1
 	#endif
 
 #endif

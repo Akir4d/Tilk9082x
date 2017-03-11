@@ -17,91 +17,91 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188E_HAL_H__
-#define __RTL8188E_HAL_H__
+#ifndef __RTL9083E_HAL_H__
+#define __RTL9083E_HAL_H__
 
 //#include "hal_com.h"
 #include "hal_data.h"
 
 //include HAL Related header after HAL Related compiling flags 
-#include "rtl8188e_spec.h"
-#include "Hal8188EPhyReg.h"
-#include "Hal8188EPhyCfg.h"
-#include "rtl8188e_rf.h"
-#include "rtl8188e_dm.h"
-#include "rtl8188e_recv.h"
-#include "rtl8188e_xmit.h"
-#include "rtl8188e_cmd.h"
-#include "rtl8188e_led.h"
-#include "Hal8188EPwrSeq.h"
+#include "rtl9083e_spec.h"
+#include "Hal9083EPhyReg.h"
+#include "Hal9083EPhyCfg.h"
+#include "rtl9083e_rf.h"
+#include "rtl9083e_dm.h"
+#include "rtl9083e_recv.h"
+#include "rtl9083e_xmit.h"
+#include "rtl9083e_cmd.h"
+#include "rtl9083e_led.h"
+#include "Hal9083EPwrSeq.h"
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl8188e_sreset.h"
+#include "rtl9083e_sreset.h"
 #endif
 
 #if 0
 	// Fw Array
-	#define Rtl8188E_FwImageArray				Rtl8188EFwImgArray
-	#define Rtl8188E_FWImgArrayLength			Rtl8188EFWImgArrayLength
+	#define Rtl9083E_FwImageArray				Rtl9083EFwImgArray
+	#define Rtl9083E_FWImgArrayLength			Rtl9083EFWImgArrayLength
 #ifdef CONFIG_WOWLAN
-	#define Rtl8188E_FwWoWImageArray			Array_MP_8188E_FW_WoWLAN
-	#define Rtl8188E_FwWoWImgArrayLength		ArrayLength_MP_8188E_FW_WoWLAN
+	#define Rtl9083E_FwWoWImageArray			Array_MP_9083E_FW_WoWLAN
+	#define Rtl9083E_FwWoWImgArrayLength		ArrayLength_MP_9083E_FW_WoWLAN
 #endif //CONFIG_WOWLAN
 #endif
 
 
-	#define RTL8188E_FW_IMG					"rtl8188e/FW_NIC.bin"
-	#define RTL8188E_FW_WW_IMG				"rtl8188e/FW_WoWLAN.bin"
-	#define RTL8188E_PHY_REG					"rtl8188e/PHY_REG.txt" 
-	#define RTL8188E_PHY_RADIO_A				"rtl8188e/RadioA.txt"
-	#define RTL8188E_PHY_RADIO_B				"rtl8188e/RadioB.txt"
-	#define RTL8188E_TXPWR_TRACK				"rtl8188e/TxPowerTrack.txt"			
-	#define RTL8188E_AGC_TAB					"rtl8188e/AGC_TAB.txt"
-	#define RTL8188E_PHY_MACREG 				"rtl8188e/MAC_REG.txt"
-	#define RTL8188E_PHY_REG_PG				"rtl8188e/PHY_REG_PG.txt"
-	#define RTL8188E_PHY_REG_MP 				"rtl8188e/PHY_REG_MP.txt" 
-	#define RTL8188E_TXPWR_LMT				"rtl8188e/TXPWR_LMT.txt" 
+	#define RTL9083E_FW_IMG					"rtl9083e/FW_NIC.bin"
+	#define RTL9083E_FW_WW_IMG				"rtl9083e/FW_WoWLAN.bin"
+	#define RTL9083E_PHY_REG					"rtl9083e/PHY_REG.txt" 
+	#define RTL9083E_PHY_RADIO_A				"rtl9083e/RadioA.txt"
+	#define RTL9083E_PHY_RADIO_B				"rtl9083e/RadioB.txt"
+	#define RTL9083E_TXPWR_TRACK				"rtl9083e/TxPowerTrack.txt"			
+	#define RTL9083E_AGC_TAB					"rtl9083e/AGC_TAB.txt"
+	#define RTL9083E_PHY_MACREG 				"rtl9083e/MAC_REG.txt"
+	#define RTL9083E_PHY_REG_PG				"rtl9083e/PHY_REG_PG.txt"
+	#define RTL9083E_PHY_REG_MP 				"rtl9083e/PHY_REG_MP.txt" 
+	#define RTL9083E_TXPWR_LMT				"rtl9083e/TXPWR_LMT.txt" 
 
 	//---------------------------------------------------------------------
-	//		RTL8188E Power Configuration CMDs for USB/SDIO/PCIE interfaces
+	//		RTL9083E Power Configuration CMDs for USB/SDIO/PCIE interfaces
 	//---------------------------------------------------------------------
-	#define Rtl8188E_NIC_PWR_ON_FLOW				rtl8188E_power_on_flow
-	#define Rtl8188E_NIC_RF_OFF_FLOW				rtl8188E_radio_off_flow
-	#define Rtl8188E_NIC_DISABLE_FLOW				rtl8188E_card_disable_flow
-	#define Rtl8188E_NIC_ENABLE_FLOW				rtl8188E_card_enable_flow
-	#define Rtl8188E_NIC_SUSPEND_FLOW				rtl8188E_suspend_flow
-	#define Rtl8188E_NIC_RESUME_FLOW				rtl8188E_resume_flow
-	#define Rtl8188E_NIC_PDN_FLOW					rtl8188E_hwpdn_flow
-	#define Rtl8188E_NIC_LPS_ENTER_FLOW			rtl8188E_enter_lps_flow
-	#define Rtl8188E_NIC_LPS_LEAVE_FLOW			rtl8188E_leave_lps_flow
+	#define Rtl9083E_NIC_PWR_ON_FLOW				rtl9083E_power_on_flow
+	#define Rtl9083E_NIC_RF_OFF_FLOW				rtl9083E_radio_off_flow
+	#define Rtl9083E_NIC_DISABLE_FLOW				rtl9083E_card_disable_flow
+	#define Rtl9083E_NIC_ENABLE_FLOW				rtl9083E_card_enable_flow
+	#define Rtl9083E_NIC_SUSPEND_FLOW				rtl9083E_suspend_flow
+	#define Rtl9083E_NIC_RESUME_FLOW				rtl9083E_resume_flow
+	#define Rtl9083E_NIC_PDN_FLOW					rtl9083E_hwpdn_flow
+	#define Rtl9083E_NIC_LPS_ENTER_FLOW			rtl9083E_enter_lps_flow
+	#define Rtl9083E_NIC_LPS_LEAVE_FLOW			rtl9083E_leave_lps_flow
 
 
 #if 1 // download firmware related data structure
-#define MAX_FW_8188E_SIZE			0x8000 //32768,32k / 16384,16k
+#define MAX_FW_9083E_SIZE			0x8000 //32768,32k / 16384,16k
 
-#define FW_8188E_SIZE				0x4000 //16384,16k
-#define FW_8188E_SIZE_2			0x8000 //32768,32k 
+#define FW_9083E_SIZE				0x4000 //16384,16k
+#define FW_9083E_SIZE_2			0x8000 //32768,32k 
 
-#define FW_8188E_START_ADDRESS	0x1000
-#define FW_8188E_END_ADDRESS		0x1FFF //0x5FFF
+#define FW_9083E_START_ADDRESS	0x1000
+#define FW_9083E_END_ADDRESS		0x1FFF //0x5FFF
 
 
 #define IS_FW_HEADER_EXIST_88E(_pFwHdr)	((le16_to_cpu(_pFwHdr->Signature)&0xFFF0) == 0x88E0)
 
-typedef struct _RT_FIRMWARE_8188E {
+typedef struct _RT_FIRMWARE_9083E {
 	FIRMWARE_SOURCE	eFWSource;
 #ifdef CONFIG_EMBEDDED_FWIMG
 	u8*			szFwBuffer;
 #else
-	u8			szFwBuffer[MAX_FW_8188E_SIZE];
+	u8			szFwBuffer[MAX_FW_9083E_SIZE];
 #endif
 	u32			ulFwLength;
-} RT_FIRMWARE_8188E, *PRT_FIRMWARE_8188E;
+} RT_FIRMWARE_9083E, *PRT_FIRMWARE_9083E;
 
 //
 // This structure must be cared byte-ordering
 //
 
-typedef struct _RT_8188E_FIRMWARE_HDR
+typedef struct _RT_9083E_FIRMWARE_HDR
 {
 	// 8-byte alinment required
 
@@ -130,16 +130,16 @@ typedef struct _RT_8188E_FIRMWARE_HDR
 	//--- LONG WORD 3 ----
 	u32		Rsvd4;
 	u32		Rsvd5;
-}RT_8188E_FIRMWARE_HDR, *PRT_8188E_FIRMWARE_HDR;
+}RT_9083E_FIRMWARE_HDR, *PRT_9083E_FIRMWARE_HDR;
 #endif // download firmware related data structure
 
 
-#define DRIVER_EARLY_INT_TIME_8188E			0x05
-#define BCN_DMA_ATIME_INT_TIME_8188E		0x02
+#define DRIVER_EARLY_INT_TIME_9083E			0x05
+#define BCN_DMA_ATIME_INT_TIME_9083E		0x02
 
 
 //#define MAX_RX_DMA_BUFFER_SIZE_88E	      0x2400 //9k for 88E nornal chip , //MaxRxBuff=10k-max(TxReportSize(64*8), WOLPattern(16*24))
-#define RX_DMA_SIZE_88E(__Adapter) ((!IS_VENDOR_8188E_I_CUT_SERIES(__Adapter))?0x2800:0x4000)
+#define RX_DMA_SIZE_88E(__Adapter) ((!IS_VENDOR_9083E_I_CUT_SERIES(__Adapter))?0x2800:0x4000)
 
 #ifdef CONFIG_WOWLAN
 #define RESV_FMWF	WKFMCAM_SIZE*MAX_WKFM_NUM /* 16 entries, for each is 24 bytes*/
@@ -172,7 +172,7 @@ Tx FIFO Size : previous CUT:22K /I_CUT after:32KB
 Tx page Size : 128B
 Total page numbers : 176(0xB0) / 256(0x100)
 */
-#define TOTAL_PAGE_NUMBER_88E(_Adapter)	((IS_VENDOR_8188E_I_CUT_SERIES(_Adapter)?0x100:0xB0) - 1)/* must reserved 1 page for dma issue */
+#define TOTAL_PAGE_NUMBER_88E(_Adapter)	((IS_VENDOR_9083E_I_CUT_SERIES(_Adapter)?0x100:0xB0) - 1)/* must reserved 1 page for dma issue */
 #define TX_TOTAL_PAGE_NUMBER_88E(_Adapter)	(TOTAL_PAGE_NUMBER_88E(_Adapter) - BCNQ_PAGE_NUM_88E - WOWLAN_PAGE_NUM_88E)
 #define TX_PAGE_BOUNDARY_88E(_Adapter)		(TX_TOTAL_PAGE_NUMBER_88E(_Adapter) + 1) /* beacon header start address */
 
@@ -252,41 +252,41 @@ Total page numbers : 176(0xB0) / 256(0x100)
 
 #ifdef CONFIG_PCI_HCI
  /* according to the define in the rtw_xmit.h, rtw_recv.h */
-#define TX_DESC_NUM_8188EE  TXDESC_NUM   /* 128 */
+#define TX_DESC_NUM_9083EE  TXDESC_NUM   /* 128 */
 #ifdef CONFIG_CONCURRENT_MODE
-/*#define BE_QUEUE_TX_DESC_NUM_8188EE  (TXDESC_NUM<<1)*/    		/* 256 */
-#define BE_QUEUE_TX_DESC_NUM_8188EE  ((TXDESC_NUM<<1)+(TXDESC_NUM>>1))    /* 320 */
-/*#define BE_QUEUE_TX_DESC_NUM_8188EE  ((TXDESC_NUM<<1)+TXDESC_NUM)*/    /* 384 */
+/*#define BE_QUEUE_TX_DESC_NUM_9083EE  (TXDESC_NUM<<1)*/    		/* 256 */
+#define BE_QUEUE_TX_DESC_NUM_9083EE  ((TXDESC_NUM<<1)+(TXDESC_NUM>>1))    /* 320 */
+/*#define BE_QUEUE_TX_DESC_NUM_9083EE  ((TXDESC_NUM<<1)+TXDESC_NUM)*/    /* 384 */
 #else
-#define BE_QUEUE_TX_DESC_NUM_8188EE  TXDESC_NUM /* 128 */
-/*#define BE_QUEUE_TX_DESC_NUM_8188EE  (TXDESC_NUM+(TXDESC_NUM>>1)) *//* 192 */
+#define BE_QUEUE_TX_DESC_NUM_9083EE  TXDESC_NUM /* 128 */
+/*#define BE_QUEUE_TX_DESC_NUM_9083EE  (TXDESC_NUM+(TXDESC_NUM>>1)) *//* 192 */
 #endif
 
-void InterruptRecognized8188EE(PADAPTER Adapter, PRT_ISR_CONTENT pIsrContent);
-void UpdateInterruptMask8188EE(PADAPTER Adapter, u32 AddMSR, u32 AddMSR1, u32 RemoveMSR, u32 RemoveMSR1);
+void InterruptRecognized9083EE(PADAPTER Adapter, PRT_ISR_CONTENT pIsrContent);
+void UpdateInterruptMask9083EE(PADAPTER Adapter, u32 AddMSR, u32 AddMSR1, u32 RemoveMSR, u32 RemoveMSR1);
 #endif	//CONFIG_PCI_HCI
 
-// rtl8188e_hal_init.c
+// rtl9083e_hal_init.c
 
-s32 rtl8188e_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
+s32 rtl9083e_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
 void _8051Reset88E(PADAPTER padapter);
-void rtl8188e_InitializeFirmwareVars(PADAPTER padapter);
+void rtl9083e_InitializeFirmwareVars(PADAPTER padapter);
 
 
 s32 InitLLTTable(PADAPTER padapter, u8 txpktbuf_bndy);
 
 // EFuse
-u8 GetEEPROMSize8188E(PADAPTER padapter);
+u8 GetEEPROMSize9083E(PADAPTER padapter);
 void Hal_InitPGData88E(PADAPTER padapter);
 void Hal_EfuseParseIDCode88E(PADAPTER padapter, u8 *hwinfo);
 void Hal_ReadTxPowerInfo88E(PADAPTER padapter,u8* hwinfo,BOOLEAN	AutoLoadFail);
 	
 void Hal_EfuseParseEEPROMVer88E(PADAPTER padapter, u8 *hwinfo, BOOLEAN AutoLoadFail);
-void rtl8188e_EfuseParseChnlPlan(PADAPTER padapter, u8 *hwinfo, BOOLEAN AutoLoadFail);
+void rtl9083e_EfuseParseChnlPlan(PADAPTER padapter, u8 *hwinfo, BOOLEAN AutoLoadFail);
 void Hal_EfuseParseCustomerID88E(PADAPTER padapter, u8 *hwinfo, BOOLEAN AutoLoadFail);
 void Hal_ReadAntennaDiversity88E	(PADAPTER pAdapter,u8*PROMContent,BOOLEAN AutoLoadFail);
 void Hal_ReadThermalMeter_88E(PADAPTER	Adapter,u8* PROMContent,BOOLEAN 	AutoloadFail);
-void Hal_EfuseParseXtal_8188E(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
+void Hal_EfuseParseXtal_9083E(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
 void Hal_EfuseParseBoardType88E(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
 void Hal_ReadPowerSavingMode88E(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
 
@@ -301,31 +301,31 @@ void Hal_DetectWoWMode(PADAPTER pAdapter);
 void Hal_ReadRFGainOffset(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
 #endif //CONFIG_RF_GAIN_OFFSET
 
-void rtl8188e_init_default_value(_adapter *adapter);
+void rtl9083e_init_default_value(_adapter *adapter);
 
-void rtl8188e_set_hal_ops(struct hal_ops *pHalFunc);
+void rtl9083e_set_hal_ops(struct hal_ops *pHalFunc);
 
 // register
 void SetBcnCtrlReg(PADAPTER padapter, u8 SetBits, u8 ClearBits);
 
-void rtl8188e_start_thread(_adapter *padapter);
-void rtl8188e_stop_thread(_adapter *padapter);
+void rtl9083e_start_thread(_adapter *padapter);
+void rtl9083e_stop_thread(_adapter *padapter);
 
 void rtw_IOL_cmd_tx_pkt_buf_dump(ADAPTER *Adapter,int data_len);
 #ifdef CONFIG_IOL_EFUSE_PATCH
-s32 rtl8188e_iol_efuse_patch(PADAPTER padapter);
+s32 rtl9083e_iol_efuse_patch(PADAPTER padapter);
 #endif//CONFIG_IOL_EFUSE_PATCH
 void _InitTransferPageSize(PADAPTER padapter);
 
-void SetHwReg8188E(PADAPTER padapter, u8 variable, u8 *val);
-void GetHwReg8188E(PADAPTER padapter, u8 variable, u8 *val);
+void SetHwReg9083E(PADAPTER padapter, u8 variable, u8 *val);
+void GetHwReg9083E(PADAPTER padapter, u8 variable, u8 *val);
 void ResumeTxBeacon(PADAPTER padapter);
 void StopTxBeacon(PADAPTER padapter);
 u8
-GetHalDefVar8188E(
+GetHalDefVar9083E(
 	IN	PADAPTER				Adapter,
 	IN	HAL_DEF_VARIABLE		eVariable,
 	IN	PVOID					pValue
 	);
-#endif //__RTL8188E_HAL_H__
+#endif //__RTL9083E_HAL_H__
 

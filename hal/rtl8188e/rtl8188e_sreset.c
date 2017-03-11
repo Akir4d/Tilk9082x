@@ -17,14 +17,14 @@
  *
  *
  ******************************************************************************/
-#define _RTL8188E_SRESET_C_
+#define _RTL9083E_SRESET_C_
 
-//#include <rtl8188e_sreset.h>
-#include <rtl8188e_hal.h>
+//#include <rtl9083e_sreset.h>
+#include <rtl9083e_hal.h>
 
 #ifdef DBG_CONFIG_ERROR_DETECT
 
-void rtl8188e_sreset_xmit_status_check(_adapter *padapter)
+void rtl9083e_sreset_xmit_status_check(_adapter *padapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	struct sreset_priv *psrtpriv = &pHalData->srestpriv;
@@ -77,7 +77,7 @@ void rtl8188e_sreset_xmit_status_check(_adapter *padapter)
 	}
 }
 
-void rtl8188e_sreset_linked_status_check(_adapter *padapter)
+void rtl9083e_sreset_linked_status_check(_adapter *padapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	struct sreset_priv *psrtpriv = &pHalData->srestpriv;

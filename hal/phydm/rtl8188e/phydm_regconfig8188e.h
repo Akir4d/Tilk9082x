@@ -17,13 +17,13 @@
  *
  *
  ******************************************************************************/
-#ifndef __INC_ODM_REGCONFIG_H_8188E
-#define __INC_ODM_REGCONFIG_H_8188E
+#ifndef __INC_ODM_REGCONFIG_H_9083E
+#define __INC_ODM_REGCONFIG_H_9083E
  
-#if (RTL8188E_SUPPORT == 1)
+#if (RTL9083E_SUPPORT == 1)
 
 void
-odm_ConfigRFReg_8188E(
+odm_ConfigRFReg_9083E(
 	IN 	PDM_ODM_T 				pDM_Odm,
 	IN 	u4Byte 					Addr,
 	IN 	u4Byte 					Data,
@@ -32,28 +32,28 @@ odm_ConfigRFReg_8188E(
 	);
 
 void 
-odm_ConfigRF_RadioA_8188E(
+odm_ConfigRF_RadioA_9083E(
 	IN 	PDM_ODM_T 				pDM_Odm,
 	IN 	u4Byte 					Addr,
 	IN 	u4Byte 					Data
 	);
 
 void 
-odm_ConfigRF_RadioB_8188E(
+odm_ConfigRF_RadioB_9083E(
 	IN 	PDM_ODM_T 				pDM_Odm,
 	IN 	u4Byte 					Addr,
 	IN 	u4Byte 					Data
 	);
 
 void 
-odm_ConfigMAC_8188E(
+odm_ConfigMAC_9083E(
  	IN 	PDM_ODM_T 	pDM_Odm,
  	IN 	u4Byte 		Addr,
  	IN 	u1Byte 		Data
  	);
 
 void 
-odm_ConfigBB_AGC_8188E(
+odm_ConfigBB_AGC_9083E(
     IN 	PDM_ODM_T 	pDM_Odm,
     IN 	u4Byte 		Addr,
     IN 	u4Byte 		Bitmask,
@@ -61,7 +61,7 @@ odm_ConfigBB_AGC_8188E(
     );
 
 void
-odm_ConfigBB_PHY_REG_PG_8188E(
+odm_ConfigBB_PHY_REG_PG_9083E(
 	IN 	PDM_ODM_T 	pDM_Odm,
 	IN	u4Byte		Band,
 	IN	u4Byte		RfPath,
@@ -72,7 +72,7 @@ odm_ConfigBB_PHY_REG_PG_8188E(
     );
 
 void 
-odm_ConfigBB_PHY_8188E(
+odm_ConfigBB_PHY_9083E(
 	IN 	PDM_ODM_T 	pDM_Odm,
     IN 	u4Byte 		Addr,
     IN 	u4Byte 		Bitmask,
@@ -80,7 +80,7 @@ odm_ConfigBB_PHY_8188E(
     );
 
 void
-odm_ConfigBB_TXPWR_LMT_8188E(
+odm_ConfigBB_TXPWR_LMT_9083E(
 	IN 	PDM_ODM_T 	pDM_Odm,
 	IN	pu1Byte		Regulation,
 	IN	pu1Byte		Band,

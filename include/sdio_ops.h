@@ -62,15 +62,15 @@ s32 _sdio_write32(PADAPTER padapter, u32 addr, u32 val);
 extern void sd_int_hdl(PADAPTER padapter);
 extern u8 CheckIPSStatus(PADAPTER padapter);
 
-#ifdef CONFIG_RTL8188E
-extern void InitInterrupt8188ESdio(PADAPTER padapter);
-extern void EnableInterrupt8188ESdio(PADAPTER padapter);
-extern void DisableInterrupt8188ESdio(PADAPTER padapter);
-extern void UpdateInterruptMask8188ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR);
+#ifdef CONFIG_RTL9083E
+extern void InitInterrupt9083ESdio(PADAPTER padapter);
+extern void EnableInterrupt9083ESdio(PADAPTER padapter);
+extern void DisableInterrupt9083ESdio(PADAPTER padapter);
+extern void UpdateInterruptMask9083ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR);
 extern u8 HalQueryTxBufferStatus9082ESdio(PADAPTER padapter);
 extern u8 HalQueryTxOQTBufferStatus9082ESdio(PADAPTER padapter);
-extern void ClearInterrupt8188ESdio(PADAPTER padapter);
-#endif // CONFIG_RTL8188E
+extern void ClearInterrupt9083ESdio(PADAPTER padapter);
+#endif // CONFIG_RTL9083E
 
 #ifdef CONFIG_RTL8821A
 extern void InitInterrupt8821AS(PADAPTER padapter);
@@ -78,7 +78,7 @@ extern void EnableInterrupt8821AS(PADAPTER padapter);
 extern void DisableInterrupt8821AS(PADAPTER padapter);
 extern u8 HalQueryTxBufferStatus8821AS(PADAPTER padapter);
 extern u8 HalQueryTxOQTBufferStatus8821ASdio(PADAPTER padapter);
-#endif // CONFIG_RTL8188E
+#endif // CONFIG_RTL9083E
 
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
 extern u8 RecvOnePkt(PADAPTER padapter, u32 size);
@@ -120,16 +120,16 @@ extern void ClearInterrupt8703BSdio(PADAPTER padapter);
 #endif //CONFIG_WOWLAN
 #endif
 
-#ifdef CONFIG_RTL8188F
-extern void InitInterrupt8188FSdio(PADAPTER padapter);
-extern void InitSysInterrupt8188FSdio(PADAPTER padapter);
-extern void EnableInterrupt8188FSdio(PADAPTER padapter);
-extern void DisableInterrupt8188FSdio(PADAPTER padapter);
-extern u8 HalQueryTxBufferStatus8188FSdio(PADAPTER padapter);
-extern u8 HalQueryTxOQTBufferStatus8188FSdio(PADAPTER padapter);
+#ifdef CONFIG_RTL9083F
+extern void InitInterrupt9083FSdio(PADAPTER padapter);
+extern void InitSysInterrupt9083FSdio(PADAPTER padapter);
+extern void EnableInterrupt9083FSdio(PADAPTER padapter);
+extern void DisableInterrupt9083FSdio(PADAPTER padapter);
+extern u8 HalQueryTxBufferStatus9083FSdio(PADAPTER padapter);
+extern u8 HalQueryTxOQTBufferStatus9083FSdio(PADAPTER padapter);
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
-extern void DisableInterruptButCpwm28188FSdio(PADAPTER padapter);
-extern void ClearInterrupt8188FSdio(PADAPTER padapter);
+extern void DisableInterruptButCpwm29083FSdio(PADAPTER padapter);
+extern void ClearInterrupt9083FSdio(PADAPTER padapter);
 #endif /* defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN) */
 #endif
 

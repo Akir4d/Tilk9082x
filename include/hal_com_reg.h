@@ -25,7 +25,7 @@
 
 #define HAL_NAV_UPPER_UNIT		128		// micro-second
 
-// 8188E PKT_BUFF_ACCESS_CTRL value
+// 9083E PKT_BUFF_ACCESS_CTRL value
 #define TXPKT_BUF_SELECT				0x69
 #define RXPKT_BUF_SELECT				0xA5
 #define DISABLE_TRXPKT_BUF_ACCESS		0x0
@@ -59,7 +59,7 @@
 #define REG_LDOHCI12_CTRL				0x0022
 #define REG_LPLDO_CTRL					0x0023
 #define REG_AFE_XTAL_CTRL				0x0024
-#define REG_AFE_LDO_CTRL				0x0027 // 1.5v for 8188EE test chip, 1.4v for MP chip
+#define REG_AFE_LDO_CTRL				0x0027 // 1.5v for 9083EE test chip, 1.4v for MP chip
 #define REG_AFE_PLL_CTRL				0x0028
 #define REG_MAC_PHY_CTRL				0x002c //for 92d, DMDP,SMSP,DMSP contrl
 #define REG_APE_PLL_CTRL_EXT			0x002c
@@ -85,10 +85,10 @@
 #define REG_GPIO_IO_SEL_2				0x0062 // RTL8723 WIFI/BT/GPS Multi-Function GPIO Select.
 #define REG_MULTI_FUNC_CTRL			0x0068 // RTL8723 WIFI/BT/GPS Multi-Function control source.
 #define REG_GSSR						0x006c
-#define REG_AFE_XTAL_CTRL_EXT			0x0078 //RTL8188E
-#define REG_XCK_OUT_CTRL				0x007c //RTL8188E
+#define REG_AFE_XTAL_CTRL_EXT			0x0078 //RTL9083E
+#define REG_XCK_OUT_CTRL				0x007c //RTL9083E
 #define REG_MCUFWDL					0x0080
-#define REG_WOL_EVENT					0x0081 //RTL8188E
+#define REG_WOL_EVENT					0x0081 //RTL9083E
 #define REG_MCUTSTCFG					0x0084
 #define REG_FDHM0						0x0088
 #define REG_HOST_SUSP_CNT				0x00BC	// RTL8192C Host suspend counter on FPGA platform
@@ -146,11 +146,11 @@
 #define REG_MBIST_START				0x0174
 #define REG_MBIST_DONE					0x0178
 #define REG_MBIST_FAIL					0x017C
-#define REG_32K_CTRL					0x0194 //RTL8188E
+#define REG_32K_CTRL					0x0194 //RTL9083E
 #define REG_C2HEVT_MSG_NORMAL		0x01A0
 #define REG_C2HEVT_CLEAR				0x01AF
 #define REG_MCUTST_1					0x01c0
-#define REG_MCUTST_WOWLAN			0x01C7	// Defined after 8188E series.
+#define REG_MCUTST_WOWLAN			0x01C7	// Defined after 9083E series.
 #define REG_FMETHR						0x01C8
 #define REG_HMETFR						0x01CC
 #define REG_HMEBOX_0					0x01D0
@@ -604,7 +604,7 @@
 #define GPIO_MOD_8811A			(REG_GPIO_PIN_CTRL_2+3)
 
 //----------------------------------------------------------------------------
-//       8723/8188E Host System Interrupt Mask Register (offset 0x58, 32 byte)
+//       8723/9083E Host System Interrupt Mask Register (offset 0x58, 32 byte)
 //----------------------------------------------------------------------------
 #define HSIMR_GPIO12_0_INT_EN			BIT0
 #define HSIMR_SPS_OCP_INT_EN			BIT5
@@ -613,7 +613,7 @@
 #define HSIMR_GPIO9_INT_EN				BIT25
 
 //----------------------------------------------------------------------------
-//       8723/8188E Host System Interrupt Status Register (offset 0x5C, 32 byte)
+//       8723/9083E Host System Interrupt Status Register (offset 0x5C, 32 byte)
 //----------------------------------------------------------------------------
 #define HSISR_GPIO12_0_INT				BIT0
 #define HSISR_SPS_OCP_INT				BIT5
@@ -976,7 +976,7 @@ Default: 00b.
 #define HAL_NIC_UNPLUG_PCI_ISR		0xEAEAEAEA	// The value when the NIC is unplugged for PCI in PCI interrupt (page 3).
 
 //----------------------------------------------------------------------------
-//       8188 IMR/ISR bits						
+//       9083 IMR/ISR bits						
 //----------------------------------------------------------------------------
 #define IMR_DISABLED_88E			0x0
 // IMR DW0(0x0060-0063) Bit 0-31
@@ -1614,7 +1614,7 @@ Current IOREG MAP
 
 #define SDIO_HIMR_DISABLED			0
 
-// RTL8723/RTL8188E SDIO Host Interrupt Mask Register
+// RTL8723/RTL9083E SDIO Host Interrupt Mask Register
 #define SDIO_HIMR_RX_REQUEST_MSK		BIT0
 #define SDIO_HIMR_AVAL_MSK			BIT1
 #define SDIO_HIMR_TXERR_MSK			BIT2
@@ -1636,7 +1636,7 @@ Current IOREG MAP
 #define SDIO_HIMR_ATIMEND_E_MSK		BIT26
 #define SDIO_HIMR_CTWEND_MSK			BIT27
 
-//RTL8188E SDIO Specific
+//RTL9083E SDIO Specific
 #define SDIO_HIMR_MCU_ERR_MSK			BIT28
 #define SDIO_HIMR_TSF_BIT32_TOGGLE_MSK		BIT29
 
@@ -1662,7 +1662,7 @@ Current IOREG MAP
 #define SDIO_HISR_ATIMEND_E			BIT26
 #define SDIO_HISR_CTWEND				BIT27
 
-//RTL8188E SDIO Specific
+//RTL9083E SDIO Specific
 #define SDIO_HISR_MCU_ERR				BIT28
 #define SDIO_HISR_TSF_BIT32_TOGGLE	BIT29
 
@@ -1755,13 +1755,13 @@ Current IOREG MAP
 // General definitions
 //========================================================
 
-#define LAST_ENTRY_OF_TX_PKT_BUFFER_8188E(__Adapter)	   ( IS_VENDOR_8188E_I_CUT_SERIES(__Adapter) ? 255 : 175 )
+#define LAST_ENTRY_OF_TX_PKT_BUFFER_9083E(__Adapter)	   ( IS_VENDOR_9083E_I_CUT_SERIES(__Adapter) ? 255 : 175 )
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8812			255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8723B		255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8192C		255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8703B		255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_DUAL_MAC	127
-#define LAST_ENTRY_OF_TX_PKT_BUFFER_8188F		255
+#define LAST_ENTRY_OF_TX_PKT_BUFFER_9083F		255
 
 #define POLLING_LLT_THRESHOLD				20
 #if defined(CONFIG_RTL8723B) && defined(CONFIG_PCI_HCI)
@@ -1775,7 +1775,7 @@ Current IOREG MAP
 #define	HAL_8812A_HW_GPIO_WPS_BIT	BIT2
 #define	HAL_8192C_HW_GPIO_WPS_BIT	BIT2
 #define	HAL_8192EU_HW_GPIO_WPS_BIT	BIT7
-#define	HAL_8188E_HW_GPIO_WPS_BIT	BIT7
+#define	HAL_9083E_HW_GPIO_WPS_BIT	BIT7
 
 #endif //__HAL_COMMON_H__
 

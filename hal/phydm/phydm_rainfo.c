@@ -330,7 +330,7 @@ odm_RA_ParaAdjust_init(
 
 	if (pDM_Odm->SupportICType == ODM_RTL8192E)
 		pRA_Table->rate_length = ODM_RATEMCS15;
-	else if ((pDM_Odm->SupportICType == ODM_RTL8723B) || (pDM_Odm->SupportICType == ODM_RTL8188E))
+	else if ((pDM_Odm->SupportICType == ODM_RTL8723B) || (pDM_Odm->SupportICType == ODM_RTL9083E))
 		pRA_Table->rate_length = ODM_RATEMCS7;
 	else if ((pDM_Odm->SupportICType == ODM_RTL8821) || (pDM_Odm->SupportICType == ODM_RTL8881A))
 		pRA_Table->rate_length = ODM_RATEVHTSS1MCS9;
@@ -408,7 +408,7 @@ phydm_reset_retry_limit_table(
 	#if (DM_ODM_SUPPORT_TYPE == ODM_WIN) /*support all IC platform*/
 
 	#else
-		#if ((RTL8192E_SUPPORT == 1) || (RTL8723B_SUPPORT == 1) || (RTL8188E_SUPPORT == 1)) 
+		#if ((RTL8192E_SUPPORT == 1) || (RTL8723B_SUPPORT == 1) || (RTL9083E_SUPPORT == 1)) 
 			u1Byte per_rate_retrylimit_table_20M[ODM_RATEMCS15+1] = {
 				1, 1, 2, 4,					/*CCK*/
 				2, 2, 4, 6, 8, 12, 16, 18,		/*OFDM*/
@@ -817,7 +817,7 @@ odm_RSSIMonitorCheckMP(
 
 
 	/*
-		if(pDM_Odm->SupportICType == ODM_RTL8188E && (pDefaultMgntInfo->CustomerID==RT_CID_819x_HP))
+		if(pDM_Odm->SupportICType == ODM_RTL9083E && (pDefaultMgntInfo->CustomerID==RT_CID_819x_HP))
 		{
 			if(curRxOkCnt >(curTxOkCnt*6))
 				PlatformEFIOWrite4Byte(Adapter, REG_ARFR0, 0x8f015);
@@ -1145,24 +1145,24 @@ odm_RSSIMonitorCheckCE(
 						rtl8723b_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 
-#if(RTL8188E_SUPPORT==1)
-					if (pDM_Odm->SupportICType == ODM_RTL8188E)
-						rtl8188e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+#if(RTL9083E_SUPPORT==1)
+					if (pDM_Odm->SupportICType == ODM_RTL9083E)
+						rtl9083e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 
 #if (RTL8814A_SUPPORT == 1)
 					if (pDM_Odm->SupportICType == ODM_RTL8814A)
 						rtl8814_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
-#if (RTL8188F_SUPPORT == 1)
-					if (pDM_Odm->SupportICType == ODM_RTL8188F) {
-						rtl8188f_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+#if (RTL9083F_SUPPORT == 1)
+					if (pDM_Odm->SupportICType == ODM_RTL9083F) {
+						rtl9083f_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 					}
 #endif
 				} else {
-#if((RTL8188E_SUPPORT==1)&&(RATE_ADAPTIVE_SUPPORT == 1))
-					if (pDM_Odm->SupportICType == ODM_RTL8188E) {
-						ODM_RA_SetRSSI_8188E(
+#if((RTL9083E_SUPPORT==1)&&(RATE_ADAPTIVE_SUPPORT == 1))
+					if (pDM_Odm->SupportICType == ODM_RTL9083E) {
+						ODM_RA_SetRSSI_9083E(
 							&(pHalData->odmpriv), (PWDB_rssi[i] & 0xFF), (u8)((PWDB_rssi[i] >> 16) & 0xFF));
 					}
 #endif
@@ -1606,7 +1606,7 @@ odm_RefreshRateAdaptiveMaskAPADSL(
 					else
 #endif
 #ifdef CONFIG_RTL_88E_SUPPORT
-						if (GET_CHIP_VER(priv) == VERSION_8188E) {
+						if (GET_CHIP_VER(priv) == VERSION_9083E) {
 #ifdef TXREPORT
 							add_RATid(priv, pstat);
 #endif
@@ -1889,7 +1889,7 @@ ODM_UpdateNoisyState(
 
 	/*DbgPrint("Get C2H Command! NoisyState=0x%x\n ", bNoisyStateFromC2H);*/
 	if (pDM_Odm->SupportICType == ODM_RTL8821  || pDM_Odm->SupportICType == ODM_RTL8812  ||
-		pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8188E)
+		pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL9083E)
 		pDM_Odm->bNoisyState = bNoisyStateFromC2H;
 	odm_Set_RA_DM_ARFB_by_Noisy(pDM_Odm);
 };
@@ -1974,7 +1974,7 @@ ODM_UpdateInitRate(
 	ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("Get C2H Command! Rate=0x%x\n", Rate));
 
 	if (pDM_Odm->SupportICType == ODM_RTL8821  || pDM_Odm->SupportICType == ODM_RTL8812  ||
-		pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL8188E) {
+		pDM_Odm->SupportICType == ODM_RTL8723B || pDM_Odm->SupportICType == ODM_RTL8192E || pDM_Odm->SupportICType == ODM_RTL9083E) {
 		pDM_Odm->TxRate = Rate;
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 #if DEV_BUS_TYPE == RT_PCI_INTERFACE
@@ -2001,8 +2001,8 @@ ODM_UpdateInitRate(
 				ODM_TxPwrTrackSetPwr92E(pDM_Odm, MIX_MODE, p, 0);
 #endif
 			}
-		} else if (pDM_Odm->SupportICType == ODM_RTL8188E) {
-#if (RTL8188E_SUPPORT == 1)
+		} else if (pDM_Odm->SupportICType == ODM_RTL9083E) {
+#if (RTL9083E_SUPPORT == 1)
 			ODM_TxPwrTrackSetPwr88E(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 #endif
 		}

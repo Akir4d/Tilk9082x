@@ -17,12 +17,12 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTL8188F_DM_H__
-#define __RTL8188F_DM_H__
+#ifndef __RTL9083F_DM_H__
+#define __RTL9083F_DM_H__
 //============================================================
 // Description:
 //
-// This file is for 8188F dynamic mechanism only
+// This file is for 9083F dynamic mechanism only
 //
 //
 //============================================================
@@ -35,13 +35,13 @@
 // function prototype
 //============================================================
 
-void rtl8188f_init_dm_priv(PADAPTER padapter);
-void rtl8188f_deinit_dm_priv(PADAPTER padapter);
+void rtl9083f_init_dm_priv(PADAPTER padapter);
+void rtl9083f_deinit_dm_priv(PADAPTER padapter);
 
-void rtl8188f_InitHalDm(PADAPTER padapter);
-void rtl8188f_HalDmWatchDog(PADAPTER padapter);
-void rtl8188f_HalDmWatchDog_in_LPS(PADAPTER padapter);
-void rtl8188f_hal_dm_in_lps(PADAPTER padapter);
+void rtl9083f_InitHalDm(PADAPTER padapter);
+void rtl9083f_HalDmWatchDog(PADAPTER padapter);
+void rtl9083f_HalDmWatchDog_in_LPS(PADAPTER padapter);
+void rtl9083f_hal_dm_in_lps(PADAPTER padapter);
 
 
 #endif

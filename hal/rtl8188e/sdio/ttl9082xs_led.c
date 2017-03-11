@@ -20,7 +20,7 @@
 #define _RTL9082ES_LED_C_
 
 #include "drv_types.h"
-#include "rtl8188e_hal.h"
+#include "rtl9083e_hal.h"
 
 //================================================================================
 // LED object.
@@ -40,7 +40,7 @@
 //		Turn on LED according to LedPin specified.
 //
 static void
-SwLedOn_8188ES(
+SwLedOn_9083ES(
 	_adapter			*padapter,
 	PLED_SDIO		pLed
 )
@@ -60,7 +60,7 @@ SwLedOn_8188ES(
 //		Turn off LED according to LedPin specified.
 //
 static void
-SwLedOff_8188ES(
+SwLedOff_9083ES(
 	_adapter			*padapter,
 	PLED_SDIO		pLed
 )
@@ -85,7 +85,7 @@ exit:
 //		Initialize all LED_871x objects.
 //
 void
-rtl8188es_InitSwLeds(
+rtl9083es_InitSwLeds(
 	_adapter	*padapter
 	)
 {
@@ -94,8 +94,8 @@ rtl8188es_InitSwLeds(
 
 	pledpriv->LedControlHandler = LedControlSDIO;
 
-	pledpriv->SwLedOn = SwLedOn_8188ES;
-	pledpriv->SwLedOff = SwLedOff_8188ES;
+	pledpriv->SwLedOn = SwLedOn_9083ES;
+	pledpriv->SwLedOff = SwLedOff_9083ES;
 
 	InitLed(padapter, &(pledpriv->SwLed0), LED_PIN_LED0);
 
@@ -109,7 +109,7 @@ rtl8188es_InitSwLeds(
 //		DeInitialize all LED_819xUsb objects.
 //
 void
-rtl8188es_DeInitSwLeds(
+rtl9083es_DeInitSwLeds(
 	_adapter	*padapter
 	)
 {

@@ -23,7 +23,7 @@
 
 #include <drv_types.h>
 
-#include "HalEfuseMask8188E_PCIE.h"
+#include "HalEfuseMask9083E_PCIE.h"
 
 
 
@@ -31,7 +31,7 @@
 *                           MPCIE.TXT
 ******************************************************************************/
 
-u1Byte Array_MP_8188E_MPCIE[] = { 
+u1Byte Array_MP_9083E_MPCIE[] = { 
 		0xFF,
 		0xF3,
 		0x00,
@@ -68,23 +68,23 @@ u1Byte Array_MP_8188E_MPCIE[] = {
 };
 
 u2Byte
-EFUSE_GetArrayLen_MP_8188E_MPCIE(VOID)
+EFUSE_GetArrayLen_MP_9083E_MPCIE(VOID)
 {
-	return sizeof(Array_MP_8188E_MPCIE)/sizeof(u1Byte);
+	return sizeof(Array_MP_9083E_MPCIE)/sizeof(u1Byte);
 }
 
 VOID
-EFUSE_GetMaskArray_MP_8188E_MPCIE(
+EFUSE_GetMaskArray_MP_9083E_MPCIE(
 	IN 	OUT pu1Byte Array
 	)
 {
-	u2Byte len = EFUSE_GetArrayLen_MP_8188E_MPCIE(), i = 0;
+	u2Byte len = EFUSE_GetArrayLen_MP_9083E_MPCIE(), i = 0;
 
 	for (i = 0; i < len; ++i)
-	   Array[i] = Array_MP_8188E_MPCIE[i];
+	   Array[i] = Array_MP_9083E_MPCIE[i];
 }
 BOOLEAN
-EFUSE_IsAddressMasked_MP_8188E_MPCIE(
+EFUSE_IsAddressMasked_MP_9083E_MPCIE(
  	IN   u2Byte  Offset
  	)
 {
@@ -93,9 +93,9 @@ EFUSE_IsAddressMasked_MP_8188E_MPCIE(
 	int result = 0;
 
 	if (c < 4) // Upper double word
-	    result = (Array_MP_8188E_MPCIE[r] & (0x10 << c));
+	    result = (Array_MP_9083E_MPCIE[r] & (0x10 << c));
 	else
-	    result = (Array_MP_8188E_MPCIE[r] & (0x01 << (c-4)));
+	    result = (Array_MP_9083E_MPCIE[r] & (0x01 << (c-4)));
 
 	return (result > 0) ? 0 : 1;
 }

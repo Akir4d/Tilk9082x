@@ -614,7 +614,7 @@ odm_DigAbort(
 		odm_DigForBtHsMode(pDM_Odm);
 	}	
 
-	if(!(pDM_Odm->SupportICType &(ODM_RTL8723A|ODM_RTL8188E)))
+	if(!(pDM_Odm->SupportICType &(ODM_RTL8723A|ODM_RTL9083E)))
 	{
 		if(pRX_HP_Table->RXHP_flag == 1)
 		{
@@ -967,7 +967,7 @@ odm_DIG(
 
 #else
 		//2 For WIN\CE
-		if(pDM_Odm->SupportICType >= ODM_RTL8188E)
+		if(pDM_Odm->SupportICType >= ODM_RTL9083E)
 			dm_dig_max = 0x5A;
 		else
 			dm_dig_max = DM_DIG_MAX_NIC;
@@ -1430,8 +1430,8 @@ odm_FalseAlarmCounterStatistics(
 								FalseAlmCnt->Cnt_Crc8_fail + FalseAlmCnt->Cnt_Mcs_fail +
 								FalseAlmCnt->Cnt_Fast_Fsync + FalseAlmCnt->Cnt_SB_Search_fail;
 
-#if (RTL8188E_SUPPORT==1)
-		if(pDM_Odm->SupportICType == ODM_RTL8188E)
+#if (RTL9083E_SUPPORT==1)
+		if(pDM_Odm->SupportICType == ODM_RTL9083E)
 		{
 			ret_value = ODM_GetBBReg(pDM_Odm, ODM_REG_SC_CNT_11N, bMaskDWord);
 			FalseAlmCnt->Cnt_BW_LSC = (ret_value&0xffff);

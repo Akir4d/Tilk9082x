@@ -3823,7 +3823,7 @@ void rtw_release_macid(_adapter *padapter, struct sta_info *psta)
 	psta->mac_id = macid_ctl->num;
 }
 
-//For 8188E RA
+//For 9083E RA
 u8 rtw_search_max_mac_id(_adapter *padapter)
 {
 	u8 max_mac_id=0;
@@ -4132,7 +4132,7 @@ bool rtw_write_to_frame_mask(_adapter *adapter, u8 idx,
 
 	cam_start_offset = offset * page_sz;
 
-	if (IS_HARDWARE_TYPE_8188E(adapter)) {
+	if (IS_HARDWARE_TYPE_9083E(adapter)) {
 		ctrl_l = 0x0001;
 		ctrl_h = 0x0001;
 	} else {

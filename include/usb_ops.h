@@ -32,7 +32,7 @@ enum{
 	VENDOR_READ = 0x01,
 };
 #define ALIGNMENT_UNIT				16
-#define MAX_VENDOR_REQ_CMD_SIZE	254		//8188cu SIE Support
+#define MAX_VENDOR_REQ_CMD_SIZE	254		//9083cu SIE Support
 #define MAX_USB_IO_CTL_SIZE		(MAX_VENDOR_REQ_CMD_SIZE +ALIGNMENT_UNIT)
 
 #ifdef PLATFORM_LINUX
@@ -52,11 +52,11 @@ enum{
 #include <usb_ops_linux.h>
 #endif //PLATFORM_LINUX
 
-#ifdef CONFIG_RTL8188E
-void rtl8188eu_set_hw_type(struct dvobj_priv *pdvobj);
-void rtl8188eu_set_intf_ops(struct _io_ops *pops);
+#ifdef CONFIG_RTL9083E
+void rtl9083eu_set_hw_type(struct dvobj_priv *pdvobj);
+void rtl9083eu_set_intf_ops(struct _io_ops *pops);
 #ifdef CONFIG_SUPPORT_USB_INT
-void interrupt_handler_8188eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
+void interrupt_handler_9083eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 #endif
 
@@ -85,13 +85,13 @@ void interrupt_handler_8192eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 
 #endif
 
-#ifdef CONFIG_RTL8188F
-void rtl8188fu_set_hw_type(struct dvobj_priv *pdvobj);
-void rtl8188fu_set_intf_ops(struct _io_ops *pops);
-void rtl8188fu_recv_tasklet(void *priv);
-void rtl8188fu_xmit_tasklet(void *priv);
+#ifdef CONFIG_RTL9083F
+void rtl9083fu_set_hw_type(struct dvobj_priv *pdvobj);
+void rtl9083fu_set_intf_ops(struct _io_ops *pops);
+void rtl9083fu_recv_tasklet(void *priv);
+void rtl9083fu_xmit_tasklet(void *priv);
 #ifdef CONFIG_SUPPORT_USB_INT
-void interrupt_handler_8188fu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
+void interrupt_handler_9083fu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 #endif
 

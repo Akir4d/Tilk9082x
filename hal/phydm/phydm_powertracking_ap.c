@@ -793,7 +793,7 @@ odm_TXPowerTrackingThermalMeterInit(
 		pHalData->TxPowerTrackControl = TRUE;
 	ODM_RT_TRACE(pDM_Odm,COMP_POWER_TRACKING, DBG_LOUD, ("pMgntInfo->bTXPowerTracking = %d\n", pMgntInfo->bTXPowerTracking));
 #elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
-	#ifdef CONFIG_RTL8188E
+	#ifdef CONFIG_RTL9083E
 	{
 		pDM_Odm->RFCalibrateInfo.bTXPowerTracking = _TRUE;
 		pDM_Odm->RFCalibrateInfo.TXPowercount = 0;
@@ -823,10 +823,10 @@ odm_TXPowerTrackingThermalMeterInit(
 		MSG_8192C("pdmpriv->TxPowerTrackControl = %d\n", pdmpriv->TxPowerTrackControl);
 	
 	}	
-	#endif//endif (CONFIG_RTL8188E==1)	
+	#endif//endif (CONFIG_RTL9083E==1)	
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 
-	#ifdef RTL8188E_SUPPORT
+	#ifdef RTL9083E_SUPPORT
 	{
 		pDM_Odm->RFCalibrateInfo.bTXPowerTracking = _TRUE;
 		pDM_Odm->RFCalibrateInfo.TXPowercount = 0;
@@ -845,7 +845,7 @@ odm_TXPowerTrackingThermalMeterInit(
 	pRFCalibrateInfo->DefaultOfdmIndex = 28;
 
 	
-#if RTL8188E_SUPPORT	
+#if RTL9083E_SUPPORT	
 	pRFCalibrateInfo->DefaultCckIndex = 20;	// -6 dB	
 #elif RTL8192E_SUPPORT
 	pRFCalibrateInfo->DefaultCckIndex = 8;	// -12 dB
@@ -924,7 +924,7 @@ odm_TXPowerTrackingCheckCE(
 	#endif
 		rtl8192d_odm_CheckTXPowerTracking(Adapter);
 	#endif
-	#if(RTL8188E_SUPPORT==1)
+	#if(RTL9083E_SUPPORT==1)
 
 	//if(!pMgntInfo->bTXPowerTracking /*|| (!pdmpriv->TxPowerTrackControl && pdmpriv->bAPKdone)*/)
 	if(!(pDM_Odm->SupportAbility & ODM_RF_TX_PWR_TRACK))
@@ -945,7 +945,7 @@ odm_TXPowerTrackingCheckCE(
 	else
 	{
 		//DBG_8192C("Schedule TxPowerTracking direct call!!\n");
-		odm_TXPowerTrackingCallback_ThermalMeter_8188E(Adapter);
+		odm_TXPowerTrackingCallback_ThermalMeter_9083E(Adapter);
 		pDM_Odm->RFCalibrateInfo.TM_Trigger = 0;
 	}
 	#endif
@@ -984,8 +984,8 @@ odm_TXPowerTrackingCheckAP(
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 	prtl8192cd_priv	priv		= pDM_Odm->priv;
 
-#if ((RTL8188E_SUPPORT==1)||(RTL8192E_SUPPORT==1) ||(RTL8812E_SUPPORT==1)||(RTL8881A_SUPPORT==1)||(RTL8814A_SUPPORT==1))	
-	if (pDM_Odm->SupportICType & (ODM_RTL8188E|ODM_RTL8192E|ODM_RTL8812|ODM_RTL8881A|ODM_RTL8814A))
+#if ((RTL9083E_SUPPORT==1)||(RTL8192E_SUPPORT==1) ||(RTL8812E_SUPPORT==1)||(RTL8881A_SUPPORT==1)||(RTL8814A_SUPPORT==1))	
+	if (pDM_Odm->SupportICType & (ODM_RTL9083E|ODM_RTL8192E|ODM_RTL8812|ODM_RTL8881A|ODM_RTL8814A))
 		ODM_TXPowerTrackingCallback_ThermalMeter(pDM_Odm);
 	else
 #endif
@@ -1028,7 +1028,7 @@ odm_TXPowerTrackingThermalMeterCheck(
 	{
 		if(IS_HARDWARE_TYPE_8192D(Adapter))
 			PHY_SetRFReg(Adapter, RF_PATH_A, RF_T_METER_92D, BIT17 | BIT16, 0x03);
-		else if(IS_HARDWARE_TYPE_8188E(Adapter) || IS_HARDWARE_TYPE_8812(Adapter))
+		else if(IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_8812(Adapter))
 			PHY_SetRFReg(Adapter, RF_PATH_A, RF_T_METER_88E, BIT17 | BIT16, 0x03);
 		else
 			PHY_SetRFReg(Adapter, RF_PATH_A, RF_T_METER, bRFRegOffsetMask, 0x60);

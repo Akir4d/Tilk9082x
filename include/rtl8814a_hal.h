@@ -320,5 +320,5 @@ u16	get_txbd_idx_addr(u16 ff_hwaddr);
 void rtl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
-#endif //__RTL8188E_HAL_H__
+#endif //__RTL9083E_HAL_H__
 

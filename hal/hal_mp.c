@@ -20,8 +20,8 @@
 #define _HAL_MP_C_
 #ifdef CONFIG_MP_INCLUDED
 
-#ifdef CONFIG_RTL8188E
-#include <rtl8188e_hal.h>
+#ifdef CONFIG_RTL9083E
+#include <rtl9083e_hal.h>
 #endif
 #ifdef CONFIG_RTL8723B
 #include <rtl8723b_hal.h>
@@ -38,8 +38,8 @@
 #ifdef CONFIG_RTL8703B
 #include <rtl8703b_hal.h>
 #endif
-#ifdef CONFIG_RTL8188F
-#include <rtl8188f_hal.h>
+#ifdef CONFIG_RTL9083F
+#include <rtl9083f_hal.h>
 #endif
 
 
@@ -71,7 +71,7 @@ void hal_mpt_SwitchRfSetting(PADAPTER	pAdapter)
 	ULONG				ulbandwidth = pMptCtx->MptBandWidth;
 	
 	/* <20120525, Kordan> Dynamic mechanism for APK, asked by Dennis.*/
-	if (IS_HARDWARE_TYPE_8188ES(pAdapter) && (1 <= ChannelToSw && ChannelToSw <= 11) &&
+	if (IS_HARDWARE_TYPE_9083ES(pAdapter) && (1 <= ChannelToSw && ChannelToSw <= 11) &&
 		(ulRateIdx == MPT_RATE_MCS0 || ulRateIdx == MPT_RATE_1M || ulRateIdx == MPT_RATE_6M)) {
 		pMptCtx->backup0x52_RF_A = (u1Byte)PHY_QueryRFReg(pAdapter, ODM_RF_PATH_A, RF_0x52, 0x000F0);
 		pMptCtx->backup0x52_RF_B = (u1Byte)PHY_QueryRFReg(pAdapter, ODM_RF_PATH_B, RF_0x52, 0x000F0);
@@ -83,7 +83,7 @@ void hal_mpt_SwitchRfSetting(PADAPTER	pAdapter)
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, RF_0x52, 0x000F0, 0xD);
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_B, RF_0x52, 0x000F0, 0xD);
 		}
-	} else if (IS_HARDWARE_TYPE_8188EE(pAdapter)) { /* <20140903, VincentL> Asked by RF Eason and Edlu*/
+	} else if (IS_HARDWARE_TYPE_9083EE(pAdapter)) { /* <20140903, VincentL> Asked by RF Eason and Edlu*/
 	
 		if (ChannelToSw == 3 && ulbandwidth == MPT_BW_40MHZ) {
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, RF_0x52, 0x000F0, 0xB); /*RF 0x52 = 0x0007E4BD*/
@@ -93,7 +93,7 @@ void hal_mpt_SwitchRfSetting(PADAPTER	pAdapter)
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_B, RF_0x52, 0x000F0, 0x9); /*RF 0x52 = 0x0007E49D*/
 		}
 		
-	} else if (IS_HARDWARE_TYPE_8188E(pAdapter)) {
+	} else if (IS_HARDWARE_TYPE_9083E(pAdapter)) {
 		PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, RF_0x52, 0x000F0, pMptCtx->backup0x52_RF_A);
 		PHY_SetRFReg(pAdapter, ODM_RF_PATH_B, RF_0x52, 0x000F0, pMptCtx->backup0x52_RF_B);
 	}
@@ -459,11 +459,11 @@ void hal_mpt_SetTxPower(PADAPTER pAdapter)
 	PDM_ODM_T		pDM_Odm = &pHalData->odmpriv;
 
 	if (pHalData->rf_chip < RF_TYPE_MAX) {
-		if (IS_HARDWARE_TYPE_8188E(pAdapter) || 
+		if (IS_HARDWARE_TYPE_9083E(pAdapter) || 
 			IS_HARDWARE_TYPE_8723B(pAdapter) || 
 			IS_HARDWARE_TYPE_8192E(pAdapter) || 
 			IS_HARDWARE_TYPE_8703B(pAdapter) ||
-			IS_HARDWARE_TYPE_8188F(pAdapter)) {
+			IS_HARDWARE_TYPE_9083F(pAdapter)) {
 			u8 path = (pHalData->AntennaTxPath == ANTENNA_A) ? (ODM_RF_PATH_A) : (ODM_RF_PATH_B);
 
 			DBG_8192C("===> MPT_ProSetTxPower: Old\n");
@@ -500,7 +500,7 @@ void hal_mpt_SetDataRate(PADAPTER pAdapter)
 
 	hal_mpt_CCKTxPowerAdjust(pAdapter, pHalData->bCCKinCH14);
 #ifdef CONFIG_RTL8723B
-	if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_8188F(pAdapter)) {
+	if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_9083F(pAdapter)) {
 		if (IS_CCK_RATE(DataRate)) {
 			if (pMptCtx->MptRfPath == ODM_RF_PATH_A)
 				PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, 0x51, 0xF, 0x6);	
@@ -958,9 +958,9 @@ void mpt_SetRFPath_8812A(PADAPTER pAdapter)
 }
 #endif
 
-#ifdef CONFIG_RTL8188F
+#ifdef CONFIG_RTL9083F
 
-void mpt_SetRFPath_8188F(PADAPTER pAdapter)
+void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(pAdapter);
 	u32		ulAntennaTx, ulAntennaRx;
@@ -1340,9 +1340,9 @@ void hal_mpt_SetAntenna(PADAPTER	pAdapter)
 		return;
 	}	
 #endif	
-#ifdef	CONFIG_RTL8188F
-	if (IS_HARDWARE_TYPE_8188F(pAdapter)) {
-		mpt_SetRFPath_8188F(pAdapter);
+#ifdef	CONFIG_RTL9083F
+	if (IS_HARDWARE_TYPE_9083F(pAdapter)) {
+		mpt_SetRFPath_9083F(pAdapter);
 		return;
 	}	
 #endif
@@ -1494,7 +1494,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 	if (bStart) {
 		/*/ Start Single Tone.*/
 		/*/ <20120326, Kordan> To amplify the power of tone for Xtal calibration. (asked by Edlu)*/
-		if (IS_HARDWARE_TYPE_8188E(pAdapter)) {
+		if (IS_HARDWARE_TYPE_9083E(pAdapter)) {
 			regRF = PHY_QueryRFReg(pAdapter, rfPath, LNA_Low_Gain_3, bRFRegOffsetMask);
 			
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, LNA_Low_Gain_3, BIT1, 0x1); /*/ RF LO enabled*/	
@@ -1505,7 +1505,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 			PHY_SetMacReg(pAdapter, 0x88C, 0xF00000, 0xF);
 			PHY_SetRFReg(pAdapter, pMptCtx->MptRfPath, LNA_Low_Gain_3, BIT1, 0x1); /*/ RF LO disabled*/
 			PHY_SetRFReg(pAdapter, pMptCtx->MptRfPath, RF_AC, 0xF0000, 0x2); /*/ Tx mode*/
-		} else if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_8188F(pAdapter)) {
+		} else if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_9083F(pAdapter)) {
 			if (pMptCtx->MptRfPath == ODM_RF_PATH_A) {
 				PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, RF_AC, 0xF0000, 0x2); /*/ Tx mode*/
 				PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, 0x56, 0xF, 0x1); /*/ RF LO enabled*/
@@ -1571,7 +1571,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 
 	} else {/*/ Stop Single Ton e.*/
 
-		if (IS_HARDWARE_TYPE_8188E(pAdapter)) {
+		if (IS_HARDWARE_TYPE_9083E(pAdapter)) {
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, LNA_Low_Gain_3, bRFRegOffsetMask, regRF);
 			PHY_SetBBReg(pAdapter, rFPGA0_RFMOD, bCCKEn, 0x1);
 			PHY_SetBBReg(pAdapter, rFPGA0_RFMOD, bOFDMEn, 0x1);
@@ -1580,7 +1580,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 			PHY_SetRFReg(pAdapter, pMptCtx->MptRfPath, LNA_Low_Gain_3, BIT1, 0x0);/*/ RF LO disabled */
 			/*/ RESTORE MAC REG 88C: Enable RF Functions*/
 			PHY_SetMacReg(pAdapter, 0x88C, 0xF00000, 0x0);
-		} else if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_8188F(pAdapter)) {
+		} else if (IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_9083F(pAdapter)) {
 			if (pMptCtx->MptRfPath == ODM_RF_PATH_A) {
 			
 				PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, RF_AC, 0xF0000, 0x3); /*/ Rx mode*/

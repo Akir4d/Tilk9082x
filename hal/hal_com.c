@@ -35,10 +35,10 @@ void dump_chip_info(HAL_VERSION	ChipVersion)
 	int cnt = 0;
 	u8 buf[128]={0};
 	
-	if (IS_8188E(ChipVersion))
-		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8188E_");
-	else if (IS_8188F(ChipVersion))
-		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8188F_");
+	if (IS_9083E(ChipVersion))
+		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_9083E_");
+	else if (IS_9083F(ChipVersion))
+		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_9083F_");
 	else if (IS_8812_SERIES(ChipVersion))
 		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8812_");
 	else if (IS_8192E(ChipVersion))
@@ -670,7 +670,7 @@ s32 c2h_evt_read(_adapter *adapter, u8 *buf)
 	if (buf == NULL)
 		goto exit;
 
-#if defined (CONFIG_RTL8188E)
+#if defined (CONFIG_RTL9083E)
 
 	trigger = rtw_read8(adapter, REG_C2HEVT_CLEAR);
 
@@ -2040,7 +2040,7 @@ static void rtw_hal_ap_wow_enable(_adapter *padapter)
 
 	rtw_msleep_os(2);
 
-	if (IS_HARDWARE_TYPE_8188E(padapter))
+	if (IS_HARDWARE_TYPE_9083E(padapter))
 		rtw_hal_disable_tx_report(padapter);
 
 	/* RX DMA stop */
@@ -2104,7 +2104,7 @@ static void rtw_hal_ap_wow_disable(_adapter *padapter)
 	}
 #endif /*DBG_CHECK_FW_PS_STATE*/
 
-	if (IS_HARDWARE_TYPE_8188E(padapter))
+	if (IS_HARDWARE_TYPE_9083E(padapter))
 		rtw_hal_enable_tx_report(padapter);
 
 	rtw_hal_force_enable_rxdma(padapter);
@@ -4516,7 +4516,7 @@ void rtw_hal_set_wow_fw_rsvd_page(_adapter *adapter, u8 *pframe, u16 index,
 
 		//3 KEK, KCK
 		rsvd_page_loc->LocGTKInfo = *page_num;
-		if (IS_HARDWARE_TYPE_8188E(adapter) || IS_HARDWARE_TYPE_8812(adapter)) {
+		if (IS_HARDWARE_TYPE_9083E(adapter) || IS_HARDWARE_TYPE_8812(adapter)) {
 			struct security_priv *psecpriv = NULL;
 			
 			psecpriv = &adapter->securitypriv;
@@ -4932,7 +4932,7 @@ static void rtw_hal_wow_enable(_adapter *adapter)
 		rtw_hal_backup_rate(adapter);
 
 	/* RX DMA stop */
-	if (IS_HARDWARE_TYPE_8188E(adapter))
+	if (IS_HARDWARE_TYPE_9083E(adapter))
 		rtw_hal_disable_tx_report(adapter);
 
 	res = rtw_hal_pause_rx_dma(adapter);
@@ -5061,7 +5061,7 @@ static void rtw_hal_wow_disable(_adapter *adapter)
 
 	rtw_hal_release_rx_dma(adapter);
 
-	if (IS_HARDWARE_TYPE_8188E(adapter))
+	if (IS_HARDWARE_TYPE_9083E(adapter))
 		rtw_hal_enable_tx_report(adapter);
 		
 	rtw_hal_update_tx_iv(adapter);
@@ -5204,7 +5204,7 @@ void rtw_hal_set_p2p_wow_fw_rsvd_page(_adapter* adapter, u8 *pframe, u16 index,
  *		    to Hw again and set the lengh in descriptor to the real beacon lengh.
  * 2009.10.15 by tynli.
  *
- * Page Size = 128: 8188e, 8723a/b, 8192c/d,  
+ * Page Size = 128: 9083e, 8723a/b, 8192c/d,  
  * Page Size = 256: 8192e, 8821a
  * Page Size = 512: 8812a
  */
@@ -5486,7 +5486,7 @@ _func_enter_;
 			u8 rate_index = 0;
 			HAL_VERSION *hal_ver = &hal_data->VersionID;
 
-			if (IS_8188E(*hal_ver)) {
+			if (IS_9083E(*hal_ver)) {
 
 				while (brate_cfg > 0x1) {
 					brate_cfg = (brate_cfg >> 1);
@@ -6210,7 +6210,7 @@ void rtw_hal_check_rxfifo_full(_adapter *adapter)
 	int save_cnt=_FALSE;
 	
 	//switch counter to RX fifo
-	if (IS_8188E(pHalData->VersionID) || IS_8188F(pHalData->VersionID)
+	if (IS_9083E(pHalData->VersionID) || IS_9083F(pHalData->VersionID)
 		|| IS_8812_SERIES(pHalData->VersionID) || IS_8821_SERIES(pHalData->VersionID)
 		|| IS_8723B_SERIES(pHalData->VersionID) || IS_8192E(pHalData->VersionID) || IS_8703B_SERIES(pHalData->VersionID))
 	{
@@ -6361,11 +6361,11 @@ int check_phy_efuse_tx_power_info_valid(PADAPTER padapter) {
 		case RTL8703B:
 			tx_index_offset = EEPROM_TX_PWR_INX_8703B;
 		break;
-		case RTL8188E:
+		case RTL9083E:
 			tx_index_offset = EEPROM_TX_PWR_INX_88E;
 		break;
-		case RTL8188F:
-			tx_index_offset = EEPROM_TX_PWR_INX_8188F;
+		case RTL9083F:
+			tx_index_offset = EEPROM_TX_PWR_INX_9083F;
 		break;
 		case RTL8192E:
 			tx_index_offset = EEPROM_TX_PWR_INX_8192E;
@@ -6416,8 +6416,8 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_8703BS;
 	break;
 #endif
-#ifdef CONFIG_RTL8188E
-	case RTL8188E:
+#ifdef CONFIG_RTL9083E
+	case RTL9083E:
 		if (interface_type == RTW_USB)
 			addr_offset = EEPROM_MAC_ADDR_88EU;
 		else if (interface_type == RTW_SDIO)
@@ -6426,12 +6426,12 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_88EE;
 		break;
 #endif
-#ifdef CONFIG_RTL8188F
-	case RTL8188F:
+#ifdef CONFIG_RTL9083F
+	case RTL9083F:
 		if (interface_type == RTW_USB)
-			addr_offset = EEPROM_MAC_ADDR_8188FU;
+			addr_offset = EEPROM_MAC_ADDR_9083FU;
 		else if (interface_type == RTW_SDIO)
-			addr_offset = EEPROM_MAC_ADDR_8188FS;
+			addr_offset = EEPROM_MAC_ADDR_9083FS;
 		break;
 #endif
 #ifdef CONFIG_RTL8812A
@@ -6641,10 +6641,10 @@ void rtw_bb_rf_gain_offset(_adapter *padapter)
 		DBG_871X("Using the default RF gain.\n");
 	}
 
-#elif defined(CONFIG_RTL8188E)
+#elif defined(CONFIG_RTL9083E)
 	if (value & BIT4) {
-		DBG_871X("8188ES Offset RF Gain.\n");
-		DBG_871X("8188ES Offset RF Gain. EEPROMRFGainVal=0x%x\n",
+		DBG_871X("9083ES Offset RF Gain.\n");
+		DBG_871X("9083ES Offset RF Gain. EEPROMRFGainVal=0x%x\n",
 				pHalData->EEPROMRFGainVal);
 
 		if (pHalData->EEPROMRFGainVal != 0xff) {
@@ -6912,7 +6912,7 @@ int  rtw_hal_set_gpio_output_value(_adapter* adapter, u8 gpio_num, bool isHigh)
 {
 	u8 direction = 0;
 	u8 res = -1;
-	if (IS_HARDWARE_TYPE_8188E(adapter)){
+	if (IS_HARDWARE_TYPE_9083E(adapter)){
 		/* Check GPIO is 4~7 */
 		if( gpio_num > 7 || gpio_num < 4)
 		{
@@ -6951,7 +6951,7 @@ int  rtw_hal_set_gpio_output_value(_adapter* adapter, u8 gpio_num, bool isHigh)
 
 int rtw_hal_config_gpio(_adapter* adapter, u8 gpio_num, bool isOutput)
 {
-	if (IS_HARDWARE_TYPE_8188E(adapter)){
+	if (IS_HARDWARE_TYPE_9083E(adapter)){
 		if( gpio_num > 7 || gpio_num < 4)
 		{
 			DBG_871X("%s The gpio number does not included 4~7.\n",__FUNCTION__);
@@ -6984,7 +6984,7 @@ int rtw_hal_register_gpio_interrupt(_adapter* adapter, int gpio_num, void(*callb
 	u8 direction;
 	PHAL_DATA_TYPE phal = GET_HAL_DATA(adapter);
 
-	if (IS_HARDWARE_TYPE_8188E(adapter)){	
+	if (IS_HARDWARE_TYPE_9083E(adapter)){	
 		if(gpio_num > 7 || gpio_num < 4)
 		{
 			DBG_871X_LEVEL(_drv_always_, "%s The gpio number does not included 4~7.\n",__FUNCTION__);
@@ -7030,7 +7030,7 @@ int rtw_hal_disable_gpio_interrupt(_adapter* adapter, int gpio_num)
 	u8 direction;
 	PHAL_DATA_TYPE phal = GET_HAL_DATA(adapter);
 
-	if (IS_HARDWARE_TYPE_8188E(adapter)){
+	if (IS_HARDWARE_TYPE_9083E(adapter)){
 		if(gpio_num > 7 || gpio_num < 4)
 		{
 			DBG_871X("%s The gpio number does not included 4~7.\n",__FUNCTION__);
@@ -7124,7 +7124,7 @@ void rtw_dump_mac_rx_counters(_adapter* padapter,struct dbg_rx_counter *rx_count
 void rtw_reset_mac_rx_counters(_adapter* padapter)
 {
 
-	if (IS_HARDWARE_TYPE_8703B(padapter) || IS_HARDWARE_TYPE_8188F(padapter))
+	if (IS_HARDWARE_TYPE_8703B(padapter) || IS_HARDWARE_TYPE_9083F(padapter))
 		PHY_SetMacReg(padapter, 0x608, BIT19, 0x1); /* If no packet rx, MaxRx clock be gating ,BIT_DISGCLK bit19 set 1 for fix*/	
 
 	//reset mac counter

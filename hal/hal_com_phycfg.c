@@ -920,7 +920,7 @@ PHY_InitTxPowerByRate(
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(pAdapter);
 	u8	band = 0, rfPath = 0, TxNum = 0, rate = 0, i = 0, j = 0;
 
-	if ( IS_HARDWARE_TYPE_8188E( pAdapter ) )
+	if ( IS_HARDWARE_TYPE_9083E( pAdapter ) )
 	{
 		for ( i = 0; i < MAX_PG_GROUP; ++i )
 			for ( j = 0; j < 16; ++j )
@@ -2370,13 +2370,13 @@ PHY_GetTxPowerIndex(
 		txPower = PHY_GetTxPowerIndex_8192E(pAdapter, RFPath, Rate, BandWidth, Channel);
 #endif
 	}
-	else if (IS_HARDWARE_TYPE_8188E(pAdapter)) {
-#if (RTL8188E_SUPPORT==1)
-		txPower = PHY_GetTxPowerIndex_8188E(pAdapter, RFPath, Rate, BandWidth, Channel);
+	else if (IS_HARDWARE_TYPE_9083E(pAdapter)) {
+#if (RTL9083E_SUPPORT==1)
+		txPower = PHY_GetTxPowerIndex_9083E(pAdapter, RFPath, Rate, BandWidth, Channel);
 #endif
-	} else if (IS_HARDWARE_TYPE_8188F(pAdapter)) {
-#if (RTL8188F_SUPPORT == 1)
-		txPower = PHY_GetTxPowerIndex_8188F(pAdapter, RFPath, Rate, BandWidth, Channel);
+	} else if (IS_HARDWARE_TYPE_9083F(pAdapter)) {
+#if (RTL9083F_SUPPORT == 1)
+		txPower = PHY_GetTxPowerIndex_9083F(pAdapter, RFPath, Rate, BandWidth, Channel);
 #endif
 	}
 
@@ -2416,13 +2416,13 @@ PHY_SetTxPowerIndex(
 		PHY_SetTxPowerIndex_8192E( pAdapter, PowerIndex, RFPath, Rate );
 #endif
 	}
-	else if (IS_HARDWARE_TYPE_8188E(pAdapter)) {
-#if (RTL8188E_SUPPORT==1)
-		PHY_SetTxPowerIndex_8188E( pAdapter, PowerIndex, RFPath, Rate );
+	else if (IS_HARDWARE_TYPE_9083E(pAdapter)) {
+#if (RTL9083E_SUPPORT==1)
+		PHY_SetTxPowerIndex_9083E( pAdapter, PowerIndex, RFPath, Rate );
 #endif
-	} else if (IS_HARDWARE_TYPE_8188F(pAdapter)) {
-#if (RTL8188F_SUPPORT == 1)
-		PHY_SetTxPowerIndex_8188F(pAdapter, PowerIndex, RFPath, Rate);
+	} else if (IS_HARDWARE_TYPE_9083F(pAdapter)) {
+#if (RTL9083F_SUPPORT == 1)
+		PHY_SetTxPowerIndex_9083F(pAdapter, PowerIndex, RFPath, Rate);
 #endif
 	}
 }

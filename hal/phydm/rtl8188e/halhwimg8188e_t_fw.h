@@ -19,9 +19,9 @@
 ******************************************************************************/
 
 /*Image2HeaderVersion: 2.16*/
-#if (RTL8188E_T_SUPPORT == 1)
-#ifndef __INC_MP_FW_HW_IMG_8188E_T_H
-#define __INC_MP_FW_HW_IMG_8188E_T_H
+#if (RTL9083E_T_SUPPORT == 1)
+#ifndef __INC_MP_FW_HW_IMG_9083E_T_H
+#define __INC_MP_FW_HW_IMG_9083E_T_H
 
 
 /******************************************************************************
@@ -29,7 +29,7 @@
 ******************************************************************************/
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_AP(
+ODM_ReadFirmware_MP_9083E_T_FW_AP(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
@@ -40,7 +40,7 @@ ODM_ReadFirmware_MP_8188E_T_FW_AP(
 ******************************************************************************/
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_NIC(
+ODM_ReadFirmware_MP_9083E_T_FW_NIC(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
@@ -51,7 +51,7 @@ ODM_ReadFirmware_MP_8188E_T_FW_NIC(
 ******************************************************************************/
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_NIC_89EM(
+ODM_ReadFirmware_MP_9083E_T_FW_NIC_89EM(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize
@@ -62,7 +62,7 @@ ODM_ReadFirmware_MP_8188E_T_FW_NIC_89EM(
 ******************************************************************************/
 
 void
-ODM_ReadFirmware_MP_8188E_T_FW_WoWLAN(
+ODM_ReadFirmware_MP_9083E_T_FW_WoWLAN(
 	IN   PDM_ODM_T    pDM_Odm,
 	OUT  u1Byte       *pFirmware,
 	OUT  u4Byte       *pFirmwareSize

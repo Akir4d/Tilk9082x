@@ -136,8 +136,8 @@
 				DbgPrint("[ODM-92D] ");												\
 			else if(pDM_Odm->SupportICType == ODM_RTL8723A)							\
 				DbgPrint("[ODM-8723A] ");											\
-			else if(pDM_Odm->SupportICType == ODM_RTL8188E)							\
-				DbgPrint("[ODM-8188E] ");											\
+			else if(pDM_Odm->SupportICType == ODM_RTL9083E)							\
+				DbgPrint("[ODM-9083E] ");											\
 			else if(pDM_Odm->SupportICType == ODM_RTL8192E) 						\
 				DbgPrint("[ODM-8192E] ");											\
 			else if(pDM_Odm->SupportICType == ODM_RTL8812)							\
@@ -150,8 +150,8 @@
 				DbgPrint("[ODM-8703B] ");											\
 			else if(pDM_Odm->SupportICType == ODM_RTL8822B)							\
 				DbgPrint("[ODM-8822] ");											\
-			else if (pDM_Odm->SupportICType == ODM_RTL8188F)							\
-				DbgPrint("[ODM-8188F] ");											\
+			else if (pDM_Odm->SupportICType == ODM_RTL9083F)							\
+				DbgPrint("[ODM-9083F] ");											\
 			RT_PRINTK fmt;															\
 		}
 

@@ -20,9 +20,9 @@
 #define _RTL9082ES_XMIT_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
-static void fill_txdesc_sectype(struct pkt_attrib *pattrib, PTXDESC_8188E ptxdesc)
+static void fill_txdesc_sectype(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdesc)
 {
 	if ((pattrib->encrypt > 0) && !pattrib->bswenc)
 	{
@@ -52,7 +52,7 @@ static void fill_txdesc_sectype(struct pkt_attrib *pattrib, PTXDESC_8188E ptxdes
 }
 
  
- static void fill_txdesc_vcs(struct pkt_attrib *pattrib, PTXDESC_8188E ptxdesc)
+ static void fill_txdesc_vcs(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdesc)
 {
 	//DBG_8192C("cvs_mode=%d\n", pattrib->vcs_mode);
 
@@ -102,7 +102,7 @@ static void fill_txdesc_sectype(struct pkt_attrib *pattrib, PTXDESC_8188E ptxdes
 	}
 }
 
-static void fill_txdesc_phy(struct pkt_attrib *pattrib, PTXDESC_8188E ptxdesc)
+static void fill_txdesc_phy(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdesc)
 {
 	//DBG_8192C("bwmode=%d, ch_off=%d\n", pattrib->bwmode, pattrib->ch_offset);
 
@@ -137,7 +137,7 @@ static void fill_txdesc_phy(struct pkt_attrib *pattrib, PTXDESC_8188E ptxdesc)
 //			in FW LPS mode. The function is to fill the Tx descriptor of this packets, then
 //			Fw can tell Hw to send these packet derectly.
 //
-void rtl8188e_fill_fake_txdesc(
+void rtl9083e_fill_fake_txdesc(
 	PADAPTER	padapter,
 	u8*		pDesc,
 	u32		BufferLen,
@@ -192,21 +192,21 @@ void rtl8188e_fill_fake_txdesc(
 		switch (EncAlg)
 		{
 			case _NO_PRIVACY_:
-				SET_TX_DESC_SEC_TYPE_8188E(pDesc, 0x0);
+				SET_TX_DESC_SEC_TYPE_9083E(pDesc, 0x0);
 				break;
 			case _WEP40_:
 			case _WEP104_:
 			case _TKIP_:
-				SET_TX_DESC_SEC_TYPE_8188E(pDesc, 0x1);
+				SET_TX_DESC_SEC_TYPE_9083E(pDesc, 0x1);
 				break;
 			case _SMS4_:
-				SET_TX_DESC_SEC_TYPE_8188E(pDesc, 0x2);
+				SET_TX_DESC_SEC_TYPE_9083E(pDesc, 0x2);
 				break;
 			case _AES_:
-				SET_TX_DESC_SEC_TYPE_8188E(pDesc, 0x3);
+				SET_TX_DESC_SEC_TYPE_9083E(pDesc, 0x3);
 				break;
 			default:
-				SET_TX_DESC_SEC_TYPE_8188E(pDesc, 0x0);
+				SET_TX_DESC_SEC_TYPE_9083E(pDesc, 0x0);
 				break;
 		}
 	}
@@ -214,7 +214,7 @@ void rtl8188e_fill_fake_txdesc(
 #if defined(CONFIG_USB_HCI) || defined(CONFIG_SDIO_HCI)
 	// USB interface drop packet if the checksum of descriptor isn't correct.
 	// Using this checksum can let hardware recovery from packet bulk out error (e.g. Cancel URC, Bulk out error.).
-	rtl8188e_cal_txdesc_chksum(ptxdesc);
+	rtl9083e_cal_txdesc_chksum(ptxdesc);
 #endif
 }
 
@@ -222,7 +222,7 @@ void rtl8188e_fill_fake_txdesc(
 //#define CONFIG_FIX_CORE_DUMP ==> have bug
 //#define DBG_EMINFO
 
-void rtl8188es_fill_default_txdesc(
+void rtl9083es_fill_default_txdesc(
 	struct xmit_frame *pxmitframe,
 	u8 *pbuf)
 {
@@ -231,7 +231,7 @@ void rtl8188es_fill_default_txdesc(
 	struct mlme_ext_priv *pmlmeext;
 	struct mlme_ext_info *pmlmeinfo;	
 	struct pkt_attrib *pattrib;
-	PTXDESC_8188E ptxdesc;
+	PTXDESC_9083E ptxdesc;
 	s32 bmcst;
 
 
@@ -243,7 +243,7 @@ void rtl8188es_fill_default_txdesc(
 	pattrib = &pxmitframe->attrib;
 	bmcst = IS_MCAST(pattrib->ra);
 
-	ptxdesc = (PTXDESC_8188E)pbuf;
+	ptxdesc = (PTXDESC_9083E)pbuf;
 
 
 	if (pxmitframe->frame_tag == DATA_FRAMETAG)
@@ -285,11 +285,11 @@ void rtl8188es_fill_default_txdesc(
 				/* driver-based RA*/
 				ptxdesc->userate = 1; // driver uses rate	
 				if (pattrib->ht_en)
-					ptxdesc->sgi = ODM_RA_GetShortGI_8188E(&pHalData->odmpriv,pattrib->mac_id);
-				ptxdesc->datarate = ODM_RA_GetDecisionRate_8188E(&pHalData->odmpriv,pattrib->mac_id);
+					ptxdesc->sgi = ODM_RA_GetShortGI_9083E(&pHalData->odmpriv,pattrib->mac_id);
+				ptxdesc->datarate = ODM_RA_GetDecisionRate_9083E(&pHalData->odmpriv,pattrib->mac_id);
 
 				#if (POWER_TRAINING_ACTIVE==1)
-				ptxdesc->pwr_status = ODM_RA_GetHwPwrStatus_8188E(&pHalData->odmpriv,pattrib->mac_id);
+				ptxdesc->pwr_status = ODM_RA_GetHwPwrStatus_9083E(&pHalData->odmpriv,pattrib->mac_id);
 				#endif
 			}
 			else
@@ -455,7 +455,7 @@ void rtl8188es_fill_default_txdesc(
  *		pxmitframe	xmitframe
  *		pbuf		where to fill tx desc
  */
-void rtl8188es_update_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf)
+void rtl9083es_update_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf)
 {
 	struct tx_desc *pdesc;
 
@@ -463,7 +463,7 @@ void rtl8188es_update_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf)
 	pdesc = (struct tx_desc*)pbuf;
 	_rtw_memset(pdesc, 0, sizeof(struct tx_desc));
 
-	rtl8188es_fill_default_txdesc(pxmitframe, pbuf);
+	rtl9083es_fill_default_txdesc(pxmitframe, pbuf);
 
 	pdesc->txdw0 = cpu_to_le32(pdesc->txdw0);
 	pdesc->txdw1 = cpu_to_le32(pdesc->txdw1);
@@ -474,7 +474,7 @@ void rtl8188es_update_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf)
 	pdesc->txdw6 = cpu_to_le32(pdesc->txdw6);
 	pdesc->txdw7 = cpu_to_le32(pdesc->txdw7);
 
-	rtl8188e_cal_txdesc_chksum(pdesc);
+	rtl9083e_cal_txdesc_chksum(pdesc);
 }
 
 static u8 rtw_sdio_wait_enough_TxOQT_space(PADAPTER padapter, u8 agg_num)
@@ -510,7 +510,7 @@ static u8 rtw_sdio_wait_enough_TxOQT_space(PADAPTER padapter, u8 agg_num)
 }
 
 //todo: static 
-s32 rtl8188es_dequeue_writeport(PADAPTER padapter)
+s32 rtl9083es_dequeue_writeport(PADAPTER padapter)
 {
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv;
@@ -613,7 +613,7 @@ free_xmitbuf:
  *	_SUCCESS	ok
  *	_FAIL		something error
  */
-s32 rtl8188es_xmit_buf_handler(PADAPTER padapter)
+s32 rtl9083es_xmit_buf_handler(PADAPTER padapter)
 {
 	struct xmit_priv *pxmitpriv;
 	u8	queue_empty, queue_pending;
@@ -654,11 +654,11 @@ s32 rtl8188es_xmit_buf_handler(PADAPTER padapter)
 #endif
 
 	do {
-		queue_empty = rtl8188es_dequeue_writeport(padapter);
+		queue_empty = rtl9083es_dequeue_writeport(padapter);
 //	dump secondary adapter xmitbuf 
 #ifdef CONFIG_CONCURRENT_MODE
 		if(rtw_buddy_adapter_up(padapter))
-			queue_empty &= rtl8188es_dequeue_writeport(padapter->pbuddy_adapter);
+			queue_empty &= rtl9083es_dequeue_writeport(padapter->pbuddy_adapter);
 #endif
 
 	} while ( !queue_empty);
@@ -680,7 +680,7 @@ s32 rtl8188es_xmit_buf_handler(PADAPTER padapter)
  *	-2	Software resource(xmitbuf) not ready
  */
 #ifdef CONFIG_TX_EARLY_MODE
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1	
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1	
 	#define EARLY_MODE_MAX_PKT_NUM	10
 #else
 	#define EARLY_MODE_MAX_PKT_NUM	5
@@ -694,12 +694,12 @@ struct EMInfo{
 
 
 void
-InsertEMContent_8188E(
+InsertEMContent_9083E(
 	struct EMInfo *pEMInfo,
 	IN pu1Byte	VirtualAddress)
 {
 
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	u1Byte index=0;
 	u4Byte	dwtmp=0;
 #endif
@@ -719,7 +719,7 @@ InsertEMContent_8188E(
 	}
 	#endif
 	
-#if RTL8188E_EARLY_MODE_PKT_NUM_10 == 1
+#if RTL9083E_EARLY_MODE_PKT_NUM_10 == 1
 	SET_EARLYMODE_PKTNUM(VirtualAddress, pEMInfo->EMPktNum);
 
 	if(pEMInfo->EMPktNum == 1){
@@ -778,12 +778,12 @@ InsertEMContent_8188E(
 
 
 
-void UpdateEarlyModeInfo8188E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf )
+void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf )
 {
 	//_adapter *padapter, struct xmit_frame *pxmitframe,struct tx_servq	*ptxservq
 	int index,j;
 	u16 offset,pktlen;
-	PTXDESC_8188E ptxdesc;
+	PTXDESC_9083E ptxdesc;
 	
 	u8 *pmem,*pEMInfo_mem;
 	s8 node_num_0=0,node_num_1=0;
@@ -831,12 +831,12 @@ void UpdateEarlyModeInfo8188E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 		}
 			
 		if(pmem){
-			ptxdesc = (PTXDESC_8188E)(pmem+offset);
+			ptxdesc = (PTXDESC_9083E)(pmem+offset);
 			pEMInfo_mem = pmem+offset+TXDESC_SIZE;	
 			#ifdef DBG_EMINFO
 			DBG_8192C("%s ==> desc.pkt_len=%d\n",__FUNCTION__,ptxdesc->pktlen);
 			#endif
-			InsertEMContent_8188E(&eminfo,pEMInfo_mem);
+			InsertEMContent_9083E(&eminfo,pEMInfo_mem);
 		}	
 		
 		
@@ -998,7 +998,7 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 		}
 		else
 		{
-			rtl8188es_update_txdesc(pxmitframe, pxmitframe->buf_addr);
+			rtl9083es_update_txdesc(pxmitframe, pxmitframe->buf_addr);
 
 			// don't need xmitframe any more
 			rtw_free_xmitframe(pxmitpriv, pxmitframe);
@@ -1021,9 +1021,9 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 	}while(1);
 
 	//3 3. update first frame txdesc
-	rtl8188es_update_txdesc(pfirstframe, pfirstframe->buf_addr);
+	rtl9083es_update_txdesc(pfirstframe, pfirstframe->buf_addr);
 #ifdef CONFIG_TX_EARLY_MODE						
-	UpdateEarlyModeInfo8188E(pxmitpriv,pxmitbuf );
+	UpdateEarlyModeInfo9083E(pxmitpriv,pxmitbuf );
 #endif
 
 	//
@@ -1044,7 +1044,7 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 	return _TRUE;
 }
 
-void rtl8188es_xmit_tasklet(void *priv)
+void rtl9083es_xmit_tasklet(void *priv)
 {	
 	int ret = _FALSE;
 	_adapter *padapter = (_adapter*)priv;
@@ -1162,9 +1162,9 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 							pframe->agg_num = agg_num;
 							pxmitbuf->agg_num = agg_num;
 							//DBG_8192C("==> agg_num:%d\n",agg_num);
-							rtl8188es_update_txdesc(pframe, pframe->buf_addr);
+							rtl9083es_update_txdesc(pframe, pframe->buf_addr);
 							#ifdef CONFIG_TX_EARLY_MODE						
-							UpdateEarlyModeInfo8188E(pxmitpriv, pxmitbuf);
+							UpdateEarlyModeInfo9083E(pxmitpriv, pxmitbuf);
 							#endif
 							rtw_free_xmitframe(pxmitpriv, pframe);
 							pxmitbuf->priv_data = NULL;
@@ -1223,7 +1223,7 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 				} else {
 					agg_num++;
 					if (agg_num != 1)
-						rtl8188es_update_txdesc(pxmitframe, pxmitframe->buf_addr);
+						rtl9083es_update_txdesc(pxmitframe, pxmitframe->buf_addr);
 					pre_qsel = pxmitframe->attrib.qsel;
 					rtw_count_tx_stats(padapter, pxmitframe, pxmitframe->attrib.last_txcmdsz);
 					#ifdef CONFIG_TX_EARLY_MODE		
@@ -1273,9 +1273,9 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 				pframe = (struct xmit_frame*)pxmitbuf->priv_data;
 				pframe->agg_num = agg_num;
 				pxmitbuf->agg_num = agg_num;
-				rtl8188es_update_txdesc(pframe, pframe->buf_addr);
+				rtl9083es_update_txdesc(pframe, pframe->buf_addr);
 				#ifdef CONFIG_TX_EARLY_MODE				
-				UpdateEarlyModeInfo8188E(pxmitpriv,pxmitbuf );
+				UpdateEarlyModeInfo9083E(pxmitpriv,pxmitbuf );
 				#endif
 				rtw_free_xmitframe(pxmitpriv, pframe);
 				pxmitbuf->priv_data = NULL;
@@ -1304,7 +1304,7 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
  *	_SUCCESS	ok
  *	_FAIL		something error
  */
-s32 rtl8188es_xmit_handler(PADAPTER padapter)
+s32 rtl9083es_xmit_handler(PADAPTER padapter)
 {
 	struct xmit_priv *pxmitpriv = &padapter->xmitpriv ;
 	s32 ret;
@@ -1357,7 +1357,7 @@ next:
 	return _SUCCESS;
 }
 
-thread_return rtl8188es_xmit_thread(thread_context context)
+thread_return rtl9083es_xmit_thread(thread_context context)
 {
 	s32 ret;
 	PADAPTER padapter= (PADAPTER)context;	
@@ -1370,7 +1370,7 @@ thread_return rtl8188es_xmit_thread(thread_context context)
 	DBG_871X("start %s\n", __FUNCTION__);
 
 	do {
-		ret = rtl8188es_xmit_handler(padapter);
+		ret = rtl9083es_xmit_handler(padapter);
 		if (signal_pending(current)) {
 			flush_signals(current);
 		}
@@ -1388,7 +1388,7 @@ thread_return rtl8188es_xmit_thread(thread_context context)
 #ifdef CONFIG_IOL_IOREG_CFG_DBG	
 #include <rtw_iol.h>
 #endif
-s32 rtl8188es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe)
+s32 rtl9083es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe)
 {
 	s32 ret = _SUCCESS;
 	struct pkt_attrib	*pattrib;
@@ -1403,7 +1403,7 @@ s32 rtl8188es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe)
 	pattrib = &pmgntframe->attrib;
 	pxmitbuf = pmgntframe->pxmitbuf;
 
-	rtl8188es_update_txdesc(pmgntframe, pmgntframe->buf_addr);
+	rtl9083es_update_txdesc(pmgntframe, pmgntframe->buf_addr);
 
 	pxmitbuf->len = TXDESC_SIZE + pattrib->last_txcmdsz;
 	//pmgntframe->pg_num = (pxmitbuf->len + 127)/128; // 128 is tx page size
@@ -1445,7 +1445,7 @@ s32 rtl8188es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe)
  *	_TRUE	dump packet directly ok
  *	_FALSE	enqueue, temporary can't transmit packets to hardware
  */
-s32 rtl8188es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe)
+s32 rtl9083es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe)
 {
 	struct xmit_priv 	*pxmitpriv = &padapter->xmitpriv;
 	_irqL irql;
@@ -1484,7 +1484,7 @@ s32 rtl8188es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe)
 	return _FALSE;
 }
 
-s32	rtl8188es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe)
+s32	rtl9083es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe)
 {
 	struct xmit_priv 	*pxmitpriv = &padapter->xmitpriv;
 	s32 err;
@@ -1515,7 +1515,7 @@ s32	rtl8188es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmit
  *	_FAIL		start thread fail
  *
  */
-s32 rtl8188es_init_xmit_priv(PADAPTER padapter)
+s32 rtl9083es_init_xmit_priv(PADAPTER padapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	struct xmit_priv 	*pxmitpriv = &padapter->xmitpriv;
@@ -1523,7 +1523,7 @@ s32 rtl8188es_init_xmit_priv(PADAPTER padapter)
 #ifdef CONFIG_SDIO_TX_TASKLET
 #ifdef PLATFORM_LINUX
 	tasklet_init(&pxmitpriv->xmit_tasklet,
-	     (void(*)(unsigned long))rtl8188es_xmit_tasklet,
+	     (void(*)(unsigned long))rtl9083es_xmit_tasklet,
 	     (unsigned long)padapter);
 #endif
 #else //CONFIG_SDIO_TX_TASKLET
@@ -1541,7 +1541,7 @@ s32 rtl8188es_init_xmit_priv(PADAPTER padapter)
 	return _SUCCESS;
 }
 
-void rtl8188es_free_xmit_priv(PADAPTER padapter)
+void rtl9083es_free_xmit_priv(PADAPTER padapter)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(padapter);
 

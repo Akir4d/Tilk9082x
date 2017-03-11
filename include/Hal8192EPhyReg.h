@@ -1127,5 +1127,5 @@
 /*--------------------------Define Parameters-------------------------------*/
 
 
-#endif	//__INC_HAL8188EPHYREG_H
+#endif	//__INC_HAL9083EPHYREG_H
 

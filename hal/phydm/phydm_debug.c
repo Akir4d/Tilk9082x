@@ -943,8 +943,8 @@ VOID phydm_BasicProfile(
 		ICType = "RTL8192D";
 	else if (pDM_Odm->SupportICType == ODM_RTL8723A)
 		ICType = "RTL8723A";
-	else if (pDM_Odm->SupportICType == ODM_RTL8188E)
-		ICType = "RTL8188E";
+	else if (pDM_Odm->SupportICType == ODM_RTL9083E)
+		ICType = "RTL9083E";
 	else if (pDM_Odm->SupportICType == ODM_RTL8812)
 		ICType = "RTL8812A";
 	else if (pDM_Odm->SupportICType == ODM_RTL8821)
@@ -965,8 +965,8 @@ VOID phydm_BasicProfile(
 		ICType = "RTL8703B";
 	else if (pDM_Odm->SupportICType == ODM_RTL8195A)
 		ICType = "RTL8195A";
-	else if (pDM_Odm->SupportICType == ODM_RTL8188F)
-		ICType = "RTL8188F";
+	else if (pDM_Odm->SupportICType == ODM_RTL9083F)
+		ICType = "RTL9083F";
 	PHYDM_SNPRINTF((output + used, out_len - used, "  %-35s: %s (MP Chip: %s)\n", "IC Type", ICType, pDM_Odm->bIsMPChip ? "Yes" : "No"));
 
 	if (pDM_Odm->CutVersion == ODM_CUT_A)			

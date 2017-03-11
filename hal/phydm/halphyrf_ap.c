@@ -64,9 +64,9 @@ void ConfigureTxpowerTrack(
 #endif
 
 
-#if RTL8188E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_RTL8188E)
-		ConfigureTxpowerTrack_8188E(pConfig);
+#if RTL9083E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_RTL9083E)
+		ConfigureTxpowerTrack_9083E(pConfig);
 #endif 
 }
 
@@ -863,7 +863,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			return;
 	}
 #endif
-	ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("===>odm_TXPowerTrackingCallback_ThermalMeter_8188E, pDM_Odm->BbSwingIdxCckBase: %d, pDM_Odm->BbSwingIdxOfdmBase: %d \n", pRFCalibrateInfo->BbSwingIdxCckBase, pRFCalibrateInfo->BbSwingIdxOfdmBase));
+	ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("===>odm_TXPowerTrackingCallback_ThermalMeter_9083E, pDM_Odm->BbSwingIdxCckBase: %d, pDM_Odm->BbSwingIdxOfdmBase: %d \n", pRFCalibrateInfo->BbSwingIdxCckBase, pRFCalibrateInfo->BbSwingIdxOfdmBase));
 /*
 	if (!pDM_Odm->RFCalibrateInfo.TM_Trigger) {
 		ODM_SetRFReg(pDM_Odm, RF_PATH_A, c.ThermalRegAddr, BIT17 | BIT16, 0x3);
@@ -1059,7 +1059,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 		(*c.DoIQK)(pDM_Odm, delta_IQK, ThermalValue, 8);
 #endif		
 			
-	ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("<===dm_TXPowerTrackingCallback_ThermalMeter_8188E\n"));
+	ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("<===dm_TXPowerTrackingCallback_ThermalMeter_9083E\n"));
 	
 	pDM_Odm->RFCalibrateInfo.TXPowercount = 0;
 }

@@ -56,7 +56,7 @@
 #define EEPROM_MAC_ADDR_88EU					0xD7
 #define EEPROM_VID_88EU						0xD0
 #define EEPROM_PID_88EU						0xD2
-#define EEPROM_USB_OPTIONAL_FUNCTION0		0xD4 //8188EU,8192EU, 8812AU is the same
+#define EEPROM_USB_OPTIONAL_FUNCTION0		0xD4 //9083EU,8192EU, 8812AU is the same
 #define EEPROM_USB_OPTIONAL_FUNCTION0_8811AU 0x104
 
 // RTL88ES
@@ -257,50 +257,50 @@
 #define EEPROM_TSSI_B_92SU						0x6c 
 
 /* ====================================================
-	EEPROM/Efuse PG Offset for 8188FE/8188FU/8188FS
+	EEPROM/Efuse PG Offset for 9083FE/9083FU/9083FS
    ====================================================
  */
 
-#define GET_PG_KFREE_ON_8188F(_pg_m)			LE_BITS_TO_1BYTE(((u8 *)(_pg_m)) + 0xC1, 4, 1)
-#define GET_PG_KFREE_THERMAL_K_ON_8188F(_pg_m)	LE_BITS_TO_1BYTE(((u8 *)(_pg_m)) + 0xC8, 5, 1)
+#define GET_PG_KFREE_ON_9083F(_pg_m)			LE_BITS_TO_1BYTE(((u8 *)(_pg_m)) + 0xC1, 4, 1)
+#define GET_PG_KFREE_THERMAL_K_ON_9083F(_pg_m)	LE_BITS_TO_1BYTE(((u8 *)(_pg_m)) + 0xC8, 5, 1)
 
-#define PPG_BB_GAIN_2G_TXA_OFFSET_8188F	0xEE
-#define PPG_THERMAL_OFFSET_8188F		0xEF
+#define PPG_BB_GAIN_2G_TXA_OFFSET_9083F	0xEE
+#define PPG_THERMAL_OFFSET_9083F		0xEF
 
 /* 0x10 ~ 0x63 = TX power area. */
-#define	EEPROM_TX_PWR_INX_8188F				0x10
+#define	EEPROM_TX_PWR_INX_9083F				0x10
 
-#define	EEPROM_ChannelPlan_8188F			0xB8
-#define	EEPROM_XTAL_8188F					0xB9
-#define	EEPROM_THERMAL_METER_8188F			0xBA
-#define	EEPROM_IQK_LCK_8188F				0xBB
-#define	EEPROM_2G_5G_PA_TYPE_8188F			0xBC
-#define	EEPROM_2G_LNA_TYPE_GAIN_SEL_8188F	0xBD
-#define	EEPROM_5G_LNA_TYPE_GAIN_SEL_8188F	0xBF
+#define	EEPROM_ChannelPlan_9083F			0xB8
+#define	EEPROM_XTAL_9083F					0xB9
+#define	EEPROM_THERMAL_METER_9083F			0xBA
+#define	EEPROM_IQK_LCK_9083F				0xBB
+#define	EEPROM_2G_5G_PA_TYPE_9083F			0xBC
+#define	EEPROM_2G_LNA_TYPE_GAIN_SEL_9083F	0xBD
+#define	EEPROM_5G_LNA_TYPE_GAIN_SEL_9083F	0xBF
 
-#define	EEPROM_RF_BOARD_OPTION_8188F		0xC1
-#define	EEPROM_FEATURE_OPTION_8188F			0xC2
-#define	EEPROM_RF_BT_SETTING_8188F			0xC3
-#define	EEPROM_VERSION_8188F				0xC4
-#define	EEPROM_CustomID_8188F				0xC5
-#define	EEPROM_TX_BBSWING_2G_8188F			0xC6
-#define	EEPROM_TX_PWR_CALIBRATE_RATE_8188F	0xC8
-#define	EEPROM_RF_ANTENNA_OPT_8188F			0xC9
-#define	EEPROM_RFE_OPTION_8188F				0xCA
-#define EEPROM_CUSTOMER_ID_8188F			0x7F
-#define EEPROM_SUBCUSTOMER_ID_8188F			0x59
+#define	EEPROM_RF_BOARD_OPTION_9083F		0xC1
+#define	EEPROM_FEATURE_OPTION_9083F			0xC2
+#define	EEPROM_RF_BT_SETTING_9083F			0xC3
+#define	EEPROM_VERSION_9083F				0xC4
+#define	EEPROM_CustomID_9083F				0xC5
+#define	EEPROM_TX_BBSWING_2G_9083F			0xC6
+#define	EEPROM_TX_PWR_CALIBRATE_RATE_9083F	0xC8
+#define	EEPROM_RF_ANTENNA_OPT_9083F			0xC9
+#define	EEPROM_RFE_OPTION_9083F				0xCA
+#define EEPROM_CUSTOMER_ID_9083F			0x7F
+#define EEPROM_SUBCUSTOMER_ID_9083F			0x59
 
-/* RTL8188FU */
-#define EEPROM_MAC_ADDR_8188FU				0xD7
-#define EEPROM_VID_8188FU					0xD0
-#define EEPROM_PID_8188FU					0xD2
-#define EEPROM_PA_TYPE_8188FU				0xBC
-#define EEPROM_LNA_TYPE_2G_8188FU			0xBD
-#define EEPROM_USB_OPTIONAL_FUNCTION0_8188FU 0xD4
+/* RTL9083FU */
+#define EEPROM_MAC_ADDR_9083FU				0xD7
+#define EEPROM_VID_9083FU					0xD0
+#define EEPROM_PID_9083FU					0xD2
+#define EEPROM_PA_TYPE_9083FU				0xBC
+#define EEPROM_LNA_TYPE_2G_9083FU			0xBD
+#define EEPROM_USB_OPTIONAL_FUNCTION0_9083FU 0xD4
 
-/* RTL8188FS */
-#define	EEPROM_MAC_ADDR_8188FS				0x11A
-#define EEPROM_Voltage_ADDR_8188F			0x8
+/* RTL9083FS */
+#define	EEPROM_MAC_ADDR_9083FS				0x11A
+#define EEPROM_Voltage_ADDR_9083F			0x8
 
 //====================================================
 //			EEPROM/Efuse PG Offset for 8723BE/8723BU/8723BS
@@ -421,7 +421,7 @@
 #define	EEPROM_Default_ThermalMeter_8192E			0x1A
 #define	EEPROM_Default_ThermalMeter_8723B		0x18
 #define	EEPROM_Default_ThermalMeter_8703B		0x18
-#define	EEPROM_Default_ThermalMeter_8188F		0x18
+#define	EEPROM_Default_ThermalMeter_9083F		0x18
 #define EEPROM_Default_ThermalMeter_8814A		0x18
 
 
@@ -433,7 +433,7 @@
 #define EEPROM_Default_CrystalCap_8192E			0x20
 #define EEPROM_Default_CrystalCap_8723B			0x20
 #define EEPROM_Default_CrystalCap_8703B			0x20
-#define EEPROM_Default_CrystalCap_8188F			0x20
+#define EEPROM_Default_CrystalCap_9083F			0x20
 #define EEPROM_Default_CrystalFreq				0x0
 #define EEPROM_Default_TxPowerLevel_92C		0x22
 #define EEPROM_Default_TxPowerLevel_2G			0x2C
@@ -450,7 +450,7 @@
 #define EEPROM_Default_PID						0x1234
 #define EEPROM_Default_VID						0x5678
 #define EEPROM_Default_CustomerID				0xAB
-#define EEPROM_Default_CustomerID_8188E		0x00
+#define EEPROM_Default_CustomerID_9083E		0x00
 #define EEPROM_Default_SubCustomerID			0xCD
 #define EEPROM_Default_Version					0
 

@@ -20,7 +20,7 @@
 /******************************************************************************
  *
  *
- * Module:	rtl8188e_rf6052.c	( Source C File)
+ * Module:	rtl9083e_rf6052.c	( Source C File)
  *
  * Note:	Provide RF 6052 series relative API.
  *
@@ -39,10 +39,10 @@
  *
 ******************************************************************************/
 
-#define _RTL8188E_RF6052_C_
+#define _RTL9083E_RF6052_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
 /*---------------------------Define Local Constant---------------------------*/
 
@@ -75,7 +75,7 @@
  *						Firmwaer support the utility later.
  *
  *---------------------------------------------------------------------------*/
-void rtl8188e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
+void rtl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
 										IN	u16		DataRate)
 {
 // We do not support gain table change inACUT now !!!! Delete later !!!
@@ -141,7 +141,7 @@ void rtl8188e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
  * Note:		For RF type 0222D
  *---------------------------------------------------------------------------*/
 VOID
-rtl8188e_PHY_RF6052SetBandwidth(
+rtl9083e_PHY_RF6052SetBandwidth(
 	IN	PADAPTER				Adapter,
 	IN	CHANNEL_WIDTH		Bandwidth)	//20M or 40M
 {
@@ -178,15 +178,15 @@ phy_RF6052_Config_ParaFile(
 	int					rtStatus = _SUCCESS;
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(Adapter);
 
-	static char			sz88eRadioAFile[] = RTL8188E_PHY_RADIO_A;
-	static char			sz88eRadioBFile[] = RTL8188E_PHY_RADIO_B;
-	static char 			sz8188ETxPwrTrack[] = RTL8188E_TXPWR_TRACK;
+	static char			sz88eRadioAFile[] = RTL9083E_PHY_RADIO_A;
+	static char			sz88eRadioBFile[] = RTL9083E_PHY_RADIO_B;
+	static char 			sz9083ETxPwrTrack[] = RTL9083E_TXPWR_TRACK;
 	char					*pszRadioAFile, *pszRadioBFile, *pszTxPwrTrack;
 
 
 	pszRadioAFile = sz88eRadioAFile;
 	pszRadioBFile = sz88eRadioBFile;
-	pszTxPwrTrack = sz8188ETxPwrTrack;
+	pszTxPwrTrack = sz9083ETxPwrTrack;
 
 	//3//-----------------------------------------------------------------
 	//3// <2> Initialize RF
@@ -299,7 +299,7 @@ phy_RF6052_Config_ParaFile_Fail:
 
 
 int
-PHY_RF6052_Config8188E(
+PHY_RF6052_Config9083E(
 	IN	PADAPTER		Adapter)
 {
 	HAL_DATA_TYPE				*pHalData = GET_HAL_DATA(Adapter);

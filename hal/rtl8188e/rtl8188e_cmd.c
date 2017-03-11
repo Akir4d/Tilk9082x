@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#define _RTL8188E_CMD_C_
+#define _RTL9083E_CMD_C_
 
 #include <drv_types.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 #include "hal_com_h2c.h"
 
 #define CONFIG_H2C_EF
@@ -190,7 +190,7 @@ u8 rtl8192c_set_FwSelectSuspend_cmd(_adapter *padapter ,u8 bfwpoll, u16 period)
 }
 #endif //CONFIG_AUTOSUSPEND && SUPPORT_HW_RFOFF_DETECTED
 */
-u8 rtl8188e_set_rssi_cmd(_adapter*padapter, u8 *param)
+u8 rtl9083e_set_rssi_cmd(_adapter*padapter, u8 *param)
 {
 	u8	res=_SUCCESS;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -209,7 +209,7 @@ _func_exit_;
 	return res;
 }
 
-u8 rtl8188e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
+u8 rtl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 {	
 	u8	res=_SUCCESS;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -278,7 +278,7 @@ u8 rtl8188e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 //bitmap[28:31]= Rate Adaptive id
 //arg[0:4] = macid
 //arg[5] = Short GI
-void rtl8188e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_level)
+void rtl9083e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_level)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(pAdapter);
 	u8 macid, init_rate, raid, shortGIrate=_FALSE;
@@ -305,7 +305,7 @@ void rtl8188e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_
 
 #if(RATE_ADAPTIVE_SUPPORT == 1)
 	if(!pHalData->fw_ractrl ){
-		ODM_RA_UpdateRateInfo_8188E(
+		ODM_RA_UpdateRateInfo_9083E(
 				&(pHalData->odmpriv),
 				macid,
 				raid, 
@@ -316,13 +316,13 @@ void rtl8188e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_
 	else
 #endif
 	{
-		 rtl8188e_set_raid_cmd(pAdapter,bitmap,arg);
+		 rtl9083e_set_raid_cmd(pAdapter,bitmap,arg);
 	}
 	
 
 }
 
-void rtl8188e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode)
+void rtl9083e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode)
 {
 	SETPWRMODE_PARM H2CSetPwrMode;
 	struct pwrctrl_priv *pwrpriv = adapter_to_pwrctl(padapter);
@@ -381,7 +381,7 @@ _func_enter_;
 _func_exit_;
 }
 
-void rtl8188e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt )
+void rtl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt )
 {
 	u8 opmode,macid;
 	u16 mst_rpt = cpu_to_le16 (mstatus_rpt);
@@ -655,12 +655,12 @@ void ConstructProbeRsp(_adapter *padapter, u8 *pframe, u32 *pLength, u8 *StaAddr
 	*pLength = pktlen;
 }
 
-void rtl8188e_set_FwRsvdPage_cmd(PADAPTER padapter, PRSVDPAGE_LOC rsvdpageloc)
+void rtl9083e_set_FwRsvdPage_cmd(PADAPTER padapter, PRSVDPAGE_LOC rsvdpageloc)
 {
     u8 u1H2CRsvdPageParm[H2C_RSVDPAGE_LOC_LEN]={0};
     u8 u1H2CAoacRsvdPageParm[H2C_AOAC_RSVDPAGE_LOC_LEN]={0};
 
-    //DBG_871X("8188RsvdPageLoc: PsPoll=%d Null=%d QoSNull=%d\n", 
+    //DBG_871X("9083RsvdPageLoc: PsPoll=%d Null=%d QoSNull=%d\n", 
 	//	rsvdpageloc->LocPsPoll, rsvdpageloc->LocNullData, rsvdpageloc->LocQosNull);
 
     SET_H2CCMD_RSVDPAGE_LOC_PSPOLL(u1H2CRsvdPageParm, rsvdpageloc->LocPsPoll);
@@ -670,7 +670,7 @@ void rtl8188e_set_FwRsvdPage_cmd(PADAPTER padapter, PRSVDPAGE_LOC rsvdpageloc)
     FillH2CCmd_88E(padapter, H2C_COM_RSVD_PAGE, H2C_RSVDPAGE_LOC_LEN, u1H2CRsvdPageParm);
 
 #ifdef CONFIG_WOWLAN    
-    //DBG_871X("8188E_AOACRsvdPageLoc: RWC=%d ArpRsp=%d\n", rsvdpageloc->LocRemoteCtrlInfo, rsvdpageloc->LocArpRsp);
+    //DBG_871X("9083E_AOACRsvdPageLoc: RWC=%d ArpRsp=%d\n", rsvdpageloc->LocRemoteCtrlInfo, rsvdpageloc->LocArpRsp);
     SET_H2CCMD_AOAC_RSVDPAGE_LOC_REMOTE_WAKE_CTRL_INFO(u1H2CAoacRsvdPageParm, rsvdpageloc->LocRemoteCtrlInfo);
     SET_H2CCMD_AOAC_RSVDPAGE_LOC_ARP_RSP(u1H2CAoacRsvdPageParm, rsvdpageloc->LocArpRsp);
 
@@ -704,21 +704,21 @@ CheckFwRsvdPageContent(
 // 2012.08.09, by tynli.
 //
 u8
-GetTxBufferRsvdPageNum8188E(_adapter *padapter, bool wowlan)
+GetTxBufferRsvdPageNum9083E(_adapter *padapter, bool wowlan)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	u8	RsvdPageNum=0;
 	// default reseved 1 page for the IC type which is undefined.
-	u8	TxPageBndy= LAST_ENTRY_OF_TX_PKT_BUFFER_8188E(padapter);
+	u8	TxPageBndy= LAST_ENTRY_OF_TX_PKT_BUFFER_9083E(padapter);
 
 	rtw_hal_get_def_var(padapter, HAL_DEF_TX_PAGE_BOUNDARY, (u8 *)&TxPageBndy);
 
-	RsvdPageNum = LAST_ENTRY_OF_TX_PKT_BUFFER_8188E(padapter) - TxPageBndy + 1;
+	RsvdPageNum = LAST_ENTRY_OF_TX_PKT_BUFFER_9083E(padapter) - TxPageBndy + 1;
 
 	return RsvdPageNum;
 }
 
-void rtl8188e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus)
+void rtl9083e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus)
 {
 	JOINBSSRPT_PARM_88E	JoinBssRptParm;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -842,7 +842,7 @@ _func_exit_;
 }
 
 #ifdef CONFIG_P2P_PS
-void rtl8188e_set_p2p_ps_offload_cmd(_adapter* padapter, u8 p2p_ps_state)
+void rtl9083e_set_p2p_ps_offload_cmd(_adapter* padapter, u8 p2p_ps_state)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	struct pwrctrl_priv		*pwrpriv = adapter_to_pwrctl(padapter);
@@ -937,7 +937,7 @@ _func_exit_;
 /*
 	ask FW to Reset sync register at Beacon early interrupt
 */
-u8 rtl8188e_reset_tsf(_adapter *padapter, u8 reset_port )
+u8 rtl9083e_reset_tsf(_adapter *padapter, u8 reset_port )
 {	
 	u8	buf[2];
 	u8	res=_SUCCESS;
@@ -967,7 +967,7 @@ int reset_tsf(PADAPTER Adapter, u8 reset_port )
 
 	rtw_scan_abort(Adapter->pbuddy_adapter);	/*	site survey will cause reset_tsf fail	*/
 	reset_cnt_after = reset_cnt_before = rtw_read8(Adapter,reg_reset_tsf_cnt);
-	rtl8188e_reset_tsf(Adapter, reset_port);
+	rtl9083e_reset_tsf(Adapter, reset_port);
 
 	while ((reset_cnt_after == reset_cnt_before ) && (loop_cnt < 10)) {
 		rtw_msleep_os(100);

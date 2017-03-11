@@ -29,7 +29,7 @@ int platform_wifi_power_on(void)
 	int err = 0;
 	err = gpio_request(WMT_PIN_GP62_SUSGPIO1, "wifi_chip_en");
 	if (err < 0){
-		printk("request gpio for rtl8188eu failed!\n");
+		printk("request gpio for rtl9083eu failed!\n");
 		return err;
 	}
 	gpio_direction_output(WMT_PIN_GP62_SUSGPIO1, 0);//pull sus_gpio1 to 0 to open vcc_wifi.

@@ -27,9 +27,9 @@
 
 #include <drv_types.h>
 #include <recv_osdep.h>
-#include <rtl8188e_hal.h>
+#include <rtl9083e_hal.h>
 
-static void rtl8188es_recv_tasklet(void *priv);
+static void rtl9083es_recv_tasklet(void *priv);
 
 static s32 initrecvbuf(struct recv_buf *precvbuf, PADAPTER padapter)
 {
@@ -52,7 +52,7 @@ static void freerecvbuf(struct recv_buf *precvbuf)
  * 2. recv tasklet
  *
  */
-s32 rtl8188es_init_recv_priv(PADAPTER padapter)
+s32 rtl9083es_init_recv_priv(PADAPTER padapter)
 {
 	s32			res;
 	u32			i, n;
@@ -139,7 +139,7 @@ s32 rtl8188es_init_recv_priv(PADAPTER padapter)
 	//3 2. init tasklet
 #ifdef PLATFORM_LINUX
 	tasklet_init(&precvpriv->recv_tasklet,
-	     (void(*)(unsigned long))rtl8188es_recv_tasklet,
+	     (void(*)(unsigned long))rtl9083es_recv_tasklet,
 	     (unsigned long)padapter);
 #endif
 
@@ -176,7 +176,7 @@ exit:
  * 2. recv tasklet
  *
  */
-void rtl8188es_free_recv_priv(PADAPTER padapter)
+void rtl9083es_free_recv_priv(PADAPTER padapter)
 {
 	u32			i, n;
 	struct recv_priv	*precvpriv;
@@ -315,7 +315,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 
 }
 
-static void rtl8188es_recv_tasklet(void *priv)
+static void rtl9083es_recv_tasklet(void *priv)
 {
 	PADAPTER			padapter;
 	PHAL_DATA_TYPE		pHalData;
@@ -364,7 +364,7 @@ static void rtl8188es_recv_tasklet(void *priv)
 			}
 
 			//rx desc parsing
-			rtl8188e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
+			rtl9083e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
 
 			pattrib = &precvframe->u.hdr.attrib;
 
@@ -455,7 +455,7 @@ static void rtl8188es_recv_tasklet(void *priv)
 				{
 					if((pattrib->mfrag == 1)&&(pattrib->frag_num == 0))
 					{				
-						DBG_8192C("rtl8188es_recv_tasklet: alloc_skb fail , drop frag frame \n");
+						DBG_8192C("rtl9083es_recv_tasklet: alloc_skb fail , drop frag frame \n");
 						rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
@@ -473,7 +473,7 @@ static void rtl8188es_recv_tasklet(void *priv)
 					}
 					else
 					{
-						DBG_8192C("rtl8188es_recv_tasklet: rtw_skb_clone fail\n");
+						DBG_8192C("rtl9083es_recv_tasklet: rtw_skb_clone fail\n");
 						rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
@@ -527,7 +527,7 @@ static void rtl8188es_recv_tasklet(void *priv)
 					}
 					else if(pattrib->pkt_rpt_type == TX_REPORT2){
 						//printk("rx TX RPT \n");
-						ODM_RA_TxRPT2Handle_8188E(
+						ODM_RA_TxRPT2Handle_9083E(
 									&pHalData->odmpriv,
 									precvframe->u.hdr.rx_data,
 									pattrib->pkt_len,
@@ -678,7 +678,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 
 }
 
-static void rtl8188es_recv_tasklet(void *priv)
+static void rtl9083es_recv_tasklet(void *priv)
 {
 	PADAPTER				padapter;
 	PHAL_DATA_TYPE			pHalData;
@@ -724,7 +724,7 @@ static void rtl8188es_recv_tasklet(void *priv)
 			pattrib = &phdr->attrib;
 
 			//rx desc parsing
-			rtl8188e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
+			rtl9083e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
 #ifdef CONFIG_CONCURRENT_MODE
 			prxstat = (struct recv_stat*)ptr;
 #endif
@@ -836,7 +836,7 @@ static void rtl8188es_recv_tasklet(void *priv)
 					}
 					else if(pattrib->pkt_rpt_type == TX_REPORT2){
 						//DBG_8192C("rx TX RPT \n");
-						ODM_RA_TxRPT2Handle_8188E(
+						ODM_RA_TxRPT2Handle_9083E(
 									&pHalData->odmpriv,
 									precvframe->u.hdr.rx_data,
 									pattrib->pkt_len,
