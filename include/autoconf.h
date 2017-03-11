@@ -29,7 +29,7 @@
 
 
 #define AUTOCONF_INCLUDED
-#define RTL871X_MODULE_NAME "9082ES"
+#define TTL902X_MODULE_NAME "9082ES"
 #define DRV_NAME "rtl9082es"
 
 #ifndef EFUSE_MAP_PATH
@@ -250,7 +250,7 @@
 #define DBG	1
 
 //#define CONFIG_DEBUG /* DBG_871X, etc... */
-//#define CONFIG_DEBUG_RTL871X /* RT_TRACE, RT_PRINT_DATA, _func_enter_, _func_exit_ */
+//#define CONFIG_DEBUG_TTL902X /* RT_TRACE, RT_PRINT_DATA, _func_enter_, _func_exit_ */
 
 #define CONFIG_PROC_DEBUG
 

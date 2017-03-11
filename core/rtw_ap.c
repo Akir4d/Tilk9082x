@@ -681,7 +681,7 @@ void add_RATid(_adapter *padapter, struct sta_info *psta, u8 rssi_level)
 		return;
 
 #if 0//gtest
-	if(get_rf_mimo_mode(padapter) == RTL8712_RF_2T2R)
+	if(get_rf_mimo_mode(padapter) == TTL9022_RF_2T2R)
 	{
 		//is this a 2r STA?
 		if((pstat->tx_ra_bitmap & 0x0ff00000) != 0 && !(priv->pshare->has_2r_sta & BIT(pstat->aid)))
@@ -792,8 +792,8 @@ void add_RATid(_adapter *padapter, struct sta_info *psta, u8 rssi_level)
 	// disable tx short GI when station cannot rx MCS15(AP is 2T2R)
 	// disable tx short GI when station cannot rx MCS7 (AP is 1T2R or 1T1R)
 	// if there is only 1r STA and we are 2T2R, DO NOT mask SGI rate
-	if ((!(pstat->tx_ra_bitmap & 0x8000000) && (priv->pshare->has_2r_sta > 0) && (get_rf_mimo_mode(padapter) == RTL8712_RF_2T2R)) ||
-		 (!(pstat->tx_ra_bitmap & 0x80000) && (get_rf_mimo_mode(padapter) != RTL8712_RF_2T2R)))
+	if ((!(pstat->tx_ra_bitmap & 0x8000000) && (priv->pshare->has_2r_sta > 0) && (get_rf_mimo_mode(padapter) == TTL9022_RF_2T2R)) ||
+		 (!(pstat->tx_ra_bitmap & 0x80000) && (get_rf_mimo_mode(padapter) != TTL9022_RF_2T2R)))
 	{
 		pstat->tx_ra_bitmap &= ~BIT(28);	
 	}

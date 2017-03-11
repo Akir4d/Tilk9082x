@@ -23,7 +23,7 @@
 
 #define C2H_MEM_SZ (16*1024)
 
-#ifndef CONFIG_RTL8711FW
+#ifndef CONFIG_TTL9021FW
 
 	#define FREE_CMDOBJ_SZ	128
 	
@@ -209,7 +209,7 @@ u8 p2p_protocol_wk_cmd(_adapter*padapter, int intCmdType );
 
 #else
 	//#include <ieee80211.h>
-#endif	/* CONFIG_RTL8711FW */
+#endif	/* CONFIG_TTL9021FW */
 
 enum rtw_drvextra_cmd_id
 {	
@@ -328,7 +328,7 @@ struct createbss_parm {
 /*
 Caller Mode: AP, Ad-HoC, Infra
 
-Notes: To set the NIC mode of RTL8711
+Notes: To set the NIC mode of TTL9021
 
 Command Mode
 
@@ -351,7 +351,7 @@ struct	setopmode_parm {
 /*
 Caller Mode: AP, Ad-HoC, Infra
 
-Notes: To ask RTL8711 performing site-survey
+Notes: To ask TTL9021 performing site-survey
 
 Command-Event Mode 
 
@@ -371,7 +371,7 @@ struct sitesurvey_parm {
 /*
 Caller Mode: Any
 
-Notes: To set the auth type of RTL8711. open/shared/802.1x
+Notes: To set the auth type of TTL9021. open/shared/802.1x
 
 Command Mode
 
@@ -474,7 +474,7 @@ struct setstapwrstate_parm {
 /*
 Caller Mode: Any
 
-Notes: To setup the basic rate of RTL8711
+Notes: To setup the basic rate of TTL9021
 
 Command Mode
 
@@ -502,7 +502,7 @@ struct getbasicrate_rsp {
 /*
 Caller Mode: Any
 
-Notes: To setup the data rate of RTL8711
+Notes: To setup the data rate of TTL9021
 
 Command Mode
 

@@ -1138,7 +1138,7 @@ _func_enter_;
 
 	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_survey_event_callback, ssid=%s\n",  pnetwork->Ssid.Ssid));
 
-#ifdef CONFIG_RTL8712
+#ifdef CONFIG_TTL9022
         //endian_convert
  	pnetwork->Length = le32_to_cpu(pnetwork->Length);
   	pnetwork->Ssid.SsidLength = le32_to_cpu(pnetwork->Ssid.SsidLength);	
@@ -2055,7 +2055,7 @@ void rtw_joinbss_event_prehandle(_adapter *adapter, u8 *pbuf)
 
 _func_enter_;	
 
-#ifdef CONFIG_RTL8712
+#ifdef CONFIG_TTL9022
        //endian_convert
 	pnetwork->join_res = le32_to_cpu(pnetwork->join_res);
 	pnetwork->network_type = le32_to_cpu(pnetwork->network_type);
@@ -2473,7 +2473,7 @@ _func_enter_;
 
 	mlmeext_sta_add_event_callback(adapter, psta);
 	
-#ifdef CONFIG_RTL8711
+#ifdef CONFIG_TTL9021
 	//submit SetStaKey_cmd to tell fw, fw will allocate an CAM entry for this sta	
 	rtw_setstakey_cmd(adapter, psta, GROUP_KEY, _TRUE);
 #endif

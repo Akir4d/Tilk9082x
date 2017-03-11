@@ -512,5 +512,5 @@ bool rtw_read_from_frame_mask(_adapter *adapter, u8 idx);
 void rtw_dump_priv_pattern(_adapter *adapter, u8 idx);
 void rtw_clean_pattern(_adapter *adapter);
 #endif /* CONFIG_WOWLAN */
-#endif  //__RTL871X_PWRCTRL_H_
+#endif  //__TTL902X_PWRCTRL_H_
 

@@ -21,7 +21,7 @@
 #define __RTW_EEPROM_H__
 
 
-#define	RTL8712_EEPROM_ID			0x8712
+#define	TTL9022_EEPROM_ID			0x8712
 //#define	EEPROM_MAX_SIZE			256
 
 #define	HWSET_MAX_SIZE_128		128
@@ -119,5 +119,5 @@ extern int retriveAdaptorInfoFile(char *path, u8 *efuse_data);
 #endif //CONFIG_ADAPTOR_INFO_CACHING_FILE
 #endif //PLATFORM_LINUX
 
-#endif  //__RTL871X_EEPROM_H__
+#endif  //__TTL902X_EEPROM_H__
 

@@ -1518,7 +1518,7 @@ _func_enter_;
 	
 	pcmd->cmdsz = sizeof(WLAN_BSSID_EX);
 
-#ifdef CONFIG_RTL8712
+#ifdef CONFIG_TTL9022
 	//wlan_network endian conversion	
 	psecnetwork->Length = cpu_to_le32(psecnetwork->Length);
 	psecnetwork->Ssid.SsidLength= cpu_to_le32(psecnetwork->Ssid.SsidLength);

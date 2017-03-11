@@ -11021,7 +11021,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 		}
 		chplan_ap.Len = i;
 
-#ifdef CONFIG_DEBUG_RTL871X
+#ifdef CONFIG_DEBUG_TTL902X
 		i = 0;
 		DBG_871X("%s: AP[%s] channel plan {", __FUNCTION__, bssid->Ssid.Ssid);
 		while ((i < chplan_ap.Len) && (chplan_ap.Channel[i] != 0))
@@ -11033,7 +11033,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 #endif
 
 		_rtw_memcpy(chplan_sta, pmlmeext->channel_set, sizeof(chplan_sta));
-#ifdef CONFIG_DEBUG_RTL871X
+#ifdef CONFIG_DEBUG_TTL902X
 		i = 0;
 		DBG_871X("%s: STA channel plan {", __FUNCTION__);
 		while ((i < MAX_CHANNEL_NUM) && (chplan_sta[i].ChannelNum != 0))
@@ -11193,7 +11193,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 
 		pmlmeext->update_channel_plan_by_ap_done = 1;
 
-#ifdef CONFIG_DEBUG_RTL871X
+#ifdef CONFIG_DEBUG_TTL902X
 		k = 0;
 		DBG_871X("%s: new STA channel plan {", __FUNCTION__);
 		while ((k < MAX_CHANNEL_NUM) && (chplan_new[k].ChannelNum != 0))

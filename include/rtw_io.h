@@ -569,5 +569,5 @@ extern void dev_power_down(_adapter * Adapter, u8 bpwrup);
 #define PlatformEFIORead4Byte(_a,_b)		\
 		rtw_read32(_a,_b)
 
-#endif	//_RTL8711_IO_H_
+#endif	//_TTL9021_IO_H_
 

@@ -230,7 +230,7 @@ endif
 ########### HAL_RTL8188E #################################
 ifeq ($(CONFIG_RTL8188E), y)
 
-RTL871X = rtl8188e
+TTL902X = rtl8188e
 ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 9082es
 endif
@@ -249,58 +249,58 @@ endif
 EXTRA_CFLAGS += -DCONFIG_RTL8188E
 
 _HAL_INTFS_FILES +=	hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8188EPwrSeq.o\
- 					hal/$(RTL871X)/$(RTL871X)_xmit.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8188EPwrSeq.o\
+ 					hal/$(TTL902X)/$(TTL902X)_xmit.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
 ifeq ($(CONFIG_GSPI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 endif
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8188E_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188E_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8188E_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188E_PCIE.o
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8188E_SDIO.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188E_SDIO.o
 endif
 
-#hal/OUTSRC/$(RTL871X)/Hal8188EFWImg_CE.o
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8188e_mac.o\
-		hal/phydm/$(RTL871X)/halhwimg8188e_bb.o\
-		hal/phydm/$(RTL871X)/halhwimg8188e_rf.o\
-		hal/phydm/$(RTL871X)/halhwimg8188e_t_fw.o\
-		hal/phydm/$(RTL871X)/halhwimg8188e_s_fw.o\
-		hal/phydm/$(RTL871X)/halphyrf_8188e_ce.o\
-		hal/phydm/$(RTL871X)/phydm_regconfig8188e.o\
-		hal/phydm/$(RTL871X)/hal8188erateadaptive.o\
-		hal/phydm/$(RTL871X)/phydm_rtl8188e.o
+#hal/OUTSRC/$(TTL902X)/Hal8188EFWImg_CE.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8188e_mac.o\
+		hal/phydm/$(TTL902X)/halhwimg8188e_bb.o\
+		hal/phydm/$(TTL902X)/halhwimg8188e_rf.o\
+		hal/phydm/$(TTL902X)/halhwimg8188e_t_fw.o\
+		hal/phydm/$(TTL902X)/halhwimg8188e_s_fw.o\
+		hal/phydm/$(TTL902X)/halphyrf_8188e_ce.o\
+		hal/phydm/$(TTL902X)/phydm_regconfig8188e.o\
+		hal/phydm/$(TTL902X)/hal8188erateadaptive.o\
+		hal/phydm/$(TTL902X)/phydm_rtl8188e.o
 
 endif
 
 ########### HAL_RTL8192E #################################
 ifeq ($(CONFIG_RTL8192E), y)
 
-RTL871X = rtl8192e
+TTL902X = rtl8192e
 ifeq ($(CONFIG_SDIO_HCI), y)
 MODULE_NAME = 8192es
 endif
@@ -314,46 +314,46 @@ MODULE_NAME = 8192ee
 endif
 EXTRA_CFLAGS += -DCONFIG_RTL8192E
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8192EPwrSeq.o\
-					hal/$(RTL871X)/$(RTL871X)_xmit.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8192EPwrSeq.o\
+					hal/$(TTL902X)/$(TTL902X)_xmit.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
 ifeq ($(CONFIG_GSPI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 endif
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8192E_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8192E_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8192E_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8192E_PCIE.o
 endif
 
-#hal/OUTSRC/$(RTL871X)/HalHWImg8188E_FW.o
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8192e_mac.o\
-		hal/phydm/$(RTL871X)/halhwimg8192e_bb.o\
-		hal/phydm/$(RTL871X)/halhwimg8192e_rf.o\
-		hal/phydm/$(RTL871X)/halhwimg8192e_fw.o\
-		hal/phydm/$(RTL871X)/halphyrf_8192e_ce.o\
-		hal/phydm/$(RTL871X)/phydm_regconfig8192e.o\
-		hal/phydm/$(RTL871X)/phydm_rtl8192e.o
+#hal/OUTSRC/$(TTL902X)/HalHWImg8188E_FW.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8192e_mac.o\
+		hal/phydm/$(TTL902X)/halhwimg8192e_bb.o\
+		hal/phydm/$(TTL902X)/halhwimg8192e_rf.o\
+		hal/phydm/$(TTL902X)/halhwimg8192e_fw.o\
+		hal/phydm/$(TTL902X)/halphyrf_8192e_ce.o\
+		hal/phydm/$(TTL902X)/phydm_regconfig8192e.o\
+		hal/phydm/$(TTL902X)/phydm_rtl8192e.o
 
 endif
 
@@ -361,7 +361,7 @@ endif
 
 ifneq ($(CONFIG_RTL8812A)_$(CONFIG_RTL8821A), n_n)
 
-RTL871X = rtl8812a
+TTL902X = rtl8812a
 ifeq ($(CONFIG_USB_HCI), y)
 MODULE_NAME = 8812au
 endif
@@ -373,65 +373,65 @@ MODULE_NAME = 8812as
 endif
 
 _HAL_INTFS_FILES +=  hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8812PwrSeq.o \
-					hal/$(RTL871X)/Hal8821APwrSeq.o\
-					hal/$(RTL871X)/$(RTL871X)_xmit.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8812PwrSeq.o \
+					hal/$(TTL902X)/Hal8821APwrSeq.o\
+					hal/$(TTL902X)/$(TTL902X)_xmit.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
 ifeq ($(CONFIG_GSPI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 endif
 endif
 
 ifeq ($(CONFIG_RTL8812A), y)
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8812A_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8812A_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8812A_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8812A_PCIE.o
 endif
 endif
 ifeq ($(CONFIG_RTL8821A), y)
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8821A_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8821A_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8821A_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8821A_PCIE.o
 endif
 endif
 
 ifeq ($(CONFIG_RTL8812A), y)
 EXTRA_CFLAGS += -DCONFIG_RTL8812A
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8812a_fw.o\
-		hal/phydm/$(RTL871X)/halhwimg8812a_mac.o\
-		hal/phydm/$(RTL871X)/halhwimg8812a_bb.o\
-		hal/phydm/$(RTL871X)/halhwimg8812a_rf.o\
-		hal/phydm/$(RTL871X)/halphyrf_8812a_ce.o\
-		hal/phydm/$(RTL871X)/phydm_regconfig8812a.o\
-		hal/phydm/$(RTL871X)/phydm_rtl8812a.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8812a_fw.o\
+		hal/phydm/$(TTL902X)/halhwimg8812a_mac.o\
+		hal/phydm/$(TTL902X)/halhwimg8812a_bb.o\
+		hal/phydm/$(TTL902X)/halhwimg8812a_rf.o\
+		hal/phydm/$(TTL902X)/halphyrf_8812a_ce.o\
+		hal/phydm/$(TTL902X)/phydm_regconfig8812a.o\
+		hal/phydm/$(TTL902X)/phydm_rtl8812a.o
 endif
 
 ifeq ($(CONFIG_RTL8821A), y)
 
 ifeq ($(CONFIG_RTL8812A), n)
 
-RTL871X = rtl8821a
+TTL902X = rtl8821a
 ifeq ($(CONFIG_USB_HCI), y)
 MODULE_NAME := 8821au
 endif
@@ -462,7 +462,7 @@ endif
 ########### HAL_RTL8723B #################################
 ifeq ($(CONFIG_RTL8723B), y)
 
-RTL871X = rtl8723b
+TTL902X = rtl8723b
 ifeq ($(CONFIG_USB_HCI), y)
 MODULE_NAME = 8723bu
 endif
@@ -476,51 +476,51 @@ endif
 EXTRA_CFLAGS += -DCONFIG_RTL8723B
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8723BPwrSeq.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8723BPwrSeq.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
 
 
 _HAL_INTFS_FILES +=	\
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8723B_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8723B_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8723B_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8723B_PCIE.o
 endif
 
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8723b_bb.o\
-								hal/phydm/$(RTL871X)/halhwimg8723b_mac.o\
-								hal/phydm/$(RTL871X)/halhwimg8723b_rf.o\
-								hal/phydm/$(RTL871X)/halhwimg8723b_fw.o\
-								hal/phydm/$(RTL871X)/halhwimg8723b_mp.o\
-								hal/phydm/$(RTL871X)/phydm_regconfig8723b.o\
-								hal/phydm/$(RTL871X)/halphyrf_8723b_ce.o\
-								hal/phydm/$(RTL871X)/phydm_rtl8723b.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8723b_bb.o\
+								hal/phydm/$(TTL902X)/halhwimg8723b_mac.o\
+								hal/phydm/$(TTL902X)/halhwimg8723b_rf.o\
+								hal/phydm/$(TTL902X)/halhwimg8723b_fw.o\
+								hal/phydm/$(TTL902X)/halhwimg8723b_mp.o\
+								hal/phydm/$(TTL902X)/phydm_regconfig8723b.o\
+								hal/phydm/$(TTL902X)/halphyrf_8723b_ce.o\
+								hal/phydm/$(TTL902X)/phydm_rtl8723b.o
 
 endif
 
 ########### HAL_RTL8814A #################################
 ifeq ($(CONFIG_RTL8814A), y)
 
-RTL871X = rtl8814a
+TTL902X = rtl8814a
 ifeq ($(CONFIG_USB_HCI), y)
 MODULE_NAME = 8814au
 endif
@@ -534,49 +534,49 @@ endif
 EXTRA_CFLAGS += -DCONFIG_RTL8814A
 
 _HAL_INTFS_FILES +=  hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8814PwrSeq.o \
-					hal/$(RTL871X)/$(RTL871X)_xmit.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8814PwrSeq.o \
+					hal/$(TTL902X)/$(TTL902X)_xmit.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
 
 
 _HAL_INTFS_FILES +=	\
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
 ifeq ($(CONFIG_GSPI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 endif
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8814A_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8814A_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8814A_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8814A_PCIE.o
 endif
 
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8814a_bb.o\
-								hal/phydm/$(RTL871X)/halhwimg8814a_mac.o\
-								hal/phydm/$(RTL871X)/halhwimg8814a_rf.o\
-								hal/phydm/$(RTL871X)/halhwimg8814a_fw.o\
-								hal/phydm/$(RTL871X)/phydm_iqk_8814a.o\
-								hal/phydm/$(RTL871X)/phydm_regconfig8814a.o\
-								hal/phydm/$(RTL871X)/halphyrf_8814a_ce.o\
-								hal/phydm/$(RTL871X)/phydm_rtl8814a.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8814a_bb.o\
+								hal/phydm/$(TTL902X)/halhwimg8814a_mac.o\
+								hal/phydm/$(TTL902X)/halhwimg8814a_rf.o\
+								hal/phydm/$(TTL902X)/halhwimg8814a_fw.o\
+								hal/phydm/$(TTL902X)/phydm_iqk_8814a.o\
+								hal/phydm/$(TTL902X)/phydm_regconfig8814a.o\
+								hal/phydm/$(TTL902X)/halphyrf_8814a_ce.o\
+								hal/phydm/$(TTL902X)/phydm_rtl8814a.o
 
 endif
 
@@ -584,7 +584,7 @@ endif
 ########### HAL_RTL8703B #################################
 ifeq ($(CONFIG_RTL8703B), y)
 
-RTL871X = rtl8703b
+TTL902X = rtl8703b
 ifeq ($(CONFIG_USB_HCI), y)
 MODULE_NAME = 8703bu
 endif
@@ -598,48 +598,48 @@ endif
 EXTRA_CFLAGS += -DCONFIG_RTL8703B
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8703BPwrSeq.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8703BPwrSeq.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
 
 
 _HAL_INTFS_FILES +=	\
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8703B_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8703B_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8703B_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8703B_PCIE.o
 endif
 
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8703b_bb.o\
-								hal/phydm/$(RTL871X)/halhwimg8703b_mac.o\
-								hal/phydm/$(RTL871X)/halhwimg8703b_rf.o\
-								hal/phydm/$(RTL871X)/halhwimg8703b_fw.o\
-								hal/phydm/$(RTL871X)/phydm_regconfig8703b.o\
-								hal/phydm/$(RTL871X)/halphyrf_8703b.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8703b_bb.o\
+								hal/phydm/$(TTL902X)/halhwimg8703b_mac.o\
+								hal/phydm/$(TTL902X)/halhwimg8703b_rf.o\
+								hal/phydm/$(TTL902X)/halhwimg8703b_fw.o\
+								hal/phydm/$(TTL902X)/phydm_regconfig8703b.o\
+								hal/phydm/$(TTL902X)/halphyrf_8703b.o
 endif
 
 ########### HAL_RTL8188F #################################
 ifeq ($(CONFIG_RTL8188F), y)
 
-RTL871X = rtl8188f
+TTL902X = rtl8188f
 ifeq ($(CONFIG_USB_HCI), y)
 MODULE_NAME = 8188fu
 endif
@@ -653,44 +653,44 @@ endif
 EXTRA_CFLAGS += -DCONFIG_RTL8188F
 
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
-					hal/$(RTL871X)/Hal8188FPwrSeq.o\
-					hal/$(RTL871X)/$(RTL871X)_sreset.o
+					hal/$(TTL902X)/Hal8188FPwrSeq.o\
+					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
-_HAL_INTFS_FILES +=	hal/$(RTL871X)/$(RTL871X)_hal_init.o \
-			hal/$(RTL871X)/$(RTL871X)_phycfg.o \
-			hal/$(RTL871X)/$(RTL871X)_rf6052.o \
-			hal/$(RTL871X)/$(RTL871X)_dm.o \
-			hal/$(RTL871X)/$(RTL871X)_rxdesc.o \
-			hal/$(RTL871X)/$(RTL871X)_cmd.o \
+_HAL_INTFS_FILES +=	hal/$(TTL902X)/$(TTL902X)_hal_init.o \
+			hal/$(TTL902X)/$(TTL902X)_phycfg.o \
+			hal/$(TTL902X)/$(TTL902X)_rf6052.o \
+			hal/$(TTL902X)/$(TTL902X)_dm.o \
+			hal/$(TTL902X)/$(TTL902X)_rxdesc.o \
+			hal/$(TTL902X)/$(TTL902X)_cmd.o \
 
 
 _HAL_INTFS_FILES +=	\
-			hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
-			hal/$(RTL871X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
+			hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_halinit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_led.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_xmit.o \
+			hal/$(TTL902X)/$(HCI_NAME)/rtl$(MODULE_NAME)_recv.o
 
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops_linux.o
 else
-_HAL_INTFS_FILES += hal/$(RTL871X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
+_HAL_INTFS_FILES += hal/$(TTL902X)/$(HCI_NAME)/$(HCI_NAME)_ops.o
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8188F_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188F_USB.o
 endif
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(RTL871X)/HalEfuseMask8188F_SDIO.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8188F_SDIO.o
 endif
 
-_OUTSRC_FILES += hal/phydm/$(RTL871X)/halhwimg8188f_bb.o\
-								hal/phydm/$(RTL871X)/halhwimg8188f_mac.o\
-								hal/phydm/$(RTL871X)/halhwimg8188f_rf.o\
-								hal/phydm/$(RTL871X)/halhwimg8188f_fw.o\
-								hal/phydm/$(RTL871X)/phydm_regconfig8188f.o\
-								hal/phydm/$(RTL871X)/halphyrf_8188f.o \
-								hal/phydm/$(RTL871X)/phydm_rtl8188f.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8188f_bb.o\
+								hal/phydm/$(TTL902X)/halhwimg8188f_mac.o\
+								hal/phydm/$(TTL902X)/halhwimg8188f_rf.o\
+								hal/phydm/$(TTL902X)/halhwimg8188f_fw.o\
+								hal/phydm/$(TTL902X)/phydm_regconfig8188f.o\
+								hal/phydm/$(TTL902X)/halphyrf_8188f.o \
+								hal/phydm/$(TTL902X)/phydm_rtl8188f.o
 
 endif
 
@@ -706,7 +706,7 @@ $(shell cp $(TopDIR)/autoconf_rtl9082e_$(HCI_NAME)_linux.h $(TopDIR)/include/aut
 else ifeq ($(CONFIG_RTL8188F)$(CONFIG_SDIO_HCI),yy)
 $(shell cp $(TopDIR)/autoconf_rtl9082f_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
-$(shell cp $(TopDIR)/autoconf_$(RTL871X)_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
+$(shell cp $(TopDIR)/autoconf_$(TTL902X)_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 endif
 endif
 
@@ -1484,7 +1484,7 @@ endif
 EXTRA_CFLAGS += -DCONFIG_PLATFORM_SPRD
 EXTRA_CFLAGS += -DPLATFORM_SPREADTRUM_6820
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
-ifeq ($(RTL871X), rtl8188e)
+ifeq ($(TTL902X), rtl8188e)
 EXTRA_CFLAGS += -DSOFTAP_PS_DURATION=50
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)
@@ -1500,7 +1500,7 @@ endif
 EXTRA_CFLAGS += -DCONFIG_PLATFORM_SPRD
 EXTRA_CFLAGS += -DPLATFORM_SPREADTRUM_8810
 EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN
-ifeq ($(RTL871X), rtl8188e)
+ifeq ($(TTL902X), rtl8188e)
 EXTRA_CFLAGS += -DSOFTAP_PS_DURATION=50
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)

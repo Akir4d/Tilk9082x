@@ -1434,7 +1434,7 @@ _func_enter_;
 
 //	RT_TRACE(0xffffffffff,_drv_alert_,("===> oid_rt_pro_cfg_debug_message_hdl.\n"));
 
-#if 0//#ifdef CONFIG_DEBUG_RTL871X
+#if 0//#ifdef CONFIG_DEBUG_TTL902X
 
 	pdbg_msg = (PCFG_DBG_MSG_STRUCT)(poid_par_priv->information_buf);
 
@@ -2894,7 +2894,7 @@ _func_enter_;
 	bpwrup = *(u8 *)poid_par_priv->information_buf;
 	//CALL  the power_down function
 #ifdef PLATFORM_LINUX
-#if defined(CONFIG_RTL8712) //Linux MP insmod unknown symbol
+#if defined(CONFIG_TTL9022) //Linux MP insmod unknown symbol
 	dev_power_down(padapter,bpwrup); 
 #endif
 #endif

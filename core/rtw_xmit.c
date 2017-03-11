@@ -3289,7 +3289,7 @@ __inline static struct tx_servq *rtw_get_sta_pending
 	
 _func_enter_;	
 
-#ifdef CONFIG_RTL8711
+#ifdef CONFIG_TTL9021
 
 	if(IS_MCAST(psta->hwaddr))
 	{

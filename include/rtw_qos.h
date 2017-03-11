@@ -31,5 +31,5 @@ struct	qos_priv	{
 };
 
 
-#endif	//_RTL871X_QOS_H_
+#endif	//_TTL902X_QOS_H_
 

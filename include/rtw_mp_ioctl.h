@@ -397,7 +397,7 @@ struct oid_obj_priv oid_rtl_seg_87_12_00[]=
 	{1, &oid_rt_get_power_mode_hdl}			//0x15	Q	OID_RT_GET_POWER_MODE
 };
 
-#else /* _RTL871X_MP_IOCTL_C_ */
+#else /* _TTL902X_MP_IOCTL_C_ */
 
 extern struct oid_obj_priv oid_rtl_seg_81_80_00[32];
 extern struct oid_obj_priv oid_rtl_seg_81_80_20[16];
@@ -416,7 +416,7 @@ extern struct oid_obj_priv oid_rtl_seg_87_11_F0[16];
 
 extern struct oid_obj_priv oid_rtl_seg_87_12_00[32];
 
-#endif /* _RTL871X_MP_IOCTL_C_ */
+#endif /* _TTL902X_MP_IOCTL_C_ */
 
 struct rwreg_param{
 	u32 offset;
@@ -487,7 +487,7 @@ struct mp_ioctl_param{
 
 #define GEN_MP_IOCTL_SUBCODE(code) _MP_IOCTL_ ## code ## _CMD_
 
-enum RTL871X_MP_IOCTL_SUBCODE {
+enum TTL902X_MP_IOCTL_SUBCODE {
 	GEN_MP_IOCTL_SUBCODE(MP_START),			/*0*/
 	GEN_MP_IOCTL_SUBCODE(MP_STOP),
 	GEN_MP_IOCTL_SUBCODE(READ_REG),

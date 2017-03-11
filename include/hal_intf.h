@@ -21,7 +21,7 @@
 #define __HAL_INTF_H__
 
 
-enum RTL871X_HCI_TYPE {
+enum TTL902X_HCI_TYPE {
 	RTW_PCIE	= BIT0,
 	RTW_USB 	= BIT1,
 	RTW_SDIO 	= BIT2,

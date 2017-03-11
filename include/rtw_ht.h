@@ -212,5 +212,5 @@ typedef enum _RT_HT_INF1_CAP{
 #define SET_HT_OP_ELE_PCO_ACTIVE(_pEleStart, _val)			SET_BITS_TO_LE_1BYTE(((u8 *)(_pEleStart)) + 5, 2, 1, _val)
 #define SET_HT_OP_ELE_PCO_PHASE(_pEleStart, _val)			SET_BITS_TO_LE_1BYTE(((u8 *)(_pEleStart)) + 5, 3, 1, _val)
 
-#endif	//_RTL871X_HT_H_
+#endif	//_TTL902X_HT_H_
 

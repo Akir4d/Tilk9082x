@@ -24,7 +24,7 @@
 
 u32 GlobalDebugLevel = _drv_err_;
 
-#ifdef CONFIG_DEBUG_RTL871X
+#ifdef CONFIG_DEBUG_TTL902X
 
 	u64 GlobalDebugComponents = \
 			_module_rtl871x_xmit_c_ |
@@ -57,7 +57,7 @@ u32 GlobalDebugLevel = _drv_err_;
 			_module_mp_ |
 			_module_efuse_;
 
-#endif /* CONFIG_DEBUG_RTL871X */
+#endif /* CONFIG_DEBUG_TTL902X */
 
 #include <rtw_version.h>
 

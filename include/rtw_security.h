@@ -486,5 +486,5 @@ u8 rtw_handle_tkip_countermeasure(_adapter* adapter, const char *caller);
 u16 rtw_calc_crc(u8  *pdata, int length);
 #endif /*CONFIG_WOWLAN*/
 
-#endif	//__RTL871X_SECURITY_H_
+#endif	//__TTL902X_SECURITY_H_
 

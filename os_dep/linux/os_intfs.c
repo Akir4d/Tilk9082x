@@ -37,7 +37,7 @@ MODULE_VERSION(DRIVERVERSION);
 /* module param defaults */
 int rtw_chip_version = 0x00;
 int rtw_rfintfs = HWPI;
-int rtw_lbkmode = 0;//RTL8712_AIR_TRX;
+int rtw_lbkmode = 0;//TTL9022_AIR_TRX;
 
 
 int rtw_network_mode = Ndis802_11IBSS;//Ndis802_11Infrastructure;//infra, ad-hoc, auto

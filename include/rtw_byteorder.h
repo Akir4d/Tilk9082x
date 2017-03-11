@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTL871X_BYTEORDER_H_
-#define _RTL871X_BYTEORDER_H_
+#ifndef _TTL902X_BYTEORDER_H_
+#define _TTL902X_BYTEORDER_H_
 
 
 #if defined (CONFIG_LITTLE_ENDIAN) && defined (CONFIG_BIG_ENDIAN)
@@ -35,5 +35,5 @@
 #  error "Must be LITTLE/BIG Endian Host"
 #endif
 
-#endif /* _RTL871X_BYTEORDER_H_ */
+#endif /* _TTL902X_BYTEORDER_H_ */
 

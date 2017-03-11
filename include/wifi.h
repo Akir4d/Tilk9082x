@@ -758,7 +758,7 @@ typedef	enum _ELEMENT_ID{
  * This structure refers to "HT BlockAckReq" as
  * described in 802.11n draft section 7.2.1.7.1
  */
- #if defined(PLATFORM_LINUX) || defined(CONFIG_RTL8712FW)
+ #if defined(PLATFORM_LINUX) || defined(CONFIG_TTL9022FW)
 struct rtw_ieee80211_bar {
 	unsigned short frame_control;
 	unsigned short duration;
@@ -774,7 +774,7 @@ struct rtw_ieee80211_bar {
 #define IEEE80211_BAR_CTRL_CBMTID_COMPRESSED_BA  0x0004
 
 
- #if defined(PLATFORM_LINUX) || defined(CONFIG_RTL8712FW) || defined(PLATFORM_FREEBSD)
+ #if defined(PLATFORM_LINUX) || defined(CONFIG_TTL9022FW) || defined(PLATFORM_FREEBSD)
 
 
 

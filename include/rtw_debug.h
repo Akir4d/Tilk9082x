@@ -103,13 +103,13 @@
 	#define	_MODULE_DEFINE_	_module_hal_init_c_
 #elif (defined _HCI_HAL_INIT_C_) || (defined _SDIO_HALINIT_C_)
 	#define	_MODULE_DEFINE_	_module_hci_hal_init_c_
-#elif defined _RTL871X_IOCTL_C_
+#elif defined _TTL902X_IOCTL_C_
 	#define	_MODULE_DEFINE_	_module_rtl871x_ioctl_c_
-#elif defined _RTL871X_IOCTL_SET_C_
+#elif defined _TTL902X_IOCTL_SET_C_
 	#define	_MODULE_DEFINE_	_module_rtl871x_ioctl_set_c_
-#elif defined _RTL871X_IOCTL_QUERY_C_
+#elif defined _TTL902X_IOCTL_QUERY_C_
 	#define	_MODULE_DEFINE_	_module_rtl871x_ioctl_query_c_
-#elif defined _RTL871X_PWRCTRL_C_
+#elif defined _TTL902X_PWRCTRL_C_
 	#define	_MODULE_DEFINE_	_module_rtl871x_pwrctrl_c_
 #elif defined _RTW_PWRCTRL_C_
 	#define	_MODULE_DEFINE_	1
@@ -125,19 +125,19 @@
 	#define	_MODULE_DEFINE_	_module_osdep_service_c_
 #elif defined _HCI_OPS_OS_C_
 	#define	_MODULE_DEFINE_	_module_hci_ops_os_c_
-#elif defined _RTL871X_IOCTL_LINUX_C_
+#elif defined _TTL902X_IOCTL_LINUX_C_
 	#define	_MODULE_DEFINE_	_module_rtl871x_ioctl_os_c
-#elif defined _RTL8712_CMD_C_
+#elif defined _TTL9022_CMD_C_
 	#define	_MODULE_DEFINE_	_module_rtl8712_cmd_c_
 #elif defined _RTL8192C_XMIT_C_
 	#define	_MODULE_DEFINE_	1
 #elif defined _RTL8723AS_XMIT_C_
 	#define	_MODULE_DEFINE_	1
-#elif defined _RTL8712_RECV_C_
+#elif defined _TTL9022_RECV_C_
 	#define	_MODULE_DEFINE_	_module_rtl8712_recv_c_
 #elif defined _RTL8192CU_RECV_C_
 	#define	_MODULE_DEFINE_	_module_rtl8712_recv_c_
-#elif defined _RTL871X_MLME_EXT_C_
+#elif defined _TTL902X_MLME_EXT_C_
 	#define _MODULE_DEFINE_	_module_mlme_osdep_c_
 #elif defined _RTW_MP_C_
 	#define	_MODULE_DEFINE_	_module_mp_
@@ -171,7 +171,7 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 #undef _dbgdump
 #undef _seqdump
 
-#ifndef _RTL871X_DEBUG_C_
+#ifndef _TTL902X_DEBUG_C_
 	extern u32 GlobalDebugLevel;
 	extern u64 GlobalDebugComponents;
 #endif
@@ -190,7 +190,7 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 	#define _seqdump(sel, fmt, arg...) _dbgdump(fmt, ##arg)
 #endif
 
-#define DRIVER_PREFIX "RTL871X: "
+#define DRIVER_PREFIX "TTL902X: "
 
 #if defined(_dbgdump)
 
@@ -266,7 +266,7 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 #endif /* defined(_dbgdump) */
 #endif /* CONFIG_DEBUG */
 
-#ifdef CONFIG_DEBUG_RTL871X
+#ifdef CONFIG_DEBUG_TTL902X
 
 #if	defined(_dbgdump) && defined(_MODULE_DEFINE_)
 
@@ -317,7 +317,7 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 			_dbgdump("\n");							\
 		}
 #endif /* defined(_dbgdump) */
-#endif /* CONFIG_DEBUG_RTL871X */
+#endif /* CONFIG_DEBUG_TTL902X */
 
 #ifdef CONFIG_DBG_COUNTER
 #define DBG_COUNTER(counter) counter++
