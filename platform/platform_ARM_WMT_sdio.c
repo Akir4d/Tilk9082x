@@ -36,7 +36,7 @@ int platform_wifi_power_on(void)
 	printk("power on rtl9082.\n");
 	msleep(500);
 	wmt_detect_sdio2();
-	printk("[rtl9082es] %s: new card, power on.\n", __FUNCTION__);
+	printk("[ttl9082xs] %s: new card, power on.\n", __FUNCTION__);
 	return err;
 }
 
@@ -47,5 +47,5 @@ void platform_wifi_power_off(void)
 	gpio_direction_output(WMT_PIN_GP62_SUSGPIO1, 1);//pull sus_gpio1 to 1 to close vcc_wifi.
 	printk("power off rtl9082.\n");
 	gpio_free(WMT_PIN_GP62_SUSGPIO1);
-	printk("[rtl9082es] %s: remove card, power off.\n", __FUNCTION__);
+	printk("[ttl9082xs] %s: remove card, power off.\n", __FUNCTION__);
 }

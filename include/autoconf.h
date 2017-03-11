@@ -30,7 +30,7 @@
 
 #define AUTOCONF_INCLUDED
 #define TTL902X_MODULE_NAME "9082ES"
-#define DRV_NAME "rtl9082es"
+#define DRV_NAME "ttl9082xs"
 
 #ifndef EFUSE_MAP_PATH
 	#define EFUSE_MAP_PATH "/system/etc/wifi/wifi_efuse_9082e.map"
