@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_AP_H_
-#define __RTW_AP_H_
+#ifndef __TLW_AP_H_
+#define __TLW_AP_H_
 
 
 #ifdef CONFIG_AP_MODE

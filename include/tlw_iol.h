@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_IOL_H_
-#define __RTW_IOL_H_
+#ifndef __TLW_IOL_H_
+#define __TLW_IOL_H_
 
 
 struct xmit_frame	*tlw_IOL_accquire_xmit_frame(ADAPTER *adapter);
@@ -133,5 +133,5 @@ int dbg_tlw_IOL_append_WD_cmd(struct xmit_frame *xmit_frame, u16 addr, u32 value
 
 
 
-#endif //__RTW_IOL_H_
+#endif //__TLW_IOL_H_
 

@@ -836,7 +836,7 @@ static s32 polling_fwdl_chksum(_adapter *adapter, u32 min_cnt, u32 timeout_ms)
 	do {
 		cnt++;
 		value32 = tlw_read32(adapter, REG_MCUFWDL);
-		if (value32 & FWDL_ChkSum_rpt || RTW_CANNOT_RUN(adapter))
+		if (value32 & FWDL_ChkSum_rpt || TLW_CANNOT_RUN(adapter))
 			break;
 		tlw_yield_os();
 	} while (tlw_get_passing_time_ms(start) < timeout_ms || cnt < min_cnt);
@@ -875,7 +875,7 @@ static s32 _FWFreeToGo(_adapter *adapter, u32 min_cnt, u32 timeout_ms)
 	do {
 		cnt++;
 		value32 = tlw_read32(adapter, REG_MCUFWDL);
-		if (value32 & WINTINI_RDY || RTW_CANNOT_RUN(adapter))
+		if (value32 & WINTINI_RDY || TLW_CANNOT_RUN(adapter))
 			break;
 		tlw_yield_os();
 	} while (tlw_get_passing_time_ms(start) < timeout_ms || cnt < min_cnt);
@@ -1058,7 +1058,7 @@ s32 ttl9083e_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw)
 
 	_FWDownloadEnable_9083E(padapter, _TRUE);
 	fwdl_start_time = tlw_get_current_time();
-	while (!RTW_CANNOT_RUN(padapter)
+	while (!TLW_CANNOT_RUN(padapter)
 			&& (write_fw++ < 3 || tlw_get_passing_time_ms(fwdl_start_time) < 500))
 	{
 		/* reset FWDL chksum */
@@ -2760,7 +2760,7 @@ void ttl9083e_start_thread(_adapter *padapter)
 #ifndef CONFIG_SDIO_TX_TASKLET
 	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
 
-	xmitpriv->SdioXmitThread = kthread_run(ttl9083es_xmit_thread, padapter, "RTWHALXT");
+	xmitpriv->SdioXmitThread = kthread_run(ttl9083es_xmit_thread, padapter, "TLWHALXT");
 	if (IS_ERR(xmitpriv->SdioXmitThread))
 	{
 		RT_TRACE(_module_hal_xmit_c_, _drv_err_, ("%s: start ttl9083es_xmit_thread FAIL!!\n", __FUNCTION__));
@@ -5126,7 +5126,7 @@ _func_enter_;
 				tlw_write16(adapter, REG_RL, val16);
 
 				while (tlw_get_passing_time_ms(start) < 2000
-					&& !RTW_CANNOT_RUN(adapter)
+					&& !TLW_CANNOT_RUN(adapter)
 				) {
 					reg_200 = tlw_read32(adapter, 0x200);
 					reg_204 = tlw_read32(adapter, 0x204);
@@ -5147,7 +5147,7 @@ _func_enter_;
 
 				pass_ms = tlw_get_passing_time_ms(start);
 
-				if (RTW_CANNOT_RUN(adapter))
+				if (TLW_CANNOT_RUN(adapter))
 					;
 				else if (pass_ms >= 2000 || (reg_200 & 0x00ffffff) != (reg_204 & 0x00ffffff)) {
 					DBG_871X_LEVEL(_drv_always_, "%s:(HW_VAR_CHECK_TXBUF)NOT empty(%d) in %d ms\n", __FUNCTION__, i, pass_ms);

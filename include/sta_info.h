@@ -142,9 +142,9 @@ struct sta_info {
 	union Keytype	dot118021x_UncstKey;	
 	union pn48		dot11txpn;			// PN48 used for Unicast xmit
 #ifdef CONFIG_GTK_OL
-	u8 kek[RTW_KEK_LEN];
-	u8 kck[RTW_KCK_LEN];
-	u8 replay_ctr[RTW_REPLAY_CTR_LEN];
+	u8 kek[TLW_KEK_LEN];
+	u8 kck[TLW_KCK_LEN];
+	u8 replay_ctr[TLW_REPLAY_CTR_LEN];
 #endif //CONFIG_GTK_OL
 #ifdef CONFIG_IEEE80211W
 	union pn48		dot11wtxpn;			// PN48 used for Unicast mgmt xmit.

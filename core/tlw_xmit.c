@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_XMIT_C_
+#define _TLW_XMIT_C_
 
 #include <drv_types.h>
 
@@ -2361,11 +2361,11 @@ _func_enter_;
 			//DBG_871X("%s, action frame category=%d \n", __func__, pframe[WLAN_HDR_A3_LEN]);
 			//according 802.11-2012 standard, these five types are not robust types
 			if(subtype == WIFI_ACTION && 
-			(pframe[WLAN_HDR_A3_LEN] == RTW_WLAN_CATEGORY_PUBLIC ||
-			pframe[WLAN_HDR_A3_LEN] == RTW_WLAN_CATEGORY_HT ||
-			pframe[WLAN_HDR_A3_LEN] == RTW_WLAN_CATEGORY_UNPROTECTED_WNM ||
-			pframe[WLAN_HDR_A3_LEN] == RTW_WLAN_CATEGORY_SELF_PROTECTED  ||
-			pframe[WLAN_HDR_A3_LEN] == RTW_WLAN_CATEGORY_P2P))
+			(pframe[WLAN_HDR_A3_LEN] == TLW_WLAN_CATEGORY_PUBLIC ||
+			pframe[WLAN_HDR_A3_LEN] == TLW_WLAN_CATEGORY_HT ||
+			pframe[WLAN_HDR_A3_LEN] == TLW_WLAN_CATEGORY_UNPROTECTED_WNM ||
+			pframe[WLAN_HDR_A3_LEN] == TLW_WLAN_CATEGORY_SELF_PROTECTED  ||
+			pframe[WLAN_HDR_A3_LEN] == TLW_WLAN_CATEGORY_P2P))
 				goto xmitframe_coalesce_fail;
 			//before encrypt dump the management packet content
 			/*{
@@ -2612,7 +2612,7 @@ _func_enter_;
 
 		if (pxmitbuf->sctx) {
 			DBG_871X("%s pxmitbuf->sctx is not NULL\n", __func__);
-			tlw_sctx_done_err(&pxmitbuf->sctx, RTW_SCTX_DONE_BUF_ALLOC);
+			tlw_sctx_done_err(&pxmitbuf->sctx, TLW_SCTX_DONE_BUF_ALLOC);
 		}
 	} else {
 		DBG_871X("%s fail, no xmitbuf available !!!\n", __func__);
@@ -2701,7 +2701,7 @@ _func_enter_;
 
 		if (pxmitbuf->sctx) {
 			DBG_871X("%s pxmitbuf->sctx is not NULL\n", __func__);
-			tlw_sctx_done_err(&pxmitbuf->sctx, RTW_SCTX_DONE_BUF_ALLOC);
+			tlw_sctx_done_err(&pxmitbuf->sctx, TLW_SCTX_DONE_BUF_ALLOC);
 		}
 
 	}
@@ -2791,7 +2791,7 @@ _func_enter_;
 
 		if (pxmitbuf->sctx) {
 			DBG_871X("%s pxmitbuf->sctx is not NULL\n", __func__);
-			tlw_sctx_done_err(&pxmitbuf->sctx, RTW_SCTX_DONE_BUF_ALLOC);
+			tlw_sctx_done_err(&pxmitbuf->sctx, TLW_SCTX_DONE_BUF_ALLOC);
 		}
 	}
 	#ifdef DBG_XMIT_BUF
@@ -2824,7 +2824,7 @@ _func_enter_;
 
 	if (pxmitbuf->sctx) {
 		DBG_871X("%s pxmitbuf->sctx is not NULL\n", __func__);
-		tlw_sctx_done_err(&pxmitbuf->sctx, RTW_SCTX_DONE_BUF_FREE);
+		tlw_sctx_done_err(&pxmitbuf->sctx, TLW_SCTX_DONE_BUF_FREE);
 	}
 
 	if(pxmitbuf->buf_tag == XMITBUF_CMD) {
@@ -3937,9 +3937,9 @@ sint xmitframe_enqueue_for_tdls_sleeping_sta(_adapter *padapter, struct xmit_fra
 }
 #endif //CONFIG_TDLS
 
-#define RTW_HIQ_FILTER_ALLOW_ALL 0
-#define RTW_HIQ_FILTER_ALLOW_SPECIAL 1
-#define RTW_HIQ_FILTER_DENY_ALL 2
+#define TLW_HIQ_FILTER_ALLOW_ALL 0
+#define TLW_HIQ_FILTER_ALLOW_SPECIAL 1
+#define TLW_HIQ_FILTER_DENY_ALL 2
 
 inline bool xmitframe_hiq_filter(struct xmit_frame *xmitframe)
 {
@@ -3947,11 +3947,11 @@ inline bool xmitframe_hiq_filter(struct xmit_frame *xmitframe)
 	_adapter *adapter = xmitframe->padapter;
 	struct registry_priv *registry = &adapter->registrypriv;
 
-if (tlw_get_intf_type(adapter) != RTW_PCIE) {
+if (tlw_get_intf_type(adapter) != TLW_PCIE) {
 
 	if (adapter->registrypriv.wifi_spec == 1) {
 		allow = _TRUE;
-	} else if (registry->hiq_filter == RTW_HIQ_FILTER_ALLOW_SPECIAL) {
+	} else if (registry->hiq_filter == TLW_HIQ_FILTER_ALLOW_SPECIAL) {
 	
 		struct pkt_attrib *attrib = &xmitframe->attrib;
 
@@ -3968,10 +3968,10 @@ if (tlw_get_intf_type(adapter) != RTW_PCIE) {
 			allow = _TRUE;
 		}
 	}
-	else if (registry->hiq_filter == RTW_HIQ_FILTER_ALLOW_ALL) {
+	else if (registry->hiq_filter == TLW_HIQ_FILTER_ALLOW_ALL) {
 		allow = _TRUE;
 	}
-	else if (registry->hiq_filter == RTW_HIQ_FILTER_DENY_ALL) {
+	else if (registry->hiq_filter == TLW_HIQ_FILTER_DENY_ALL) {
 	}
 	else {
 		tlw_warn_on(1);
@@ -4723,7 +4723,7 @@ thread_return tlw_xmit_thread(thread_context context)
 	err = _SUCCESS;
 	padapter = (PADAPTER)context;
 
-	thread_enter("RTW_XMIT_THREAD");
+	thread_enter("TLW_XMIT_THREAD");
 
 	do {
 		err = tlw_hal_xmit_thread_handler(padapter);
@@ -4776,7 +4776,7 @@ void tlw_sctx_init(struct submit_ctx *sctx, int timeout_ms)
 #ifdef PLATFORM_LINUX /* TODO: add condition wating interface for other os */
 	init_completion(&sctx->done);
 #endif
-	sctx->status = RTW_SCTX_SUBMITTED;
+	sctx->status = TLW_SCTX_SUBMITTED;
 }
 
 int tlw_sctx_wait(struct submit_ctx *sctx, const char *msg)
@@ -4789,14 +4789,14 @@ int tlw_sctx_wait(struct submit_ctx *sctx, const char *msg)
 	expire= sctx->timeout_ms ? msecs_to_jiffies(sctx->timeout_ms) : MAX_SCHEDULE_TIMEOUT;
 	if (!wait_for_completion_timeout(&sctx->done, expire)) {
 		/* timeout, do something?? */
-		status = RTW_SCTX_DONE_TIMEOUT;
+		status = TLW_SCTX_DONE_TIMEOUT;
 		DBG_871X("%s timeout: %s\n", __func__, msg);
 	} else {
 		status = sctx->status;
 	}
 #endif
 
-	if (status == RTW_SCTX_DONE_SUCCESS) {
+	if (status == TLW_SCTX_DONE_SUCCESS) {
 		ret = _SUCCESS;
 	}
 
@@ -4806,12 +4806,12 @@ int tlw_sctx_wait(struct submit_ctx *sctx, const char *msg)
 bool tlw_sctx_chk_waring_status(int status)
 {
 	switch(status) {
-	case RTW_SCTX_DONE_UNKNOWN:
-	case RTW_SCTX_DONE_BUF_ALLOC:
-	case RTW_SCTX_DONE_BUF_FREE:
+	case TLW_SCTX_DONE_UNKNOWN:
+	case TLW_SCTX_DONE_BUF_ALLOC:
+	case TLW_SCTX_DONE_BUF_FREE:
 
-	case RTW_SCTX_DONE_DRV_STOP:
-	case RTW_SCTX_DONE_DEV_REMOVE:
+	case TLW_SCTX_DONE_DRV_STOP:
+	case TLW_SCTX_DONE_DEV_REMOVE:
 		return _TRUE;
 	default:
 		return _FALSE;
@@ -4833,7 +4833,7 @@ void tlw_sctx_done_err(struct submit_ctx **sctx, int status)
 
 void tlw_sctx_done(struct submit_ctx **sctx)
 {
-	tlw_sctx_done_err(sctx, RTW_SCTX_DONE_SUCCESS);
+	tlw_sctx_done_err(sctx, TLW_SCTX_DONE_SUCCESS);
 }
 
 #ifdef CONFIG_XMIT_ACK
@@ -4858,31 +4858,31 @@ int tlw_ack_tx_polling(struct xmit_priv *pxmitpriv, u32 timeout_ms)
 
 	pack_tx_ops->submit_time = tlw_get_current_time();
 	pack_tx_ops->timeout_ms = timeout_ms;
-	pack_tx_ops->status = RTW_SCTX_SUBMITTED;
+	pack_tx_ops->status = TLW_SCTX_SUBMITTED;
 
 	do {
 		c2h_evt_hdl(adapter, NULL, tlw_hal_c2h_id_filter_ccx(adapter));
-		if (pack_tx_ops->status != RTW_SCTX_SUBMITTED)
+		if (pack_tx_ops->status != TLW_SCTX_SUBMITTED)
 			break;
 
 		if (tlw_is_drv_stopped(adapter)) {
-			pack_tx_ops->status = RTW_SCTX_DONE_DRV_STOP;
+			pack_tx_ops->status = TLW_SCTX_DONE_DRV_STOP;
 			break;
 		}
 		if (tlw_is_surprise_removed(adapter)) {
-			pack_tx_ops->status = RTW_SCTX_DONE_DEV_REMOVE;
+			pack_tx_ops->status = TLW_SCTX_DONE_DEV_REMOVE;
 			break;
 		}
 		
 		tlw_msleep_os(10);
 	} while (tlw_get_passing_time_ms(pack_tx_ops->submit_time) < timeout_ms);
 
-	if (pack_tx_ops->status == RTW_SCTX_SUBMITTED) {
-		pack_tx_ops->status = RTW_SCTX_DONE_TIMEOUT;
+	if (pack_tx_ops->status == TLW_SCTX_SUBMITTED) {
+		pack_tx_ops->status = TLW_SCTX_DONE_TIMEOUT;
 		DBG_871X("%s timeout\n", __func__);
 	}
 
-	if (pack_tx_ops->status == RTW_SCTX_DONE_SUCCESS)
+	if (pack_tx_ops->status == TLW_SCTX_DONE_SUCCESS)
 		ret = _SUCCESS;
 
 	return ret;
@@ -4898,7 +4898,7 @@ int tlw_ack_tx_wait(struct xmit_priv *pxmitpriv, u32 timeout_ms)
 
 	pack_tx_ops->submit_time = tlw_get_current_time();
 	pack_tx_ops->timeout_ms = timeout_ms;
-	pack_tx_ops->status = RTW_SCTX_SUBMITTED;
+	pack_tx_ops->status = TLW_SCTX_SUBMITTED;
 
 	return tlw_sctx_wait(pack_tx_ops, __func__);
 #endif

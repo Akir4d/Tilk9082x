@@ -549,7 +549,7 @@ u8 tlw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0,tx_event_length = 0;
-	RTW_HCI_STATUS status = HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS status = HCI_STATUS_SUCCESS;
 	tlw_HCI_event *pEvent;
 
 	DBG_871X("%s\n",__func__);
@@ -614,7 +614,7 @@ u8 tlw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 
 u8 tlw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
-	RTW_HCI_STATUS status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS status=HCI_STATUS_SUCCESS;
 	u16		btPatchVer=0x0, btHciVer=0x0;
 	//u16		*pU2tmp;
 	
@@ -664,7 +664,7 @@ u8 tlw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdl
 
 u8 tlw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
-	RTW_HCI_STATUS status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS status=HCI_STATUS_SUCCESS;
 	u16 hciver = pcmd[0] | pcmd[1] <<8;
 	
 	u8 localBuf[6] = "";
@@ -715,7 +715,7 @@ u8 tlw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 
 u8 tlw_btcoex_parse_WIFI_scan_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
-	RTW_HCI_STATUS status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS status=HCI_STATUS_SUCCESS;
 
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
@@ -756,7 +756,7 @@ u8 tlw_btcoex_parse_WIFI_scan_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdle
 
 u8 tlw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 	struct bt_coex_info	*pcoex_info=&padapter->coex_info;
 	PBT_MGNT	pBtMgnt=&pcoex_info->BtMgnt;
 	//PBT_DBG		pBtDbg=&padapter->MgntInfo.BtInfo.BtDbg;
@@ -875,7 +875,7 @@ u8 tlw_btcoex_parse_HCI_BT_coex_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmd
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
 	tlw_HCI_event *pEvent;
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
 		pEvent = (tlw_HCI_event *)(&localBuf[0]);
@@ -909,7 +909,7 @@ u8 tlw_btcoex_parse_HCI_BT_operation_notify_cmd(_adapter *padapter, u8 *pcmd, u1
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
 	tlw_HCI_event *pEvent;
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	DBG_871X("%s, OP code: %d\n",__func__,pcmd[0]);
 
@@ -983,7 +983,7 @@ u8 tlw_btcoex_parse_BT_AFH_MAP_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdl
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
 	tlw_HCI_event *pEvent;
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
 		pEvent = (tlw_HCI_event *)(&localBuf[0]);
@@ -1018,7 +1018,7 @@ u8 tlw_btcoex_parse_BT_register_val_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
 	tlw_HCI_event *pEvent;
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
 		pEvent = (tlw_HCI_event *)(&localBuf[0]);
@@ -1052,7 +1052,7 @@ u8 tlw_btcoex_parse_HCI_BT_abnormal_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
 	tlw_HCI_event *pEvent;
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
 		pEvent = (tlw_HCI_event *)(&localBuf[0]);
@@ -1086,7 +1086,7 @@ u8 tlw_btcoex_parse_HCI_query_RF_status_cmd(_adapter *padapter, u8 *pcmd, u16 cm
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
 	tlw_HCI_event *pEvent;
-	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
+	TLW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
 		pEvent = (tlw_HCI_event *)(&localBuf[0]);

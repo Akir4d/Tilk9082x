@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_ODM_H__
-#define __RTW_ODM_H__
+#ifndef __TLW_ODM_H__
+#define __TLW_ODM_H__
 
 #include <drv_types.h>
 #include "../hal/phydm/phydm_types.h"
@@ -49,5 +49,5 @@ VOID tlw_odm_radar_detect_disable(_adapter *adapter);
 VOID tlw_odm_radar_detect_enable(_adapter *adapter);
 BOOLEAN tlw_odm_radar_detect(_adapter *adapter);
 #endif /* CONFIG_DFS_MASTER */
-#endif // __RTW_ODM_H__
+#endif // __TLW_ODM_H__
 

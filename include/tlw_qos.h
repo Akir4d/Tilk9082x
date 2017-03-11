@@ -19,8 +19,8 @@
  ******************************************************************************/
 
 
-#ifndef _RTW_QOS_H_
-#define _RTW_QOS_H_
+#ifndef _TLW_QOS_H_
+#define _TLW_QOS_H_
 
 
 

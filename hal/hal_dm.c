@@ -88,7 +88,7 @@ void Init_ODM_ComInfo(_adapter *adapter)
 
 	ODM_CmnInfoInit(pDM_Odm, ODM_CMNINFO_PLATFORM, ODM_CE);
 
-	if (tlw_get_intf_type(adapter) == RTW_GSPI)
+	if (tlw_get_intf_type(adapter) == TLW_GSPI)
 		ODM_CmnInfoInit(pDM_Odm, ODM_CMNINFO_INTERFACE, ODM_ITRF_SDIO);
 	else
 		ODM_CmnInfoInit(pDM_Odm, ODM_CMNINFO_INTERFACE, tlw_get_intf_type(adapter));

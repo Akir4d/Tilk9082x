@@ -4,8 +4,8 @@
  *
  *****************************************************************************/
 
-#ifndef __RTW_WIFI_REGD_H__
-#define __RTW_WIFI_REGD_H__
+#ifndef __TLW_WIFI_REGD_H__
+#define __TLW_WIFI_REGD_H__
 
 struct country_code_to_enum_rd {
 	u16 countrycode;
@@ -22,5 +22,5 @@ enum country_code_type_t {
 int tlw_regd_init(_adapter *padapter);
 void tlw_reg_notify_by_driver(_adapter *adapter);
 
-#endif /* __RTW_WIFI_REGD_H__ */
+#endif /* __TLW_WIFI_REGD_H__ */
 

@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_PWRCTRL_C_
+#define _TLW_PWRCTRL_C_
 
 #include <drv_types.h>
 #include <hal_data.h>
@@ -38,7 +38,7 @@ int tlw_fw_ps_state(PADAPTER padapter)
 	
 	_enter_pwrlock(&pwrpriv->check_32k_lock);
 	
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		DBG_871X("%s: bSurpriseRemoved=%s , hw_init_completed=%d, bDriverStopped=%s\n", __func__
 			, tlw_is_surprise_removed(padapter)?"True":"False"
 			, tlw_get_hw_init_completed(padapter)
@@ -426,8 +426,8 @@ exit:
 	return;
 }
 
-void pwr_state_check_handler(RTW_TIMER_HDL_ARGS);
-void pwr_state_check_handler(RTW_TIMER_HDL_ARGS)
+void pwr_state_check_handler(TLW_TIMER_HDL_ARGS);
+void pwr_state_check_handler(TLW_TIMER_HDL_ARGS)
 {
 	_adapter *padapter = (_adapter *)FunctionContext;
 	tlw_ps_cmd(padapter);
@@ -2126,7 +2126,7 @@ _func_enter_;
 	pwrctrlpriv->ips_mode = padapter->registrypriv.ips_mode;
 	pwrctrlpriv->ips_mode_req = padapter->registrypriv.ips_mode;
 
-	pwrctrlpriv->pwr_state_check_interval = RTW_PWR_STATE_CHK_INTERVAL;
+	pwrctrlpriv->pwr_state_check_interval = TLW_PWR_STATE_CHK_INTERVAL;
 	pwrctrlpriv->pwr_state_check_cnts = 0;
 	pwrctrlpriv->bInternalAutoSuspend = _FALSE;
 	pwrctrlpriv->bInSuspend = _FALSE;

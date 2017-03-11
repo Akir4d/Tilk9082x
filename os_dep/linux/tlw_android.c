@@ -24,14 +24,14 @@
 
 #include <drv_types.h>
 
-#if defined(RTW_ENABLE_WIFI_CONTROL_FUNC)
+#if defined(TLW_ENABLE_WIFI_CONTROL_FUNC)
 #include <linux/platform_device.h>
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 35))
 #include <linux/wlan_plat.h>
 #else
 #include <linux/wifi_tiwlan.h>
 #endif
-#endif /* defined(RTW_ENABLE_WIFI_CONTROL_FUNC) */
+#endif /* defined(TLW_ENABLE_WIFI_CONTROL_FUNC) */
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 0, 0))
 #define strnicmp	strncasecmp
@@ -521,25 +521,25 @@ int tlw_gtk_offload(struct net_device *net, u8 *cmd_ptr)
 		//string command length of "GTK_REKEY_OFFLOAD"
 		cmd_ptr += 18;
 		
-		_tlw_memcpy(psta->kek, cmd_ptr, RTW_KEK_LEN);
-		cmd_ptr += RTW_KEK_LEN;
+		_tlw_memcpy(psta->kek, cmd_ptr, TLW_KEK_LEN);
+		cmd_ptr += TLW_KEK_LEN;
 		/*
 		printk("supplicant KEK: ");
-		for(i=0;i<RTW_KEK_LEN; i++)
+		for(i=0;i<TLW_KEK_LEN; i++)
 			printk(" %02x ", psta->kek[i]);
 		printk("\n supplicant KCK: ");
 		*/
-		_tlw_memcpy(psta->kck, cmd_ptr, RTW_KCK_LEN);
-		cmd_ptr += RTW_KCK_LEN;
+		_tlw_memcpy(psta->kck, cmd_ptr, TLW_KCK_LEN);
+		cmd_ptr += TLW_KCK_LEN;
 		/*
-		for(i=0;i<RTW_KEK_LEN; i++)
+		for(i=0;i<TLW_KEK_LEN; i++)
 			printk(" %02x ", psta->kck[i]);
 		*/
-		_tlw_memcpy(psta->replay_ctr, cmd_ptr, RTW_REPLAY_CTR_LEN);
+		_tlw_memcpy(psta->replay_ctr, cmd_ptr, TLW_REPLAY_CTR_LEN);
 		psecuritypriv->binstallKCK_KEK = _TRUE;
 		
 		//printk("\nREPLAY_CTR: ");
-		//for(i=0;i<RTW_REPLAY_CTR_LEN; i++)
+		//for(i=0;i<TLW_REPLAY_CTR_LEN; i++)
 			//printk(" %02x ", psta->replay_ctr[i]);
 	}
 
@@ -910,7 +910,7 @@ exit:
 /**
  * Functions for Android WiFi card detection
  */
-#if defined(RTW_ENABLE_WIFI_CONTROL_FUNC)
+#if defined(TLW_ENABLE_WIFI_CONTROL_FUNC)
 
 static int g_wifidev_registered = 0;
 static struct semaphore wifi_control_sem;
@@ -1070,7 +1070,7 @@ static int wifi_probe(struct platform_device *pdev)
 	return 0;
 }
 
-#ifdef RTW_SUPPORT_PLATFORM_SHUTDOWN
+#ifdef TLW_SUPPORT_PLATFORM_SHUTDOWN
 extern PADAPTER g_test_adapter;
 
 static void shutdown_card(void)
@@ -1137,7 +1137,7 @@ static void shutdown_card(void)
 	DBG_871X(FUNC_ADPT_FMT ": bSurpriseRemoved=%s\n",
 		FUNC_ADPT_ARG(g_test_adapter), tlw_is_surprise_removed(g_test_adapter)?"True":"False");
 }
-#endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
+#endif // TLW_SUPPORT_PLATFORM_SHUTDOWN
 
 static int wifi_remove(struct platform_device *pdev)
 {
@@ -1154,7 +1154,7 @@ static int wifi_remove(struct platform_device *pdev)
 	return 0;
 }
 
-#ifdef RTW_SUPPORT_PLATFORM_SHUTDOWN
+#ifdef TLW_SUPPORT_PLATFORM_SHUTDOWN
 static void wifi_shutdown(struct platform_device *pdev)
 {
 	struct wifi_platform_data *wifi_ctrl =
@@ -1169,7 +1169,7 @@ static void wifi_shutdown(struct platform_device *pdev)
 	wifi_set_power(0, 0);	/* Power Off */
 	wifi_set_carddetect(0);	/* CardDetect (1->0) */
 }
-#endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
+#endif // TLW_SUPPORT_PLATFORM_SHUTDOWN
 
 static int wifi_suspend(struct platform_device *pdev, pm_message_t state)
 {
@@ -1196,9 +1196,9 @@ static struct platform_driver wifi_device = {
 	.remove         = wifi_remove,
 	.suspend        = wifi_suspend,
 	.resume         = wifi_resume,
-#ifdef RTW_SUPPORT_PLATFORM_SHUTDOWN
+#ifdef TLW_SUPPORT_PLATFORM_SHUTDOWN
 	.shutdown       = wifi_shutdown,
-#endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
+#endif // TLW_SUPPORT_PLATFORM_SHUTDOWN
 	.driver         = {
 	.name   = "bcmdhd_wlan",
 	}
@@ -1228,7 +1228,7 @@ static void wifi_del_dev(void)
 	platform_driver_unregister(&wifi_device);
 	platform_driver_unregister(&wifi_device_legacy);
 }
-#endif /* defined(RTW_ENABLE_WIFI_CONTROL_FUNC) */
+#endif /* defined(TLW_ENABLE_WIFI_CONTROL_FUNC) */
 
 #ifdef CONFIG_GPIO_WAKEUP
 #ifdef CONFIG_PLATFORM_INTEL_BYT

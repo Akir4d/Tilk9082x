@@ -118,8 +118,8 @@ typedef enum _LED_CTL_MODE{
 
 typedef	enum _LED_STATE{
 	LED_UNKNOWN = 0,
-	RTW_LED_ON = 1,
-	RTW_LED_OFF = 2,
+	TLW_LED_ON = 1,
+	TLW_LED_OFF = 2,
 	LED_BLINK_NORMAL = 3,
 	LED_BLINK_SLOWLY = 4,
 	LED_BLINK_POWER_ON = 5,
@@ -394,5 +394,5 @@ DeInitLed(
 //hal...
 extern void BlinkHandler(PLED_DATA	pLed);
 
-#endif //__RTW_LED_H_
+#endif //__TLW_LED_H_
 

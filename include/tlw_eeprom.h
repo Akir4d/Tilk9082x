@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_EEPROM_H__
-#define __RTW_EEPROM_H__
+#ifndef __TLW_EEPROM_H__
+#define __TLW_EEPROM_H__
 
 
 #define	TTL9022_EEPROM_ID			0x8712

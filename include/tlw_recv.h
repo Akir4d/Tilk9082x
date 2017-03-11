@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_RECV_H_
-#define _RTW_RECV_H_
+#ifndef _TLW_RECV_H_
+#define _TLW_RECV_H_
 
 #ifdef PLATFORM_OS_XP
 	#ifdef CONFIG_SDIO_HCI

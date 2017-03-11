@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef	__RTW_RF_H_ 
-#define __RTW_RF_H_
+#ifndef	__TLW_RF_H_ 
+#define __TLW_RF_H_
 
 
 #define OFDM_PHY		1

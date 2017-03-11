@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_MP_IOCTL_C_
+#define _TLW_MP_IOCTL_C_
 
 #include <drv_types.h>
 #include <tlw_mp_ioctl.h>

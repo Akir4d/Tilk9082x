@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_IOCTL_H_
-#define _RTW_IOCTL_H_
+#ifndef _TLW_IOCTL_H_
+#define _TLW_IOCTL_H_
 
 #ifndef PLATFORM_WINDOWS
 //	00 - Success
@@ -161,8 +161,8 @@ struct oid_obj_priv {
 	NDIS_STATUS (*oidfuns)(struct oid_par_priv *poid_par_priv);	
 };
 
-#if (defined(CONFIG_MP_INCLUDED) && defined(_RTW_MP_IOCTL_C_)) || \
-	(defined(PLATFORM_WINDOWS) && defined(_RTW_IOCTL_RTL_C_))
+#if (defined(CONFIG_MP_INCLUDED) && defined(_TLW_MP_IOCTL_C_)) || \
+	(defined(PLATFORM_WINDOWS) && defined(_TLW_IOCTL_RTL_C_))
 static NDIS_STATUS oid_null_function(struct oid_par_priv* poid_par_priv)
 {
 	_func_enter_;

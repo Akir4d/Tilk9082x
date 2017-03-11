@@ -23,8 +23,8 @@
 #define VENDOR_CMD_MAX_DATA_LEN	254
 #define FW_START_ADDRESS	0x1000
 
-#define RTW_USB_CONTROL_MSG_TIMEOUT_TEST	10//ms
-#define RTW_USB_CONTROL_MSG_TIMEOUT	500//ms
+#define TLW_USB_CONTROL_MSG_TIMEOUT_TEST	10//ms
+#define TLW_USB_CONTROL_MSG_TIMEOUT	500//ms
 
 #define RECV_BULK_IN_ADDR		0x80//assign by drv,not real address 
 #define RECV_INT_IN_ADDR		0x81//assign by drv,not real address 
@@ -38,7 +38,7 @@
 #define MAX_USBCTRL_VENDORREQ_TIMES	1
 #endif
 
-#define RTW_USB_BULKOUT_TIMEOUT	5000//ms
+#define TLW_USB_BULKOUT_TIMEOUT	5000//ms
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(2,5,0)) || (LINUX_VERSION_CODE > KERNEL_VERSION(2,6,18))
 #define _usbctrl_vendorreq_async_callback(urb, regs)	_usbctrl_vendorreq_async_callback(urb)

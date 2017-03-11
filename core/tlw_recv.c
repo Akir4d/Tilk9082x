@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_RECV_C_
+#define _TLW_RECV_C_
 
 #include <drv_types.h>
 #include <hal_data.h>
@@ -30,7 +30,7 @@
 
 
 #ifdef CONFIG_NEW_SIGNAL_STAT_PROCESS
-void tlw_signal_stat_timer_hdl(RTW_TIMER_HDL_ARGS);
+void tlw_signal_stat_timer_hdl(TLW_TIMER_HDL_ARGS);
 
 enum {
 	SIGNAL_STAT_CALC_PROFILE_0 = 0,
@@ -43,8 +43,8 @@ u8 signal_stat_calc_profile[SIGNAL_STAT_CALC_PROFILE_MAX][2] = {
 	{3, 7}	/* Profile 1 => pre_stat : curr_stat = 3 : 7 */
 };
 
-#ifndef RTW_SIGNAL_STATE_CALC_PROFILE	
-#define RTW_SIGNAL_STATE_CALC_PROFILE SIGNAL_STAT_CALC_PROFILE_1
+#ifndef TLW_SIGNAL_STATE_CALC_PROFILE	
+#define TLW_SIGNAL_STATE_CALC_PROFILE SIGNAL_STAT_CALC_PROFILE_1
 #endif
 
 #endif //CONFIG_NEW_SIGNAL_STAT_PROCESS
@@ -138,7 +138,7 @@ _func_enter_;
 	res = tlw_hal_init_recv_priv(padapter);
 
 #ifdef CONFIG_NEW_SIGNAL_STAT_PROCESS
-	tlw_init_timer(&precvpriv->signal_stat_timer, padapter, RTW_TIMER_HDL_NAME(signal_stat));
+	tlw_init_timer(&precvpriv->signal_stat_timer, padapter, TLW_TIMER_HDL_NAME(signal_stat));
 
 	precvpriv->signal_stat_sampling_interval = 2000; //ms
 	//precvpriv->signal_stat_converging_constant = 5000; //ms
@@ -1472,7 +1472,7 @@ _func_enter_;
 		if (GetFrameSubType(ptr) & BIT(6)) {
 			/* No data, will not indicate to upper layer, temporily count it here */
 			count_rx_stats(adapter, precv_frame, *psta);
-			ret = RTW_RX_HANDLED;
+			ret = TLW_RX_HANDLED;
 			goto exit;
 		}
 
@@ -1487,7 +1487,7 @@ _func_enter_;
 		_tlw_memcpy(pattrib->ta, pattrib->src, ETH_ALEN);
 
 		//
-		if(adapter->mppriv.bRTWSmbCfg==_FALSE)
+		if(adapter->mppriv.bTLWSmbCfg==_FALSE)
 			_tlw_memcpy(pattrib->bssid,  mybssid, ETH_ALEN);
 
 
@@ -1506,7 +1506,7 @@ _func_enter_;
 	else if (check_fwstate(pmlmepriv, WIFI_AP_STATE) == _TRUE)
 	{
 		/* Special case */
-		ret = RTW_RX_HANDLED;
+		ret = TLW_RX_HANDLED;
 		goto exit;
 	}
 	else
@@ -1582,7 +1582,7 @@ _func_enter_;
 
 			issue_deauth(adapter, pattrib->src, WLAN_REASON_CLASS3_FRAME_FROM_NONASSOC_STA);
 
-			ret = RTW_RX_HANDLED;
+			ret = TLW_RX_HANDLED;
 			goto exit;
 		}
 
@@ -1595,7 +1595,7 @@ _func_enter_;
 		if (GetFrameSubType(ptr) & BIT(6)) {
 			/* No data, will not indicate to upper layer, temporily count it here */
 			count_rx_stats(adapter, precv_frame, *psta);
-			ret = RTW_RX_HANDLED;
+			ret = TLW_RX_HANDLED;
 			goto exit;
 		}
 	}
@@ -1609,7 +1609,7 @@ _func_enter_;
 		_tlw_memcpy(pattrib->ra, pattrib->dst, ETH_ALEN);
 		_tlw_memcpy(pattrib->ta, pattrib->src, ETH_ALEN);
 		//
-		if(adapter->mppriv.bRTWSmbCfg == _FALSE)
+		if(adapter->mppriv.bTLWSmbCfg == _FALSE)
 			_tlw_memcpy(pattrib->bssid,  mybssid, ETH_ALEN);
 
 		*psta = tlw_get_stainfo(pstapriv, pattrib->bssid); // get sta_info
@@ -1626,12 +1626,12 @@ _func_enter_;
 	else {
 		u8 *myhwaddr = adapter_mac_addr(adapter);
 		if (!_tlw_memcmp(pattrib->ra, myhwaddr, ETH_ALEN)) {
-			ret = RTW_RX_HANDLED;
+			ret = TLW_RX_HANDLED;
 			goto exit;
 		}
 		DBG_871X("issue_deauth to sta=" MAC_FMT " for the reason(7)\n", MAC_ARG(pattrib->src));
 		issue_deauth(adapter, pattrib->src, WLAN_REASON_CLASS3_FRAME_FROM_NONASSOC_STA);
-		ret = RTW_RX_HANDLED;
+		ret = TLW_RX_HANDLED;
 		goto exit;
 	}
 
@@ -1990,7 +1990,7 @@ _func_enter_;
 		DBG_871X("DBG_RX_DROP_FRAME %s case:%d, res:%d\n", __FUNCTION__, pattrib->to_fr_ds, ret);
 		#endif
 		goto exit;
-	} else if (ret == RTW_RX_HANDLED) {
+	} else if (ret == TLW_RX_HANDLED) {
 		goto exit;
 	}
 
@@ -2161,7 +2161,7 @@ static sint validate_80211w_mgmt(_adapter *adapter, union recv_frame *precv_fram
 				//DBG_871X("802.11w BIP verify fail\n");
 				goto validate_80211w_fail;
 			}
-			else if(BIP_ret == RTW_RX_HANDLED)
+			else if(BIP_ret == TLW_RX_HANDLED)
 			{
 				DBG_871X("802.11w recv none protected packet\n");
 				//drop pkt, don't issue sa query request
@@ -2175,11 +2175,11 @@ static sint validate_80211w_mgmt(_adapter *adapter, union recv_frame *precv_fram
 			
 			if (subtype == WIFI_ACTION && psta && psta->bpairwise_key_installed == _TRUE) {
 				//according 802.11-2012 standard, these five types are not robust types
-				if( ptr[WLAN_HDR_A3_LEN] != RTW_WLAN_CATEGORY_PUBLIC          &&
-					ptr[WLAN_HDR_A3_LEN] != RTW_WLAN_CATEGORY_HT              &&
-					ptr[WLAN_HDR_A3_LEN] != RTW_WLAN_CATEGORY_UNPROTECTED_WNM &&
-					ptr[WLAN_HDR_A3_LEN] != RTW_WLAN_CATEGORY_SELF_PROTECTED  &&
-					ptr[WLAN_HDR_A3_LEN] != RTW_WLAN_CATEGORY_P2P)
+				if( ptr[WLAN_HDR_A3_LEN] != TLW_WLAN_CATEGORY_PUBLIC          &&
+					ptr[WLAN_HDR_A3_LEN] != TLW_WLAN_CATEGORY_HT              &&
+					ptr[WLAN_HDR_A3_LEN] != TLW_WLAN_CATEGORY_UNPROTECTED_WNM &&
+					ptr[WLAN_HDR_A3_LEN] != TLW_WLAN_CATEGORY_SELF_PROTECTED  &&
+					ptr[WLAN_HDR_A3_LEN] != TLW_WLAN_CATEGORY_P2P)
 				{
 					DBG_871X("action frame category=%d should robust\n", ptr[WLAN_HDR_A3_LEN]);
 					goto validate_80211w_fail;
@@ -2997,7 +2997,7 @@ int amsdu_to_msdu(_adapter *padapter, union recv_frame *prframe)
 	while(a_len > ETH_HLEN) {
 
 		/* Offset 12 denote 2 mac address */
-		nSubframe_Length = RTW_GET_BE16(pdata + 12);
+		nSubframe_Length = TLW_GET_BE16(pdata + 12);
 
 		if( a_len < (ETHERNET_HEADER_SIZE + nSubframe_Length) ) {
 			DBG_871X("nRemain_Length is %d and nSubframe_Length is : %d\n",a_len,nSubframe_Length);
@@ -3319,7 +3319,7 @@ int recv_indicatepkts_in_order(_adapter *padapter, struct recv_reorder_ctrl *pre
 			{
 				//DBG_871X("recv_indicatepkts_in_order, amsdu!=1, indicate_seq=%d, seq_num=%d\n", preorder_ctrl->indicate_seq, pattrib->seq_num);
 
-				if (!RTW_CANNOT_RUN(padapter))
+				if (!TLW_CANNOT_RUN(padapter))
 					tlw_recv_indicatepkt(padapter, prframe);/*indicate this recv_frame*/
 
 			}
@@ -3405,7 +3405,7 @@ int recv_indicatepkt_reorder(_adapter *padapter, union recv_frame *prframe)
 		//	|| (pattrib->eth_type==0x0806) || (pattrib->ack_policy!=0))
 		if (pattrib->qos!=1)
 		{
-			if (!RTW_CANNOT_RUN(padapter)) {
+			if (!TLW_CANNOT_RUN(padapter)) {
 				RT_TRACE(_module_ttl871x_recv_c_, _drv_notice_, ("@@@@  recv_indicatepkt_reorder -recv_func recv_indicatepkt\n" ));
 
 				tlw_recv_indicatepkt(padapter, prframe);
@@ -3571,7 +3571,7 @@ void tlw_reordering_ctrl_timeout_handler(void *pcontext)
 	_queue *ppending_recvframe_queue = &preorder_ctrl->pending_recvframe_queue;
 
 
-	if (RTW_CANNOT_RUN(padapter))
+	if (TLW_CANNOT_RUN(padapter))
 		return;
 
 	//DBG_871X("+tlw_reordering_ctrl_timeout_handler()=>\n");
@@ -3625,7 +3625,7 @@ int process_recv_indicatepkts(_adapter *padapter, union recv_frame *prframe)
 			DBG_871X("DBG_RX_DROP_FRAME %s recv_indicatepkt_reorder error!\n", __FUNCTION__);
 			#endif
 		
-			if (!RTW_CANNOT_RUN(padapter))	{
+			if (!TLW_CANNOT_RUN(padapter))	{
 				retval = _FAIL;
 				return retval;
 			}
@@ -3644,7 +3644,7 @@ int process_recv_indicatepkts(_adapter *padapter, union recv_frame *prframe)
 			return retval;
 		}
 
-		if (!RTW_CANNOT_RUN(padapter)) {
+		if (!TLW_CANNOT_RUN(padapter)) {
 			//indicate this recv_frame
 			RT_TRACE(_module_ttl871x_recv_c_, _drv_notice_, ("@@@@ process_recv_indicatepkts- recv_func recv_indicatepkt\n" ));
 			tlw_recv_indicatepkt(padapter, prframe);
@@ -3766,7 +3766,7 @@ _func_enter_;
 		len = htons(pattrib->seq_num);
 		//DBG_871X("wlan seq = %d ,seq_num =%x\n",len,pattrib->seq_num);
 		_tlw_memcpy(ptr+12,&len, 2);
-	if(adapter->mppriv.bRTWSmbCfg==_TRUE)
+	if(adapter->mppriv.bTLWSmbCfg==_TRUE)
 	{
 //		if(_tlw_memcmp(mcastheadermac, pattrib->dst, 3) == _TRUE)//SimpleConfig Dest.
 //			_tlw_memcpy(ptr+ETH_ALEN, pattrib->bssid, ETH_ALEN);
@@ -3886,7 +3886,7 @@ int mp_recv_frame(_adapter *padapter, union recv_frame *rframe)
 					ret = _FAIL;
 					goto exit;
 				}
-				if (!RTW_CANNOT_RUN(padapter)) {
+				if (!TLW_CANNOT_RUN(padapter)) {
 					RT_TRACE(_module_ttl871x_recv_c_, _drv_alert_, ("@@@@ recv_func: recv_func tlw_recv_indicatepkt\n" ));
 							//indicate this recv_frame
 					ret = tlw_recv_indicatepkt(padapter, rframe);
@@ -3936,7 +3936,7 @@ static sint fill_radiotap_hdr(_adapter *padapter, union recv_frame *precvframe, 
 #define CHAN2FREQ(a) ((a < 14)?(2407+5*a):(5000+5*a))
 
 #if 0
-#define RTW_RX_RADIOTAP_PRESENT (                 \
+#define TLW_RX_RADIOTAP_PRESENT (                 \
 		(1 << IEEE80211_RADIOTAP_TSFT)              | \
 		(1 << IEEE80211_RADIOTAP_FLAGS)             | \
 		(1 << IEEE80211_RADIOTAP_RATE)              | \
@@ -4265,7 +4265,7 @@ int recv_frame_monitor(_adapter *padapter, union recv_frame *rframe)
 	rframe->u.hdr.rx_tail = skb_tail_pointer(pskb);
 	rframe->u.hdr.rx_end = skb_end_pointer(pskb);
 
-	if (!RTW_CANNOT_RUN(padapter)) {
+	if (!TLW_CANNOT_RUN(padapter)) {
 		/* indicate this recv_frame */
 		ret = tlw_recv_monitor(padapter, rframe);
 		if (ret != _SUCCESS) {
@@ -4301,7 +4301,7 @@ int recv_func_prehandle(_adapter *padapter, union recv_frame *rframe)
 #endif
 
 #ifdef CONFIG_MP_INCLUDED
-	if (padapter->registrypriv.mp_mode == 1 || padapter->mppriv.bRTWSmbCfg ==_TRUE)
+	if (padapter->registrypriv.mp_mode == 1 || padapter->mppriv.bTLWSmbCfg ==_TRUE)
 	{
 		mp_recv_frame(padapter,rframe);
 		ret = _FAIL;
@@ -4372,7 +4372,7 @@ int recv_func_posthandle(_adapter *padapter, union recv_frame *prframe)
 	pcategory = psnap_type + ETH_TYPE_LEN + PAYLOAD_TYPE_LEN;
 
 	if((_tlw_memcmp(psnap_type, SNAP_ETH_TYPE_TDLS, ETH_TYPE_LEN)) &&
-		((*pcategory==RTW_WLAN_CATEGORY_TDLS) || (*pcategory==RTW_WLAN_CATEGORY_P2P))){
+		((*pcategory==TLW_WLAN_CATEGORY_TDLS) || (*pcategory==TLW_WLAN_CATEGORY_P2P))){
 		ret = OnTDLS(padapter, prframe);
 		if(ret == _FAIL)
 			goto _exit_recv_func;
@@ -4432,7 +4432,7 @@ int recv_func_posthandle(_adapter *padapter, union recv_frame *prframe)
 			goto _recv_data_drop;
 		}
 
-		if (!RTW_CANNOT_RUN(padapter)) {
+		if (!TLW_CANNOT_RUN(padapter)) {
 			RT_TRACE(_module_ttl871x_recv_c_, _drv_alert_, ("@@@@ recv_func: recv_func tlw_recv_indicatepkt\n" ));
 			//indicate this recv_frame
 			ret = tlw_recv_indicatepkt(padapter, prframe);
@@ -4599,7 +4599,7 @@ _func_exit_;
 }
 
 #ifdef CONFIG_NEW_SIGNAL_STAT_PROCESS
-void tlw_signal_stat_timer_hdl(RTW_TIMER_HDL_ARGS){
+void tlw_signal_stat_timer_hdl(TLW_TIMER_HDL_ARGS){
 	_adapter *adapter = (_adapter *)FunctionContext;
 	struct recv_priv *recvpriv = &adapter->recvpriv;
 	
@@ -4649,8 +4649,8 @@ void tlw_signal_stat_timer_hdl(RTW_TIMER_HDL_ARGS){
 			goto set_timer;
 		#endif
 
-		if (RTW_SIGNAL_STATE_CALC_PROFILE < SIGNAL_STAT_CALC_PROFILE_MAX)
-			ratio_profile = RTW_SIGNAL_STATE_CALC_PROFILE;
+		if (TLW_SIGNAL_STATE_CALC_PROFILE < SIGNAL_STAT_CALC_PROFILE_MAX)
+			ratio_profile = TLW_SIGNAL_STATE_CALC_PROFILE;
 
 		ratio_pre_stat = signal_stat_calc_profile[ratio_profile][0];
 		ratio_curr_stat = signal_stat_calc_profile[ratio_profile][1];

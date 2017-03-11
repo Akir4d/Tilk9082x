@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_EFUSE_C_
+#define _TLW_EFUSE_C_
 
 #include <drv_types.h>
 #include <hal_data.h>
@@ -1587,14 +1587,14 @@ u32 tlw_read_efuse_from_file(const char *path, u8 *buf)
 #ifdef CONFIG_DEBUG
 	for (i = 0; i < HWSET_MAX_SIZE; i++) {
 		if (i % 16 == 0)
-			DBG_871X_SEL_NL(RTW_DBGDUMP, "0x%03x: ", i);
+			DBG_871X_SEL_NL(TLW_DBGDUMP, "0x%03x: ", i);
 
-		DBG_871X_SEL(RTW_DBGDUMP, "%02X%s"
+		DBG_871X_SEL(TLW_DBGDUMP, "%02X%s"
 			, buf[i]
 			, ((i + 1) % 16 == 0) ? "\n" : (((i + 1) % 8 == 0) ? "    " : " ")
 		);
 	}
-	DBG_871X_SEL(RTW_DBGDUMP, "\n");
+	DBG_871X_SEL(TLW_DBGDUMP, "\n");
 #endif
 
 	ret = _SUCCESS;

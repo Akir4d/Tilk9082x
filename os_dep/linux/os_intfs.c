@@ -327,43 +327,43 @@ module_param(tlw_80211d, int, 0644);
 MODULE_PARM_DESC(tlw_80211d, "Enable 802.11d mechanism");
 #endif
 
-uint tlw_notch_filter = RTW_NOTCH_FILTER;
+uint tlw_notch_filter = TLW_NOTCH_FILTER;
 module_param(tlw_notch_filter, uint, 0644);
 MODULE_PARM_DESC(tlw_notch_filter, "0:Disable, 1:Enable, 2:Enable only for P2P");
 
-uint tlw_hiq_filter = CONFIG_RTW_HIQ_FILTER;
+uint tlw_hiq_filter = CONFIG_TLW_HIQ_FILTER;
 module_param(tlw_hiq_filter, uint, 0644);
 MODULE_PARM_DESC(tlw_hiq_filter, "0:allow all, 1:allow special, 2:deny all");
 
-uint tlw_adaptivity_en = CONFIG_RTW_ADAPTIVITY_EN;
+uint tlw_adaptivity_en = CONFIG_TLW_ADAPTIVITY_EN;
 module_param(tlw_adaptivity_en, uint, 0644);
 MODULE_PARM_DESC(tlw_adaptivity_en, "0:disable, 1:enable");
 
-uint tlw_adaptivity_mode = CONFIG_RTW_ADAPTIVITY_MODE;
+uint tlw_adaptivity_mode = CONFIG_TLW_ADAPTIVITY_MODE;
 module_param(tlw_adaptivity_mode, uint, 0644);
 MODULE_PARM_DESC(tlw_adaptivity_mode, "0:normal, 1:carrier sense");
 
-uint tlw_adaptivity_dml = CONFIG_RTW_ADAPTIVITY_DML;
+uint tlw_adaptivity_dml = CONFIG_TLW_ADAPTIVITY_DML;
 module_param(tlw_adaptivity_dml, uint, 0644);
 MODULE_PARM_DESC(tlw_adaptivity_dml, "0:disable, 1:enable");
 
-uint tlw_adaptivity_dc_backoff = CONFIG_RTW_ADAPTIVITY_DC_BACKOFF;
+uint tlw_adaptivity_dc_backoff = CONFIG_TLW_ADAPTIVITY_DC_BACKOFF;
 module_param(tlw_adaptivity_dc_backoff, uint, 0644);
 MODULE_PARM_DESC(tlw_adaptivity_dc_backoff, "DC backoff for Adaptivity");
 
-uint tlw_amplifier_type_2g = CONFIG_RTW_AMPLIFIER_TYPE_2G;
+uint tlw_amplifier_type_2g = CONFIG_TLW_AMPLIFIER_TYPE_2G;
 module_param(tlw_amplifier_type_2g, uint, 0644);
 MODULE_PARM_DESC(tlw_amplifier_type_2g, "BIT3:2G ext-PA, BIT4:2G ext-LNA");
 
-uint tlw_amplifier_type_5g = CONFIG_RTW_AMPLIFIER_TYPE_5G;
+uint tlw_amplifier_type_5g = CONFIG_TLW_AMPLIFIER_TYPE_5G;
 module_param(tlw_amplifier_type_5g, uint, 0644);
 MODULE_PARM_DESC(tlw_amplifier_type_5g, "BIT6:5G ext-PA, BIT7:5G ext-LNA");
 
-uint tlw_RFE_type = CONFIG_RTW_RFE_TYPE;
+uint tlw_RFE_type = CONFIG_TLW_RFE_TYPE;
 module_param(tlw_RFE_type, uint, 0644);
 MODULE_PARM_DESC(tlw_RFE_type, "default init value:64");
 
-uint tlw_GLNA_type = CONFIG_RTW_GLNA_TYPE;
+uint tlw_GLNA_type = CONFIG_TLW_GLNA_TYPE;
 module_param(tlw_GLNA_type, uint, 0644);
 MODULE_PARM_DESC(tlw_GLNA_type, "default init value:0");
 
@@ -383,7 +383,7 @@ uint tlw_FileMaskEfuse = 0;
 module_param(tlw_FileMaskEfuse, uint, 0644);
 MODULE_PARM_DESC(tlw_FileMaskEfuse, "default drv Mask Efuse vaule:0");
 
-uint tlw_pll_ref_clk_sel = CONFIG_RTW_PLL_REF_CLK_SEL;
+uint tlw_pll_ref_clk_sel = CONFIG_TLW_PLL_REF_CLK_SEL;
 module_param(tlw_pll_ref_clk_sel, uint, 0644);
 MODULE_PARM_DESC(tlw_pll_ref_clk_sel, "force pll_ref_clk_sel, 0xF:use autoload value");
 
@@ -1159,20 +1159,20 @@ u32 tlw_start_drv_threads(_adapter *padapter)
 	if (is_primary_adapter(padapter))
 #endif		
 	{
-		padapter->xmitThread = kthread_run(tlw_xmit_thread, padapter, "RTW_XMIT_THREAD");
+		padapter->xmitThread = kthread_run(tlw_xmit_thread, padapter, "TLW_XMIT_THREAD");
 		if(IS_ERR(padapter->xmitThread))
 			_status = _FAIL;
 	}
 #endif //#ifdef CONFIG_XMIT_THREAD_MODE
 
 #ifdef CONFIG_RECV_THREAD_MODE
-	padapter->recvThread = kthread_run(tlw_recv_thread, padapter, "RTW_RECV_THREAD");
+	padapter->recvThread = kthread_run(tlw_recv_thread, padapter, "TLW_RECV_THREAD");
 	if(IS_ERR(padapter->recvThread))
 		_status = _FAIL;
 #endif
 
 	if (is_primary_adapter(padapter)) {
-		padapter->cmdThread = kthread_run(tlw_cmd_thread, padapter, "RTW_CMD_THREAD");
+		padapter->cmdThread = kthread_run(tlw_cmd_thread, padapter, "TLW_CMD_THREAD");
 	        if(IS_ERR(padapter->cmdThread))
 			_status = _FAIL;
 		else
@@ -1181,7 +1181,7 @@ u32 tlw_start_drv_threads(_adapter *padapter)
 
 
 #ifdef CONFIG_EVENT_THREAD_MODE
-	padapter->evtThread = kthread_run(event_thread, padapter, "RTW_EVENT_THREAD");
+	padapter->evtThread = kthread_run(event_thread, padapter, "TLW_EVENT_THREAD");
 	if(IS_ERR(padapter->evtThread))
 		_status = _FAIL;
 #endif
@@ -1290,8 +1290,8 @@ u8 tlw_init_default_value(_adapter *padapter)
 	tlw_hal_def_value_init(padapter);
 
 	//misc.
-	RTW_ENABLE_FUNC(padapter, DF_RX_BIT);
-	RTW_ENABLE_FUNC(padapter, DF_TX_BIT);
+	TLW_ENABLE_FUNC(padapter, DF_RX_BIT);
+	TLW_ENABLE_FUNC(padapter, DF_TX_BIT);
 	padapter->bLinkInfoDump = 0;
 	padapter->bNotifyChannelChange = _FALSE;
 #ifdef CONFIG_P2P
@@ -1377,8 +1377,8 @@ u8 tlw_reset_drv_sw(_adapter *padapter)
 	if( is_primary_adapter(padapter))
 		tlw_hal_def_value_init(padapter);
 
-	RTW_ENABLE_FUNC(padapter, DF_RX_BIT);
-	RTW_ENABLE_FUNC(padapter, DF_TX_BIT);
+	TLW_ENABLE_FUNC(padapter, DF_RX_BIT);
+	TLW_ENABLE_FUNC(padapter, DF_TX_BIT);
 	padapter->bLinkInfoDump = 0;
 
 	padapter->xmitpriv.tx_pkts = 0;
@@ -1932,7 +1932,7 @@ void tlw_drv_stop_vir_if(_adapter *padapter)
 	{
 		#ifdef CONFIG_XMIT_ACK
 		if (padapter->xmitpriv.ack_tx)
-			tlw_ack_tx_done(&padapter->xmitpriv, RTW_SCTX_DONE_DRV_STOP);
+			tlw_ack_tx_done(&padapter->xmitpriv, TLW_SCTX_DONE_DRV_STOP);
 		#endif
 
 		if (padapter->intf_stop)
@@ -2272,7 +2272,7 @@ void tlw_drv_if2_stop(_adapter *if2)
 	if (padapter->bup == _TRUE) {
 		#ifdef CONFIG_XMIT_ACK
 		if (padapter->xmitpriv.ack_tx)
-			tlw_ack_tx_done(&padapter->xmitpriv, RTW_SCTX_DONE_DRV_STOP);
+			tlw_ack_tx_done(&padapter->xmitpriv, TLW_SCTX_DONE_DRV_STOP);
 		#endif
 
 		if (padapter->intf_stop)
@@ -3201,7 +3201,7 @@ void tlw_dev_unload(PADAPTER padapter)
 		tlw_set_drv_stopped(padapter);
 		#ifdef CONFIG_XMIT_ACK
 		if (padapter->xmitpriv.ack_tx)
-			tlw_ack_tx_done(&padapter->xmitpriv, RTW_SCTX_DONE_DRV_STOP);
+			tlw_ack_tx_done(&padapter->xmitpriv, TLW_SCTX_DONE_DRV_STOP);
 		#endif
 
 		if (padapter->intf_stop)
@@ -3274,7 +3274,7 @@ int tlw_suspend_free_assoc_resource(_adapter *padapter)
 
 	DBG_871X("==> "FUNC_ADPT_FMT" entry....\n", FUNC_ADPT_ARG(padapter));
 
-	if (tlw_chk_roam_flags(padapter, RTW_ROAM_ON_RESUME)) {
+	if (tlw_chk_roam_flags(padapter, TLW_ROAM_ON_RESUME)) {
 		if(check_fwstate(pmlmepriv, WIFI_STATION_STATE)
 			&& check_fwstate(pmlmepriv, _FW_LINKED)
 #ifdef CONFIG_P2P
@@ -3410,7 +3410,7 @@ int tlw_suspend_wow(_adapter *padapter)
 
 		poidparam.subcode = WOWLAN_ENABLE;
 		tlw_hal_set_hwreg(padapter,HW_VAR_WOWLAN,(u8 *)&poidparam);
-		if (tlw_chk_roam_flags(padapter, RTW_ROAM_ON_RESUME)) {
+		if (tlw_chk_roam_flags(padapter, TLW_ROAM_ON_RESUME)) {
 			if(check_fwstate(pmlmepriv, WIFI_STATION_STATE)
 				&& check_fwstate(pmlmepriv, _FW_LINKED))
 			{
@@ -3655,7 +3655,7 @@ int tlw_suspend_common(_adapter *padapter)
 	}
 #endif
 
-	if ((!padapter->bup) || RTW_CANNOT_RUN(padapter)) {
+	if ((!padapter->bup) || TLW_CANNOT_RUN(padapter)) {
 		DBG_871X("%s bup=%d bDriverStopped=%s bSurpriseRemoved = %s\n", __func__
 			, padapter->bup
 			, tlw_is_drv_stopped(padapter)?"True":"False"
@@ -3788,7 +3788,7 @@ _func_enter_;
 		goto exit;
 	}
 
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		DBG_871X("%s pdapter %p bDriverStopped %s bSurpriseRemoved %s\n"
 				, __func__, padapter
 				, tlw_is_drv_stopped(padapter)?"True":"False"
@@ -3888,7 +3888,7 @@ _func_enter_;
 		tlw_signal_process(padapter->pid[1], SIGUSR2);
 	}	
 
-	if (tlw_chk_roam_flags(padapter, RTW_ROAM_ON_RESUME)) {
+	if (tlw_chk_roam_flags(padapter, TLW_ROAM_ON_RESUME)) {
 		if (pwrpriv->wowlan_wake_reason == FWDecisionDisconnect ||
 			pwrpriv->wowlan_wake_reason == Rx_DisAssoc ||
 			pwrpriv->wowlan_wake_reason == Rx_DeAuth) {
@@ -4181,7 +4181,7 @@ _func_enter_;
 	if (check_fwstate(pmlmepriv, WIFI_STATION_STATE)) {
 		DBG_871X(FUNC_ADPT_FMT" fwstate:0x%08x - WIFI_STATION_STATE\n", FUNC_ADPT_ARG(padapter), get_fwstate(pmlmepriv));
 
-		if (tlw_chk_roam_flags(padapter, RTW_ROAM_ON_RESUME))
+		if (tlw_chk_roam_flags(padapter, TLW_ROAM_ON_RESUME))
 			tlw_roaming(padapter, NULL);
 		
 	} else if (check_fwstate(pmlmepriv, WIFI_AP_STATE)) {
@@ -4201,7 +4201,7 @@ _func_enter_;
 		if (check_fwstate(buddy_mlme, WIFI_STATION_STATE)) {
 			DBG_871X(FUNC_ADPT_FMT" fwstate:0x%08x - WIFI_STATION_STATE\n", FUNC_ADPT_ARG(buddy), get_fwstate(buddy_mlme));
 
-			if (tlw_chk_roam_flags(buddy, RTW_ROAM_ON_RESUME))
+			if (tlw_chk_roam_flags(buddy, TLW_ROAM_ON_RESUME))
 				tlw_roaming(buddy, NULL);
 		
 		} else if (check_fwstate(buddy_mlme, WIFI_AP_STATE)) {

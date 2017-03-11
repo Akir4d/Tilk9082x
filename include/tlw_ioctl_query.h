@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_IOCTL_QUERY_H_
-#define _RTW_IOCTL_QUERY_H_
+#ifndef _TLW_IOCTL_QUERY_H_
+#define _TLW_IOCTL_QUERY_H_
 
 
 #ifdef PLATFORM_WINDOWS

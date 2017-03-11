@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_BEAMFORMING_H_
-#define __RTW_BEAMFORMING_H_
+#ifndef __TLW_BEAMFORMING_H_
+#define __TLW_BEAMFORMING_H_
 
 #define BEAMFORMING_ENTRY_NUM		2
 #define GET_BEAMFORM_INFO(_pmlmepriv)	((struct beamforming_info *)(&(_pmlmepriv)->beamforming_info))

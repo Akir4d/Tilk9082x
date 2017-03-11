@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_TDLS_C_
+#define _TLW_TDLS_C_
 
 #include <drv_types.h>
 
@@ -228,7 +228,7 @@ int issue_nulldata_to_TDLS_peer_STA(_adapter *padapter, unsigned char *da, unsig
 
 		i++;
 
-		if (RTW_CANNOT_RUN(padapter))
+		if (TLW_CANNOT_RUN(padapter))
 			break;
 
 		if (i < try_cnt && wait_ms > 0 && ret == _FAIL)
@@ -783,7 +783,7 @@ void tlw_tdls_process_wfd_ie(struct tdls_info *ptdlsinfo, u8 *ptr, u8 length)
 		DBG_871X( "[%s] WFD IE Found!!\n", __FUNCTION__ );
 		tlw_get_wfd_attr_content( wfd_ie, wfd_ielen, WFD_ATTR_DEVICE_INFO, attr_content, &attr_contentlen);
 		if (attr_contentlen) {
-			ptdlsinfo->wfd_info->peer_rtsp_ctrlport = RTW_GET_BE16( attr_content + 2 );
+			ptdlsinfo->wfd_info->peer_rtsp_ctrlport = TLW_GET_BE16( attr_content + 2 );
 			DBG_871X( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, ptdlsinfo->wfd_info->peer_rtsp_ctrlport );
 		}
 
@@ -2258,12 +2258,12 @@ sint On_TDLS_Ch_Switch_Req(_adapter *padapter, union recv_frame *precv_frame)
 		case _LINK_ID_IE_:
 			break;
 		case _CH_SWITCH_TIMING_:
-			ptdls_sta->ch_switch_time = (RTW_GET_LE16(pIE->data) >= CH_SWITCH_TIME * 1000) ?
-				RTW_GET_LE16(pIE->data) : CH_SWITCH_TIME * 1000;
-			ptdls_sta->ch_switch_timeout = (RTW_GET_LE16(pIE->data + 2) >= CH_SWITCH_TIMEOUT * 1000) ?
-				RTW_GET_LE16(pIE->data + 2) : CH_SWITCH_TIMEOUT * 1000;
+			ptdls_sta->ch_switch_time = (TLW_GET_LE16(pIE->data) >= CH_SWITCH_TIME * 1000) ?
+				TLW_GET_LE16(pIE->data) : CH_SWITCH_TIME * 1000;
+			ptdls_sta->ch_switch_timeout = (TLW_GET_LE16(pIE->data + 2) >= CH_SWITCH_TIMEOUT * 1000) ?
+				TLW_GET_LE16(pIE->data + 2) : CH_SWITCH_TIMEOUT * 1000;
 			DBG_871X("%s ch_switch_time:%d, ch_switch_timeout:%d\n"
-				, __FUNCTION__, RTW_GET_LE16(pIE->data), RTW_GET_LE16(pIE->data + 2));
+				, __FUNCTION__, TLW_GET_LE16(pIE->data), TLW_GET_LE16(pIE->data + 2));
 		default:
 			break;
 		}
@@ -2398,26 +2398,26 @@ void wfd_ie_tdls(_adapter * padapter, u8 *pframe, u32 *pktlen )
 
 	/* Length: */
 	/* Note: In the WFD specification, the size of length field is 2. */
-	RTW_PUT_BE16(wfdie + wfdielen, 0x0006);
+	TLW_PUT_BE16(wfdie + wfdielen, 0x0006);
 	wfdielen += 2;
 
 	/* Value1: */
 	/* WFD device information */
 	/* available for WFD session + Preferred TDLS + WSD ( WFD Service Discovery ) */
-	RTW_PUT_BE16(wfdie + wfdielen, pwfd_info->wfd_device_type | WFD_DEVINFO_SESSION_AVAIL 
+	TLW_PUT_BE16(wfdie + wfdielen, pwfd_info->wfd_device_type | WFD_DEVINFO_SESSION_AVAIL 
 								| WFD_DEVINFO_PC_TDLS | WFD_DEVINFO_WSD);
 	wfdielen += 2;
 
 	/* Value2: */
 	/* Session Management Control Port */
 	/* Default TCP port for RTSP messages is 554 */
-	RTW_PUT_BE16(wfdie + wfdielen, pwfd_info->rtsp_ctrlport );
+	TLW_PUT_BE16(wfdie + wfdielen, pwfd_info->rtsp_ctrlport );
 	wfdielen += 2;
 
 	/* Value3: */
 	/* WFD Device Maximum Throughput */
 	/* 300Mbps is the maximum throughput */
-	RTW_PUT_BE16(wfdie + wfdielen, 300);
+	TLW_PUT_BE16(wfdie + wfdielen, 300);
 	wfdielen += 2;
 
 	/* Associated BSSID ATTR */
@@ -2426,7 +2426,7 @@ void wfd_ie_tdls(_adapter * padapter, u8 *pframe, u32 *pktlen )
 
 	/* Length: */
 	/* Note: In the WFD specification, the size of length field is 2. */
-	RTW_PUT_BE16(wfdie + wfdielen, 0x0006);
+	TLW_PUT_BE16(wfdie + wfdielen, 0x0006);
 	wfdielen += 2;
 
 	/* Value: */
@@ -2441,7 +2441,7 @@ void wfd_ie_tdls(_adapter * padapter, u8 *pframe, u32 *pktlen )
 
 	/* Length: */
 	/* Note: In the WFD specification, the size of length field is 2. */
-	RTW_PUT_BE16(wfdie + wfdielen, 0x0005);
+	TLW_PUT_BE16(wfdie + wfdielen, 0x0005);
 	wfdielen += 2;
 
 	/* Version: */
@@ -2479,7 +2479,7 @@ void tlw_build_tdls_setup_req_ies(_adapter * padapter, struct xmit_frame * pxmit
 	pframe_head = pframe;	/* For tlw_tdls_set_ht_cap() */
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_dialog(pframe, pattrib, ptxmgmt);
 
@@ -2555,7 +2555,7 @@ void tlw_build_tdls_setup_rsp_ies(_adapter * padapter, struct xmit_frame * pxmit
 	pframe_head = pframe;
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_status_code(pframe, pattrib, ptxmgmt);
 
@@ -2639,7 +2639,7 @@ void tlw_build_tdls_setup_cfm_ies(_adapter * padapter, struct xmit_frame * pxmit
 	u8  *pftie=NULL, *ptimeout_ie=NULL, *plinkid_ie=NULL, *prsnie=NULL, *pftie_mic=NULL;
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_status_code(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_dialog(pframe, pattrib, ptxmgmt);
@@ -2698,7 +2698,7 @@ void tlw_build_tdls_teardown_ies(_adapter * padapter, struct xmit_frame * pxmitf
 	u8  *pftie = NULL, *pftie_mic = NULL, *plinkid_ie = NULL;
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_status_code(pframe, pattrib, ptxmgmt);
 
@@ -2727,7 +2727,7 @@ void tlw_build_tdls_dis_req_ies(_adapter * padapter, struct xmit_frame * pxmitfr
 	struct pkt_attrib *pattrib = &pxmitframe->attrib;
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_dialog(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_linkid(pframe, pattrib, _TRUE);
@@ -2744,7 +2744,7 @@ void tlw_build_tdls_dis_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitfr
 	pktlen_index = pattrib->pktlen;
 	pframe_head = pframe;
 
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_PUBLIC);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_PUBLIC);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_dialog(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_capability(padapter, pframe, pattrib);
@@ -2782,7 +2782,7 @@ void tlw_build_tdls_peer_traffic_indication_ies(_adapter * padapter, struct xmit
 	struct sta_info *ptdls_sta = tlw_get_stainfo(&padapter->stapriv, pattrib->dst);
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_dialog(pframe, pattrib, ptxmgmt);
 
@@ -2812,7 +2812,7 @@ void tlw_build_tdls_peer_traffic_rsp_ies(_adapter * padapter, struct xmit_frame 
 	struct sta_info *ptdls_sta = tlw_get_stainfo(&padapter->stapriv, pattrib->dst);
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_dialog(pframe, pattrib, ptxmgmt);
 
@@ -2835,7 +2835,7 @@ void tlw_build_tdls_ch_switch_req_ies(_adapter * padapter, struct xmit_frame * p
 	ptdls_sta->ch_switch_timeout=switch_timeout;
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_target_ch(padapter, pframe, pattrib);
 	pframe = tlw_tdls_set_reg_class(pframe, pattrib, ptdls_sta);
@@ -2857,7 +2857,7 @@ void tlw_build_tdls_ch_switch_rsp_ies(_adapter * padapter, struct xmit_frame * p
 	struct sta_info *ptdls_sta = tlw_get_stainfo(pstapriv, pattrib->dst);
 
 	pframe = tlw_tdls_set_payload_type(pframe, pattrib);
-	pframe = tlw_tdls_set_category(pframe, pattrib, RTW_WLAN_CATEGORY_TDLS);
+	pframe = tlw_tdls_set_category(pframe, pattrib, TLW_WLAN_CATEGORY_TDLS);
 	pframe = tlw_tdls_set_action(pframe, pattrib, ptxmgmt);
 	pframe = tlw_tdls_set_status_code(pframe, pattrib, ptxmgmt);
 
@@ -2877,7 +2877,7 @@ void tlw_build_tunneled_probe_req_ies(_adapter * padapter, struct xmit_frame * p
 	struct pkt_attrib	*pattrib = &pxmitframe->attrib;
 	struct wifidirect_info *pwdinfo = &padapter->wdinfo;
 	struct wifidirect_info *pbuddy_wdinfo = &padapter->pbuddy_adapter->wdinfo;
-	u8 category = RTW_WLAN_CATEGORY_P2P;
+	u8 category = TLW_WLAN_CATEGORY_P2P;
 	u8 WFA_OUI[3] = { 0x50, 0x6f, 0x9a};
 	u8 probe_req = 4;
 	u8 wfdielen = 0;
@@ -2905,7 +2905,7 @@ void tlw_build_tunneled_probe_rsp_ies(_adapter * padapter, struct xmit_frame * p
 	struct pkt_attrib	*pattrib = &pxmitframe->attrib;
 	struct wifidirect_info *pwdinfo = &padapter->wdinfo;
 	struct wifidirect_info *pbuddy_wdinfo = &padapter->pbuddy_adapter->wdinfo;
-	u8 category = RTW_WLAN_CATEGORY_P2P;
+	u8 category = TLW_WLAN_CATEGORY_P2P;
 	u8 WFA_OUI[3] = { 0x50, 0x6f, 0x9a};
 	u8 probe_rsp = 5;
 	u8 wfdielen = 0;

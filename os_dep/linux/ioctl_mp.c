@@ -966,11 +966,11 @@ int tlw_mp_arx(struct net_device *dev,
 		ret = sscanf(input, "smpcfg=%d", &bSmpCfg);
 
 		if (bSmpCfg == 1) {
-			pmppriv->bRTWSmbCfg = _TRUE;
+			pmppriv->bTLWSmbCfg = _TRUE;
 			sprintf(extra , "Indicate By Simple Config Format\n");
 			SetPacketRx(padapter, _TRUE, _TRUE);
 		} else {
-			pmppriv->bRTWSmbCfg = _FALSE;
+			pmppriv->bTLWSmbCfg = _FALSE;
 			sprintf(extra , "Indicate By Normal Format\n");
 			SetPacketRx(padapter, _TRUE, _FALSE);
 		}
@@ -1163,9 +1163,9 @@ int tlw_mp_dump(struct net_device *dev,
 		return -EFAULT;
 
 	if (strncmp(input, "all", 4) == 0) {
-		mac_reg_dump(RTW_DBGDUMP, padapter);
-		bb_reg_dump(RTW_DBGDUMP, padapter);
-		rf_reg_dump(RTW_DBGDUMP, padapter);
+		mac_reg_dump(TLW_DBGDUMP, padapter);
+		bb_reg_dump(TLW_DBGDUMP, padapter);
+		rf_reg_dump(TLW_DBGDUMP, padapter);
 	}
 	return 0;
 }
@@ -1292,7 +1292,7 @@ int tlw_mp_getver(struct net_device *dev,
 	if (copy_from_user(extra, wrqu->data.pointer, wrqu->data.length))
 		return -EFAULT;
 
-	sprintf(extra, "tlwpriv=%d\n", RTWPRIV_VER_INFO);
+	sprintf(extra, "tlwpriv=%d\n", TLWPRIV_VER_INFO);
 	wrqu->data.length = strlen(extra);
 	return 0;
 }
@@ -1328,12 +1328,12 @@ int tlw_mp_mon(struct net_device *dev,
 		SetPacketRx(padapter, _TRUE, _FALSE);
 		SetChannel(padapter);
 		pmp_priv->rx_bindicatePkt = _TRUE;
-		pmp_priv->bRTWSmbCfg = _TRUE;
+		pmp_priv->bTLWSmbCfg = _TRUE;
 		sprintf(extra, "monitor mode start\n");
 	} else if (bstop == 0) {
 		SetPacketRx(padapter, _FALSE, _FALSE);
 		pmp_priv->rx_bindicatePkt = _FALSE;
-		pmp_priv->bRTWSmbCfg = _FALSE;
+		pmp_priv->bTLWSmbCfg = _FALSE;
 		padapter->registrypriv.mp_mode = 1;
 		pHalFunc->hal_deinit(padapter);
 		padapter->registrypriv.mp_mode = 0;

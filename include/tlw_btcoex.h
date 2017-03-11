@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_BTCOEX_H__
-#define __RTW_BTCOEX_H__
+#ifndef __TLW_BTCOEX_H__
+#define __TLW_BTCOEX_H__
 
 #include <drv_types.h>
 
@@ -202,7 +202,7 @@ typedef enum _HCI_STATUS{
 	HCI_STATUS_HOST_BUSY_PAIRING								=0X38, //Host Busy - Pairing
 	HCI_STATUS_CONNECT_REJ_NOT_SUIT_CHNL_FOUND			=0X39, //Connection Rejected due to No Suitable Channel Found
 	HCI_STATUS_CONTROLLER_BUSY								=0X3a  //CONTROLLER BUSY
-}RTW_HCI_STATUS;
+}TLW_HCI_STATUS;
 
 #define HCI_EVENT_COMMAND_COMPLETE					0x0e
 
@@ -231,7 +231,7 @@ typedef enum HCI_EXTENSION_COMMANDS{
 	HCI_WIFI_CURRENT_CHANNEL						=0x0300,	
 	HCI_WIFI_CURRENT_BANDWIDTH						=0x0301,		
 	HCI_WIFI_CONNECTION_STATUS						=0x0302
-}RTW_HCI_EXT_CMD;
+}TLW_HCI_EXT_CMD;
 
 #define HCI_EVENT_EXTENSION_RTK						0xfe
 typedef enum HCI_EXTENSION_EVENT_RTK{
@@ -239,7 +239,7 @@ typedef enum HCI_EXTENSION_EVENT_RTK{
 	HCI_EVENT_EXT_WIFI_RF_STATUS_NOTIFY						=0x02,
 	HCI_EVENT_EXT_BT_INFO_CONTROL								=0x03,
 	HCI_EVENT_EXT_BT_COEX_CONTROL								=0x04
-}RTW_HCI_EXT_EVENT;
+}TLW_HCI_EXT_EVENT;
 
 typedef enum _BT_TRAFFIC_MODE{
 	BT_MOTOR_EXT_BE		= 0x00, //Best Effort. Default. for HCRP, PAN, SDP, RFCOMM-based profiles like FTP,OPP, SPP, DUN, etc.
@@ -392,5 +392,5 @@ void tlw_btcoex_rx_ampdu_apply(PADAPTER);
 void tlw_btcoex_LPS_Enter(PADAPTER);
 void tlw_btcoex_LPS_Leave(PADAPTER);
 
-#endif // __RTW_BTCOEX_H__
+#endif // __TLW_BTCOEX_H__
 

@@ -31,7 +31,7 @@ inline struct proc_dir_entry *get_tlw_drv_proc(void)
 	return tlw_proc;
 }
 
-#define RTW_PROC_NAME DRV_NAME
+#define TLW_PROC_NAME DRV_NAME
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(3,9,0))
 #define file_inode(file) ((file)->f_dentry->d_inode)
@@ -204,7 +204,7 @@ int tlw_drv_proc_init(void)
 		goto exit;
 	}
 
-	tlw_proc = tlw_proc_create_dir(RTW_PROC_NAME, get_proc_net, NULL);
+	tlw_proc = tlw_proc_create_dir(TLW_PROC_NAME, get_proc_net, NULL);
 
 	if (tlw_proc == NULL) {
 		tlw_warn_on(1);
@@ -235,7 +235,7 @@ void tlw_drv_proc_deinit(void)
 	for (i=0;i<drv_proc_hdls_num;i++)
 		remove_proc_entry(drv_proc_hdls[i].name, tlw_proc);
 
-	remove_proc_entry(RTW_PROC_NAME, get_proc_net);
+	remove_proc_entry(TLW_PROC_NAME, get_proc_net);
 	tlw_proc = NULL;
 }
 
@@ -751,7 +751,7 @@ static ssize_t proc_set_change_bss_chbw(struct file *file, const char __user *bu
 			goto exit;
 
 		if (check_fwstate(mlme, WIFI_AP_STATE) && check_fwstate(mlme, WIFI_ASOC_STATE))
-			tlw_change_bss_chbw_cmd(adapter, RTW_CMDF_WAIT_ACK, ch, bw, offset);
+			tlw_change_bss_chbw_cmd(adapter, TLW_CMDF_WAIT_ACK, ch, bw, offset);
 	}
 
 exit:

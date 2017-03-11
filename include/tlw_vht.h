@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_VHT_H_
-#define _RTW_VHT_H_
+#ifndef _TLW_VHT_H_
+#define _TLW_VHT_H_
 
 #define	LDPC_VHT_ENABLE_RX			BIT0
 #define	LDPC_VHT_ENABLE_TX			BIT1
@@ -130,5 +130,5 @@ u32	tlw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_le
 void	VHTOnAssocRsp(_adapter *padapter);
 u8	tlw_vht_mcsmap_to_nss(u8 *pvht_mcs_map);
 
-#endif	//_RTW_VHT_H_
+#endif	//_TLW_VHT_H_
 

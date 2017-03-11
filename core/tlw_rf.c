@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_RF_C_
+#define _TLW_RF_C_
 
 #include <drv_types.h>
 #include <hal_data.h>

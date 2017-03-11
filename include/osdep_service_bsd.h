@@ -124,7 +124,7 @@
 #define spin_lock_irqsave mtx_lock_irqsave
 #define spin_lock_bh mtx_lock_irqsave
 #define mtx_lock_irqsave(lock, x) mtx_lock(lock)//{local_irq_save((x)); mtx_lock_spin((lock));}
-//#define IFT_RTW	0xf9 //ifnet allocate type for RTW
+//#define IFT_TLW	0xf9 //ifnet allocate type for TLW
 #define free_netdev if_free
 #define LIST_CONTAINOR(ptr, type, member) \
         ((type *)((char *)(ptr)-(SIZE_T)(&((type *)0)->member)))

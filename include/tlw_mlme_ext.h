@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_MLME_EXT_H_
-#define __RTW_MLME_EXT_H_
+#ifndef __TLW_MLME_EXT_H_
+#define __TLW_MLME_EXT_H_
 
 
 //	Commented by Albert 20101105
@@ -84,7 +84,7 @@ MCS rate definitions
 #define MCS_RATE_2R_13TO15_OFF	(0x00001fff)
 
 
-extern unsigned char RTW_WPA_OUI[];
+extern unsigned char TLW_WPA_OUI[];
 extern unsigned char WMM_OUI[];
 extern unsigned char WPS_OUI[];
 extern unsigned char WFD_OUI[];
@@ -363,8 +363,8 @@ struct ss_res {
 #endif
 	u8 ssid_num;
 	u8 ch_num;
-	NDIS_802_11_SSID ssid[RTW_SSID_SCAN_AMOUNT];
-	struct tlw_ieee80211_channel ch[RTW_CHANNEL_SCAN_AMOUNT];
+	NDIS_802_11_SSID ssid[TLW_SSID_SCAN_AMOUNT];
+	struct tlw_ieee80211_channel ch[TLW_CHANNEL_SCAN_AMOUNT];
 };
 
 //#define AP_MODE				0x0C
@@ -415,11 +415,11 @@ struct FW_Sta_Info
  * When one iface acted as AP mode and the other iface is STA mode and scanning, 
  * it should switch back to AP's operating channel periodically.
  * Parameters info:
- * When the driver scanned RTW_SCAN_NUM_OF_CH channels, it would switch back to AP's operating channel for
- * RTW_BACK_OP_CH_MS milliseconds.
+ * When the driver scanned TLW_SCAN_NUM_OF_CH channels, it would switch back to AP's operating channel for
+ * TLW_BACK_OP_CH_MS milliseconds.
  * Example:
  * For chip supports 2.4G + 5GHz and AP mode is operating in channel 1, 
- * RTW_SCAN_NUM_OF_CH is 8, RTW_BACK_OP_CH_MS is 300
+ * TLW_SCAN_NUM_OF_CH is 8, TLW_BACK_OP_CH_MS is 300
  * When it's STA mode gets set_scan command, 
  * it would 
  * 1. Doing the scan on channel 1.2.3.4.5.6.7.8 
@@ -429,11 +429,11 @@ struct FW_Sta_Info
  * 5. ... and so on, till survey done.
  */
 #if defined(CONFIG_ATMEL_RC_PATCH)
-#define RTW_SCAN_NUM_OF_CH 2
-#define RTW_BACK_OP_CH_MS 200
+#define TLW_SCAN_NUM_OF_CH 2
+#define TLW_BACK_OP_CH_MS 200
 #else
-#define RTW_SCAN_NUM_OF_CH 3
-#define RTW_BACK_OP_CH_MS 400
+#define TLW_SCAN_NUM_OF_CH 3
+#define TLW_BACK_OP_CH_MS 400
 #endif
 
 struct mlme_ext_info
@@ -522,12 +522,12 @@ void tlw_chset_update_non_ocp_ms(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offse
 #endif
 
 enum {
-	RTW_CHF_2G = BIT0,
-	RTW_CHF_5G = BIT1,
-	RTW_CHF_DFS = BIT2,
-	RTW_CHF_LONG_CAC = BIT3,
-	RTW_CHF_NON_DFS = BIT4,
-	RTW_CHF_NON_LONG_CAC = BIT5,
+	TLW_CHF_2G = BIT0,
+	TLW_CHF_5G = BIT1,
+	TLW_CHF_DFS = BIT2,
+	TLW_CHF_LONG_CAC = BIT3,
+	TLW_CHF_NON_DFS = BIT4,
+	TLW_CHF_NON_LONG_CAC = BIT5,
 };
 bool tlw_choose_available_chbw(_adapter *adapter, u8 req_bw, u8 *dec_ch, u8 *dec_bw, u8 *dec_offset, u8 d_flags);
 void dump_chset(void *sel, RT_CHANNEL_INFO *ch_set);
@@ -1053,7 +1053,7 @@ u8 run_in_thread_hdl(_adapter *padapter, u8 *pbuf);
 #define GEN_DRV_CMD_HANDLER(size, cmd)	{size, &cmd ## _hdl},
 #define GEN_MLME_EXT_HANDLER(size, cmd)	{size, cmd},
 
-#ifdef _RTW_CMD_C_
+#ifdef _TLW_CMD_C_
 
 struct cmd_hdl wlancmds[] = 
 {
@@ -1193,7 +1193,7 @@ enum tlw_c2h_event
 };
 
 
-#ifdef _RTW_MLME_EXT_C_		
+#ifdef _TLW_MLME_EXT_C_		
 
 static struct fwevent wlanevents[] = 
 {
@@ -1230,7 +1230,7 @@ static struct fwevent wlanevents[] =
 
 };
 
-#endif//_RTW_MLME_EXT_C_
+#endif//_TLW_MLME_EXT_C_
 
 #endif
 

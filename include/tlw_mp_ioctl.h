@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_MP_IOCTL_H_
-#define _RTW_MP_IOCTL_H_
+#ifndef _TLW_MP_IOCTL_H_
+#define _TLW_MP_IOCTL_H_
 
 #include <mp_custom_oid.h>
 #include <tlw_mp.h>
@@ -196,7 +196,7 @@ NDIS_STATUS oid_rt_get_power_mode_hdl(struct oid_par_priv* poid_par_priv);
 
 NDIS_STATUS oid_rt_pro_trigger_gpio_hdl(struct oid_par_priv *poid_par_priv);
 
-#ifdef _RTW_MP_IOCTL_C_
+#ifdef _TLW_MP_IOCTL_C_
 
 const struct oid_obj_priv oid_ttl_seg_81_80_00[] =
 {
@@ -528,7 +528,7 @@ enum TTL902X_MP_IOCTL_SUBCODE {
 
 u32 mp_ioctl_xmit_packet_hdl(struct oid_par_priv* poid_par_priv);
 
-#ifdef _RTW_MP_IOCTL_C_
+#ifdef _TLW_MP_IOCTL_C_
 
 #define GEN_MP_IOCTL_HANDLER(sz, hdl, oid) {sz, hdl, oid},
 
@@ -581,11 +581,11 @@ struct mp_ioctl_handler mp_ioctl_hdl[] = {
 	GEN_MP_IOCTL_HANDLER(0, NULL, 0)
 };
 
-#else /* _RTW_MP_IOCTL_C_ */
+#else /* _TLW_MP_IOCTL_C_ */
 
 extern struct mp_ioctl_handler mp_ioctl_hdl[];
 
-#endif /* _RTW_MP_IOCTL_C_ */
+#endif /* _TLW_MP_IOCTL_C_ */
 
 #endif
 

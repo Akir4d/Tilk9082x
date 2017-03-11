@@ -338,7 +338,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 	precvpriv = &padapter->recvpriv;
 	
 	do {
-		if (RTW_CANNOT_RUN(padapter)) {
+		if (TLW_CANNOT_RUN(padapter)) {
 			DBG_8192C("recv_tasklet => bDriverStopped or bSurpriseRemoved\n");
 			break;
 		}

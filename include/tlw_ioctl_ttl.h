@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_IOCTL_RTL_H_
-#define _RTW_IOCTL_RTL_H_
+#ifndef _TLW_IOCTL_RTL_H_
+#define _TLW_IOCTL_RTL_H_
 
 
 //************** oid_ttl_seg_01_01 ************** 

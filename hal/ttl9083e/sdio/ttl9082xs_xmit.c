@@ -484,7 +484,7 @@ static u8 tlw_sdio_wait_enough_TxOQT_space(PADAPTER padapter, u8 agg_num)
 
 	while (pHalData->SdioTxOQTFreeSpace < agg_num) 
 	{
-		if (RTW_CANNOT_RUN(padapter)) {
+		if (TLW_CANNOT_RUN(padapter)) {
 			DBG_871X("%s: bSurpriseRemoved or bDriverStopped (wait TxOQT)\n", __func__);
 			return _FALSE;
 		}
@@ -578,7 +578,7 @@ query_free_page:
 #endif //CONFIG_SDIO_TX_ENABLE_AVAL_INT
 	}
 
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		RT_TRACE(_module_hal_xmit_c_, _drv_notice_,
 			 ("%s: bSurpriseRemoved(wirte port)\n", __FUNCTION__));
 		goto free_xmitbuf;
@@ -629,7 +629,7 @@ s32 ttl9083es_xmit_buf_handler(PADAPTER padapter)
 		return _FAIL;
 	}
 
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		RT_TRACE(_module_hal_xmit_c_, _drv_notice_
 				, ("%s: bDriverStopped(%s) bSurpriseRemoved(%s)\n"
 				, __func__
@@ -1052,7 +1052,7 @@ void ttl9083es_xmit_tasklet(void *priv)
 
 	while(1)
 	{
-		if (RTW_CANNOT_TX(padapter))
+		if (TLW_CANNOT_TX(padapter))
 		{
 			DBG_871X("xmit_tasklet => bDriverStopped or bSurpriseRemoved or bWritePortCancel\n");
 			break;
@@ -1319,7 +1319,7 @@ wait:
 
 next:
 
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		RT_TRACE(_module_hal_xmit_c_, _drv_notice_
 				, ("%s: bDriverStopped(%s) bSurpriseRemoved(%s)\n"
 				, __func__
@@ -1365,7 +1365,7 @@ thread_return ttl9083es_xmit_thread(thread_context context)
 	
 	ret = _SUCCESS;
 
-	thread_enter("RTWHALXT");
+	thread_enter("TLWHALXT");
 
 	DBG_871X("start %s\n", __FUNCTION__);
 
@@ -1425,7 +1425,7 @@ s32 ttl9083es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe)
 
 		ret = tlw_write_port(padapter, ffaddr2deviceId(pdvobjpriv, pxmitbuf->ff_hwaddr), pxmitbuf->len, (u8 *)pxmitbuf);
 		if (ret != _SUCCESS)
-			tlw_sctx_done_err(&pxmitbuf->sctx, RTW_SCTX_DONE_WRITE_PORT_ERR);
+			tlw_sctx_done_err(&pxmitbuf->sctx, TLW_SCTX_DONE_WRITE_PORT_ERR);
 		
 		tlw_free_xmitbuf(pxmitpriv, pxmitbuf);
 	}		

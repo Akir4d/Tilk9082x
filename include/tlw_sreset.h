@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_SRESET_H_
-#define _RTW_SRESET_H_
+#ifndef _TLW_SRESET_H_
+#define _TLW_SRESET_H_
 
 //#include <drv_types.h>
 

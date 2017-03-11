@@ -24,7 +24,7 @@ static struct country_code_to_enum_rd allCountries[] = {
  */
 
 /* 2G chan 01 - chan 11 */
-#define RTW_2GHZ_CH01_11	\
+#define TLW_2GHZ_CH01_11	\
 	REG_RULE(2412-10, 2462+10, 40, 0, 20, 0)
 
 /*
@@ -33,32 +33,32 @@ static struct country_code_to_enum_rd allCountries[] = {
  */
 
 /* 2G chan 12 - chan 13, PASSIV SCAN */
-#define RTW_2GHZ_CH12_13	\
+#define TLW_2GHZ_CH12_13	\
 	REG_RULE(2467-10, 2472+10, 40, 0, 20,	\
 	NL80211_RRF_PASSIVE_SCAN)
 
 /* 2G chan 14, PASSIVS SCAN, NO OFDM (B only) */
-#define RTW_2GHZ_CH14	\
+#define TLW_2GHZ_CH14	\
 	REG_RULE(2484-10, 2484+10, 40, 0, 20,	\
 	NL80211_RRF_PASSIVE_SCAN | NL80211_RRF_NO_OFDM)
 
 /* 5G chan 36 - chan 64 */
-#define RTW_5GHZ_5150_5350	\
+#define TLW_5GHZ_5150_5350	\
 	REG_RULE(5150-10, 5350+10, 40, 0, 30,	\
 	NL80211_RRF_PASSIVE_SCAN | NL80211_RRF_NO_IBSS)
 
 /* 5G chan 100 - chan 165 */
-#define RTW_5GHZ_5470_5850	\
+#define TLW_5GHZ_5470_5850	\
 	REG_RULE(5470-10, 5850+10, 40, 0, 30, \
 	NL80211_RRF_PASSIVE_SCAN | NL80211_RRF_NO_IBSS)
 
 /* 5G chan 149 - chan 165 */
-#define RTW_5GHZ_5725_5850	\
+#define TLW_5GHZ_5725_5850	\
 	REG_RULE(5725-10, 5850+10, 40, 0, 30, \
 	NL80211_RRF_PASSIVE_SCAN | NL80211_RRF_NO_IBSS)
 
 /* 5G chan 36 - chan 165 */
-#define RTW_5GHZ_5150_5850	\
+#define TLW_5GHZ_5150_5850	\
 	REG_RULE(5150-10, 5850+10, 40, 0, 30,	\
 	NL80211_RRF_PASSIVE_SCAN | NL80211_RRF_NO_IBSS)
 
@@ -66,9 +66,9 @@ static const struct ieee80211_regdomain tlw_regdom_rd = {
 	.n_reg_rules = 3,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
-		      RTW_2GHZ_CH12_13,
-		      RTW_5GHZ_5150_5850,
+		      TLW_2GHZ_CH01_11,
+		      TLW_2GHZ_CH12_13,
+		      TLW_5GHZ_5150_5850,
 		      }
 };
 
@@ -76,7 +76,7 @@ static const struct ieee80211_regdomain tlw_regdom_11 = {
 	.n_reg_rules = 1,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
+		      TLW_2GHZ_CH01_11,
 		      }
 };
 
@@ -84,8 +84,8 @@ static const struct ieee80211_regdomain tlw_regdom_12_13 = {
 	.n_reg_rules = 2,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
-		      RTW_2GHZ_CH12_13,
+		      TLW_2GHZ_CH01_11,
+		      TLW_2GHZ_CH12_13,
 		      }
 };
 
@@ -93,9 +93,9 @@ static const struct ieee80211_regdomain tlw_regdom_no_midband = {
 	.n_reg_rules = 3,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
-		      RTW_5GHZ_5150_5350,
-		      RTW_5GHZ_5725_5850,
+		      TLW_2GHZ_CH01_11,
+		      TLW_5GHZ_5150_5350,
+		      TLW_5GHZ_5725_5850,
 		      }
 };
 
@@ -103,9 +103,9 @@ static const struct ieee80211_regdomain tlw_regdom_60_64 = {
 	.n_reg_rules = 3,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
-		      RTW_2GHZ_CH12_13,
-		      RTW_5GHZ_5725_5850,
+		      TLW_2GHZ_CH01_11,
+		      TLW_2GHZ_CH12_13,
+		      TLW_5GHZ_5725_5850,
 		      }
 };
 
@@ -113,10 +113,10 @@ static const struct ieee80211_regdomain tlw_regdom_14_60_64 = {
 	.n_reg_rules = 4,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
-		      RTW_2GHZ_CH12_13,
-		      RTW_2GHZ_CH14,
-		      RTW_5GHZ_5725_5850,
+		      TLW_2GHZ_CH01_11,
+		      TLW_2GHZ_CH12_13,
+		      TLW_2GHZ_CH14,
+		      TLW_5GHZ_5725_5850,
 		      }
 };
 
@@ -124,9 +124,9 @@ static const struct ieee80211_regdomain tlw_regdom_14 = {
 	.n_reg_rules = 3,
 	.alpha2 = "99",
 	.reg_rules = {
-		      RTW_2GHZ_CH01_11,
-		      RTW_2GHZ_CH12_13,
-		      RTW_2GHZ_CH14,
+		      TLW_2GHZ_CH01_11,
+		      TLW_2GHZ_CH12_13,
+		      TLW_2GHZ_CH14,
 		      }
 };
 

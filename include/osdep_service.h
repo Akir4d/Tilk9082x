@@ -23,8 +23,8 @@
 
 #define _FAIL		0
 #define _SUCCESS	1
-#define RTW_RX_HANDLED 2
-//#define RTW_STATUS_TIMEDOUT -110
+#define TLW_RX_HANDLED 2
+//#define TLW_STATUS_TIMEDOUT -110
 
 #undef _TRUE
 #define _TRUE		1
@@ -49,8 +49,8 @@
 #include <osdep_service_ce.h>
 #endif
 
-#define RTW_TIMER_HDL_NAME(name) tlw_##name##_timer_hdl
-#define RTW_DECLARE_TIMER_HDL(name) void RTW_TIMER_HDL_NAME(name)(RTW_TIMER_HDL_ARGS)
+#define TLW_TIMER_HDL_NAME(name) tlw_##name##_timer_hdl
+#define TLW_DECLARE_TIMER_HDL(name) void TLW_TIMER_HDL_NAME(name)(TLW_TIMER_HDL_ARGS)
 
 //#include <tlw_byteorder.h>
 
@@ -96,7 +96,7 @@
 #define BIT35	0x0800000000
 #define BIT36	0x1000000000
 
-extern int RTW_STATUS_CODE(int error_code);
+extern int TLW_STATUS_CODE(int error_code);
 
 #ifndef RTK_DMP_PLATFORM
 #define CONFIG_USE_VMALLOC
@@ -531,32 +531,32 @@ extern u32 tlw_random32(void);
 
 /* Macros for handling unaligned memory accesses */
 
-#define RTW_GET_BE16(a) ((u16) (((a)[0] << 8) | (a)[1]))
-#define RTW_PUT_BE16(a, val)			\
+#define TLW_GET_BE16(a) ((u16) (((a)[0] << 8) | (a)[1]))
+#define TLW_PUT_BE16(a, val)			\
 	do {					\
 		(a)[0] = ((u16) (val)) >> 8;	\
 		(a)[1] = ((u16) (val)) & 0xff;	\
 	} while (0)
 
-#define RTW_GET_LE16(a) ((u16) (((a)[1] << 8) | (a)[0]))
-#define RTW_PUT_LE16(a, val)			\
+#define TLW_GET_LE16(a) ((u16) (((a)[1] << 8) | (a)[0]))
+#define TLW_PUT_LE16(a, val)			\
 	do {					\
 		(a)[1] = ((u16) (val)) >> 8;	\
 		(a)[0] = ((u16) (val)) & 0xff;	\
 	} while (0)
 
-#define RTW_GET_BE24(a) ((((u32) (a)[0]) << 16) | (((u32) (a)[1]) << 8) | \
+#define TLW_GET_BE24(a) ((((u32) (a)[0]) << 16) | (((u32) (a)[1]) << 8) | \
 			 ((u32) (a)[2]))			 
-#define RTW_PUT_BE24(a, val)					\
+#define TLW_PUT_BE24(a, val)					\
 	do {							\
 		(a)[0] = (u8) ((((u32) (val)) >> 16) & 0xff);	\
 		(a)[1] = (u8) ((((u32) (val)) >> 8) & 0xff);	\
 		(a)[2] = (u8) (((u32) (val)) & 0xff);		\
 	} while (0)
 
-#define RTW_GET_BE32(a) ((((u32) (a)[0]) << 24) | (((u32) (a)[1]) << 16) | \
+#define TLW_GET_BE32(a) ((((u32) (a)[0]) << 24) | (((u32) (a)[1]) << 16) | \
 			 (((u32) (a)[2]) << 8) | ((u32) (a)[3]))			 
-#define RTW_PUT_BE32(a, val)					\
+#define TLW_PUT_BE32(a, val)					\
 	do {							\
 		(a)[0] = (u8) ((((u32) (val)) >> 24) & 0xff);	\
 		(a)[1] = (u8) ((((u32) (val)) >> 16) & 0xff);	\
@@ -564,9 +564,9 @@ extern u32 tlw_random32(void);
 		(a)[3] = (u8) (((u32) (val)) & 0xff);		\
 	} while (0)
 
-#define RTW_GET_LE32(a) ((((u32) (a)[3]) << 24) | (((u32) (a)[2]) << 16) | \
+#define TLW_GET_LE32(a) ((((u32) (a)[3]) << 24) | (((u32) (a)[2]) << 16) | \
 			 (((u32) (a)[1]) << 8) | ((u32) (a)[0]))			 
-#define RTW_PUT_LE32(a, val)					\
+#define TLW_PUT_LE32(a, val)					\
 	do {							\
 		(a)[3] = (u8) ((((u32) (val)) >> 24) & 0xff);	\
 		(a)[2] = (u8) ((((u32) (val)) >> 16) & 0xff);	\
@@ -574,11 +574,11 @@ extern u32 tlw_random32(void);
 		(a)[0] = (u8) (((u32) (val)) & 0xff);		\
 	} while (0)
 
-#define RTW_GET_BE64(a) ((((u64) (a)[0]) << 56) | (((u64) (a)[1]) << 48) | \
+#define TLW_GET_BE64(a) ((((u64) (a)[0]) << 56) | (((u64) (a)[1]) << 48) | \
 			 (((u64) (a)[2]) << 40) | (((u64) (a)[3]) << 32) | \
 			 (((u64) (a)[4]) << 24) | (((u64) (a)[5]) << 16) | \
 			 (((u64) (a)[6]) << 8) | ((u64) (a)[7]))			 
-#define RTW_PUT_BE64(a, val)				\
+#define TLW_PUT_BE64(a, val)				\
 	do {						\
 		(a)[0] = (u8) (((u64) (val)) >> 56);	\
 		(a)[1] = (u8) (((u64) (val)) >> 48);	\
@@ -590,7 +590,7 @@ extern u32 tlw_random32(void);
 		(a)[7] = (u8) (((u64) (val)) & 0xff);	\
 	} while (0)
 
-#define RTW_GET_LE64(a) ((((u64) (a)[7]) << 56) | (((u64) (a)[6]) << 48) | \
+#define TLW_GET_LE64(a) ((((u64) (a)[7]) << 56) | (((u64) (a)[6]) << 48) | \
 			 (((u64) (a)[5]) << 40) | (((u64) (a)[4]) << 32) | \
 			 (((u64) (a)[3]) << 24) | (((u64) (a)[2]) << 16) | \
 			 (((u64) (a)[1]) << 8) | ((u64) (a)[0]))

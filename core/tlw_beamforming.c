@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_BEAMFORMING_C_
+#define _TLW_BEAMFORMING_C_
 
 #include <drv_types.h>
 #include <hal_data.h>

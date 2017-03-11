@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_DEBUG_H__
-#define __RTW_DEBUG_H__
+#ifndef __TLW_DEBUG_H__
+#define __TLW_DEBUG_H__
 
 
 #define _drv_always_		1
@@ -69,35 +69,35 @@
 
 #undef _MODULE_DEFINE_
 
-#if defined _RTW_XMIT_C_
+#if defined _TLW_XMIT_C_
 	#define _MODULE_DEFINE_	_module_ttl871x_xmit_c_
 #elif defined _XMIT_OSDEP_C_
 	#define _MODULE_DEFINE_	_module_xmit_osdep_c_
-#elif defined _RTW_RECV_C_
+#elif defined _TLW_RECV_C_
 	#define _MODULE_DEFINE_	_module_ttl871x_recv_c_
 #elif defined _RECV_OSDEP_C_
 	#define _MODULE_DEFINE_	_module_recv_osdep_c_
-#elif defined _RTW_MLME_C_
+#elif defined _TLW_MLME_C_
 	#define _MODULE_DEFINE_	_module_ttl871x_mlme_c_
 #elif defined _MLME_OSDEP_C_
 	#define _MODULE_DEFINE_	_module_mlme_osdep_c_
-#elif defined _RTW_MLME_EXT_C_
+#elif defined _TLW_MLME_EXT_C_
 	#define _MODULE_DEFINE_ 1
-#elif defined _RTW_STA_MGT_C_
+#elif defined _TLW_STA_MGT_C_
 	#define _MODULE_DEFINE_	_module_ttl871x_sta_mgt_c_
-#elif defined _RTW_CMD_C_
+#elif defined _TLW_CMD_C_
 	#define _MODULE_DEFINE_	_module_ttl871x_cmd_c_
 #elif defined _CMD_OSDEP_C_
 	#define _MODULE_DEFINE_	_module_cmd_osdep_c_
-#elif defined _RTW_IO_C_
+#elif defined _TLW_IO_C_
 	#define _MODULE_DEFINE_	_module_ttl871x_io_c_
 #elif defined _IO_OSDEP_C_
 	#define _MODULE_DEFINE_	_module_io_osdep_c_
 #elif defined _OS_INTFS_C_
 	#define	_MODULE_DEFINE_	_module_os_intfs_c_
-#elif defined _RTW_SECURITY_C_
+#elif defined _TLW_SECURITY_C_
 	#define	_MODULE_DEFINE_	_module_ttl871x_security_c_
-#elif defined _RTW_EEPROM_C_
+#elif defined _TLW_EEPROM_C_
 	#define	_MODULE_DEFINE_	_module_ttl871x_eeprom_c_
 #elif defined _HAL_INTF_C_
 	#define	_MODULE_DEFINE_	_module_hal_init_c_
@@ -111,7 +111,7 @@
 	#define	_MODULE_DEFINE_	_module_ttl871x_ioctl_query_c_
 #elif defined _TTL902X_PWRCTRL_C_
 	#define	_MODULE_DEFINE_	_module_ttl871x_pwrctrl_c_
-#elif defined _RTW_PWRCTRL_C_
+#elif defined _TLW_PWRCTRL_C_
 	#define	_MODULE_DEFINE_	1
 #elif defined _HCI_INTF_C_
 	#define	_MODULE_DEFINE_	_module_hci_intfs_c_
@@ -139,11 +139,11 @@
 	#define	_MODULE_DEFINE_	_module_ttl8712_recv_c_
 #elif defined _TTL902X_MLME_EXT_C_
 	#define _MODULE_DEFINE_	_module_mlme_osdep_c_
-#elif defined _RTW_MP_C_
+#elif defined _TLW_MP_C_
 	#define	_MODULE_DEFINE_	_module_mp_
-#elif defined _RTW_MP_IOCTL_C_
+#elif defined _TLW_MP_IOCTL_C_
 	#define	_MODULE_DEFINE_	_module_mp_
-#elif defined _RTW_EFUSE_C_
+#elif defined _TLW_EFUSE_C_
 	#define	_MODULE_DEFINE_	_module_efuse_
 #endif
 
@@ -221,12 +221,12 @@ extern void ttl871x_cedbg(const char *fmt, ...);
 	}while(0)
 
 #if defined(_seqdump)
-#define RTW_DBGDUMP 0 /* 'stream' for _dbgdump */
+#define TLW_DBGDUMP 0 /* 'stream' for _dbgdump */
 
 /* dump message to selected 'stream' */
 #define DBG_871X_SEL(sel, fmt, arg...) \
 	do {\
-		if (sel == RTW_DBGDUMP)\
+		if (sel == TLW_DBGDUMP)\
 			_DBG_871X_LEVEL(_drv_always_, fmt, ##arg); \
 		else {\
 			_seqdump(sel, fmt, ##arg); \
@@ -236,7 +236,7 @@ extern void ttl871x_cedbg(const char *fmt, ...);
 /* dump message to selected 'stream' with driver-defined prefix */
 #define DBG_871X_SEL_NL(sel, fmt, arg...) \
 	do {\
-		if (sel == RTW_DBGDUMP)\
+		if (sel == TLW_DBGDUMP)\
 			DBG_871X_LEVEL(_drv_always_, fmt, ##arg); \
 		else {\
 			_seqdump(sel, fmt, ##arg) /*tlw_warn_on(1)*/; \
@@ -529,5 +529,5 @@ int proc_get_tx_auth(struct seq_file *m, void *v);
 int proc_get_efuse_map(struct seq_file *m, void *v);
 ssize_t proc_set_efuse_map(struct file *file, const char __user *buffer, size_t count, loff_t *pos, void *data);
 
-#endif	//__RTW_DEBUG_H__
+#endif	//__TLW_DEBUG_H__
 

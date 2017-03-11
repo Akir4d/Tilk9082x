@@ -17,14 +17,14 @@
  *
  *
  ******************************************************************************/
-#define _RTW_AP_C_
+#define _TLW_AP_C_
 
 #include <drv_types.h>
 
 
 #ifdef CONFIG_AP_MODE
 
-extern unsigned char	RTW_WPA_OUI[];
+extern unsigned char	TLW_WPA_OUI[];
 extern unsigned char 	WMM_OUI[];
 extern unsigned char	WPS_OUI[];
 extern unsigned char	P2P_OUI[];
@@ -1614,7 +1614,7 @@ change_chbw:
 
 	if (DUMP_ADAPTERS_STATUS) {
 		DBG_871X(FUNC_ADPT_FMT" done\n", FUNC_ADPT_ARG(padapter));
-		dump_adapters_status(RTW_DBGDUMP , adapter_to_dvobj(padapter));
+		dump_adapters_status(TLW_DBGDUMP , adapter_to_dvobj(padapter));
 	}
 
 	if (_TRUE == pmlmeext->bstart_bss
@@ -1717,12 +1717,12 @@ int tlw_check_beacon_data(_adapter *padapter, u8 *pbuf,  int len)
 	//beacon interval
 	p = tlw_get_beacon_interval_from_ie(ie);//ie + 8;	// 8: TimeStamp, 2: Beacon Interval 2:Capability
 	//pbss_network->Configuration.BeaconPeriod = le16_to_cpu(*(unsigned short*)p);
-	pbss_network->Configuration.BeaconPeriod = RTW_GET_LE16(p);
+	pbss_network->Configuration.BeaconPeriod = TLW_GET_LE16(p);
 	
 	//capability
 	//cap = *(unsigned short *)tlw_get_capability_from_ie(ie);
 	//cap = le16_to_cpu(cap);
-	cap = RTW_GET_LE16(ie);
+	cap = TLW_GET_LE16(ie);
 
 	//SSID
 	p = tlw_get_ie(ie + _BEACON_IE_OFFSET_, _SSID_IE_, &ie_len, (pbss_network->IELength -_BEACON_IE_OFFSET_));
@@ -1957,7 +1957,7 @@ int tlw_check_beacon_data(_adapter *padapter, u8 *pbuf,  int len)
 
 		if (0) {
 			DBG_871X(FUNC_ADPT_FMT" HT_CAP_IE from upper layer:\n", FUNC_ADPT_ARG(padapter));
-			dump_ht_cap_ie_content(RTW_DBGDUMP, p+2, ie_len);
+			dump_ht_cap_ie_content(TLW_DBGDUMP, p+2, ie_len);
 		}
 
 		pHT_caps_ie=p;
@@ -2063,7 +2063,7 @@ int tlw_check_beacon_data(_adapter *padapter, u8 *pbuf,  int len)
 
 		if (0) {
 			DBG_871X(FUNC_ADPT_FMT" HT_CAP_IE driver masked:\n", FUNC_ADPT_ARG(padapter));
-			dump_ht_cap_ie_content(RTW_DBGDUMP, p+2, ie_len);
+			dump_ht_cap_ie_content(TLW_DBGDUMP, p+2, ie_len);
 		}
 	}
 
@@ -2191,7 +2191,7 @@ int tlw_check_beacon_data(_adapter *padapter, u8 *pbuf,  int len)
 	}
 }
 
-	tlw_startbss_cmd(padapter, RTW_CMDF_WAIT_ACK);
+	tlw_startbss_cmd(padapter, TLW_CMDF_WAIT_ACK);
 
 	tlw_indicate_connect( padapter);
 
@@ -2657,14 +2657,14 @@ static void update_bcn_erpinfo_ie(_adapter *padapter)
 		PNDIS_802_11_VARIABLE_IEs pIE = (PNDIS_802_11_VARIABLE_IEs)p;
 
 		if (pmlmepriv->num_sta_non_erp == 1)
-			pIE->data[0] |= RTW_ERP_INFO_NON_ERP_PRESENT|RTW_ERP_INFO_USE_PROTECTION;
+			pIE->data[0] |= TLW_ERP_INFO_NON_ERP_PRESENT|TLW_ERP_INFO_USE_PROTECTION;
 		else
-			pIE->data[0] &= ~(RTW_ERP_INFO_NON_ERP_PRESENT|RTW_ERP_INFO_USE_PROTECTION);
+			pIE->data[0] &= ~(TLW_ERP_INFO_NON_ERP_PRESENT|TLW_ERP_INFO_USE_PROTECTION);
 
 		if(pmlmepriv->num_sta_no_short_preamble > 0)
-			pIE->data[0] |= RTW_ERP_INFO_BARKER_PREAMBLE_MODE;
+			pIE->data[0] |= TLW_ERP_INFO_BARKER_PREAMBLE_MODE;
 		else
-			pIE->data[0] &= ~(RTW_ERP_INFO_BARKER_PREAMBLE_MODE);
+			pIE->data[0] &= ~(TLW_ERP_INFO_BARKER_PREAMBLE_MODE);
 	
 		ERP_IE_handler(padapter, pIE);
 	}
@@ -2854,7 +2854,7 @@ static void update_bcn_vendor_spec_ie(_adapter *padapter, u8*oui)
 {
 	DBG_871X("%s\n", __FUNCTION__);
 
-	if(_tlw_memcmp(RTW_WPA_OUI, oui, 4))
+	if(_tlw_memcmp(TLW_WPA_OUI, oui, 4))
 	{
 		update_bcn_wpa_ie(padapter);
 	}
@@ -2999,13 +2999,13 @@ void tlw_process_public_act_bsscoex(_adapter *padapter, u8 *pframe, uint frame_l
 		if ((frame_body[2] == EID_BSSCoexistence) && (frame_body[3] > 0)) {			
 			u8 ie_data = frame_body[4];
 
-			if (ie_data & RTW_WLAN_20_40_BSS_COEX_40MHZ_INTOL) {
+			if (ie_data & TLW_WLAN_20_40_BSS_COEX_40MHZ_INTOL) {
 				if (psta->ht_40mhz_intolerant == 0) {				
 					psta->ht_40mhz_intolerant = 1;
 					pmlmepriv->num_sta_40mhz_intolerant++;
 					beacon_updated = _TRUE;
 				}	
-			} else if (ie_data & RTW_WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ)	{				
+			} else if (ie_data & TLW_WLAN_20_40_BSS_COEX_20MHZ_WIDTH_REQ)	{				
 				if (pmlmepriv->ht_20mhz_width_req == _FALSE) {				
 					pmlmepriv->ht_20mhz_width_req = _TRUE;			
 					beacon_updated = _TRUE;
@@ -3364,7 +3364,7 @@ void bss_cap_update_on_sta_join(_adapter *padapter, struct sta_info *psta)
 		}
 		
 
-		if (ht_capab & RTW_IEEE80211_HT_CAP_40MHZ_INTOLERANT) {
+		if (ht_capab & TLW_IEEE80211_HT_CAP_40MHZ_INTOLERANT) {
 
 			if (!psta->ht_40mhz_intolerant) {
 				psta->ht_40mhz_intolerant = 1;
@@ -3761,7 +3761,7 @@ void tlw_ap_restore_network(_adapter *padapter)
 
 	set_channel_bwmode(padapter, pmlmeext->cur_channel, pmlmeext->cur_ch_offset, pmlmeext->cur_bwmode);
 
-	tlw_startbss_cmd(padapter, RTW_CMDF_DIRECTLY);
+	tlw_startbss_cmd(padapter, TLW_CMDF_DIRECTLY);
 
 	if((padapter->securitypriv.dot11PrivacyAlgrthm == _TKIP_) ||
 		(padapter->securitypriv.dot11PrivacyAlgrthm == _AES_))
@@ -4147,17 +4147,17 @@ bool tlw_ap_chbw_decision(_adapter *adapter, u8 req_ch, u8 req_bw, u8 req_offset
 		if (tlw_chset_is_ch_non_ocp(mlmeext->channel_set, dec_ch, dec_bw, dec_offset)) {
 			/* choose 5G DFS channel for debug */
 			if (adapter_to_rfctl(adapter)->dbg_dfs_master_choose_dfs_ch_first
-				&& tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, RTW_CHF_2G|RTW_CHF_NON_DFS) == _TRUE) {
+				&& tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, TLW_CHF_2G|TLW_CHF_NON_DFS) == _TRUE) {
 				DBG_871X(FUNC_ADPT_FMT" choose 5G DFS channel for debug\n", FUNC_ADPT_ARG(adapter));
 			} else 
 			/* choose from 5G no DFS */
-			if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, RTW_CHF_2G|RTW_CHF_DFS) == _FALSE) {
+			if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, TLW_CHF_2G|TLW_CHF_DFS) == _FALSE) {
 				/* including 5G DFS, not long CAC */
-				if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, RTW_CHF_2G|RTW_CHF_LONG_CAC) == _FALSE) {
+				if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, TLW_CHF_2G|TLW_CHF_LONG_CAC) == _FALSE) {
 					/* including 5G DFS, long CAC */
-					if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, RTW_CHF_2G) == _FALSE) {
+					if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, TLW_CHF_2G) == _FALSE) {
 						/* including 2.4G channel */
-						if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, RTW_CHF_5G) == _FALSE) {
+						if (tlw_choose_available_chbw(adapter, req_bw, &dec_ch, &dec_bw, &dec_offset, TLW_CHF_5G) == _FALSE) {
 							DBG_871X(FUNC_ADPT_FMT" no available ch\n", FUNC_ADPT_ARG(adapter));
 							tlw_warn_on(1);
 						}

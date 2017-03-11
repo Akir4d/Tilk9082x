@@ -304,7 +304,7 @@ static void Update_ODM_ComInfo_88E(PADAPTER	Adapter)
 		;
 
 	if (tlw_odm_adaptivity_needed(Adapter) == _TRUE) {
-		tlw_odm_adaptivity_config_msg(RTW_DBGDUMP, Adapter);
+		tlw_odm_adaptivity_config_msg(TLW_DBGDUMP, Adapter);
 		SupportAbility |= ODM_BB_ADAPTIVITY;
 	}
 

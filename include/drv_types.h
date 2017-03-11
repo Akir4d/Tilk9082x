@@ -645,9 +645,9 @@ struct rf_ctl_t {
 	#endif
 };
 
-#define RTW_CAC_STOPPED 0
+#define TLW_CAC_STOPPED 0
 #define IS_UNDER_CAC(rfctl) ((rfctl)->cac_end_time > tlw_get_current_time())
-#define IS_CAC_STOPPED(rfctl) ((rfctl)->cac_end_time == RTW_CAC_STOPPED)
+#define IS_CAC_STOPPED(rfctl) ((rfctl)->cac_end_time == TLW_CAC_STOPPED)
 
 struct dvobj_priv
 {
@@ -707,7 +707,7 @@ struct dvobj_priv
 
 	struct tlw_traffic_statistics	traffic_stat;
 
-#if defined(CONFIG_IOCTL_CFG80211) && defined(RTW_SINGLE_WIPHY)
+#if defined(CONFIG_IOCTL_CFG80211) && defined(TLW_SINGLE_WIPHY)
 	struct wiphy *wiphy;
 #endif
 
@@ -821,7 +821,7 @@ struct dvobj_priv
 #define pwrctl_to_dvobj(pwrctl) container_of(pwrctl, struct dvobj_priv, pwrctl_priv)
 #define dvobj_to_macidctl(dvobj) (&(dvobj->macid_ctl))
 #define dvobj_to_regsty(dvobj) (&(dvobj->padapters[IFACE_ID0]->registrypriv))
-#if defined(CONFIG_IOCTL_CFG80211) && defined(RTW_SINGLE_WIPHY)
+#if defined(CONFIG_IOCTL_CFG80211) && defined(TLW_SINGLE_WIPHY)
 #define dvobj_to_wiphy(dvobj) ((dvobj)->wiphy)
 #endif
 #define dvobj_to_rfctl(dvobj) (&(dvobj->rf_ctl))
@@ -831,7 +831,7 @@ struct dvobj_priv
 static struct device *dvobj_to_dev(struct dvobj_priv *dvobj)
 {
 	/* todo: get interface type from dvobj and the return the dev accordingly */
-#ifdef RTW_DVOBJ_CHIP_HW_TYPE
+#ifdef TLW_DVOBJ_CHIP_HW_TYPE
 #endif
 
 #ifdef CONFIG_USB_HCI
@@ -1033,7 +1033,7 @@ struct _ADAPTER{
 	struct wireless_dev *tlw_wdev;
 	struct tlw_wdev_priv wdev_data;
 
-	#if !defined(RTW_SINGLE_WIPHY)
+	#if !defined(TLW_SINGLE_WIPHY)
 	struct wiphy *wiphy;
 	#endif
 
@@ -1144,7 +1144,7 @@ struct _ADAPTER{
 #define adapter_to_dvobj(adapter) (adapter->dvobj)
 #define adapter_to_pwrctl(adapter) (dvobj_to_pwrctl(adapter->dvobj))
 #define adapter_wdev_data(adapter) (&((adapter)->wdev_data))
-#if defined(RTW_SINGLE_WIPHY)
+#if defined(TLW_SINGLE_WIPHY)
 #define adapter_to_wiphy(adapter) dvobj_to_wiphy(adapter_to_dvobj(adapter))
 #else
 #define adapter_to_wiphy(adapter) ((adapter)->wiphy)
@@ -1184,39 +1184,39 @@ static inline void tlw_clr_drv_stopped(_adapter *padapter)
 #define DF_RX_BIT		BIT1			/*read_port_cancel*/
 #define DF_IO_BIT		BIT2
 
-//#define RTW_DISABLE_FUNC(padapter, func) (ATOMIC_ADD(&adapter_to_dvobj(padapter)->disable_func, (func)))
-//#define RTW_ENABLE_FUNC(padapter, func) (ATOMIC_SUB(&adapter_to_dvobj(padapter)->disable_func, (func)))
-__inline static void RTW_DISABLE_FUNC(_adapter*padapter, int func_bit)
+//#define TLW_DISABLE_FUNC(padapter, func) (ATOMIC_ADD(&adapter_to_dvobj(padapter)->disable_func, (func)))
+//#define TLW_ENABLE_FUNC(padapter, func) (ATOMIC_SUB(&adapter_to_dvobj(padapter)->disable_func, (func)))
+__inline static void TLW_DISABLE_FUNC(_adapter*padapter, int func_bit)
 {
 	int	df = ATOMIC_READ(&adapter_to_dvobj(padapter)->disable_func);
 	df |= func_bit;
 	ATOMIC_SET(&adapter_to_dvobj(padapter)->disable_func, df);
 }
 
-__inline static void RTW_ENABLE_FUNC(_adapter*padapter, int func_bit)
+__inline static void TLW_ENABLE_FUNC(_adapter*padapter, int func_bit)
 {
 	int	df = ATOMIC_READ(&adapter_to_dvobj(padapter)->disable_func);
 	df &= ~(func_bit);
 	ATOMIC_SET(&adapter_to_dvobj(padapter)->disable_func, df);
 }
 
-#define RTW_CANNOT_RUN(padapter) \
+#define TLW_CANNOT_RUN(padapter) \
 			(tlw_is_surprise_removed(padapter) || \
 				tlw_is_drv_stopped(padapter))
 
-#define RTW_IS_FUNC_DISABLED(padapter, func_bit) (ATOMIC_READ(&adapter_to_dvobj(padapter)->disable_func) & (func_bit))
+#define TLW_IS_FUNC_DISABLED(padapter, func_bit) (ATOMIC_READ(&adapter_to_dvobj(padapter)->disable_func) & (func_bit))
 
-#define RTW_CANNOT_IO(padapter) \
+#define TLW_CANNOT_IO(padapter) \
 			(tlw_is_surprise_removed(padapter) || \
-				RTW_IS_FUNC_DISABLED((padapter), DF_IO_BIT))
+				TLW_IS_FUNC_DISABLED((padapter), DF_IO_BIT))
 
-#define RTW_CANNOT_RX(padapter) \
-			(RTW_CANNOT_RUN(padapter) || \
-			 RTW_IS_FUNC_DISABLED((padapter), DF_RX_BIT))
+#define TLW_CANNOT_RX(padapter) \
+			(TLW_CANNOT_RUN(padapter) || \
+			 TLW_IS_FUNC_DISABLED((padapter), DF_RX_BIT))
 
-#define RTW_CANNOT_TX(padapter) \
-			(RTW_CANNOT_RUN(padapter) || \
-			 RTW_IS_FUNC_DISABLED((padapter), DF_TX_BIT))
+#define TLW_CANNOT_TX(padapter) \
+			(TLW_CANNOT_RUN(padapter) || \
+			 TLW_IS_FUNC_DISABLED((padapter), DF_TX_BIT))
 
 #ifdef CONFIG_PNO_SUPPORT
 int tlw_parse_ssid_list_tlv(char** list_str, pno_ssid_t* ssid, int max, int *bytes_left);

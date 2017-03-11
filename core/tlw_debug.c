@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_DEBUG_C_
+#define _TLW_DEBUG_C_
 
 #include <drv_types.h>
 #include <hal_data.h>
@@ -80,8 +80,8 @@ void dump_drv_cfg(void *sel)
 	DBG_871X_SEL_NL(sel, "------------------------------------------------\n");
 #ifdef CONFIG_IOCTL_CFG80211
 	DBG_871X_SEL_NL(sel, "CFG80211\n");
-	#ifdef RTW_USE_CFG80211_STA_EVENT
-	DBG_871X_SEL_NL(sel, "RTW_USE_CFG80211_STA_EVENT\n");
+	#ifdef TLW_USE_CFG80211_STA_EVENT
+	DBG_871X_SEL_NL(sel, "TLW_USE_CFG80211_STA_EVENT\n");
 	#endif
 #else
 	DBG_871X_SEL_NL(sel, "WEXT\n");
@@ -118,9 +118,9 @@ void dump_drv_cfg(void *sel)
 	DBG_871X_SEL_NL(sel, "CONFIG_MINIMAL_MEMORY_USAGE\n");
 #endif
 
-	DBG_871X_SEL_NL(sel, "CONFIG_RTW_ADAPTIVITY_EN = %d\n", CONFIG_RTW_ADAPTIVITY_EN);
-#if (CONFIG_RTW_ADAPTIVITY_EN)
-	DBG_871X_SEL_NL(sel, "ADAPTIVITY_MODE = %s\n", (CONFIG_RTW_ADAPTIVITY_MODE) ? "carrier_sense" : "normal");
+	DBG_871X_SEL_NL(sel, "CONFIG_TLW_ADAPTIVITY_EN = %d\n", CONFIG_TLW_ADAPTIVITY_EN);
+#if (CONFIG_TLW_ADAPTIVITY_EN)
+	DBG_871X_SEL_NL(sel, "ADAPTIVITY_MODE = %s\n", (CONFIG_TLW_ADAPTIVITY_MODE) ? "carrier_sense" : "normal");
 #endif
 
 #ifdef CONFIG_WOWLAN
@@ -1058,7 +1058,7 @@ ssize_t proc_set_survey_info(struct file *file, const char __user *buffer, size_
 	struct mlme_priv	*pmlmepriv = &(padapter->mlmepriv);
 	bool need_indicate_scan_done = _FALSE;
 	u8 _status = _FALSE;
-	NDIS_802_11_SSID ssid[RTW_SSID_SCAN_AMOUNT];
+	NDIS_802_11_SSID ssid[TLW_SSID_SCAN_AMOUNT];
 
 	if (count < 1)
 		return -EFAULT;

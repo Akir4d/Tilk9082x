@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_WLAN_UTIL_C_
+#define _TLW_WLAN_UTIL_C_
 
 #include <drv_types.h>
 
@@ -41,7 +41,7 @@ unsigned char AIRGOCAP_OUI[] = {0x00, 0x0a, 0xf5};
 
 unsigned char REALTEK_96B_IE[] = {0x00, 0xe0, 0x4c, 0x02, 0x01, 0x20};
 
-extern unsigned char RTW_WPA_OUI[];
+extern unsigned char TLW_WPA_OUI[];
 extern unsigned char WPA_TKIP_CIPHER[4];
 extern unsigned char RSN_TKIP_CIPHER[4];
 
@@ -1571,7 +1571,7 @@ int WFD_info_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs	pIE)
 		tlw_get_wfd_attr_content( wfd_ie, wfd_ielen, WFD_ATTR_DEVICE_INFO, attr_content, &attr_contentlen);
 		if ( attr_contentlen )
 		{
-			pwdinfo->wfd_info->peer_rtsp_ctrlport = RTW_GET_BE16( attr_content + 2 );
+			pwdinfo->wfd_info->peer_rtsp_ctrlport = TLW_GET_BE16( attr_content + 2 );
 			DBG_8192C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
 			return( _TRUE );
 		}		
@@ -2777,7 +2777,7 @@ unsigned int is_ap_in_tkip(_adapter *padapter)
 			switch (pIE->ElementID)
 			{
 				case _VENDOR_SPECIFIC_IE_:
-					if ((_tlw_memcmp(pIE->data, RTW_WPA_OUI, 4)) && (_tlw_memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4))) 
+					if ((_tlw_memcmp(pIE->data, TLW_WPA_OUI, 4)) && (_tlw_memcmp((pIE->data + 12), WPA_TKIP_CIPHER, 4))) 
 					{
 						return _TRUE;
 					}
@@ -2821,7 +2821,7 @@ unsigned int should_forbid_n_rate(_adapter * padapter)
 			switch (pIE->ElementID)
 			{
 				case _VENDOR_SPECIFIC_IE_:
-					if (_tlw_memcmp(pIE->data, RTW_WPA_OUI, 4) &&
+					if (_tlw_memcmp(pIE->data, TLW_WPA_OUI, 4) &&
 						((_tlw_memcmp((pIE->data + 12), WPA_CIPHER_SUITE_CCMP, 4)) ||
 						  (_tlw_memcmp((pIE->data + 16), WPA_CIPHER_SUITE_CCMP, 4))))
 						return _FALSE;
@@ -2866,7 +2866,7 @@ unsigned int is_ap_in_wep(_adapter *padapter)
 			switch (pIE->ElementID)
 			{
 				case _VENDOR_SPECIFIC_IE_:
-					if (_tlw_memcmp(pIE->data, RTW_WPA_OUI, 4))
+					if (_tlw_memcmp(pIE->data, TLW_WPA_OUI, 4))
 						return _FALSE;
 					break;
 

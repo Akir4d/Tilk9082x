@@ -106,16 +106,16 @@ void interrupt_handler_8723bu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 
 
-enum RTW_USB_SPEED {
-	RTW_USB_SPEED_UNKNOWN	= 0,
-	RTW_USB_SPEED_1_1	= 1,
-	RTW_USB_SPEED_2		= 2,
-	RTW_USB_SPEED_3		= 3,
+enum TLW_USB_SPEED {
+	TLW_USB_SPEED_UNKNOWN	= 0,
+	TLW_USB_SPEED_1_1	= 1,
+	TLW_USB_SPEED_2		= 2,
+	TLW_USB_SPEED_3		= 3,
 };
 
-#define IS_FULL_SPEED_USB(Adapter)	(adapter_to_dvobj(Adapter)->usb_speed == RTW_USB_SPEED_1_1)
-#define IS_HIGH_SPEED_USB(Adapter)	(adapter_to_dvobj(Adapter)->usb_speed == RTW_USB_SPEED_2)
-#define IS_SUPER_SPEED_USB(Adapter)	(adapter_to_dvobj(Adapter)->usb_speed == RTW_USB_SPEED_3)
+#define IS_FULL_SPEED_USB(Adapter)	(adapter_to_dvobj(Adapter)->usb_speed == TLW_USB_SPEED_1_1)
+#define IS_HIGH_SPEED_USB(Adapter)	(adapter_to_dvobj(Adapter)->usb_speed == TLW_USB_SPEED_2)
+#define IS_SUPER_SPEED_USB(Adapter)	(adapter_to_dvobj(Adapter)->usb_speed == TLW_USB_SPEED_3)
 
 #define USB_SUPER_SPEED_BULK_SIZE	1024	// usb 3.0
 #define USB_HIGH_SPEED_BULK_SIZE	512		// usb 2.0

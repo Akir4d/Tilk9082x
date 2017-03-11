@@ -1507,7 +1507,7 @@ odm_RefreshRateAdaptiveMaskCE(
 	PADAPTER	pAdapter	 =  pDM_Odm->Adapter;
 	PODM_RATE_ADAPTIVE		pRA = &pDM_Odm->RateAdaptive;
 
-	if (RTW_CANNOT_RUN(pAdapter)) {
+	if (TLW_CANNOT_RUN(pAdapter)) {
 		ODM_RT_TRACE(pDM_Odm, ODM_COMP_RA_MASK, ODM_DBG_TRACE, ("<---- odm_RefreshRateAdaptiveMask(): driver is going to unload\n"));
 		return;
 	}

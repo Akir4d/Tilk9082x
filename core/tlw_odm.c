@@ -56,7 +56,7 @@ const char *odm_comp_str[] = {
 	/* BIT31 */"ODM_COMP_INIT",
 };
 
-#define RTW_ODM_COMP_MAX 32
+#define TLW_ODM_COMP_MAX 32
 
 const char *odm_ability_str[] = {
 	/* BIT0 */"ODM_BB_DIG",
@@ -88,7 +88,7 @@ const char *odm_ability_str[] = {
 	/* BIT26 */"ODM_RF_CALIBRATION",
 };
 
-#define RTW_ODM_ABILITY_MAX 27
+#define TLW_ODM_ABILITY_MAX 27
 
 const char *odm_dbg_level_str[] = {
 	NULL,
@@ -99,7 +99,7 @@ const char *odm_dbg_level_str[] = {
 	"ODM_DBG_TRACE",
 };
 
-#define RTW_ODM_DBG_LEVEL_NUM 6
+#define TLW_ODM_DBG_LEVEL_NUM 6
 
 void tlw_odm_dbg_comp_msg(void *sel, _adapter *adapter)
 {
@@ -112,7 +112,7 @@ void tlw_odm_dbg_comp_msg(void *sel, _adapter *adapter)
 	tlw_hal_get_odm_var(adapter, HAL_ODM_DBG_FLAG, &dbg_comp, NULL);
 
 	DBG_871X_SEL_NL(sel, "odm.DebugComponents = 0x%016llx\n", dbg_comp);
-	for (i=0;i<RTW_ODM_COMP_MAX;i++) {
+	for (i=0;i<TLW_ODM_COMP_MAX;i++) {
 		if (odm_comp_str[i])
 			DBG_871X_SEL_NL(sel, "%cBIT%-2d %s\n",
 				(BIT0 << i) & dbg_comp ? '+' : ' ', i, odm_comp_str[i]);
@@ -134,7 +134,7 @@ void tlw_odm_dbg_level_msg(void *sel, _adapter *adapter)
 
 	tlw_hal_get_odm_var(adapter, HAL_ODM_DBG_LEVEL, &dbg_level, NULL);
 	DBG_871X_SEL_NL(sel, "odm.DebugLevel = %u\n", dbg_level);
-	for (i=0;i<RTW_ODM_DBG_LEVEL_NUM;i++) {
+	for (i=0;i<TLW_ODM_DBG_LEVEL_NUM;i++) {
 		if (odm_dbg_level_str[i])
 			DBG_871X_SEL_NL(sel, "%u %s\n", i, odm_dbg_level_str[i]);
 	}
@@ -155,7 +155,7 @@ void tlw_odm_ability_msg(void *sel, _adapter *adapter)
 
 	ability = tlw_phydm_ability_get(adapter);
 	DBG_871X_SEL_NL(sel, "odm.SupportAbility = 0x%08x\n", ability);
-	for (i=0;i<RTW_ODM_ABILITY_MAX;i++) {
+	for (i=0;i<TLW_ODM_ABILITY_MAX;i++) {
 		if (odm_ability_str[i])
 			DBG_871X_SEL_NL(sel, "%cBIT%-2d %s\n",
 				(BIT0 << i) & ability ? '+' : ' ', i, odm_ability_str[i]);
@@ -172,8 +172,8 @@ void tlw_odm_adaptivity_ver_msg(void *sel, _adapter *adapter)
 	DBG_871X_SEL_NL(sel, "ADAPTIVITY_VERSION "ADAPTIVITY_VERSION"\n");
 }
 
-#define RTW_ADAPTIVITY_EN_DISABLE 0
-#define RTW_ADAPTIVITY_EN_ENABLE 1
+#define TLW_ADAPTIVITY_EN_DISABLE 0
+#define TLW_ADAPTIVITY_EN_ENABLE 1
 
 void tlw_odm_adaptivity_en_msg(void *sel, _adapter *adapter)
 {
@@ -182,47 +182,47 @@ void tlw_odm_adaptivity_en_msg(void *sel, _adapter *adapter)
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &hal_data->odmpriv;
 
-	DBG_871X_SEL_NL(sel, "RTW_ADAPTIVITY_EN_");
+	DBG_871X_SEL_NL(sel, "TLW_ADAPTIVITY_EN_");
 
-	if (regsty->adaptivity_en == RTW_ADAPTIVITY_EN_DISABLE) {
+	if (regsty->adaptivity_en == TLW_ADAPTIVITY_EN_DISABLE) {
 		DBG_871X_SEL(sel, "DISABLE\n");
-	} else if (regsty->adaptivity_en == RTW_ADAPTIVITY_EN_ENABLE) {
+	} else if (regsty->adaptivity_en == TLW_ADAPTIVITY_EN_ENABLE) {
 		DBG_871X_SEL(sel, "ENABLE\n");
 	} else {
 		DBG_871X_SEL(sel, "INVALID\n");
 	}
 }
 
-#define RTW_ADAPTIVITY_MODE_NORMAL 0
-#define RTW_ADAPTIVITY_MODE_CARRIER_SENSE 1
+#define TLW_ADAPTIVITY_MODE_NORMAL 0
+#define TLW_ADAPTIVITY_MODE_CARRIER_SENSE 1
 
 void tlw_odm_adaptivity_mode_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 
-	DBG_871X_SEL_NL(sel, "RTW_ADAPTIVITY_MODE_");
+	DBG_871X_SEL_NL(sel, "TLW_ADAPTIVITY_MODE_");
 
-	if (regsty->adaptivity_mode == RTW_ADAPTIVITY_MODE_NORMAL) {
+	if (regsty->adaptivity_mode == TLW_ADAPTIVITY_MODE_NORMAL) {
 		DBG_871X_SEL(sel, "NORMAL\n");
-	} else if (regsty->adaptivity_mode == RTW_ADAPTIVITY_MODE_CARRIER_SENSE) {
+	} else if (regsty->adaptivity_mode == TLW_ADAPTIVITY_MODE_CARRIER_SENSE) {
 		DBG_871X_SEL(sel, "CARRIER_SENSE\n");
 	} else {
 		DBG_871X_SEL(sel, "INVALID\n");
 	}
 }
 
-#define RTW_ADAPTIVITY_DML_DISABLE 0
-#define RTW_ADAPTIVITY_DML_ENABLE 1
+#define TLW_ADAPTIVITY_DML_DISABLE 0
+#define TLW_ADAPTIVITY_DML_ENABLE 1
 
 void tlw_odm_adaptivity_dml_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 
-	DBG_871X_SEL_NL(sel, "RTW_ADAPTIVITY_DML_");
+	DBG_871X_SEL_NL(sel, "TLW_ADAPTIVITY_DML_");
 
-	if (regsty->adaptivity_dml == RTW_ADAPTIVITY_DML_DISABLE) {
+	if (regsty->adaptivity_dml == TLW_ADAPTIVITY_DML_DISABLE) {
 		DBG_871X_SEL(sel, "DISABLE\n");
-	} else if (regsty->adaptivity_dml == RTW_ADAPTIVITY_DML_ENABLE) {
+	} else if (regsty->adaptivity_dml == TLW_ADAPTIVITY_DML_ENABLE) {
 		DBG_871X_SEL(sel, "ENABLE\n");
 	} else {
 		DBG_871X_SEL(sel, "INVALID\n");
@@ -233,7 +233,7 @@ void tlw_odm_adaptivity_dc_backoff_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 
-	DBG_871X_SEL_NL(sel, "RTW_ADAPTIVITY_DC_BACKOFF:%u\n", regsty->adaptivity_dc_backoff);
+	DBG_871X_SEL_NL(sel, "TLW_ADAPTIVITY_DC_BACKOFF:%u\n", regsty->adaptivity_dc_backoff);
 }
 
 void tlw_odm_adaptivity_config_msg(void *sel, _adapter *adapter)
@@ -251,7 +251,7 @@ bool tlw_odm_adaptivity_needed(_adapter *adapter)
 	struct mlme_priv *mlme = &adapter->mlmepriv;
 	bool ret = _FALSE;
 
-	if (regsty->adaptivity_en == RTW_ADAPTIVITY_EN_ENABLE)
+	if (regsty->adaptivity_en == TLW_ADAPTIVITY_EN_ENABLE)
 		ret = _TRUE;
 
 	return ret;

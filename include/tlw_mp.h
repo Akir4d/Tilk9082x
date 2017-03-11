@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_MP_H_
-#define _RTW_MP_H_
+#ifndef _TLW_MP_H_
+#define _TLW_MP_H_
 
-#define RTWPRIV_VER_INFO	1
+#define TLWPRIV_VER_INFO	1
 
 #define MAX_MP_XMITBUF_SZ 	2048
 #define NR_MP_XMITFRAME		8
@@ -417,7 +417,7 @@ struct mp_priv
 	u32 free_mp_xmitframe_cnt;
 	BOOLEAN bSetRxBssid;
 	BOOLEAN bTxBufCkFail;
-	BOOLEAN bRTWSmbCfg;
+	BOOLEAN bTLWSmbCfg;
 	MPT_CONTEXT MptCtx;
 
 	u8		*TXradomBuffer;
@@ -860,5 +860,5 @@ int tlw_mp_rx(struct net_device *dev,
 int tlw_mp_hwtx(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-#endif //_RTW_MP_H_
+#endif //_TLW_MP_H_
 

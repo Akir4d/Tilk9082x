@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_IOCTL_SET_C_
+#define _TLW_IOCTL_SET_C_
 
 #include <drv_types.h>
 #include <hal_data.h>

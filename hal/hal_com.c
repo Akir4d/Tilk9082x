@@ -1285,8 +1285,8 @@ static u8 tlw_hal_pause_rx_dma(_adapter *adapter)
 			if (tmp) {
 				if (adapter->intf_stop)
 					adapter->intf_stop(adapter);
-				RTW_ENABLE_FUNC(adapter, DF_RX_BIT);
-				RTW_ENABLE_FUNC(adapter, DF_TX_BIT);
+				TLW_ENABLE_FUNC(adapter, DF_RX_BIT);
+				TLW_ENABLE_FUNC(adapter, DF_TX_BIT);
 			}
 		}
 #endif
@@ -2826,7 +2826,7 @@ static void tlw_hal_construct_P2PProbeRsp(_adapter *padapter, u8 *pframe, u32 *p
 }
 static void tlw_hal_construct_P2PNegoRsp(_adapter *padapter, u8 *pframe, u32 *pLength)
 {
-	unsigned char category = RTW_WLAN_CATEGORY_PUBLIC;
+	unsigned char category = TLW_WLAN_CATEGORY_PUBLIC;
 	u8			action = P2P_PUB_ACTION_ACTION;
 	u32			p2poui = cpu_to_be32(P2POUI);
 	u8			oui_subtype = P2P_GO_NEGO_RESP;
@@ -3282,7 +3282,7 @@ static void tlw_hal_construct_P2PNegoRsp(_adapter *padapter, u8 *pframe, u32 *pL
 
 static void tlw_hal_construct_P2PInviteRsp(_adapter * padapter, u8 * pframe, u32 * pLength)
 {
-	unsigned char category = RTW_WLAN_CATEGORY_PUBLIC;
+	unsigned char category = TLW_WLAN_CATEGORY_PUBLIC;
 	u8			action = P2P_PUB_ACTION_ACTION;
 	u32			p2poui = cpu_to_be32(P2POUI);
 	u8			oui_subtype = P2P_INVIT_RESP;
@@ -3564,7 +3564,7 @@ static void tlw_hal_construct_P2PInviteRsp(_adapter * padapter, u8 * pframe, u32
 
 static void tlw_hal_construct_P2PProvisionDisRsp(_adapter * padapter, u8 * pframe, u32 * pLength)
 {
-	unsigned char category = RTW_WLAN_CATEGORY_PUBLIC;
+	unsigned char category = TLW_WLAN_CATEGORY_PUBLIC;
 	u8			action = P2P_PUB_ACTION_ACTION;
 	u8			dialogToken = 0;	
 	u32			p2poui = cpu_to_be32(P2POUI);
@@ -3618,7 +3618,7 @@ static void tlw_hal_construct_P2PProvisionDisRsp(_adapter * padapter, u8 * pfram
 	wpsielen = 0;
 	//	WPS OUI
 	//*(u32*) ( wpsie ) = cpu_to_be32( WPSOUI );
-	RTW_PUT_BE32(wpsie, WPSOUI);
+	TLW_PUT_BE32(wpsie, WPSOUI);
 	wpsielen += 4;
 
 #if 0
@@ -3638,17 +3638,17 @@ static void tlw_hal_construct_P2PProvisionDisRsp(_adapter * padapter, u8 * pfram
 	//	Config Method
 	//	Type:
 	//*(u16*) ( wpsie + wpsielen ) = cpu_to_be16( WPS_ATTR_CONF_METHOD );
-	RTW_PUT_BE16(wpsie + wpsielen, WPS_ATTR_CONF_METHOD);
+	TLW_PUT_BE16(wpsie + wpsielen, WPS_ATTR_CONF_METHOD);
 	wpsielen += 2;
 
 	//	Length:
 	//*(u16*) ( wpsie + wpsielen ) = cpu_to_be16( 0x0002 );
-	RTW_PUT_BE16(wpsie + wpsielen, 0x0002);
+	TLW_PUT_BE16(wpsie + wpsielen, 0x0002);
 	wpsielen += 2;
 
 	//	Value: filled by FW, default value is PBC
 	//*(u16*) ( wpsie + wpsielen ) = cpu_to_be16( config_method );
-	RTW_PUT_BE16(wpsie + wpsielen, WPS_CM_PUSH_BUTTON);
+	TLW_PUT_BE16(wpsie + wpsielen, WPS_CM_PUSH_BUTTON);
 	wpsielen += 2;
 
 	pframe = tlw_set_ie(pframe, _VENDOR_SPECIFIC_IE_, wpsielen, (unsigned char *) wpsie, &pktlen );	
@@ -4456,8 +4456,8 @@ void tlw_hal_set_wow_fw_rsvd_page(_adapter *adapter, u8 *pframe, u16 index,
 #ifdef CONFIG_GTK_OL
 	struct sta_priv *pstapriv = &adapter->stapriv;
 	struct sta_info * psta;
-	u8 kek[RTW_KEK_LEN];
-	u8 kck[RTW_KCK_LEN];
+	u8 kek[TLW_KEK_LEN];
+	u8 kck[TLW_KCK_LEN];
 #endif //CONFIG_GTK_OL
 #ifdef	CONFIG_PNO_SUPPORT 
 	int pno_index;
@@ -4505,13 +4505,13 @@ void tlw_hal_set_wow_fw_rsvd_page(_adapter *adapter, u8 *pframe, u16 index,
 		//if the ap staion info. exists, get the kek, kck from staion info.
 		psta = tlw_get_stainfo(pstapriv, get_bssid(pmlmepriv));
 		if (psta == NULL) {
-			_tlw_memset(kek, 0, RTW_KEK_LEN);
-			_tlw_memset(kck, 0, RTW_KCK_LEN);
+			_tlw_memset(kek, 0, TLW_KEK_LEN);
+			_tlw_memset(kck, 0, TLW_KCK_LEN);
 			DBG_8192C("%s, KEK, KCK download rsvd page all zero \n",
 					__func__);
 		} else {
-			_tlw_memcpy(kek, psta->kek, RTW_KEK_LEN);
-			_tlw_memcpy(kck, psta->kck, RTW_KCK_LEN);
+			_tlw_memcpy(kek, psta->kek, TLW_KEK_LEN);
+			_tlw_memcpy(kck, psta->kck, TLW_KCK_LEN);
 		}
 
 		//3 KEK, KCK
@@ -4525,14 +4525,14 @@ void tlw_hal_set_wow_fw_rsvd_page(_adapter *adapter, u8 *pframe, u16 index,
 			_tlw_memcpy(pframe+index-tx_desc+1,
 					&psecpriv->dot118021XGrpPrivacy, 1);
 			_tlw_memcpy(pframe+index-tx_desc+2,
-					kck, RTW_KCK_LEN);
-			_tlw_memcpy(pframe+index-tx_desc+2+RTW_KCK_LEN,
-					kek, RTW_KEK_LEN);
-			CurtPktPageNum = (u8)PageNum(tx_desc + 2 + RTW_KCK_LEN + RTW_KEK_LEN, page_size);
+					kck, TLW_KCK_LEN);
+			_tlw_memcpy(pframe+index-tx_desc+2+TLW_KCK_LEN,
+					kek, TLW_KEK_LEN);
+			CurtPktPageNum = (u8)PageNum(tx_desc + 2 + TLW_KCK_LEN + TLW_KEK_LEN, page_size);
 		} else {
-			_tlw_memcpy(pframe+index-tx_desc, kck, RTW_KCK_LEN);
-			_tlw_memcpy(pframe+index-tx_desc+RTW_KCK_LEN, kek, RTW_KEK_LEN);
-			CurtPktPageNum = (u8)PageNum(tx_desc + RTW_KCK_LEN + RTW_KEK_LEN, page_size);
+			_tlw_memcpy(pframe+index-tx_desc, kck, TLW_KCK_LEN);
+			_tlw_memcpy(pframe+index-tx_desc+TLW_KCK_LEN, kek, TLW_KEK_LEN);
+			CurtPktPageNum = (u8)PageNum(tx_desc + TLW_KCK_LEN + TLW_KEK_LEN, page_size);
 		}
 		
 		
@@ -4551,7 +4551,7 @@ void tlw_hal_set_wow_fw_rsvd_page(_adapter *adapter, u8 *pframe, u16 index,
 
 		DBG_871X("%s(): HW_VAR_SET_TX_CMD: KEK KCK %p %d\n", 
 			__FUNCTION__, &pframe[index-tx_desc],
-			(tx_desc + RTW_KCK_LEN + RTW_KEK_LEN));
+			(tx_desc + TLW_KCK_LEN + TLW_KEK_LEN));
 #endif
 
 		*page_num += CurtPktPageNum;
@@ -4740,7 +4740,7 @@ static void tlw_hal_set_wow_rxff_boundary(_adapter *adapter, bool wow_mode)
 		DBG_871X("%s:[%04x]some PKTs in TXPKTBUF\n",
 			 __func__, (REG_FIFOPAGE + 3));
 
-	if (interface_type == RTW_SDIO || interface_type == RTW_USB)
+	if (interface_type == TLW_SDIO || interface_type == TLW_USB)
 		tlw_hal_reset_mac_rx(adapter);
 
 	if (wow_mode) {
@@ -6402,71 +6402,71 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 	switch (tlw_get_chip_type(adapter)) {
 #ifdef CONFIG_RTL8723B
 	case RTL8723B:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8723BU;
-		else if (interface_type == RTW_SDIO)
+		else if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_8723BS;
-		else if (interface_type == RTW_PCIE)
+		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_8723BE;
 		break;
 #endif
 #ifdef CONFIG_RTL8703B
 	case RTL8703B:
-		if (interface_type == RTW_SDIO)
+		if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_8703BS;
 	break;
 #endif
 #ifdef CONFIG_RTL9083E
 	case RTL9083E:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_88EU;
-		else if (interface_type == RTW_SDIO)
+		else if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_88ES;
-		else if (interface_type == RTW_PCIE)
+		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_88EE;
 		break;
 #endif
 #ifdef CONFIG_RTL9083F
 	case RTL9083F:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_9083FU;
-		else if (interface_type == RTW_SDIO)
+		else if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_9083FS;
 		break;
 #endif
 #ifdef CONFIG_RTL8812A
 	case RTL8812:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8812AU;
-		else if (interface_type == RTW_PCIE)
+		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_8812AE;
 		break;
 #endif
 #ifdef CONFIG_RTL8821A
 	case RTL8821:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8821AU;
-		else if (interface_type == RTW_SDIO)
+		else if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_8821AS;
-		else if (interface_type == RTW_PCIE)
+		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_8821AE;
 		break;
 #endif
 #ifdef CONFIG_RTL8192E
 	case RTL8192E:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8192EU;
-		else if (interface_type == RTW_SDIO)
+		else if (interface_type == TLW_SDIO)
 			addr_offset = EEPROM_MAC_ADDR_8192ES;
-		else if (interface_type == RTW_PCIE)
+		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_8192EE;
 		break;
 #endif
 #ifdef CONFIG_RTL8814A
 	case RTL8814A:
-		if (interface_type == RTW_USB)
+		if (interface_type == TLW_USB)
 			addr_offset = EEPROM_MAC_ADDR_8814AU;
-		else if (interface_type == RTW_PCIE)
+		else if (interface_type == TLW_PCIE)
 			addr_offset = EEPROM_MAC_ADDR_8814AE;
 		break;
 #endif

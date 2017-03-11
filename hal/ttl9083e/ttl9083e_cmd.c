@@ -786,12 +786,12 @@ _func_enter_;
 				// check rsvd page download OK.
 				tlw_hal_get_hwreg(padapter, HW_VAR_BCN_VALID, (u8*)(&bcn_valid));
 				poll++;
-			} while (!bcn_valid && (poll%10) != 0 && !RTW_CANNOT_RUN(padapter));
+			} while (!bcn_valid && (poll%10) != 0 && !TLW_CANNOT_RUN(padapter));
 			
-		} while (!bcn_valid && DLBcnCount <= 100 && !RTW_CANNOT_RUN(padapter));
+		} while (!bcn_valid && DLBcnCount <= 100 && !TLW_CANNOT_RUN(padapter));
 		
 		//RT_ASSERT(bcn_valid, ("HalDownloadRSVDPage88ES(): 1 Download RSVD page failed!\n"));
-		if (RTW_CANNOT_RUN(padapter))
+		if (TLW_CANNOT_RUN(padapter))
 			;
 		else if (!bcn_valid)
 			DBG_871X(ADPT_FMT": 1 DL RSVD page failed! DLBcnCount:%u, poll:%u\n",

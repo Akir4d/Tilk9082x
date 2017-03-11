@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_EVENT_H_
-#define _RTW_EVENT_H_
+#ifndef _TLW_EVENT_H_
+#define _TLW_EVENT_H_
 
 #ifdef CONFIG_H2CLBK
 #include <h2clbk.h>

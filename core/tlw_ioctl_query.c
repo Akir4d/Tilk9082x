@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_IOCTL_QUERY_C_
+#define _TLW_IOCTL_QUERY_C_
 
 #include <drv_types.h>
 

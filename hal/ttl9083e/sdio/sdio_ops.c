@@ -749,7 +749,7 @@ static u32 sdio_write_port(
 	err = sd_write(pintfhdl, addr, cnt, xmitbuf->pdata);
 
 	tlw_sctx_done_err(&xmitbuf->sctx,
-		err ? RTW_SCTX_DONE_WRITE_PORT_ERR : RTW_SCTX_DONE_SUCCESS);
+		err ? TLW_SCTX_DONE_WRITE_PORT_ERR : TLW_SCTX_DONE_SUCCESS);
 	
 	if (err)
 	{
@@ -1811,7 +1811,7 @@ void sd_int_hdl(PADAPTER padapter)
 {
 	u8 data[6];
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
-	if (RTW_CANNOT_RUN(padapter))
+	if (TLW_CANNOT_RUN(padapter))
 		return;
 
 	_sdio_local_read(padapter, SDIO_REG_HISR, 6, data);

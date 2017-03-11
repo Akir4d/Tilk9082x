@@ -19,7 +19,7 @@
  ******************************************************************************/
 /*****************************************************************************
  *
- * Module:	__RTW_MP_PHY_REGDEF_H_
+ * Module:	__TLW_MP_PHY_REGDEF_H_
  *
  *
  * Note:	1. Define PMAC/BB register map
@@ -40,8 +40,8 @@
  *	09/25/2008	MH		1. Add RL6052 register definition
  * 
  *****************************************************************************/
-#ifndef __RTW_MP_PHY_REGDEF_H_
-#define __RTW_MP_PHY_REGDEF_H_
+#ifndef __TLW_MP_PHY_REGDEF_H_
+#define __TLW_MP_PHY_REGDEF_H_
 
 
 /*--------------------------Define Parameters-------------------------------*/

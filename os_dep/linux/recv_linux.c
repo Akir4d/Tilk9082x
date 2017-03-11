@@ -275,7 +275,7 @@ _pkt *tlw_os_alloc_msdu_pkt(union recv_frame *prframe, u16 nSubframe_Length, u8 
 		}
 	}
 
-	eth_type = RTW_GET_BE16(&sub_skb->data[6]);
+	eth_type = TLW_GET_BE16(&sub_skb->data[6]);
 
 	if (sub_skb->len >= 8 &&
 		((_tlw_memcmp(sub_skb->data, tlw_rfc1042_header, SNAP_SIZE) &&

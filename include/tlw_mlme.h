@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_MLME_H_
-#define __RTW_MLME_H_
+#ifndef __TLW_MLME_H_
+#define __TLW_MLME_H_
 
 
 #define	MAX_BSS_CNT	128
@@ -466,9 +466,9 @@ struct tdls_txmgmt {
 
 /* used for mlme_priv.roam_flags */
 enum {
-	RTW_ROAM_ON_EXPIRED = BIT0,
-	RTW_ROAM_ON_RESUME = BIT1,
-	RTW_ROAM_ACTIVE = BIT2,
+	TLW_ROAM_ON_EXPIRED = BIT0,
+	TLW_ROAM_ON_RESUME = BIT1,
+	TLW_ROAM_ACTIVE = BIT2,
 };
 
 struct beacon_keys {
@@ -770,8 +770,8 @@ extern void tlw_wmm_event_callback(PADAPTER padapter, u8 *pbuf);
 #ifdef CONFIG_IEEE80211W
 void tlw_sta_timeout_event_callback(_adapter *adapter, u8 *pbuf);
 #endif /* CONFIG_IEEE80211W */
-extern void tlw_join_timeout_handler(RTW_TIMER_HDL_ARGS);
-extern void _tlw_scan_timeout_handler(RTW_TIMER_HDL_ARGS);
+extern void tlw_join_timeout_handler(TLW_TIMER_HDL_ARGS);
+extern void _tlw_scan_timeout_handler(TLW_TIMER_HDL_ARGS);
 
 thread_return event_thread(thread_context context);
 

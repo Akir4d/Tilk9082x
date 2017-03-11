@@ -18,8 +18,8 @@
  *
  ******************************************************************************/
 
-#ifndef _RTW_CFGVENDOR_H_
-#define _RTW_CFGVENDOR_H_
+#ifndef _TLW_CFGVENDOR_H_
+#define _TLW_CFGVENDOR_H_
 
 #define OUI_RTK		0x00E04C
 #define OUI_GOOGLE	0x001A11
@@ -230,7 +230,7 @@ typedef enum gscan_complete_event {
 /* Capture the RTK_VENDOR_SUBCMD_PRIV_STRINGS* here */
 #define RTK_VENDOR_SCMD_CAPA	"cap"
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(RTW_VENDOR_EXT_SUPPORT)
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(TLW_VENDOR_EXT_SUPPORT)
 extern int tlw_cfgvendor_attach(struct wiphy *wiphy);
 extern int tlw_cfgvendor_detach(struct wiphy *wiphy);
 extern int tlw_cfgvendor_send_async_event(struct wiphy *wiphy,
@@ -239,7 +239,7 @@ extern int tlw_cfgvendor_send_async_event(struct wiphy *wiphy,
 extern int wl_cfgvendor_send_hotlist_event(struct wiphy *wiphy,
                 struct net_device *dev, void  *data, int len, wl_vendor_event_t event);
 #endif
-#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(RTW_VENDOR_EXT_SUPPORT) */
+#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(TLW_VENDOR_EXT_SUPPORT) */
 
-#endif /* _RTW_CFGVENDOR_H_ */
+#endif /* _TLW_CFGVENDOR_H_ */
 

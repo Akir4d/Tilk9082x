@@ -47,7 +47,7 @@ jackson@realtek.com.tw
 
 */
 
-#define _RTW_IO_C_
+#define _TLW_IO_C_
 
 #include <drv_types.h>
 #include <hal_data.h>
@@ -128,7 +128,7 @@ int _tlw_write8(_adapter *adapter, u32 addr, u8 val)
 	ret = _write8(pintfhdl, addr, val);
 	_func_exit_;
 	
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 int _tlw_write16(_adapter *adapter, u32 addr, u16 val)
 {
@@ -144,7 +144,7 @@ int _tlw_write16(_adapter *adapter, u32 addr, u16 val)
 	ret = _write16(pintfhdl, addr, val);
 	_func_exit_;
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 int _tlw_write32(_adapter *adapter, u32 addr, u32 val)
 {
@@ -160,7 +160,7 @@ int _tlw_write32(_adapter *adapter, u32 addr, u32 val)
 	ret = _write32(pintfhdl, addr, val);
 	_func_exit_;
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 
 int _tlw_writeN(_adapter *adapter, u32 addr ,u32 length , u8 *pdata)
@@ -176,7 +176,7 @@ int _tlw_writeN(_adapter *adapter, u32 addr ,u32 length , u8 *pdata)
 	ret = _writeN(pintfhdl, addr,length,pdata);
 	_func_exit_;
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 
 #ifdef CONFIG_SDIO_HCI
@@ -265,7 +265,7 @@ int _tlw_sd_iwrite8(_adapter *adapter, u32 addr, u8 val)
 	else
 		DBG_871X_LEVEL(_drv_err_, FUNC_ADPT_FMT" _sd_iwrite8 callback is NULL\n", FUNC_ADPT_ARG(adapter));
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 
 int _tlw_sd_iwrite16(_adapter *adapter, u32 addr, u16 val)
@@ -282,7 +282,7 @@ int _tlw_sd_iwrite16(_adapter *adapter, u32 addr, u16 val)
 	else
 		DBG_871X_LEVEL(_drv_err_, FUNC_ADPT_FMT" _sd_iwrite16 callback is NULL\n", FUNC_ADPT_ARG(adapter));
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 int _tlw_sd_iwrite32(_adapter *adapter, u32 addr, u32 val)
 {
@@ -298,7 +298,7 @@ int _tlw_sd_iwrite32(_adapter *adapter, u32 addr, u32 val)
 	else
 		DBG_871X_LEVEL(_drv_err_, FUNC_ADPT_FMT" _sd_iwrite32 callback is NULL\n", FUNC_ADPT_ARG(adapter));
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 
 #endif /* CONFIG_SDIO_INDIRECT_ACCESS */
@@ -318,7 +318,7 @@ int _tlw_write8_async(_adapter *adapter, u32 addr, u8 val)
 	ret = _write8_async(pintfhdl, addr, val);
 	_func_exit_;
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 int _tlw_write16_async(_adapter *adapter, u32 addr, u16 val)
 {
@@ -333,7 +333,7 @@ int _tlw_write16_async(_adapter *adapter, u32 addr, u16 val)
 	ret = _write16_async(pintfhdl, addr, val);
 	_func_exit_;
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 int _tlw_write32_async(_adapter *adapter, u32 addr, u32 val)
 {
@@ -348,7 +348,7 @@ int _tlw_write32_async(_adapter *adapter, u32 addr, u32 val)
 	ret = _write32_async(pintfhdl, addr, val);
 	_func_exit_;
 
-	return RTW_STATUS_CODE(ret);
+	return TLW_STATUS_CODE(ret);
 }
 
 void _tlw_read_mem(_adapter *adapter, u32 addr, u32 cnt, u8 *pmem)
@@ -360,7 +360,7 @@ void _tlw_read_mem(_adapter *adapter, u32 addr, u32 cnt, u8 *pmem)
 
 	_func_enter_;
 
-	if (RTW_CANNOT_RUN(adapter)) {
+	if (TLW_CANNOT_RUN(adapter)) {
 		RT_TRACE(_module_ttl871x_io_c_, _drv_info_, ("tlw_read_mem:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
 			, tlw_is_drv_stopped(adapter)?"True":"False"
 			, tlw_is_surprise_removed(adapter)?"True":"False"));
@@ -401,7 +401,7 @@ void _tlw_read_port(_adapter *adapter, u32 addr, u32 cnt, u8 *pmem)
 
 	_func_enter_;
 
-	if (RTW_CANNOT_RUN(adapter)) {
+	if (TLW_CANNOT_RUN(adapter)) {
 		RT_TRACE(_module_ttl871x_io_c_, _drv_info_, ("tlw_read_port:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
 			, tlw_is_drv_stopped(adapter)?"True":"False"
 			, tlw_is_surprise_removed(adapter)?"True":"False"));	    
@@ -424,7 +424,7 @@ void _tlw_read_port_cancel(_adapter *adapter)
 
 	_read_port_cancel = pintfhdl->io_ops._read_port_cancel;
 
-	RTW_DISABLE_FUNC(adapter, DF_RX_BIT);
+	TLW_DISABLE_FUNC(adapter, DF_RX_BIT);
 
 	if(_read_port_cancel)
 		_read_port_cancel(pintfhdl);
@@ -474,7 +474,7 @@ void _tlw_write_port_cancel(_adapter *adapter)
 
 	_write_port_cancel = pintfhdl->io_ops._write_port_cancel;
 
-	RTW_DISABLE_FUNC(adapter, DF_TX_BIT);
+	TLW_DISABLE_FUNC(adapter, DF_TX_BIT);
 
 	if(_write_port_cancel)
 		_write_port_cancel(pintfhdl);

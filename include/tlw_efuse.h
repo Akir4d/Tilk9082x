@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_EFUSE_H__
-#define __RTW_EFUSE_H__
+#ifndef __TLW_EFUSE_H__
+#define __TLW_EFUSE_H__
 
 
 #define	EFUSE_ERROE_HANDLE		1

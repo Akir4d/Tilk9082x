@@ -18,8 +18,8 @@
  *
  ******************************************************************************/
 
-#ifndef __RTW_BT_MP_H
-#define __RTW_BT_MP_H
+#ifndef __TLW_BT_MP_H
+#define __TLW_BT_MP_H
 
 
 #if(MP_DRIVER == 1)

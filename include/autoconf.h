@@ -42,7 +42,7 @@
 //#define CONFIG_IOCTL_CFG80211
 
 #ifdef CONFIG_IOCTL_CFG80211
-	//#define RTW_USE_CFG80211_STA_EVENT /* Indecate new sta asoc through cfg80211_new_sta */
+	//#define TLW_USE_CFG80211_STA_EVENT /* Indecate new sta asoc through cfg80211_new_sta */
 	#define CONFIG_CFG80211_FORCE_COMPATIBLE_2_6_37_UNDER
 	//#define CONFIG_DEBUG_CFG80211
 	#define CONFIG_SET_SCAN_DENY_TIMER
@@ -124,7 +124,7 @@
 
 #define CONFIG_LONG_DELAY_ISSUE
 #define CONFIG_NEW_SIGNAL_STAT_PROCESS
-#define RTW_NOTCH_FILTER 0 /* 0:Disable, 1:Enable, */
+#define TLW_NOTCH_FILTER 0 /* 0:Disable, 1:Enable, */
 #define CONFIG_DEAUTH_BEFORE_CONNECT
 
 /*

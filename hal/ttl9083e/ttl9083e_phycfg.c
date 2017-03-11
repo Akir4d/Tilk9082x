@@ -1867,7 +1867,7 @@ PHY_SetBWMode9083E(
 	pHalData->nCur40MhzPrimeSC = Offset;
 #endif
 
-	if (!RTW_CANNOT_RUN(Adapter)) {
+	if (!TLW_CANNOT_RUN(Adapter)) {
 	#if 0
 		//PlatformSetTimer(Adapter, &(pHalData->SetBWModeTimer), 0);
 	#else
@@ -1975,7 +1975,7 @@ PHY_SwChnl9083E(	// Call after initialization
 	//pHalData->SwChnlStage=0;
 	//pHalData->SwChnlStep=0;
 
-	if (!RTW_CANNOT_RUN(Adapter)) {
+	if (!TLW_CANNOT_RUN(Adapter)) {
 		#if 0
 		//PlatformSetTimer(Adapter, &(pHalData->SwChnlTimer), 0);
 		#else

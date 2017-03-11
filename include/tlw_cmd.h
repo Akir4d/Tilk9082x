@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_CMD_H_
-#define __RTW_CMD_H_
+#ifndef __TLW_CMD_H_
+#define __TLW_CMD_H_
 
 
 #define C2H_MEM_SZ (16*1024)
@@ -52,8 +52,8 @@
 
 	/* cmd flags */
 	enum {
-		RTW_CMDF_DIRECTLY = BIT0,
-		RTW_CMDF_WAIT_ACK = BIT1,
+		TLW_CMDF_DIRECTLY = BIT0,
+		TLW_CMDF_WAIT_ACK = BIT1,
 	};
 
 	struct cmd_priv {
@@ -357,15 +357,15 @@ Command-Event Mode
 
 */
 
-#define RTW_SSID_SCAN_AMOUNT 9 // for WEXT_CSCAN_AMOUNT 9
-#define RTW_CHANNEL_SCAN_AMOUNT (14+37)
+#define TLW_SSID_SCAN_AMOUNT 9 // for WEXT_CSCAN_AMOUNT 9
+#define TLW_CHANNEL_SCAN_AMOUNT (14+37)
 struct sitesurvey_parm {
 	sint scan_mode;	//active: 1, passive: 0 
 	/* sint bsslimit;	// 1 ~ 48 */
 	u8 ssid_num;
 	u8 ch_num;
-	NDIS_802_11_SSID ssid[RTW_SSID_SCAN_AMOUNT];
-	struct tlw_ieee80211_channel ch[RTW_CHANNEL_SCAN_AMOUNT];
+	NDIS_802_11_SSID ssid[TLW_SSID_SCAN_AMOUNT];
+	struct tlw_ieee80211_channel ch[TLW_CHANNEL_SCAN_AMOUNT];
 };
 
 /*
@@ -1068,7 +1068,7 @@ extern u8 tlw_ps_cmd(_adapter*padapter);
 u8 tlw_chk_hi_queue_cmd(_adapter*padapter);
 #ifdef CONFIG_DFS_MASTER
 u8 tlw_dfs_master_cmd(_adapter *adapter, bool enqueue);
-void tlw_dfs_master_timer_hdl(RTW_TIMER_HDL_ARGS);
+void tlw_dfs_master_timer_hdl(TLW_TIMER_HDL_ARGS);
 void tlw_dfs_master_enable(_adapter *adapter, u8 ch, u8 bw, u8 offset);
 void tlw_dfs_master_disable(_adapter *adapter, bool ld_sta_in_dfs);
 enum {
@@ -1204,7 +1204,7 @@ enum tlw_h2c_cmd
 #define _GetRFReg_CMD_ 		_Read_RFREG_CMD_
 #define _SetRFReg_CMD_ 		_Write_RFREG_CMD_
 
-#ifdef _RTW_CMD_C_
+#ifdef _TLW_CMD_C_
 struct _cmd_callback 	tlw_cmd_callback[] = 
 {
 	{GEN_CMD_CODE(_Read_MACREG), NULL}, /*0*/

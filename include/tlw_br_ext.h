@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_BR_EXT_H_
-#define _RTW_BR_EXT_H_
+#ifndef _TLW_BR_EXT_H_
+#define _TLW_BR_EXT_H_
 
 #if 1	// tlw_wifi_driver
 #define CL_IPV6_PASS    	1
@@ -72,5 +72,5 @@ struct br_ext_info {
 
 void nat25_db_cleanup(_adapter *priv);
 
-#endif // _RTW_BR_EXT_H_
+#endif // _TLW_BR_EXT_H_
 

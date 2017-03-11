@@ -39,7 +39,7 @@ do { if(wapi_debug_component & (component)){ \
 #define RT_ASSERT_RET(_Exp)								\
 		if(!(_Exp))									\
 		{											\
-			printk("RTWLAN: ");					\
+			printk("TLWLAN: ");					\
                 	printk( "Assertion failed! %s,%s,line=%d\n", \
                 	#_Exp,__FUNCTION__,__LINE__);          \
 			return;						\
@@ -47,7 +47,7 @@ do { if(wapi_debug_component & (component)){ \
 #define RT_ASSERT_RET_VALUE(_Exp,Ret)								\
 		if(!(_Exp))									\
 		{											\
-			printk("RTWLAN: ");					\
+			printk("TLWLAN: ");					\
                 	printk( "Assertion failed! %s,%s,line=%d\n", \
                 	#_Exp,__FUNCTION__,__LINE__);          \
 			return (Ret);						\

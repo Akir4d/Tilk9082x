@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_TDLS_H_
-#define __RTW_TDLS_H_
+#ifndef __TLW_TDLS_H_
+#define __TLW_TDLS_H_
 
 
 #ifdef CONFIG_TDLS

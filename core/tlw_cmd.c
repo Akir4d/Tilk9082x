@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_CMD_C_
+#define _TLW_CMD_C_
 
 #include <drv_types.h>
 #include <hal_data.h>
@@ -538,7 +538,7 @@ thread_return tlw_cmd_thread(thread_context context)
 	_irqL irqL;
 _func_enter_;
 
-	thread_enter("RTW_CMD_THREAD");
+	thread_enter("TLW_CMD_THREAD");
 
 	pcmdbuf = pcmdpriv->cmd_buf;
 	prspbuf = pcmdpriv->rsp_buf;
@@ -556,7 +556,7 @@ _func_enter_;
 			break;
 		}
 
-		if (RTW_CANNOT_RUN(padapter)) {
+		if (TLW_CANNOT_RUN(padapter)) {
 			DBG_871X_LEVEL(_drv_always_, "%s: DriverStopped(%s) SurpriseRemoved(%s) break at line %d\n",
 				__func__
 				, tlw_is_drv_stopped(padapter)?"True":"False"
@@ -589,7 +589,7 @@ _func_enter_;
 #endif
 
 _next:
-		if (RTW_CANNOT_RUN(padapter)) {
+		if (TLW_CANNOT_RUN(padapter)) {
 			DBG_871X_LEVEL(_drv_always_, "%s: DriverStopped(%s) SurpriseRemoved(%s) break at line %d\n",
 				__func__
 				, tlw_is_drv_stopped(padapter)?"True":"False"
@@ -655,7 +655,7 @@ post_process:
 			if (pcmd->res == H2C_SUCCESS)
 				tlw_sctx_done(&pcmd->sctx);
 			else
-				tlw_sctx_done_err(&pcmd->sctx, RTW_SCTX_DONE_CMD_ERROR);
+				tlw_sctx_done_err(&pcmd->sctx, TLW_SCTX_DONE_CMD_ERROR);
 		}
 		_exit_critical_mutex(&(pcmd->padapter->cmdpriv.sctx_mutex), NULL);
 
@@ -906,7 +906,7 @@ _func_enter_;
 	/* prepare ssid list */
 	if (ssid) {
 		int i;
-		for (i=0; i<ssid_num && i< RTW_SSID_SCAN_AMOUNT; i++) {
+		for (i=0; i<ssid_num && i< TLW_SSID_SCAN_AMOUNT; i++) {
 			if (ssid[i].SsidLength) {
 				_tlw_memcpy(&psurveyPara->ssid[i], &ssid[i], sizeof(NDIS_802_11_SSID));
 				psurveyPara->ssid_num++;
@@ -920,8 +920,8 @@ _func_enter_;
 	/* prepare channel list */
 	if (ch) {
 		int i;
-		for (i=0; i<ch_num && i< RTW_CHANNEL_SCAN_AMOUNT; i++) {
-			if (ch[i].hw_value && !(ch[i].flags & RTW_IEEE80211_CHAN_DISABLED)) {
+		for (i=0; i<ch_num && i< TLW_CHANNEL_SCAN_AMOUNT; i++) {
+			if (ch[i].hw_value && !(ch[i].flags & TLW_IEEE80211_CHAN_DISABLED)) {
 				_tlw_memcpy(&psurveyPara->ch[i], &ch[i], sizeof(struct tlw_ieee80211_channel));
 				psurveyPara->ch_num++;
 				if (0)
@@ -1273,7 +1273,7 @@ static u8 tlw_createbss_cmd(_adapter  *adapter, int flags, bool adhoc
 		parm->req_offset = req_offset;
 	}
 
-	if (flags & RTW_CMDF_DIRECTLY) {
+	if (flags & TLW_CMDF_DIRECTLY) {
 		/* no need to enqueue, do the cmd hdl directly and free cmd parameter */
 		if (H2C_SUCCESS != createbss_hdl(adapter, (u8 *)parm))
 			res = _FAIL;
@@ -1289,17 +1289,17 @@ static u8 tlw_createbss_cmd(_adapter  *adapter, int flags, bool adhoc
 
 		init_h2fwcmd_w_parm_no_rsp(cmdobj, parm, GEN_CMD_CODE(_CreateBss));
 
-		if (flags & RTW_CMDF_WAIT_ACK) {
+		if (flags & TLW_CMDF_WAIT_ACK) {
 			cmdobj->sctx = &sctx;
 			tlw_sctx_init(&sctx, 2000);
 		}
 
 		res = tlw_enqueue_cmd(pcmdpriv, cmdobj);
 
-		if (res == _SUCCESS && (flags & RTW_CMDF_WAIT_ACK)) {
+		if (res == _SUCCESS && (flags & TLW_CMDF_WAIT_ACK)) {
 			tlw_sctx_wait(&sctx, __func__);
 			_enter_critical_mutex(&pcmdpriv->sctx_mutex, NULL);
-			if (sctx.status == RTW_SCTX_SUBMITTED)
+			if (sctx.status == TLW_SCTX_SUBMITTED)
 				cmdobj->sctx = NULL;
 			_exit_critical_mutex(&pcmdpriv->sctx_mutex, NULL);
 		}
@@ -3261,7 +3261,7 @@ u8 tlw_dfs_master_hdl(_adapter *adapter)
 					, rfctl->radar_detect_ch, rfctl->radar_detect_bw, rfctl->radar_detect_offset);
 
 				/* change op ch, inform ch switch */
-				tlw_change_bss_chbw_cmd(dvobj->padapters[i], RTW_CMDF_DIRECTLY, 0, 0, 0);
+				tlw_change_bss_chbw_cmd(dvobj->padapters[i], TLW_CMDF_DIRECTLY, 0, 0, 0);
 			}
 
 			if (rfctl->dfs_master_enabled)
@@ -3276,7 +3276,7 @@ cac_status_chk:
 		u8 pause = 0x00;
 
 		tlw_hal_set_hwreg(adapter, HW_VAR_TXPAUSE, &pause);
-		rfctl->cac_end_time = RTW_CAC_STOPPED;
+		rfctl->cac_end_time = TLW_CAC_STOPPED;
 	}
 
 set_timer:
@@ -3320,7 +3320,7 @@ exit:
 	return res;
 }
 
-void tlw_dfs_master_timer_hdl(RTW_TIMER_HDL_ARGS)
+void tlw_dfs_master_timer_hdl(TLW_TIMER_HDL_ARGS)
 {
 	_adapter *adapter = (_adapter *)FunctionContext;
 
@@ -3384,7 +3384,7 @@ void tlw_dfs_master_disable(_adapter *adapter, bool ld_sta_in_dfs)
 		rfctl->radar_detect_ch = rfctl->pre_radar_detect_ch = 0;
 		rfctl->radar_detect_bw = rfctl->pre_radar_detect_bw = 0;
 		rfctl->radar_detect_offset = rfctl->pre_radar_detect_offset = 0;
-		rfctl->cac_end_time = RTW_CAC_STOPPED;
+		rfctl->cac_end_time = TLW_CAC_STOPPED;
 		_cancel_timer_ex(&adapter->mlmepriv.dfs_master_timer);
 
 		if (overlap_radar_detect_ch) {
@@ -3570,7 +3570,7 @@ static void tlw_btinfo_hdl(_adapter *adapter, u8 *buf, u16 buf_len)
 	DBG_871X("%s: btinfo[0]=%x,btinfo[1]=%x,btinfo[2]=%x,btinfo[3]=%x btinfo[4]=%x,btinfo[5]=%x,btinfo[6]=%x,btinfo[7]=%x\n"
 				, __func__, buf[0], buf[1], buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
 #else//!CONFIG_BT_COEXIST_SOCKET_TRX
-	btinfo_evt_dump(RTW_DBGDUMP, info);
+	btinfo_evt_dump(TLW_DBGDUMP, info);
 #endif //CONFIG_BT_COEXIST_SOCKET_TRX
 #endif // DBG_PROC_SET_BTINFO_EVT
 

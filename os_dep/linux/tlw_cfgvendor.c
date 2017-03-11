@@ -22,7 +22,7 @@
 
 #ifdef CONFIG_IOCTL_CFG80211
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(RTW_VENDOR_EXT_SUPPORT)
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(TLW_VENDOR_EXT_SUPPORT)
 
 /*
 #include <linux/kernel.h>
@@ -1323,7 +1323,7 @@ static const struct  nl80211_vendor_cmd_info tlw_vendor_events [] = {
 int tlw_cfgvendor_attach(struct wiphy *wiphy)
 {
 
-	DBG_871X("Register RTW cfg80211 vendor cmd(0x%x) interface \n", NL80211_CMD_VENDOR);
+	DBG_871X("Register TLW cfg80211 vendor cmd(0x%x) interface \n", NL80211_CMD_VENDOR);
 
 	wiphy->vendor_commands	= tlw_vendor_cmds;
 	wiphy->n_vendor_commands = ARRAY_SIZE(tlw_vendor_cmds);
@@ -1335,7 +1335,7 @@ int tlw_cfgvendor_attach(struct wiphy *wiphy)
 
 int tlw_cfgvendor_detach(struct wiphy *wiphy)
 {
-	DBG_871X("Vendor: Unregister RTW cfg80211 vendor interface \n");
+	DBG_871X("Vendor: Unregister TLW cfg80211 vendor interface \n");
 
 	wiphy->vendor_commands  = NULL;
 	wiphy->vendor_events    = NULL;
@@ -1344,7 +1344,7 @@ int tlw_cfgvendor_detach(struct wiphy *wiphy)
 
 	return 0;
 }
-#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(RTW_VENDOR_EXT_SUPPORT) */
+#endif /* (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 14, 0)) || defined(TLW_VENDOR_EXT_SUPPORT) */
 
 #endif /* CONFIG_IOCTL_CFG80211 */
 

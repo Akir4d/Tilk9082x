@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_SECURITY_H_
-#define __RTW_SECURITY_H_
+#ifndef __TLW_SECURITY_H_
+#define __TLW_SECURITY_H_
 
 
 #define _NO_PRIVACY_		0x0
@@ -48,9 +48,9 @@ const char *security_type_str(u8 value);
 #define AES_BLOCK_SIZE 16
 #define AES_PRIV_SIZE (4 * 44)
 
-#define RTW_KEK_LEN 16
-#define RTW_KCK_LEN 16
-#define RTW_REPLAY_CTR_LEN 8
+#define TLW_KEK_LEN 16
+#define TLW_KCK_LEN 16
+#define TLW_REPLAY_CTR_LEN 8
 
 typedef enum {
 	ENCRYP_PROTOCOL_OPENSYS,   //open system
@@ -477,7 +477,7 @@ int tdls_verify_mic(u8 *kck, u8 trans_seq,
 						u8 *lnkid, u8 *rsnie, u8 *timeoutie, u8 *ftie);
 #endif //CONFIG_TDLS
 
-void tlw_use_tkipkey_handler(RTW_TIMER_HDL_ARGS);
+void tlw_use_tkipkey_handler(TLW_TIMER_HDL_ARGS);
 
 void tlw_sec_restore_wep_key(_adapter *adapter);
 u8 tlw_handle_tkip_countermeasure(_adapter* adapter, const char *caller);

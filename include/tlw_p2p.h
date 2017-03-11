@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_P2P_H_
-#define __RTW_P2P_H_
+#ifndef __TLW_P2P_H_
+#define __TLW_P2P_H_
 
 
 u32 build_beacon_p2p_ie(struct wifidirect_info *pwdinfo, u8 *pbuf);

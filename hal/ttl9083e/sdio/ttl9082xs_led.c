@@ -48,7 +48,7 @@ SwLedOn_9083ES(
 	u8	LedCfg;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 
-	if (RTW_CANNOT_RUN(padapter))
+	if (TLW_CANNOT_RUN(padapter))
 		return;
 
 	pLed->bLedOn = _TRUE;
@@ -68,7 +68,7 @@ SwLedOff_9083ES(
 	u8	LedCfg;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 
-	if (RTW_CANNOT_RUN(padapter))
+	if (TLW_CANNOT_RUN(padapter))
 		goto exit;
 
 exit:

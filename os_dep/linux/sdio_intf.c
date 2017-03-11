@@ -73,7 +73,7 @@ static const struct sdio_device_id sdio_ids[] =
 	{SDIO_DEVICE(0x024c, 0xF179), .driver_data = RTL9083F},
 #endif
 
-#if defined(RTW_ENABLE_WIFI_CONTROL_FUNC) /* temporarily add this to accept all sdio wlan id */
+#if defined(TLW_ENABLE_WIFI_CONTROL_FUNC) /* temporarily add this to accept all sdio wlan id */
 	{ SDIO_DEVICE_CLASS(SDIO_CLASS_WLAN) },
 #endif
 	{ /* end: all zeroes */				},
@@ -390,7 +390,7 @@ _func_enter_;
 		goto free_dvobj;
 	}
 
-	dvobj->interface_type = RTW_SDIO;
+	dvobj->interface_type = TLW_SDIO;
 	tlw_decide_chip_type_by_device_id(dvobj, pdid);
 
 	tlw_reset_continual_io_error(dvobj);
@@ -489,9 +489,9 @@ static void sd_intf_stop(PADAPTER padapter)
 }
 
 
-#ifdef RTW_SUPPORT_PLATFORM_SHUTDOWN
+#ifdef TLW_SUPPORT_PLATFORM_SHUTDOWN
 PADAPTER g_test_adapter = NULL;
-#endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
+#endif // TLW_SUPPORT_PLATFORM_SHUTDOWN
 
 _adapter *tlw_sdio_if1_init(struct dvobj_priv *dvobj)
 {
@@ -505,9 +505,9 @@ _adapter *tlw_sdio_if1_init(struct dvobj_priv *dvobj)
 	if (loadparam(padapter) != _SUCCESS)
 		goto free_adapter;
 
-#ifdef RTW_SUPPORT_PLATFORM_SHUTDOWN
+#ifdef TLW_SUPPORT_PLATFORM_SHUTDOWN
 	g_test_adapter = padapter;
-#endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
+#endif // TLW_SUPPORT_PLATFORM_SHUTDOWN
 	padapter->dvobj = dvobj;
 
 	tlw_set_drv_stopped(padapter);/*init*/
@@ -643,9 +643,9 @@ static void tlw_sdio_if1_deinit(_adapter *if1)
 	rtd2885_wlan_netlink_sendMsg("linkdown", "8712");
 #endif
 
-#ifdef RTW_SUPPORT_PLATFORM_SHUTDOWN
+#ifdef TLW_SUPPORT_PLATFORM_SHUTDOWN
 	g_test_adapter = NULL;
-#endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
+#endif // TLW_SUPPORT_PLATFORM_SHUTDOWN
 }
 
 /*
@@ -874,7 +874,7 @@ static int tlw_sdio_suspend(struct device *dev)
 	ret = tlw_suspend_common(padapter);		
 
 exit:
-#ifdef CONFIG_RTW_SDIO_PM_KEEP_POWER 
+#ifdef CONFIG_TLW_SDIO_PM_KEEP_POWER 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,34))
 	//Android 4.0 don't support WIFI close power
 	//or power down or clock will close after wifi resume,
@@ -975,7 +975,7 @@ static int __init tlw_drv_entry(void)
 	int ret = 0;
 
 	DBG_871X_LEVEL(_drv_always_, "module init start\n");
-	dump_drv_version(RTW_DBGDUMP);
+	dump_drv_version(TLW_DBGDUMP);
 #ifdef BTCOEXVERSION
 	DBG_871X_LEVEL(_drv_always_, DRV_NAME" BT-Coex version = %s\n", BTCOEXVERSION);
 #endif // BTCOEXVERSION
@@ -1049,7 +1049,7 @@ static void __exit tlw_drv_halt(void)
 
 	DBG_871X_LEVEL(_drv_always_, "module exit success\n");
 
-	tlw_mstat_dump(RTW_DBGDUMP);
+	tlw_mstat_dump(TLW_DBGDUMP);
 }
 
 #ifdef CONFIG_PLATFORM_INTEL_BYT

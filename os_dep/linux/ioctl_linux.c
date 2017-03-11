@@ -2657,7 +2657,7 @@ static int tlw_wx_set_scan(struct net_device *dev, struct iw_request_info *a,
 	int ret = 0;	
 	_adapter *padapter = (_adapter *)tlw_netdev_priv(dev);
 	struct mlme_priv *pmlmepriv= &padapter->mlmepriv;
-	NDIS_802_11_SSID ssid[RTW_SSID_SCAN_AMOUNT];
+	NDIS_802_11_SSID ssid[TLW_SSID_SCAN_AMOUNT];
 	_irqL	irqL;
 #ifdef CONFIG_P2P
 	struct wifidirect_info *pwdinfo= &(padapter->wdinfo);	
@@ -2760,7 +2760,7 @@ _func_enter_;
 	}
 #endif //CONFIG_P2P
 
-	_tlw_memset(ssid, 0, sizeof(NDIS_802_11_SSID)*RTW_SSID_SCAN_AMOUNT);
+	_tlw_memset(ssid, 0, sizeof(NDIS_802_11_SSID)*TLW_SSID_SCAN_AMOUNT);
 
 #if WIRELESS_EXT >= 17
 	if (wrqu->data.length == sizeof(struct iw_scan_req)) 
@@ -2864,7 +2864,7 @@ _func_enter_;
 		}
 		
 		//jeff: it has still some scan paramater to parse, we only do this now...
-		_status = tlw_set_802_11_bssid_list_scan(padapter, ssid, RTW_SSID_SCAN_AMOUNT);
+		_status = tlw_set_802_11_bssid_list_scan(padapter, ssid, TLW_SSID_SCAN_AMOUNT);
 		
 	} else
 	
@@ -4811,7 +4811,7 @@ static int tlw_wps_start(struct net_device *dev,
 	u32   u32wps_start = 0;
         unsigned int uintRet = 0;
 
-	if (RTW_CANNOT_RUN(padapter) || (NULL == pdata)) {
+	if (TLW_CANNOT_RUN(padapter) || (NULL == pdata)) {
 		ret= -EINVAL;
 		goto exit;
 	}		
@@ -6071,7 +6071,7 @@ static int tlw_p2p_invite_req(struct net_device *dev,
 				//	Commented by Albert 20120319
 				//	The first two bytes are the WFD device information field of WFD device information subelement.
 				//	In big endian format.
-				wfd_devinfo_field = RTW_GET_BE16(wfd_devinfo);
+				wfd_devinfo_field = TLW_GET_BE16(wfd_devinfo);
 				if ( wfd_devinfo_field & WFD_DEVINFO_SESSION_AVAIL )
 				{
 					pwfd_info->peer_session_avail = _TRUE;
@@ -6413,7 +6413,7 @@ static int tlw_p2p_set_pc(struct net_device *dev,
 				//	Commented by Albert 20120319
 				//	The first two bytes are the WFD device information field of WFD device information subelement.
 				//	In big endian format.
-				wfd_devinfo_field = RTW_GET_BE16(wfd_devinfo);
+				wfd_devinfo_field = TLW_GET_BE16(wfd_devinfo);
 				if ( wfd_devinfo_field & WFD_DEVINFO_PC_TDLS )
 				{
 					pwfd_info->wfd_pc = _TRUE;
@@ -6741,7 +6741,7 @@ static int tlw_p2p_prov_disc(struct net_device *dev,
 					//	Commented by Albert 20120319
 					//	The first two bytes are the WFD device information field of WFD device information subelement.
 					//	In big endian format.
-					wfd_devinfo_field = RTW_GET_BE16(wfd_devinfo);
+					wfd_devinfo_field = TLW_GET_BE16(wfd_devinfo);
 					if ( wfd_devinfo_field & WFD_DEVINFO_SESSION_AVAIL )
 					{
 						pwfd_info->peer_session_avail = _TRUE;
@@ -7578,7 +7578,7 @@ static int tlw_dbg_port(struct net_device *dev,
 						DBG_871X("agg_enable_bitmap=%x, candidate_tid_bitmap=%x\n", psta->htpriv.agg_enable_bitmap, psta->htpriv.candidate_tid_bitmap);
 #endif //CONFIG_80211N_HT
 
-						sta_rx_reorder_ctl_dump(RTW_DBGDUMP, psta);
+						sta_rx_reorder_ctl_dump(TLW_DBGDUMP, psta);
 					}
 					else
 					{							
@@ -7653,7 +7653,7 @@ static int tlw_dbg_port(struct net_device *dev,
 #endif
 									DBG_871X("dot118021XPrivacy=0x%x\n", psta->dot118021XPrivacy);
 
-									sta_rx_reorder_ctl_dump(RTW_DBGDUMP, psta);
+									sta_rx_reorder_ctl_dump(TLW_DBGDUMP, psta);
 								}							
 			
 							}
@@ -7755,7 +7755,7 @@ static int tlw_dbg_port(struct net_device *dev,
 		#endif	
 
 				case 0x10:// driver version display
-					dump_drv_version(RTW_DBGDUMP);
+					dump_drv_version(TLW_DBGDUMP);
 					break;
 				case 0x11://dump linked status
 					{
@@ -7818,7 +7818,7 @@ static int tlw_dbg_port(struct net_device *dev,
 				case 0x16:
 				{
 					if(arg == 0xff){
-						tlw_odm_dbg_comp_msg(RTW_DBGDUMP,padapter);
+						tlw_odm_dbg_comp_msg(TLW_DBGDUMP,padapter);
 					}
 					else{
 						u64 dbg_comp = (u64)extra_arg;
@@ -8028,13 +8028,13 @@ static int tlw_dbg_port(struct net_device *dev,
 				case 0xdd://registers dump , 0 for mac reg,1 for bb reg, 2 for rf reg
 					{
 						if(extra_arg==0){
-							mac_reg_dump(RTW_DBGDUMP, padapter);
+							mac_reg_dump(TLW_DBGDUMP, padapter);
 						}
 						else if(extra_arg==1){
-							bb_reg_dump(RTW_DBGDUMP, padapter);
+							bb_reg_dump(TLW_DBGDUMP, padapter);
 						}
 						else if(extra_arg==2){
-							rf_reg_dump(RTW_DBGDUMP, padapter);
+							rf_reg_dump(TLW_DBGDUMP, padapter);
 						}
 					}
 					break;		
@@ -9382,7 +9382,7 @@ static int tlw_wx_set_priv(struct net_device *dev,
 				char *extra)
 {
 
-#ifdef CONFIG_DEBUG_RTW_WX_SET_PRIV
+#ifdef CONFIG_DEBUG_TLW_WX_SET_PRIV
 	char *ext_dbg;
 #endif
 
@@ -9412,7 +9412,7 @@ static int tlw_wx_set_priv(struct net_device *dev,
 	//	 ("tlw_wx_set_priv: %s req=%s\n",
 	//	  dev->name, ext));
 
-	#ifdef CONFIG_DEBUG_RTW_WX_SET_PRIV	
+	#ifdef CONFIG_DEBUG_TLW_WX_SET_PRIV	
 	if (!(ext_dbg = tlw_vmalloc(len)))
 	{
 		tlw_vmfree(ext, len);
@@ -9523,7 +9523,7 @@ static int tlw_wx_set_priv(struct net_device *dev,
 			}
 			break;
 		default :
-			#ifdef  CONFIG_DEBUG_RTW_WX_SET_PRIV
+			#ifdef  CONFIG_DEBUG_TLW_WX_SET_PRIV
 			DBG_871X("%s: %s unknowned req=%s\n", __FUNCTION__,
 				dev->name, ext_dbg);
 			#endif
@@ -9535,7 +9535,7 @@ static int tlw_wx_set_priv(struct net_device *dev,
 	if (copy_to_user(dwrq->pointer, ext, min(dwrq->length, (u16)(strlen(ext)+1)) ) )
 		ret = -EFAULT;
 
-	#ifdef CONFIG_DEBUG_RTW_WX_SET_PRIV
+	#ifdef CONFIG_DEBUG_TLW_WX_SET_PRIV
 	DBG_871X("%s: %s req=%s rep=%s dwrq->length=%d, strlen(ext)+1=%d\n", __FUNCTION__,
 		dev->name, ext_dbg ,ext, dwrq->length, (u16)(strlen(ext)+1));
 	#endif
@@ -9545,7 +9545,7 @@ static int tlw_wx_set_priv(struct net_device *dev,
 FREE_EXT:
 
 	tlw_vmfree(ext, len);
-	#ifdef CONFIG_DEBUG_RTW_WX_SET_PRIV
+	#ifdef CONFIG_DEBUG_TLW_WX_SET_PRIV
 	tlw_vmfree(ext_dbg, len);
 	#endif
 
@@ -9596,8 +9596,8 @@ static int tlw_wowlan_ctrl(struct net_device *dev,
 
 	} else if (_tlw_memcmp(extra, "disable", 7)) {
 #ifdef CONFIG_USB_HCI
-		RTW_ENABLE_FUNC(padapter, DF_RX_BIT);
-		RTW_ENABLE_FUNC(padapter, DF_TX_BIT);
+		TLW_ENABLE_FUNC(padapter, DF_RX_BIT);
+		TLW_ENABLE_FUNC(padapter, DF_TX_BIT);
 #endif
 		tlw_resume_common(padapter);
 
@@ -9808,8 +9808,8 @@ static int tlw_ap_wowlan_ctrl(struct net_device *dev,
 		tlw_suspend_common(padapter);
 	} else if (_tlw_memcmp(extra, "disable", 7)) {
 #ifdef CONFIG_USB_HCI
-		RTW_ENABLE_FUNC(padapter, DF_RX_BIT);
-		RTW_ENABLE_FUNC(padapter, DF_TX_BIT);
+		TLW_ENABLE_FUNC(padapter, DF_RX_BIT);
+		TLW_ENABLE_FUNC(padapter, DF_TX_BIT);
 #endif
 		tlw_resume_common(padapter);
 	} else {
@@ -11454,7 +11454,7 @@ static int tlw_priv_set(struct net_device *dev,
 		return -ENETDOWN;
 	}
 
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		DBG_871X("%s fail =>(bSurpriseRemoved == _TRUE) || ( bDriverStopped == _TRUE)\n", __func__);
 		return -ENETDOWN;
 	}
@@ -11510,7 +11510,7 @@ static int tlw_priv_get(struct net_device *dev,
 		return -ENETDOWN;
 	}
 
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 		DBG_871X("%s fail =>(padapter->bSurpriseRemoved == _TRUE) || ( padapter->bDriverStopped == _TRUE)\n", __func__);
 		return -ENETDOWN;
 	}
@@ -12865,7 +12865,7 @@ thread_return lbk_thread(thread_context context)
 	ok = 0;
 	fail = 0;
 
-	daemonize("%s", "RTW_LBK_THREAD");
+	daemonize("%s", "TLW_LBK_THREAD");
 	allow_signal(SIGTERM);
 
 	do {
@@ -12984,7 +12984,7 @@ static void loopbackTest(PADAPTER padapter, u32 cnt, u32 size, u8* pmsg)
 	ploopback->bstop = _FALSE;
 	ploopback->cnt = cnt;
 	ploopback->size = size;
-	ploopback->lbkthread = kthread_run(lbk_thread, padapter, "RTW_LBK_THREAD");
+	ploopback->lbkthread = kthread_run(lbk_thread, padapter, "TLW_LBK_THREAD");
 	if (IS_ERR(padapter->lbkthread))
 	{
 		freeLoopback(padapter);

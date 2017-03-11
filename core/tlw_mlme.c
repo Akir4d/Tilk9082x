@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_MLME_C_
+#define _TLW_MLME_C_
 
 #include <hal_data.h>
 
@@ -81,23 +81,23 @@ _func_enter_;
 #endif
 
 #ifdef CONFIG_LAYER2_ROAMING
-	#define RTW_ROAM_SCAN_RESULT_EXP_MS 5*1000
-	#define RTW_ROAM_RSSI_DIFF_TH 10
-	#define RTW_ROAM_SCAN_INTERVAL_MS 10*1000
+	#define TLW_ROAM_SCAN_RESULT_EXP_MS 5*1000
+	#define TLW_ROAM_RSSI_DIFF_TH 10
+	#define TLW_ROAM_SCAN_INTERVAL_MS 10*1000
 
 	pmlmepriv->roam_flags = 0
-		| RTW_ROAM_ON_EXPIRED
+		| TLW_ROAM_ON_EXPIRED
 		#ifdef CONFIG_LAYER2_ROAMING_RESUME
-		| RTW_ROAM_ON_RESUME
+		| TLW_ROAM_ON_RESUME
 		#endif
 		#ifdef CONFIG_LAYER2_ROAMING_ACTIVE
-		| RTW_ROAM_ACTIVE
+		| TLW_ROAM_ACTIVE
 		#endif
 		;
 
-	pmlmepriv->roam_scanr_exp_ms = RTW_ROAM_SCAN_RESULT_EXP_MS;
-	pmlmepriv->roam_rssi_diff_th = RTW_ROAM_RSSI_DIFF_TH;
-	pmlmepriv->roam_scan_int_ms = RTW_ROAM_SCAN_INTERVAL_MS;
+	pmlmepriv->roam_scanr_exp_ms = TLW_ROAM_SCAN_RESULT_EXP_MS;
+	pmlmepriv->roam_rssi_diff_th = TLW_ROAM_RSSI_DIFF_TH;
+	pmlmepriv->roam_scan_int_ms = TLW_ROAM_SCAN_INTERVAL_MS;
 #endif /* CONFIG_LAYER2_ROAMING */
 
 	tlw_init_mlme_timer(padapter);
@@ -429,7 +429,7 @@ sint tlw_if_up(_adapter *padapter)	{
 	sint res;
 _func_enter_;		
 
-	if (RTW_CANNOT_RUN(padapter) ||
+	if (TLW_CANNOT_RUN(padapter) ||
 		(check_fwstate(&padapter->mlmepriv, _FW_LINKED) == _FALSE)) {
 		RT_TRACE(_module_ttl871x_mlme_c_, _drv_info_, ("tlw_if_up:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
 			, tlw_is_drv_stopped(padapter)?"True":"False"
@@ -1336,7 +1336,7 @@ _func_enter_;
 			}
 		}
 	} else {
-		if (tlw_chk_roam_flags(adapter, RTW_ROAM_ACTIVE)) {
+		if (tlw_chk_roam_flags(adapter, TLW_ROAM_ACTIVE)) {
 			if (check_fwstate(pmlmepriv, WIFI_STATION_STATE)
 				&& check_fwstate(pmlmepriv, _FW_LINKED))
 			{
@@ -1774,7 +1774,7 @@ static u32 _tlw_wait_scan_done(_adapter *adapter, u8 abort, u32 timeout_ms)
 		while (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY)
 			&& tlw_get_passing_time_ms(start) <= timeout_ms) {
 
-			if (RTW_CANNOT_RUN(adapter))
+			if (TLW_CANNOT_RUN(adapter))
 				break;
 
 			DBG_871X(FUNC_NDEV_FMT"fw_state=_FW_UNDER_SURVEY!\n",
@@ -1786,7 +1786,7 @@ static u32 _tlw_wait_scan_done(_adapter *adapter, u8 abort, u32 timeout_ms)
 
 	if (_TRUE == abort) {
 		if (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY)) {
-			if (!RTW_CANNOT_RUN(adapter))
+			if (!TLW_CANNOT_RUN(adapter))
 				DBG_871X(FUNC_NDEV_FMT"waiting for scan_abort time out!\n", FUNC_NDEV_ARG(adapter->pnetdev));
 			#ifdef CONFIG_PLATFORM_MSTAR
 			/*_clr_fwstate_(pmlmepriv, _FW_UNDER_SURVEY);*/
@@ -2576,9 +2576,9 @@ _func_enter_;
 		#ifdef CONFIG_LAYER2_ROAMING
 		if(adapter->registrypriv.wifi_spec==1) {
 			roam = _FALSE;
-		} else if (reason == WLAN_REASON_EXPIRATION_CHK && tlw_chk_roam_flags(adapter, RTW_ROAM_ON_EXPIRED)) {
+		} else if (reason == WLAN_REASON_EXPIRATION_CHK && tlw_chk_roam_flags(adapter, TLW_ROAM_ON_EXPIRED)) {
 			roam = _TRUE;
-		} else if (reason == WLAN_REASON_ACTIVE_ROAM && tlw_chk_roam_flags(adapter, RTW_ROAM_ACTIVE)) {
+		} else if (reason == WLAN_REASON_ACTIVE_ROAM && tlw_chk_roam_flags(adapter, TLW_ROAM_ACTIVE)) {
 			roam = _TRUE;
 			roam_target = pmlmepriv->roam_network;
 		}
@@ -2726,7 +2726,7 @@ _func_enter_;
 
 	DBG_871X("%s, fw_state=%x\n", __FUNCTION__, get_fwstate(pmlmepriv));
 	
-	if (RTW_CANNOT_RUN(adapter))
+	if (TLW_CANNOT_RUN(adapter))
 		return;
 
 	
@@ -2847,7 +2847,7 @@ void tlw_mlme_reset_auto_scan_int(_adapter *adapter)
 	else if(adapter->registrypriv.wifi_spec && is_client_associated_to_ap(adapter) == _TRUE) {
 		mlme->auto_scan_int_ms = 60*1000;
 #ifdef CONFIG_LAYER2_ROAMING
-	} else if(tlw_chk_roam_flags(adapter, RTW_ROAM_ACTIVE)) {
+	} else if(tlw_chk_roam_flags(adapter, TLW_ROAM_ACTIVE)) {
 		if (check_fwstate(mlme, WIFI_STATION_STATE) && check_fwstate(mlme, _FW_LINKED))
 			mlme->auto_scan_int_ms = mlme->roam_scan_int_ms;
 #endif
@@ -2920,7 +2920,7 @@ void tlw_dynamic_check_timer_handlder(_adapter *adapter)
 	if (!tlw_is_hw_init_completed(adapter))
 		return;
 
-	if (RTW_CANNOT_RUN(adapter))
+	if (TLW_CANNOT_RUN(adapter))
 		return;
 
 	
@@ -3624,7 +3624,7 @@ static int tlw_append_pmkid(_adapter *adapter,int iEntry, u8 *ie, uint ie_len)
 
 	if (ie[13] > 20) {
 		int i;
-		u16 pmkid_cnt = RTW_GET_LE16(ie+14+20);
+		u16 pmkid_cnt = TLW_GET_LE16(ie+14+20);
 		if (pmkid_cnt == 1 && _tlw_memcmp(ie+14+20+2, &sec->PMKIDList[iEntry].PMKID, 16)) {
 			DBG_871X(FUNC_ADPT_FMT" has carried the same PMKID:"KEY_FMT"\n"
 				, FUNC_ADPT_ARG(adapter), KEY_ARG(&sec->PMKIDList[iEntry].PMKID));
@@ -3647,7 +3647,7 @@ static int tlw_append_pmkid(_adapter *adapter,int iEntry, u8 *ie, uint ie_len)
 		DBG_871X(FUNC_ADPT_FMT" append PMKID:"KEY_FMT"\n"
 				, FUNC_ADPT_ARG(adapter), KEY_ARG(&sec->PMKIDList[iEntry].PMKID));
 
-		RTW_PUT_LE16(&ie[ie_len], 1);
+		TLW_PUT_LE16(&ie[ie_len], 1);
 		ie_len += 2;
 
 		_tlw_memcpy(&ie[ie_len], &sec->PMKIDList[iEntry].PMKID, 16);
@@ -3664,7 +3664,7 @@ static int tlw_remove_pmkid(_adapter *adapter, u8 *ie, uint ie_len)
 {
 	struct security_priv *sec=&adapter->securitypriv;
 	int i;
-	u16 pmkid_cnt = RTW_GET_LE16(ie+14+20);
+	u16 pmkid_cnt = TLW_GET_LE16(ie+14+20);
 
 	if (ie[13] <= 20)
 		goto exit;
@@ -4620,7 +4620,7 @@ sint tlw_buddy_adapter_up(_adapter *padapter)
 
 	if(padapter->pbuddy_adapter == NULL)
 		res = _FALSE;
-	else if (RTW_CANNOT_RUN(padapter) ||
+	else if (TLW_CANNOT_RUN(padapter) ||
 		(padapter->pbuddy_adapter->bup == _FALSE) || (!tlw_is_hw_init_completed(padapter)))
 		res = _FALSE;
 	else

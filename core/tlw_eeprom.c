@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_EEPROM_C_
+#define _TLW_EEPROM_C_
 
 #include <drv_conf.h>
 #include <osdep_service.h>

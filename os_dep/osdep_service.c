@@ -35,22 +35,22 @@ atomic_t _malloc_size = ATOMIC_INIT(0);
 
 #if defined(PLATFORM_LINUX)
 /*
-* Translate the OS dependent @param error_code to OS independent RTW_STATUS_CODE
-* @return: one of RTW_STATUS_CODE
+* Translate the OS dependent @param error_code to OS independent TLW_STATUS_CODE
+* @return: one of TLW_STATUS_CODE
 */
-inline int RTW_STATUS_CODE(int error_code){
+inline int TLW_STATUS_CODE(int error_code){
 	if(error_code >=0)
 		return _SUCCESS;
 
 	switch(error_code) {
 		//case -ETIMEDOUT:
-		//	return RTW_STATUS_TIMEDOUT;
+		//	return TLW_STATUS_TIMEDOUT;
 		default:
 			return _FAIL;
 	}
 }
 #else
-inline int RTW_STATUS_CODE(int error_code){
+inline int TLW_STATUS_CODE(int error_code){
 	return error_code;
 }
 #endif
@@ -379,7 +379,7 @@ struct tlw_mem_stat {
 };
 
 struct tlw_mem_stat tlw_mem_type_stat[mstat_tf_idx(MSTAT_TYPE_MAX)];
-#ifdef RTW_MEM_FUNC_STAT
+#ifdef TLW_MEM_FUNC_STAT
 struct tlw_mem_stat tlw_mem_func_stat[mstat_ff_idx(MSTAT_FUNC_MAX)];
 #endif
 
@@ -390,7 +390,7 @@ char *MSTAT_TYPE_str[] = {
 	"USB",
 };
 
-#ifdef RTW_MEM_FUNC_STAT
+#ifdef TLW_MEM_FUNC_STAT
 char *MSTAT_FUNC_str[] = {
 	"UNSP",
 	"IO",
@@ -405,7 +405,7 @@ void tlw_mstat_dump(void *sel)
 {
 	int i;
 	int value_t[4][mstat_tf_idx(MSTAT_TYPE_MAX)];
-#ifdef RTW_MEM_FUNC_STAT
+#ifdef TLW_MEM_FUNC_STAT
 	int value_f[4][mstat_ff_idx(MSTAT_FUNC_MAX)];
 #endif
 	
@@ -419,7 +419,7 @@ void tlw_mstat_dump(void *sel)
 		value_t[3][i] = ATOMIC_READ(&(tlw_mem_type_stat[i].alloc_err_cnt));
 	}
 
-	#ifdef RTW_MEM_FUNC_STAT
+	#ifdef TLW_MEM_FUNC_STAT
 	for(i=0;i<mstat_ff_idx(MSTAT_FUNC_MAX);i++) {
 		value_f[0][i] = ATOMIC_READ(&(tlw_mem_func_stat[i].alloc));
 		value_f[1][i] = ATOMIC_READ(&(tlw_mem_func_stat[i].peak));
@@ -434,7 +434,7 @@ void tlw_mstat_dump(void *sel)
 	for(i=0;i<mstat_tf_idx(MSTAT_TYPE_MAX);i++) {
 		DBG_871X_SEL_NL(sel, "%4s %10d %10d %10d %10d\n", MSTAT_TYPE_str[i], value_t[0][i], value_t[1][i], value_t[2][i], value_t[3][i]);
 	}
-	#ifdef RTW_MEM_FUNC_STAT
+	#ifdef TLW_MEM_FUNC_STAT
 	DBG_871X_SEL_NL(sel, "-------------------------------------------------\n");
 	for(i=0;i<mstat_ff_idx(MSTAT_FUNC_MAX);i++) {
 		DBG_871X_SEL_NL(sel, "%4s %10d %10d %10d %10d\n", MSTAT_FUNC_str[i], value_f[0][i], value_f[1][i], value_f[2][i], value_f[3][i]);
@@ -456,7 +456,7 @@ void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 s
 			ATOMIC_SET(&(tlw_mem_type_stat[i].alloc_cnt), 0);
 			ATOMIC_SET(&(tlw_mem_type_stat[i].alloc_err_cnt), 0);
 		}
-		#ifdef RTW_MEM_FUNC_STAT
+		#ifdef TLW_MEM_FUNC_STAT
 		for(i=0;i<mstat_ff_idx(MSTAT_FUNC_MAX);i++) {
 			ATOMIC_SET(&(tlw_mem_func_stat[i].alloc), 0);
 			ATOMIC_SET(&(tlw_mem_func_stat[i].peak), 0);
@@ -474,7 +474,7 @@ void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 s
 			if (peak<alloc)
 				ATOMIC_SET(&(tlw_mem_type_stat[mstat_tf_idx(flags)].peak), alloc);
 
-			#ifdef RTW_MEM_FUNC_STAT
+			#ifdef TLW_MEM_FUNC_STAT
 			ATOMIC_INC(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc_cnt));
 			alloc = ATOMIC_ADD_RETURN(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc), sz);
 			peak=ATOMIC_READ(&(tlw_mem_func_stat[mstat_ff_idx(flags)].peak));
@@ -485,7 +485,7 @@ void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 s
 
 		case MSTAT_ALLOC_FAIL:
 			ATOMIC_INC(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc_err_cnt));
-			#ifdef RTW_MEM_FUNC_STAT
+			#ifdef TLW_MEM_FUNC_STAT
 			ATOMIC_INC(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc_err_cnt));
 			#endif
 			break;
@@ -493,7 +493,7 @@ void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 s
 		case MSTAT_FREE:
 			ATOMIC_DEC(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc_cnt));
 			ATOMIC_SUB(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc), sz);
-			#ifdef RTW_MEM_FUNC_STAT
+			#ifdef TLW_MEM_FUNC_STAT
 			ATOMIC_DEC(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc_cnt));
 			ATOMIC_SUB(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc), sz);
 			#endif
@@ -501,7 +501,7 @@ void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 s
 	};
 
 	//if (tlw_get_passing_time_ms(update_time) > 5000) {
-	//	tlw_mstat_dump(RTW_DBGDUMP);
+	//	tlw_mstat_dump(TLW_DBGDUMP);
 		update_time=tlw_get_current_time();
 	//}
 }
@@ -1564,12 +1564,12 @@ void tlw_yield_os(void)
 #endif
 }
 
-#define RTW_SUSPEND_LOCK_NAME "tlw_wifi"
-#define RTW_SUSPEND_EXT_LOCK_NAME "tlw_wifi_ext"
-#define RTW_SUSPEND_RX_LOCK_NAME "tlw_wifi_rx"
-#define RTW_SUSPEND_TRAFFIC_LOCK_NAME "tlw_wifi_traffic"
-#define RTW_SUSPEND_RESUME_LOCK_NAME "tlw_wifi_resume"
-#define RTW_RESUME_SCAN_LOCK_NAME "tlw_wifi_scan"
+#define TLW_SUSPEND_LOCK_NAME "tlw_wifi"
+#define TLW_SUSPEND_EXT_LOCK_NAME "tlw_wifi_ext"
+#define TLW_SUSPEND_RX_LOCK_NAME "tlw_wifi_rx"
+#define TLW_SUSPEND_TRAFFIC_LOCK_NAME "tlw_wifi_traffic"
+#define TLW_SUSPEND_RESUME_LOCK_NAME "tlw_wifi_resume"
+#define TLW_RESUME_SCAN_LOCK_NAME "tlw_wifi_scan"
 #ifdef CONFIG_WAKELOCK
 static struct wake_lock tlw_suspend_lock;
 static struct wake_lock tlw_suspend_ext_lock;
@@ -1579,34 +1579,34 @@ static struct wake_lock tlw_suspend_resume_lock;
 static struct wake_lock tlw_resume_scan_lock;
 #elif defined(CONFIG_ANDROID_POWER)
 static android_suspend_lock_t tlw_suspend_lock ={
-	.name = RTW_SUSPEND_LOCK_NAME
+	.name = TLW_SUSPEND_LOCK_NAME
 };
 static android_suspend_lock_t tlw_suspend_ext_lock ={
-	.name = RTW_SUSPEND_EXT_LOCK_NAME
+	.name = TLW_SUSPEND_EXT_LOCK_NAME
 };
 static android_suspend_lock_t tlw_suspend_rx_lock ={
-	.name = RTW_SUSPEND_RX_LOCK_NAME
+	.name = TLW_SUSPEND_RX_LOCK_NAME
 };
 static android_suspend_lock_t tlw_suspend_traffic_lock ={
-	.name = RTW_SUSPEND_TRAFFIC_LOCK_NAME
+	.name = TLW_SUSPEND_TRAFFIC_LOCK_NAME
 };
 static android_suspend_lock_t tlw_suspend_resume_lock ={
-	.name = RTW_SUSPEND_RESUME_LOCK_NAME
+	.name = TLW_SUSPEND_RESUME_LOCK_NAME
 };
 static android_suspend_lock_t tlw_resume_scan_lock ={
-	.name = RTW_RESUME_SCAN_LOCK_NAME
+	.name = TLW_RESUME_SCAN_LOCK_NAME
 };
 #endif
 
 inline void tlw_suspend_lock_init(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_init(&tlw_suspend_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_LOCK_NAME);
-	wake_lock_init(&tlw_suspend_ext_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_EXT_LOCK_NAME);
-	wake_lock_init(&tlw_suspend_rx_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_RX_LOCK_NAME);
-	wake_lock_init(&tlw_suspend_traffic_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_TRAFFIC_LOCK_NAME);
-	wake_lock_init(&tlw_suspend_resume_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_RESUME_LOCK_NAME);
-	wake_lock_init(&tlw_resume_scan_lock, WAKE_LOCK_SUSPEND, RTW_RESUME_SCAN_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_lock, WAKE_LOCK_SUSPEND, TLW_SUSPEND_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_ext_lock, WAKE_LOCK_SUSPEND, TLW_SUSPEND_EXT_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_rx_lock, WAKE_LOCK_SUSPEND, TLW_SUSPEND_RX_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_traffic_lock, WAKE_LOCK_SUSPEND, TLW_SUSPEND_TRAFFIC_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_resume_lock, WAKE_LOCK_SUSPEND, TLW_SUSPEND_RESUME_LOCK_NAME);
+	wake_lock_init(&tlw_resume_scan_lock, WAKE_LOCK_SUSPEND, TLW_RESUME_SCAN_LOCK_NAME);
 	#elif defined(CONFIG_ANDROID_POWER)
 	android_init_suspend_lock(&tlw_suspend_lock);
 	android_init_suspend_lock(&tlw_suspend_ext_lock);

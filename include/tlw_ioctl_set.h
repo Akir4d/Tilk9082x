@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_IOCTL_SET_H_
-#define __RTW_IOCTL_SET_H_
+#ifndef __TLW_IOCTL_SET_H_
+#define __TLW_IOCTL_SET_H_
 
 
 typedef u8 NDIS_802_11_PMKID_VALUE[16];

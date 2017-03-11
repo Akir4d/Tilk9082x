@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTW_MP_C_
+#define _TLW_MP_C_
 
 #include <drv_types.h>
 
@@ -139,7 +139,7 @@ static void _init_mp_priv_(struct mp_priv *pmp_priv)
 	pmp_priv->network_macaddr[5] = 0x55;
 
 	pmp_priv->bSetRxBssid = _FALSE;
-	pmp_priv->bRTWSmbCfg = _FALSE;
+	pmp_priv->bTLWSmbCfg = _FALSE;
 
 	pnetwork = &pmp_priv->mp_network.network;
 	_tlw_memcpy(pnetwork->MacAddress, pmp_priv->network_macaddr, ETH_ALEN);
@@ -1234,14 +1234,14 @@ static thread_return mp_xmit_packet_thread(thread_context context)
 	padapter = pmp_priv->papdater;
 	pxmitpriv = &(padapter->xmitpriv);
 	
-	thread_enter("RTW_MP_THREAD");
+	thread_enter("TLW_MP_THREAD");
 
 	DBG_871X("%s:pkTx Start\n", __func__);
 	while (1) {
 		pxmitframe = alloc_mp_xmitframe(pxmitpriv);
 		if (pxmitframe == NULL) {
 			if (pmptx->stop ||
-				RTW_CANNOT_RUN(padapter)) {
+				TLW_CANNOT_RUN(padapter)) {
 				goto exit;
 			}
 			else {
@@ -1260,7 +1260,7 @@ static thread_return mp_xmit_packet_thread(thread_context context)
 		pmp_priv->tx_pktcount++;
 
 		if (pmptx->stop ||
-			RTW_CANNOT_RUN(padapter))
+			TLW_CANNOT_RUN(padapter))
 			goto exit;
 		if ((pmptx->count != 0) &&
 		    (pmptx->count == pmptx->sended))
@@ -1749,7 +1749,7 @@ void SetPacketTx(PADAPTER padapter)
 	
 	//3 6. start thread
 #ifdef PLATFORM_LINUX
-	pmp_priv->tx.PktTxThread = kthread_run(mp_xmit_packet_thread, pmp_priv, "RTW_MP_THREAD");
+	pmp_priv->tx.PktTxThread = kthread_run(mp_xmit_packet_thread, pmp_priv, "TLW_MP_THREAD");
 	if (IS_ERR(pmp_priv->tx.PktTxThread))
 		DBG_871X("Create PktTx Thread Fail !!!!!\n");
 #endif

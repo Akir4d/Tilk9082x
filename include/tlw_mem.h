@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_MEM_H__
-#define __RTW_MEM_H__
+#ifndef __TLW_MEM_H__
+#define __TLW_MEM_H__
 
 #include <drv_conf.h>
 #include <basic_types.h>
@@ -38,5 +38,5 @@ struct sk_buff *tlw_alloc_skb_premem(u16 in_size);
 int tlw_free_skb_premem(struct sk_buff *pskb);
 
 
-#endif //__RTW_MEM_H__
+#endif //__TLW_MEM_H__
 

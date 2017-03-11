@@ -18,8 +18,8 @@
  *
  ******************************************************************************/
  
-#ifndef __RTW_ANDROID_H__
-#define __RTW_ANDROID_H__
+#ifndef __TLW_ANDROID_H__
+#define __TLW_ANDROID_H__
 
 enum ANDROID_WIFI_CMD {
 	ANDROID_WIFI_CMD_START,				
@@ -86,7 +86,7 @@ int tlw_android_cfg80211_pno_setup(struct net_device *net,
 		struct cfg80211_ssid *ssid, int n_ssids, int interval);
 #endif
 
-#if defined(RTW_ENABLE_WIFI_CONTROL_FUNC)
+#if defined(TLW_ENABLE_WIFI_CONTROL_FUNC)
 int tlw_android_wifictrl_func_add(void);
 void tlw_android_wifictrl_func_del(void);
 void* wl_android_prealloc(int section, unsigned long size);
@@ -98,7 +98,7 @@ void *wifi_get_country_code(char *ccode);
 #else
 static int tlw_android_wifictrl_func_add(void) { return 0; }
 static void tlw_android_wifictrl_func_del(void) {}
-#endif /* defined(RTW_ENABLE_WIFI_CONTROL_FUNC) */
+#endif /* defined(TLW_ENABLE_WIFI_CONTROL_FUNC) */
 
 #ifdef CONFIG_GPIO_WAKEUP
 #ifdef CONFIG_PLATFORM_INTEL_BYT
@@ -108,5 +108,5 @@ void wifi_free_gpio(unsigned int gpio);
 #endif //CONFIG_GPIO_WAKEUP
 
 
-#endif //__RTW_ANDROID_H__
+#endif //__TLW_ANDROID_H__
 

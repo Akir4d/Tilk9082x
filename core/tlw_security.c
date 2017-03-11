@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define  _RTW_SECURITY_C_
+#define  _TLW_SECURITY_C_
 
 #include <drv_types.h>
 
@@ -2271,7 +2271,7 @@ u32	tlw_BIP_verify(_adapter *padapter, u8 *precvframe)
 		
 	}
 	else
-		res = RTW_RX_HANDLED;
+		res = TLW_RX_HANDLED;
 BIP_exit:
 
 	tlw_mfree(BIP_AAD, ori_len);
@@ -3213,7 +3213,7 @@ int tdls_verify_mic(u8 *kck, u8 trans_seq,
 }
 #endif //CONFIG_TDLS
 
-void tlw_use_tkipkey_handler(RTW_TIMER_HDL_ARGS)
+void tlw_use_tkipkey_handler(TLW_TIMER_HDL_ARGS)
 {
         _adapter *padapter = (_adapter *)FunctionContext;
 
@@ -3222,7 +3222,7 @@ _func_enter_;
 	RT_TRACE(_module_ttl871x_security_c_,_drv_err_,("^^^tlw_use_tkipkey_handler ^^^\n"));
 	
 /*
-	if (RTW_CANNOT_RUN(padapter)) {
+	if (TLW_CANNOT_RUN(padapter)) {
 			RT_TRACE(_module_ttl871x_security_c_,_drv_err_,("^^^tlw_use_tkipkey_handler (padapter->bDriverStopped %s)(padapter->bSurpriseRemoved %s)^^^\n"
 			, tlw_is_drv_stopped(padapter)?"True":"False"
 			, tlw_is_surprise_removed(padapter)?"True":"False"));

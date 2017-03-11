@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __RTW_PROC_H__
-#define __RTW_PROC_H__
+#ifndef __TLW_PROC_H__
+#define __TLW_PROC_H__
 
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
@@ -49,4 +49,4 @@ void tlw_adapter_proc_replace(struct net_device *dev);
 
 #endif //!CONFIG_PROC_DEBUG
 
-#endif //__RTW_PROC_H__
+#endif //__TLW_PROC_H__

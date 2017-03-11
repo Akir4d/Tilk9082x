@@ -54,9 +54,9 @@ void handle_txrpt_ccx_88e(_adapter *adapter, u8 *buf)
 
 	if (txrpt_ccx->int_ccx) {
 		if (txrpt_ccx->pkt_ok)
-			tlw_ack_tx_done(&adapter->xmitpriv, RTW_SCTX_DONE_SUCCESS);
+			tlw_ack_tx_done(&adapter->xmitpriv, TLW_SCTX_DONE_SUCCESS);
 		else
-			tlw_ack_tx_done(&adapter->xmitpriv, RTW_SCTX_DONE_CCX_PKT_FAIL);
+			tlw_ack_tx_done(&adapter->xmitpriv, TLW_SCTX_DONE_CCX_PKT_FAIL);
 	}
 }
 #endif //CONFIG_XMIT_ACK

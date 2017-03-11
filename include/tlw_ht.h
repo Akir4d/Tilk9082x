@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef _RTW_HT_H_
-#define _RTW_HT_H_
+#ifndef _TLW_HT_H_
+#define _TLW_HT_H_
 
 
 struct ht_priv
