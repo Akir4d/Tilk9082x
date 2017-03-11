@@ -33,7 +33,7 @@
 #define DRV_NAME "ttl9082xs"
 
 #ifndef EFUSE_MAP_PATH
-	#define EFUSE_MAP_PATH "/system/etc/wifi/wifi_efuse_9082e.map"
+	#define EFUSE_MAP_PATH "/system/etc/wifi/wifi_efuse_9082x.map"
 #endif
 
 #define CONFIG_SDIO_HCI

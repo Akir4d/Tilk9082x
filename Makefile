@@ -232,11 +232,11 @@ ifeq ($(CONFIG_TLL9083E), y)
 
 TTL902X = ttl9083e
 ifeq ($(CONFIG_SDIO_HCI), y)
-MODULE_NAME = 9082es
+MODULE_NAME = 9082xs
 endif
 
 ifeq ($(CONFIG_GSPI_HCI), y)
-MODULE_NAME = 9082es
+MODULE_NAME = 9082xs
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
@@ -758,8 +758,8 @@ EXTRA_CFLAGS += -DCONFIG_EFUSE_CONFIG_FILE
 USER_EFUSE_MAP_PATH ?=
 ifneq ($(USER_EFUSE_MAP_PATH),)
 EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"$(USER_EFUSE_MAP_PATH)\"
-else ifeq ($(MODULE_NAME), 9082es)
-EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"/system/etc/wifi/wifi_efuse_9082e.map\"
+else ifeq ($(MODULE_NAME), 9082xs)
+EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"/system/etc/wifi/wifi_efuse_9082x.map\"
 else ifeq ($(MODULE_NAME), 8723bs)
 EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"/system/etc/wifi/wifi_efuse_8723bs.map\"
 else
@@ -1520,7 +1520,7 @@ endif
 ARCH := arm
 CROSS_COMPILE := /home/android_sdk/WonderMedia/wm8880-android4.4/toolchain/arm_201103_gcc4.5.2/mybin/arm_1103_le-
 KSRC := /home/android_sdk/WonderMedia/wm8880-android4.4/kernel4.4/
-MODULE_NAME :=9082es_kk
+MODULE_NAME :=9082xs_kk
 endif
 
 ifeq ($(CONFIG_PLATFORM_RTK119X), y)
