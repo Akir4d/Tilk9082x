@@ -23,9 +23,9 @@
 
 
 int	PHY_RF6052_Config9083E(	IN	PADAPTER		Adapter	);
-void		rtl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter, 
+void		ttl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter, 
 										IN	u16		DataRate);
-void		rtl9083e_PHY_RF6052SetBandwidth(	
+void		ttl9083e_PHY_RF6052SetBandwidth(	
 										IN	PADAPTER				Adapter,
 										IN	CHANNEL_WIDTH		Bandwidth);
 

@@ -432,32 +432,32 @@ u8 rtw_set_hal_ops(PADAPTER padapter)
 
 #if defined(CONFIG_RTL9083E)
 	if (rtw_get_chip_type(padapter) == RTL9083E)
-		rtl9083es_set_hal_ops(padapter);
+		ttl9083es_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8723B)
 	if (rtw_get_chip_type(padapter) == RTL8723B)
-		rtl8723bs_set_hal_ops(padapter);
+		ttl8723bs_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8821A)
 	if (rtw_get_chip_type(padapter) == RTL8821)
-		rtl8821as_set_hal_ops(padapter);
+		ttl8821as_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8192E)
 	if (rtw_get_chip_type(padapter) == RTL8192E)
-		rtl8192es_set_hal_ops(padapter);
+		ttl8192es_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8703B)
 	if (rtw_get_chip_type(padapter) == RTL8703B)
-		rtl8703bs_set_hal_ops(padapter);
+		ttl8703bs_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL9083F)
 	if (rtw_get_chip_type(padapter) == RTL9083F)
-		rtl9083fs_set_hal_ops(padapter);
+		ttl9083fs_set_hal_ops(padapter);
 #endif
 
 	if( rtw_hal_ops_check(padapter) == _FAIL)

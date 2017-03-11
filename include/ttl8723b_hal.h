@@ -22,35 +22,35 @@
 
 #include "hal_data.h"
 
-#include "rtl8723b_spec.h"
-#include "rtl8723b_rf.h"
-#include "rtl8723b_dm.h"
-#include "rtl8723b_recv.h"
-#include "rtl8723b_xmit.h"
-#include "rtl8723b_cmd.h"
-#include "rtl8723b_led.h"
+#include "ttl8723b_spec.h"
+#include "ttl8723b_rf.h"
+#include "ttl8723b_dm.h"
+#include "ttl8723b_recv.h"
+#include "ttl8723b_xmit.h"
+#include "ttl8723b_cmd.h"
+#include "ttl8723b_led.h"
 #include "Hal8723BPwrSeq.h"
 #include "Hal8723BPhyReg.h"
 #include "Hal8723BPhyCfg.h"
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl8723b_sreset.h"
+#include "ttl8723b_sreset.h"
 #endif
 
 
 //---------------------------------------------------------------------
 //		RTL8723B From file
 //---------------------------------------------------------------------
-	#define RTL8723B_FW_IMG					"rtl8723b/FW_NIC.bin"
-	#define RTL8723B_FW_WW_IMG				"rtl8723b/FW_WoWLAN.bin"
-	#define RTL8723B_PHY_REG					"rtl8723b/PHY_REG.txt"
-	#define RTL8723B_PHY_RADIO_A				"rtl8723b/RadioA.txt"
-	#define RTL8723B_PHY_RADIO_B				"rtl8723b/RadioB.txt"
-	#define RTL8723B_TXPWR_TRACK				"rtl8723b/TxPowerTrack.txt" 
-	#define RTL8723B_AGC_TAB					"rtl8723b/AGC_TAB.txt"
-	#define RTL8723B_PHY_MACREG 				"rtl8723b/MAC_REG.txt"
-	#define RTL8723B_PHY_REG_PG				"rtl8723b/PHY_REG_PG.txt"
-	#define RTL8723B_PHY_REG_MP				"rtl8723b/PHY_REG_MP.txt"
-	#define RTL8723B_TXPWR_LMT 				"rtl8723b/TXPWR_LMT.txt"
+	#define RTL8723B_FW_IMG					"ttl8723b/FW_NIC.bin"
+	#define RTL8723B_FW_WW_IMG				"ttl8723b/FW_WoWLAN.bin"
+	#define RTL8723B_PHY_REG					"ttl8723b/PHY_REG.txt"
+	#define RTL8723B_PHY_RADIO_A				"ttl8723b/RadioA.txt"
+	#define RTL8723B_PHY_RADIO_B				"ttl8723b/RadioB.txt"
+	#define RTL8723B_TXPWR_TRACK				"ttl8723b/TxPowerTrack.txt" 
+	#define RTL8723B_AGC_TAB					"ttl8723b/AGC_TAB.txt"
+	#define RTL8723B_PHY_MACREG 				"ttl8723b/MAC_REG.txt"
+	#define RTL8723B_PHY_REG_PG				"ttl8723b/PHY_REG_PG.txt"
+	#define RTL8723B_PHY_REG_MP				"ttl8723b/PHY_REG_MP.txt"
+	#define RTL8723B_TXPWR_LMT 				"ttl8723b/TXPWR_LMT.txt"
 
 //---------------------------------------------------------------------
 //		RTL8723B From header
@@ -257,17 +257,17 @@ typedef enum tag_Package_Definition
 #define INCLUDE_MULTI_FUNC_BT(_Adapter)		(GET_HAL_DATA(_Adapter)->MultiFunc & RT_MULTI_FUNC_BT)
 #define INCLUDE_MULTI_FUNC_GPS(_Adapter)	(GET_HAL_DATA(_Adapter)->MultiFunc & RT_MULTI_FUNC_GPS)
 
-// rtl8723a_hal_init.c
-s32 rtl8723b_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
-void rtl8723b_FirmwareSelfReset(PADAPTER padapter);
-void rtl8723b_InitializeFirmwareVars(PADAPTER padapter);
+// ttl8723a_hal_init.c
+s32 ttl8723b_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
+void ttl8723b_FirmwareSelfReset(PADAPTER padapter);
+void ttl8723b_InitializeFirmwareVars(PADAPTER padapter);
 
-void rtl8723b_InitAntenna_Selection(PADAPTER padapter);
-void rtl8723b_DeinitAntenna_Selection(PADAPTER padapter);
-void rtl8723b_CheckAntenna_Selection(PADAPTER padapter);
-void rtl8723b_init_default_value(PADAPTER padapter);
+void ttl8723b_InitAntenna_Selection(PADAPTER padapter);
+void ttl8723b_DeinitAntenna_Selection(PADAPTER padapter);
+void ttl8723b_CheckAntenna_Selection(PADAPTER padapter);
+void ttl8723b_init_default_value(PADAPTER padapter);
 
-s32 rtl8723b_InitLLTTable(PADAPTER padapter);
+s32 ttl8723b_InitLLTTable(PADAPTER padapter);
 
 s32 CardDisableHWSM(PADAPTER padapter, u8 resetMCU);
 s32 CardDisableWithoutHWSM(PADAPTER padapter);
@@ -289,11 +289,11 @@ VOID Hal_EfuseParseVoltage_8723B(PADAPTER pAdapter,u8* hwinfo,BOOLEAN 	AutoLoadF
 VOID Hal_EfuseParseBoardType_8723B(PADAPTER Adapter,	u8*	PROMContent,BOOLEAN AutoloadFail);
 
 #ifdef CONFIG_C2H_PACKET_EN
-void rtl8723b_c2h_packet_handler(PADAPTER padapter, u8 *pbuf, u16 length);
+void ttl8723b_c2h_packet_handler(PADAPTER padapter, u8 *pbuf, u16 length);
 #endif
 
 
-void rtl8723b_set_hal_ops(struct hal_ops *pHalFunc);
+void ttl8723b_set_hal_ops(struct hal_ops *pHalFunc);
 void SetHwReg8723B(PADAPTER padapter, u8 variable, u8 *val);
 void GetHwReg8723B(PADAPTER padapter, u8 variable, u8 *val);
 #ifdef CONFIG_C2H_PACKET_EN
@@ -303,22 +303,22 @@ u8 SetHalDefVar8723B(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 u8 GetHalDefVar8723B(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 
 // register
-void rtl8723b_InitBeaconParameters(PADAPTER padapter);
-void rtl8723b_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
+void ttl8723b_InitBeaconParameters(PADAPTER padapter);
+void ttl8723b_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
 void	_InitBurstPktLen_8723BS(PADAPTER Adapter);
 void _8051Reset8723(PADAPTER padapter);
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
 void Hal_DetectWoWMode(PADAPTER pAdapter);
 #endif //CONFIG_WOWLAN
 
-void rtl8723b_start_thread(_adapter *padapter);
-void rtl8723b_stop_thread(_adapter *padapter);
+void ttl8723b_start_thread(_adapter *padapter);
+void ttl8723b_stop_thread(_adapter *padapter);
 
 #if defined(CONFIG_CHECK_BT_HANG) && defined(CONFIG_BT_COEXIST)
-void rtl8723bs_init_checkbthang_workqueue(_adapter * adapter);
-void rtl8723bs_free_checkbthang_workqueue(_adapter * adapter);
-void rtl8723bs_cancle_checkbthang_workqueue(_adapter * adapter);
-void rtl8723bs_hal_check_bt_hang(_adapter * adapter);
+void ttl8723bs_init_checkbthang_workqueue(_adapter * adapter);
+void ttl8723bs_free_checkbthang_workqueue(_adapter * adapter);
+void ttl8723bs_cancle_checkbthang_workqueue(_adapter * adapter);
+void ttl8723bs_hal_check_bt_hang(_adapter * adapter);
 #endif
 
 #ifdef CONFIG_GPIO_WAKEUP

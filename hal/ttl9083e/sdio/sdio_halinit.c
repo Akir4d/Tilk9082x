@@ -20,7 +20,7 @@
 #define _SDIO_HALINIT_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 #include "hal_com_h2c.h"
 #ifndef CONFIG_SDIO_HCI
 #error "CONFIG_SDIO_HCI shall be on!\n"
@@ -180,7 +180,7 @@ void _InitClockTo26MHz(
 #endif
 
 
-static void rtl9083es_interface_configure(PADAPTER padapter)
+static void ttl9083es_interface_configure(PADAPTER padapter)
 {
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(padapter);
 	struct dvobj_priv		*pdvobjpriv = adapter_to_dvobj(padapter);
@@ -1151,7 +1151,7 @@ _InitRDGSetting_9083E(
 }
 #endif
 
-static u32 rtl9083es_hal_init(PADAPTER padapter)
+static u32 ttl9083es_hal_init(PADAPTER padapter)
 {
 	s32 ret;
 	u8	txpktbuf_bndy;
@@ -1234,7 +1234,7 @@ static u32 rtl9083es_hal_init(PADAPTER padapter)
 	#define HAL_INIT_PROFILE_TAG(stage) do {} while(0)
 #endif //DBG_HAL_INIT_PROFILING
 
-	DBG_8192C("+rtl9083es_hal_init\n");
+	DBG_8192C("+ttl9083es_hal_init\n");
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BEGIN);
 	// Disable Interrupt first.
@@ -1343,7 +1343,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_DOWNLOAD_FW);
 	pHalData->fw_ractrl = _FALSE;
 #else
 
-	ret = rtl9083e_FirmwareDownload(padapter, _FALSE);
+	ret = ttl9083e_FirmwareDownload(padapter, _FALSE);
 
 	if (ret != _SUCCESS) {
 		DBG_871X("%s: Download Firmware failed!!\n", __FUNCTION__);
@@ -1362,7 +1362,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_DOWNLOAD_FW);
 #endif
 	}
 
-	rtl9083e_InitializeFirmwareVars(padapter);
+	ttl9083e_InitializeFirmwareVars(padapter);
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MAC);
 #if (HAL_MAC_ENABLE == 1)
@@ -1397,9 +1397,9 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_RF);
 	}
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_EFUSE_PATCH);
 #if defined(CONFIG_IOL_EFUSE_PATCH)	
-	ret = rtl9083e_iol_efuse_patch(padapter);
+	ret = ttl9083e_iol_efuse_patch(padapter);
 	if(ret != _SUCCESS){
-		DBG_871X("%s  rtl9083e_iol_efuse_patch failed \n",__FUNCTION__);
+		DBG_871X("%s  ttl9083e_iol_efuse_patch failed \n",__FUNCTION__);
 		goto exit;
 	}
 #endif
@@ -1577,7 +1577,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC11);
 	
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_HAL_DM);
 	//	InitHalDm(padapter);
-	rtl9083e_InitHalDm(padapter);
+	ttl9083e_InitHalDm(padapter);
 		
 
 #if (MP_DRIVER == 1)
@@ -1753,7 +1753,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 				rOFDM0_ECCAThreshold, bMaskDWord, 0x00fe0301);
 
 	//RT_TRACE(COMP_INIT, DBG_LOUD, ("<---Initializepadapter8192CSdio()\n"));
-	DBG_8192C("-rtl9083es_hal_init\n");
+	DBG_8192C("-ttl9083es_hal_init\n");
 
 exit:
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_END);
@@ -1779,7 +1779,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_END);
 
 
 
-static u32 rtl9083es_hal_deinit(PADAPTER padapter)
+static u32 ttl9083es_hal_deinit(PADAPTER padapter)
 {
 	DBG_871X("=>%s\n", __FUNCTION__);
 
@@ -1791,7 +1791,7 @@ static u32 rtl9083es_hal_deinit(PADAPTER padapter)
 	return _SUCCESS;
 }
 
-static void rtl9083es_init_default_value(PADAPTER padapter)
+static void ttl9083es_init_default_value(PADAPTER padapter)
 {
 	PHAL_DATA_TYPE pHalData;
 	struct pwrctrl_priv *pwrctrlpriv;
@@ -1800,7 +1800,7 @@ static void rtl9083es_init_default_value(PADAPTER padapter)
 	pHalData = GET_HAL_DATA(padapter);
 	pwrctrlpriv = adapter_to_pwrctl(padapter);
 
-	rtl9083e_init_default_value(padapter);
+	ttl9083e_init_default_value(padapter);
 
 	//init default value
 	pHalData->fw_ractrl = _FALSE;		
@@ -1901,7 +1901,7 @@ readAdapterInfo_9083ES(
 	Hal_ReadPowerSavingMode88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_ReadTxPowerInfo88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_EfuseParseEEPROMVer88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
-	rtl9083e_EfuseParseChnlPlan(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
+	ttl9083e_EfuseParseChnlPlan(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_EfuseParseXtal_9083E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	Hal_EfuseParseCustomerID88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
 	//Hal_ReadAntennaDiversity88E(padapter, pHalData->efuse_eeprom_data, pHalData->bautoload_fail_flag);
@@ -2219,7 +2219,7 @@ void SetBeaconRelatedRegisters9083ESdio(PADAPTER padapter)
 	rtw_write8(padapter, bcn_ctrl_reg, rtw_read8(padapter, bcn_ctrl_reg)|BIT(1));
 }
 
-void rtl9083es_set_hal_ops(PADAPTER padapter)
+void ttl9083es_set_hal_ops(PADAPTER padapter)
 {
 	struct hal_ops *pHalFunc = &padapter->HalFunc;
 
@@ -2228,20 +2228,20 @@ _func_enter_;
 	pHalFunc->hal_power_on = _InitPowerOn_9083ES;
 	pHalFunc->hal_power_off = hal_poweroff_9083es;
 	
-	pHalFunc->hal_init = &rtl9083es_hal_init;
-	pHalFunc->hal_deinit = &rtl9083es_hal_deinit;
+	pHalFunc->hal_init = &ttl9083es_hal_init;
+	pHalFunc->hal_deinit = &ttl9083es_hal_deinit;
 
-	pHalFunc->init_xmit_priv = &rtl9083es_init_xmit_priv;
-	pHalFunc->free_xmit_priv = &rtl9083es_free_xmit_priv;
+	pHalFunc->init_xmit_priv = &ttl9083es_init_xmit_priv;
+	pHalFunc->free_xmit_priv = &ttl9083es_free_xmit_priv;
 
-	pHalFunc->init_recv_priv = &rtl9083es_init_recv_priv;
-	pHalFunc->free_recv_priv = &rtl9083es_free_recv_priv;
+	pHalFunc->init_recv_priv = &ttl9083es_init_recv_priv;
+	pHalFunc->free_recv_priv = &ttl9083es_free_recv_priv;
 
-	pHalFunc->InitSwLeds = &rtl9083es_InitSwLeds;
-	pHalFunc->DeInitSwLeds = &rtl9083es_DeInitSwLeds;
+	pHalFunc->InitSwLeds = &ttl9083es_InitSwLeds;
+	pHalFunc->DeInitSwLeds = &ttl9083es_DeInitSwLeds;
 
-	pHalFunc->init_default_value = &rtl9083es_init_default_value;
-	pHalFunc->intf_chip_configure = &rtl9083es_interface_configure;
+	pHalFunc->init_default_value = &ttl9083es_init_default_value;
+	pHalFunc->intf_chip_configure = &ttl9083es_interface_configure;
 	pHalFunc->read_adapter_info = &ReadAdapterInfo9083ES;
 
 	pHalFunc->enable_interrupt = &EnableInterrupt9083ESdio;
@@ -2259,17 +2259,17 @@ _func_enter_;
 
 	pHalFunc->SetBeaconRelatedRegistersHandler = &SetBeaconRelatedRegisters9083ESdio;
 
-	pHalFunc->hal_xmit = &rtl9083es_hal_xmit;
-	pHalFunc->mgnt_xmit = &rtl9083es_mgnt_xmit;
-	pHalFunc->hal_xmitframe_enqueue = &rtl9083es_hal_xmitframe_enqueue;
+	pHalFunc->hal_xmit = &ttl9083es_hal_xmit;
+	pHalFunc->mgnt_xmit = &ttl9083es_mgnt_xmit;
+	pHalFunc->hal_xmitframe_enqueue = &ttl9083es_hal_xmitframe_enqueue;
 
 #ifdef CONFIG_HOSTAPD_MLME
 	pHalFunc->hostap_mgnt_xmit_entry = NULL;
 #endif
 #ifdef CONFIG_XMIT_THREAD_MODE
-	pHalFunc->xmit_thread_handler = &rtl9083es_xmit_buf_handler;
+	pHalFunc->xmit_thread_handler = &ttl9083es_xmit_buf_handler;
 #endif
-	rtl9083e_set_hal_ops(pHalFunc);
+	ttl9083e_set_hal_ops(pHalFunc);
 _func_exit_;
 
 }

@@ -39,12 +39,12 @@ SwLedBlink(
 	if( pLed->BlinkingLedState == RTW_LED_ON )
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,( "Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,( "Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
 	// Determine if we shall change LED state again.
@@ -162,12 +162,12 @@ SwLedBlink1(
 	if( pLed->BlinkingLedState == RTW_LED_ON )
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,( "Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,( "Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
 
@@ -182,7 +182,7 @@ SwLedBlink1(
 			}
 			else if(!pLed1->bLedOn)
 				SwLedOn(padapter, pLed1);
-			RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (): turn on pLed1\n"));
+			RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (): turn on pLed1\n"));
 		}
 		else
 		{
@@ -193,7 +193,7 @@ SwLedBlink1(
 			}
 			else if(pLed1->bLedOn)
 				SwLedOff(padapter, pLed1);
-			RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (): turn off pLed1\n"));
+			RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (): turn off pLed1\n"));
 		}
 	}
 
@@ -237,7 +237,7 @@ SwLedBlink1(
 					else
 						pLed->BlinkingLedState = RTW_LED_ON;
 					_set_timer(&(pLed->BlinkTimer), LED_BLINK_LINK_INTERVAL_ALPHA);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 
 				}
 				else if(check_fwstate(pmlmepriv, _FW_LINKED)== _FALSE)
@@ -249,7 +249,7 @@ SwLedBlink1(
 					else
 						pLed->BlinkingLedState = RTW_LED_ON;
 					_set_timer(&(pLed->BlinkTimer), LED_BLINK_NO_LINK_INTERVAL_ALPHA);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedScanBlinkInProgress = _FALSE;
 			}
@@ -291,7 +291,7 @@ SwLedBlink1(
 					else
 						pLed->BlinkingLedState = RTW_LED_ON;
 					_set_timer(&(pLed->BlinkTimer), LED_BLINK_LINK_INTERVAL_ALPHA);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				else if(check_fwstate(pmlmepriv, _FW_LINKED)== _FALSE)
 				{
@@ -302,7 +302,7 @@ SwLedBlink1(
 					else
 						pLed->BlinkingLedState = RTW_LED_ON;
 					_set_timer(&(pLed->BlinkTimer), LED_BLINK_NO_LINK_INTERVAL_ALPHA);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->BlinkTimes = 0;
 				pLed->bLedBlinkInProgress = _FALSE;
@@ -359,7 +359,7 @@ SwLedBlink1(
 					else
 						pLed->BlinkingLedState = RTW_LED_ON;
 					_set_timer(&(pLed->BlinkTimer), LED_BLINK_LINK_INTERVAL_ALPHA);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedWPSBlinkInProgress = _FALSE;
 			}
@@ -384,12 +384,12 @@ SwLedBlink2(
 	if( pLed->BlinkingLedState == RTW_LED_ON)
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
 	switch(pLed->CurrLedState)
@@ -412,7 +412,7 @@ SwLedBlink2(
 					pLed->CurrLedState = RTW_LED_ON;
 					pLed->BlinkingLedState = RTW_LED_ON;
 					SwLedOn(padapter, pLed);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("stop scan blink CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("stop scan blink CurrLedState %d\n", pLed->CurrLedState));
 
 				}
 				else if(check_fwstate(pmlmepriv, _FW_LINKED)== _FALSE)
@@ -420,7 +420,7 @@ SwLedBlink2(
 					pLed->CurrLedState = RTW_LED_OFF;
 					pLed->BlinkingLedState = RTW_LED_OFF;
 					SwLedOff(padapter, pLed);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("stop scan blink CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("stop scan blink CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedScanBlinkInProgress = _FALSE;
 			}
@@ -458,7 +458,7 @@ SwLedBlink2(
 					pLed->CurrLedState = RTW_LED_ON;
 					pLed->BlinkingLedState = RTW_LED_ON;
 					SwLedOn(padapter, pLed);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("stop CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("stop CurrLedState %d\n", pLed->CurrLedState));
 
 				}
 				else if(check_fwstate(pmlmepriv, _FW_LINKED)== _FALSE)
@@ -466,7 +466,7 @@ SwLedBlink2(
 					pLed->CurrLedState = RTW_LED_OFF;
 					pLed->BlinkingLedState = RTW_LED_OFF;
 					SwLedOff(padapter, pLed);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("stop CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("stop CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedBlinkInProgress = _FALSE;
 			}
@@ -506,13 +506,13 @@ SwLedBlink3(
 	if( pLed->BlinkingLedState == RTW_LED_ON )
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		if(pLed->CurrLedState != LED_BLINK_WPS_STOP)
 			SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
 	switch(pLed->CurrLedState)
@@ -537,7 +537,7 @@ SwLedBlink3(
 					if( !pLed->bLedOn )
 						SwLedOn(padapter, pLed);
 
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				else if(check_fwstate(pmlmepriv, _FW_LINKED)== _FALSE)
 				{
@@ -546,7 +546,7 @@ SwLedBlink3(
 					if( pLed->bLedOn )
 						SwLedOff(padapter, pLed);
 
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedScanBlinkInProgress = _FALSE;
 			}
@@ -587,7 +587,7 @@ SwLedBlink3(
 					if( !pLed->bLedOn )
 						SwLedOn(padapter, pLed);
 
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				else if(check_fwstate(pmlmepriv, _FW_LINKED)== _FALSE)
 				{
@@ -598,7 +598,7 @@ SwLedBlink3(
 						SwLedOff(padapter, pLed);
 
 
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedBlinkInProgress = _FALSE;
 			}
@@ -650,7 +650,7 @@ SwLedBlink3(
 					pLed->CurrLedState = RTW_LED_ON;
 					pLed->BlinkingLedState = RTW_LED_ON;
 					SwLedOn(padapter, pLed);
-					RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+					RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 				}
 				pLed->bLedWPSBlinkInProgress = _FALSE;
 			}
@@ -679,12 +679,12 @@ SwLedBlink4(
 	if( pLed->BlinkingLedState == RTW_LED_ON )
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
 	if(!pLed1->bLedWPSBlinkInProgress && pLed1->BlinkingLedState == LED_UNKNOWN)
@@ -857,7 +857,7 @@ SwLedBlink4(
 			break;
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("SwLedBlink4 CurrLedState %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("SwLedBlink4 CurrLedState %d\n", pLed->CurrLedState));
 
 
 }
@@ -875,12 +875,12 @@ SwLedBlink5(
 	if( pLed->BlinkingLedState == RTW_LED_ON )
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
 	switch(pLed->CurrLedState)
@@ -975,7 +975,7 @@ SwLedBlink5(
 			break;
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("SwLedBlink5 CurrLedState %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("SwLedBlink5 CurrLedState %d\n", pLed->CurrLedState));
 
 
 }
@@ -993,15 +993,15 @@ SwLedBlink6(
 	if( pLed->BlinkingLedState == RTW_LED_ON )
 	{
 		SwLedOn(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn on\n", pLed->BlinkTimes));
 	}
 	else
 	{
 		SwLedOff(padapter, pLed);
-		RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
+		RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Blinktimes (%d): turn off\n", pLed->BlinkTimes));
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("<==== blink6\n"));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("<==== blink6\n"));
 }
 
 //
@@ -1211,7 +1211,7 @@ SwLedControlMode0(
 		break;
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
 
 }
 
@@ -1484,7 +1484,7 @@ SwLedControlMode1(
 
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
 }
 
  //Arcadyan/Sitecom , added by chiyoko, 20090216
@@ -1595,7 +1595,7 @@ SwLedControlMode2(
 				pLed->CurrLedState = RTW_LED_ON;
 				pLed->BlinkingLedState = RTW_LED_ON;
 				_set_timer(&(pLed->BlinkTimer), 0);
-				RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+				RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 			}
 			break;
 
@@ -1604,7 +1604,7 @@ SwLedControlMode2(
 			pLed->CurrLedState = RTW_LED_OFF;
 			pLed->BlinkingLedState = RTW_LED_OFF;
 			_set_timer(&(pLed->BlinkTimer), 0);
-			RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+			RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 			break;
 
 		case LED_CTL_START_TO_LINK:
@@ -1644,7 +1644,7 @@ SwLedControlMode2(
 
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 }
 
   //COREGA, added by chiyoko, 20090316
@@ -1822,7 +1822,7 @@ SwLedControlMode2(
 
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("CurrLedState %d\n", pLed->CurrLedState));
 }
 
 
@@ -2153,7 +2153,7 @@ SwLedControlMode4(
 
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
 }
 
 
@@ -2242,7 +2242,7 @@ SwLedControlMode5(
 
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("Led %d\n", pLed->CurrLedState));
 }
 
  //WNC-Corega, added by chiyoko, 20090902
@@ -2275,7 +2275,7 @@ SwLedControlMode6(
 			break;
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("ledcontrol 6 Led %d\n", pLed0->CurrLedState));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("ledcontrol 6 Led %d\n", pLed0->CurrLedState));
 }
 
 void
@@ -2355,7 +2355,7 @@ LedControlSDIO(
 			break;
 	}
 
-	RT_TRACE(_module_rtl8712_led_c_,_drv_info_,("LedStrategy:%d, LedAction %d\n", ledpriv->LedStrategy,LedAction));
+	RT_TRACE(_module_ttl8712_led_c_,_drv_info_,("LedStrategy:%d, LedAction %d\n", ledpriv->LedStrategy,LedAction));
 }
 
 //

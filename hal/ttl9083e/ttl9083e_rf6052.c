@@ -20,7 +20,7 @@
 /******************************************************************************
  *
  *
- * Module:	rtl9083e_rf6052.c	( Source C File)
+ * Module:	ttl9083e_rf6052.c	( Source C File)
  *
  * Note:	Provide RF 6052 series relative API.
  *
@@ -42,7 +42,7 @@
 #define _RTL9083E_RF6052_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
 /*---------------------------Define Local Constant---------------------------*/
 
@@ -75,7 +75,7 @@
  *						Firmwaer support the utility later.
  *
  *---------------------------------------------------------------------------*/
-void rtl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
+void ttl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
 										IN	u16		DataRate)
 {
 // We do not support gain table change inACUT now !!!! Delete later !!!
@@ -141,7 +141,7 @@ void rtl9083e_RF_ChangeTxPath(	IN	PADAPTER	Adapter,
  * Note:		For RF type 0222D
  *---------------------------------------------------------------------------*/
 VOID
-rtl9083e_PHY_RF6052SetBandwidth(
+ttl9083e_PHY_RF6052SetBandwidth(
 	IN	PADAPTER				Adapter,
 	IN	CHANNEL_WIDTH		Bandwidth)	//20M or 40M
 {

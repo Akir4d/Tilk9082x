@@ -103,7 +103,7 @@ typedef struct _ADAPTER _adapter, ADAPTER,*PADAPTER;
 #include <rtw_ioctl.h>
 #include <rtw_ioctl_set.h>
 #include <rtw_ioctl_query.h>
-#include <rtw_ioctl_rtl.h>
+#include <rtw_ioctl_ttl.h>
 #include <osdep_intf.h>
 #include <rtw_eeprom.h>
 #include <sta_info.h>
@@ -186,7 +186,7 @@ struct registry_priv
 	u8 	scan_mode;//active, passive
 	u8	radio_enable;
 	u8	preamble;//long, short, auto
-	u8	vrtl_carrier_sense;//Enable, Disable, Auto
+	u8	vttl_carrier_sense;//Enable, Disable, Auto
 	u8	vcs_type;//RTS/CTS, CTS-to-self
 	u16	rts_thresh;
 	u16  frag_thresh;
@@ -1119,7 +1119,7 @@ struct _ADAPTER{
 	//for debug purpose
 	u8 fix_rate;
 	u8 data_fb; /* data rate fallback, valid only when fix_rate is not 0xff */
-	u8 driver_vcs_en; //Enable=1, Disable=0 driver control vrtl_carrier_sense for tx
+	u8 driver_vcs_en; //Enable=1, Disable=0 driver control vttl_carrier_sense for tx
 	u8 driver_vcs_type;//force 0:disable VCS, 1:RTS-CTS, 2:CTS-to-self when vcs_en=1.
 	u8 driver_ampdu_spacing;//driver control AMPDU Density for peer sta's rx
 	u8 driver_rx_ampdu_factor;//0xff: disable drv ctrl, 0:8k, 1:16k, 2:32k, 3:64k;

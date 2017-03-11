@@ -22,56 +22,56 @@
 
 
 #ifdef CONFIG_RTL9083E
-u32	rtl9083ee_init_desc_ring(_adapter *padapter);
-u32	rtl9083ee_free_desc_ring(_adapter *padapter);
-void	rtl9083ee_reset_desc_ring(_adapter *padapter);
-int	rtl9083ee_interrupt(PADAPTER Adapter);
-void	rtl9083ee_xmit_tasklet(void *priv);
-void	rtl9083ee_recv_tasklet(void *priv);
-void	rtl9083ee_prepare_bcn_tasklet(void *priv);
-void	rtl9083ee_set_intf_ops(struct _io_ops	*pops);
+u32	ttl9083ee_init_desc_ring(_adapter *padapter);
+u32	ttl9083ee_free_desc_ring(_adapter *padapter);
+void	ttl9083ee_reset_desc_ring(_adapter *padapter);
+int	ttl9083ee_interrupt(PADAPTER Adapter);
+void	ttl9083ee_xmit_tasklet(void *priv);
+void	ttl9083ee_recv_tasklet(void *priv);
+void	ttl9083ee_prepare_bcn_tasklet(void *priv);
+void	ttl9083ee_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #if defined(CONFIG_RTL8812A) || defined(CONFIG_RTL8821A)
-u32	rtl8812ae_init_desc_ring(_adapter *padapter);
-u32	rtl8812ae_free_desc_ring(_adapter *padapter);
-void	rtl8812ae_reset_desc_ring(_adapter *padapter);
-int	rtl8812ae_interrupt(PADAPTER Adapter);
-void	rtl8812ae_xmit_tasklet(void *priv);
-void	rtl8812ae_recv_tasklet(void *priv);
-void	rtl8812ae_prepare_bcn_tasklet(void *priv);
-void	rtl8812ae_set_intf_ops(struct _io_ops	*pops);
+u32	ttl8812ae_init_desc_ring(_adapter *padapter);
+u32	ttl8812ae_free_desc_ring(_adapter *padapter);
+void	ttl8812ae_reset_desc_ring(_adapter *padapter);
+int	ttl8812ae_interrupt(PADAPTER Adapter);
+void	ttl8812ae_xmit_tasklet(void *priv);
+void	ttl8812ae_recv_tasklet(void *priv);
+void	ttl8812ae_prepare_bcn_tasklet(void *priv);
+void	ttl8812ae_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #ifdef CONFIG_RTL8192E
-u32	rtl8192ee_init_desc_ring(_adapter *padapter);
-u32	rtl8192ee_free_desc_ring(_adapter *padapter);
-void	rtl8192ee_reset_desc_ring(_adapter *padapter);
-void	rtl8192ee_recv_tasklet(void *priv);
-void	rtl8192ee_prepare_bcn_tasklet(void *priv);
-int	rtl8192ee_interrupt(PADAPTER Adapter);
-void	rtl8192ee_set_intf_ops(struct _io_ops	*pops);
+u32	ttl8192ee_init_desc_ring(_adapter *padapter);
+u32	ttl8192ee_free_desc_ring(_adapter *padapter);
+void	ttl8192ee_reset_desc_ring(_adapter *padapter);
+void	ttl8192ee_recv_tasklet(void *priv);
+void	ttl8192ee_prepare_bcn_tasklet(void *priv);
+int	ttl8192ee_interrupt(PADAPTER Adapter);
+void	ttl8192ee_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #ifdef CONFIG_RTL8723B
-u32	rtl8723be_init_desc_ring(_adapter *padapter);
-u32	rtl8723be_free_desc_ring(_adapter *padapter);
-void	rtl8723be_reset_desc_ring(_adapter *padapter);
-int	rtl8723be_interrupt(PADAPTER Adapter);
-void	rtl8723be_recv_tasklet(void *priv);
-void	rtl8723be_prepare_bcn_tasklet(void *priv);
-void	rtl8723be_set_intf_ops(struct _io_ops	*pops);
+u32	ttl8723be_init_desc_ring(_adapter *padapter);
+u32	ttl8723be_free_desc_ring(_adapter *padapter);
+void	ttl8723be_reset_desc_ring(_adapter *padapter);
+int	ttl8723be_interrupt(PADAPTER Adapter);
+void	ttl8723be_recv_tasklet(void *priv);
+void	ttl8723be_prepare_bcn_tasklet(void *priv);
+void	ttl8723be_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #ifdef CONFIG_RTL8814A
-u32	rtl8814ae_init_desc_ring(_adapter *padapter);
-u32	rtl8814ae_free_desc_ring(_adapter *padapter);
-void	rtl8814ae_reset_desc_ring(_adapter *padapter);
-int	rtl8814ae_interrupt(PADAPTER Adapter);
-void	rtl8814ae_xmit_tasklet(void *priv);
-void	rtl8814ae_recv_tasklet(void *priv);
-void	rtl8814ae_prepare_bcn_tasklet(void *priv);
-void	rtl8814ae_set_intf_ops(struct _io_ops	*pops);
+u32	ttl8814ae_init_desc_ring(_adapter *padapter);
+u32	ttl8814ae_free_desc_ring(_adapter *padapter);
+void	ttl8814ae_reset_desc_ring(_adapter *padapter);
+int	ttl8814ae_interrupt(PADAPTER Adapter);
+void	ttl8814ae_xmit_tasklet(void *priv);
+void	ttl8814ae_recv_tasklet(void *priv);
+void	ttl8814ae_prepare_bcn_tasklet(void *priv);
+void	ttl8814ae_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #endif

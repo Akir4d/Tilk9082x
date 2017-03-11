@@ -498,7 +498,7 @@ ODM_SetTxAntByTxInfo(
 
 VOID
 ODM_SetTxAntByTxInfo(
-	struct	rtl8192cd_priv		*priv,
+	struct	ttl8192cd_priv		*priv,
 	struct 	tx_desc			*pdesc,
 	unsigned short			aid	
 );

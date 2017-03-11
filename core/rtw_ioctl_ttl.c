@@ -25,7 +25,7 @@
 #include <rtw_mp_ioctl.h>
 #endif
 
-struct oid_obj_priv oid_rtl_seg_01_01[] =
+struct oid_obj_priv oid_ttl_seg_01_01[] =
 {
 	{1, &oid_null_function},										//0x80
 	{1, &oid_null_function},										//0x81
@@ -110,7 +110,7 @@ struct oid_obj_priv oid_rtl_seg_01_01[] =
 	
 };
 
-struct oid_obj_priv oid_rtl_seg_01_03[] =
+struct oid_obj_priv oid_ttl_seg_01_03[] =
 {
 	{1, &oid_rt_ap_get_associated_station_list_hdl},				//0x00
 	{1, &oid_null_function},										//0x01
@@ -121,7 +121,7 @@ struct oid_obj_priv oid_rtl_seg_01_03[] =
 
 };
 
-struct oid_obj_priv oid_rtl_seg_01_11[] =
+struct oid_obj_priv oid_ttl_seg_01_11[] =
 {
 	{1, &oid_null_function},					//0xC0	OID_RT_PRO_RX_FILTER	
 	{1, &oid_null_function},					//0xC1	OID_CE_USB_WRITE_REGISTRY
@@ -137,7 +137,7 @@ struct oid_obj_priv oid_rtl_seg_01_11[] =
 	
 };
 
-struct oid_obj_priv oid_rtl_seg_03_00[] =
+struct oid_obj_priv oid_ttl_seg_03_00[] =
 {
 	{1, &oid_null_function},										//0x00
 	{1, &oid_rt_get_connect_state_hdl},							//0x01
@@ -149,7 +149,7 @@ struct oid_obj_priv oid_rtl_seg_03_00[] =
 };
 
 
-//**************  oid_rtl_seg_01_01 section start ************** 
+//**************  oid_ttl_seg_01_01 section start ************** 
 
 NDIS_STATUS oid_rt_pro_set_fw_dig_state_hdl(struct oid_par_priv* poid_par_priv)
 {
@@ -800,9 +800,9 @@ NDIS_STATUS oid_rt_scan_with_magic_packet_hdl(struct oid_par_priv* poid_par_priv
 
 	return status;
 }
-//**************  oid_rtl_seg_01_01 section end ************** 
+//**************  oid_ttl_seg_01_01 section end ************** 
 
-//**************  oid_rtl_seg_01_03 section start ************** 
+//**************  oid_ttl_seg_01_03 section start ************** 
 NDIS_STATUS oid_rt_ap_get_associated_station_list_hdl(struct oid_par_priv* poid_par_priv)
 {
 	NDIS_STATUS	 	status = NDIS_STATUS_SUCCESS;
@@ -844,9 +844,9 @@ NDIS_STATUS oid_rt_ap_set_passphrase_hdl(struct oid_par_priv* poid_par_priv)
 	return status;
 }
 
-//**************  oid_rtl_seg_01_03 section end ************** 
+//**************  oid_ttl_seg_01_03 section end ************** 
 
-//****************  oid_rtl_seg_01_11   section start ****************
+//****************  oid_ttl_seg_01_11   section start ****************
 NDIS_STATUS oid_rt_pro_rf_write_registry_hdl(struct oid_par_priv* poid_par_priv)
 {
 	NDIS_STATUS		status = NDIS_STATUS_SUCCESS;
@@ -943,10 +943,10 @@ NDIS_STATUS oid_rt_pro_rf_read_registry_hdl(struct oid_par_priv* poid_par_priv)
 	return status;
 }
 
-//****************  oid_rtl_seg_01_11   section end****************	
+//****************  oid_ttl_seg_01_11   section end****************	
 
 
-//**************  oid_rtl_seg_03_00 section start **************  
+//**************  oid_ttl_seg_03_00 section start **************  
 enum _CONNECT_STATE_{
 	CHECKINGSTATUS,
 	ASSOCIATED,
@@ -1017,5 +1017,5 @@ NDIS_STATUS oid_rt_set_default_key_id_hdl(struct oid_par_priv* poid_par_priv)
 	
 	return status;
 }
-//**************  oid_rtl_seg_03_00 section end **************  
+//**************  oid_ttl_seg_03_00 section end **************  
 

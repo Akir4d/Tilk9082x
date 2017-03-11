@@ -545,7 +545,7 @@ MPT_InitializeAdapter(
 	mpt_InitHWConfig(pAdapter);
 
 #ifdef CONFIG_RTL8723B
-	rtl8723b_InitAntenna_Selection(pAdapter);
+	ttl8723b_InitAntenna_Selection(pAdapter);
 	if (IS_HARDWARE_TYPE_8723B(pAdapter))
 	{
 
@@ -854,25 +854,25 @@ s32 mp_start_test(PADAPTER padapter)
 	//3 disable dynamic mechanism
 	disable_dm(padapter);
 	#ifdef CONFIG_RTL8814A
-	rtl8814_InitHalDm(padapter);
+	ttl8814_InitHalDm(padapter);
 	#endif /* CONFIG_RTL8814A */
 	#ifdef CONFIG_RTL8812A
-	rtl8812_InitHalDm(padapter);
+	ttl8812_InitHalDm(padapter);
 	#endif /* CONFIG_RTL8812A */
 	#ifdef CONFIG_RTL8723B
-	rtl8723b_InitHalDm(padapter);
+	ttl8723b_InitHalDm(padapter);
 	#endif /* CONFIG_RTL8723B */
 	#ifdef CONFIG_RTL8703B
-	rtl8703b_InitHalDm(padapter);
+	ttl8703b_InitHalDm(padapter);
 	#endif /* CONFIG_RTL8703B */
 	#ifdef CONFIG_RTL8192E
-	rtl8192e_InitHalDm(padapter);
+	ttl8192e_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_RTL9083F
-	rtl9083f_InitHalDm(padapter);
+	ttl9083f_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_RTL9083E
-	rtl9083e_InitHalDm(padapter);
+	ttl9083e_InitHalDm(padapter);
 	#endif
 
 	//3 0. update mp_priv
@@ -946,23 +946,23 @@ end_of_mp_stop_test:
 	_exit_critical_bh(&pmlmepriv->lock, &irqL);
 
 	#ifdef CONFIG_RTL8812A
-	rtl8812_InitHalDm(padapter);
+	ttl8812_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_RTL8723B
-	rtl8723b_InitHalDm(padapter);
+	ttl8723b_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_RTL8703B
-	rtl8703b_InitHalDm(padapter);
+	ttl8703b_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_RTL8192E
-	rtl8192e_InitHalDm(padapter);
+	ttl8192e_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_RTL9083F
-	rtl9083f_InitHalDm(padapter);
+	ttl9083f_InitHalDm(padapter);
 	#endif
 	}
 }
-/*---------------------------hal\rtl8192c\MPT_Phy.c---------------------------*/
+/*---------------------------hal\ttl8192c\MPT_Phy.c---------------------------*/
 #if 0
 //#ifdef CONFIG_USB_HCI
 static VOID mpt_AdjustRFRegByRateByChan92CU(PADAPTER pAdapter, u8 RateIdx, u8 Channel, u8 BandWidthID)
@@ -1031,8 +1031,8 @@ static void mpt_SwitchRfSetting(PADAPTER pAdapter)
 	hal_mpt_SwitchRfSetting(pAdapter);
     }
 
-/*---------------------------hal\rtl8192c\MPT_Phy.c---------------------------*/
-/*---------------------------hal\rtl8192c\MPT_HelperFunc.c---------------------------*/
+/*---------------------------hal\ttl8192c\MPT_Phy.c---------------------------*/
+/*---------------------------hal\ttl8192c\MPT_HelperFunc.c---------------------------*/
 static void MPT_CCKTxPowerAdjust(PADAPTER Adapter, BOOLEAN bInCH14)
 {
 	hal_mpt_CCKTxPowerAdjust(Adapter, bInCH14);
@@ -1043,7 +1043,7 @@ static void MPT_CCKTxPowerAdjustbyIndex(PADAPTER pAdapter, BOOLEAN beven)
 	hal_mpt_CCKTxPowerAdjustbyIndex(pAdapter, beven);
 	}
 
-/*---------------------------hal\rtl8192c\MPT_HelperFunc.c---------------------------*/
+/*---------------------------hal\ttl8192c\MPT_HelperFunc.c---------------------------*/
 
 /*
  * SetChannel
@@ -2007,7 +2007,7 @@ void _rtw_mp_xmit_priv (struct xmit_priv *pxmitpriv)
 	pxmitpriv->pallocated_xmit_extbuf = rtw_zvmalloc(num_xmit_extbuf * sizeof(struct xmit_buf) + 4);
 	
 	if (pxmitpriv->pallocated_xmit_extbuf  == NULL){
-		RT_TRACE(_module_rtl871x_xmit_c_,_drv_err_,("alloc xmit_extbuf fail!\n"));
+		RT_TRACE(_module_ttl871x_xmit_c_,_drv_err_,("alloc xmit_extbuf fail!\n"));
 		res= _FAIL;
 		goto exit;
 	}

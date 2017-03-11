@@ -143,20 +143,20 @@ void FreeRecvPriv8821AS(PADAPTER padapter);
 #endif // CONFIG_SDIO_HCI
 
 #ifdef CONFIG_USB_HCI
-void rtl8812au_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
-s32 rtl8812au_init_recv_priv(PADAPTER padapter);
-void rtl8812au_free_recv_priv(PADAPTER padapter);
-void rtl8812au_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
-void rtl8812au_recv_tasklet(void *priv);
+void ttl8812au_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+s32 ttl8812au_init_recv_priv(PADAPTER padapter);
+void ttl8812au_free_recv_priv(PADAPTER padapter);
+void ttl8812au_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+void ttl8812au_recv_tasklet(void *priv);
 
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8812ae_init_recv_priv(PADAPTER padapter);
-void rtl8812ae_free_recv_priv(PADAPTER padapter);
+s32 ttl8812ae_init_recv_priv(PADAPTER padapter);
+void ttl8812ae_free_recv_priv(PADAPTER padapter);
 #endif
 
-void rtl8812_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
+void ttl8812_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
 #endif /* __RTL8812A_RECV_H__ */
 

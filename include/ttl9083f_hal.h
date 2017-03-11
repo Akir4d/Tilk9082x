@@ -22,35 +22,35 @@
 
 #include "hal_data.h"
 
-#include "rtl9083f_spec.h"
-#include "rtl9083f_rf.h"
-#include "rtl9083f_dm.h"
-#include "rtl9083f_recv.h"
-#include "rtl9083f_xmit.h"
-#include "rtl9083f_cmd.h"
-#include "rtl9083f_led.h"
+#include "ttl9083f_spec.h"
+#include "ttl9083f_rf.h"
+#include "ttl9083f_dm.h"
+#include "ttl9083f_recv.h"
+#include "ttl9083f_xmit.h"
+#include "ttl9083f_cmd.h"
+#include "ttl9083f_led.h"
 #include "Hal9083FPwrSeq.h"
 #include "Hal9083FPhyReg.h"
 #include "Hal9083FPhyCfg.h"
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl9083f_sreset.h"
+#include "ttl9083f_sreset.h"
 #endif
 
 
 //---------------------------------------------------------------------
 //		RTL9083F From file
 //---------------------------------------------------------------------
-	#define RTL9083F_FW_IMG					"rtl9083f/FW_NIC.bin"
-	#define RTL9083F_FW_WW_IMG				"rtl9083f/FW_WoWLAN.bin"
-	#define RTL9083F_PHY_REG					"rtl9083f/PHY_REG.txt"
-	#define RTL9083F_PHY_RADIO_A				"rtl9083f/RadioA.txt"
-	#define RTL9083F_PHY_RADIO_B				"rtl9083f/RadioB.txt"
-	#define RTL9083F_TXPWR_TRACK				"rtl9083f/TxPowerTrack.txt" 
-	#define RTL9083F_AGC_TAB					"rtl9083f/AGC_TAB.txt"
-	#define RTL9083F_PHY_MACREG 				"rtl9083f/MAC_REG.txt"
-	#define RTL9083F_PHY_REG_PG				"rtl9083f/PHY_REG_PG.txt"
-	#define RTL9083F_PHY_REG_MP				"rtl9083f/PHY_REG_MP.txt"
-	#define RTL9083F_TXPWR_LMT 				"rtl9083f/TXPWR_LMT.txt"
+	#define RTL9083F_FW_IMG					"ttl9083f/FW_NIC.bin"
+	#define RTL9083F_FW_WW_IMG				"ttl9083f/FW_WoWLAN.bin"
+	#define RTL9083F_PHY_REG					"ttl9083f/PHY_REG.txt"
+	#define RTL9083F_PHY_RADIO_A				"ttl9083f/RadioA.txt"
+	#define RTL9083F_PHY_RADIO_B				"ttl9083f/RadioB.txt"
+	#define RTL9083F_TXPWR_TRACK				"ttl9083f/TxPowerTrack.txt" 
+	#define RTL9083F_AGC_TAB					"ttl9083f/AGC_TAB.txt"
+	#define RTL9083F_PHY_MACREG 				"ttl9083f/MAC_REG.txt"
+	#define RTL9083F_PHY_REG_PG				"ttl9083f/PHY_REG_PG.txt"
+	#define RTL9083F_PHY_REG_MP				"ttl9083f/PHY_REG_MP.txt"
+	#define RTL9083F_TXPWR_LMT 				"ttl9083f/TXPWR_LMT.txt"
 
 //---------------------------------------------------------------------
 //		RTL9083F From header
@@ -258,17 +258,17 @@ typedef enum tag_Package_Definition
 #define INCLUDE_MULTI_FUNC_BT(_Adapter)		(GET_HAL_DATA(_Adapter)->MultiFunc & RT_MULTI_FUNC_BT)
 #define INCLUDE_MULTI_FUNC_GPS(_Adapter)	(GET_HAL_DATA(_Adapter)->MultiFunc & RT_MULTI_FUNC_GPS)
 
-// rtl9083a_hal_init.c
-s32 rtl9083f_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
-void rtl9083f_FirmwareSelfReset(PADAPTER padapter);
-void rtl9083f_InitializeFirmwareVars(PADAPTER padapter);
+// ttl9083a_hal_init.c
+s32 ttl9083f_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
+void ttl9083f_FirmwareSelfReset(PADAPTER padapter);
+void ttl9083f_InitializeFirmwareVars(PADAPTER padapter);
 
-void rtl9083f_InitAntenna_Selection(PADAPTER padapter);
-void rtl9083f_DeinitAntenna_Selection(PADAPTER padapter);
-void rtl9083f_CheckAntenna_Selection(PADAPTER padapter);
-void rtl9083f_init_default_value(PADAPTER padapter);
+void ttl9083f_InitAntenna_Selection(PADAPTER padapter);
+void ttl9083f_DeinitAntenna_Selection(PADAPTER padapter);
+void ttl9083f_CheckAntenna_Selection(PADAPTER padapter);
+void ttl9083f_init_default_value(PADAPTER padapter);
 
-s32 rtl9083f_InitLLTTable(PADAPTER padapter);
+s32 ttl9083f_InitLLTTable(PADAPTER padapter);
 
 s32 CardDisableHWSM(PADAPTER padapter, u8 resetMCU);
 s32 CardDisableWithoutHWSM(PADAPTER padapter);
@@ -289,17 +289,17 @@ void Hal_EfuseParseThermalMeter_9083F(PADAPTER padapter, u8 *hwinfo, u8 AutoLoad
 VOID Hal_EfuseParsePackageType_9083F(PADAPTER pAdapter,u8* hwinfo,BOOLEAN AutoLoadFail);
 void Hal_EfuseParseKFreeData_9083F(PADAPTER pAdapter, u8 *hwinfo, BOOLEAN AutoLoadFail);
 
-#if 0 /* Do not need for rtl9083f */
+#if 0 /* Do not need for ttl9083f */
 VOID Hal_EfuseParseVoltage_9083F(PADAPTER pAdapter,u8* hwinfo,BOOLEAN 	AutoLoadFail); 
 #endif
 
 #ifdef CONFIG_C2H_PACKET_EN
-void rtl9083f_c2h_packet_handler(PADAPTER padapter, u8 *pbuf, u16 length);
+void ttl9083f_c2h_packet_handler(PADAPTER padapter, u8 *pbuf, u16 length);
 #endif
 
-void rtl9083f_set_pll_ref_clk_sel(_adapter *adapter, u8 sel);
+void ttl9083f_set_pll_ref_clk_sel(_adapter *adapter, u8 sel);
 
-void rtl9083f_set_hal_ops(struct hal_ops *pHalFunc);
+void ttl9083f_set_hal_ops(struct hal_ops *pHalFunc);
 void SetHwReg9083F(PADAPTER padapter, u8 variable, u8 *val);
 void GetHwReg9083F(PADAPTER padapter, u8 variable, u8 *val);
 #ifdef CONFIG_C2H_PACKET_EN
@@ -309,22 +309,22 @@ u8 SetHalDefVar9083F(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 u8 GetHalDefVar9083F(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 
 // register
-void rtl9083f_InitBeaconParameters(PADAPTER padapter);
-void rtl9083f_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
+void ttl9083f_InitBeaconParameters(PADAPTER padapter);
+void ttl9083f_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
 void	_InitBurstPktLen_9083FS(PADAPTER Adapter);
 void _8051Reset9083(PADAPTER padapter);
 #ifdef CONFIG_WOWLAN
 void Hal_DetectWoWMode(PADAPTER pAdapter);
 #endif //CONFIG_WOWLAN
 
-void rtl9083f_start_thread(_adapter *padapter);
-void rtl9083f_stop_thread(_adapter *padapter);
+void ttl9083f_start_thread(_adapter *padapter);
+void ttl9083f_stop_thread(_adapter *padapter);
 
 #if defined(CONFIG_CHECK_BT_HANG) && defined(CONFIG_BT_COEXIST)
-void rtl9083fs_init_checkbthang_workqueue(_adapter * adapter);
-void rtl9083fs_free_checkbthang_workqueue(_adapter * adapter);
-void rtl9083fs_cancle_checkbthang_workqueue(_adapter * adapter);
-void rtl9083fs_hal_check_bt_hang(_adapter * adapter);
+void ttl9083fs_init_checkbthang_workqueue(_adapter * adapter);
+void ttl9083fs_free_checkbthang_workqueue(_adapter * adapter);
+void ttl9083fs_cancle_checkbthang_workqueue(_adapter * adapter);
+void ttl9083fs_hal_check_bt_hang(_adapter * adapter);
 #endif
 
 #ifdef CONFIG_GPIO_WAKEUP

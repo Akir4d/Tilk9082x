@@ -29,20 +29,20 @@
 // Interface to manipulate LED objects.
 //================================================================================
 #ifdef CONFIG_USB_HCI
-void rtl9083fu_InitSwLeds(PADAPTER padapter);
-void rtl9083fu_DeInitSwLeds(PADAPTER padapter);
+void ttl9083fu_InitSwLeds(PADAPTER padapter);
+void ttl9083fu_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_SDIO_HCI
-void rtl9083fs_InitSwLeds(PADAPTER padapter);
-void rtl9083fs_DeInitSwLeds(PADAPTER padapter);
+void ttl9083fs_InitSwLeds(PADAPTER padapter);
+void ttl9083fs_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_GSPI_HCI
-void rtl9083fs_InitSwLeds(PADAPTER padapter);
-void rtl9083fs_DeInitSwLeds(PADAPTER padapter);
+void ttl9083fs_InitSwLeds(PADAPTER padapter);
+void ttl9083fs_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_PCI_HCI
-void rtl9083fe_InitSwLeds(PADAPTER padapter);
-void rtl9083fe_DeInitSwLeds(PADAPTER padapter);
+void ttl9083fe_InitSwLeds(PADAPTER padapter);
+void ttl9083fe_DeInitSwLeds(PADAPTER padapter);
 #endif
 
 #endif

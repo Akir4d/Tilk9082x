@@ -698,7 +698,7 @@ odm_RSSIMonitorCheck(
 )
 {
 	//
-	// For AP/ADSL use prtl8192cd_priv
+	// For AP/ADSL use pttl8192cd_priv
 	// For CE/NIC use PADAPTER
 	//
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
@@ -1133,30 +1133,30 @@ odm_RSSIMonitorCheckCE(
 #if((RTL8812A_SUPPORT==1)||(RTL8821A_SUPPORT==1))
 					if ((pDM_Odm->SupportICType == ODM_RTL8812) || (pDM_Odm->SupportICType == ODM_RTL8821)) {
 						PWDB_rssi[i] |= (UL_DL_STATE << 24);
-						rtl8812_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+						ttl8812_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 					}
 #endif
 #if(RTL8192E_SUPPORT==1)
 					if (pDM_Odm->SupportICType == ODM_RTL8192E)
-						rtl8192e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+						ttl8192e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 #if(RTL8723B_SUPPORT==1)
 					if (pDM_Odm->SupportICType == ODM_RTL8723B)
-						rtl8723b_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+						ttl8723b_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 
 #if(RTL9083E_SUPPORT==1)
 					if (pDM_Odm->SupportICType == ODM_RTL9083E)
-						rtl9083e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+						ttl9083e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 
 #if (RTL8814A_SUPPORT == 1)
 					if (pDM_Odm->SupportICType == ODM_RTL8814A)
-						rtl8814_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+						ttl8814_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 #if (RTL9083F_SUPPORT == 1)
 					if (pDM_Odm->SupportICType == ODM_RTL9083F) {
-						rtl9083f_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+						ttl9083f_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 					}
 #endif
 				} else {
@@ -1206,7 +1206,7 @@ odm_RSSIMonitorCheckAP(
 	u1Byte			cmdlen = 3 ;
 	u1Byte			TxBF_EN = 0, stbc_en = 0;
 
-	prtl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl8192cd_priv	priv		= pDM_Odm->priv;
 	PSTA_INFO_T 		pstat;
 	BOOLEAN			act_bfer = FALSE;
 
@@ -1567,7 +1567,7 @@ odm_RefreshRateAdaptiveMaskAPADSL(
 {
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
-	struct rtl8192cd_priv *priv = pDM_Odm->priv;
+	struct ttl8192cd_priv *priv = pDM_Odm->priv;
 	struct aid_obj *aidarray;
 	u4Byte i;
 	PSTA_INFO_T pstat;

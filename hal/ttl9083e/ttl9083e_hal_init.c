@@ -20,7 +20,7 @@
 #define _HAL_INIT_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
 
 #if defined(CONFIG_IOL)
@@ -446,7 +446,7 @@ static s32 iol_read_efuse(
 	return status;
 }
 
-s32 rtl9083e_iol_efuse_patch(PADAPTER padapter)
+s32 ttl9083e_iol_efuse_patch(PADAPTER padapter)
 {
 	s32	result = _SUCCESS;
 	printk("==> %s \n",__FUNCTION__);
@@ -476,7 +476,7 @@ static s32 iol_ioconfig(
 	return rst;
 }
 
-int rtl9083e_IOL_exec_cmds_sync(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms,u32 bndy_cnt)
+int ttl9083e_IOL_exec_cmds_sync(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms,u32 bndy_cnt)
 {
 	
 	u32 start_time = rtw_get_current_time();
@@ -909,7 +909,7 @@ u8	FwBuffer9083E[FW_9083E_SIZE];
 //		Download 8192C firmware code.
 //
 //
-s32 rtl9083e_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw)
+s32 ttl9083e_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw)
 {
 	s32	rtStatus = _SUCCESS;
 	u8 write_fw = 0;
@@ -1094,7 +1094,7 @@ exit:
 	return rtStatus;
 }
 
-void rtl9083e_InitializeFirmwareVars(PADAPTER padapter)
+void ttl9083e_InitializeFirmwareVars(PADAPTER padapter)
 {
 	PHAL_DATA_TYPE pHalData = GET_HAL_DATA(padapter);
 	struct pwrctrl_priv *pwrpriv = adapter_to_pwrctl(padapter);
@@ -1132,7 +1132,7 @@ SetFwRelatedForWoWLAN9083ES(
 	//
 	// 1. Before WoWLAN we need to re-download WoWLAN Fw.
 	//
-	status = rtl9083e_FirmwareDownload(padapter, bHostIsGoingtoSleep);
+	status = ttl9083e_FirmwareDownload(padapter, bHostIsGoingtoSleep);
 	if(status != _SUCCESS) {
 		DBG_871X("ConfigFwRelatedForWoWLAN9083ES(): Re-Download Firmware failed!!\n");
 		return;
@@ -1142,7 +1142,7 @@ SetFwRelatedForWoWLAN9083ES(
 	//
 	// 2. Re-Init the variables about Fw related setting.
 	//
-	rtl9083e_InitializeFirmwareVars(padapter);
+	ttl9083e_InitializeFirmwareVars(padapter);
 }
 #endif /*CONFIG_WOWLAN || CONFIG_AP_WOWLAN*/
 
@@ -1238,7 +1238,7 @@ hal_EfusePowerSwitch_RTL9083E(
 }
 
 static VOID
-rtl9083e_EfusePowerSwitch(
+ttl9083e_EfusePowerSwitch(
 	IN	PADAPTER	pAdapter,
 	IN	u8		bWrite,
 	IN	u8		PwrState)
@@ -1598,7 +1598,7 @@ ReadEFuse_Pseudo(
 }
 
 static VOID
-rtl9083e_ReadEFuse(
+ttl9083e_ReadEFuse(
 	PADAPTER	Adapter,
 	u8		efuseType,
 	u16		_offset,
@@ -1757,7 +1757,7 @@ Hal_EFUSEGetEfuseDefinition_Pseudo88E(
 
 
 static VOID
-rtl9083e_EFUSE_GetEfuseDefinition(
+ttl9083e_EFUSE_GetEfuseDefinition(
 	IN		PADAPTER	pAdapter,
 	IN		u8		efuseType,
 	IN		u8		type,
@@ -1856,7 +1856,7 @@ Hal_EfuseWordEnableDataWrite_Pseudo(	IN	PADAPTER	pAdapter,
 }
 
 static u8
-rtl9083e_Efuse_WordEnableDataWrite(	IN	PADAPTER	pAdapter,
+ttl9083e_Efuse_WordEnableDataWrite(	IN	PADAPTER	pAdapter,
 							IN	u16		efuse_addr,
 							IN	u8		word_en,
 							IN	u8		*data,
@@ -1961,7 +1961,7 @@ Hal_EfuseGetCurrentSize_Pseudo(IN	PADAPTER	pAdapter,
 
 
 static u16
-rtl9083e_EfuseGetCurrentSize(
+ttl9083e_EfuseGetCurrentSize(
 	IN	PADAPTER	pAdapter,
 	IN	u8			efuseType,
 	IN	BOOLEAN		bPseudoTest)
@@ -2126,7 +2126,7 @@ Hal_EfusePgPacketRead_Pseudo(	IN	PADAPTER	pAdapter,
 }
 
 static int
-rtl9083e_Efuse_PgPacketRead(	IN	PADAPTER	pAdapter,
+ttl9083e_Efuse_PgPacketRead(	IN	PADAPTER	pAdapter,
 					IN	u8			offset,
 					IN	u8			*data,
 					IN	BOOLEAN		bPseudoTest)
@@ -2706,7 +2706,7 @@ Hal_EfusePgPacketWrite(IN	PADAPTER	pAdapter,
 }
 
 static int
-rtl9083e_Efuse_PgPacketWrite(IN	PADAPTER	pAdapter,
+ttl9083e_Efuse_PgPacketWrite(IN	PADAPTER	pAdapter,
 					IN	u8 			offset,
 					IN	u8			word_en,
 					IN	u8			*data,
@@ -2754,22 +2754,22 @@ static void read_chip_version_9083e(PADAPTER padapter)
 
 }
 
-void rtl9083e_start_thread(_adapter *padapter)
+void ttl9083e_start_thread(_adapter *padapter)
 {
 #if defined(CONFIG_SDIO_HCI) || defined (CONFIG_GSPI_HCI)
 #ifndef CONFIG_SDIO_TX_TASKLET
 	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
 
-	xmitpriv->SdioXmitThread = kthread_run(rtl9083es_xmit_thread, padapter, "RTWHALXT");
+	xmitpriv->SdioXmitThread = kthread_run(ttl9083es_xmit_thread, padapter, "RTWHALXT");
 	if (IS_ERR(xmitpriv->SdioXmitThread))
 	{
-		RT_TRACE(_module_hal_xmit_c_, _drv_err_, ("%s: start rtl9083es_xmit_thread FAIL!!\n", __FUNCTION__));
+		RT_TRACE(_module_hal_xmit_c_, _drv_err_, ("%s: start ttl9083es_xmit_thread FAIL!!\n", __FUNCTION__));
 	}
 #endif
 #endif
 }
 
-void rtl9083e_stop_thread(_adapter *padapter)
+void ttl9083e_stop_thread(_adapter *padapter)
 {
 #if defined(CONFIG_SDIO_HCI) || defined (CONFIG_GSPI_HCI)
 #ifndef CONFIG_SDIO_TX_TASKLET
@@ -2836,7 +2836,7 @@ void UpdateHalRAMask9083E(PADAPTER padapter, u32 mac_id, u8 rssi_level)
 		arg[1] = psta->raid;
 		arg[2] = shortGIrate;
 		arg[3] =  psta->init_rate;
-		rtl9083e_set_raid_cmd(padapter, mask,arg);
+		ttl9083e_set_raid_cmd(padapter, mask,arg);
 	}
 	else
 	{	
@@ -2855,7 +2855,7 @@ void UpdateHalRAMask9083E(PADAPTER padapter, u32 mac_id, u8 rssi_level)
 	}
 }
 
-void rtl9083e_init_default_value(_adapter *adapter)
+void ttl9083e_init_default_value(_adapter *adapter)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 
@@ -2865,10 +2865,10 @@ void rtl9083e_init_default_value(_adapter *adapter)
 	adapter->registrypriv.wireless_mode = WIRELESS_11BG_24N;
 }
 
-void rtl9083e_set_hal_ops(struct hal_ops *pHalFunc)
+void ttl9083e_set_hal_ops(struct hal_ops *pHalFunc)
 {
-	pHalFunc->dm_init = &rtl9083e_init_dm_priv;
-	pHalFunc->dm_deinit = &rtl9083e_deinit_dm_priv;
+	pHalFunc->dm_init = &ttl9083e_init_dm_priv;
+	pHalFunc->dm_deinit = &ttl9083e_deinit_dm_priv;
 
 	pHalFunc->read_chip_version = read_chip_version_9083e;
 
@@ -2881,12 +2881,12 @@ void rtl9083e_set_hal_ops(struct hal_ops *pHalFunc)
 	pHalFunc->set_tx_power_level_handler = &PHY_SetTxPowerLevel9083E;
 	pHalFunc->get_tx_power_level_handler = &PHY_GetTxPowerLevel9083E;
 
-	pHalFunc->hal_dm_watchdog = &rtl9083e_HalDmWatchDog;
+	pHalFunc->hal_dm_watchdog = &ttl9083e_HalDmWatchDog;
 
-	pHalFunc->Add_RateATid = &rtl9083e_Add_RateATid;
+	pHalFunc->Add_RateATid = &ttl9083e_Add_RateATid;
 
-	pHalFunc->run_thread= &rtl9083e_start_thread;
-	pHalFunc->cancel_thread= &rtl9083e_stop_thread;
+	pHalFunc->run_thread= &ttl9083e_start_thread;
+	pHalFunc->cancel_thread= &ttl9083e_stop_thread;
 
 #ifdef CONFIG_ANTENNA_DIVERSITY
 	pHalFunc->AntDivBeforeLinkHandler = &AntDivBeforeLink9083E;
@@ -2900,20 +2900,20 @@ void rtl9083e_set_hal_ops(struct hal_ops *pHalFunc)
 
 
 	// Efuse related function
-	pHalFunc->EfusePowerSwitch = &rtl9083e_EfusePowerSwitch;
-	pHalFunc->ReadEFuse = &rtl9083e_ReadEFuse;
-	pHalFunc->EFUSEGetEfuseDefinition = &rtl9083e_EFUSE_GetEfuseDefinition;
-	pHalFunc->EfuseGetCurrentSize = &rtl9083e_EfuseGetCurrentSize;
-	pHalFunc->Efuse_PgPacketRead = &rtl9083e_Efuse_PgPacketRead;
-	pHalFunc->Efuse_PgPacketWrite = &rtl9083e_Efuse_PgPacketWrite;
-	pHalFunc->Efuse_WordEnableDataWrite = &rtl9083e_Efuse_WordEnableDataWrite;
+	pHalFunc->EfusePowerSwitch = &ttl9083e_EfusePowerSwitch;
+	pHalFunc->ReadEFuse = &ttl9083e_ReadEFuse;
+	pHalFunc->EFUSEGetEfuseDefinition = &ttl9083e_EFUSE_GetEfuseDefinition;
+	pHalFunc->EfuseGetCurrentSize = &ttl9083e_EfuseGetCurrentSize;
+	pHalFunc->Efuse_PgPacketRead = &ttl9083e_Efuse_PgPacketRead;
+	pHalFunc->Efuse_PgPacketWrite = &ttl9083e_Efuse_PgPacketWrite;
+	pHalFunc->Efuse_WordEnableDataWrite = &ttl9083e_Efuse_WordEnableDataWrite;
 
 #ifdef DBG_CONFIG_ERROR_DETECT
 	pHalFunc->sreset_init_value = &sreset_init_value;
 	pHalFunc->sreset_reset_value = &sreset_reset_value;
 	pHalFunc->silentreset = &sreset_reset;
-	pHalFunc->sreset_xmit_status_check = &rtl9083e_sreset_xmit_status_check;
-	pHalFunc->sreset_linked_status_check  = &rtl9083e_sreset_linked_status_check;
+	pHalFunc->sreset_xmit_status_check = &ttl9083e_sreset_xmit_status_check;
+	pHalFunc->sreset_linked_status_check  = &ttl9083e_sreset_linked_status_check;
 	pHalFunc->sreset_get_wifi_status  = &sreset_get_wifi_status;
 	pHalFunc->sreset_inprogress= &sreset_inprogress;
 #endif //DBG_CONFIG_ERROR_DETECT
@@ -2922,12 +2922,12 @@ void rtl9083e_set_hal_ops(struct hal_ops *pHalFunc)
 	pHalFunc->SetHalODMVarHandler = SetHalODMVar;
 
 #ifdef CONFIG_IOL
-	pHalFunc->IOL_exec_cmds_sync = &rtl9083e_IOL_exec_cmds_sync;
+	pHalFunc->IOL_exec_cmds_sync = &ttl9083e_IOL_exec_cmds_sync;
 #endif
 
 	pHalFunc->hal_notch_filter = &hal_notch_filter_9083e;
 	pHalFunc->fill_h2c_cmd = &FillH2CCmd_88E;
-	pHalFunc->fill_fake_txdesc = &rtl9083e_fill_fake_txdesc;
+	pHalFunc->fill_fake_txdesc = &ttl9083e_fill_fake_txdesc;
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
 	pHalFunc->hal_set_wowlan_fw = &SetFwRelatedForWoWLAN9083ES;
 #endif
@@ -3498,7 +3498,7 @@ Hal_EfuseParseEEPROMVer88E(
 }
 
 void
-rtl9083e_EfuseParseChnlPlan(
+ttl9083e_EfuseParseChnlPlan(
 	IN	PADAPTER		padapter,
 	IN	u8*			hwinfo,
 	IN	BOOLEAN			AutoLoadFail
@@ -4971,20 +4971,20 @@ _func_enter_;
 				{
 					ODM_RF_Saving(podmpriv, _TRUE);
 				}
-				rtl9083e_set_FwPwrMode_cmd(adapter, psmode);
+				ttl9083e_set_FwPwrMode_cmd(adapter, psmode);
 			}
 			break;
 		case HW_VAR_H2C_FW_JOINBSSRPT:
 		    {
 				u8	mstatus = (*(u8 *)val);
-				rtl9083e_set_FwJoinBssReport_cmd(adapter, mstatus);
+				ttl9083e_set_FwJoinBssReport_cmd(adapter, mstatus);
 			}
 			break;
 #ifdef CONFIG_P2P_PS
 		case HW_VAR_H2C_FW_P2P_PS_OFFLOAD:
 			{
 				u8	p2p_ps_state = (*(u8 *)val);
-				rtl9083e_set_p2p_ps_offload_cmd(adapter, p2p_ps_state);
+				ttl9083e_set_p2p_ps_offload_cmd(adapter, p2p_ps_state);
 			}
 			break;
 #endif //CONFIG_P2P_PS
@@ -5000,13 +5000,13 @@ _func_enter_;
 		case HW_VAR_BT_SET_COEXIST:
 			{
 				u8	bStart = (*(u8 *)val);
-				rtl8192c_set_dm_bt_coexist(adapter, bStart);
+				ttl8192c_set_dm_bt_coexist(adapter, bStart);
 			}
 			break;
 		case HW_VAR_BT_ISSUE_DELBA:
 			{
 				u8	dir = (*(u8 *)val);
-				rtl8192c_issue_delete_ba(adapter, dir);
+				ttl8192c_issue_delete_ba(adapter, dir);
 			}
 			break;
 #endif
@@ -5101,7 +5101,7 @@ _func_enter_;
         #endif	//  (RATE_ADAPTIVE_SUPPORT == 1)		
 		case HW_VAR_H2C_MEDIA_STATUS_RPT:
 			{				
-				rtl9083e_set_FwMediaStatus_cmd(adapter , (*(u16 *)val));
+				ttl9083e_set_FwMediaStatus_cmd(adapter , (*(u16 *)val));
 			}
 			break;
 		case HW_VAR_BCN_VALID:

@@ -534,7 +534,7 @@ _func_enter_;
 #endif
 			)
 		{
-			RT_TRACE(_module_rtl871x_pwrctrl_c_,_drv_err_,
+			RT_TRACE(_module_ttl871x_pwrctrl_c_,_drv_err_,
 				("%s: Already set rpwm[0x%02X], new=0x%02X!\n", __FUNCTION__, pwrpriv->rpwm, pslv));
 			return;
 		}
@@ -543,7 +543,7 @@ _func_enter_;
 	if (rtw_is_surprise_removed(padapter) ||
 		(!rtw_is_hw_init_completed(padapter)))
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_err_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_err_,
 				("%s: SurpriseRemoved(%s) hw_init_completed(%s)\n"
 				, __func__
 				, rtw_is_surprise_removed(padapter)?"True":"False"
@@ -555,11 +555,11 @@ _func_enter_;
 	}
 
 	if (rtw_is_drv_stopped(padapter)) {
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_err_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_err_,
 				 ("%s: change power state(0x%02X) when DriverStopped\n", __FUNCTION__, pslv));
 
 		if (pslv < PS_STATE_S2) {
-			RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_err_,
+			RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_err_,
 					 ("%s: Reject to enter PS_STATE(0x%02X) lower than S2 when DriverStopped!!\n", __FUNCTION__, pslv));
 			return;
 		}
@@ -571,7 +571,7 @@ _func_enter_;
 	if ((pwrpriv->cpwm < PS_STATE_S2) && (pslv >= PS_STATE_S2))
 		rpwm |= PS_ACK;
 #endif
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("rtw_set_rpwm: rpwm=0x%02x cpwm=0x%02x\n", rpwm, pwrpriv->cpwm));
 
 	pwrpriv->rpwm = pslv;
@@ -851,7 +851,7 @@ void rtw_set_ps_mode(PADAPTER padapter, u8 ps_mode, u8 smart_ps, u8 bcn_ant_mode
 
 _func_enter_;
 
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("%s: PowerMode=%d Smart_PS=%d\n",
 			  __FUNCTION__, ps_mode, smart_ps));
 
@@ -859,7 +859,7 @@ _func_enter_;
 		smart_ps = 0;
 
 	if(ps_mode > PM_Card_Disable) {
-		RT_TRACE(_module_rtl871x_pwrctrl_c_,_drv_err_,("ps_mode:%d error\n", ps_mode));
+		RT_TRACE(_module_ttl871x_pwrctrl_c_,_drv_err_,("ps_mode:%d error\n", ps_mode));
 		return;
 	}
 
@@ -1481,7 +1481,7 @@ _func_enter_;
 	pwrpriv = adapter_to_pwrctl(padapter);
 #if 0
 	if (pwrpriv->cpwm_tog == (preportpwrstate->state & PS_TOGGLE)) {
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_err_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_err_,
 				 ("cpwm_int_hdl: tog(old)=0x%02x cpwm(new)=0x%02x toggle bit didn't change!?\n",
 				  pwrpriv->cpwm_tog, preportpwrstate->state));
 		goto exit;
@@ -1514,7 +1514,7 @@ _func_enter_;
 	_exit_pwrlock(&pwrpriv->lock);
 
 exit:
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("cpwm_int_hdl: cpwm=0x%02x\n", pwrpriv->cpwm));
 
 _func_exit_;
@@ -1651,7 +1651,7 @@ _func_enter_;
 
 	if (pwrctrl->bFwCurrentInPSMode == _TRUE)
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 				 ("%s: task=0x%x cpwm=0x%02x alives=0x%08x\n",
 				  __FUNCTION__, task, pwrctrl->cpwm, pwrctrl->alives));
 
@@ -1719,7 +1719,7 @@ _func_enter_;
 	if ((pwrctrl->pwr_mode != PS_MODE_ACTIVE)
 		&& (pwrctrl->bFwCurrentInPSMode == _TRUE))
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 				 ("%s: cpwm=0x%02x alives=0x%08x\n",
 				  __FUNCTION__, pwrctrl->cpwm, pwrctrl->alives));
 
@@ -1766,7 +1766,7 @@ _func_enter_;
 
 	if (pwrctrl->bFwCurrentInPSMode == _TRUE)
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 				 ("rtw_register_tx_alive: cpwm=0x%02x alives=0x%08x\n",
 				  pwrctrl->cpwm, pwrctrl->alives));
 
@@ -1825,7 +1825,7 @@ _func_enter_;
 
 	if (pwrctrl->bFwCurrentInPSMode == _TRUE)
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_info_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_info_,
 				 ("rtw_register_cmd_alive: cpwm=0x%02x alives=0x%08x\n",
 				  pwrctrl->cpwm, pwrctrl->alives));
 
@@ -1873,7 +1873,7 @@ _func_enter_;
 	_enter_pwrlock(&pwrctrl->lock);
 
 	register_task_alive(pwrctrl, RECV_ALIVE);
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("rtw_register_rx_alive: cpwm=0x%02x alives=0x%08x\n",
 			  pwrctrl->cpwm, pwrctrl->alives));
 
@@ -1904,7 +1904,7 @@ _func_enter_;
 	_enter_pwrlock(&pwrctrl->lock);
 
 	register_task_alive(pwrctrl, EVT_ALIVE);
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("rtw_register_evt_alive: cpwm=0x%02x alives=0x%08x\n",
 			  pwrctrl->cpwm, pwrctrl->alives));
 
@@ -1966,7 +1966,7 @@ _func_enter_;
 	if ((pwrctrl->pwr_mode != PS_MODE_ACTIVE)
 		&& (pwrctrl->bFwCurrentInPSMode == _TRUE))
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 				 ("%s: cpwm=0x%02x alives=0x%08x\n",
 				  __FUNCTION__, pwrctrl->cpwm, pwrctrl->alives));
 
@@ -2033,7 +2033,7 @@ _func_enter_;
 	if ((pwrctrl->pwr_mode != PS_MODE_ACTIVE)
 		&& (pwrctrl->bFwCurrentInPSMode == _TRUE))
 	{
-		RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_info_,
+		RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_info_,
 				 ("%s: cpwm=0x%02x alives=0x%08x\n",
 				  __FUNCTION__, pwrctrl->cpwm, pwrctrl->alives));
 
@@ -2064,7 +2064,7 @@ _func_enter_;
 
 	unregister_task_alive(pwrctrl, RECV_ALIVE);
 
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("rtw_unregister_rx_alive: cpwm=0x%02x alives=0x%08x\n",
 			  pwrctrl->cpwm, pwrctrl->alives));
 
@@ -2083,7 +2083,7 @@ _func_enter_;
 
 	unregister_task_alive(pwrctrl, EVT_ALIVE);
 
-	RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_notice_,
+	RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_notice_,
 			 ("rtw_unregister_evt_alive: cpwm=0x%02x alives=0x%08x\n",
 			  pwrctrl->cpwm, pwrctrl->alives));
 

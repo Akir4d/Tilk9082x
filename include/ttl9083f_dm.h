@@ -35,13 +35,13 @@
 // function prototype
 //============================================================
 
-void rtl9083f_init_dm_priv(PADAPTER padapter);
-void rtl9083f_deinit_dm_priv(PADAPTER padapter);
+void ttl9083f_init_dm_priv(PADAPTER padapter);
+void ttl9083f_deinit_dm_priv(PADAPTER padapter);
 
-void rtl9083f_InitHalDm(PADAPTER padapter);
-void rtl9083f_HalDmWatchDog(PADAPTER padapter);
-void rtl9083f_HalDmWatchDog_in_LPS(PADAPTER padapter);
-void rtl9083f_hal_dm_in_lps(PADAPTER padapter);
+void ttl9083f_InitHalDm(PADAPTER padapter);
+void ttl9083f_HalDmWatchDog(PADAPTER padapter);
+void ttl9083f_HalDmWatchDog_in_LPS(PADAPTER padapter);
+void ttl9083f_hal_dm_in_lps(PADAPTER padapter);
 
 
 #endif

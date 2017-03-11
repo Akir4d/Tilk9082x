@@ -20,9 +20,9 @@
 #define _RTL9083E_REDESC_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
-void rtl9083e_query_rx_desc_status(
+void ttl9083e_query_rx_desc_status(
 	union recv_frame *precvframe,
 	struct recv_stat *prxstat)
 {

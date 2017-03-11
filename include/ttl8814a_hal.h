@@ -24,18 +24,18 @@
 #include "hal_data.h"
 
 //include HAL Related header after HAL Related compiling flags 
-#include "rtl8814a_spec.h"
-#include "rtl8814a_rf.h"
-#include "rtl8814a_dm.h"
-#include "rtl8814a_recv.h"
-#include "rtl8814a_xmit.h"
-#include "rtl8814a_cmd.h"
-#include "rtl8814a_led.h"
+#include "ttl8814a_spec.h"
+#include "ttl8814a_rf.h"
+#include "ttl8814a_dm.h"
+#include "ttl8814a_recv.h"
+#include "ttl8814a_xmit.h"
+#include "ttl8814a_cmd.h"
+#include "ttl8814a_led.h"
 #include "Hal8814PwrSeq.h"
 #include "Hal8814PhyReg.h"
 #include "Hal8814PhyCfg.h"
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl8814a_sreset.h"
+#include "ttl8814a_sreset.h"
 #endif //DBG_CONFIG_ERROR_DETECT
 
 
@@ -69,30 +69,30 @@ typedef struct _RT_FIRMWARE_8814 {
 //---------------------------------------------------------------------
 //		RTL8814AU From header
 //---------------------------------------------------------------------
-		#define RTL8814A_FW_IMG					"rtl8814a/FW_NIC.bin"
-		#define RTL8814A_FW_WW_IMG				"rtl8814a/FW_WoWLAN.bin"
-		#define RTL8814A_PHY_REG					"rtl8814a/PHY_REG.txt" 
-		#define RTL8814A_PHY_RADIO_A				"rtl8814a/RadioA.txt"
-		#define RTL8814A_PHY_RADIO_B				"rtl8814a/RadioB.txt"
-		#define RTL8814A_PHY_RADIO_C				"rtl8814a/RadioC.txt"
-		#define RTL8814A_PHY_RADIO_D				"rtl8814a/RadioD.txt"
-		#define RTL8814A_TXPWR_TRACK				"rtl8814a/TxPowerTrack.txt"			
-		#define RTL8814A_AGC_TAB					"rtl8814a/AGC_TAB.txt"
-		#define RTL8814A_PHY_MACREG 				"rtl8814a/MAC_REG.txt"
-		#define RTL8814A_PHY_REG_PG				"rtl8814a/PHY_REG_PG.txt"
-		#define RTL8814A_PHY_REG_MP 				"rtl8814a/PHY_REG_MP.txt" 
-		#define RTL8814A_TXPWR_LMT				"rtl8814a/TXPWR_LMT.txt" 
-		#define RTL8814A_WIFI_ANT_ISOLATION		"rtl8814a/wifi_ant_isolation.txt"
+		#define RTL8814A_FW_IMG					"ttl8814a/FW_NIC.bin"
+		#define RTL8814A_FW_WW_IMG				"ttl8814a/FW_WoWLAN.bin"
+		#define RTL8814A_PHY_REG					"ttl8814a/PHY_REG.txt" 
+		#define RTL8814A_PHY_RADIO_A				"ttl8814a/RadioA.txt"
+		#define RTL8814A_PHY_RADIO_B				"ttl8814a/RadioB.txt"
+		#define RTL8814A_PHY_RADIO_C				"ttl8814a/RadioC.txt"
+		#define RTL8814A_PHY_RADIO_D				"ttl8814a/RadioD.txt"
+		#define RTL8814A_TXPWR_TRACK				"ttl8814a/TxPowerTrack.txt"			
+		#define RTL8814A_AGC_TAB					"ttl8814a/AGC_TAB.txt"
+		#define RTL8814A_PHY_MACREG 				"ttl8814a/MAC_REG.txt"
+		#define RTL8814A_PHY_REG_PG				"ttl8814a/PHY_REG_PG.txt"
+		#define RTL8814A_PHY_REG_MP 				"ttl8814a/PHY_REG_MP.txt" 
+		#define RTL8814A_TXPWR_LMT				"ttl8814a/TXPWR_LMT.txt" 
+		#define RTL8814A_WIFI_ANT_ISOLATION		"ttl8814a/wifi_ant_isolation.txt"
 
-#define Rtl8814A_NIC_PWR_ON_FLOW				rtl8814A_power_on_flow
-#define Rtl8814A_NIC_RF_OFF_FLOW				rtl8814A_radio_off_flow
-#define Rtl8814A_NIC_DISABLE_FLOW				rtl8814A_card_disable_flow
-#define Rtl8814A_NIC_ENABLE_FLOW				rtl8814A_card_enable_flow
-#define Rtl8814A_NIC_SUSPEND_FLOW				rtl8814A_suspend_flow
-#define Rtl8814A_NIC_RESUME_FLOW				rtl8814A_resume_flow
-#define Rtl8814A_NIC_PDN_FLOW					rtl8814A_hwpdn_flow
-#define Rtl8814A_NIC_LPS_ENTER_FLOW			rtl8814A_enter_lps_flow
-#define Rtl8814A_NIC_LPS_LEAVE_FLOW			rtl8814A_leave_lps_flow	
+#define Rtl8814A_NIC_PWR_ON_FLOW				ttl8814A_power_on_flow
+#define Rtl8814A_NIC_RF_OFF_FLOW				ttl8814A_radio_off_flow
+#define Rtl8814A_NIC_DISABLE_FLOW				ttl8814A_card_disable_flow
+#define Rtl8814A_NIC_ENABLE_FLOW				ttl8814A_card_enable_flow
+#define Rtl8814A_NIC_SUSPEND_FLOW				ttl8814A_suspend_flow
+#define Rtl8814A_NIC_RESUME_FLOW				ttl8814A_resume_flow
+#define Rtl8814A_NIC_PDN_FLOW					ttl8814A_hwpdn_flow
+#define Rtl8814A_NIC_LPS_ENTER_FLOW			ttl8814A_enter_lps_flow
+#define Rtl8814A_NIC_LPS_LEAVE_FLOW			ttl8814A_leave_lps_flow	
 
 //=====================================================
 //				New	Firmware Header(8-byte alinment required)
@@ -236,7 +236,7 @@ Chip specific
 //
 #define	EFUSE_OOB_PROTECT_BYTES 		15	// PG data exclude header, dummy 6 bytes frome CP test and reserved 1byte.
 
-/* rtl8814_hal_init.c */
+/* ttl8814_hal_init.c */
 s32 FirmwareDownload8814A( PADAPTER	Adapter, BOOLEAN bUsedWoWLANFw);
 void	InitializeFirmwareVars8814(PADAPTER padapter);
 
@@ -301,13 +301,13 @@ void GetHwReg8814A(PADAPTER padapter, u8 variable, u8 *pval);
 u8 SetHalDefVar8814A(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 u8 GetHalDefVar8814A(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 s32 c2h_id_filter_ccx_8814a(u8 *buf);
-void rtl8814_set_hal_ops(struct hal_ops *pHalFunc);
+void ttl8814_set_hal_ops(struct hal_ops *pHalFunc);
 
 // register
 void SetBcnCtrlReg(PADAPTER padapter, u8 SetBits, u8 ClearBits);
 void SetBcnCtrlReg(PADAPTER	Adapter, u8	SetBits, u8	ClearBits);
-void rtl8814_start_thread(PADAPTER padapter);
-void rtl8814_stop_thread(PADAPTER padapter);
+void ttl8814_start_thread(PADAPTER padapter);
+void ttl8814_stop_thread(PADAPTER padapter);
 
 
 #ifdef CONFIG_PCI_HCI
@@ -317,7 +317,7 @@ u16	get_txbd_idx_addr(u16 ff_hwaddr);
 #endif
 
 #ifdef CONFIG_BT_COEXIST
-void rtl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
+void ttl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
 #endif //__RTL9083E_HAL_H__

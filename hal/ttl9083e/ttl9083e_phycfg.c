@@ -20,7 +20,7 @@
 #define _RTL9083E_PHYCFG_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
 
 /*---------------------------Define Local Constant---------------------------*/
@@ -1301,7 +1301,7 @@ PHY_RFConfig9083E(
  * Note:		Delay may be required for RF configuration
  *---------------------------------------------------------------------------*/
 int
-rtl9083e_PHY_ConfigRFWithParaFile(
+ttl9083e_PHY_ConfigRFWithParaFile(
 	IN	PADAPTER		Adapter,
 	IN	u8* 				pFileName,
 	IN	u8				eRFPath
@@ -1790,7 +1790,7 @@ _PHY_SetBWMode88E(
 			break;
 
 		case RF_6052:
-			rtl9083e_PHY_RF6052SetBandwidth(Adapter, pHalData->CurrentChannelBW);
+			ttl9083e_PHY_RF6052SetBandwidth(Adapter, pHalData->CurrentChannelBW);
 			break;
 
 		default:

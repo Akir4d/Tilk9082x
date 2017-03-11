@@ -71,22 +71,22 @@
 #endif // CONFIG_SDIO_HCI
 
 #if defined(CONFIG_SDIO_HCI) || defined(CONFIG_GSPI_HCI)
-s32 rtl8703bs_init_recv_priv(PADAPTER padapter);
-void rtl8703bs_free_recv_priv(PADAPTER padapter);
+s32 ttl8703bs_init_recv_priv(PADAPTER padapter);
+void ttl8703bs_free_recv_priv(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_USB_HCI
-int rtl8703bu_init_recv_priv(_adapter *padapter);
-void rtl8703bu_free_recv_priv (_adapter *padapter);
-void rtl8703bu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+int ttl8703bu_init_recv_priv(_adapter *padapter);
+void ttl8703bu_free_recv_priv (_adapter *padapter);
+void ttl8703bu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8703be_init_recv_priv(PADAPTER padapter);
-void rtl8703be_free_recv_priv(PADAPTER padapter);
+s32 ttl8703be_init_recv_priv(PADAPTER padapter);
+void ttl8703be_free_recv_priv(PADAPTER padapter);
 #endif
 
-void rtl8703b_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
+void ttl8703b_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
 #endif /* __RTL8703B_RECV_H__ */
 

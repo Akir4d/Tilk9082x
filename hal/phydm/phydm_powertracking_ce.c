@@ -528,7 +528,7 @@ odm_TXPowerTrackingCheckCE(
 	PADAPTER	Adapter = pDM_Odm->Adapter;
 	#if( (RTL8192C_SUPPORT==1) ||  (RTL8723A_SUPPORT==1) )
 	if(IS_HARDWARE_TYPE_8192C(Adapter)){
-		rtl8192c_odm_CheckTXPowerTracking(Adapter);
+		ttl8192c_odm_CheckTXPowerTracking(Adapter);
 		return;
 	}
 	#endif
@@ -538,7 +538,7 @@ odm_TXPowerTrackingCheckCE(
 		#if (RTL8192D_EASY_SMART_CONCURRENT == 1)
 		if(!Adapter->bSlaveOfDMSP)
 		#endif
-			rtl8192d_odm_CheckTXPowerTracking(Adapter);
+			ttl8192d_odm_CheckTXPowerTracking(Adapter);
 		return;	
 	}
 	#endif
@@ -605,7 +605,7 @@ odm_TXPowerTrackingCheckAP(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	prtl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl8192cd_priv	priv		= pDM_Odm->priv;
 
 	if ( (priv->pmib->dot11RFEntry.ther) && ((priv->up_time % priv->pshare->rf_ft_var.tpt_period) == 0)){
 #ifdef CONFIG_RTL_92D_SUPPORT

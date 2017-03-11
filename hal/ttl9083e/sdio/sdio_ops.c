@@ -18,7 +18,7 @@
  *******************************************************************************/
 #define _SDIO_OPS_C_
 
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
 //#define SDIO_DEBUG_IO 1
 

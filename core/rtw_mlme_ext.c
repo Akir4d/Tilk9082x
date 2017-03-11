@@ -1012,7 +1012,7 @@ void mgt_dispatcher(_adapter *padapter, union recv_frame *precv_frame)
 	struct dvobj_priv *psdpriv = padapter->dvobj;
 	struct debug_priv *pdbgpriv = &psdpriv->drv_dbg;
 
-	RT_TRACE(_module_rtl871x_mlme_c_, _drv_info_,
+	RT_TRACE(_module_ttl871x_mlme_c_, _drv_info_,
 		 ("+mgt_dispatcher: type(0x%x) subtype(0x%x)\n",
 		  GetFrameType(pframe), GetFrameSubType(pframe)));
 
@@ -1030,7 +1030,7 @@ void mgt_dispatcher(_adapter *padapter, union recv_frame *precv_frame)
 
 	if (GetFrameType(pframe) != WIFI_MGT_TYPE)
 	{
-		RT_TRACE(_module_rtl871x_mlme_c_, _drv_err_, ("mgt_dispatcher: type(0x%x) error!\n", GetFrameType(pframe)));
+		RT_TRACE(_module_ttl871x_mlme_c_, _drv_err_, ("mgt_dispatcher: type(0x%x) error!\n", GetFrameType(pframe)));
 		return;
 	}
 
@@ -1057,7 +1057,7 @@ void mgt_dispatcher(_adapter *padapter, union recv_frame *precv_frame)
 
 	if (index >= (sizeof(mlme_sta_tbl) /sizeof(struct mlme_handler)))
 	{
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_err_,("Currently we do not support reserved sub-fr-type=%d\n", index));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_err_,("Currently we do not support reserved sub-fr-type=%d\n", index));
 		return;
 	}
 	ptable += index;
@@ -1081,7 +1081,7 @@ void mgt_dispatcher(_adapter *padapter, union recv_frame *precv_frame)
 
 	if(GetRetry(pframe))
 	{
-		//RT_TRACE(_module_rtl871x_mlme_c_,_drv_err_,("drop due to decache!\n"));
+		//RT_TRACE(_module_ttl871x_mlme_c_,_drv_err_,("drop due to decache!\n"));
 		//return;
 	}
 #endif
@@ -1876,7 +1876,7 @@ unsigned int OnAuth(_adapter *padapter, union recv_frame *precv_frame)
 	}
 
 	if (res != SUCCESS) {
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_err_,"auth abort because ACL!\n");
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_err_,"auth abort because ACL!\n");
 		return FAIL;
 	}
 #else
@@ -6333,7 +6333,7 @@ int _issue_probereq_p2p(_adapter *padapter, u8 *da, int wait_ack)
 
 	pattrib->last_txcmdsz = pattrib->pktlen;
 
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("issuing probe_req, tx_len=%d\n", pattrib->last_txcmdsz));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("issuing probe_req, tx_len=%d\n", pattrib->last_txcmdsz));
 
 	if (wait_ack) {
 		ret = dump_mgntframe_and_wait_ack(padapter, pmgntframe);
@@ -8144,7 +8144,7 @@ int _issue_probereq(_adapter *padapter, NDIS_802_11_SSID *pssid, u8 *da, u8 ch, 
 
 	pattrib->last_txcmdsz = pattrib->pktlen;
 
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_notice_,("issuing probe_req, tx_len=%d\n", pattrib->last_txcmdsz));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_notice_,("issuing probe_req, tx_len=%d\n", pattrib->last_txcmdsz));
 
 	if (wait_ack) {
 		ret = dump_mgntframe_and_wait_ack(padapter, pmgntframe);
@@ -10751,7 +10751,7 @@ void start_create_ibss(_adapter* padapter)
 		//issue beacon
 		if(send_beacon(padapter)==_FAIL)
 		{
-			RT_TRACE(_module_rtl871x_mlme_c_,_drv_err_,("issuing beacon frame fail....\n"));
+			RT_TRACE(_module_ttl871x_mlme_c_,_drv_err_,("issuing beacon frame fail....\n"));
 
 			report_join_res(padapter, -1);
 			pmlmeinfo->state = WIFI_FW_NULL_STATE;
@@ -11001,7 +11001,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 		_rtw_memset(country, 0, 4);
 		_rtw_memcpy(country, p, 3);
 		p += 3;
-		RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_,
+		RT_TRACE(_module_ttl871x_mlme_c_, _drv_notice_,
 				("%s: 802.11d country=%s\n", __FUNCTION__, country));
 
 		i = 0;
@@ -11211,7 +11211,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 		while ((k < MAX_CHANNEL_NUM) && (chplan_new[k].ChannelNum != 0))
 		{
 			if (chplan_new[k].ChannelNum == channel) {
-				RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_,
+				RT_TRACE(_module_ttl871x_mlme_c_, _drv_notice_,
 						 ("%s: change mlme_ext sitesurvey channel index from %d to %d\n",
 						  __FUNCTION__, pmlmeext->sitesurvey_res.channel_idx, k));
 				pmlmeext->sitesurvey_res.channel_idx = k;
@@ -11237,7 +11237,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 					break;
 				
 				chplan_new[i].ScanType = SCAN_ACTIVE;
-				RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_,
+				RT_TRACE(_module_ttl871x_mlme_c_, _drv_notice_,
 						 ("%s: change channel %d scan type from passive to active\n",
 						  __FUNCTION__, channel));
 			}
@@ -14431,7 +14431,7 @@ u8 mlme_evt_hdl(_adapter *padapter, unsigned char *pbuf)
 	// checking event sequence...		
 	if (evt_seq != (ATOMIC_READ(&pevt_priv->event_seq) & 0x7f) )
 	{
-		RT_TRACE(_module_rtl871x_cmd_c_,_drv_info_,("Evetn Seq Error! %d vs %d\n", (evt_seq & 0x7f), (ATOMIC_READ(&pevt_priv->event_seq) & 0x7f)));
+		RT_TRACE(_module_ttl871x_cmd_c_,_drv_info_,("Evetn Seq Error! %d vs %d\n", (evt_seq & 0x7f), (ATOMIC_READ(&pevt_priv->event_seq) & 0x7f)));
 	
 		pevt_priv->event_seq = (evt_seq+1)&0x7f;
 
@@ -14442,7 +14442,7 @@ u8 mlme_evt_hdl(_adapter *padapter, unsigned char *pbuf)
 	// checking if event code is valid
 	if (evt_code >= MAX_C2HEVT)
 	{
-		RT_TRACE(_module_rtl871x_cmd_c_,_drv_err_,("\nEvent Code(%d) mismatch!\n", evt_code));
+		RT_TRACE(_module_ttl871x_cmd_c_,_drv_err_,("\nEvent Code(%d) mismatch!\n", evt_code));
 		goto _abort_event_;
 	}
 
@@ -14451,7 +14451,7 @@ u8 mlme_evt_hdl(_adapter *padapter, unsigned char *pbuf)
 			(wlanevents[evt_code].parmsize != evt_sz))
 	{
 			
-		RT_TRACE(_module_rtl871x_cmd_c_,_drv_err_,("\nEvent(%d) Parm Size mismatch (%d vs %d)!\n", 
+		RT_TRACE(_module_ttl871x_cmd_c_,_drv_err_,("\nEvent(%d) Parm Size mismatch (%d vs %d)!\n", 
 			evt_code, wlanevents[evt_code].parmsize, evt_sz));
 		goto _abort_event_;	
 			

@@ -20,7 +20,7 @@
 #define _RTL9083E_CMD_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 #include "hal_com_h2c.h"
 
 #define CONFIG_H2C_EF
@@ -158,7 +158,7 @@ _func_exit_;
 	return ret;
 }
 
-u8 rtl8192c_h2c_msg_hdl(_adapter *padapter, unsigned char *pbuf)
+u8 ttl8192c_h2c_msg_hdl(_adapter *padapter, unsigned char *pbuf)
 {
 	u8 ElementID, CmdLen;
 	u8 *pCmdBuffer;
@@ -178,7 +178,7 @@ u8 rtl8192c_h2c_msg_hdl(_adapter *padapter, unsigned char *pbuf)
 }
 /*
 #if defined(CONFIG_AUTOSUSPEND) && defined(SUPPORT_HW_RFOFF_DETECTED)
-u8 rtl8192c_set_FwSelectSuspend_cmd(_adapter *padapter ,u8 bfwpoll, u16 period)
+u8 ttl8192c_set_FwSelectSuspend_cmd(_adapter *padapter ,u8 bfwpoll, u16 period)
 {
 	u8	res=_SUCCESS;
 	struct H2C_SS_RFOFF_PARAM param;
@@ -190,7 +190,7 @@ u8 rtl8192c_set_FwSelectSuspend_cmd(_adapter *padapter ,u8 bfwpoll, u16 period)
 }
 #endif //CONFIG_AUTOSUSPEND && SUPPORT_HW_RFOFF_DETECTED
 */
-u8 rtl9083e_set_rssi_cmd(_adapter*padapter, u8 *param)
+u8 ttl9083e_set_rssi_cmd(_adapter*padapter, u8 *param)
 {
 	u8	res=_SUCCESS;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -209,7 +209,7 @@ _func_exit_;
 	return res;
 }
 
-u8 rtl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
+u8 ttl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 {	
 	u8	res=_SUCCESS;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -278,7 +278,7 @@ u8 rtl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 //bitmap[28:31]= Rate Adaptive id
 //arg[0:4] = macid
 //arg[5] = Short GI
-void rtl9083e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_level)
+void ttl9083e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_level)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(pAdapter);
 	u8 macid, init_rate, raid, shortGIrate=_FALSE;
@@ -316,13 +316,13 @@ void rtl9083e_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_
 	else
 #endif
 	{
-		 rtl9083e_set_raid_cmd(pAdapter,bitmap,arg);
+		 ttl9083e_set_raid_cmd(pAdapter,bitmap,arg);
 	}
 	
 
 }
 
-void rtl9083e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode)
+void ttl9083e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode)
 {
 	SETPWRMODE_PARM H2CSetPwrMode;
 	struct pwrctrl_priv *pwrpriv = adapter_to_pwrctl(padapter);
@@ -381,7 +381,7 @@ _func_enter_;
 _func_exit_;
 }
 
-void rtl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt )
+void ttl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt )
 {
 	u8 opmode,macid;
 	u16 mst_rpt = cpu_to_le16 (mstatus_rpt);
@@ -655,7 +655,7 @@ void ConstructProbeRsp(_adapter *padapter, u8 *pframe, u32 *pLength, u8 *StaAddr
 	*pLength = pktlen;
 }
 
-void rtl9083e_set_FwRsvdPage_cmd(PADAPTER padapter, PRSVDPAGE_LOC rsvdpageloc)
+void ttl9083e_set_FwRsvdPage_cmd(PADAPTER padapter, PRSVDPAGE_LOC rsvdpageloc)
 {
     u8 u1H2CRsvdPageParm[H2C_RSVDPAGE_LOC_LEN]={0};
     u8 u1H2CAoacRsvdPageParm[H2C_AOAC_RSVDPAGE_LOC_LEN]={0};
@@ -718,7 +718,7 @@ GetTxBufferRsvdPageNum9083E(_adapter *padapter, bool wowlan)
 	return RsvdPageNum;
 }
 
-void rtl9083e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus)
+void ttl9083e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus)
 {
 	JOINBSSRPT_PARM_88E	JoinBssRptParm;
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
@@ -842,7 +842,7 @@ _func_exit_;
 }
 
 #ifdef CONFIG_P2P_PS
-void rtl9083e_set_p2p_ps_offload_cmd(_adapter* padapter, u8 p2p_ps_state)
+void ttl9083e_set_p2p_ps_offload_cmd(_adapter* padapter, u8 p2p_ps_state)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	struct pwrctrl_priv		*pwrpriv = adapter_to_pwrctl(padapter);
@@ -937,7 +937,7 @@ _func_exit_;
 /*
 	ask FW to Reset sync register at Beacon early interrupt
 */
-u8 rtl9083e_reset_tsf(_adapter *padapter, u8 reset_port )
+u8 ttl9083e_reset_tsf(_adapter *padapter, u8 reset_port )
 {	
 	u8	buf[2];
 	u8	res=_SUCCESS;
@@ -962,12 +962,12 @@ int reset_tsf(PADAPTER Adapter, u8 reset_port )
 	u8 reset_cnt_before = 0, reset_cnt_after = 0, loop_cnt = 0;
 	u32 reg_reset_tsf_cnt = (IFACE_PORT0==reset_port) ?
 				REG_FW_RESET_TSF_CNT_0:REG_FW_RESET_TSF_CNT_1;
-	u32 reg_bcncrtl = (IFACE_PORT0==reset_port) ?
+	u32 reg_bcncttl = (IFACE_PORT0==reset_port) ?
 				REG_BCN_CTRL_1:REG_BCN_CTRL;
 
 	rtw_scan_abort(Adapter->pbuddy_adapter);	/*	site survey will cause reset_tsf fail	*/
 	reset_cnt_after = reset_cnt_before = rtw_read8(Adapter,reg_reset_tsf_cnt);
-	rtl9083e_reset_tsf(Adapter, reset_port);
+	ttl9083e_reset_tsf(Adapter, reset_port);
 
 	while ((reset_cnt_after == reset_cnt_before ) && (loop_cnt < 10)) {
 		rtw_msleep_os(100);

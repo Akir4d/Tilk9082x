@@ -67,7 +67,7 @@ odm_EdcaTurboCheck(
 	)
 {
 	// 
-	// For AP/ADSL use prtl8192cd_priv
+	// For AP/ADSL use pttl8192cd_priv
 	// For CE/NIC use PADAPTER
 	//
 

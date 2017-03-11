@@ -23,8 +23,8 @@
 #include <rtw_sreset.h>
 
 #ifdef DBG_CONFIG_ERROR_DETECT
-extern void rtl9083e_sreset_xmit_status_check(_adapter *padapter);
-extern void rtl9083e_sreset_linked_status_check(_adapter *padapter);
+extern void ttl9083e_sreset_xmit_status_check(_adapter *padapter);
+extern void ttl9083e_sreset_linked_status_check(_adapter *padapter);
 #endif
 #endif
 

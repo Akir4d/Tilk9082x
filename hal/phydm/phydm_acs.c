@@ -222,7 +222,7 @@ phydm_AutoChannelSelectSettingAP(
 )
 {
     PDM_ODM_T           pDM_Odm = (PDM_ODM_T)pDM_VOID;
-    prtl8192cd_priv       priv           = pDM_Odm->priv;
+    pttl8192cd_priv       priv           = pDM_Odm->priv;
     PACS                    pACS         = &pDM_Odm->DM_ACS;
 
     ODM_RT_TRACE(pDM_Odm, ODM_COMP_ACS, ODM_DBG_LOUD, ("odm_AutoChannelSelectSettingAP()=========> \n"));
@@ -362,7 +362,7 @@ phydm_GetNHMStatisticsAP(
 )
 {
     PDM_ODM_T	    pDM_Odm = (PDM_ODM_T)pDM_VOID;
-    prtl8192cd_priv     priv    = pDM_Odm->priv;
+    pttl8192cd_priv     priv    = pDM_Odm->priv;
     PACS                  pACS    = &pDM_Odm->DM_ACS;
     u4Byte                value32 = 0;
     u1Byte                i;
@@ -452,7 +452,7 @@ int phydm_AutoChannelSelectAP(
 {
     PDM_ODM_T               pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	PACS                    pACS    = &pDM_Odm->DM_ACS;
-    prtl8192cd_priv			priv    = pDM_Odm->priv;
+    pttl8192cd_priv			priv    = pDM_Odm->priv;
     
     static u4Byte           score2G[MAX_2G_CHANNEL_NUM], score5G[MAX_5G_CHANNEL_NUM];
     u4Byte                  score[MAX_BSS_NUM], use_nhm = 0;

@@ -86,7 +86,7 @@ int	PHY_BBConfig9083E(IN	PADAPTER	Adapter	);
 int	PHY_RFConfig9083E(IN	PADAPTER	Adapter	);
 
 /* RF config */
-int	rtl9083e_PHY_ConfigRFWithParaFile(IN PADAPTER Adapter, IN u8 * pFileName, u8 eRFPath);
+int	ttl9083e_PHY_ConfigRFWithParaFile(IN PADAPTER Adapter, IN u8 * pFileName, u8 eRFPath);
 
 //
 // RF Power setting

@@ -288,45 +288,45 @@
 			GET_RX_STATUS_DESC_RX_RATE_8703B(pDesc) == DESC8703B_RATE11M)
 
 
-void rtl8703b_update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem);
-void rtl8703b_fill_fake_txdesc(PADAPTER padapter, u8 *pDesc, u32 BufferLen, u8 IsPsPoll, u8 IsBTQosNull, u8 bDataFrame);
+void ttl8703b_update_txdesc(struct xmit_frame *pxmitframe, u8 *pmem);
+void ttl8703b_fill_fake_txdesc(PADAPTER padapter, u8 *pDesc, u32 BufferLen, u8 IsPsPoll, u8 IsBTQosNull, u8 bDataFrame);
 
 #if defined(CONFIG_SDIO_HCI) || defined(CONFIG_GSPI_HCI)
-s32 rtl8703bs_init_xmit_priv(PADAPTER padapter);
-void rtl8703bs_free_xmit_priv(PADAPTER padapter);
-s32 rtl8703bs_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8703bs_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	rtl8703bs_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-s32 rtl8703bs_xmit_buf_handler(PADAPTER padapter);
-thread_return rtl8703bs_xmit_thread(thread_context context);
-#define hal_xmit_handler rtl8703bs_xmit_buf_handler
+s32 ttl8703bs_init_xmit_priv(PADAPTER padapter);
+void ttl8703bs_free_xmit_priv(PADAPTER padapter);
+s32 ttl8703bs_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl8703bs_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	ttl8703bs_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+s32 ttl8703bs_xmit_buf_handler(PADAPTER padapter);
+thread_return ttl8703bs_xmit_thread(thread_context context);
+#define hal_xmit_handler ttl8703bs_xmit_buf_handler
 #endif
 
 #ifdef CONFIG_USB_HCI
-s32 rtl8703bu_xmit_buf_handler(PADAPTER padapter);
-#define hal_xmit_handler rtl8703bu_xmit_buf_handler
+s32 ttl8703bu_xmit_buf_handler(PADAPTER padapter);
+#define hal_xmit_handler ttl8703bu_xmit_buf_handler
 
 
-s32 rtl8703bu_init_xmit_priv(PADAPTER padapter);
-void rtl8703bu_free_xmit_priv(PADAPTER padapter);
-s32 rtl8703bu_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8703bu_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	 rtl8703bu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-//s32 rtl8812au_xmit_buf_handler(PADAPTER padapter);
-void rtl8703bu_xmit_tasklet(void *priv);
-s32 rtl8703bu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+s32 ttl8703bu_init_xmit_priv(PADAPTER padapter);
+void ttl8703bu_free_xmit_priv(PADAPTER padapter);
+s32 ttl8703bu_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl8703bu_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	 ttl8703bu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+//s32 ttl8812au_xmit_buf_handler(PADAPTER padapter);
+void ttl8703bu_xmit_tasklet(void *priv);
+s32 ttl8703bu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
 void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8703be_init_xmit_priv(PADAPTER padapter);
-void rtl8703be_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf *rtl8703be_dequeue_xmitbuf(struct rtw_tx_ring *ring);
-void	rtl8703be_xmitframe_resume(_adapter *padapter);
-s32 rtl8703be_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8703be_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	rtl8703be_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-void rtl8703be_xmit_tasklet(void *priv);
+s32 ttl8703be_init_xmit_priv(PADAPTER padapter);
+void ttl8703be_free_xmit_priv(PADAPTER padapter);
+struct xmit_buf *ttl8703be_dequeue_xmitbuf(struct rtw_tx_ring *ring);
+void	ttl8703be_xmitframe_resume(_adapter *padapter);
+s32 ttl8703be_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl8703be_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	ttl8703be_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+void ttl8703be_xmit_tasklet(void *priv);
 #endif
 
 u8	BWMapping_8703B(PADAPTER Adapter, struct pkt_attrib *pattrib);

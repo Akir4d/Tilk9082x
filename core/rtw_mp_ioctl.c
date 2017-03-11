@@ -23,7 +23,7 @@
 #include <rtw_mp_ioctl.h>
 #include "../hal/phydm/phydm_precomp.h"
 
-//****************  oid_rtl_seg_81_85   section start ****************
+//****************  oid_ttl_seg_81_85   section start ****************
 NDIS_STATUS oid_rt_wireless_mode_hdl(struct oid_par_priv *poid_par_priv)
 {
 	NDIS_STATUS status = NDIS_STATUS_SUCCESS;
@@ -48,7 +48,7 @@ _func_exit_;
 
 	return status;
 }
-//****************  oid_rtl_seg_81_87_80   section start ****************
+//****************  oid_ttl_seg_81_87_80   section start ****************
 NDIS_STATUS oid_rt_pro_write_bb_reg_hdl(struct oid_par_priv *poid_par_priv)
 {
 #ifdef PLATFORM_OS_XP
@@ -227,10 +227,10 @@ _func_exit_;
 
 	return status;
 }
-//****************  oid_rtl_seg_81_87_00   section end****************
+//****************  oid_ttl_seg_81_87_00   section end****************
 //------------------------------------------------------------------------------
 
-//****************  oid_rtl_seg_81_80_00   section start ****************
+//****************  oid_ttl_seg_81_80_00   section start ****************
 //------------------------------------------------------------------------------
 NDIS_STATUS oid_rt_pro_set_data_rate_hdl(struct oid_par_priv *poid_par_priv)
 {
@@ -495,7 +495,7 @@ _func_exit_;
 }
 
 //------------------------------------------------------------------------------
-//****************  oid_rtl_seg_81_80_20   section start ****************
+//****************  oid_ttl_seg_81_80_20   section start ****************
 //------------------------------------------------------------------------------
 NDIS_STATUS oid_rt_pro_query_tx_packet_sent_hdl(struct oid_par_priv *poid_par_priv)
 {
@@ -703,7 +703,7 @@ _func_exit_;
 
 	return status;
 }
-//****************  oid_rtl_seg_81_80_20   section end ****************
+//****************  oid_ttl_seg_81_80_20   section end ****************
 NDIS_STATUS oid_rt_pro_set_continuous_tx_hdl(struct oid_par_priv *poid_par_priv)
 {
 #ifdef PLATFORM_OS_XP
@@ -871,7 +871,7 @@ _func_exit_;
 
 	return status;
 }
-//****************  oid_rtl_seg_81_80_00   section end ****************
+//****************  oid_ttl_seg_81_80_00   section end ****************
 //------------------------------------------------------------------------------
 NDIS_STATUS oid_rt_pro8711_join_bss_hdl(struct oid_par_priv *poid_par_priv)
 {
@@ -1635,7 +1635,7 @@ _func_enter_;
 			datarates[i] = mpdatarate[i];
 		else
 			datarates[i] = 0xff;
-		RT_TRACE(_module_rtl871x_ioctl_c_, _drv_info_, ("basicrate_inx=%d\n", datarates[i]));
+		RT_TRACE(_module_ttl871x_ioctl_c_, _drv_info_, ("basicrate_inx=%d\n", datarates[i]));
 	}
 
 	_irqlevel_changed_(&oldirql, LOWER);
@@ -1809,7 +1809,7 @@ _func_exit_;
 #endif
 }
 
-//****************  oid_rtl_seg_87_12_00   section start ****************
+//****************  oid_ttl_seg_87_12_00   section start ****************
 NDIS_STATUS oid_rt_pro_encryption_ctrl_hdl(struct oid_par_priv *poid_par_priv)
 {
 #if 0
@@ -1868,7 +1868,7 @@ NDIS_STATUS oid_rt_pro_encryption_ctrl_hdl(struct oid_par_priv *poid_par_priv)
 				break;
 		}
 
-		RT_TRACE(_module_rtl871x_ioctl_c_, _drv_notice_,
+		RT_TRACE(_module_ttl871x_ioctl_c_, _drv_notice_,
 			 ("-oid_rt_pro_encryption_ctrl_hdl: SET encry_mode=0x%x sw_encrypt=0x%x sw_decrypt=0x%x\n",
 			  encry_mode, psecuritypriv->sw_encrypt, psecuritypriv->sw_decrypt));
 	}
@@ -1936,7 +1936,7 @@ NDIS_STATUS oid_rt_pro_add_sta_info_hdl(struct oid_par_priv *poid_par_priv)
 
 	macaddr = (UCHAR *) poid_par_priv->information_buf ;
 
-	RT_TRACE(_module_rtl871x_ioctl_c_,_drv_notice_,
+	RT_TRACE(_module_ttl871x_ioctl_c_,_drv_notice_,
 		 ("OID_RT_PRO_ADD_STA_INFO: addr="MAC_FMT"\n", MAC_ARG(macaddr) ));
 
 	_irqlevel_changed_(&oldirql, LOWER);
@@ -1947,11 +1947,11 @@ NDIS_STATUS oid_rt_pro_add_sta_info_hdl(struct oid_par_priv *poid_par_priv)
 		psta = rtw_alloc_stainfo(&Adapter->stapriv, macaddr);
 
 		if (psta == NULL) {
-			RT_TRACE(_module_rtl871x_ioctl_c_,_drv_err_,("Can't alloc sta_info when OID_RT_PRO_ADD_STA_INFO\n"));
+			RT_TRACE(_module_ttl871x_ioctl_c_,_drv_err_,("Can't alloc sta_info when OID_RT_PRO_ADD_STA_INFO\n"));
 			status = NDIS_STATUS_FAILURE;
 		}
 	} else { //(between drv has received this event before and  fw have not yet to set key to CAM_ENTRY)
-		RT_TRACE(_module_rtl871x_ioctl_c_, _drv_err_,
+		RT_TRACE(_module_ttl871x_ioctl_c_, _drv_err_,
 			("Error: OID_RT_PRO_ADD_STA_INFO: sta has been in sta_hash_queue \n"));
 	}
 
@@ -1985,7 +1985,7 @@ NDIS_STATUS oid_rt_pro_dele_sta_info_hdl(struct oid_par_priv *poid_par_priv)
 		return NDIS_STATUS_INVALID_LENGTH;
 
 	macaddr = (UCHAR *) poid_par_priv->information_buf ;
-	RT_TRACE(_module_rtl871x_ioctl_c_,_drv_notice_,
+	RT_TRACE(_module_ttl871x_ioctl_c_,_drv_notice_,
 		 ("+OID_RT_PRO_ADD_STA_INFO: addr="MAC_FMT"\n", MAC_ARG(macaddr) ));
 
 	psta = rtw_get_stainfo(&Adapter->stapriv, macaddr);
@@ -2136,26 +2136,26 @@ static u32 mp_query_drv_var(_adapter *padapter, u8 offset, u32 var)
 			prnt_dbg_comp=GlobalDebugComponents;
 			RT_TRACE(0xffffffff, _drv_emerg_, ("4-1: mp_query_drv_var: offset(%d;0x%x):before set dbg conpoment tmp_dbg_comp=0x%x GlobalDebugComponents=0x%x(l) 0x%x(h)",offset,offset,tmp_dbg_comp,prnt_dbg_comp));
 
-			RT_TRACE(_module_rtl871x_xmit_c_, _drv_emerg_, ("0: mp_query_drv_var(_module_rtl871x_xmit_c_:0): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,prnt_dbg_comp));
+			RT_TRACE(_module_ttl871x_xmit_c_, _drv_emerg_, ("0: mp_query_drv_var(_module_ttl871x_xmit_c_:0): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,prnt_dbg_comp));
 			RT_TRACE(_module_xmit_osdep_c_, _drv_emerg_, ("1: mp_query_drv_var(_module_xmit_osdep_c_:1): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_recv_c_, _drv_emerg_, ("2: mp_query_drv_var(_module_rtl871x_recv_c_:2): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_recv_c_, _drv_emerg_, ("2: mp_query_drv_var(_module_ttl871x_recv_c_:2): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_recv_osdep_c_, _drv_emerg_, ("3: mp_query_drv_var(_module_recv_osdep_c_:3): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_mlme_c_, _drv_emerg_, ("4: mp_query_drv_var(_module_rtl871x_mlme_c_:4): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_mlme_c_, _drv_emerg_, ("4: mp_query_drv_var(_module_ttl871x_mlme_c_:4): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_mlme_osdep_c_, _drv_emerg_, (" 5:mp_query_drv_var(_module_mlme_osdep_c_:5): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_sta_mgt_c_, _drv_emerg_, ("6: mp_query_drv_var(_module_rtl871x_sta_mgt_c_:6): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_cmd_c_, _drv_emerg_, ("7: mp_query_drv_var(_module_rtl871x_cmd_c_:7): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_sta_mgt_c_, _drv_emerg_, ("6: mp_query_drv_var(_module_ttl871x_sta_mgt_c_:6): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_cmd_c_, _drv_emerg_, ("7: mp_query_drv_var(_module_ttl871x_cmd_c_:7): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_cmd_osdep_c_, _drv_emerg_, ("8: mp_query_drv_var(_module_cmd_osdep_c_:8): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_io_c_, _drv_emerg_, ("9: mp_query_drv_var(_module_rtl871x_io_c_:9): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_io_c_, _drv_emerg_, ("9: mp_query_drv_var(_module_ttl871x_io_c_:9): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_io_osdep_c_, _drv_emerg_, ("10: mp_query_drv_var(_module_io_osdep_c_:10): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_os_intfs_c_, _drv_emerg_, ("11: mp_query_drv_var(_module_os_intfs_c_:11): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_security_c_, _drv_emerg_, ("12: mp_query_drv_var(_module_rtl871x_security_c_:12): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_eeprom_c_, _drv_emerg_, ("13: mp_query_drv_var(_module_rtl871x_eeprom_c_:13): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_security_c_, _drv_emerg_, ("12: mp_query_drv_var(_module_ttl871x_security_c_:12): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_eeprom_c_, _drv_emerg_, ("13: mp_query_drv_var(_module_ttl871x_eeprom_c_:13): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_hal_init_c_, _drv_emerg_, ("14: mp_query_drv_var(_module_hal_init_c_:14): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_hci_hal_init_c_, _drv_emerg_, ("15: mp_query_drv_var(_module_hci_hal_init_c_:15): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_ioctl_c_, _drv_emerg_, ("16: mp_query_drv_var(_module_rtl871x_ioctl_c_:16): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_ioctl_set_c_, _drv_emerg_, ("17: mp_query_drv_var(_module_rtl871x_ioctl_set_c_:17): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_ioctl_query_c_, _drv_emerg_, ("18: mp_query_drv_var(_module_rtl871x_ioctl_query_c_:18): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
-			RT_TRACE(_module_rtl871x_pwrctrl_c_, _drv_emerg_, ("19: mp_query_drv_var(_module_rtl871x_pwrctrl_c_:19): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_ioctl_c_, _drv_emerg_, ("16: mp_query_drv_var(_module_ttl871x_ioctl_c_:16): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_ioctl_set_c_, _drv_emerg_, ("17: mp_query_drv_var(_module_ttl871x_ioctl_set_c_:17): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_ioctl_query_c_, _drv_emerg_, ("18: mp_query_drv_var(_module_ttl871x_ioctl_query_c_:18): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
+			RT_TRACE(_module_ttl871x_pwrctrl_c_, _drv_emerg_, ("19: mp_query_drv_var(_module_ttl871x_pwrctrl_c_:19): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_hci_intfs_c_, _drv_emerg_, ("20: mp_query_drv_var(_module_hci_intfs_c_:20): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_hci_ops_c_, _drv_emerg_, ("21: mp_query_drv_var(_module_hci_ops_c_:21): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
 			RT_TRACE(_module_osdep_service_c_, _drv_emerg_, ("22: mp_query_drv_var(_module_osdep_service_c_:22): offset(%d;0x%x):before set dbg conpoment=0x%x(l) 0x%x(h)\n",offset,offset,GlobalDebugComponents));
@@ -2234,10 +2234,10 @@ NDIS_STATUS oid_rt_pro_rx_packet_type_hdl(struct oid_par_priv *poid_par_priv)
 
 	if (poid_par_priv->type_of_oid == SET_OID) {
 		Adapter->mppriv.rx_with_status = *(UCHAR *) poid_par_priv->information_buf;
-		RT_TRACE(_module_rtl871x_ioctl_c_,_drv_err_, ("Query Information, OID_RT_PRO_RX_PACKET_TYPE:%d \n",\
+		RT_TRACE(_module_ttl871x_ioctl_c_,_drv_err_, ("Query Information, OID_RT_PRO_RX_PACKET_TYPE:%d \n",\
 												Adapter->mppriv.rx_with_status));
 
-		RT_TRACE(_module_rtl871x_ioctl_c_,_drv_err_,("MAC addr=0x%x:0x%x:0x%x:0x%x:0x%x:0x%x  \n",
+		RT_TRACE(_module_ttl871x_ioctl_c_,_drv_err_,("MAC addr=0x%x:0x%x:0x%x:0x%x:0x%x:0x%x  \n",
 			Adapter->eeprompriv.mac_addr[0],Adapter->eeprompriv.mac_addr[1],Adapter->eeprompriv.mac_addr[2],\
 			Adapter->eeprompriv.mac_addr[3],Adapter->eeprompriv.mac_addr[4],Adapter->eeprompriv.mac_addr[5]));
 
@@ -2246,12 +2246,12 @@ NDIS_STATUS oid_rt_pro_rx_packet_type_hdl(struct oid_par_priv *poid_par_priv)
 		*(UCHAR *) poid_par_priv->information_buf = Adapter->mppriv.rx_with_status;
 		*poid_par_priv->bytes_rw = poid_par_priv->information_buf_len;
 
-		RT_TRACE(_module_rtl871x_ioctl_c_,_drv_err_, ("Query Information, OID_RT_PRO_RX_PACKET_TYPE:%d \n", \
+		RT_TRACE(_module_ttl871x_ioctl_c_,_drv_err_, ("Query Information, OID_RT_PRO_RX_PACKET_TYPE:%d \n", \
 												Adapter->mppriv.rx_with_status));
 
 		//*(u32 *)&Adapter->eeprompriv.mac_addr[0]=rtw_read32(Adapter, 0x10250050);
 		//*(u16 *)&Adapter->eeprompriv.mac_addr[4]=rtw_read16(Adapter, 0x10250054);
-		RT_TRACE(_module_rtl871x_ioctl_c_,_drv_err_,("MAC addr=0x%x:0x%x:0x%x:0x%x:0x%x:0x%x  \n",
+		RT_TRACE(_module_ttl871x_ioctl_c_,_drv_err_,("MAC addr=0x%x:0x%x:0x%x:0x%x:0x%x:0x%x  \n",
 			Adapter->eeprompriv.mac_addr[0],Adapter->eeprompriv.mac_addr[1],Adapter->eeprompriv.mac_addr[2],\
 			Adapter->eeprompriv.mac_addr[3],Adapter->eeprompriv.mac_addr[4],Adapter->eeprompriv.mac_addr[5]));
 	}

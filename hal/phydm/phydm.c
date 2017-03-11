@@ -599,7 +599,7 @@ ODM_DMWatchdog(
 
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 	{
-	prtl8192cd_priv priv		= pDM_Odm->priv;
+	pttl8192cd_priv priv		= pDM_Odm->priv;
 	if( (priv->auto_channel != 0) && (priv->auto_channel != 2) )//if ACS running, do not do FA/CCA counter read
 		return;
 	}

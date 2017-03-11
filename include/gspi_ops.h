@@ -147,8 +147,8 @@ struct spi_more_data {
 };
 
 #ifdef CONFIG_RTL9083E
-void rtl9083es_set_hal_ops(PADAPTER padapter);
-#define set_hal_ops rtl9083es_set_hal_ops
+void ttl9083es_set_hal_ops(PADAPTER padapter);
+#define set_hal_ops ttl9083es_set_hal_ops
 #endif
 extern void spi_set_chip_endian(PADAPTER padapter);
 extern unsigned int spi_write8_endian(ADAPTER *Adapter, unsigned int addr, unsigned int buf, u32 big);

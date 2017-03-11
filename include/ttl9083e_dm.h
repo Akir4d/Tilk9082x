@@ -20,14 +20,14 @@
 #ifndef __RTL9083E_DM_H__
 #define __RTL9083E_DM_H__
 
-void rtl9083e_init_dm_priv(IN PADAPTER Adapter);
-void rtl9083e_deinit_dm_priv(IN PADAPTER Adapter);
-void rtl9083e_InitHalDm(IN PADAPTER Adapter);
-void rtl9083e_HalDmWatchDog(IN PADAPTER Adapter);
+void ttl9083e_init_dm_priv(IN PADAPTER Adapter);
+void ttl9083e_deinit_dm_priv(IN PADAPTER Adapter);
+void ttl9083e_InitHalDm(IN PADAPTER Adapter);
+void ttl9083e_HalDmWatchDog(IN PADAPTER Adapter);
 
-//VOID rtl8192c_dm_CheckTXPowerTracking(IN PADAPTER Adapter);
+//VOID ttl8192c_dm_CheckTXPowerTracking(IN PADAPTER Adapter);
 
-//void rtl8192c_dm_RF_Saving(IN PADAPTER pAdapter, IN u8 bForceInNormal);
+//void ttl8192c_dm_RF_Saving(IN PADAPTER pAdapter, IN u8 bForceInNormal);
 
 #ifdef CONFIG_ANTENNA_DIVERSITY
 void	AntDivCompare9083E(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src);

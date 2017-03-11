@@ -35,13 +35,13 @@
 // function prototype
 //============================================================
 
-void rtl8703b_init_dm_priv(PADAPTER padapter);
-void rtl8703b_deinit_dm_priv(PADAPTER padapter);
+void ttl8703b_init_dm_priv(PADAPTER padapter);
+void ttl8703b_deinit_dm_priv(PADAPTER padapter);
 
-void rtl8703b_InitHalDm(PADAPTER padapter);
-void rtl8703b_HalDmWatchDog(PADAPTER padapter);
-void rtl8703b_HalDmWatchDog_in_LPS(PADAPTER padapter);
-void rtl8703b_hal_dm_in_lps(PADAPTER padapter);
+void ttl8703b_InitHalDm(PADAPTER padapter);
+void ttl8703b_HalDmWatchDog(PADAPTER padapter);
+void ttl8703b_HalDmWatchDog_in_LPS(PADAPTER padapter);
+void ttl8703b_hal_dm_in_lps(PADAPTER padapter);
 
 
 #endif

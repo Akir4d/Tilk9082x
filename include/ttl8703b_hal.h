@@ -22,35 +22,35 @@
 
 #include "hal_data.h"
 
-#include "rtl8703b_spec.h"
-#include "rtl8703b_rf.h"
-#include "rtl8703b_dm.h"
-#include "rtl8703b_recv.h"
-#include "rtl8703b_xmit.h"
-#include "rtl8703b_cmd.h"
-#include "rtl8703b_led.h"
+#include "ttl8703b_spec.h"
+#include "ttl8703b_rf.h"
+#include "ttl8703b_dm.h"
+#include "ttl8703b_recv.h"
+#include "ttl8703b_xmit.h"
+#include "ttl8703b_cmd.h"
+#include "ttl8703b_led.h"
 #include "Hal8703BPwrSeq.h"
 #include "Hal8703BPhyReg.h"
 #include "Hal8703BPhyCfg.h"
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl8703b_sreset.h"
+#include "ttl8703b_sreset.h"
 #endif
 
 
 //---------------------------------------------------------------------
 //		RTL8703B From file
 //---------------------------------------------------------------------
-	#define RTL8703B_FW_IMG					"rtl8703b/FW_NIC.bin"
-	#define RTL8703B_FW_WW_IMG				"rtl8703b/FW_WoWLAN.bin"
-	#define RTL8703B_PHY_REG					"rtl8703b/PHY_REG.txt"
-	#define RTL8703B_PHY_RADIO_A				"rtl8703b/RadioA.txt"
-	#define RTL8703B_PHY_RADIO_B				"rtl8703b/RadioB.txt"
-	#define RTL8703B_TXPWR_TRACK				"rtl8703b/TxPowerTrack.txt" 
-	#define RTL8703B_AGC_TAB					"rtl8703b/AGC_TAB.txt"
-	#define RTL8703B_PHY_MACREG 				"rtl8703b/MAC_REG.txt"
-	#define RTL8703B_PHY_REG_PG				"rtl8703b/PHY_REG_PG.txt"
-	#define RTL8703B_PHY_REG_MP				"rtl8703b/PHY_REG_MP.txt"
-	#define RTL8703B_TXPWR_LMT 				"rtl8703b/TXPWR_LMT.txt"
+	#define RTL8703B_FW_IMG					"ttl8703b/FW_NIC.bin"
+	#define RTL8703B_FW_WW_IMG				"ttl8703b/FW_WoWLAN.bin"
+	#define RTL8703B_PHY_REG					"ttl8703b/PHY_REG.txt"
+	#define RTL8703B_PHY_RADIO_A				"ttl8703b/RadioA.txt"
+	#define RTL8703B_PHY_RADIO_B				"ttl8703b/RadioB.txt"
+	#define RTL8703B_TXPWR_TRACK				"ttl8703b/TxPowerTrack.txt" 
+	#define RTL8703B_AGC_TAB					"ttl8703b/AGC_TAB.txt"
+	#define RTL8703B_PHY_MACREG 				"ttl8703b/MAC_REG.txt"
+	#define RTL8703B_PHY_REG_PG				"ttl8703b/PHY_REG_PG.txt"
+	#define RTL8703B_PHY_REG_MP				"ttl8703b/PHY_REG_MP.txt"
+	#define RTL8703B_TXPWR_LMT 				"ttl8703b/TXPWR_LMT.txt"
 
 //---------------------------------------------------------------------
 //		RTL8703B From header
@@ -257,17 +257,17 @@ typedef enum tag_Package_Definition
 #define INCLUDE_MULTI_FUNC_BT(_Adapter)		(GET_HAL_DATA(_Adapter)->MultiFunc & RT_MULTI_FUNC_BT)
 #define INCLUDE_MULTI_FUNC_GPS(_Adapter)	(GET_HAL_DATA(_Adapter)->MultiFunc & RT_MULTI_FUNC_GPS)
 
-// rtl8703b_hal_init.c
-s32 rtl8703b_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
-void rtl8703b_FirmwareSelfReset(PADAPTER padapter);
-void rtl8703b_InitializeFirmwareVars(PADAPTER padapter);
+// ttl8703b_hal_init.c
+s32 ttl8703b_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw);
+void ttl8703b_FirmwareSelfReset(PADAPTER padapter);
+void ttl8703b_InitializeFirmwareVars(PADAPTER padapter);
 
-void rtl8703b_InitAntenna_Selection(PADAPTER padapter);
-void rtl8703b_DeinitAntenna_Selection(PADAPTER padapter);
-void rtl8703b_CheckAntenna_Selection(PADAPTER padapter);
-void rtl8703b_init_default_value(PADAPTER padapter);
+void ttl8703b_InitAntenna_Selection(PADAPTER padapter);
+void ttl8703b_DeinitAntenna_Selection(PADAPTER padapter);
+void ttl8703b_CheckAntenna_Selection(PADAPTER padapter);
+void ttl8703b_init_default_value(PADAPTER padapter);
 
-s32 rtl8703b_InitLLTTable(PADAPTER padapter);
+s32 ttl8703b_InitLLTTable(PADAPTER padapter);
 
 s32 CardDisableHWSM(PADAPTER padapter, u8 resetMCU);
 s32 CardDisableWithoutHWSM(PADAPTER padapter);
@@ -289,11 +289,11 @@ VOID Hal_EfuseParseVoltage_8703B(PADAPTER pAdapter,u8* hwinfo,BOOLEAN 	AutoLoadF
 VOID Hal_EfuseParseBoardType_8703B(PADAPTER Adapter,	u8*	PROMContent,BOOLEAN AutoloadFail);
 
 #ifdef CONFIG_C2H_PACKET_EN
-void rtl8703b_c2h_packet_handler(PADAPTER padapter, u8 *pbuf, u16 length);
+void ttl8703b_c2h_packet_handler(PADAPTER padapter, u8 *pbuf, u16 length);
 #endif
 
 
-void rtl8703b_set_hal_ops(struct hal_ops *pHalFunc);
+void ttl8703b_set_hal_ops(struct hal_ops *pHalFunc);
 void SetHwReg8703B(PADAPTER padapter, u8 variable, u8 *val);
 void GetHwReg8703B(PADAPTER padapter, u8 variable, u8 *val);
 #ifdef CONFIG_C2H_PACKET_EN
@@ -303,8 +303,8 @@ u8 SetHalDefVar8703B(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 u8 GetHalDefVar8703B(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 
 // register
-void rtl8703b_InitBeaconParameters(PADAPTER padapter);
-void rtl8703b_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
+void ttl8703b_InitBeaconParameters(PADAPTER padapter);
+void ttl8703b_InitBeaconMaxError(PADAPTER padapter, u8 InfraMode);
 void	_InitBurstPktLen_8703BS(PADAPTER Adapter);
 void _InitLTECoex_8703BS(PADAPTER Adapter);
 void _8051Reset8703(PADAPTER padapter);
@@ -312,14 +312,14 @@ void _8051Reset8703(PADAPTER padapter);
 void Hal_DetectWoWMode(PADAPTER pAdapter);
 #endif //CONFIG_WOWLAN
 
-void rtl8703b_start_thread(_adapter *padapter);
-void rtl8703b_stop_thread(_adapter *padapter);
+void ttl8703b_start_thread(_adapter *padapter);
+void ttl8703b_stop_thread(_adapter *padapter);
 
 #if defined(CONFIG_CHECK_BT_HANG) && defined(CONFIG_BT_COEXIST)
-void rtl8703bs_init_checkbthang_workqueue(_adapter * adapter);
-void rtl8703bs_free_checkbthang_workqueue(_adapter * adapter);
-void rtl8703bs_cancle_checkbthang_workqueue(_adapter * adapter);
-void rtl8703bs_hal_check_bt_hang(_adapter * adapter);
+void ttl8703bs_init_checkbthang_workqueue(_adapter * adapter);
+void ttl8703bs_free_checkbthang_workqueue(_adapter * adapter);
+void ttl8703bs_cancle_checkbthang_workqueue(_adapter * adapter);
+void ttl8703bs_hal_check_bt_hang(_adapter * adapter);
 #endif
 
 #ifdef CONFIG_GPIO_WAKEUP

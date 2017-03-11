@@ -30,7 +30,7 @@
 // include files
 //============================================================
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
 //============================================================
 // Global var
@@ -334,7 +334,7 @@ static void Update_ODM_ComInfo_88E(PADAPTER	Adapter)
 }
 
 void
-rtl9083e_InitHalDm(
+ttl9083e_InitHalDm(
 	IN	PADAPTER	Adapter
 	)
 {
@@ -354,7 +354,7 @@ rtl9083e_InitHalDm(
 
 
 VOID
-rtl9083e_HalDmWatchDog(
+ttl9083e_HalDmWatchDog(
 	IN	PADAPTER	Adapter
 	)
 {
@@ -447,7 +447,7 @@ skip_dm:
 	return;
 }
 
-void rtl9083e_init_dm_priv(IN PADAPTER Adapter)
+void ttl9083e_init_dm_priv(IN PADAPTER Adapter)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(Adapter);
 	PDM_ODM_T 		podmpriv = &pHalData->odmpriv;
@@ -458,7 +458,7 @@ void rtl9083e_init_dm_priv(IN PADAPTER Adapter)
 	PHYDM_InitDebugSetting(podmpriv);	
 }
 
-void rtl9083e_deinit_dm_priv(IN PADAPTER Adapter)
+void ttl9083e_deinit_dm_priv(IN PADAPTER Adapter)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(Adapter);
 	PDM_ODM_T 		podmpriv = &pHalData->odmpriv;

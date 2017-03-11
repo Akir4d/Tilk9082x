@@ -185,22 +185,22 @@ enum h2c_cmd_8723B{
 //---------------------------------------------------------------------------------------------------------//
 
 // host message to firmware cmd
-void rtl8723b_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode);
-void rtl8723b_set_FwJoinBssRpt_cmd(PADAPTER padapter, u8 mstatus);
-void rtl8723b_set_rssi_cmd(PADAPTER padapter, u8 *param);
-void rtl8723b_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
-void rtl8723b_fw_try_ap_cmd(PADAPTER padapter, u32 need_ack);
-//s32 rtl8723b_set_lowpwr_lps_cmd(PADAPTER padapter, u8 enable);
-void rtl8723b_set_FwPsTuneParam_cmd(PADAPTER padapter);
-void rtl8723b_set_FwMacIdConfig_cmd(_adapter* padapter, u8 mac_id, u8 raid, u8 bw, u8 sgi, u32 mask);
-void rtl8723b_set_FwMediaStatusRpt_cmd(PADAPTER	padapter, u8 mstatus, u8 macid);
-void rtl8723b_set_FwBtMpOper_cmd(PADAPTER padapter, u8 idx, u8 ver, u8 reqnum, u8 *param);
-void rtl8723b_download_rsvd_page(PADAPTER padapter, u8 mstatus);
+void ttl8723b_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode);
+void ttl8723b_set_FwJoinBssRpt_cmd(PADAPTER padapter, u8 mstatus);
+void ttl8723b_set_rssi_cmd(PADAPTER padapter, u8 *param);
+void ttl8723b_Add_RateATid(PADAPTER pAdapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
+void ttl8723b_fw_try_ap_cmd(PADAPTER padapter, u32 need_ack);
+//s32 ttl8723b_set_lowpwr_lps_cmd(PADAPTER padapter, u8 enable);
+void ttl8723b_set_FwPsTuneParam_cmd(PADAPTER padapter);
+void ttl8723b_set_FwMacIdConfig_cmd(_adapter* padapter, u8 mac_id, u8 raid, u8 bw, u8 sgi, u32 mask);
+void ttl8723b_set_FwMediaStatusRpt_cmd(PADAPTER	padapter, u8 mstatus, u8 macid);
+void ttl8723b_set_FwBtMpOper_cmd(PADAPTER padapter, u8 idx, u8 ver, u8 reqnum, u8 *param);
+void ttl8723b_download_rsvd_page(PADAPTER padapter, u8 mstatus);
 #ifdef CONFIG_BT_COEXIST
-void rtl8723b_download_BTCoex_AP_mode_rsvd_page(PADAPTER padapter);
+void ttl8723b_download_BTCoex_AP_mode_rsvd_page(PADAPTER padapter);
 #endif // CONFIG_BT_COEXIST
 #ifdef CONFIG_P2P
-void rtl8723b_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
+void ttl8723b_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
 #endif //CONFIG_P2P
 
 void CheckFwRsvdPageContent(PADAPTER padapter);
@@ -210,13 +210,13 @@ void SetFwRelatedForWoWLAN8723b(_adapter* padapter, u8 bHostIsGoingtoSleep);
 #endif//CONFIG_WOWLAN
 
 #ifdef CONFIG_P2P_WOWLAN
-void rtl8723b_set_p2p_wowlan_offload_cmd(PADAPTER padapter);
+void ttl8723b_set_p2p_wowlan_offload_cmd(PADAPTER padapter);
 #endif
 
-void rtl8723b_set_FwPwrModeInIPS_cmd(PADAPTER padapter, u8 cmd_param);
+void ttl8723b_set_FwPwrModeInIPS_cmd(PADAPTER padapter, u8 cmd_param);
 
 #ifdef CONFIG_TSF_RESET_OFFLOAD
-u8 rtl8723b_reset_tsf(_adapter *padapter, u8 reset_port);
+u8 ttl8723b_reset_tsf(_adapter *padapter, u8 reset_port);
 #endif	// CONFIG_TSF_RESET_OFFLOAD
 s32 FillH2CCmd8723B(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
 u8 GetTxBufferRsvdPageNum8723B(_adapter *padapter, bool wowlan);

@@ -24,78 +24,78 @@
 #include "hal_data.h"
 
 //include HAL Related header after HAL Related compiling flags 
-#include "rtl8812a_spec.h"
-#include "rtl8812a_rf.h"
-#include "rtl8812a_dm.h"
-#include "rtl8812a_recv.h"
-#include "rtl8812a_xmit.h"
-#include "rtl8812a_cmd.h"
-#include "rtl8812a_led.h"
+#include "ttl8812a_spec.h"
+#include "ttl8812a_rf.h"
+#include "ttl8812a_dm.h"
+#include "ttl8812a_recv.h"
+#include "ttl8812a_xmit.h"
+#include "ttl8812a_cmd.h"
+#include "ttl8812a_led.h"
 #include "Hal8812PwrSeq.h"
 #include "Hal8821APwrSeq.h" //for 8821A/8811A
 #include "Hal8812PhyReg.h"
 #include "Hal8812PhyCfg.h"
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl8812a_sreset.h"
+#include "ttl8812a_sreset.h"
 #endif
 
 
 //---------------------------------------------------------------------
 //		RTL8812AU From header
 //---------------------------------------------------------------------
-		#define RTL8812_FW_IMG						"rtl8812a/FW_NIC.bin"
-		#define RTL8812_FW_WW_IMG				"rtl8812a/FW_WoWLAN.bin"
-		#define RTL8812_PHY_REG					"rtl8812a/PHY_REG.txt" 
-		#define RTL8812_PHY_RADIO_A				"rtl8812a/RadioA.txt"
-		#define RTL8812_PHY_RADIO_B				"rtl8812a/RadioB.txt"
-		#define RTL8812_TXPWR_TRACK				"rtl8812a/TxPowerTrack.txt"			
-		#define RTL8812_AGC_TAB					"rtl8812a/AGC_TAB.txt"
-		#define RTL8812_PHY_MACREG 				"rtl8812a/MAC_REG.txt"
-		#define RTL8812_PHY_REG_PG					"rtl8812a/PHY_REG_PG.txt"
-		#define RTL8812_PHY_REG_MP 				"rtl8812a/PHY_REG_MP.txt" 
-		#define RTL8812_TXPWR_LMT					"rtl8812a/TXPWR_LMT.txt" 
-		#define RTL8812_WIFI_ANT_ISOLATION		"rtl8812a/wifi_ant_isolation.txt"
+		#define RTL8812_FW_IMG						"ttl8812a/FW_NIC.bin"
+		#define RTL8812_FW_WW_IMG				"ttl8812a/FW_WoWLAN.bin"
+		#define RTL8812_PHY_REG					"ttl8812a/PHY_REG.txt" 
+		#define RTL8812_PHY_RADIO_A				"ttl8812a/RadioA.txt"
+		#define RTL8812_PHY_RADIO_B				"ttl8812a/RadioB.txt"
+		#define RTL8812_TXPWR_TRACK				"ttl8812a/TxPowerTrack.txt"			
+		#define RTL8812_AGC_TAB					"ttl8812a/AGC_TAB.txt"
+		#define RTL8812_PHY_MACREG 				"ttl8812a/MAC_REG.txt"
+		#define RTL8812_PHY_REG_PG					"ttl8812a/PHY_REG_PG.txt"
+		#define RTL8812_PHY_REG_MP 				"ttl8812a/PHY_REG_MP.txt" 
+		#define RTL8812_TXPWR_LMT					"ttl8812a/TXPWR_LMT.txt" 
+		#define RTL8812_WIFI_ANT_ISOLATION		"ttl8812a/wifi_ant_isolation.txt"
 
 //---------------------------------------------------------------------
 //		RTL8821U From file
 //---------------------------------------------------------------------
-		#define RTL8821_FW_IMG						"rtl8821a/FW_NIC.bin"
-		#define RTL8821_FW_WW_IMG				"rtl8821a/FW_WoWLAN.bin"
-		#define RTL8821_PHY_REG					"rtl8821a/PHY_REG.txt" 
-		#define RTL8821_PHY_RADIO_A				"rtl8821a/RadioA.txt"
-		#define RTL8821_PHY_RADIO_B				"rtl8821a/RadioB.txt" 
-		#define RTL8821_TXPWR_TRACK				"rtl8821a/TxPowerTrack.txt"		
-		#define RTL8821_AGC_TAB					"rtl8821a/AGC_TAB.txt"
-		#define RTL8821_PHY_MACREG 				"rtl8821a/MAC_REG.txt"
-		#define RTL8821_PHY_REG_PG					"rtl8821a/PHY_REG_PG.txt"
-		#define RTL8821_PHY_REG_MP 				"rtl8821a/PHY_REG_MP.txt"
-		#define RTL8821_TXPWR_LMT					"rtl8821a/TXPWR_LMT.txt" 
+		#define RTL8821_FW_IMG						"ttl8821a/FW_NIC.bin"
+		#define RTL8821_FW_WW_IMG				"ttl8821a/FW_WoWLAN.bin"
+		#define RTL8821_PHY_REG					"ttl8821a/PHY_REG.txt" 
+		#define RTL8821_PHY_RADIO_A				"ttl8821a/RadioA.txt"
+		#define RTL8821_PHY_RADIO_B				"ttl8821a/RadioB.txt" 
+		#define RTL8821_TXPWR_TRACK				"ttl8821a/TxPowerTrack.txt"		
+		#define RTL8821_AGC_TAB					"ttl8821a/AGC_TAB.txt"
+		#define RTL8821_PHY_MACREG 				"ttl8821a/MAC_REG.txt"
+		#define RTL8821_PHY_REG_PG					"ttl8821a/PHY_REG_PG.txt"
+		#define RTL8821_PHY_REG_MP 				"ttl8821a/PHY_REG_MP.txt"
+		#define RTL8821_TXPWR_LMT					"ttl8821a/TXPWR_LMT.txt" 
 
 //---------------------------------------------------------------------
 //		RTL8812 Power Configuration CMDs for PCIe interface
 //---------------------------------------------------------------------
-#define Rtl8812_NIC_PWR_ON_FLOW				rtl8812_power_on_flow
-#define Rtl8812_NIC_RF_OFF_FLOW				rtl8812_radio_off_flow
-#define Rtl8812_NIC_DISABLE_FLOW				rtl8812_card_disable_flow
-#define Rtl8812_NIC_ENABLE_FLOW				rtl8812_card_enable_flow
-#define Rtl8812_NIC_SUSPEND_FLOW				rtl8812_suspend_flow
-#define Rtl8812_NIC_RESUME_FLOW				rtl8812_resume_flow
-#define Rtl8812_NIC_PDN_FLOW					rtl8812_hwpdn_flow
-#define Rtl8812_NIC_LPS_ENTER_FLOW			rtl8812_enter_lps_flow
-#define Rtl8812_NIC_LPS_LEAVE_FLOW				rtl8812_leave_lps_flow		
+#define Rtl8812_NIC_PWR_ON_FLOW				ttl8812_power_on_flow
+#define Rtl8812_NIC_RF_OFF_FLOW				ttl8812_radio_off_flow
+#define Rtl8812_NIC_DISABLE_FLOW				ttl8812_card_disable_flow
+#define Rtl8812_NIC_ENABLE_FLOW				ttl8812_card_enable_flow
+#define Rtl8812_NIC_SUSPEND_FLOW				ttl8812_suspend_flow
+#define Rtl8812_NIC_RESUME_FLOW				ttl8812_resume_flow
+#define Rtl8812_NIC_PDN_FLOW					ttl8812_hwpdn_flow
+#define Rtl8812_NIC_LPS_ENTER_FLOW			ttl8812_enter_lps_flow
+#define Rtl8812_NIC_LPS_LEAVE_FLOW				ttl8812_leave_lps_flow		
 
 //---------------------------------------------------------------------
 //		RTL8821 Power Configuration CMDs for PCIe interface
 //---------------------------------------------------------------------
-#define Rtl8821A_NIC_PWR_ON_FLOW				rtl8821A_power_on_flow
-#define Rtl8821A_NIC_RF_OFF_FLOW				rtl8821A_radio_off_flow
-#define Rtl8821A_NIC_DISABLE_FLOW				rtl8821A_card_disable_flow
-#define Rtl8821A_NIC_ENABLE_FLOW				rtl8821A_card_enable_flow
-#define Rtl8821A_NIC_SUSPEND_FLOW				rtl8821A_suspend_flow
-#define Rtl8821A_NIC_RESUME_FLOW				rtl8821A_resume_flow
-#define Rtl8821A_NIC_PDN_FLOW					rtl8821A_hwpdn_flow
-#define Rtl8821A_NIC_LPS_ENTER_FLOW			rtl8821A_enter_lps_flow
-#define Rtl8821A_NIC_LPS_LEAVE_FLOW			rtl8821A_leave_lps_flow	
+#define Rtl8821A_NIC_PWR_ON_FLOW				ttl8821A_power_on_flow
+#define Rtl8821A_NIC_RF_OFF_FLOW				ttl8821A_radio_off_flow
+#define Rtl8821A_NIC_DISABLE_FLOW				ttl8821A_card_disable_flow
+#define Rtl8821A_NIC_ENABLE_FLOW				ttl8821A_card_enable_flow
+#define Rtl8821A_NIC_SUSPEND_FLOW				ttl8821A_suspend_flow
+#define Rtl8821A_NIC_RESUME_FLOW				ttl8821A_resume_flow
+#define Rtl8821A_NIC_PDN_FLOW					ttl8821A_hwpdn_flow
+#define Rtl8821A_NIC_LPS_ENTER_FLOW			ttl8821A_enter_lps_flow
+#define Rtl8821A_NIC_LPS_LEAVE_FLOW			ttl8821A_leave_lps_flow	
 
 
 #if 1 // download firmware related data structure
@@ -288,7 +288,7 @@ typedef enum _TX_PWR_PERCENTAGE{
 
 //#define RT_IS_FUNC_DISABLED(__pAdapter, __FuncBits) ( (__pAdapter)->DisabledFunctions & (__FuncBits) )
 
-// rtl8812_hal_init.c
+// ttl8812_hal_init.c
 void	_8051Reset8812(PADAPTER padapter);
 s32	FirmwareDownload8812(PADAPTER Adapter, BOOLEAN bUsedWoWLANFw);
 void	InitializeFirmwareVars8812(PADAPTER padapter);
@@ -337,13 +337,13 @@ void GetHwReg8812A(PADAPTER padapter, u8 variable, u8 *pval);
 u8 SetHalDefVar8812A(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 u8 GetHalDefVar8812A(PADAPTER padapter, HAL_DEF_VARIABLE variable, void *pval);
 s32 c2h_id_filter_ccx_8812a(u8 *buf);
-void rtl8812_set_hal_ops(struct hal_ops *pHalFunc);
+void ttl8812_set_hal_ops(struct hal_ops *pHalFunc);
 
 // register
 void SetBcnCtrlReg(PADAPTER padapter, u8 SetBits, u8 ClearBits);
 
-void rtl8812_start_thread(PADAPTER padapter);
-void rtl8812_stop_thread(PADAPTER padapter);
+void ttl8812_start_thread(PADAPTER padapter);
+void ttl8812_stop_thread(PADAPTER padapter);
 
 #ifdef CONFIG_PCI_HCI
 BOOLEAN	InterruptRecognized8812AE(PADAPTER Adapter);
@@ -351,7 +351,7 @@ VOID	UpdateInterruptMask8812AE(PADAPTER Adapter, u32 AddMSR, u32 AddMSR1, u32 Re
 #endif
 
 #ifdef CONFIG_BT_COEXIST
-void rtl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
+void ttl8812a_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
 

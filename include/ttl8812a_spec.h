@@ -259,6 +259,6 @@
 #endif /* __RTL8812A_SPEC_H__ */
 
 #ifdef CONFIG_RTL8821A
-#include "rtl8821a_spec.h"
+#include "ttl8821a_spec.h"
 #endif /* CONFIG_RTL8821A */
 

@@ -151,25 +151,25 @@ typedef struct rxreport_9083e
 
 
 #if defined (CONFIG_SDIO_HCI)||defined(CONFIG_GSPI_HCI)
-s32 rtl9083es_init_recv_priv(PADAPTER padapter);
-void rtl9083es_free_recv_priv(PADAPTER padapter);
-void rtl9083es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+s32 ttl9083es_init_recv_priv(PADAPTER padapter);
+void ttl9083es_free_recv_priv(PADAPTER padapter);
+void ttl9083es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
 #endif
 
 #ifdef CONFIG_USB_HCI
-void rtl9083eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
-s32 rtl9083eu_init_recv_priv(PADAPTER padapter);
-void rtl9083eu_free_recv_priv(PADAPTER padapter);
-void rtl9083eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
-void rtl9083eu_recv_tasklet(void *priv);
+void ttl9083eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+s32 ttl9083eu_init_recv_priv(PADAPTER padapter);
+void ttl9083eu_free_recv_priv(PADAPTER padapter);
+void ttl9083eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+void ttl9083eu_recv_tasklet(void *priv);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl9083ee_init_recv_priv(PADAPTER padapter);
-void rtl9083ee_free_recv_priv(PADAPTER padapter);
+s32 ttl9083ee_init_recv_priv(PADAPTER padapter);
+void ttl9083ee_free_recv_priv(PADAPTER padapter);
 #endif
 
-void rtl9083e_query_rx_desc_status(union recv_frame *precvframe, struct recv_stat *prxstat);
+void ttl9083e_query_rx_desc_status(union recv_frame *precvframe, struct recv_stat *prxstat);
 
 #endif /* __RTL9083E_RECV_H__ */
 

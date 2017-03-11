@@ -766,7 +766,7 @@ void add_RATid(_adapter *padapter, struct sta_info *psta, u8 rssi_level)
 			//	pstat->tx_ra_bitmap &= 0x81ffffff;
 
 			// NIC driver will report not supporting MCS15 and MCS14 in asoc req
-			//if (pstat->is_rtl8190_sta && !pstat->is_2t_mimo_sta)
+			//if (pstat->is_ttl8190_sta && !pstat->is_2t_mimo_sta)
 			//	pstat->tx_ra_bitmap &= 0x83ffffff;		// if Realtek 1x2 sta, don't use MCS15 and MCS14
 		}
 	}

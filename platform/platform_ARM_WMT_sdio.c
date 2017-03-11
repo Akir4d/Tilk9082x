@@ -29,11 +29,11 @@ int platform_wifi_power_on(void)
 	int err = 0;
 	err = gpio_request(WMT_PIN_GP62_SUSGPIO1, "wifi_chip_en");
 	if (err < 0){
-		printk("request gpio for rtl9083eu failed!\n");
+		printk("request gpio for ttl9083eu failed!\n");
 		return err;
 	}
 	gpio_direction_output(WMT_PIN_GP62_SUSGPIO1, 0);//pull sus_gpio1 to 0 to open vcc_wifi.
-	printk("power on rtl9082.\n");
+	printk("power on ttl9082.\n");
 	msleep(500);
 	wmt_detect_sdio2();
 	printk("[ttl9082xs] %s: new card, power on.\n", __FUNCTION__);
@@ -45,7 +45,7 @@ void platform_wifi_power_off(void)
 	force_remove_sdio2();
 
 	gpio_direction_output(WMT_PIN_GP62_SUSGPIO1, 1);//pull sus_gpio1 to 1 to close vcc_wifi.
-	printk("power off rtl9082.\n");
+	printk("power off ttl9082.\n");
 	gpio_free(WMT_PIN_GP62_SUSGPIO1);
 	printk("[ttl9082xs] %s: remove card, power off.\n", __FUNCTION__);
 }

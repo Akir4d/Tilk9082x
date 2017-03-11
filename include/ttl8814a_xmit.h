@@ -261,32 +261,32 @@ typedef struct txdescriptor_8814
 #define SET_EARLYMODE_LEN3_8814A(__pAddr, __Value) 					SET_BITS_TO_LE_4BYTE(__pAddr+4, 17, 15, __Value)
 
 
-void rtl8814a_cal_txdesc_chksum(u8 *ptxdesc);
-void rtl8814a_fill_fake_txdesc(PADAPTER	padapter,u8*pDesc,u32 BufferLen,u8 IsPsPoll,u8	IsBTQosNull, u8 bDataFrame);
-void rtl8814a_fill_txdesc_sectype(struct pkt_attrib *pattrib, u8 *ptxdesc);
-void rtl8814a_fill_txdesc_vcs(PADAPTER padapter, struct pkt_attrib *pattrib, u8 *ptxdesc);
-void rtl8814a_fill_txdesc_phy(PADAPTER padapter, struct pkt_attrib *pattrib, u8 *ptxdesc);
+void ttl8814a_cal_txdesc_chksum(u8 *ptxdesc);
+void ttl8814a_fill_fake_txdesc(PADAPTER	padapter,u8*pDesc,u32 BufferLen,u8 IsPsPoll,u8	IsBTQosNull, u8 bDataFrame);
+void ttl8814a_fill_txdesc_sectype(struct pkt_attrib *pattrib, u8 *ptxdesc);
+void ttl8814a_fill_txdesc_vcs(PADAPTER padapter, struct pkt_attrib *pattrib, u8 *ptxdesc);
+void ttl8814a_fill_txdesc_phy(PADAPTER padapter, struct pkt_attrib *pattrib, u8 *ptxdesc);
 
 #ifdef CONFIG_USB_HCI
-s32 rtl8814au_init_xmit_priv(PADAPTER padapter);
-void rtl8814au_free_xmit_priv(PADAPTER padapter);
-s32 rtl8814au_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8814au_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	 rtl8814au_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-s32 rtl8814au_xmit_buf_handler(PADAPTER padapter);
-void rtl8814au_xmit_tasklet(void *priv);
-s32 rtl8814au_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+s32 ttl8814au_init_xmit_priv(PADAPTER padapter);
+void ttl8814au_free_xmit_priv(PADAPTER padapter);
+s32 ttl8814au_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl8814au_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	 ttl8814au_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+s32 ttl8814au_xmit_buf_handler(PADAPTER padapter);
+void ttl8814au_xmit_tasklet(void *priv);
+s32 ttl8814au_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
 #endif //CONFIG_USB_HCI
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8814ae_init_xmit_priv(PADAPTER padapter);
-void rtl8814ae_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf *rtl8814ae_dequeue_xmitbuf(struct rtw_tx_ring *ring);
-void rtl8814ae_xmitframe_resume(_adapter *padapter);
-s32 rtl8814ae_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 rtl8814ae_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	rtl8814ae_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-void rtl8814ae_xmit_tasklet(void *priv);
+s32 ttl8814ae_init_xmit_priv(PADAPTER padapter);
+void ttl8814ae_free_xmit_priv(PADAPTER padapter);
+struct xmit_buf *ttl8814ae_dequeue_xmitbuf(struct rtw_tx_ring *ring);
+void ttl8814ae_xmitframe_resume(_adapter *padapter);
+s32 ttl8814ae_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl8814ae_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	ttl8814ae_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+void ttl8814ae_xmit_tasklet(void *priv);
 #endif
 
 void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag, u8 *ptxdesc);

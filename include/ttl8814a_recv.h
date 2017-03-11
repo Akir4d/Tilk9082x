@@ -166,13 +166,13 @@
 #define Rx_Smooth_Factor (20)
 
 #ifdef CONFIG_USB_HCI
-s32 rtl8814au_init_recv_priv(PADAPTER padapter);
-void rtl8814au_free_recv_priv(PADAPTER padapter);
+s32 ttl8814au_init_recv_priv(PADAPTER padapter);
+void ttl8814au_free_recv_priv(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8814ae_init_recv_priv(PADAPTER padapter);
-void rtl8814ae_free_recv_priv(PADAPTER padapter);
+s32 ttl8814ae_init_recv_priv(PADAPTER padapter);
+void ttl8814ae_free_recv_priv(PADAPTER padapter);
 #endif
 
 /* temp solution
@@ -182,7 +182,7 @@ void FreeRecvPriv8821AS(PADAPTER padapter);
 #endif // CONFIG_SDIO_HCI
 */
 
-void rtl8814_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
+void ttl8814_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
 #endif /* __RTL8814A_RECV_H__ */
 

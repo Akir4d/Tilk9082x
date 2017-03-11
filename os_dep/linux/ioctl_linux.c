@@ -632,8 +632,8 @@ static inline char * iwe_stream_wpa_wpa2_process(_adapter *padapter,
 		if (pnetwork->network.Reserved[0] != 2) // Probe Request
 		{	
 			out_len=rtw_get_sec_ie(pnetwork->network.IEs ,pnetwork->network.IELength,rsn_ie,&rsn_len,wpa_ie,&wpa_len);
-			RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
-			RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wpa_len=%d rsn_len=%d\n",wpa_len,rsn_len));
+			RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
+			RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wpa_len=%d rsn_len=%d\n",wpa_len,rsn_len));
 
 			if (wpa_len > 0){
 				
@@ -740,8 +740,8 @@ static inline char * iwe_stream_wapi_process(_adapter *padapter,
 		u16  i;
 
 		out_len_wapi=rtw_get_wapi_ie(pnetwork->network.IEs ,pnetwork->network.IELength,wapi_ie,&wapi_len);
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wapi_len=%d \n",wapi_len));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wapi_len=%d \n",wapi_len));
 
 		DBG_871X("rtw_wx_get_scan: %s ",pnetwork->network.Ssid.Ssid);
 		DBG_871X("rtw_wx_get_scan: ssid = %d ",wapi_len);
@@ -1098,8 +1098,8 @@ static char *translate_scan(_adapter *padapter,
 		u8 *p;
 		sint out_len=0;
 		out_len=rtw_get_sec_ie(pnetwork->network.IEs ,pnetwork->network.IELength,rsn_ie,&rsn_len,wpa_ie,&wpa_len);
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wpa_len=%d rsn_len=%d\n",wpa_len,rsn_len));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wpa_len=%d rsn_len=%d\n",wpa_len,rsn_len));
 
 		if (wpa_len > 0)
 		{
@@ -1195,8 +1195,8 @@ static char *translate_scan(_adapter *padapter,
 		_rtw_memset(wapi_ie, 0, MAX_WAPI_IE_LEN);
 
 		out_len_wapi=rtw_get_wapi_ie(pnetwork->network.IEs ,pnetwork->network.IELength,wapi_ie,&wapi_len);
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
-		RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wapi_len=%d \n",wapi_len));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: ssid=%s\n",pnetwork->network.Ssid.Ssid));
+		RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan: wapi_len=%d \n",wapi_len));
 
 		DBG_871X("rtw_wx_get_scan: %s ",pnetwork->network.Ssid.Ssid);
 		DBG_871X("rtw_wx_get_scan: ssid = %d ",wapi_len);
@@ -1412,7 +1412,7 @@ _func_enter_;
 
 	if (strcmp(param->u.crypt.alg, "WEP") == 0)
 	{
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("wpa_set_encryption, crypt.alg = WEP\n"));
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("wpa_set_encryption, crypt.alg = WEP\n"));
 		DBG_871X("wpa_set_encryption, crypt.alg = WEP\n");
 
 		padapter->securitypriv.ndisencryptstatus = Ndis802_11Encryption1Enabled;
@@ -1422,13 +1422,13 @@ _func_enter_;
 		wep_key_idx = param->u.crypt.idx;
 		wep_key_len = param->u.crypt.key_len;
 
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("(1)wep_key_idx=%d\n", wep_key_idx));
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("(1)wep_key_idx=%d\n", wep_key_idx));
 		DBG_871X("(1)wep_key_idx=%d\n", wep_key_idx);
 
 		if (wep_key_idx > WEP_KEYS)
 			return -EINVAL;
 
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("(2)wep_key_idx=%d\n", wep_key_idx));
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("(2)wep_key_idx=%d\n", wep_key_idx));
 
 		if (wep_key_len > 0) 
 		{
@@ -1436,7 +1436,7 @@ _func_enter_;
 			wep_total_len = wep_key_len + FIELD_OFFSET(NDIS_802_11_WEP, KeyMaterial);
 		 	pwep =(NDIS_802_11_WEP	 *) rtw_malloc(wep_total_len);
 			if(pwep == NULL){
-				RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,(" wpa_set_encryption: pwep allocate fail !!!\n"));
+				RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,(" wpa_set_encryption: pwep allocate fail !!!\n"));
 				goto exit;
 			}
 
@@ -1720,7 +1720,7 @@ static int rtw_set_wpa_ie(_adapter *padapter, char *pie, unsigned short ielen)
 	
 		pos = buf;
 		if(ielen < RSN_HEADER_LEN){
-			RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("Ie len too short %d\n", ielen));
+			RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("Ie len too short %d\n", ielen));
 			ret  = -1;
 			goto exit;
 		}
@@ -1734,7 +1734,7 @@ static int rtw_set_wpa_ie(_adapter *padapter, char *pie, unsigned short ielen)
 			left -= RSN_SELECTOR_LEN;
 		}		
 		else if (left > 0){
-			RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("Ie length mismatch, %u too much \n", left));
+			RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("Ie length mismatch, %u too much \n", left));
 			ret =-1;
 			goto exit;
 		}
@@ -1854,7 +1854,7 @@ static int rtw_set_wpa_ie(_adapter *padapter, char *pie, unsigned short ielen)
                 //|| check_fwstate(&padapter->mlmepriv, WIFI_UNDER_WPS) == _TRUE)
                 rtw_hal_set_hwreg(padapter, HW_VAR_OFF_RCR_AM, null_addr);
 	
-	RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_,
+	RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_,
 		 ("rtw_set_wpa_ie: pairwise_cipher=0x%08x padapter->securitypriv.ndisencryptstatus=%d padapter->securitypriv.ndisauthtype=%d\n",
 		  pairwise_cipher, padapter->securitypriv.ndisencryptstatus, padapter->securitypriv.ndisauthtype));
  	
@@ -1878,7 +1878,7 @@ static int rtw_wx_get_name(struct net_device *dev,
 	WLAN_BSSID_EX  *pcur_bss = &pmlmepriv->cur_network.network;
 	NDIS_802_11_RATES_EX* prates = NULL;
 
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("cmd_code=%x\n", info->cmd));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("cmd_code=%x\n", info->cmd));
 
 	_func_enter_;	
 
@@ -1962,7 +1962,7 @@ static int rtw_wx_set_freq(struct net_device *dev,
 
 	_func_enter_;
 
-	RT_TRACE(_module_rtl871x_mlme_c_, _drv_notice_, ("+rtw_wx_set_freq\n"));
+	RT_TRACE(_module_ttl871x_mlme_c_, _drv_notice_, ("+rtw_wx_set_freq\n"));
 
 	if (wrqu->freq.m <= 1000) {
 		if (wrqu->freq.flags == IW_FREQ_AUTO) {
@@ -2082,7 +2082,7 @@ static int rtw_wx_set_mode(struct net_device *dev, struct iw_request_info *a,
 	
 		default :
 			ret = -EINVAL;;
-			RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("\n Mode: %s is not supported  \n", iw_operation_mode[wrqu->mode]));
+			RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("\n Mode: %s is not supported  \n", iw_operation_mode[wrqu->mode]));
 			goto exit;
 	}
 	
@@ -2120,7 +2120,7 @@ static int rtw_wx_get_mode(struct net_device *dev, struct iw_request_info *a,
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
 	struct	mlme_priv	*pmlmepriv = &(padapter->mlmepriv);
 	
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,(" rtw_wx_get_mode \n"));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,(" rtw_wx_get_mode \n"));
 
 	_func_enter_;
 	
@@ -2287,7 +2287,7 @@ static int rtw_wx_get_range(struct net_device *dev,
 	
 	_func_enter_;
 	
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_range. cmd_code=%x\n", info->cmd));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_range. cmd_code=%x\n", info->cmd));
 
 	wrqu->data.length = sizeof(*range);
 	_rtw_memset(range, 0, sizeof(*range));
@@ -2577,7 +2577,7 @@ static int rtw_wx_get_wap(struct net_device *dev,
 	
 	_rtw_memset(wrqu->ap_addr.sa_data, 0, ETH_ALEN);
 	
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_wap\n"));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_wap\n"));
 
 	_func_enter_;
 
@@ -2662,7 +2662,7 @@ static int rtw_wx_set_scan(struct net_device *dev, struct iw_request_info *a,
 #ifdef CONFIG_P2P
 	struct wifidirect_info *pwdinfo= &(padapter->wdinfo);	
 #endif //CONFIG_P2P
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_set_scan\n"));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_set_scan\n"));
 
 _func_enter_;
 
@@ -2910,8 +2910,8 @@ static int rtw_wx_get_scan(struct net_device *dev, struct iw_request_info *a,
 #ifdef CONFIG_P2P
 	struct	wifidirect_info*	pwdinfo = &padapter->wdinfo;
 #endif //CONFIG_P2P
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan\n"));
-	RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_, (" Start of Query SIOCGIWSCAN .\n"));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_scan\n"));
+	RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_, (" Start of Query SIOCGIWSCAN .\n"));
 
 	_func_enter_;
 
@@ -3073,7 +3073,7 @@ static int rtw_wx_set_essid(struct net_device *dev,
 	}
 #endif
 
-	RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_,
+	RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_,
 		 ("+rtw_wx_set_essid: fw_state=0x%08x\n", get_fwstate(pmlmepriv)));
 
 	rtw_ps_deny(padapter, PS_DENY_JOIN);
@@ -3128,7 +3128,7 @@ static int rtw_wx_set_essid(struct net_device *dev,
 		_rtw_memcpy(ndis_ssid.Ssid, extra, len);		
 		src_ssid = ndis_ssid.Ssid;
 		
-		RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_, ("rtw_wx_set_essid: ssid=[%s]\n", src_ssid));
+		RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_, ("rtw_wx_set_essid: ssid=[%s]\n", src_ssid));
 		_enter_critical_bh(&queue->lock, &irqL);
 	    phead = get_list_head(queue);
         pmlmepriv->pscanned = get_next(phead);
@@ -3147,12 +3147,12 @@ static int rtw_wx_set_essid(struct net_device *dev,
 				}
 				else
 				{
-					RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("rtw_wx_set_ssid(): scanned_queue is empty\n"));
+					RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("rtw_wx_set_ssid(): scanned_queue is empty\n"));
 					ret = -EINVAL;
 					goto exit;
 				}
 #endif			
-			        RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_warning_,
+			        RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_warning_,
 					 ("rtw_wx_set_essid: scan_q is empty, set ssid to check if scanning again!\n"));
 
 				break;
@@ -3164,14 +3164,14 @@ static int rtw_wx_set_essid(struct net_device *dev,
 
 			dst_ssid = pnetwork->network.Ssid.Ssid;
 
-			RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_,
+			RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_,
 				 ("rtw_wx_set_essid: dst_ssid=%s\n",
 				  pnetwork->network.Ssid.Ssid));
 
 			if ((_rtw_memcmp(dst_ssid, src_ssid, ndis_ssid.SsidLength) == _TRUE) &&
 				(pnetwork->network.Ssid.SsidLength==ndis_ssid.SsidLength))
 			{
-				RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_,
+				RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_,
 					 ("rtw_wx_set_essid: find match, set infra mode\n"));
 				
 				if(check_fwstate(pmlmepriv, WIFI_ADHOC_STATE) == _TRUE)
@@ -3191,7 +3191,7 @@ static int rtw_wx_set_essid(struct net_device *dev,
 			}
 		}
 		_exit_critical_bh(&queue->lock, &irqL);
-		RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_,
+		RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_,
 			 ("set ssid: set_802_11_auth. mode=%d\n", authmode));
 		rtw_set_802_11_authentication_mode(padapter, authmode);
 		//set_802_11_encryption_mode(padapter, padapter->securitypriv.ndisencryptstatus);
@@ -3225,7 +3225,7 @@ static int rtw_wx_get_essid(struct net_device *dev,
 	struct	mlme_priv	*pmlmepriv = &(padapter->mlmepriv);
 	WLAN_BSSID_EX  *pcur_bss = &pmlmepriv->cur_network.network;
 
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,("rtw_wx_get_essid\n"));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,("rtw_wx_get_essid\n"));
 
 	_func_enter_;
 
@@ -3268,8 +3268,8 @@ static int rtw_wx_set_rate(struct net_device *dev,
 
 _func_enter_;
 
-	RT_TRACE(_module_rtl871x_mlme_c_,_drv_info_,(" rtw_wx_set_rate \n"));
-	RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("target_rate = %d, fixed = %d\n",target_rate,fixed));
+	RT_TRACE(_module_ttl871x_mlme_c_,_drv_info_,(" rtw_wx_set_rate \n"));
+	RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("target_rate = %d, fixed = %d\n",target_rate,fixed));
 	
 	if(target_rate == -1){
 		ratevalue = 11;
@@ -3333,11 +3333,11 @@ set_rate:
 			datarates[i] = 0xff;
 		}
 
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("datarate_inx=%d\n",datarates[i]));
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("datarate_inx=%d\n",datarates[i]));
 	}
 
 	if( rtw_setdatarate_cmd(padapter, datarates) !=_SUCCESS){
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("rtw_wx_set_rate Fail!!!\n"));
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("rtw_wx_set_rate Fail!!!\n"));
 		ret = -1;
 	}
 
@@ -4280,7 +4280,7 @@ static int rtw_wx_set_mtk_wps_probe_ie(struct net_device *dev,
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
 
-	RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_notice_,
+	RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_notice_,
 		 ("WLAN IOCTL: cmd_code=%x, fwstate=0x%x\n",
 		  a->cmd, get_fwstate(pmlmepriv)));
 #endif
@@ -4377,14 +4377,14 @@ struct	iw_point
 	//
 	poidparam = (struct drvext_oidparam *)pparmbuf;	
 	
-	RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("drvext set oid subcode [%d], len[%d], InformationBufferLength[%d]\r\n",
+	RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("drvext set oid subcode [%d], len[%d], InformationBufferLength[%d]\r\n",
         					 poidparam->subcode, poidparam->len, len));
 
 
 	//check subcode	
 	if ( poidparam->subcode >= MAX_DRVEXT_HANDLERS)
 	{
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("no matching drvext handlers\r\n"));		
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("no matching drvext handlers\r\n"));		
 		ret = -EINVAL;
 		goto _rtw_drvext_hdl_exit;
 	}
@@ -4392,7 +4392,7 @@ struct	iw_point
 
 	if ( poidparam->subcode >= MAX_DRVEXT_OID_SUBCODES)
 	{
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("no matching drvext subcodes\r\n"));		
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("no matching drvext subcodes\r\n"));		
 		ret = -EINVAL;
 		goto _rtw_drvext_hdl_exit;
 	}
@@ -4402,7 +4402,7 @@ struct	iw_point
 
 	if (poidparam->len != phandler->parmsize)
 	{
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_err_,("no matching drvext param size %d vs %d\r\n",			
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_err_,("no matching drvext param size %d vs %d\r\n",			
 						poidparam->len , phandler->parmsize));		
 		ret = -EINVAL;		
 		goto _rtw_drvext_hdl_exit;
@@ -4573,12 +4573,12 @@ static int rtw_mp_ioctl_hdl(struct net_device *dev, struct iw_request_info *info
 	}
 
 	poidparam = (struct mp_ioctl_param *)pparmbuf;
-	RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_info_,
+	RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_info_,
 		 ("rtw_mp_ioctl_hdl: subcode [%d], len[%d], buffer_len[%d]\r\n",
 		  poidparam->subcode, poidparam->len, len));
 
 	if (poidparam->subcode >= MAX_MP_IOCTL_SUBCODE) {
-		RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_err_, ("no matching drvext subcodes\r\n"));
+		RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_err_, ("no matching drvext subcodes\r\n"));
 		ret = -EINVAL;
 		goto _rtw_mp_ioctl_hdl_exit;
 	}
@@ -4591,7 +4591,7 @@ if (padapter->registrypriv.mp_mode == 1)
 
 	if ((phandler->paramsize != 0) && (poidparam->len < phandler->paramsize))
 	{
-		RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_err_,
+		RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_err_,
 			 ("no matching drvext param size %d vs %d\r\n",
 			  poidparam->len, phandler->paramsize));
 		ret = -EINVAL;
@@ -7670,9 +7670,9 @@ static int rtw_dbg_port(struct net_device *dev,
 						printk("%s ==> max_mac_id = %d \n",__FUNCTION__,max_mac_id);
 					}	
 					break;
-				case 0x0b: //Enable=1, Disable=0 driver control vrtl_carrier_sense.
+				case 0x0b: //Enable=1, Disable=0 driver control vttl_carrier_sense.
 					{
-						//u8 driver_vcs_en; //Enable=1, Disable=0 driver control vrtl_carrier_sense.
+						//u8 driver_vcs_en; //Enable=1, Disable=0 driver control vttl_carrier_sense.
 						//u8 driver_vcs_type;//force 0:disable VCS, 1:RTS-CTS, 2:CTS-to-self when vcs_en=1.
 
 						if(arg == 0){
@@ -8121,7 +8121,7 @@ static int wpa_set_param(struct net_device *dev, u8 name, u32 value)
 				break;
 		}
 		
-		RT_TRACE(_module_rtl871x_ioctl_os_c,_drv_info_,("wpa_set_param:padapter->securitypriv.ndisauthtype=%d\n", padapter->securitypriv.ndisauthtype));
+		RT_TRACE(_module_ttl871x_ioctl_os_c,_drv_info_,("wpa_set_param:padapter->securitypriv.ndisauthtype=%d\n", padapter->securitypriv.ndisauthtype));
 		
 		break;
 
@@ -9394,7 +9394,7 @@ static int rtw_wx_set_priv(struct net_device *dev,
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
 	struct iw_point *dwrq = (struct iw_point*)awrq;
 
-	//RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_notice_, ("+rtw_wx_set_priv\n"));
+	//RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_notice_, ("+rtw_wx_set_priv\n"));
 	if(dwrq->length == 0)
 		return -EFAULT;
 	
@@ -9408,7 +9408,7 @@ static int rtw_wx_set_priv(struct net_device *dev,
 	}
 
 
-	//RT_TRACE(_module_rtl871x_ioctl_os_c, _drv_notice_,
+	//RT_TRACE(_module_ttl871x_ioctl_os_c, _drv_notice_,
 	//	 ("rtw_wx_set_priv: %s req=%s\n",
 	//	  dev->name, ext));
 
@@ -12446,34 +12446,34 @@ static int rtw_widi_set_probe_request(struct net_device *dev,
 #ifdef CONFIG_MAC_LOOPBACK_DRIVER
 
 #if defined(CONFIG_RTL9083E)
-#include <rtl9083e_hal.h>
-extern void rtl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
-#define cal_txdesc_chksum rtl9083e_cal_txdesc_chksum
+#include <ttl9083e_hal.h>
+extern void ttl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
+#define cal_txdesc_chksum ttl9083e_cal_txdesc_chksum
 #ifdef CONFIG_SDIO_HCI || defined(CONFIG_GSPI_HCI)
-extern void rtl9083es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
-#define fill_default_txdesc rtl9083es_fill_default_txdesc
+extern void ttl9083es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
+#define fill_default_txdesc ttl9083es_fill_default_txdesc
 #endif // CONFIG_SDIO_HCI
 #endif // CONFIG_RTL9083E
 #if defined(CONFIG_RTL8723B)
-extern void rtl8723b_cal_txdesc_chksum(struct tx_desc *ptxdesc);
-#define cal_txdesc_chksum rtl8723b_cal_txdesc_chksum
-extern void rtl8723b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
-#define fill_default_txdesc rtl8723b_fill_default_txdesc
+extern void ttl8723b_cal_txdesc_chksum(struct tx_desc *ptxdesc);
+#define cal_txdesc_chksum ttl8723b_cal_txdesc_chksum
+extern void ttl8723b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
+#define fill_default_txdesc ttl8723b_fill_default_txdesc
 #endif // CONFIG_RTL8723B
 
 #if defined(CONFIG_RTL8703B)
-/* extern void rtl8703b_cal_txdesc_chksum(struct tx_desc *ptxdesc); */
-#define cal_txdesc_chksum rtl8703b_cal_txdesc_chksum
-/* extern void rtl8703b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf); */
-#define fill_default_txdesc rtl8703b_fill_default_txdesc
+/* extern void ttl8703b_cal_txdesc_chksum(struct tx_desc *ptxdesc); */
+#define cal_txdesc_chksum ttl8703b_cal_txdesc_chksum
+/* extern void ttl8703b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf); */
+#define fill_default_txdesc ttl8703b_fill_default_txdesc
 #endif /* CONFIG_RTL8703B */
 
 #if defined(CONFIG_RTL8192E)
-extern void rtl8192e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
-#define cal_txdesc_chksum rtl8192e_cal_txdesc_chksum
+extern void ttl8192e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
+#define cal_txdesc_chksum ttl8192e_cal_txdesc_chksum
 #ifdef CONFIG_SDIO_HCI || defined(CONFIG_GSPI_HCI)
-extern void rtl8192es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
-#define fill_default_txdesc rtl8192es_fill_default_txdesc
+extern void ttl8192es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
+#define fill_default_txdesc ttl8192es_fill_default_txdesc
 #endif // CONFIG_SDIO_HCI
 #endif //CONFIG_RTL8192E
 

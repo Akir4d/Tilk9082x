@@ -153,26 +153,26 @@
 
 
 #ifdef CONFIG_SDIO_HCI
-s32 rtl8192es_init_recv_priv(PADAPTER padapter);
-void rtl8192es_free_recv_priv(PADAPTER padapter);
-void rtl8192es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+s32 ttl8192es_init_recv_priv(PADAPTER padapter);
+void ttl8192es_free_recv_priv(PADAPTER padapter);
+void ttl8192es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
 #endif
 
 #ifdef CONFIG_USB_HCI
-void rtl8192eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
-s32 rtl8192eu_init_recv_priv(PADAPTER padapter);
-void rtl8192eu_free_recv_priv(PADAPTER padapter);
-void rtl8192eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
-void rtl8192eu_recv_tasklet(void *priv);
+void ttl8192eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+s32 ttl8192eu_init_recv_priv(PADAPTER padapter);
+void ttl8192eu_free_recv_priv(PADAPTER padapter);
+void ttl8192eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+void ttl8192eu_recv_tasklet(void *priv);
 
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl8192ee_init_recv_priv(PADAPTER padapter);
-void rtl8192ee_free_recv_priv(PADAPTER padapter);
+s32 ttl8192ee_init_recv_priv(PADAPTER padapter);
+void ttl8192ee_free_recv_priv(PADAPTER padapter);
 #endif
 
-void rtl8192e_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
+void ttl8192e_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
 #endif /* __RTL8192E_RECV_H__ */
 

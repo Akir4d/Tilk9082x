@@ -20,7 +20,7 @@
 #define _RTL9083E_XMIT_C_
 
 #include <drv_types.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
 #ifdef CONFIG_XMIT_ACK
 void dump_txrpt_ccx_88e(void *buf)
@@ -287,7 +287,7 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 }
 #endif
 
-void rtl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc)
+void ttl9083e_cal_txdesc_chksum(struct tx_desc *ptxdesc)
 {
 	u16	*usPtr = (u16*)ptxdesc;
 	u32 count = 16;		// (32 bytes / 2 bytes per XOR) => 16 times

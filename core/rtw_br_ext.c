@@ -1571,7 +1571,7 @@ void mac_clone(_adapter *priv, unsigned char *addr)
 	memcpy(sa.sa_data, addr, ETH_ALEN);
 	DBG_871X("MAC Clone: Addr=%02x%02x%02x%02x%02x%02x\n",
 		addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
-	rtl8192cd_set_hwaddr(priv->dev, &sa);
+	ttl8192cd_set_hwaddr(priv->dev, &sa);
 }
 
 

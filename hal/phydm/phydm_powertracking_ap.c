@@ -870,7 +870,7 @@ ODM_TXPowerTrackingCheck(
 	)
 {
 	// 
-	// For AP/ADSL use prtl8192cd_priv
+	// For AP/ADSL use pttl8192cd_priv
 	// For CE/NIC use PADAPTER
 	//
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
@@ -915,14 +915,14 @@ odm_TXPowerTrackingCheckCE(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	PADAPTER	Adapter = pDM_Odm->Adapter;
 	#if( (RTL8192C_SUPPORT==1) ||  (RTL8723A_SUPPORT==1) )
-	rtl8192c_odm_CheckTXPowerTracking(Adapter);
+	ttl8192c_odm_CheckTXPowerTracking(Adapter);
 	#endif
 
 	#if (RTL8192D_SUPPORT==1) 
 	#if (RTL8192D_EASY_SMART_CONCURRENT == 1)
 	if(!Adapter->bSlaveOfDMSP)
 	#endif
-		rtl8192d_odm_CheckTXPowerTracking(Adapter);
+		ttl8192d_odm_CheckTXPowerTracking(Adapter);
 	#endif
 	#if(RTL9083E_SUPPORT==1)
 
@@ -982,7 +982,7 @@ odm_TXPowerTrackingCheckAP(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	prtl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl8192cd_priv	priv		= pDM_Odm->priv;
 
 #if ((RTL9083E_SUPPORT==1)||(RTL8192E_SUPPORT==1) ||(RTL8812E_SUPPORT==1)||(RTL8881A_SUPPORT==1)||(RTL8814A_SUPPORT==1))	
 	if (pDM_Odm->SupportICType & (ODM_RTL9083E|ODM_RTL8192E|ODM_RTL8812|ODM_RTL8881A|ODM_RTL8814A))

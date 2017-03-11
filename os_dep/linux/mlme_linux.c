@@ -502,7 +502,7 @@ static int mgnt_netdev_close(struct net_device *pnetdev)
 }
 
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,29))
-static const struct net_device_ops rtl871x_mgnt_netdev_ops = {
+static const struct net_device_ops ttl871x_mgnt_netdev_ops = {
 	.ndo_open = mgnt_netdev_open,
        .ndo_stop = mgnt_netdev_close,
        .ndo_start_xmit = mgnt_xmit_entry,
@@ -536,9 +536,9 @@ int hostapd_mode_init(_adapter *padapter)
 	
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,29))
 
-	DBG_871X("register rtl871x_mgnt_netdev_ops to netdev_ops\n");
+	DBG_871X("register ttl871x_mgnt_netdev_ops to netdev_ops\n");
 
-	pnetdev->netdev_ops = &rtl871x_mgnt_netdev_ops;
+	pnetdev->netdev_ops = &ttl871x_mgnt_netdev_ops;
 	
 #else
 

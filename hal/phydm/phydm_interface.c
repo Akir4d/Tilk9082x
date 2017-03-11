@@ -36,7 +36,7 @@ ODM_Read1Byte(
 	)
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv	= pDM_Odm->priv;
+	pttl8192cd_priv	priv	= pDM_Odm->priv;
 	return	RTL_R8(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
@@ -56,7 +56,7 @@ ODM_Read2Byte(
 	)
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv	= pDM_Odm->priv;
+	pttl8192cd_priv	priv	= pDM_Odm->priv;
 	return	RTL_R16(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
@@ -76,7 +76,7 @@ ODM_Read4Byte(
 	)
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv	= pDM_Odm->priv;
+	pttl8192cd_priv	priv	= pDM_Odm->priv;
 	return	RTL_R32(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
@@ -97,7 +97,7 @@ ODM_Write1Byte(
 	)
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv	= pDM_Odm->priv;
+	pttl8192cd_priv	priv	= pDM_Odm->priv;
 	RTL_W8(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
@@ -118,7 +118,7 @@ ODM_Write2Byte(
 	)
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv	= pDM_Odm->priv;
+	pttl8192cd_priv	priv	= pDM_Odm->priv;
 	RTL_W16(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
@@ -139,7 +139,7 @@ ODM_Write4Byte(
 	)
 {
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv	= pDM_Odm->priv;
+	pttl8192cd_priv	priv	= pDM_Odm->priv;
 	RTL_W32(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;

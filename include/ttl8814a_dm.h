@@ -20,10 +20,10 @@
 #ifndef __RTL8814A_DM_H__
 #define __RTL8814A_DM_H__
 
-void rtl8814_init_dm_priv(IN PADAPTER Adapter);
-void rtl8814_deinit_dm_priv(IN PADAPTER Adapter);
-void rtl8814_InitHalDm(IN PADAPTER Adapter);
-void rtl8814_HalDmWatchDog(IN PADAPTER Adapter);
+void ttl8814_init_dm_priv(IN PADAPTER Adapter);
+void ttl8814_deinit_dm_priv(IN PADAPTER Adapter);
+void ttl8814_InitHalDm(IN PADAPTER Adapter);
+void ttl8814_HalDmWatchDog(IN PADAPTER Adapter);
 
 #ifdef CONFIG_ANTENNA_DIVERSITY
 void AntDivCompare8814(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src);

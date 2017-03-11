@@ -1969,7 +1969,7 @@ int rtw_mp_SetBT(struct net_device *dev,
 		DBG_871X(" FirmwareDownload!\n");
 
 #if defined(CONFIG_RTL8723B)
-		status = rtl8723b_FirmwareDownload(padapter, _FALSE);
+		status = ttl8723b_FirmwareDownload(padapter, _FALSE);
 #endif
 		DBG_871X("Wait for FirmwareDownloadBT fw boot!\n");
 		rtw_msleep_os(1000);

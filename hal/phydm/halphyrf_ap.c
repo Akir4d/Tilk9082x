@@ -88,7 +88,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
     	u4Byte	ThermalValue_AVG = 0, Reg0x18;
 	u4Byte	i = 0, j = 0, rf;
 	s4Byte	value32, CCK_index = 0, ele_A, ele_D, ele_C, X, Y;
-	prtl8192cd_priv 	priv = pDM_Odm->priv;
+	pttl8192cd_priv 	priv = pDM_Odm->priv;
 
 	rf_mimo_mode = pDM_Odm->RFType;
 	//ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("%s:%d rf_mimo_mode:%d\n", __FUNCTION__, __LINE__, rf_mimo_mode));
@@ -323,7 +323,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
 	u4Byte 			BBSwingReg[4] = {rA_TxScale_Jaguar,rB_TxScale_Jaguar,rC_TxScale_Jaguar2,rD_TxScale_Jaguar2};
 	s4Byte			ele_D;
 	u4Byte			BBswingIdx;
-	prtl8192cd_priv	priv = pDM_Odm->priv;
+	pttl8192cd_priv	priv = pDM_Odm->priv;
 	TXPWRTRACK_CFG 	c;
 	BOOLEAN			bTSSIenable = FALSE;
 	PODM_RF_CAL_T	pRFCalibrateInfo = &(pDM_Odm->RFCalibrateInfo);
@@ -583,7 +583,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 	int 					ele_D, value32;
 	char					OFDM_index[2], index;
 	unsigned int			i = 0, j = 0, rf_path, max_rf_path =2 ,rf;
-	prtl8192cd_priv		priv = pDM_Odm->priv;
+	pttl8192cd_priv		priv = pDM_Odm->priv;
 	unsigned char			OFDM_min_index = 7; //OFDM BB Swing should be less than +2.5dB, which is required by Arthur and Mimic
 
 #ifdef MP_TEST
@@ -841,7 +841,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
                     };		
 
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
-	prtl8192cd_priv	priv = pDM_Odm->priv;
+	pttl8192cd_priv	priv = pDM_Odm->priv;
 #endif	
 
 	//4 2. Initilization ( 7 steps in total )

@@ -40,7 +40,7 @@
 
 
 #if (RTL8814A_SUPPORT == 1)
-#include "rtl8814a/phydm_iqk_8814a.h"
+#include "ttl8814a/phydm_iqk_8814a.h"
 #endif
 
 
@@ -110,10 +110,10 @@
 // We need to remove to other position???
 //
 #if(DM_ODM_SUPPORT_TYPE & (ODM_CE|ODM_WIN))
-typedef		struct rtl8192cd_priv {
+typedef		struct ttl8192cd_priv {
 	u1Byte		temp;
 
-}rtl8192cd_priv, *prtl8192cd_priv;
+}ttl8192cd_priv, *pttl8192cd_priv;
 #endif
 
 
@@ -122,7 +122,7 @@ typedef		struct _ADAPTER{
 	u1Byte		temp;
 	#ifdef AP_BUILD_WORKAROUND
 	HAL_DATA_TYPE*		temp2;
-	prtl8192cd_priv		priv;
+	pttl8192cd_priv		priv;
 	#endif
 }ADAPTER, *PADAPTER;
 #endif
@@ -563,12 +563,12 @@ typedef  struct DM_Out_Source_Dynamic_Mechanism_Structure
 	//	Add for different team use temporarily
 	//
 	PADAPTER		Adapter;		// For CE/NIC team
-	prtl8192cd_priv	priv;			// For AP/ADSL team
+	pttl8192cd_priv	priv;			// For AP/ADSL team
 	// WHen you use Adapter or priv pointer, you must make sure the pointer is ready.
 	BOOLEAN			odm_ready;
 
 #if(DM_ODM_SUPPORT_TYPE & (ODM_CE|ODM_WIN))
-	rtl8192cd_priv		fake_priv;
+	ttl8192cd_priv		fake_priv;
 #endif
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	// ADSL_AP_BUILD_WORKAROUND

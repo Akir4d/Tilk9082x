@@ -139,25 +139,25 @@ typedef struct _RSVDPAGE_LOC_88E {
 */
 
 // host message to firmware cmd
-void rtl9083e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode);
-void rtl9083e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus);
-u8 rtl9083e_set_rssi_cmd(PADAPTER padapter, u8 *param);
-u8 rtl9083e_set_raid_cmd(_adapter *padapter, u32 bitmap, u8 *arg);
-void rtl9083e_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
+void ttl9083e_set_FwPwrMode_cmd(PADAPTER padapter, u8 Mode);
+void ttl9083e_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus);
+u8 ttl9083e_set_rssi_cmd(PADAPTER padapter, u8 *param);
+u8 ttl9083e_set_raid_cmd(_adapter *padapter, u32 bitmap, u8 *arg);
+void ttl9083e_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
 s32 FillH2CCmd_88E(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
-//u8 rtl8192c_set_FwSelectSuspend_cmd(PADAPTER padapter, u8 bfwpoll, u16 period);
+//u8 ttl8192c_set_FwSelectSuspend_cmd(PADAPTER padapter, u8 bfwpoll, u16 period);
 u8 GetTxBufferRsvdPageNum9083E(_adapter *padapter, bool wowlan);
 
 
 #ifdef CONFIG_P2P
-void rtl9083e_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
+void ttl9083e_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
 #endif //CONFIG_P2P
 
 void CheckFwRsvdPageContent(PADAPTER padapter);
-void rtl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt );
+void ttl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt );
 
 #ifdef CONFIG_TSF_RESET_OFFLOAD
-//u8 rtl9083e_reset_tsf(_adapter *padapter, u8 reset_port);
+//u8 ttl9083e_reset_tsf(_adapter *padapter, u8 reset_port);
 int reset_tsf(PADAPTER Adapter, u8 reset_port );
 #endif	// CONFIG_TSF_RESET_OFFLOAD
 

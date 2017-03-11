@@ -489,7 +489,7 @@ Phydm_AdaptivityInit(
 	Adaptivity->TH_EDCCA_HL_diff_backup = pDM_Odm->TH_EDCCA_HL_diff;
 
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv = pDM_Odm->priv;
+	pttl8192cd_priv	priv = pDM_Odm->priv;
 
 	if (pDM_Odm->Carrier_Sense_enable) {
 		pDM_Odm->TH_L2H_ini = 0xa;

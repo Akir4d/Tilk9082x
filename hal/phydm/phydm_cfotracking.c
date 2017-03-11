@@ -105,7 +105,7 @@ odm_GetDefaultCrytaltalCap(
 
 	CrystalCap = pHalData->CrystalCap;
 #else
-	prtl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl8192cd_priv	priv		= pDM_Odm->priv;
 
 	if(priv->pmib->dot11RFEntry.xcap > 0)
 		CrystalCap = priv->pmib->dot11RFEntry.xcap;

@@ -25,51 +25,51 @@
 #include "hal_data.h"
 
 //include HAL Related header after HAL Related compiling flags 
-#include "rtl8192e_spec.h"
-#include "rtl8192e_rf.h"
-#include "rtl8192e_dm.h"
-#include "rtl8192e_recv.h"
-#include "rtl8192e_xmit.h"
-#include "rtl8192e_cmd.h"
-#include "rtl8192e_led.h"
+#include "ttl8192e_spec.h"
+#include "ttl8192e_rf.h"
+#include "ttl8192e_dm.h"
+#include "ttl8192e_recv.h"
+#include "ttl8192e_xmit.h"
+#include "ttl8192e_cmd.h"
+#include "ttl8192e_led.h"
 #include "Hal8192EPwrSeq.h"
 #include "Hal8192EPhyReg.h"
 #include "Hal8192EPhyCfg.h"
 
 
 #ifdef DBG_CONFIG_ERROR_DETECT
-#include "rtl8192e_sreset.h"
+#include "ttl8192e_sreset.h"
 #endif
 
 
 //---------------------------------------------------------------------
 //		RTL8192E From header
 //---------------------------------------------------------------------
-	#define RTL8192E_FW_IMG					"rtl8192e/FW_NIC.bin"
-	#define RTL8192E_FW_WW_IMG				"rtl8192e/FW_WoWLAN.bin"
-	#define RTL8192E_PHY_REG					"rtl8192e/PHY_REG.txt" 
-	#define RTL8192E_PHY_RADIO_A				"rtl8192e/RadioA.txt"
-	#define RTL8192E_PHY_RADIO_B				"rtl8192e/RadioB.txt"
-	#define RTL8192E_TXPWR_TRACK				"rtl8192e/TxPowerTrack.txt"
-	#define RTL8192E_AGC_TAB					"rtl8192e/AGC_TAB.txt"
-	#define RTL8192E_PHY_MACREG 				"rtl8192e/MAC_REG.txt"
-	#define RTL8192E_PHY_REG_PG				"rtl8192e/PHY_REG_PG.txt"
-	#define RTL8192E_PHY_REG_MP 				"rtl8192e/PHY_REG_MP.txt" 
-	#define RTL8192E_TXPWR_LMT					"rtl8192e/TXPWR_LMT.txt"
-	#define RTL8192E_WIFI_ANT_ISOLATION		"rtl8192e/wifi_ant_isolation.txt"
+	#define RTL8192E_FW_IMG					"ttl8192e/FW_NIC.bin"
+	#define RTL8192E_FW_WW_IMG				"ttl8192e/FW_WoWLAN.bin"
+	#define RTL8192E_PHY_REG					"ttl8192e/PHY_REG.txt" 
+	#define RTL8192E_PHY_RADIO_A				"ttl8192e/RadioA.txt"
+	#define RTL8192E_PHY_RADIO_B				"ttl8192e/RadioB.txt"
+	#define RTL8192E_TXPWR_TRACK				"ttl8192e/TxPowerTrack.txt"
+	#define RTL8192E_AGC_TAB					"ttl8192e/AGC_TAB.txt"
+	#define RTL8192E_PHY_MACREG 				"ttl8192e/MAC_REG.txt"
+	#define RTL8192E_PHY_REG_PG				"ttl8192e/PHY_REG_PG.txt"
+	#define RTL8192E_PHY_REG_MP 				"ttl8192e/PHY_REG_MP.txt" 
+	#define RTL8192E_TXPWR_LMT					"ttl8192e/TXPWR_LMT.txt"
+	#define RTL8192E_WIFI_ANT_ISOLATION		"ttl8192e/wifi_ant_isolation.txt"
 
 //---------------------------------------------------------------------
 //		RTL8192E Power Configuration CMDs for PCIe interface
 //---------------------------------------------------------------------
-#define Rtl8192E_NIC_PWR_ON_FLOW				rtl8192E_power_on_flow
-#define Rtl8192E_NIC_RF_OFF_FLOW				rtl8192E_radio_off_flow
-#define Rtl8192E_NIC_DISABLE_FLOW				rtl8192E_card_disable_flow
-#define Rtl8192E_NIC_ENABLE_FLOW				rtl8192E_card_enable_flow
-#define Rtl8192E_NIC_SUSPEND_FLOW				rtl8192E_suspend_flow
-#define Rtl8192E_NIC_RESUME_FLOW				rtl8192E_resume_flow
-#define Rtl8192E_NIC_PDN_FLOW					rtl8192E_hwpdn_flow
-#define Rtl8192E_NIC_LPS_ENTER_FLOW			rtl8192E_enter_lps_flow
-#define Rtl8192E_NIC_LPS_LEAVE_FLOW			rtl8192E_leave_lps_flow	
+#define Rtl8192E_NIC_PWR_ON_FLOW				ttl8192E_power_on_flow
+#define Rtl8192E_NIC_RF_OFF_FLOW				ttl8192E_radio_off_flow
+#define Rtl8192E_NIC_DISABLE_FLOW				ttl8192E_card_disable_flow
+#define Rtl8192E_NIC_ENABLE_FLOW				ttl8192E_card_enable_flow
+#define Rtl8192E_NIC_SUSPEND_FLOW				ttl8192E_suspend_flow
+#define Rtl8192E_NIC_RESUME_FLOW				ttl8192E_resume_flow
+#define Rtl8192E_NIC_PDN_FLOW					ttl8192E_hwpdn_flow
+#define Rtl8192E_NIC_LPS_ENTER_FLOW			ttl8192E_enter_lps_flow
+#define Rtl8192E_NIC_LPS_LEAVE_FLOW			ttl8192E_leave_lps_flow	
 
 
 #if 1 // download firmware related data structure
@@ -247,7 +247,7 @@ Total page numbers : 256(0x100)
 
 //#define RT_IS_FUNC_DISABLED(__pAdapter, __FuncBits) ( (__pAdapter)->DisabledFunctions & (__FuncBits) )
 
-// rtl8812_hal_init.c
+// ttl8812_hal_init.c
 void	_8051Reset8192E(PADAPTER padapter);
 s32	FirmwareDownload8192E(PADAPTER Adapter, BOOLEAN bUsedWoWLANFw);
 void	InitializeFirmwareVars8192E(PADAPTER padapter);
@@ -321,13 +321,13 @@ GetHalDefVar8192E(
 	IN	PVOID					pValue
 	);
 
-void rtl8192e_set_hal_ops(struct hal_ops *pHalFunc);
-void rtl8192e_init_default_value(_adapter * padapter);
+void ttl8192e_set_hal_ops(struct hal_ops *pHalFunc);
+void ttl8192e_init_default_value(_adapter * padapter);
 // register
 void SetBcnCtrlReg(PADAPTER padapter, u8 SetBits, u8 ClearBits);
 
-void rtl8192e_start_thread(_adapter *padapter);
-void rtl8192e_stop_thread(_adapter *padapter);
+void ttl8192e_start_thread(_adapter *padapter);
+void ttl8192e_stop_thread(_adapter *padapter);
 
 #ifdef CONFIG_PCI_HCI
 BOOLEAN	InterruptRecognized8192EE(PADAPTER Adapter);
@@ -341,7 +341,7 @@ void _init_available_page_threshold(PADAPTER padapter, u8 numHQ, u8 numNQ, u8 nu
 #endif
 
 #ifdef CONFIG_BT_COEXIST
-void rtl8192e_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
+void ttl8192e_combo_card_WifiOnlyHwInit(PADAPTER Adapter);
 #endif
 
 #endif //__RTL8192E_HAL_H__

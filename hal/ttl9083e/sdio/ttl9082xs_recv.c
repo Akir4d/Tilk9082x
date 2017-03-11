@@ -27,9 +27,9 @@
 
 #include <drv_types.h>
 #include <recv_osdep.h>
-#include <rtl9083e_hal.h>
+#include <ttl9083e_hal.h>
 
-static void rtl9083es_recv_tasklet(void *priv);
+static void ttl9083es_recv_tasklet(void *priv);
 
 static s32 initrecvbuf(struct recv_buf *precvbuf, PADAPTER padapter)
 {
@@ -52,7 +52,7 @@ static void freerecvbuf(struct recv_buf *precvbuf)
  * 2. recv tasklet
  *
  */
-s32 rtl9083es_init_recv_priv(PADAPTER padapter)
+s32 ttl9083es_init_recv_priv(PADAPTER padapter)
 {
 	s32			res;
 	u32			i, n;
@@ -72,7 +72,7 @@ s32 rtl9083es_init_recv_priv(PADAPTER padapter)
 	precvpriv->pallocated_recv_buf = rtw_zmalloc(n);
 	if (precvpriv->pallocated_recv_buf == NULL) {
 		res = _FAIL;
-		RT_TRACE(_module_rtl871x_recv_c_, _drv_err_, ("alloc recv_buf fail!\n"));
+		RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("alloc recv_buf fail!\n"));
 		goto exit;
 	}
 
@@ -139,7 +139,7 @@ s32 rtl9083es_init_recv_priv(PADAPTER padapter)
 	//3 2. init tasklet
 #ifdef PLATFORM_LINUX
 	tasklet_init(&precvpriv->recv_tasklet,
-	     (void(*)(unsigned long))rtl9083es_recv_tasklet,
+	     (void(*)(unsigned long))ttl9083es_recv_tasklet,
 	     (unsigned long)padapter);
 #endif
 
@@ -176,7 +176,7 @@ exit:
  * 2. recv tasklet
  *
  */
-void rtl9083es_free_recv_priv(PADAPTER padapter)
+void ttl9083es_free_recv_priv(PADAPTER padapter)
 {
 	u32			i, n;
 	struct recv_priv	*precvpriv;
@@ -300,7 +300,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 
 		if(rtw_recv_entry(precvframe_if2) != _SUCCESS)
 		{
-			RT_TRACE(_module_rtl871x_recv_c_,_drv_err_,
+			RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
 				("recvbuf2recvframe: rtw_recv_entry(precvframe) != _SUCCESS\n"));
 		}
 	}
@@ -315,7 +315,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 
 }
 
-static void rtl9083es_recv_tasklet(void *priv)
+static void ttl9083es_recv_tasklet(void *priv)
 {
 	PADAPTER			padapter;
 	PHAL_DATA_TYPE		pHalData;
@@ -352,7 +352,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 		do {
 			precvframe = rtw_alloc_recvframe(&precvpriv->free_recv_queue);
 			if (precvframe == NULL) {
-				RT_TRACE(_module_rtl871x_recv_c_, _drv_err_, ("%s: no enough recv frame!\n",__FUNCTION__));
+				RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: no enough recv frame!\n",__FUNCTION__));
 				rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
 				// The case of can't allocte recvframe should be temporary,
@@ -364,7 +364,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 			}
 
 			//rx desc parsing
-			rtl9083e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
+			ttl9083e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
 
 			pattrib = &precvframe->u.hdr.attrib;
 
@@ -455,7 +455,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 				{
 					if((pattrib->mfrag == 1)&&(pattrib->frag_num == 0))
 					{				
-						DBG_8192C("rtl9083es_recv_tasklet: alloc_skb fail , drop frag frame \n");
+						DBG_8192C("ttl9083es_recv_tasklet: alloc_skb fail , drop frag frame \n");
 						rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
@@ -473,7 +473,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 					}
 					else
 					{
-						DBG_8192C("rtl9083es_recv_tasklet: rtw_skb_clone fail\n");
+						DBG_8192C("ttl9083es_recv_tasklet: rtw_skb_clone fail\n");
 						rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
@@ -489,7 +489,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 
 				// update drv info
 				if (pHalData->ReceiveConfig & RCR_APP_BA_SSN) {
-					//rtl8723s_update_bassn(padapter, (ptr + RXDESC_SIZE));
+					//ttl8723s_update_bassn(padapter, (ptr + RXDESC_SIZE));
 				}
 
 				if(pattrib->pkt_rpt_type == NORMAL_RX)//Normal rx packet
@@ -501,7 +501,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 					{
 						if(pre_recv_entry(precvframe, precvbuf, pphy_status) != _SUCCESS)
 						{
-							RT_TRACE(_module_rtl871x_recv_c_,_drv_err_,
+							RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
 								("recvbuf2recvframe: recv_entry(precvframe) != _SUCCESS\n"));
 						}
 					}
@@ -513,7 +513,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 
 						if (rtw_recv_entry(precvframe) != _SUCCESS)
 						{
-							RT_TRACE(_module_rtl871x_recv_c_, _drv_err_, ("%s: rtw_recv_entry(precvframe) != _SUCCESS\n",__FUNCTION__));
+							RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: rtw_recv_entry(precvframe) != _SUCCESS\n",__FUNCTION__));
 						}
 					}
 				}
@@ -616,7 +616,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 		pkt_copy = rtw_skb_copy( precvframe->u.hdr.pkt);
 		if (pkt_copy == NULL)
 		{
-			RT_TRACE(_module_rtl871x_recv_c_, _drv_crit_, ("%s: no enough memory to allocate SKB!\n",__FUNCTION__));
+			RT_TRACE(_module_ttl871x_recv_c_, _drv_crit_, ("%s: no enough memory to allocate SKB!\n",__FUNCTION__));
 			rtw_free_recvframe(precvframe_if2, &precvpriv->free_recv_queue);
 			rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
@@ -663,7 +663,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 
 		if(rtw_recv_entry(precvframe_if2) != _SUCCESS)
 		{
-			RT_TRACE(_module_rtl871x_recv_c_,_drv_err_,
+			RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
 				("recvbuf2recvframe: rtw_recv_entry(precvframe) != _SUCCESS\n"));
 		}
 	}
@@ -678,7 +678,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 
 }
 
-static void rtl9083es_recv_tasklet(void *priv)
+static void ttl9083es_recv_tasklet(void *priv)
 {
 	PADAPTER				padapter;
 	PHAL_DATA_TYPE			pHalData;
@@ -709,7 +709,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 		{
 			precvframe = rtw_alloc_recvframe(&precvpriv->free_recv_queue);
 			if (precvframe == NULL) {
-				RT_TRACE(_module_rtl871x_recv_c_, _drv_err_, ("%s: no enough recv frame!\n",__FUNCTION__));
+				RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: no enough recv frame!\n",__FUNCTION__));
 				rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
 				// The case of can't allocte recvframe should be temporary,
@@ -724,7 +724,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 			pattrib = &phdr->attrib;
 
 			//rx desc parsing
-			rtl9083e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
+			ttl9083e_query_rx_desc_status(precvframe, (struct recv_stat*)ptr);
 #ifdef CONFIG_CONCURRENT_MODE
 			prxstat = (struct recv_stat*)ptr;
 #endif
@@ -768,7 +768,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 				ppkt = rtw_skb_clone(precvbuf->pskb);
 				if (ppkt == NULL)
 				{
-					RT_TRACE(_module_rtl871x_recv_c_, _drv_crit_, ("%s: no enough memory to allocate SKB!\n",__FUNCTION__));
+					RT_TRACE(_module_ttl871x_recv_c_, _drv_crit_, ("%s: no enough memory to allocate SKB!\n",__FUNCTION__));
 					rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 					rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
@@ -800,7 +800,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 
 				// update drv info
 				if (pHalData->ReceiveConfig & RCR_APP_BA_SSN) {
-//					rtl8723s_update_bassn(padapter, pdrvinfo);
+//					ttl8723s_update_bassn(padapter, pdrvinfo);
 					ptr += 4;
 				}
 
@@ -811,7 +811,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 					{
 						if(pre_recv_entry(precvframe, precvbuf, ptr) != _SUCCESS)
 						{
-							RT_TRACE(_module_rtl871x_recv_c_,_drv_err_,
+							RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
 								("recvbuf2recvframe: recv_entry(precvframe) != _SUCCESS\n"));
 						}
 					}
@@ -823,7 +823,7 @@ static void rtl9083es_recv_tasklet(void *priv)
 
 					if (rtw_recv_entry(precvframe) != _SUCCESS)
 					{
-							RT_TRACE(_module_rtl871x_recv_c_,_drv_err_,
+							RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
 								("recvbuf2recvframe: rtw_recv_entry(precvframe) != _SUCCESS\n"));
 						}
 					}

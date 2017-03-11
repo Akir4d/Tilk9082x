@@ -992,7 +992,7 @@ VOID phydm_BasicProfile(
 	}
 #elif (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	{
-		struct rtl8192cd_priv *priv = pDM_Odm->priv;
+		struct ttl8192cd_priv *priv = pDM_Odm->priv;
 		PHYDM_SNPRINTF((output + used, out_len - used, "  %-35s: %d (Subversion: %d)\n", "FW Version", priv->pshare->fw_version, priv->pshare->fw_sub_version));
 	}
 #else

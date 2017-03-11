@@ -559,7 +559,7 @@ odm_DigAbort(
 	pDIG_T			pDM_DigTable = &pDM_Odm->DM_DigTable;
 
 #if (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv	priv = pDM_Odm->priv;
+	pttl8192cd_priv	priv = pDM_Odm->priv;
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		pAdapter	= pDM_Odm->Adapter;
 	pRXHP_T			pRX_HP_Table  = &pDM_Odm->DM_RXHP_Table;
@@ -727,7 +727,7 @@ odm_DIG(
 	PADAPTER					pAdapter	= pDM_Odm->Adapter;
 	HAL_DATA_TYPE				*pHalData = GET_HAL_DATA(pDM_Odm->Adapter);
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	prtl8192cd_priv				priv = pDM_Odm->priv;
+	pttl8192cd_priv				priv = pDM_Odm->priv;
 	PSTA_INFO_T   				pEntry;
 #endif
 
@@ -1392,7 +1392,7 @@ odm_FalseAlarmCounterStatistics(
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 //Mark there, and check this in odm_DMWatchDog
 #if 0 //(DM_ODM_SUPPORT_TYPE == ODM_AP)
-	prtl8192cd_priv priv		= pDM_Odm->priv;
+	pttl8192cd_priv priv		= pDM_Odm->priv;
 	if( (priv->auto_channel != 0) && (priv->auto_channel != 2) )
 		return;
 #endif

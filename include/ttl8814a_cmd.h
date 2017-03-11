@@ -128,22 +128,22 @@ typedef enum _RTL8814A_C2H_EVT
 }RTL8814A_C2H_EVT;
 
 s32 FillH2CCmd_8814(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
-void rtl8814_set_raid_cmd(PADAPTER padapter, u64 bitmap, u8* arg);
-void rtl8814_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
-void rtl8814_set_wowlan_cmd(_adapter* padapter, u8 enable);
-void rtl8814_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus);
-void rtl8814_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt );
-void rtl8814_set_FwPwrMode_cmd(PADAPTER padapter, u8 PSMode);
+void ttl8814_set_raid_cmd(PADAPTER padapter, u64 bitmap, u8* arg);
+void ttl8814_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
+void ttl8814_set_wowlan_cmd(_adapter* padapter, u8 enable);
+void ttl8814_set_FwJoinBssReport_cmd(PADAPTER padapter, u8 mstatus);
+void ttl8814_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt );
+void ttl8814_set_FwPwrMode_cmd(PADAPTER padapter, u8 PSMode);
 u8 GetTxBufferRsvdPageNum8814(_adapter *padapter, bool wowlan);
-u8 rtl8814_set_rssi_cmd(_adapter*padapter, u8 *param);
+u8 ttl8814_set_rssi_cmd(_adapter*padapter, u8 *param);
 
 void
 Set_RA_LDPC_8814(
 	struct sta_info	*psta,
 	BOOLEAN			bLDPC
 	);
-int rtl8814_iqk_wait(_adapter* padapter, u32 timeout_ms);
-void rtl8814_iqk_done(_adapter* padapter);
+int ttl8814_iqk_wait(_adapter* padapter, u32 timeout_ms);
+void ttl8814_iqk_done(_adapter* padapter);
 VOID
 C2HPacketHandler_8814(
 	IN	PADAPTER	Adapter,
@@ -151,7 +151,7 @@ C2HPacketHandler_8814(
 	IN	u8			Length
 	);
 #ifdef CONFIG_P2P_PS
-void rtl8814_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
+void ttl8814_set_p2p_ps_offload_cmd(PADAPTER padapter, u8 p2p_ps_state);
 #endif //CONFIG_P2P
 
 s32

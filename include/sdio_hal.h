@@ -29,27 +29,27 @@ void sd_int_dpc(PADAPTER padapter);
 u8 rtw_set_hal_ops(_adapter *padapter);
 
 #ifdef CONFIG_RTL9083E
-void rtl9083es_set_hal_ops(PADAPTER padapter);
+void ttl9083es_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_RTL8723B
-void rtl8723bs_set_hal_ops(PADAPTER padapter);
+void ttl8723bs_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_RTL8821A
-void rtl8821as_set_hal_ops(PADAPTER padapter);
+void ttl8821as_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_RTL8192E
-void rtl8192es_set_hal_ops(PADAPTER padapter);
+void ttl8192es_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_RTL8703B
-void rtl8703bs_set_hal_ops(PADAPTER padapter);
+void ttl8703bs_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_RTL9083F
-void rtl9083fs_set_hal_ops(PADAPTER padapter);
+void ttl9083fs_set_hal_ops(PADAPTER padapter);
 #endif
 
 #endif //__SDIO_HAL_H__

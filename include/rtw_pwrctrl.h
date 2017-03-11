@@ -58,13 +58,13 @@ enum pattern_type {
 	PATTERN_INVALID,
 };
 
-typedef struct rtl_priv_pattern {
+typedef struct ttl_priv_pattern {
 	int len;
 	char content[MAX_WKFM_PATTERN_SIZE];
 	char mask[MAX_WKFM_SIZE];
-} rtl_priv_pattern_t;
+} ttl_priv_pattern_t;
 
-struct rtl_wow_pattern {
+struct ttl_wow_pattern {
 	u16	crc;
 	u8	type;
 	u32	mask[4];
@@ -359,7 +359,7 @@ struct pwrctrl_priv
 	u8		wowlan_pattern;
 	u8		wowlan_pattern_idx;
 	u64		wowlan_fw_iv;
-	struct rtl_priv_pattern	patterns[MAX_WKFM_NUM];
+	struct ttl_priv_pattern	patterns[MAX_WKFM_NUM];
 #ifdef CONFIG_PNO_SUPPORT
 	u8		pno_in_resume;
 	u8		pno_inited;
@@ -506,7 +506,7 @@ void rtw_get_sec_iv(PADAPTER padapter, u8 *pcur_dot11txpn, u8 *StaAddr);
 void rtw_set_sec_pn(_adapter *padapter);
 bool rtw_check_pattern_valid(u8 *input, u8 len);
 bool rtw_write_to_frame_mask(_adapter *adapter, u8 idx,
-		struct rtl_wow_pattern *content);
+		struct ttl_wow_pattern *content);
 
 bool rtw_read_from_frame_mask(_adapter *adapter, u8 idx);
 void rtw_dump_priv_pattern(_adapter *adapter, u8 idx);

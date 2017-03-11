@@ -38,9 +38,9 @@
 #define TTL9021_MCCTRL_		(0x020000)
 
 
-#include <rtl8711_regdef.h>
+#include <ttl8711_regdef.h>
 
-#include <rtl8711_bitdef.h>
+#include <ttl8711_bitdef.h>
 
 
 #endif // __TTL9021_SPEC_H__

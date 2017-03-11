@@ -20,7 +20,7 @@
 #define _RTL9082ES_LED_C_
 
 #include "drv_types.h"
-#include "rtl9083e_hal.h"
+#include "ttl9083e_hal.h"
 
 //================================================================================
 // LED object.
@@ -85,7 +85,7 @@ exit:
 //		Initialize all LED_871x objects.
 //
 void
-rtl9083es_InitSwLeds(
+ttl9083es_InitSwLeds(
 	_adapter	*padapter
 	)
 {
@@ -109,7 +109,7 @@ rtl9083es_InitSwLeds(
 //		DeInitialize all LED_819xUsb objects.
 //
 void
-rtl9083es_DeInitSwLeds(
+ttl9083es_DeInitSwLeds(
 	_adapter	*padapter
 	)
 {

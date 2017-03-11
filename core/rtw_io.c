@@ -361,7 +361,7 @@ void _rtw_read_mem(_adapter *adapter, u32 addr, u32 cnt, u8 *pmem)
 	_func_enter_;
 
 	if (RTW_CANNOT_RUN(adapter)) {
-		RT_TRACE(_module_rtl871x_io_c_, _drv_info_, ("rtw_read_mem:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
+		RT_TRACE(_module_ttl871x_io_c_, _drv_info_, ("rtw_read_mem:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
 			, rtw_is_drv_stopped(adapter)?"True":"False"
 			, rtw_is_surprise_removed(adapter)?"True":"False"));
 		return;
@@ -402,7 +402,7 @@ void _rtw_read_port(_adapter *adapter, u32 addr, u32 cnt, u8 *pmem)
 	_func_enter_;
 
 	if (RTW_CANNOT_RUN(adapter)) {
-		RT_TRACE(_module_rtl871x_io_c_, _drv_info_, ("rtw_read_port:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
+		RT_TRACE(_module_ttl871x_io_c_, _drv_info_, ("rtw_read_port:bDriverStopped(%s) OR bSurpriseRemoved(%s)"
 			, rtw_is_drv_stopped(adapter)?"True":"False"
 			, rtw_is_surprise_removed(adapter)?"True":"False"));	    
 	     return;

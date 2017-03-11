@@ -52,22 +52,22 @@
 #define	Rx_Smooth_Factor (20)
 
 #if defined(CONFIG_SDIO_HCI) || defined(CONFIG_GSPI_HCI)
-s32 rtl9083fs_init_recv_priv(PADAPTER padapter);
-void rtl9083fs_free_recv_priv(PADAPTER padapter);
+s32 ttl9083fs_init_recv_priv(PADAPTER padapter);
+void ttl9083fs_free_recv_priv(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_USB_HCI
-int rtl9083fu_init_recv_priv(_adapter *padapter);
-void rtl9083fu_free_recv_priv (_adapter *padapter);
-void rtl9083fu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+int ttl9083fu_init_recv_priv(_adapter *padapter);
+void ttl9083fu_free_recv_priv (_adapter *padapter);
+void ttl9083fu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 rtl9083fe_init_recv_priv(PADAPTER padapter);
-void rtl9083fe_free_recv_priv(PADAPTER padapter);
+s32 ttl9083fe_init_recv_priv(PADAPTER padapter);
+void ttl9083fe_free_recv_priv(PADAPTER padapter);
 #endif
 
-void rtl9083f_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
+void ttl9083f_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
 #endif /* __RTL9083F_RECV_H__ */
 

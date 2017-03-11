@@ -134,7 +134,7 @@
 #endif
 
 /*#define CONFIG_WEXT_DONT_JOIN_BYSSID	*/
-//#include <rtl871x_byteorder.h>
+//#include <ttl871x_byteorder.h>
 
 
 /*#define CONFIG_DOSCAN_IN_BUSYTRAFFIC	*/

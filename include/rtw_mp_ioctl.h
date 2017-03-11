@@ -99,14 +99,14 @@ static void _irqlevel_changed_(_irqL *irqlevel, u8 bLower)
 #define _irqlevel_changed_(a,b)
 #endif
 
-//oid_rtl_seg_81_80_00
+//oid_ttl_seg_81_80_00
 NDIS_STATUS oid_rt_pro_set_data_rate_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_start_test_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_stop_test_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_channel_direct_call_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_antenna_bb_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_tx_power_control_hdl(struct oid_par_priv* poid_par_priv);
-//oid_rtl_seg_81_80_20
+//oid_ttl_seg_81_80_20
 NDIS_STATUS oid_rt_pro_query_tx_packet_sent_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_query_rx_packet_received_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_query_rx_packet_crc32_error_hdl(struct oid_par_priv* poid_par_priv);
@@ -121,7 +121,7 @@ NDIS_STATUS oid_rt_pro_set_carrier_suppression_tx_hdl(struct oid_par_priv* poid_
 NDIS_STATUS oid_rt_pro_set_single_tone_tx_hdl(struct oid_par_priv* poid_par_priv);
 
 
-//oid_rtl_seg_81_87
+//oid_ttl_seg_81_87
 NDIS_STATUS oid_rt_pro_write_bb_reg_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_read_bb_reg_hdl(struct oid_par_priv* poid_par_priv);
 
@@ -129,11 +129,11 @@ NDIS_STATUS oid_rt_pro_write_rf_reg_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_read_rf_reg_hdl(struct oid_par_priv* poid_par_priv);
 
 
-//oid_rtl_seg_81_85
+//oid_ttl_seg_81_85
 NDIS_STATUS oid_rt_wireless_mode_hdl(struct oid_par_priv* poid_par_priv);
 
 
-// oid_rtl_seg_87_11_00
+// oid_ttl_seg_87_11_00
 NDIS_STATUS oid_rt_pro8711_join_bss_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_read_register_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_write_register_hdl(struct oid_par_priv* poid_par_priv);
@@ -148,21 +148,21 @@ NDIS_STATUS oid_rt_rd_attrib_mem_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_wr_attrib_mem_hdl (struct oid_par_priv* poid_par_priv);
 NDIS_STATUS  oid_rt_pro_set_rf_intfs_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_poll_rx_status_hdl(struct oid_par_priv* poid_par_priv);
-// oid_rtl_seg_87_11_20
+// oid_ttl_seg_87_11_20
 NDIS_STATUS oid_rt_pro_cfg_debug_message_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_data_rate_ex_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_basic_rate_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_read_tssi_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_power_tracking_hdl(struct oid_par_priv* poid_par_priv);
-//oid_rtl_seg_87_11_50
+//oid_ttl_seg_87_11_50
 NDIS_STATUS oid_rt_pro_qry_pwrstate_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_set_pwrstate_hdl(struct oid_par_priv* poid_par_priv);
-//oid_rtl_seg_87_11_F0
+//oid_ttl_seg_87_11_F0
 NDIS_STATUS oid_rt_pro_h2c_set_rate_table_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_h2c_get_rate_table_hdl(struct oid_par_priv* poid_par_priv);
 
 
-//oid_rtl_seg_87_12_00
+//oid_ttl_seg_87_12_00
 NDIS_STATUS oid_rt_pro_encryption_ctrl_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_add_sta_info_hdl(struct oid_par_priv* poid_par_priv);
 NDIS_STATUS oid_rt_pro_dele_sta_info_hdl(struct oid_par_priv* poid_par_priv);
@@ -198,7 +198,7 @@ NDIS_STATUS oid_rt_pro_trigger_gpio_hdl(struct oid_par_priv *poid_par_priv);
 
 #ifdef _RTW_MP_IOCTL_C_
 
-const struct oid_obj_priv oid_rtl_seg_81_80_00[] =
+const struct oid_obj_priv oid_ttl_seg_81_80_00[] =
 {
 	{1, &oid_null_function},			//0x00	OID_RT_PRO_RESET_DUT
 	{1, &oid_rt_pro_set_data_rate_hdl},		//0x01
@@ -235,7 +235,7 @@ const struct oid_obj_priv oid_rtl_seg_81_80_00[] =
 
 };
 
-const struct oid_obj_priv oid_rtl_seg_81_80_20[] =
+const struct oid_obj_priv oid_ttl_seg_81_80_20[] =
 {
 	{1, &oid_null_function},			//0x20	OID_RT_PRO_READ_POWER_CONTROL
 	{1, &oid_null_function},			//0x21	OID_RT_PRO_WRITE_EEPROM
@@ -256,7 +256,7 @@ const struct oid_obj_priv oid_rtl_seg_81_80_20[] =
 
 };
 
-const struct oid_obj_priv oid_rtl_seg_81_80_40[] =
+const struct oid_obj_priv oid_ttl_seg_81_80_40[] =
 {
 	{1, &oid_null_function},			//0x40
 	{1, &oid_null_function},			//0x41
@@ -266,7 +266,7 @@ const struct oid_obj_priv oid_rtl_seg_81_80_40[] =
 	{1, &oid_null_function}				//0x45
 };
 
-const struct oid_obj_priv oid_rtl_seg_81_80_80[] =
+const struct oid_obj_priv oid_ttl_seg_81_80_80[] =
 {
 	{1, &oid_null_function},			//0x80	OID_RT_DRIVER_OPTION
 	{1, &oid_null_function},			//0x81	OID_RT_RF_OFF
@@ -274,12 +274,12 @@ const struct oid_obj_priv oid_rtl_seg_81_80_80[] =
 
 };
 
-const struct oid_obj_priv oid_rtl_seg_81_85[] =
+const struct oid_obj_priv oid_ttl_seg_81_85[] =
 {
 	{1, &oid_rt_wireless_mode_hdl}			//0x00	OID_RT_WIRELESS_MODE
 };
 
-struct oid_obj_priv oid_rtl_seg_81_87[] =
+struct oid_obj_priv oid_ttl_seg_81_87[] =
 {
 	{1, &oid_null_function},			//0x80	OID_RT_PRO8187_WI_POLL
 	{1, &oid_rt_pro_write_bb_reg_hdl},		//0x81
@@ -288,7 +288,7 @@ struct oid_obj_priv oid_rtl_seg_81_87[] =
 	{1, &oid_rt_pro_read_rf_reg_hdl}		//0x83
 };
 
-struct oid_obj_priv oid_rtl_seg_87_11_00[] =
+struct oid_obj_priv oid_ttl_seg_87_11_00[] =
 {
 	{1, &oid_rt_pro8711_join_bss_hdl},		//0x00  //S
 	{1, &oid_rt_pro_read_register_hdl},		//0x01
@@ -324,7 +324,7 @@ struct oid_obj_priv oid_rtl_seg_87_11_00[] =
 	{1, &oid_rt_poll_rx_status_hdl}			//0X1F
 };
 
-struct oid_obj_priv oid_rtl_seg_87_11_20[] =
+struct oid_obj_priv oid_ttl_seg_87_11_20[] =
 {
 	{1, &oid_rt_pro_cfg_debug_message_hdl},		//0x20
 	{1, &oid_rt_pro_set_data_rate_ex_hdl},		//0x21
@@ -334,23 +334,23 @@ struct oid_obj_priv oid_rtl_seg_87_11_20[] =
 };
 
 
-struct oid_obj_priv oid_rtl_seg_87_11_50[] =
+struct oid_obj_priv oid_ttl_seg_87_11_50[] =
 {
 	{1, &oid_rt_pro_qry_pwrstate_hdl},		//0x50
 	{1, &oid_rt_pro_set_pwrstate_hdl}		//0x51
 };
 
-struct oid_obj_priv oid_rtl_seg_87_11_80[] =
+struct oid_obj_priv oid_ttl_seg_87_11_80[] =
 {
 	{1, &oid_null_function}				//0x80
 };
 
-struct oid_obj_priv oid_rtl_seg_87_11_B0[] =
+struct oid_obj_priv oid_ttl_seg_87_11_B0[] =
 {
 	{1, &oid_null_function}				//0xB0
 };
 
-struct oid_obj_priv oid_rtl_seg_87_11_F0[] =
+struct oid_obj_priv oid_ttl_seg_87_11_F0[] =
 {
 	{1, &oid_null_function},			//0xF0
 	{1, &oid_null_function},			//0xF1
@@ -371,7 +371,7 @@ struct oid_obj_priv oid_rtl_seg_87_11_F0[] =
 
 };
 
-struct oid_obj_priv oid_rtl_seg_87_12_00[]=
+struct oid_obj_priv oid_ttl_seg_87_12_00[]=
 {
 	{1, &oid_rt_pro_encryption_ctrl_hdl},		//0x00	Q&S
 	{1, &oid_rt_pro_add_sta_info_hdl},		//0x01	S
@@ -399,22 +399,22 @@ struct oid_obj_priv oid_rtl_seg_87_12_00[]=
 
 #else /* _TTL902X_MP_IOCTL_C_ */
 
-extern struct oid_obj_priv oid_rtl_seg_81_80_00[32];
-extern struct oid_obj_priv oid_rtl_seg_81_80_20[16];
-extern struct oid_obj_priv oid_rtl_seg_81_80_40[6];
-extern struct oid_obj_priv oid_rtl_seg_81_80_80[3];
+extern struct oid_obj_priv oid_ttl_seg_81_80_00[32];
+extern struct oid_obj_priv oid_ttl_seg_81_80_20[16];
+extern struct oid_obj_priv oid_ttl_seg_81_80_40[6];
+extern struct oid_obj_priv oid_ttl_seg_81_80_80[3];
 
-extern struct oid_obj_priv oid_rtl_seg_81_85[1];
-extern struct oid_obj_priv oid_rtl_seg_81_87[5];
+extern struct oid_obj_priv oid_ttl_seg_81_85[1];
+extern struct oid_obj_priv oid_ttl_seg_81_87[5];
 
-extern struct oid_obj_priv oid_rtl_seg_87_11_00[32];
-extern struct oid_obj_priv oid_rtl_seg_87_11_20[5];
-extern struct oid_obj_priv oid_rtl_seg_87_11_50[2];
-extern struct oid_obj_priv oid_rtl_seg_87_11_80[1];
-extern struct oid_obj_priv oid_rtl_seg_87_11_B0[1];
-extern struct oid_obj_priv oid_rtl_seg_87_11_F0[16];
+extern struct oid_obj_priv oid_ttl_seg_87_11_00[32];
+extern struct oid_obj_priv oid_ttl_seg_87_11_20[5];
+extern struct oid_obj_priv oid_ttl_seg_87_11_50[2];
+extern struct oid_obj_priv oid_ttl_seg_87_11_80[1];
+extern struct oid_obj_priv oid_ttl_seg_87_11_B0[1];
+extern struct oid_obj_priv oid_ttl_seg_87_11_F0[16];
 
-extern struct oid_obj_priv oid_rtl_seg_87_12_00[32];
+extern struct oid_obj_priv oid_ttl_seg_87_12_00[32];
 
 #endif /* _TTL902X_MP_IOCTL_C_ */
 

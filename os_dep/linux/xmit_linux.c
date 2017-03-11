@@ -464,7 +464,7 @@ _func_enter_;
 		goto drop_packet;
 	}
 	DBG_COUNTER(padapter->tx_logs.os_tx);
-	RT_TRACE(_module_rtl871x_mlme_c_, _drv_info_, ("+xmit_enry\n"));
+	RT_TRACE(_module_ttl871x_mlme_c_, _drv_info_, ("+xmit_enry\n"));
 
 	if (rtw_if_up(padapter) == _FALSE) {
 		DBG_COUNTER(padapter->tx_logs.os_tx_err_up);

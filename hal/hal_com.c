@@ -4769,7 +4769,7 @@ static int rtw_hal_set_pattern(_adapter *adapter, u8 *pattern,
 	struct pwrctrl_priv *pwrctl = adapter_to_pwrctl(adapter);
 	struct mlme_ext_priv *pmlmeext = NULL;
 	struct mlme_ext_info *pmlmeinfo = NULL;
-	struct rtl_wow_pattern wow_pattern;
+	struct ttl_wow_pattern wow_pattern;
 	u8 mask_hw[MAX_WKFM_SIZE] = {0};
 	u8 content[MAX_WKFM_PATTERN_SIZE] = {0};
 	u8 broadcast_addr[6] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
@@ -4789,7 +4789,7 @@ static int rtw_hal_set_pattern(_adapter *adapter, u8 *pattern,
 	pmlmeext = &adapter->mlmeextpriv;
 	pmlmeinfo = &pmlmeext->mlmext_info;
 	_rtw_memcpy(mac_addr, adapter_mac_addr(adapter), ETH_ALEN);
-	_rtw_memset(&wow_pattern, 0, sizeof(struct rtl_wow_pattern));
+	_rtw_memset(&wow_pattern, 0, sizeof(struct ttl_wow_pattern));
 
 	mask_len = DIV_ROUND_UP(len, 8);
 

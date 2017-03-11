@@ -24,7 +24,7 @@
 #include <hal_com_reg.h>
 // Because 8812a and 8821a is the same serial,
 // most of 8821a register definitions are the same as 8812a.
-#include <rtl8812a_spec.h>
+#include <ttl8812a_spec.h>
 
 
 //============================================================

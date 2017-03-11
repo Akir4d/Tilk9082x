@@ -49,7 +49,7 @@ void shift_out_bits(_adapter * padapter, u16 data, u16 count)
 _func_enter_;
 
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	mask = 0x01 << (count - 1);
@@ -63,7 +63,7 @@ _func_enter_;
 		if(data & mask)
 			x |= _EEDI;
 		if (rtw_is_surprise_removed(padapter)) {
-			RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+			RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 			goto out;
 		}
 		rtw_write8(padapter, EE_9346CR, (u8)x);
@@ -73,7 +73,7 @@ _func_enter_;
 		mask = mask >> 1;
 	} while(mask);
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	x &= ~_EEDI;
@@ -87,7 +87,7 @@ u16 shift_in_bits (_adapter * padapter)
 	u16 x,d=0,i;
 _func_enter_;	
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	x = rtw_read8(padapter, EE_9346CR);
@@ -100,7 +100,7 @@ _func_enter_;
 		d = d << 1;
 		up_clk(padapter, &x);
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 		x = rtw_read8(padapter, EE_9346CR);
@@ -158,23 +158,23 @@ void eeprom_clean(_adapter * padapter)
 	u16 x;
 _func_enter_;		
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	x = rtw_read8(padapter, EE_9346CR);
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	x &= ~(_EECS | _EEDI);
 	rtw_write8(padapter, EE_9346CR, (u8)x);
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	up_clk(padapter, &x);
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	down_clk(padapter, &x);
@@ -191,12 +191,12 @@ void eeprom_write16(_adapter * padapter, u16 reg, u16 data)
 	tmp8_new=tmp8_ori & 0xf7;
 	if(tmp8_ori != tmp8_new){	
 		rtw_write8(padapter, 0x102502f1, tmp8_new);
-		RT_TRACE(_module_rtl871x_mp_ioctl_c_,_drv_err_,("====write 0x102502f1=====\n"));
+		RT_TRACE(_module_ttl871x_mp_ioctl_c_,_drv_err_,("====write 0x102502f1=====\n"));
 	}
 	tmp8_clk_ori=rtw_read8(padapter,0x10250003);
 	tmp8_clk_new=tmp8_clk_ori|0x20;
 	if(tmp8_clk_new!=tmp8_clk_ori){
-		RT_TRACE(_module_rtl871x_mp_ioctl_c_,_drv_err_,("====write 0x10250003=====\n"));
+		RT_TRACE(_module_ttl871x_mp_ioctl_c_,_drv_err_,("====write 0x10250003=====\n"));
 		rtw_write8(padapter, 0x10250003, tmp8_clk_new);
 	}	
 #endif
@@ -277,26 +277,26 @@ u16 eeprom_read16(_adapter * padapter, u16 reg) //ReadEEprom
 	tmp8_new = tmp8_ori & 0xf7;
 	if(tmp8_ori != tmp8_new){	
 		rtw_write8(padapter, 0x102502f1, tmp8_new);
-		RT_TRACE(_module_rtl871x_mp_ioctl_c_,_drv_err_,("====write 0x102502f1=====\n"));
+		RT_TRACE(_module_ttl871x_mp_ioctl_c_,_drv_err_,("====write 0x102502f1=====\n"));
 	}
 	tmp8_clk_ori=rtw_read8(padapter,0x10250003);
 	tmp8_clk_new=tmp8_clk_ori|0x20;
 	if(tmp8_clk_new!=tmp8_clk_ori){
-		RT_TRACE(_module_rtl871x_mp_ioctl_c_,_drv_err_,("====write 0x10250003=====\n"));
+		RT_TRACE(_module_ttl871x_mp_ioctl_c_,_drv_err_,("====write 0x10250003=====\n"));
 		rtw_write8(padapter, 0x10250003, tmp8_clk_new);
 	}	
 #endif
 _func_enter_;		
 
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	// select EEPROM, reset bits, set _EECS
 	x = rtw_read8(padapter, EE_9346CR);
 
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 
@@ -338,14 +338,14 @@ void eeprom_read_sz(_adapter * padapter, u16 reg, u8* data, u32 sz)
 	u32 i;
 _func_enter_;		
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 	// select EEPROM, reset bits, set _EECS
 	x = rtw_read8(padapter, EE_9346CR);
 
 	if (rtw_is_surprise_removed(padapter)) {
-		RT_TRACE(_module_rtl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
+		RT_TRACE(_module_ttl871x_eeprom_c_, _drv_err_, ("padapter->bSurpriseRemoved==_TRUE"));
 		goto out;
 	}
 

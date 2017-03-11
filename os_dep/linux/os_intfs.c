@@ -44,7 +44,7 @@ int rtw_network_mode = Ndis802_11IBSS;//Ndis802_11Infrastructure;//infra, ad-hoc
 //NDIS_802_11_SSID	ssid;
 int rtw_channel = 1;//ad-hoc support requirement
 int rtw_wireless_mode = WIRELESS_MODE_MAX;
-int rtw_vrtl_carrier_sense = AUTO_VCS;
+int rtw_vttl_carrier_sense = AUTO_VCS;
 int rtw_vcs_type = RTS_CTS;//*
 int rtw_rts_thresh = 2347;//*
 int rtw_frag_thresh = 2346;//*
@@ -247,7 +247,7 @@ module_param(rtw_network_mode, int, 0644);
 module_param(rtw_channel, int, 0644);
 module_param(rtw_mp_mode, int, 0644);
 module_param(rtw_wmm_enable, int, 0644);
-module_param(rtw_vrtl_carrier_sense, int, 0644);
+module_param(rtw_vttl_carrier_sense, int, 0644);
 module_param(rtw_vcs_type, int, 0644);
 module_param(rtw_busy_thresh, int, 0644);
 
@@ -303,11 +303,11 @@ MODULE_PARM_DESC(rtw_fw_iol, "FW IOL. 0:Disable, 1:enable, 2:by usb speed");
 #endif //CONFIG_IOL
 
 #ifdef CONFIG_FILE_FWIMG
-char *rtw_fw_file_path = "/system/etc/firmware/rtlwifi/FW_NIC.BIN";
+char *rtw_fw_file_path = "/system/etc/firmware/ttlwifi/FW_NIC.BIN";
 module_param(rtw_fw_file_path, charp, 0644);
 MODULE_PARM_DESC(rtw_fw_file_path, "The path of fw image");
 
-char *rtw_fw_wow_file_path = "/system/etc/firmware/rtlwifi/FW_WoWLAN.BIN";
+char *rtw_fw_wow_file_path = "/system/etc/firmware/ttlwifi/FW_WoWLAN.BIN";
 module_param(rtw_fw_wow_file_path, charp, 0644);
 MODULE_PARM_DESC(rtw_fw_wow_file_path, "The path of fw for Wake on Wireless image");
 
@@ -464,7 +464,7 @@ _func_enter_;
 		registry_par->channel = 36;
 	}
 	
-	registry_par->vrtl_carrier_sense = (u8)rtw_vrtl_carrier_sense ;
+	registry_par->vttl_carrier_sense = (u8)rtw_vttl_carrier_sense ;
 	registry_par->vcs_type = (u8)rtw_vcs_type;
 	registry_par->rts_thresh=(u16)rtw_rts_thresh;
 	registry_par->frag_thresh=(u16)rtw_frag_thresh;
@@ -1238,7 +1238,7 @@ u8 rtw_init_default_value(_adapter *padapter)
 	struct security_priv *psecuritypriv = &padapter->securitypriv;
 
 	//xmit_priv
-	pxmitpriv->vcs_setting = pregistrypriv->vrtl_carrier_sense;
+	pxmitpriv->vcs_setting = pregistrypriv->vttl_carrier_sense;
 	pxmitpriv->vcs = pregistrypriv->vcs_type;
 	pxmitpriv->vcs_type = pregistrypriv->vcs_type;
 	//pxmitpriv->rts_thresh = pregistrypriv->rts_thresh;
@@ -2499,7 +2499,7 @@ int _netdev_open(struct net_device *pnetdev)
 		status = rtw_hal_init(padapter);
 		if (status ==_FAIL)
 		{
-			RT_TRACE(_module_os_intfs_c_,_drv_err_,("rtl871x_hal_init(): Can't init h/w!\n"));
+			RT_TRACE(_module_os_intfs_c_,_drv_err_,("ttl871x_hal_init(): Can't init h/w!\n"));
 			goto netdev_open_error;
 		}
 

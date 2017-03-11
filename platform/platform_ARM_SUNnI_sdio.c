@@ -97,7 +97,7 @@ int platform_wifi_power_on(void)
 	type = script_get_item("wifi_para", "wl_host_wake", &val);
 #else
 #ifdef CONFIG_RTL8723B
-	type = script_get_item("wifi_para", "rtl8723bs_wl_host_wake", &val);
+	type = script_get_item("wifi_para", "ttl8723bs_wl_host_wake", &val);
 #endif
 #ifdef CONFIG_RTL9083E
 	type = script_get_item("wifi_para", "ttl9082xs_host_wake", &val);
