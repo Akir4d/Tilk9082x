@@ -32,7 +32,7 @@ static void iol_mode_enable(PADAPTER padapter, u8 enable)
 	{
 		//Enable initial offload
 		reg_0xf0 = tlw_read8(padapter, REG_SYS_CFG);
-		//DBG_871X("%s reg_0xf0:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0xf0, reg_0xf0|SW_OFFLOAD_EN);
+		DBG_871X("%s reg_0xf0:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0xf0, reg_0xf0|SW_OFFLOAD_EN);
 		tlw_write8(padapter, REG_SYS_CFG, reg_0xf0|SW_OFFLOAD_EN);
 		
 		if(padapter->bFWReady == _FALSE)
@@ -46,7 +46,7 @@ static void iol_mode_enable(PADAPTER padapter, u8 enable)
 	{
 		//disable initial offload
 		reg_0xf0 = tlw_read8(padapter, REG_SYS_CFG);
-		//DBG_871X("%s reg_0xf0:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0xf0, reg_0xf0& ~SW_OFFLOAD_EN);
+		DBG_871X("%s reg_0xf0:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0xf0, reg_0xf0& ~SW_OFFLOAD_EN);
 		tlw_write8(padapter, REG_SYS_CFG, reg_0xf0 & ~SW_OFFLOAD_EN);
 	}
 }
@@ -60,7 +60,7 @@ static s32 iol_execute(PADAPTER padapter, u8 control)
 	u32 t1,t2;
 	control = control&0x0f;
 	reg_0x88 = tlw_read8(padapter, REG_HMEBOX_E0);
-	//DBG_871X("%s reg_0x88:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0x88, reg_0x88|control);
+	DBG_871X("%s reg_0x88:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0x88, reg_0x88|control);
 	tlw_write8(padapter, REG_HMEBOX_E0,  reg_0x88|control);
 
 	t1 = start = tlw_get_current_time();
@@ -69,7 +69,7 @@ static s32 iol_execute(PADAPTER padapter, u8 control)
 		(reg_0x88=tlw_read8(padapter, REG_HMEBOX_E0)) & control
 		&& (passing_time=tlw_get_passing_time_ms(start))<1000
 	) {
-		//DBG_871X("%s polling reg_0x88:0x%02x,reg_0x1c7:0x%02x\n", __FUNCTION__, reg_0x88,tlw_read8(padapter, 0x1c7) );
+		DBG_871X("%s polling reg_0x88:0x%02x,reg_0x1c7:0x%02x\n", __FUNCTION__, reg_0x88,tlw_read8(padapter, 0x1c7) );
 		//tlw_udelay_os(100);
 	}
 
@@ -79,7 +79,7 @@ static s32 iol_execute(PADAPTER padapter, u8 control)
 		status = _FAIL;
 	t2= tlw_get_current_time();
 	//printk("==> step iol_execute :  %5u reg-0x1c0= 0x%02x\n",tlw_get_time_interval_ms(t1,t2),tlw_read8(padapter, 0x1c0));
-	//DBG_871X("%s in %u ms, reg_0x88:0x%02x\n", __FUNCTION__, passing_time, reg_0x88);
+	DBG_871X("%s in %u ms, reg_0x88:0x%02x\n", __FUNCTION__, passing_time, reg_0x88);
 	
 	return status;
 }
@@ -91,7 +91,7 @@ static s32 iol_InitLLTTable(
 {
 	s32 rst = _SUCCESS; 
 	iol_mode_enable(padapter, 1);
-	//DBG_871X("%s txpktbuf_bndy:%u\n", __FUNCTION__, txpktbuf_bndy);
+	DBG_871X("%s txpktbuf_bndy:%u\n", __FUNCTION__, txpktbuf_bndy);
 	tlw_write8(padapter, REG_TDECTRL+1, txpktbuf_bndy);
 	rst = iol_execute(padapter, CMD_INIT_LLT);
 	iol_mode_enable(padapter, 0);
@@ -300,18 +300,18 @@ void efuse_read_phymap_from_txpktbuf(
 	DBG_871X("%s bcnhead:%d\n", __FUNCTION__, bcnhead);
 
 	//reg_0x106 = tlw_read8(adapter, REG_PKT_BUFF_ACCESS_CTRL);
-	//DBG_871X("%s reg_0x106:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0x106, 0x69);
+	DBG_871X("%s reg_0x106:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0x106, 0x69);
 	tlw_write8(adapter, REG_PKT_BUFF_ACCESS_CTRL, TXPKT_BUF_SELECT);
-	//DBG_871X("%s reg_0x106:0x%02x\n", __FUNCTION__, tlw_read8(adapter, 0x106));
+	DBG_871X("%s reg_0x106:0x%02x\n", __FUNCTION__, tlw_read8(adapter, 0x106));
 
 	dbg_addr = bcnhead*128/8; //8-bytes addressing
 
 	while(1)
 	{
-		//DBG_871X("%s dbg_addr:0x%x\n", __FUNCTION__, dbg_addr+i);
+		DBG_871X("%s dbg_addr:0x%x\n", __FUNCTION__, dbg_addr+i);
 		tlw_write16(adapter, REG_PKTBUF_DBG_ADDR, dbg_addr+i);
 
-		//DBG_871X("%s write reg_0x143:0x00\n", __FUNCTION__);
+		DBG_871X("%s write reg_0x143:0x00\n", __FUNCTION__);
 		tlw_write8(adapter, REG_TXPKTBUF_DBG, 0);
 		start = tlw_get_current_time();
 		while(!(reg_0x143=tlw_read8(adapter, REG_TXPKTBUF_DBG))//dbg
@@ -413,9 +413,9 @@ static s32 iol_read_efuse(
 	_tlw_memset(physical_map, 0xFF, 512);
 	
 	///reg_0x106 = tlw_read8(padapter, REG_PKT_BUFF_ACCESS_CTRL);
-	//DBG_871X("%s reg_0x106:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0x106, 0x69);
+	DBG_871X("%s reg_0x106:0x%02x, write 0x%02x\n", __FUNCTION__, reg_0x106, 0x69);
 	tlw_write8(padapter, REG_PKT_BUFF_ACCESS_CTRL, TXPKT_BUF_SELECT);
-	//DBG_871X("%s reg_0x106:0x%02x\n", __FUNCTION__, tlw_read8(padapter, 0x106));
+	DBG_871X("%s reg_0x106:0x%02x\n", __FUNCTION__, tlw_read8(padapter, 0x106));
 
 	status = iol_execute(padapter, CMD_READ_EFUSE_MAP);
 
@@ -469,7 +469,7 @@ static s32 iol_ioconfig(
 {
 	s32 rst = _SUCCESS; 
 	
-	//DBG_871X("%s iocfg_bndy:%u\n", __FUNCTION__, iocfg_bndy);
+	DBG_871X("%s iocfg_bndy:%u\n", __FUNCTION__, iocfg_bndy);
 	tlw_write8(padapter, REG_TDECTRL+1, iocfg_bndy);
 	rst = iol_execute(padapter, CMD_IOCONFIG);
 	
@@ -3535,7 +3535,7 @@ Hal_EfuseParseCustomerID88E(
 		pHalData->EEPROMSubCustomerID = 0;
 	}
 	DBG_871X("EEPROM Customer ID: 0x%2x\n", pHalData->EEPROMCustomerID);
-	//DBG_871X("EEPROM SubCustomer ID: 0x%02x\n", pHalData->EEPROMSubCustomerID);
+	DBG_871X("EEPROM SubCustomer ID: 0x%02x\n", pHalData->EEPROMSubCustomerID);
 }
 
 
@@ -5138,7 +5138,7 @@ _func_enter_;
 
 					i++;
 					if ((reg_200 & 0x00ffffff) != (reg_204 & 0x00ffffff)) {
-						//DBG_871X("%s: (HW_VAR_CHECK_TXBUF)TXBUF NOT empty - 0x204=0x%x, 0x200=0x%x (%d)\n", __FUNCTION__, reg_204, reg_200, i);
+						DBG_871X("%s: (HW_VAR_CHECK_TXBUF)TXBUF NOT empty - 0x204=0x%x, 0x200=0x%x (%d)\n", __FUNCTION__, reg_204, reg_200, i);
 						tlw_msleep_os(10);
 					} else {
 						break;
