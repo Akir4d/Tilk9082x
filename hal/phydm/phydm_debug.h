@@ -130,16 +130,16 @@
 #define ODM_RT_TRACE(pDM_Odm, comp, level, fmt)									\
 		if(((comp) & pDM_Odm->DebugComponents) && (level <= pDM_Odm->DebugLevel || level == ODM_DBG_SERIOUS))	\
 		{																			\
-			if(pDM_Odm->SupportICType == ODM_TLL8192C)								\
+			if(pDM_Odm->SupportICType == ODM_TLL9081C)								\
 				DbgPrint("[ODM-92C] ");												\
-			else if(pDM_Odm->SupportICType == ODM_TLL8192D)							\
+			else if(pDM_Odm->SupportICType == ODM_TLL9081D)							\
 				DbgPrint("[ODM-92D] ");												\
 			else if(pDM_Odm->SupportICType == ODM_TLL8723A)							\
 				DbgPrint("[ODM-8723A] ");											\
 			else if(pDM_Odm->SupportICType == ODM_TLL9083E)							\
 				DbgPrint("[ODM-9083E] ");											\
-			else if(pDM_Odm->SupportICType == ODM_TLL8192E) 						\
-				DbgPrint("[ODM-8192E] ");											\
+			else if(pDM_Odm->SupportICType == ODM_TLL9081E) 						\
+				DbgPrint("[ODM-9081E] ");											\
 			else if(pDM_Odm->SupportICType == ODM_TLL8812)							\
 				DbgPrint("[ODM-8812] ");											\
 			else if(pDM_Odm->SupportICType == ODM_TLL8821)							\

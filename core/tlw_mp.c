@@ -471,10 +471,10 @@ void mpt_InitHWConfig(PADAPTER Adapter)
 		PHY_SetRFPathSwitch_default(_Adapter, b)
 
 #endif //#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
-#ifdef CONFIG_TLL8192E
-#define PHY_IQCalibrate(a,b)	PHY_IQCalibrate_8192E(a,b)
-#define PHY_LCCalibrate(a)	PHY_LCCalibrate_8192E(&(GET_HAL_DATA(a)->odmpriv))
-#define PHY_SetRFPathSwitch(a,b) PHY_SetRFPathSwitch_8192E(a,b)
+#ifdef CONFIG_TLL9081E
+#define PHY_IQCalibrate(a,b)	PHY_IQCalibrate_9081E(a,b)
+#define PHY_LCCalibrate(a)	PHY_LCCalibrate_9081E(&(GET_HAL_DATA(a)->odmpriv))
+#define PHY_SetRFPathSwitch(a,b) PHY_SetRFPathSwitch_9081E(a,b)
 #endif //CONFIG_TLL8812A_8821A
 
 #ifdef CONFIG_TLL8723B
@@ -750,7 +750,7 @@ u32 mp_join(PADAPTER padapter,u8 mode)
 #endif //#ifdef CONFIG_IOCTL_CFG80211
 	// 1. initialize a new WLAN_BSSID_EX
 	_tlw_memset(&bssid, 0, sizeof(WLAN_BSSID_EX));
-	DBG_8192C("%s ,pmppriv->network_macaddr=%x %x %x %x %x %x \n",__func__,
+	DBG_9081C("%s ,pmppriv->network_macaddr=%x %x %x %x %x %x \n",__func__,
 				pmppriv->network_macaddr[0],pmppriv->network_macaddr[1],pmppriv->network_macaddr[2],pmppriv->network_macaddr[3],pmppriv->network_macaddr[4],pmppriv->network_macaddr[5]);
 	_tlw_memcpy(bssid.MacAddress, pmppriv->network_macaddr, ETH_ALEN);
 	
@@ -834,7 +834,7 @@ end_of_mp_start_test:
 		else {
 			Set_MSR(padapter, WIFI_FW_STATION_STATE);
 
-			DBG_8192C("%s , pmppriv->network_macaddr =%x %x %x %x %x %x\n",__func__,
+			DBG_9081C("%s , pmppriv->network_macaddr =%x %x %x %x %x %x\n",__func__,
 						pmppriv->network_macaddr[0],pmppriv->network_macaddr[1],pmppriv->network_macaddr[2],pmppriv->network_macaddr[3],pmppriv->network_macaddr[4],pmppriv->network_macaddr[5]);
 
 			tlw_hal_set_hwreg(padapter, HW_VAR_BSSID, pmppriv->network_macaddr);
@@ -865,8 +865,8 @@ s32 mp_start_test(PADAPTER padapter)
 	#ifdef CONFIG_TLL8703B
 	ttl8703b_InitHalDm(padapter);
 	#endif /* CONFIG_TLL8703B */
-	#ifdef CONFIG_TLL8192E
-	ttl8192e_InitHalDm(padapter);
+	#ifdef CONFIG_TLL9081E
+	ttl9081e_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_TLL9083F
 	ttl9083f_InitHalDm(padapter);
@@ -954,15 +954,15 @@ end_of_mp_stop_test:
 	#ifdef CONFIG_TLL8703B
 	ttl8703b_InitHalDm(padapter);
 	#endif
-	#ifdef CONFIG_TLL8192E
-	ttl8192e_InitHalDm(padapter);
+	#ifdef CONFIG_TLL9081E
+	ttl9081e_InitHalDm(padapter);
 	#endif
 	#ifdef CONFIG_TLL9083F
 	ttl9083f_InitHalDm(padapter);
 	#endif
 	}
 }
-/*---------------------------hal\ttl8192c\MPT_Phy.c---------------------------*/
+/*---------------------------hal\ttl9081c\MPT_Phy.c---------------------------*/
 #if 0
 //#ifdef CONFIG_USB_HCI
 static VOID mpt_AdjustRFRegByRateByChan92CU(PADAPTER pAdapter, u8 RateIdx, u8 Channel, u8 BandWidthID)
@@ -1031,8 +1031,8 @@ static void mpt_SwitchRfSetting(PADAPTER pAdapter)
 	hal_mpt_SwitchRfSetting(pAdapter);
     }
 
-/*---------------------------hal\ttl8192c\MPT_Phy.c---------------------------*/
-/*---------------------------hal\ttl8192c\MPT_HelperFunc.c---------------------------*/
+/*---------------------------hal\ttl9081c\MPT_Phy.c---------------------------*/
+/*---------------------------hal\ttl9081c\MPT_HelperFunc.c---------------------------*/
 static void MPT_CCKTxPowerAdjust(PADAPTER Adapter, BOOLEAN bInCH14)
 {
 	hal_mpt_CCKTxPowerAdjust(Adapter, bInCH14);
@@ -1043,7 +1043,7 @@ static void MPT_CCKTxPowerAdjustbyIndex(PADAPTER pAdapter, BOOLEAN beven)
 	hal_mpt_CCKTxPowerAdjustbyIndex(pAdapter, beven);
 	}
 
-/*---------------------------hal\ttl8192c\MPT_HelperFunc.c---------------------------*/
+/*---------------------------hal\ttl9081c\MPT_HelperFunc.c---------------------------*/
 
 /*
  * SetChannel
@@ -1173,8 +1173,8 @@ void PhySetTxPowerLevel(PADAPTER pAdapter)
 #if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A)
 		PHY_SetTxPowerLevel8812(pAdapter,pmp_priv->channel);
 #endif
-#if defined(CONFIG_TLL8192E)
-		PHY_SetTxPowerLevel8192E(pAdapter,pmp_priv->channel);
+#if defined(CONFIG_TLL9081E)
+		PHY_SetTxPowerLevel9081E(pAdapter,pmp_priv->channel);
 #endif
 #if defined(CONFIG_TLL8723B)
 		PHY_SetTxPowerLevel8723B(pAdapter,pmp_priv->channel);
@@ -1446,8 +1446,8 @@ void fill_tx_desc_8812a(PADAPTER padapter)
 
 }
 #endif
-#if defined(CONFIG_TLL8192E)
-void fill_tx_desc_8192e(PADAPTER padapter)
+#if defined(CONFIG_TLL9081E)
+void fill_tx_desc_9081e(PADAPTER padapter)
 {
 	struct mp_priv *pmp_priv = &padapter->mppriv;
 	u8 *pDesc	= (u8 *)&(pmp_priv->tx.desc);
@@ -1463,10 +1463,10 @@ void fill_tx_desc_8192e(PADAPTER padapter)
 	offset = TXDESC_SIZE + OFFSET_SZ;		
 	
 	SET_TX_DESC_OFFSET_92E(pDesc, offset);
-	#if defined(CONFIG_PCI_HCI) /* 8192EE */
+	#if defined(CONFIG_PCI_HCI) /* 9081EE */
 
-	SET_TX_DESC_PKT_OFFSET_92E(pDesc, 0); /* 8192EE pkt_offset is 0 */
-	#else /* 8192EU 8192ES */
+	SET_TX_DESC_PKT_OFFSET_92E(pDesc, 0); /* 9081EE pkt_offset is 0 */
+	#else /* 9081EU 9081ES */
 	SET_TX_DESC_PKT_OFFSET_92E(pDesc, 1);
 	#endif
 		
@@ -1606,12 +1606,12 @@ static void Rtw_MPSetMacTxEDCA(PADAPTER padapter)
 	tlw_write32(padapter, 0x508 , 0x00a422); //Disable EDCA BE Txop for MP pkt tx adjust Packet interval
 	//DBG_871X("%s:write 0x508~~~~~~ 0x%x\n", __func__,tlw_read32(padapter, 0x508));
 	PHY_SetMacReg(padapter, 0x458 ,bMaskDWord , 0x0);
-	//DBG_8192C("%s()!!!!! 0x460 = 0x%x\n" ,__func__,PHY_QueryBBReg(padapter, 0x460, bMaskDWord));
+	//DBG_9081C("%s()!!!!! 0x460 = 0x%x\n" ,__func__,PHY_QueryBBReg(padapter, 0x460, bMaskDWord));
 	PHY_SetMacReg(padapter, 0x460 ,bMaskLWord , 0x0);//fast EDCA queue packet interval & time out vaule
 	//PHY_SetMacReg(padapter, ODM_EDCA_VO_PARAM ,bMaskLWord , 0x431C);
 	//PHY_SetMacReg(padapter, ODM_EDCA_BE_PARAM ,bMaskLWord , 0x431C);
 	//PHY_SetMacReg(padapter, ODM_EDCA_BK_PARAM ,bMaskLWord , 0x431C);
-	DBG_8192C("%s()!!!!! 0x460 = 0x%x\n" ,__func__,PHY_QueryBBReg(padapter, 0x460, bMaskDWord));
+	DBG_9081C("%s()!!!!! 0x460 = 0x%x\n" ,__func__,PHY_QueryBBReg(padapter, 0x460, bMaskDWord));
 
 }
 
@@ -1684,9 +1684,9 @@ void SetPacketTx(PADAPTER padapter)
 		fill_tx_desc_8812a(padapter);
 #endif
 
-#if defined(CONFIG_TLL8192E)
-	if(IS_HARDWARE_TYPE_8192E(padapter))
-		fill_tx_desc_8192e(padapter);
+#if defined(CONFIG_TLL9081E)
+	if(IS_HARDWARE_TYPE_9081E(padapter))
+		fill_tx_desc_9081e(padapter);
 #endif
 #if defined(CONFIG_TLL8723B)
 	if(IS_HARDWARE_TYPE_8723B(padapter))
@@ -1787,7 +1787,7 @@ void SetPacketRx(PADAPTER pAdapter, u8 bStartRx, u8 bAB)
 			pHalData->ReceiveConfig = RCR_AAP | RCR_APM | RCR_AM | RCR_AB |RCR_AMF | RCR_APP_ICV | RCR_AMF | RCR_HTC_LOC_CTRL | RCR_APP_MIC | RCR_APP_PHYST_RXFF  ;
 			pHalData->ReceiveConfig |= ACRC32; 
 			
-			DBG_8192C("%s , pmppriv->network_macaddr =%x %x %x %x %x %x\n",__func__,
+			DBG_9081C("%s , pmppriv->network_macaddr =%x %x %x %x %x %x\n",__func__,
 								pmppriv->network_macaddr[0],pmppriv->network_macaddr[1],pmppriv->network_macaddr[2],pmppriv->network_macaddr[3],pmppriv->network_macaddr[4],pmppriv->network_macaddr[5]);
 			//Set_MSR(pAdapter, WIFI_FW_AP_STATE);
 			//tlw_hal_set_hwreg(pAdapter, HW_VAR_BSSID, pmppriv->network_macaddr);
@@ -2515,11 +2515,11 @@ ULONG mpt_ProQueryCalTxPower(
 	}
 	#endif
 	
-	#if defined(CONFIG_TLL8192E)
-	if( IS_HARDWARE_TYPE_8192E(pAdapter) )
+	#if defined(CONFIG_TLL9081E)
+	if( IS_HARDWARE_TYPE_9081E(pAdapter) )
 	{
 		rate = MptToMgntRate(pAdapter->mppriv.rateidx);
-		TxPower = PHY_GetTxPowerIndex_8192E(pAdapter, RfPath, rate, 
+		TxPower = PHY_GetTxPowerIndex_9081E(pAdapter, RfPath, rate, 
 										pHalData->CurrentChannelBW, pHalData->CurrentChannel);
 	}
 	#endif
@@ -2555,7 +2555,7 @@ ULONG mpt_ProQueryCalTxPower(
 	}
 	#endif
 
-	DBG_8192C("txPower=%d ,CurrentChannelBW=%d ,CurrentChannel=%d ,rate =%d\n",
+	DBG_9081C("txPower=%d ,CurrentChannelBW=%d ,CurrentChannel=%d ,rate =%d\n",
 			  TxPower, pHalData->CurrentChannelBW, pHalData->CurrentChannel, rate);
 
 	pAdapter->mppriv.txpoweridx = (u8)TxPower;
@@ -2581,7 +2581,7 @@ void Hal_ProSetCrystalCap (PADAPTER pAdapter , u32 CrystalCap)
 	} else if (IS_HARDWARE_TYPE_8812(pAdapter)) {
 		/* write 0x2C[30:25] = 0x2C[24:19] = CrystalCap*/
 		PHY_SetBBReg(pAdapter, REG_MAC_PHY_CTRL, 0x7FF80000, (CrystalCap | (CrystalCap << 6)));
-	} else if (IS_HARDWARE_TYPE_8821(pAdapter) || IS_HARDWARE_TYPE_8192E(pAdapter) || 
+	} else if (IS_HARDWARE_TYPE_8821(pAdapter) || IS_HARDWARE_TYPE_9081E(pAdapter) || 
 				IS_HARDWARE_TYPE_8723B(pAdapter) || IS_HARDWARE_TYPE_8703B(pAdapter)) {
 		/* write 0x2C[23:18] = 0x2C[17:12] = CrystalCap*/
 		PHY_SetBBReg(pAdapter, REG_MAC_PHY_CTRL, 0xFFF000, (CrystalCap | (CrystalCap << 6)));	

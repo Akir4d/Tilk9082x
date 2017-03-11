@@ -267,7 +267,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 		{
 			if((pattrib->mfrag == 1)&&(pattrib->frag_num == 0))
 			{				
-				DBG_8192C("pre_recv_entry(): tlw_skb_copy fail , drop frag frame \n");
+				DBG_9081C("pre_recv_entry(): tlw_skb_copy fail , drop frag frame \n");
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				return ret;
 			}
@@ -275,7 +275,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 			pkt_copy = tlw_skb_clone( precvframe->u.hdr.pkt);
 			if(pkt_copy == NULL)
 			{
-				DBG_8192C("pre_recv_entry(): tlw_skb_clone fail , drop frame\n");
+				DBG_9081C("pre_recv_entry(): tlw_skb_clone fail , drop frame\n");
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				return ret;
 			}
@@ -339,7 +339,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 	
 	do {
 		if (TLW_CANNOT_RUN(padapter)) {
-			DBG_8192C("recv_tasklet => bDriverStopped or bSurpriseRemoved\n");
+			DBG_9081C("recv_tasklet => bDriverStopped or bSurpriseRemoved\n");
 			break;
 		}
 		
@@ -372,7 +372,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 			if ((!(pHalData->ReceiveConfig & RCR_ACRC32)) && pattrib->crc_err)
 			{
 				#if !(MP_DRIVER==1)
-				DBG_8192C("%s()-%d: RX Warning! rx CRC ERROR !!\n", __FUNCTION__, __LINE__);
+				DBG_9081C("%s()-%d: RX Warning! rx CRC ERROR !!\n", __FUNCTION__, __LINE__);
 				#endif
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
@@ -386,7 +386,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 			pkt_offset = rx_report_sz + pattrib->shift_sz + pattrib->pkt_len;
 
 			if ((pattrib->pkt_len==0) || (pkt_offset>transfer_len)) {
-				DBG_8192C("%s()-%d: RX Warning!,pkt_len==0 or pkt_offset(%d)> transfoer_len(%d) \n", __FUNCTION__, __LINE__, pkt_offset, transfer_len);
+				DBG_9081C("%s()-%d: RX Warning!,pkt_len==0 or pkt_offset(%d)> transfoer_len(%d) \n", __FUNCTION__, __LINE__, pkt_offset, transfer_len);
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
 			}
@@ -404,7 +404,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 				}
 			#endif
 			
-				DBG_8192C("%s: crc_err=%d icv_err=%d, skip!\n", __FUNCTION__, pattrib->crc_err, pattrib->icv_err);
+				DBG_9081C("%s: crc_err=%d icv_err=%d, skip!\n", __FUNCTION__, pattrib->crc_err, pattrib->icv_err);
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 			}
 			else
@@ -455,7 +455,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 				{
 					if((pattrib->mfrag == 1)&&(pattrib->frag_num == 0))
 					{				
-						DBG_8192C("ttl9083es_recv_tasklet: alloc_skb fail , drop frag frame \n");
+						DBG_9081C("ttl9083es_recv_tasklet: alloc_skb fail , drop frag frame \n");
 						tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
@@ -473,7 +473,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 					}
 					else
 					{
-						DBG_8192C("ttl9083es_recv_tasklet: tlw_skb_clone fail\n");
+						DBG_9081C("ttl9083es_recv_tasklet: tlw_skb_clone fail\n");
 						tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
@@ -521,7 +521,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 
 					//enqueue recvframe to txrtp queue
 					if(pattrib->pkt_rpt_type == TX_REPORT1){
-						//DBG_8192C("rx CCX \n");
+						//DBG_9081C("rx CCX \n");
 						//CCX-TXRPT ack for xmit mgmt frames.
 						handle_txrpt_ccx_88e(padapter, precvframe->u.hdr.rx_data);
 					}
@@ -733,7 +733,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 			{
 				//#if !(MP_DRIVER==1)
 				if (padapter->registrypriv.mp_mode == 0)
-				DBG_8192C("%s()-%d: RX Warning! rx CRC ERROR !!\n", __FUNCTION__, __LINE__);
+				DBG_9081C("%s()-%d: RX Warning! rx CRC ERROR !!\n", __FUNCTION__, __LINE__);
 				//#endif
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
@@ -742,7 +742,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 			pkt_offset = RXDESC_SIZE + pattrib->drvinfo_sz + pattrib->pkt_len;
 
 			if ((ptr + pkt_offset) > precvbuf->ptail) {
-				DBG_8192C("%s()-%d: : next pkt len(%p,%d) exceed ptail(%p)!\n", __FUNCTION__, __LINE__, ptr, pkt_offset, precvbuf->ptail);
+				DBG_9081C("%s()-%d: : next pkt len(%p,%d) exceed ptail(%p)!\n", __FUNCTION__, __LINE__, ptr, pkt_offset, precvbuf->ptail);
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
 			}
@@ -760,7 +760,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 				}
 			#endif
 	
-				DBG_8192C("%s: crc_err=%d icv_err=%d, skip!\n", __FUNCTION__, pattrib->crc_err, pattrib->icv_err);
+				DBG_9081C("%s: crc_err=%d icv_err=%d, skip!\n", __FUNCTION__, pattrib->crc_err, pattrib->icv_err);
 				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 			}
 			else
@@ -832,10 +832,10 @@ static void ttl9083es_recv_tasklet(void *priv)
 
 					//enqueue recvframe to txrtp queue
 					if(pattrib->pkt_rpt_type == TX_REPORT1){
-						DBG_8192C("rx CCX \n");
+						DBG_9081C("rx CCX \n");
 					}
 					else if(pattrib->pkt_rpt_type == TX_REPORT2){
-						//DBG_8192C("rx TX RPT \n");
+						//DBG_9081C("rx TX RPT \n");
 						ODM_RA_TxRPT2Handle_9083E(
 									&pHalData->odmpriv,
 									precvframe->u.hdr.rx_data,
@@ -847,7 +847,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 					}
 					/*
 					else if(pattrib->pkt_rpt_type == HIS_REPORT){
-						DBG_8192C("rx USB HISR \n");
+						DBG_9081C("rx USB HISR \n");
 					}*/
 
 					tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);					

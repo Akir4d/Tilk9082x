@@ -40,7 +40,7 @@ void ttl9083e_sreset_xmit_status_check(_adapter *padapter)
 	}
 #ifdef CONFIG_USB_HCI
 	//total xmit irp = 4
-	//DBG_8192C("==>%s free_xmitbuf_cnt(%d),txirp_cnt(%d)\n",__FUNCTION__,pxmitpriv->free_xmitbuf_cnt,pxmitpriv->txirp_cnt);
+	//DBG_9081C("==>%s free_xmitbuf_cnt(%d),txirp_cnt(%d)\n",__FUNCTION__,pxmitpriv->free_xmitbuf_cnt,pxmitpriv->txirp_cnt);
 	//if(pxmitpriv->txirp_cnt == NR_XMITBUFF+1)
 	current_time = tlw_get_current_time();
 
@@ -86,16 +86,16 @@ void ttl9083e_sreset_linked_status_check(_adapter *padapter)
 	u8 fw_status=0;
 	rx_dma_status = tlw_read32(padapter,REG_RXDMA_STATUS);
 	if(rx_dma_status!= 0x00){
-		DBG_8192C("%s REG_RXDMA_STATUS:0x%08x \n",__FUNCTION__,rx_dma_status);
+		DBG_9081C("%s REG_RXDMA_STATUS:0x%08x \n",__FUNCTION__,rx_dma_status);
 		tlw_write32(padapter,REG_RXDMA_STATUS,rx_dma_status);
 	}	
 	fw_status = tlw_read8(padapter,REG_FMETHR);
 	if(fw_status != 0x00)
 	{		
 		if(fw_status == 1)
-			DBG_8192C("%s REG_FW_STATUS (0x%02x), Read_Efuse_Fail !!   \n",__FUNCTION__,fw_status);
+			DBG_9081C("%s REG_FW_STATUS (0x%02x), Read_Efuse_Fail !!   \n",__FUNCTION__,fw_status);
 		else if(fw_status == 2)
-			DBG_8192C("%s REG_FW_STATUS (0x%02x), Condition_No_Match !!   \n",__FUNCTION__,fw_status);
+			DBG_9081C("%s REG_FW_STATUS (0x%02x), Condition_No_Match !!   \n",__FUNCTION__,fw_status);
 	}
 #if 0
 	u32 regc50,regc58,reg824,reg800;
@@ -108,7 +108,7 @@ void ttl9083e_sreset_linked_status_check(_adapter *padapter)
 		(((reg824&0xFFFFFF00)!= 0x00390000)&&(((reg824&0xFFFFFF00)!= 0x80390000)))||
 		( ((reg800&0xFFFFFF00)!= 0x03040000)&&((reg800&0xFFFFFF00)!= 0x83040000)))
 	{
-		DBG_8192C("%s regc50:0x%08x, regc58:0x%08x, reg824:0x%08x, reg800:0x%08x,\n", __FUNCTION__,
+		DBG_9081C("%s regc50:0x%08x, regc58:0x%08x, reg824:0x%08x, reg800:0x%08x,\n", __FUNCTION__,
 			regc50, regc58, reg824, reg800);
 		tlw_hal_sreset_reset(padapter);
 	}

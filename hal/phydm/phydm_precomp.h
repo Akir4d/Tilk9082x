@@ -30,13 +30,13 @@
 #endif
 
 #if (DM_ODM_SUPPORT_TYPE ==ODM_CE) 
-#define 	TLL8192CE_SUPPORT 				0
-#define 	TLL8192CU_SUPPORT 				0
-#define 	TLL8192C_SUPPORT 				0	
+#define 	TLL9081CE_SUPPORT 				0
+#define 	TLL9081CU_SUPPORT 				0
+#define 	TLL9081C_SUPPORT 				0	
 
-#define 	TLL8192DE_SUPPORT 				0
-#define 	TLL8192DU_SUPPORT 				0
-#define 	TLL8192D_SUPPORT 				0	
+#define 	TLL9081DE_SUPPORT 				0
+#define 	TLL9081DU_SUPPORT 				0
+#define 	TLL9081D_SUPPORT 				0	
 
 #define 	TLL8723AU_SUPPORT				0
 #define 	TLL8723AS_SUPPORT				0
@@ -48,11 +48,11 @@
 //2 Config Flags and Structs - defined by each ODM Type
 
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	#include "../8192cd_cfg.h"
+	#include "../9081cd_cfg.h"
 	#include "../odm_inc.h"
 
-	#include "../8192cd.h"
-	#include "../8192cd_util.h"
+	#include "../9081cd.h"
+	#include "../9081cd_util.h"
 	#ifdef _BIG_ENDIAN_
 	#define	ODM_ENDIAN_TYPE				ODM_ENDIAN_BIG
 	#else
@@ -60,8 +60,8 @@
 	#endif
 
 	#ifdef AP_BUILD_WORKAROUND
-	#include "../8192cd_headers.h"
-	#include "../8192cd_debug.h"		
+	#include "../9081cd_headers.h"
+	#include "../9081cd_debug.h"		
 	#endif
 
 #elif (DM_ODM_SUPPORT_TYPE ==ODM_CE)
@@ -142,27 +142,27 @@ PHY_SetTxPowerLimit(
 #endif
 #endif  //88E END
 
-#if (TLL8192E_SUPPORT==1) 
+#if (TLL9081E_SUPPORT==1) 
 
 	#if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
-		#include "ttl8192e/halphyrf_8192e_win.h" /*FOR_8192E_IQK*/
+		#include "ttl9081e/halphyrf_9081e_win.h" /*FOR_9081E_IQK*/
 	#elif (DM_ODM_SUPPORT_TYPE == ODM_AP)
-		#include "ttl8192e/halphyrf_8192e_ap.h" /*FOR_8192E_IQK*/
+		#include "ttl9081e/halphyrf_9081e_ap.h" /*FOR_9081E_IQK*/
 	#elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
-		#include "ttl8192e/halphyrf_8192e_ce.h" /*FOR_8192E_IQK*/
+		#include "ttl9081e/halphyrf_9081e_ce.h" /*FOR_9081E_IQK*/
 	#endif
 	
-#include "ttl8192e/phydm_ttl8192e.h" //FOR_8192E_IQK
+#include "ttl9081e/phydm_ttl9081e.h" //FOR_9081E_IQK
 #if (DM_ODM_SUPPORT_TYPE != ODM_AP)
-	#include "ttl8192e/halhwimg8192e_bb.h"
-	#include "ttl8192e/halhwimg8192e_mac.h"
-	#include "ttl8192e/halhwimg8192e_rf.h"
-	#include "ttl8192e/phydm_regconfig8192e.h"
-	#include "ttl8192e/halhwimg8192e_fw.h"
-	#include "ttl8192e/hal8192ereg.h"
+	#include "ttl9081e/halhwimg9081e_bb.h"
+	#include "ttl9081e/halhwimg9081e_mac.h"
+	#include "ttl9081e/halhwimg9081e_rf.h"
+	#include "ttl9081e/phydm_regconfig9081e.h"
+	#include "ttl9081e/halhwimg9081e_fw.h"
+	#include "ttl9081e/hal9081ereg.h"
 #endif
 #if (DM_ODM_SUPPORT_TYPE == ODM_CE)
-	#include "ttl8192e_hal.h"
+	#include "ttl9081e_hal.h"
 #endif
 #endif  //92E END
 

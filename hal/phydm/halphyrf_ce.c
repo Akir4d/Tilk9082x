@@ -37,7 +37,7 @@
 							_offset = _size-1;\
 					} while(0)
 
-#if (TLL8192C_SUPPORT||TLL8192D_SUPPORT||TLL8723A_SUPPORT)
+#if (TLL9081C_SUPPORT||TLL9081D_SUPPORT||TLL8723A_SUPPORT)
 void phydm_txpwrtrack_setpwr_dummy(
 	PDM_ODM_T			pDM_Odm,
 	PWRTRACK_METHOD 	Method,
@@ -86,13 +86,13 @@ void ConfigureTxpowerTrack(
 	)
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
-#if TLL8192C_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_TLL8192C)
+#if TLL9081C_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL9081C)
 		configure_txpower_track_dummy(pConfig);
 #endif
 
-#if TLL8192D_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_TLL8192D)
+#if TLL9081D_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL9081D)
 		configure_txpower_track_dummy(pConfig);
 #endif
 
@@ -101,9 +101,9 @@ void ConfigureTxpowerTrack(
 		configure_txpower_track_dummy(pConfig);
 #endif
 
-#if TLL8192E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_TLL8192E)
-		ConfigureTxpowerTrack_8192E(pConfig);
+#if TLL9081E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL9081E)
+		ConfigureTxpowerTrack_9081E(pConfig);
 #endif	
 #if TLL8821A_SUPPORT
 	if(pDM_Odm->SupportICType==ODM_TLL8821)
@@ -552,7 +552,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) higher than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));			
 
-			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8821 ||
+			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL9081E || pDM_Odm->SupportICType == ODM_TLL8821 ||
 				pDM_Odm->SupportICType == ODM_TLL8812 || pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8814A || 
 				pDM_Odm->SupportICType == ODM_TLL8822B) {
 				ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("**********Enter POWER Tracking MIX_MODE**********\n"));
@@ -571,7 +571,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) lower than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));
 
-			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8821 ||
+			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL9081E || pDM_Odm->SupportICType == ODM_TLL8821 ||
 				pDM_Odm->SupportICType == ODM_TLL8812 || pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8814A ||
 				pDM_Odm->SupportICType == ODM_TLL8822B) {
 
@@ -601,7 +601,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 
 #if !(DM_ODM_SUPPORT_TYPE & ODM_AP)
 		
-	if (!IS_HARDWARE_TYPE_8723B(Adapter) && !IS_HARDWARE_TYPE_8192E(Adapter) && !IS_HARDWARE_TYPE_8703B(Adapter)) {
+	if (!IS_HARDWARE_TYPE_8723B(Adapter) && !IS_HARDWARE_TYPE_9081E(Adapter) && !IS_HARDWARE_TYPE_8703B(Adapter)) {
 		/* Delta temperature is equal to or larger than 20 centigrade (When threshold is 8).*/
 		if (delta_IQK >= c.Threshold_IQK) {
 			if (!pDM_Odm->RFCalibrateInfo.bIQKInProgress) 
@@ -667,7 +667,7 @@ ODM_ResetIQKResult(
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN || DM_ODM_SUPPORT_TYPE == ODM_CE)
 	PADAPTER	Adapter = pDM_Odm->Adapter;
 
-	if (!IS_HARDWARE_TYPE_8192D(Adapter))
+	if (!IS_HARDWARE_TYPE_9081D(Adapter))
 		return;
 #endif
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,("PHY_ResetIQKResult:: settings regs %d default regs %d\n", (u4Byte)(sizeof(pDM_Odm->RFCalibrateInfo.IQKMatrixRegSetting)/sizeof(IQK_MATRIX_REGS_SETTING)), IQK_Matrix_Settings_NUM));

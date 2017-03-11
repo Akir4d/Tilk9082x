@@ -65,7 +65,7 @@ typedef NDIS_WORK_ITEM _workitem;
 #define thread_exit() ExitThread(STATUS_SUCCESS); return 0;
 
 
-#define SEMA_UPBND	(0x7FFFFFFF)   //8192
+#define SEMA_UPBND	(0x7FFFFFFF)   //9081
 
 __inline static _list *get_prev(_list	*list)
 {

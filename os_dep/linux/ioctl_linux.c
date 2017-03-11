@@ -10164,17 +10164,17 @@ static int tlw_mp_efuse_get(struct net_device *dev,
 			#endif
 		#endif // CONFIG_TLL9083E
 
-		#ifdef CONFIG_TLL8192E
+		#ifdef CONFIG_TLL9081E
 			#ifdef CONFIG_USB_HCI
-			addr = EEPROM_VID_8192EU;
+			addr = EEPROM_VID_9081EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
-			addr = EEPROM_VID_8192EE;
+			addr = EEPROM_VID_9081EE;
 			#endif
-		#endif // CONFIG_TLL8192E
+		#endif // CONFIG_TLL9081E
 		#ifdef CONFIG_TLL8723B
 		addr = EEPROM_VID_8723BU;
-		#endif // CONFIG_TLL8192E
+		#endif // CONFIG_TLL9081E
 
 		#ifdef CONFIG_TLL9083F
 		addr = EEPROM_VID_9083FU;
@@ -10758,12 +10758,12 @@ static int tlw_mp_efuse_set(struct net_device *dev,
 			#endif
 		#endif // CONFIG_TLL9083E
 
-		#ifdef CONFIG_TLL8192E
+		#ifdef CONFIG_TLL9081E
 			#ifdef CONFIG_USB_HCI
-			addr = EEPROM_VID_8192EU;
+			addr = EEPROM_VID_9081EU;
 			#endif
 			#ifdef CONFIG_PCI_HCI
-			addr = EEPROM_VID_8192EE;
+			addr = EEPROM_VID_9081EE;
 			#endif
 		#endif // CONFIG_TLL9083E
 
@@ -11786,7 +11786,7 @@ static int tlw_tdls_ch_switch(struct net_device *dev,
 	u8 i, j;
 	struct sta_info *ptdls_sta = NULL;
 
-	DBG_8192C( "[%s] %s %d\n", __FUNCTION__, extra, wrqu->data.length -1  );
+	DBG_9081C( "[%s] %s %d\n", __FUNCTION__, extra, wrqu->data.length -1  );
 
 	if (padapter->tdlsinfo.ch_switch_prohibited == _TRUE)
 	{
@@ -11886,7 +11886,7 @@ static int tlw_tdls_dump_ch(struct net_device *dev,
 	_adapter *padapter = (_adapter *)tlw_netdev_priv(dev);
 	struct tdls_info *ptdlsinfo = &padapter->tdlsinfo;
 
-	DBG_8192C("[%s] dump_stack:%s\n", __FUNCTION__, extra);
+	DBG_9081C("[%s] dump_stack:%s\n", __FUNCTION__, extra);
 
 	extra[ wrqu->data.length ] = 0x00;
 	ptdlsinfo->chsw_info.dump_stack = tlw_atoi( extra );
@@ -11910,7 +11910,7 @@ static int tlw_tdls_off_ch_num(struct net_device *dev,
 	_adapter *padapter = (_adapter *)tlw_netdev_priv(dev);
 	struct tdls_info *ptdlsinfo = &padapter->tdlsinfo;
 
-	DBG_8192C("[%s] off_ch_num:%s\n", __FUNCTION__, extra);
+	DBG_9081C("[%s] off_ch_num:%s\n", __FUNCTION__, extra);
 
 	extra[ wrqu->data.length ] = 0x00;
 	ptdlsinfo->chsw_info.off_ch_num = tlw_atoi(extra);
@@ -11934,7 +11934,7 @@ static int tlw_tdls_ch_offset(struct net_device *dev,
 	_adapter *padapter = (_adapter *)tlw_netdev_priv(dev);
 	struct tdls_info *ptdlsinfo = &padapter->tdlsinfo;
 
-	DBG_8192C("[%s] ch_offset:%s\n", __FUNCTION__, extra);
+	DBG_9081C("[%s] ch_offset:%s\n", __FUNCTION__, extra);
 
 	extra[ wrqu->data.length ] = 0x00;
 	ptdlsinfo->chsw_info.ch_offset = tlw_atoi( extra );
@@ -11985,7 +11985,7 @@ static int tlw_tdls_psoff(struct net_device *dev,
 	u8 i, j, mac_addr[ETH_ALEN];
 	struct sta_info *ptdls_sta = NULL;
 	
-	DBG_8192C( "[%s] %s %d\n", __FUNCTION__, extra, wrqu->data.length -1  );
+	DBG_9081C( "[%s] %s %d\n", __FUNCTION__, extra, wrqu->data.length -1  );
 
 	for (i=0, j=0; i < ETH_ALEN; i++, j+=3)
 		mac_addr[i]=key_2char2num(*(extra+j), *(extra+j+1));
@@ -12468,14 +12468,14 @@ extern void ttl8723b_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf
 #define fill_default_txdesc ttl8703b_fill_default_txdesc
 #endif /* CONFIG_TLL8703B */
 
-#if defined(CONFIG_TLL8192E)
-extern void ttl8192e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
-#define cal_txdesc_chksum ttl8192e_cal_txdesc_chksum
+#if defined(CONFIG_TLL9081E)
+extern void ttl9081e_cal_txdesc_chksum(struct tx_desc *ptxdesc);
+#define cal_txdesc_chksum ttl9081e_cal_txdesc_chksum
 #ifdef CONFIG_SDIO_HCI || defined(CONFIG_GSPI_HCI)
-extern void ttl8192es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
-#define fill_default_txdesc ttl8192es_fill_default_txdesc
+extern void ttl9081es_fill_default_txdesc(struct xmit_frame *pxmitframe, u8 *pbuf);
+#define fill_default_txdesc ttl9081es_fill_default_txdesc
 #endif // CONFIG_SDIO_HCI
-#endif //CONFIG_TLL8192E
+#endif //CONFIG_TLL9081E
 
 static s32 initLoopback(PADAPTER padapter)
 {
@@ -12807,7 +12807,7 @@ static u8 pktcmp(PADAPTER padapter, u8 *txbuf, u32 txsz, u8 *rxbuf, u32 rxsz)
 	else fcssize = 0;
 
 	if ((txsz - TXDESC_SIZE) != (rxpktsize - fcssize)) {
-		DBG_8192C("%s: ERROR! size not match tx/rx=%d/%d !\n",
+		DBG_9081C("%s: ERROR! size not match tx/rx=%d/%d !\n",
 			__func__, txsz - TXDESC_SIZE, rxpktsize - fcssize);
 		ret = _FALSE;
 	} else {
@@ -12815,31 +12815,31 @@ static u8 pktcmp(PADAPTER padapter, u8 *txbuf, u32 txsz, u8 *rxbuf, u32 rxsz)
 						  rxbuf + RXDESC_SIZE + drvinfosize,\
 						  txsz - TXDESC_SIZE);
 		if (ret == _FALSE) {
-			DBG_8192C("%s: ERROR! pkt content mismatch!\n", __func__);
+			DBG_9081C("%s: ERROR! pkt content mismatch!\n", __func__);
 		}
 	}
 
 	if (ret == _FALSE)
 	{
-		DBG_8192C("\n%s: TX PKT total=%d, desc=%d, content=%d\n",
+		DBG_9081C("\n%s: TX PKT total=%d, desc=%d, content=%d\n",
 			__func__, txsz, TXDESC_SIZE, txsz - TXDESC_SIZE);
-		DBG_8192C("%s: TX DESC size=%d\n", __func__, TXDESC_SIZE);
+		DBG_9081C("%s: TX DESC size=%d\n", __func__, TXDESC_SIZE);
 		printdata(txbuf, TXDESC_SIZE);
-		DBG_8192C("%s: TX content size=%d\n", __func__, txsz - TXDESC_SIZE);
+		DBG_9081C("%s: TX content size=%d\n", __func__, txsz - TXDESC_SIZE);
 		printdata(txbuf + TXDESC_SIZE, txsz - TXDESC_SIZE);
 
-		DBG_8192C("\n%s: RX PKT read=%d offset=%d(%d,%d) content=%d\n",
+		DBG_9081C("\n%s: RX PKT read=%d offset=%d(%d,%d) content=%d\n",
 			__func__, rxsz, RXDESC_SIZE + drvinfosize, RXDESC_SIZE, drvinfosize, rxpktsize);
 		if (rxpktsize != 0)
 		{
-			DBG_8192C("%s: RX DESC size=%d\n", __func__, RXDESC_SIZE);
+			DBG_9081C("%s: RX DESC size=%d\n", __func__, RXDESC_SIZE);
 			printdata(rxbuf, RXDESC_SIZE);
-			DBG_8192C("%s: RX drvinfo size=%d\n", __func__, drvinfosize);
+			DBG_9081C("%s: RX drvinfo size=%d\n", __func__, drvinfosize);
 			printdata(rxbuf + RXDESC_SIZE, drvinfosize);
-			DBG_8192C("%s: RX content size=%d\n", __func__, rxpktsize);
+			DBG_9081C("%s: RX content size=%d\n", __func__, rxpktsize);
 			printdata(rxbuf + RXDESC_SIZE + drvinfosize, rxpktsize);
 		} else {
-			DBG_8192C("%s: RX data size=%d\n", __func__, rxsz);
+			DBG_9081C("%s: RX data size=%d\n", __func__, rxsz);
 			printdata(rxbuf, rxsz);
 		}
 	}
@@ -12885,7 +12885,7 @@ thread_return lbk_thread(thread_context context)
 		_tlw_memcpy(ploopback->txbuf, pxmitframe->buf_addr, ploopback->txsize);
 		ff_hwaddr = tlw_get_ff_hwaddr(pxmitframe);
 		cnt++;
-		DBG_8192C("%s: wirte port cnt=%d size=%d\n", __func__, cnt, ploopback->txsize);
+		DBG_9081C("%s: wirte port cnt=%d size=%d\n", __func__, cnt, ploopback->txsize);
 		pxmitframe->pxmitbuf->pdata = ploopback->txbuf;
 		tlw_write_port(padapter, ff_hwaddr, ploopback->txsize, (u8 *)pxmitframe->pxmitbuf);
 
@@ -13712,7 +13712,7 @@ static int _tlw_ioctl_wext_private(struct net_device *dev, union iwreq_data *wrq
 				break;
 
 			default:
-				DBG_8192C("%s: Not yet implemented...\n", __func__);
+				DBG_9081C("%s: Not yet implemented...\n", __func__);
 				err = -1;
 				goto exit;
 		}
@@ -13720,7 +13720,7 @@ static int _tlw_ioctl_wext_private(struct net_device *dev, union iwreq_data *wrq
 		if ((priv_args[k].set_args & IW_PRIV_SIZE_FIXED) &&
 			(wdata.data.length != (priv_args[k].set_args & IW_PRIV_SIZE_MASK)))
 		{
-			DBG_8192C("%s: The command %s needs exactly %d argument(s)...\n",
+			DBG_9081C("%s: The command %s needs exactly %d argument(s)...\n",
 					__func__, cmdname, priv_args[k].set_args & IW_PRIV_SIZE_MASK);
 			err = -EINVAL;
 			goto exit;
@@ -13854,7 +13854,7 @@ static int _tlw_ioctl_wext_private(struct net_device *dev, union iwreq_data *wrq
 				break;
 
 			default:
-				DBG_8192C("%s: Not yet implemented...\n", __func__);
+				DBG_9081C("%s: Not yet implemented...\n", __func__);
 				err = -1;
 				goto exit;
 		}

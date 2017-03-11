@@ -37,7 +37,7 @@ odm_ConfigRFReg_9083E(
 #ifndef SMP_SYNC
 		unsigned long x;
 #endif
-		struct ttl8192cd_priv *priv = pDM_Odm->priv;
+		struct ttl9081cd_priv *priv = pDM_Odm->priv;
 #endif
 
     if(Addr == 0xffe)

@@ -17,18 +17,18 @@
  *
  *
  ******************************************************************************/
-#ifndef __TLL8192E_RF_H__
-#define __TLL8192E_RF_H__
+#ifndef __TLL9081E_RF_H__
+#define __TLL9081E_RF_H__
 
 VOID
-PHY_RF6052SetBandwidth8192E(
+PHY_RF6052SetBandwidth9081E(
 	IN	PADAPTER				Adapter,
 	IN	CHANNEL_WIDTH		Bandwidth);
 
 
 int
-PHY_RF6052_Config_8192E(
+PHY_RF6052_Config_9081E(
 	IN	PADAPTER	Adapter	);
 
-#endif//__TLL8192E_RF_H__
+#endif//__TLL9081E_RF_H__
 

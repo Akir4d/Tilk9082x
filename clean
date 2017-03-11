@@ -1,5 +1,5 @@
 #!/bin/bash
-rmmod 8192cu
-rmmod 8192ce
-rmmod 8192du
-rmmod 8192de
+rmmod 9081cu
+rmmod 9081ce
+rmmod 9081du
+rmmod 9081de

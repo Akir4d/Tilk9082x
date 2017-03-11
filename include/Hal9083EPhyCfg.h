@@ -122,23 +122,23 @@ PHY_GetTxPowerIndex_9083E(
 	);
 
 //
-// Switch bandwidth for 8192S
+// Switch bandwidth for 9081S
 //
-//extern	void	PHY_SetBWModeCallback8192C(	IN	PRT_TIMER		pTimer	);
+//extern	void	PHY_SetBWModeCallback9081C(	IN	PRT_TIMER		pTimer	);
 void	PHY_SetBWMode9083E(	IN	PADAPTER			pAdapter,
 									IN	CHANNEL_WIDTH	ChnlWidth,
 									IN	unsigned char	Offset	);
 
 //
-// Set FW CMD IO for 8192S.
+// Set FW CMD IO for 9081S.
 //
-//extern	BOOLEAN HalSetIO8192C(	IN	PADAPTER			Adapter,
+//extern	BOOLEAN HalSetIO9081C(	IN	PADAPTER			Adapter,
 //									IN	IO_TYPE				IOType);
 
 //
-// Set A2 entry to fw for 8192S
+// Set A2 entry to fw for 9081S
 //
-extern	void FillA2Entry8192C(		IN	PADAPTER			Adapter,
+extern	void FillA2Entry9081C(		IN	PADAPTER			Adapter,
 										IN	u8				index,
 										IN	u8*				val);
 
@@ -146,7 +146,7 @@ extern	void FillA2Entry8192C(		IN	PADAPTER			Adapter,
 //
 // channel switch related funciton
 //
-//extern	void	PHY_SwChnlCallback8192C(	IN	PRT_TIMER		pTimer	);
+//extern	void	PHY_SwChnlCallback9081C(	IN	PRT_TIMER		pTimer	);
 void	PHY_SwChnl9083E(	IN	PADAPTER		pAdapter,
 									IN	u8			channel	);
 
@@ -162,10 +162,10 @@ PHY_SetSwChnlBWMode9083E(
 //
 // BB/MAC/RF other monitor API
 //
-void	PHY_SetMonitorMode8192C(IN	PADAPTER	pAdapter,
+void	PHY_SetMonitorMode9081C(IN	PADAPTER	pAdapter,
 										IN	BOOLEAN		bEnableMonitorMode	);
 
-BOOLEAN	PHY_CheckIsLegalRfPath8192C(IN	PADAPTER	pAdapter,
+BOOLEAN	PHY_CheckIsLegalRfPath9081C(IN	PADAPTER	pAdapter,
 											IN	u32		eRFPath	);
 
 VOID PHY_SetRFPathSwitch_9083E(IN	PADAPTER	pAdapter, IN	BOOLEAN		bMain);
@@ -270,5 +270,5 @@ VOID SIC_Init(IN PADAPTER Adapter);
 #endif
 
 
-#endif	// __INC_HAL8192CPHYCFG_H
+#endif	// __INC_HAL9081CPHYCFG_H
 

@@ -540,7 +540,7 @@ Beamforming_GidPAid(
 	PMGNT_INFO	pMgntInfo = &(Adapter->MgntInfo);
 	pu1Byte		pHeader = GET_FRAME_OF_FIRST_FRAG(Adapter, pTcb);
 
-	if(Adapter->HardwareType < HARDWARE_TYPE_TLL8192EE)
+	if(Adapter->HardwareType < HARDWARE_TYPE_TLL9081EE)
 		return;
 	else if(IS_WIRELESS_MODE_N(Adapter) == FALSE)
 		return;

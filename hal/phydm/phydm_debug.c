@@ -556,16 +556,16 @@ phydm_BB_Debug_Info(IN PDM_ODM_T pDM_Odm)
 	//LFO 2's to dec
 
 	if (LFO_A > 4095)
-		LFO_A = LFO_A - 8192;
+		LFO_A = LFO_A - 9081;
 
 	if (LFO_B > 4095)
-		LFO_B = LFO_B - 8192;
+		LFO_B = LFO_B - 9081;
 
 	if (LFO_C > 4095)
-		LFO_C = LFO_C - 8192;
+		LFO_C = LFO_C - 9081;
 
 	if (LFO_D > 4095)
-		LFO_D = LFO_D - 8192;
+		LFO_D = LFO_D - 9081;
 	LFO_A = LFO_A * 312500 / 4096;
 	LFO_B = LFO_B * 312500 / 4096;
 	LFO_C = LFO_C * 312500 / 4096;
@@ -613,16 +613,16 @@ phydm_BB_Debug_Info(IN PDM_ODM_T pDM_Odm)
 	LFO_D = (s4Byte)(value32_3 >> 16);
 
 	if (LFO_A > 4095)
-		LFO_A = LFO_A - 8192;
+		LFO_A = LFO_A - 9081;
 
 	if (LFO_B > 4095)
-		LFO_B = LFO_B - 8192;
+		LFO_B = LFO_B - 9081;
 
 	if (LFO_C > 4095)
-		LFO_C = LFO_C - 8192;
+		LFO_C = LFO_C - 9081;
 
 	if (LFO_D > 4095)
-		LFO_D = LFO_D - 8192;
+		LFO_D = LFO_D - 9081;
 	LFO_A = LFO_A * 312500 / 4096;
 	LFO_B = LFO_B * 312500 / 4096;
 	LFO_C = LFO_C * 312500 / 4096;
@@ -645,16 +645,16 @@ phydm_BB_Debug_Info(IN PDM_ODM_T pDM_Odm)
 	LFO_D = (s4Byte)(value32_3 >> 16);
 
 	if (LFO_A > 4095)
-		LFO_A = LFO_A - 8192;
+		LFO_A = LFO_A - 9081;
 
 	if (LFO_B > 4095)
-		LFO_B = LFO_B - 8192;
+		LFO_B = LFO_B - 9081;
 
 	if (LFO_C > 4095)
-		LFO_C = LFO_C - 8192;
+		LFO_C = LFO_C - 9081;
 
 	if (LFO_D > 4095)
-		LFO_D = LFO_D - 8192;
+		LFO_D = LFO_D - 9081;
 
 	LFO_A = LFO_A * 312500 / 4096;
 	LFO_B = LFO_B * 312500 / 4096;
@@ -937,10 +937,10 @@ VOID phydm_BasicProfile(
 
 	PHYDM_SNPRINTF((output + used, out_len - used, "%-35s\n", "% Basic Profile %"));
 
-	if (pDM_Odm->SupportICType == ODM_TLL8192C)			
-		ICType = "TLL8192C";
-	else if (pDM_Odm->SupportICType == ODM_TLL8192D)
-		ICType = "TLL8192D";
+	if (pDM_Odm->SupportICType == ODM_TLL9081C)			
+		ICType = "TLL9081C";
+	else if (pDM_Odm->SupportICType == ODM_TLL9081D)
+		ICType = "TLL9081D";
 	else if (pDM_Odm->SupportICType == ODM_TLL8723A)
 		ICType = "TLL8723A";
 	else if (pDM_Odm->SupportICType == ODM_TLL9083E)
@@ -949,8 +949,8 @@ VOID phydm_BasicProfile(
 		ICType = "TLL8812A";
 	else if (pDM_Odm->SupportICType == ODM_TLL8821)
 		ICType = "TLL8821A";
-	else if (pDM_Odm->SupportICType == ODM_TLL8192E)
-		ICType = "TLL8192E";
+	else if (pDM_Odm->SupportICType == ODM_TLL9081E)
+		ICType = "TLL9081E";
 	else if (pDM_Odm->SupportICType == ODM_TLL8723B)
 		ICType = "TLL8723B";
 	else if (pDM_Odm->SupportICType == ODM_TLL8814A)
@@ -992,7 +992,7 @@ VOID phydm_BasicProfile(
 	}
 #elif (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	{
-		struct ttl8192cd_priv *priv = pDM_Odm->priv;
+		struct ttl9081cd_priv *priv = pDM_Odm->priv;
 		PHYDM_SNPRINTF((output + used, out_len - used, "  %-35s: %d (Subversion: %d)\n", "FW Version", priv->pshare->fw_version, priv->pshare->fw_sub_version));
 	}
 #else

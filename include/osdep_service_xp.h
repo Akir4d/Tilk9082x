@@ -66,7 +66,7 @@
 	#define thread_exit() PsTerminateSystemThread(STATUS_SUCCESS);
 
 	#define HZ			10000000
-	#define SEMA_UPBND	(0x7FFFFFFF)   //8192
+	#define SEMA_UPBND	(0x7FFFFFFF)   //9081
 	
 __inline static _list *get_next(_list	*list)
 {

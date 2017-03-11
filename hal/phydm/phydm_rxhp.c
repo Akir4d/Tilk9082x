@@ -103,7 +103,7 @@ PatchDCTone(
 	//2 Switch to CH11 to patch CH9 and CH13 DC tone
 	ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, 0x3FF, 11);
 	
-	if(pDM_Odm->SupportICType== ODM_TLL8192D)
+	if(pDM_Odm->SupportICType== ODM_TLL9081D)
 	{
 		if((*(pDM_Odm->pMacPhyMode) == ODM_SMSP)||(*(pDM_Odm->pMacPhyMode) == ODM_DMSP))
 		{
@@ -135,7 +135,7 @@ PatchDCTone(
 	ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, 0x3FF, 3);
 
 	
-	if(pDM_Odm->SupportICType==ODM_TLL8192D)
+	if(pDM_Odm->SupportICType==ODM_TLL9081D)
 	{
 		if((*(pDM_Odm->pMacPhyMode) == ODM_SMSP)||(*(pDM_Odm->pMacPhyMode) == ODM_DMSP))
 		{
@@ -188,7 +188,7 @@ GoodChannelDecision(
 	
 //	RegB34 = PHY_QueryBBReg(Adapter,0xB34, bMaskDWord)&0xFF;
 
-	if((pDM_Odm->SupportICType == ODM_TLL8192C)||(pDM_Odm->SupportICType == ODM_TLL8192D))
+	if((pDM_Odm->SupportICType == ODM_TLL9081C)||(pDM_Odm->SupportICType == ODM_TLL9081D))
        {
             TH1 = RSSI_BT + 0x14;  
 	}
@@ -448,7 +448,7 @@ odm_PSD_Monitor(
 	//1 Backup Current Settings
 	CurrentChannel = ODM_GetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, bRFRegOffsetMask);
 /*
-	if(pDM_Odm->SupportICType==ODM_TLL8192D)
+	if(pDM_Odm->SupportICType==ODM_TLL9081D)
 	{
 		//2 Record Current synthesizer parameters based on current channel
 		if((*pDM_Odm->MacPhyMode92D == SINGLEMAC_SINGLEPHY)||(*pDM_Odm->MacPhyMode92D == DUALMAC_SINGLEPHY))
@@ -525,7 +525,7 @@ odm_PSD_Monitor(
 	//1 Fix initial gain
 	//if (IS_HARDWARE_TYPE_8723AE(Adapter))
 	//RSSI_BT = pHalData->RSSI_BT;
-       //else if((IS_HARDWARE_TYPE_8192C(Adapter))||(IS_HARDWARE_TYPE_8192D(Adapter)))      // Add by Gary
+       //else if((IS_HARDWARE_TYPE_9081C(Adapter))||(IS_HARDWARE_TYPE_9081D(Adapter)))      // Add by Gary
        //    RSSI_BT = RSSI_BT_new;
 
 	if((pDM_Odm->SupportICType==ODM_TLL8723A)&(pDM_Odm->SupportInterface==ODM_ITRF_PCIE))
@@ -592,7 +592,7 @@ odm_PSD_Monitor(
 	
 	//if(IS_HARDWARE_TYPE_8723AE(Adapter))
 	//	SSBT = RSSI_BT  * 2 +0x3E;
-	//else if((IS_HARDWARE_TYPE_8192C(Adapter))||(IS_HARDWARE_TYPE_8192D(Adapter)))   // Add by Gary
+	//else if((IS_HARDWARE_TYPE_9081C(Adapter))||(IS_HARDWARE_TYPE_9081D(Adapter)))   // Add by Gary
 	//{
 	//	RSSI_BT = initial_gain_psd;
 	//	SSBT = RSSI_BT;
@@ -1017,7 +1017,7 @@ odm_PSD_RXHP(
 
 	//1 Backup Current Settings
 	CurrentChannel = ODM_GetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, bRFRegOffsetMask);
-	if(pDM_Odm->SupportICType == ODM_TLL8192D)
+	if(pDM_Odm->SupportICType == ODM_TLL9081D)
 	{
 		//2 Record Current synthesizer parameters based on current channel
 		if((*(pDM_Odm->pMacPhyMode)==ODM_SMSP)||(*(pDM_Odm->pMacPhyMode)==ODM_DMSP))
@@ -1142,7 +1142,7 @@ odm_PSD_RXHP(
  		if((n%20)==0)
  		{
 			channel = (n/20)*4 + 1;
-			if(pDM_Odm->SupportICType == ODM_TLL8192D)
+			if(pDM_Odm->SupportICType == ODM_TLL9081D)
 			{
 				switch(channel)
 				{
@@ -1213,7 +1213,7 @@ odm_PSD_RXHP(
 	ODM_Write_DIG(pDM_Odm,(u1Byte) initial_gain);
 	// restore originl center frequency
 	ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_CHNLBW, bRFRegOffsetMask, CurrentChannel);
-	if(pDM_Odm->SupportICType == ODM_TLL8192D)
+	if(pDM_Odm->SupportICType == ODM_TLL9081D)
 	{
 		if((*(pDM_Odm->pMacPhyMode)==ODM_SMSP)||(*(pDM_Odm->pMacPhyMode)==ODM_DMSP))
 		{
@@ -1335,7 +1335,7 @@ void odm_RXHP(
 	if(pDM_Odm->SupportICType & (ODM_TLL8723A|ODM_TLL9083E))
 		return;
 	//AGC RX High Power Mode is only applied on 2G band in 92D!!!
-	if(pDM_Odm->SupportICType == ODM_TLL8192D)
+	if(pDM_Odm->SupportICType == ODM_TLL9081D)
 	{
 		if(*(pDM_Odm->pBandType) != ODM_BAND_2_4G)
 			return;

@@ -221,7 +221,7 @@ typedef struct _MPT_CONTEXT
 	BOOLEAN			bMptEnableAckCounter;
 	ULONG			MptAckCounter;
 
-	// SD3 Willis For 8192S to save 1T/2T RF table for ACUT	Only fro ACUT delete later ~~~!
+	// SD3 Willis For 9081S to save 1T/2T RF table for ACUT	Only fro ACUT delete later ~~~!
 	//s1Byte		BufOfLines[2][MAX_LINES_HWCONFIG_TXT][MAX_BYTES_LINE_HWCONFIG_TXT];
 	//s1Byte			BufOfLines[2][MP_MAX_LINES][MP_MAX_LINES_BYTES];
 	//s4Byte			RfReadLine[2];
@@ -255,7 +255,7 @@ typedef struct _MPT_CONTEXT
 #if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL8814A)
 #define EFUSE_MAP_SIZE		512
 #endif
-#ifdef CONFIG_TLL8192E
+#ifdef CONFIG_TLL9081E
 #define EFUSE_MAP_SIZE		512
 #endif
 #ifdef CONFIG_TLL8723B

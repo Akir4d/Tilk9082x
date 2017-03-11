@@ -28,18 +28,18 @@
 
 #ifndef MAX_RECVBUF_SZ
 #ifdef PLATFORM_OS_CE
-#define MAX_RECVBUF_SZ (8192+1024) // 8K+1k
+#define MAX_RECVBUF_SZ (9081+1024) // 8K+1k
 #else
 	#ifndef CONFIG_MINIMAL_MEMORY_USAGE
 		//#define MAX_RECVBUF_SZ (32768) // 32k
 		//#define MAX_RECVBUF_SZ (16384) //16K
 		//#define MAX_RECVBUF_SZ (10240) //10K
 		#ifdef CONFIG_PLATFORM_MSTAR
-			#define MAX_RECVBUF_SZ (8192) // 8K
+			#define MAX_RECVBUF_SZ (9081) // 8K
 		#else
 		        #define MAX_RECVBUF_SZ (15360) // 15k < 16k
 		#endif
-		//#define MAX_RECVBUF_SZ (8192+1024) // 8K+1k
+		//#define MAX_RECVBUF_SZ (9081+1024) // 8K+1k
 	#else
 		#define MAX_RECVBUF_SZ (4000) // about 4K
 	#endif

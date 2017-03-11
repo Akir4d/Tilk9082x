@@ -414,24 +414,24 @@ static int _tlw_reg_notifier_apply(struct wiphy *wiphy,
 
 	switch (request->initiator) {
 	case NL80211_REGDOM_SET_BY_DRIVER:
-		DBG_8192C("%s: %s\n", __func__, "NL80211_REGDOM_SET_BY_DRIVER");
+		DBG_9081C("%s: %s\n", __func__, "NL80211_REGDOM_SET_BY_DRIVER");
 		_tlw_reg_apply_world_flags(wiphy, NL80211_REGDOM_SET_BY_DRIVER,
 					   reg);
 		break;
 	case NL80211_REGDOM_SET_BY_CORE:
-		DBG_8192C("%s: %s\n", __func__,
+		DBG_9081C("%s: %s\n", __func__,
 			  "NL80211_REGDOM_SET_BY_CORE to DRV");
 		_tlw_reg_apply_world_flags(wiphy, NL80211_REGDOM_SET_BY_DRIVER,
 					   reg);
 		break;
 	case NL80211_REGDOM_SET_BY_USER:
-		DBG_8192C("%s: %s\n", __func__,
+		DBG_9081C("%s: %s\n", __func__,
 			  "NL80211_REGDOM_SET_BY_USER to DRV");
 		_tlw_reg_apply_world_flags(wiphy, NL80211_REGDOM_SET_BY_DRIVER,
 					   reg);
 		break;
 	case NL80211_REGDOM_SET_BY_COUNTRY_IE:
-		DBG_8192C("%s: %s\n", __func__,
+		DBG_9081C("%s: %s\n", __func__,
 			  "NL80211_REGDOM_SET_BY_COUNTRY_IE");
 		_tlw_reg_apply_world_flags(wiphy, request->initiator, reg);
 		break;
@@ -459,7 +459,7 @@ void _tlw_reg_notifier(struct wiphy *wiphy, struct regulatory_request *request)
 {
 	struct tlw_regulatory *reg = NULL;
 
-	DBG_8192C("%s\n", __func__);
+	DBG_9081C("%s\n", __func__);
 
 	_tlw_reg_notifier_apply(wiphy, request, reg);
 }
@@ -536,7 +536,7 @@ int tlw_regd_init(_adapter * padapter)
 		tlw_regd->country_code = COUNTRY_CODE_USER;
 	}
 
-	DBG_8192C("%s: Country alpha2 being used: %c%c\n",
+	DBG_9081C("%s: Country alpha2 being used: %c%c\n",
 		  __func__, tlw_regd->alpha2[0], tlw_regd->alpha2[1]);
 #endif
 

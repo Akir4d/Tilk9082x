@@ -196,7 +196,7 @@ typedef enum _RT_SPINLOCK_TYPE{
 	typedef long long				s8Byte,*ps8Byte;
 	#endif
 
-	typedef struct ttl8192cd_priv	*pttl8192cd_priv;
+	typedef struct ttl9081cd_priv	*pttl9081cd_priv;
 	typedef struct stat_info		STA_INFO_T,*PSTA_INFO_T;
 	typedef struct timer_list		RT_TIMER, *PRT_TIMER;
 	typedef  void *				RT_TIMER_CALL_BACK;

@@ -44,7 +44,7 @@ odm_DynamicTxPowerInit(
 	else	
 	#else
 	//so 92c pci do not need dynamic tx power? vivi check it later
-	if(IS_HARDWARE_TYPE_8192D(Adapter))
+	if(IS_HARDWARE_TYPE_9081D(Adapter))
 		pMgntInfo->bDynamicTxPowerEnable = TRUE;
 	else
 		pMgntInfo->bDynamicTxPowerEnable = FALSE;
@@ -122,11 +122,11 @@ odm_DynamicTxPower(
 	)
 {
 	// 
-	// For AP/ADSL use pttl8192cd_priv
+	// For AP/ADSL use pttl9081cd_priv
 	// For CE/NIC use PADAPTER
 	//
 	//PADAPTER		pAdapter = pDM_Odm->Adapter;
-//	pttl8192cd_priv	priv		= pDM_Odm->priv;
+//	pttl9081cd_priv	priv		= pDM_Odm->priv;
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	if (!(pDM_Odm->SupportAbility & ODM_BB_DYNAMIC_TXPWR))
 		return;
@@ -166,11 +166,11 @@ odm_DynamicTxPowerNIC(
 	
 #if (DM_ODM_SUPPORT_TYPE & (ODM_WIN|ODM_CE))
 
-	if(pDM_Odm->SupportICType == ODM_TLL8192C)	
+	if(pDM_Odm->SupportICType == ODM_TLL9081C)	
 	{
 		odm_DynamicTxPower_92C(pDM_Odm);
 	}
-	else if(pDM_Odm->SupportICType == ODM_TLL8192D)
+	else if(pDM_Odm->SupportICType == ODM_TLL9081D)
 	{
 		odm_DynamicTxPower_92D(pDM_Odm);
 	}
@@ -206,10 +206,10 @@ odm_DynamicTxPowerAP(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 
-//#if ((TLL8192C_SUPPORT==1) || (TLL8192D_SUPPORT==1) || (TLL9083E_SUPPORT==1) || (TLL8812E_SUPPORT==1))
+//#if ((TLL9081C_SUPPORT==1) || (TLL9081D_SUPPORT==1) || (TLL9083E_SUPPORT==1) || (TLL8812E_SUPPORT==1))
 
 
-	pttl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl9081cd_priv	priv		= pDM_Odm->priv;
 	s4Byte i;
 	s2Byte pwr_thd = TX_POWER_NEAR_FIELD_THRESH_AP;
 
@@ -249,8 +249,8 @@ odm_DynamicTxPowerAP(
 			}
 		}
 
-#if defined(CONFIG_WLAN_HAL_8192EE)
-		if (GET_CHIP_VER(priv) == VERSION_8192E) {
+#if defined(CONFIG_WLAN_HAL_9081EE)
+		if (GET_CHIP_VER(priv) == VERSION_9081E) {
 			if( !disable_pwr_ctrl && (pDM_Odm->RSSI_Min != 0xff) ) {
 				if(pDM_Odm->RSSI_Min > pwr_thd)
 					RRSR_power_control_11n(priv,  1 );
@@ -392,8 +392,8 @@ odm_DynamicTxPower_92C(
 	}
 	if( pHalData->DynamicTxHighPowerLvl != pHalData->LastDTPLvl )
 	{
-		ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR, DBG_LOUD, ("PHY_SetTxPowerLevel8192C() Channel = %d \n" , pHalData->CurrentChannel));
-		PHY_SetTxPowerLevel8192C(Adapter, pHalData->CurrentChannel);
+		ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR, DBG_LOUD, ("PHY_SetTxPowerLevel9081C() Channel = %d \n" , pHalData->CurrentChannel));
+		PHY_SetTxPowerLevel9081C(Adapter, pHalData->CurrentChannel);
 		if(	(pHalData->DynamicTxHighPowerLvl == TxHighPwrLevel_Normal) &&
 			(pHalData->LastDTPLvl == TxHighPwrLevel_Level1 || pHalData->LastDTPLvl == TxHighPwrLevel_Level2)) //TxHighPwrLevel_Normal
 			odm_DynamicTxPowerRestorePowerIndex(pDM_Odm);
@@ -417,7 +417,7 @@ odm_DynamicTxPower_92D(
 	IN		PVOID					pDM_VOID
 	)
 {
-#if (TLL8192D_SUPPORT==1)
+#if (TLL9081D_SUPPORT==1)
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 	PADAPTER Adapter = pDM_Odm->Adapter;
@@ -474,7 +474,7 @@ odm_DynamicTxPower_92D(
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR, DBG_LOUD, ("AP Ext Port PWDB = 0x%x \n", UndecoratedSmoothedPWDB));
 	}
 	
-	if(IS_HARDWARE_TYPE_8192D(Adapter) && GET_HAL_DATA(Adapter)->CurrentBandType == 1){
+	if(IS_HARDWARE_TYPE_9081D(Adapter) && GET_HAL_DATA(Adapter)->CurrentBandType == 1){
 		if(UndecoratedSmoothedPWDB >= 0x33)
 		{
 			pHalData->DynamicTxHighPowerLvl = TxHighPwrLevel_Level2;
@@ -524,7 +524,7 @@ odm_DynamicTxPower_92D(
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR,DBG_LOUD,("dm_DynamicTxPower() change value \n"));
 			HighPowerLvlBackForMac0 = pHalData->DynamicTxHighPowerLvl;
 			pHalData->DynamicTxHighPowerLvl = Adapter->DualMacDMSPControl.CurTxHighLvlForAnotherMacOfDMSP;
-			PHY_SetTxPowerLevel8192C(Adapter, pHalData->CurrentChannel);
+			PHY_SetTxPowerLevel9081C(Adapter, pHalData->CurrentChannel);
 			pHalData->DynamicTxHighPowerLvl = HighPowerLvlBackForMac0;
 			Adapter->DualMacDMSPControl.bChangeTxHighPowerLvlForAnotherMacOfDMSP = FALSE;
 		}						
@@ -532,7 +532,7 @@ odm_DynamicTxPower_92D(
 
 	if( (pHalData->DynamicTxHighPowerLvl != pHalData->LastDTPLvl) )
 	{
-			ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR, DBG_LOUD, ("PHY_SetTxPowerLevel8192S() Channel = %d \n" , pHalData->CurrentChannel));
+			ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR, DBG_LOUD, ("PHY_SetTxPowerLevel9081S() Channel = %d \n" , pHalData->CurrentChannel));
 			if(Adapter->DualMacSmartConcurrent == TRUE)
 			{
 				if(BuddyAdapter == NULL)
@@ -540,7 +540,7 @@ odm_DynamicTxPower_92D(
 					ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR,DBG_LOUD,("dm_DynamicTxPower() BuddyAdapter == NULL case \n"));
 					if(!Adapter->bSlaveOfDMSP)
 					{
-						PHY_SetTxPowerLevel8192C(Adapter, pHalData->CurrentChannel);
+						PHY_SetTxPowerLevel9081C(Adapter, pHalData->CurrentChannel);
 					}
 				}
 				else
@@ -560,20 +560,20 @@ odm_DynamicTxPower_92D(
 							if(!bGetValueFromBuddyAdapter)
 							{
 								ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR,DBG_LOUD,("dm_DynamicTxPower() mac 0 for mac 0 \n"));
-								PHY_SetTxPowerLevel8192C(Adapter, pHalData->CurrentChannel);
+								PHY_SetTxPowerLevel9081C(Adapter, pHalData->CurrentChannel);
 							}
 						}
 					}
 					else
 					{
 						ODM_RT_TRACE(pDM_Odm,ODM_COMP_DYNAMIC_TXPWR,DBG_LOUD,("dm_DynamicTxPower() BuddyAdapter DMDP\n"));
-						PHY_SetTxPowerLevel8192C(Adapter, pHalData->CurrentChannel);
+						PHY_SetTxPowerLevel9081C(Adapter, pHalData->CurrentChannel);
 					}
 				}
 			}
 			else
 			{
-				PHY_SetTxPowerLevel8192C(Adapter, pHalData->CurrentChannel);
+				PHY_SetTxPowerLevel9081C(Adapter, pHalData->CurrentChannel);
 			}
 
 		}

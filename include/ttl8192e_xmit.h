@@ -17,10 +17,10 @@
  *
  *
  ******************************************************************************/
-#ifndef __TLL8192E_XMIT_H__
-#define __TLL8192E_XMIT_H__
+#ifndef __TLL9081E_XMIT_H__
+#define __TLL9081E_XMIT_H__
 
-typedef struct txdescriptor_8192e
+typedef struct txdescriptor_9081e
 {
 	//Offset 0
 	u32 pktlen:16;
@@ -125,7 +125,7 @@ typedef struct txdescriptor_8192e
 	u32 mcsg5_max_len:4;
 	u32 mcsg6_max_len:4;
 	u32 mcs15_sgi_max_len:4;
-}TXDESC_8192E, *PTXDESC_8192E; 
+}TXDESC_9081E, *PTXDESC_9081E; 
 
 
 
@@ -355,43 +355,43 @@ typedef struct txdescriptor_8192e
 #define SET_EARLYMODE_LEN2_92E(__pAddr, __Value) 					SET_BITS_TO_LE_4BYTE(__pAddr+4, 2, 15,  __Value)
 #define SET_EARLYMODE_LEN3_92E(__pAddr, __Value) 					SET_BITS_TO_LE_4BYTE(__pAddr+4, 17, 15, __Value)
 
-void ttl8192e_cal_txdesc_chksum(u8 *ptxdesc);
+void ttl9081e_cal_txdesc_chksum(u8 *ptxdesc);
 
 #ifdef CONFIG_USB_HCI
-s32 ttl8192eu_init_xmit_priv(PADAPTER padapter);
-void ttl8192eu_free_xmit_priv(PADAPTER padapter);
-s32 ttl8192eu_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 ttl8192eu_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	ttl8192eu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-s32 ttl8192eu_xmit_buf_handler(PADAPTER padapter);
-#define hal_xmit_handler ttl8192eu_xmit_buf_handler
-void ttl8192eu_xmit_tasklet(void *priv);
-s32 ttl8192eu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
+s32 ttl9081eu_init_xmit_priv(PADAPTER padapter);
+void ttl9081eu_free_xmit_priv(PADAPTER padapter);
+s32 ttl9081eu_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl9081eu_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	ttl9081eu_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+s32 ttl9081eu_xmit_buf_handler(PADAPTER padapter);
+#define hal_xmit_handler ttl9081eu_xmit_buf_handler
+void ttl9081eu_xmit_tasklet(void *priv);
+s32 ttl9081eu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv, struct xmit_buf *pxmitbuf);
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 ttl8192ee_init_xmit_priv(PADAPTER padapter);
-void ttl8192ee_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf *ttl8192ee_dequeue_xmitbuf(struct tlw_tx_ring *ring);
-s32	ttl8192ee_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-void	ttl8192ee_xmitframe_resume(_adapter *padapter);
-s32 ttl8192ee_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 ttl8192ee_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-void ttl8192ee_xmit_tasklet(void *priv);
+s32 ttl9081ee_init_xmit_priv(PADAPTER padapter);
+void ttl9081ee_free_xmit_priv(PADAPTER padapter);
+struct xmit_buf *ttl9081ee_dequeue_xmitbuf(struct tlw_tx_ring *ring);
+s32	ttl9081ee_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+void	ttl9081ee_xmitframe_resume(_adapter *padapter);
+s32 ttl9081ee_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl9081ee_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+void ttl9081ee_xmit_tasklet(void *priv);
 #endif
 
 #if defined(CONFIG_SDIO_HCI)||defined (CONFIG_GSPI_HCI)
-s32 ttl8192es_init_xmit_priv(PADAPTER padapter);
-void ttl8192es_free_xmit_priv(PADAPTER padapter);
+s32 ttl9081es_init_xmit_priv(PADAPTER padapter);
+void ttl9081es_free_xmit_priv(PADAPTER padapter);
 
-s32 ttl8192es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
-s32 ttl8192es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
-s32	ttl8192es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-thread_return ttl8192es_xmit_thread(thread_context context);
-s32 ttl8192es_xmit_buf_handler(PADAPTER padapter);
+s32 ttl9081es_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
+s32 ttl9081es_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);
+s32	ttl9081es_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+thread_return ttl9081es_xmit_thread(thread_context context);
+s32 ttl9081es_xmit_buf_handler(PADAPTER padapter);
 
 #ifdef CONFIG_SDIO_TX_TASKLET
-void ttl8192es_xmit_tasklet(void *priv);
+void ttl9081es_xmit_tasklet(void *priv);
 #endif
 #endif
 
@@ -430,22 +430,22 @@ struct txrpt_ccx_92e {
 };
 
 #ifdef CONFIG_TX_EARLY_MODE
-void UpdateEarlyModeInfo8192E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf );
+void UpdateEarlyModeInfo9081E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmitbuf );
 #endif
- s32	ttl8192e_init_xmit_priv(_adapter *padapter);
+ s32	ttl9081e_init_xmit_priv(_adapter *padapter);
 void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,u8 *ptxdesc);
 
-void ttl8192e_fill_fake_txdesc(PADAPTER	padapter,u8*pDesc,u32 BufferLen,
+void ttl9081e_fill_fake_txdesc(PADAPTER	padapter,u8*pDesc,u32 BufferLen,
 		u8 IsPsPoll,u8	IsBTQosNull, u8 bDataFrame);
-void ttl8192e_cal_txdesc_chksum(u8 *ptxdesc);
+void ttl9081e_cal_txdesc_chksum(u8 *ptxdesc);
 
 u8	BWMapping_92E(PADAPTER Adapter, struct pkt_attrib *pattrib);
 u8	SCMapping_92E(PADAPTER Adapter, struct pkt_attrib	*pattrib);
 void fill_txdesc_phy(PADAPTER padapter, struct pkt_attrib *pattrib, u8 *ptxdesc);
 void fill_txdesc_vcs(struct pkt_attrib *pattrib, u8 *ptxdesc);
 void fill_txdesc_sectype(struct pkt_attrib *pattrib, u8 *ptxdesc);
-void ttl8192e_fixed_rate(_adapter *padapter,u8 *ptxdesc);
+void ttl9081e_fixed_rate(_adapter *padapter,u8 *ptxdesc);
 
-#endif //__TLL8192E_XMIT_H__
+#endif //__TLL9081E_XMIT_H__
 
 

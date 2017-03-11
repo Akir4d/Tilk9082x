@@ -913,7 +913,7 @@ u8 tlw_is_wps_ie(u8 *ie_ptr, uint *wps_ielen)
 	
 	if((eid==_WPA_IE_ID_)&&(_tlw_memcmp(&ie_ptr[2], wps_oui, 4)==_TRUE))
 	{			
-		//DBG_8192C("==> found WPS_IE.....\n");
+		//DBG_9081C("==> found WPS_IE.....\n");
 		*wps_ielen = ie_ptr[1]+2;			
 		match=_TRUE;
 	}	

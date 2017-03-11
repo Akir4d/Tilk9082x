@@ -190,8 +190,8 @@ phydm_Init_cck_setting(
 
 	pDM_Odm->bCckHighPower = (BOOLEAN) ODM_GetBBReg(pDM_Odm, ODM_REG(CCK_RPT_FORMAT,pDM_Odm), ODM_BIT(CCK_RPT_FORMAT,pDM_Odm));
 
-	#if (TLL8192E_SUPPORT == 1)
-	if(pDM_Odm->SupportICType & (ODM_TLL8192E))
+	#if (TLL9081E_SUPPORT == 1)
+	if(pDM_Odm->SupportICType & (ODM_TLL9081E))
 	{
 		/* 0x824[9] = 0x82C[9] = 0xA80[7]  these regiaters settinh should be equal or CCK RSSI report may inaccurate */
 		value_824 = ODM_GetBBReg(pDM_Odm, 0x824, BIT9);
@@ -460,8 +460,8 @@ ODM_DMInit(
 			odm_SwAntDetectInit(pDM_Odm);
 	#endif
 
-	#if (TLL8192E_SUPPORT == 1)
-		if(pDM_Odm->SupportICType==ODM_TLL8192E)
+	#if (TLL9081E_SUPPORT == 1)
+		if(pDM_Odm->SupportICType==ODM_TLL9081E)
 			odm_PrimaryCCA_Check_Init(pDM_Odm);
 	#endif
 
@@ -599,7 +599,7 @@ ODM_DMWatchdog(
 
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 	{
-	pttl8192cd_priv priv		= pDM_Odm->priv;
+	pttl9081cd_priv priv		= pDM_Odm->priv;
 	if( (priv->auto_channel != 0) && (priv->auto_channel != 2) )//if ACS running, do not do FA/CCA counter read
 		return;
 	}
@@ -653,8 +653,8 @@ ODM_DMWatchdog(
 
 #if( DM_ODM_SUPPORT_TYPE & (ODM_WIN|ODM_CE))
 
-	#if (TLL8192E_SUPPORT == 1)
-		if(pDM_Odm->SupportICType==ODM_TLL8192E)
+	#if (TLL9081E_SUPPORT == 1)
+		if(pDM_Odm->SupportICType==ODM_TLL9081E)
 			odm_DynamicPrimaryCCA_Check(pDM_Odm); 
 	#endif
 #endif
@@ -1149,7 +1149,7 @@ ODM_InitAllWorkItems(IN PDM_ODM_T	pDM_Odm )
 							(PVOID)pAdapter,
 							"AntennaSwitchWorkitem");
 #endif
-	#if ((TLL8192C_SUPPORT == 1) && (defined(CONFIG_SW_ANTENNA_DIVERSITY)))	
+	#if ((TLL9081C_SUPPORT == 1) && (defined(CONFIG_SW_ANTENNA_DIVERSITY)))	
 	ODM_InitializeWorkItem(	pDM_Odm, 
 							&pDM_Odm->DM_SWAT_Table.SwAntennaSwitchWorkitem, 
 							(RT_WORKITEM_CALL_BACK)odm_SwAntDivChkAntSwitchWorkitemCallback,
@@ -1268,7 +1268,7 @@ ODM_FreeAllWorkItems(IN PDM_ODM_T	pDM_Odm )
 #if (TLL8723B_SUPPORT == 1)||(TLL8821A_SUPPORT == 1)
 	ODM_FreeWorkItem(&(pDM_Odm->DM_SWAT_Table.SwAntennaSwitchWorkitem_8723B));
 #endif
-#if ((TLL8192C_SUPPORT == 1) && (defined(CONFIG_SW_ANTENNA_DIVERSITY)))
+#if ((TLL9081C_SUPPORT == 1) && (defined(CONFIG_SW_ANTENNA_DIVERSITY)))
 	ODM_FreeWorkItem(&(pDM_Odm->DM_SWAT_Table.SwAntennaSwitchWorkitem));
 #endif
 	ODM_FreeWorkItem(&(pDM_Odm->PathDivSwitchWorkitem));      
@@ -1695,9 +1695,9 @@ ODM_UpdateInitRateWorkItemCallback(
 	{
 			ODM_TxPwrTrackSetPwr_8723B(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 	}
-	else if(pDM_Odm->SupportICType == ODM_TLL8192E)
+	else if(pDM_Odm->SupportICType == ODM_TLL9081E)
 	{
-		for (p = ODM_RF_PATH_A; p < MAX_PATH_NUM_8192E; p++)    //DOn't know how to include &c
+		for (p = ODM_RF_PATH_A; p < MAX_PATH_NUM_9081E; p++)    //DOn't know how to include &c
 		{
 			ODM_TxPwrTrackSetPwr92E(pDM_Odm, MIX_MODE, p, 0);
 		}
@@ -1981,7 +1981,7 @@ FillH2CCmd92C(
 )
 {}
 VOID
-PHY_SetTxPowerLevel8192C(
+PHY_SetTxPowerLevel9081C(
 	IN	PADAPTER		Adapter,
 	IN	u1Byte			channel
 	)

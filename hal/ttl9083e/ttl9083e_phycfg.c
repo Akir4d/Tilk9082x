@@ -511,14 +511,14 @@ phy_RFSerialRead(
 	if(RfPiEnable)
 	{	// Read from BBreg8b8, 12 bits for 8190, 20bits for T65 RF
 		retValue = PHY_QueryBBReg(Adapter, pPhyReg->rfLSSIReadBackPi, bLSSIReadBackData);
-		//DBG_8192C("Readback from RF-PI : 0x%x\n", retValue);
+		//DBG_9081C("Readback from RF-PI : 0x%x\n", retValue);
 	}
 	else
 	{	//Read from BBreg8a0, 12 bits for 8190, 20 bits for T65 RF
 		retValue = PHY_QueryBBReg(Adapter, pPhyReg->rfLSSIReadBack, bLSSIReadBackData);
-		//DBG_8192C("Readback from RF-SI : 0x%x\n", retValue);
+		//DBG_9081C("Readback from RF-SI : 0x%x\n", retValue);
 	}
-	//DBG_8192C("RFR-%d Addr[0x%x]=0x%x\n", eRFPath, pPhyReg->rfLSSIReadBack, retValue);
+	//DBG_9081C("RFR-%d Addr[0x%x]=0x%x\n", eRFPath, pPhyReg->rfLSSIReadBack, retValue);
 
 	return retValue;
 
@@ -764,7 +764,7 @@ PHY_SetRFReg9083E(
 //
 
 /*-----------------------------------------------------------------------------
- * Function:    PHY_MACConfig8192C
+ * Function:    PHY_MACConfig9081C
  *
  * Overview:	Condig MAC by header file or parameter file.
  *
@@ -991,7 +991,7 @@ storePwrIndexDiffRateOffset(
 
 
 static VOID
-phy_BB8192C_Config_1T(
+phy_BB9081C_Config_1T(
 	IN PADAPTER Adapter
 	)
 {
@@ -1053,7 +1053,7 @@ phy_BB9083E_Config_ParaFile(
 		*pszRFTxPwrLmtFile = NULL;
 
 
-	//RT_TRACE(COMP_INIT, DBG_TRACE, ("==>phy_BB8192S_Config_ParaFile\n"));
+	//RT_TRACE(COMP_INIT, DBG_TRACE, ("==>phy_BB9081S_Config_ParaFile\n"));
 
 	pszBBRegFile = sz9083EBBRegFile ;
 	pszAGCTableFile = sz9083EAGCTableFile;
@@ -1096,7 +1096,7 @@ phy_BB9083E_Config_ParaFile(
 	}
 
 	if(rtStatus != _SUCCESS){
-		//RT_TRACE(COMP_INIT, DBG_SERIOUS, ("phy_BB8192S_Config_ParaFile():Write BB Reg Fail!!"));
+		//RT_TRACE(COMP_INIT, DBG_SERIOUS, ("phy_BB9081S_Config_ParaFile():Write BB Reg Fail!!"));
 		goto phy_BB8190_Config_ParaFile_Fail;
 	}
 
@@ -1169,7 +1169,7 @@ phy_BB9083E_Config_ParaFile(
 	}
 
 	if(rtStatus != _SUCCESS){
-		//RT_TRACE(COMP_FPGA, DBG_SERIOUS, ("phy_BB8192S_Config_ParaFile():AGC Table Fail\n"));
+		//RT_TRACE(COMP_FPGA, DBG_SERIOUS, ("phy_BB9081S_Config_ParaFile():AGC Table Fail\n"));
 		goto phy_BB8190_Config_ParaFile_Fail;
 	}
 
@@ -1321,7 +1321,7 @@ ttl9083e_PHY_ConfigRFWithParaFile(
 //****************************************
 #define HighPowerRadioAArrayLen 22
 //This is for High power PA
-u32 Rtl8192S_HighPower_RadioA_Array[HighPowerRadioAArrayLen] = {
+u32 Rtl9081S_HighPower_RadioA_Array[HighPowerRadioAArrayLen] = {
 0x013,0x00029ea4,
 0x013,0x00025e74,
 0x013,0x00020ea4,
@@ -1641,7 +1641,7 @@ phy_SpurCalibration_9083E(
 }
 
 /*-----------------------------------------------------------------------------
- * Function:    PHY_SetBWModeCallback8192C()
+ * Function:    PHY_SetBWModeCallback9081C()
  *
  * Overview:    Timer callback function for SetSetBWMode
  *
@@ -1671,7 +1671,7 @@ _PHY_SetBWMode88E(
 	//u4Byte				NowL, NowH;
 	//u8Byte				BeginTime, EndTime;
 
-	/*RT_TRACE(COMP_SCAN, DBG_LOUD, ("==>PHY_SetBWModeCallback8192C()  Switch to %s bandwidth\n", \
+	/*RT_TRACE(COMP_SCAN, DBG_LOUD, ("==>PHY_SetBWModeCallback9081C()  Switch to %s bandwidth\n", \
 					pHalData->CurrentChannelBW == CHANNEL_WIDTH_20?"20MHz":"40MHz"))*/
 
 	if(pHalData->rf_chip == RF_PSEUDO_11N)
@@ -1719,7 +1719,7 @@ _PHY_SetBWMode88E(
 			break;
 
 		default:
-			/*RT_TRACE(COMP_DBG, DBG_LOUD, ("PHY_SetBWModeCallback8192C():
+			/*RT_TRACE(COMP_DBG, DBG_LOUD, ("PHY_SetBWModeCallback9081C():
 						unknown Bandwidth: %#X\n",pHalData->CurrentChannelBW));*/
 			break;
 	}
@@ -1755,7 +1755,7 @@ _PHY_SetBWMode88E(
 
 
 		default:
-			/*RT_TRACE(COMP_DBG, DBG_LOUD, ("PHY_SetBWModeCallback8192C(): unknown Bandwidth: %#X\n"\
+			/*RT_TRACE(COMP_DBG, DBG_LOUD, ("PHY_SetBWModeCallback9081C(): unknown Bandwidth: %#X\n"\
 						,pHalData->CurrentChannelBW));*/
 			break;
 
@@ -1800,7 +1800,7 @@ _PHY_SetBWMode88E(
 
 	//pHalData->SetBWModeInProgress= FALSE;
 
-	//RT_TRACE(COMP_SCAN, DBG_LOUD, ("<==PHY_SetBWModeCallback8192C() \n" ));
+	//RT_TRACE(COMP_SCAN, DBG_LOUD, ("<==PHY_SetBWModeCallback9081C() \n" ));
 }
 
 
@@ -1835,7 +1835,7 @@ PHY_SetBWMode9083E(
 	//if(pHalData->SwChnlInProgress)
 //	if(pMgntInfo->bScanInProgress)
 //	{
-//		RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SetBWMode8192C() %s Exit because bScanInProgress!\n",
+//		RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SetBWMode9081C() %s Exit because bScanInProgress!\n",
 //					Bandwidth == CHANNEL_WIDTH_20?"20MHz":"40MHz"));
 //		return;
 //	}
@@ -1843,7 +1843,7 @@ PHY_SetBWMode9083E(
 //	if(pHalData->SetBWModeInProgress)
 //	{
 //		// Modified it for 20/40 mhz switch by guangan 070531
-//		RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SetBWMode8192C() %s cancel last timer because SetBWModeInProgress!\n",
+//		RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SetBWMode9081C() %s cancel last timer because SetBWModeInProgress!\n",
 //					Bandwidth == CHANNEL_WIDTH_20?"20MHz":"40MHz"));
 //		PlatformCancelTimer(Adapter, &pHalData->SetBWModeTimer);
 //		//return;
@@ -1880,7 +1880,7 @@ PHY_SetBWMode9083E(
 	}
 	else
 	{
-		//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SetBWMode8192C() SetBWModeInProgress FALSE driver sleep or unload\n"));
+		//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SetBWMode9081C() SetBWModeInProgress FALSE driver sleep or unload\n"));
 		//pHalData->SetBWModeInProgress= FALSE;
 		pHalData->CurrentChannelBW = tmpBW;
 	}
@@ -1991,12 +1991,12 @@ PHY_SwChnl9083E(	// Call after initialization
 
 		if(bResult)
 		{
-			//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SwChnl8192C SwChnlInProgress TRUE schdule workitem done\n"));
+			//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SwChnl9081C SwChnlInProgress TRUE schdule workitem done\n"));
 		}
 		else
 		{
-			//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SwChnl8192C SwChnlInProgress FALSE schdule workitem error\n"));
-			//if(IS_HARDWARE_TYPE_8192SU(Adapter))
+			//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SwChnl9081C SwChnlInProgress FALSE schdule workitem error\n"));
+			//if(IS_HARDWARE_TYPE_9081SU(Adapter))
 			//{
 			//	pHalData->SwChnlInProgress = FALSE;
 				pHalData->CurrentChannel = tmpchannel;
@@ -2006,8 +2006,8 @@ PHY_SwChnl9083E(	// Call after initialization
 	}
 	else
 	{
-		//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SwChnl8192C SwChnlInProgress FALSE driver sleep or unload\n"));
-		//if(IS_HARDWARE_TYPE_8192SU(Adapter))
+		//RT_TRACE(COMP_SCAN, DBG_LOUD, ("PHY_SwChnl9081C SwChnlInProgress FALSE driver sleep or unload\n"));
+		//if(IS_HARDWARE_TYPE_9081SU(Adapter))
 		//{
 		//	pHalData->SwChnlInProgress = FALSE;
 			pHalData->CurrentChannel = tmpchannel;
@@ -2040,7 +2040,7 @@ PHY_SetSwChnlBWMode9083E(
 //		so caller should in PASSIVE_LEVEL. 080118, by rcnjko.
 //
 VOID
-PHY_SetMonitorMode8192C(
+PHY_SetMonitorMode9081C(
 	IN	PADAPTER			pAdapter,
 	IN	BOOLEAN				bEnableMonitorMode
 	)
@@ -2053,7 +2053,7 @@ PHY_SetMonitorMode8192C(
 	if(bEnableMonitorMode)
 	{
 		bFilterOutNonAssociatedBSSID = FALSE;
-		RT_TRACE(COMP_RM, DBG_LOUD, ("PHY_SetMonitorMode8192S(): enable monitor mode\n"));
+		RT_TRACE(COMP_RM, DBG_LOUD, ("PHY_SetMonitorMode9081S(): enable monitor mode\n"));
 
 		pHalData->bInMonitorMode = TRUE;
 		pAdapter->HalFunc.AllowAllDestAddrHandler(pAdapter, TRUE, TRUE);
@@ -2062,7 +2062,7 @@ PHY_SetMonitorMode8192C(
 	else
 	{
 		bFilterOutNonAssociatedBSSID = TRUE;
-		RT_TRACE(COMP_RM, DBG_LOUD, ("PHY_SetMonitorMode8192S(): disable monitor mode\n"));
+		RT_TRACE(COMP_RM, DBG_LOUD, ("PHY_SetMonitorMode9081S(): disable monitor mode\n"));
 
 		pAdapter->HalFunc.AllowAllDestAddrHandler(pAdapter, FALSE, TRUE);
 		pHalData->bInMonitorMode = FALSE;
@@ -2090,7 +2090,7 @@ PHY_SetMonitorMode8192C(
  *
  *---------------------------------------------------------------------------*/
 BOOLEAN
-PHY_CheckIsLegalRfPath8192C(
+PHY_CheckIsLegalRfPath9081C(
 	IN	PADAPTER	pAdapter,
 	IN	u32	eRFPath)
 {
@@ -2110,7 +2110,7 @@ PHY_CheckIsLegalRfPath8192C(
 #endif
 	return	rtValue;
 
-}	/* PHY_CheckIsLegalRfPath8192C */
+}	/* PHY_CheckIsLegalRfPath9081C */
 
 static VOID _PHY_SetRFPathSwitch(
 	IN	PADAPTER	pAdapter,

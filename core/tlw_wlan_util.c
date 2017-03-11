@@ -1017,15 +1017,15 @@ void read_cam(_adapter *padapter ,u8 entry, u8 *get_key)
 	u32	j,count = 0, addr, cmd;
 	addr = entry << 3;
 
-	//DBG_8192C("********* DUMP CAM Entry_#%02d***************\n",entry);
+	//DBG_9081C("********* DUMP CAM Entry_#%02d***************\n",entry);
 	for (j = 0; j < 6; j++)
 	{	
 		cmd = _ReadCAM(padapter ,addr+j);
-		//DBG_8192C("offset:0x%02x => 0x%08x \n",addr+j,cmd);
+		//DBG_9081C("offset:0x%02x => 0x%08x \n",addr+j,cmd);
 		if(j>1) //get key from cam
 			_tlw_memcpy(get_key+(j-2)*4, &cmd, 4);
 	}
-	//DBG_8192C("*********************************\n");
+	//DBG_9081C("*********************************\n");
 }
 
 bool read_phy_cam_is_gtk(_adapter *padapter, u8 entry)
@@ -1048,7 +1048,7 @@ void dump_cam_table(_adapter *padapter) {
 		DBG_871X("********* DUMP CAM Entry_#%02d**********\n",i);
 		for (j = 0; j < 6; j++) {
 			cmd = _ReadCAM(padapter ,addr+j);
-			DBG_8192C("offset:0x%02x => 0x%08x \n",addr+j,cmd);
+			DBG_9081C("offset:0x%02x => 0x%08x \n",addr+j,cmd);
 		}
 		DBG_871X("*********************************\n");
 	}
@@ -1572,7 +1572,7 @@ int WFD_info_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs	pIE)
 		if ( attr_contentlen )
 		{
 			pwdinfo->wfd_info->peer_rtsp_ctrlport = TLW_GET_BE16( attr_content + 2 );
-			DBG_8192C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
+			DBG_9081C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
 			return( _TRUE );
 		}		
 	}

@@ -520,7 +520,7 @@
 
 //-----------------------------------------------------
 //
-//	Redifine 8192C register definition for compatibility
+//	Redifine 9081C register definition for compatibility
 //
 //-----------------------------------------------------
 

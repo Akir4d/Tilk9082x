@@ -514,7 +514,7 @@ int tlw_gtk_offload(struct net_device *net, u8 *cmd_ptr)
 	
 	if (psta == NULL) 
 	{
-		DBG_8192C("%s, : Obtain Sta_info fail \n", __func__);
+		DBG_9081C("%s, : Obtain Sta_info fail \n", __func__);
 	}
 	else
 	{

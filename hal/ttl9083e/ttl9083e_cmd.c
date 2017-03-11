@@ -37,7 +37,7 @@ static u8 _is_fw_read_cmd_down(_adapter* padapter, u8 msgbox_num)
 
 	u8 valid;
 
-	//DBG_8192C(" _is_fw_read_cmd_down ,reg_1cc(%x),msg_box(%d)...\n",tlw_read8(padapter,REG_HMETFR),msgbox_num);
+	//DBG_9081C(" _is_fw_read_cmd_down ,reg_1cc(%x),msg_box(%d)...\n",tlw_read8(padapter,REG_HMETFR),msgbox_num);
 
 	do{
 		valid = tlw_read8(padapter,REG_HMETFR) & BIT(msgbox_num);
@@ -82,7 +82,7 @@ _func_enter_;
 
 	if(padapter->bFWReady == _FALSE)
 	{
-		DBG_8192C("FillH2CCmd_88E(): return H2C cmd because fw is not ready\n");
+		DBG_9081C("FillH2CCmd_88E(): return H2C cmd because fw is not ready\n");
 		return ret;
 	}
 
@@ -102,7 +102,7 @@ _func_enter_;
 		h2c_box_num = pHalData->LastHMEBoxNum;
 
 		if(!_is_fw_read_cmd_down(padapter, h2c_box_num)){
-			DBG_8192C(" fw read cmd failed...\n");
+			DBG_9081C(" fw read cmd failed...\n");
 			goto exit;
 		}
 
@@ -140,7 +140,7 @@ _func_enter_;
 		#endif
 		
 
-	//	DBG_8192C("MSG_BOX:%d,CmdLen(%d), reg:0x%x =>h2c_cmd:0x%x, reg:0x%x =>h2c_cmd_ex:0x%x ..\n"
+	//	DBG_9081C("MSG_BOX:%d,CmdLen(%d), reg:0x%x =>h2c_cmd:0x%x, reg:0x%x =>h2c_cmd_ex:0x%x ..\n"
 	//	 	,pHalData->LastHMEBoxNum ,CmdLen,msgbox_addr,h2c_cmd,msgbox_ex_addr,h2c_cmd_ex);
 
 		pHalData->LastHMEBoxNum = (h2c_box_num+1) % TLL88E_MAX_H2C_BOX_NUMS;
@@ -158,7 +158,7 @@ _func_exit_;
 	return ret;
 }
 
-u8 ttl8192c_h2c_msg_hdl(_adapter *padapter, unsigned char *pbuf)
+u8 ttl9081c_h2c_msg_hdl(_adapter *padapter, unsigned char *pbuf)
 {
 	u8 ElementID, CmdLen;
 	u8 *pCmdBuffer;
@@ -178,11 +178,11 @@ u8 ttl8192c_h2c_msg_hdl(_adapter *padapter, unsigned char *pbuf)
 }
 /*
 #if defined(CONFIG_AUTOSUSPEND) && defined(SUPPORT_HW_RFOFF_DETECTED)
-u8 ttl8192c_set_FwSelectSuspend_cmd(_adapter *padapter ,u8 bfwpoll, u16 period)
+u8 ttl9081c_set_FwSelectSuspend_cmd(_adapter *padapter ,u8 bfwpoll, u16 period)
 {
 	u8	res=_SUCCESS;
 	struct H2C_SS_RFOFF_PARAM param;
-	DBG_8192C("==>%s bfwpoll(%x)\n",__FUNCTION__,bfwpoll);
+	DBG_9081C("==>%s bfwpoll(%x)\n",__FUNCTION__,bfwpoll);
 	param.gpio_period = period;//Polling GPIO_11 period time
 	param.ROFOn = (_TRUE == bfwpoll)?1:0;
 	FillH2CCmd_88E(padapter, SELECTIVE_SUSPEND_ROF_CMD, sizeof(param), (u8*)(&param));		
@@ -197,7 +197,7 @@ u8 ttl9083e_set_rssi_cmd(_adapter*padapter, u8 *param)
 _func_enter_;
 
 	if(pHalData->fw_ractrl == _FALSE){		
-		DBG_8192C("==>%s fw dont support RA \n",__FUNCTION__);
+		DBG_9081C("==>%s fw dont support RA \n",__FUNCTION__);
 		return _FAIL;
 	}
 		
@@ -220,7 +220,7 @@ u8 ttl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 	u8 H2CCommand[7]={0};
 		
 	if(pHalData->fw_ractrl == _FALSE){		
-		DBG_8192C("==>%s fw dont support RA \n",__FUNCTION__);
+		DBG_9081C("==>%s fw dont support RA \n",__FUNCTION__);
 		return _FAIL;
 	}
 
@@ -231,7 +231,7 @@ u8 ttl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 	
 	psta = pmlmeinfo->FW_sta_info[macid].psta;
 	if(psta == NULL){
-		DBG_8192C("==>psta==NULL ,%s failed\n",__FUNCTION__);	
+		DBG_9081C("==>psta==NULL ,%s failed\n",__FUNCTION__);	
 		return _FAIL;
 	}
 		
@@ -856,11 +856,11 @@ _func_enter_;
 	switch(p2p_ps_state)
 	{
 		case P2P_PS_DISABLE:
-			DBG_8192C("P2P_PS_DISABLE \n");
+			DBG_9081C("P2P_PS_DISABLE \n");
 			_tlw_memset(p2p_ps_offload, 0 ,1);
 			break;
 		case P2P_PS_ENABLE:
-			DBG_8192C("P2P_PS_ENABLE \n");
+			DBG_9081C("P2P_PS_ENABLE \n");
 			// update CTWindow value.
 			if( pwdinfo->ctwindow > 0 )
 			{
@@ -879,16 +879,16 @@ _func_enter_;
 					p2p_ps_offload->NoA1_En = 1;
 
 				// config P2P NoA Descriptor Register
-				//DBG_8192C("%s(): noa_duration = %x\n",__FUNCTION__,pwdinfo->noa_duration[i]);
+				//DBG_9081C("%s(): noa_duration = %x\n",__FUNCTION__,pwdinfo->noa_duration[i]);
 				tlw_write32(padapter, REG_NOA_DESC_DURATION, pwdinfo->noa_duration[i]);
 
-				//DBG_8192C("%s(): noa_interval = %x\n",__FUNCTION__,pwdinfo->noa_interval[i]);
+				//DBG_9081C("%s(): noa_interval = %x\n",__FUNCTION__,pwdinfo->noa_interval[i]);
 				tlw_write32(padapter, REG_NOA_DESC_INTERVAL, pwdinfo->noa_interval[i]);
 
-				//DBG_8192C("%s(): start_time = %x\n",__FUNCTION__,pwdinfo->noa_start_time[i]);
+				//DBG_9081C("%s(): start_time = %x\n",__FUNCTION__,pwdinfo->noa_start_time[i]);
 				tlw_write32(padapter, REG_NOA_DESC_START, pwdinfo->noa_start_time[i]);
 
-				//DBG_8192C("%s(): noa_count = %x\n",__FUNCTION__,pwdinfo->noa_count[i]);
+				//DBG_9081C("%s(): noa_count = %x\n",__FUNCTION__,pwdinfo->noa_count[i]);
 				tlw_write8(padapter, REG_NOA_DESC_COUNT, pwdinfo->noa_count[i]);
 			}
 
@@ -913,11 +913,11 @@ _func_enter_;
 			}
 			break;
 		case P2P_PS_SCAN:
-			DBG_8192C("P2P_PS_SCAN \n");
+			DBG_9081C("P2P_PS_SCAN \n");
 			p2p_ps_offload->discovery = 1;
 			break;
 		case P2P_PS_SCAN_DONE:
-			DBG_8192C("P2P_PS_SCAN_DONE \n");
+			DBG_9081C("P2P_PS_SCAN_DONE \n");
 			p2p_ps_offload->discovery = 0;
 			pwdinfo->p2p_ps_state = P2P_PS_ENABLE;
 			break;

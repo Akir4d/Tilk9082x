@@ -17,24 +17,24 @@
  *
  *
  ******************************************************************************/
-#ifndef __TLL8192E_LED_H__
-#define __TLL8192E_LED_H__
+#ifndef __TLL9081E_LED_H__
+#define __TLL9081E_LED_H__
 
 
 //================================================================================
 // Interface to manipulate LED objects.
 //================================================================================
 #ifdef CONFIG_USB_HCI
-void ttl8192eu_InitSwLeds(PADAPTER padapter);
-void ttl8192eu_DeInitSwLeds(PADAPTER padapter);
+void ttl9081eu_InitSwLeds(PADAPTER padapter);
+void ttl9081eu_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_PCI_HCI
-void ttl8192ee_InitSwLeds(PADAPTER padapter);
-void ttl8192ee_DeInitSwLeds(PADAPTER padapter);
+void ttl9081ee_InitSwLeds(PADAPTER padapter);
+void ttl9081ee_DeInitSwLeds(PADAPTER padapter);
 #endif
 #ifdef CONFIG_SDIO_HCI
-void ttl8192es_InitSwLeds(PADAPTER padapter);
-void ttl8192es_DeInitSwLeds(PADAPTER padapter);
+void ttl9081es_InitSwLeds(PADAPTER padapter);
+void ttl9081es_DeInitSwLeds(PADAPTER padapter);
 #endif
 
 #endif

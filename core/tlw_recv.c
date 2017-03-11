@@ -4706,7 +4706,7 @@ static void rx_process_rssi(_adapter *padapter,union recv_frame *prframe)
 	struct signal_stat * signal_stat = &padapter->recvpriv.signal_strength_data;
 #endif //CONFIG_NEW_SIGNAL_STAT_PROCESS
 
-	//DBG_8192C("process_rssi=> pattrib->rssil(%d) signal_strength(%d)\n ",pattrib->RecvSignalPower,pattrib->signal_strength);
+	//DBG_9081C("process_rssi=> pattrib->rssil(%d) signal_strength(%d)\n ",pattrib->RecvSignalPower,pattrib->signal_strength);
 	//if(pRfd->Status.bPacketToSelf || pRfd->Status.bPacketBeacon)
 	{
 	#ifdef CONFIG_NEW_SIGNAL_STAT_PROCESS
@@ -4767,7 +4767,7 @@ static void rx_process_link_qual(_adapter *padapter,union recv_frame *prframe)
 	signal_stat = &padapter->recvpriv.signal_qual_data;
 #endif //CONFIG_NEW_SIGNAL_STAT_PROCESS
 
-	//DBG_8192C("process_link_qual=> pattrib->signal_qual(%d)\n ",pattrib->signal_qual);
+	//DBG_9081C("process_link_qual=> pattrib->signal_qual(%d)\n ",pattrib->signal_qual);
 
 #ifdef CONFIG_NEW_SIGNAL_STAT_PROCESS
 	if(signal_stat->update_req) {
@@ -4820,7 +4820,7 @@ void rx_process_phy_info(_adapter *padapter, union recv_frame *rframe)
 	/* Check PWDB */
 	//process_PWDB(padapter, rframe); 
 
-	//UpdateRxSignalStatistics8192C(Adapter, pRfd);
+	//UpdateRxSignalStatistics9081C(Adapter, pRfd);
 	
 	/* Check EVM */
 	rx_process_link_qual(padapter, rframe);

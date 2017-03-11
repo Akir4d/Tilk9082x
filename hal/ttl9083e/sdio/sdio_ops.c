@@ -887,10 +887,10 @@ s32 _sdio_local_write(
 	u8 *ptmpbuf;
 
 	if(addr & 0x3)
-		DBG_8192C("%s, address must be 4 bytes alignment\n", __FUNCTION__);
+		DBG_9081C("%s, address must be 4 bytes alignment\n", __FUNCTION__);
 
 	if(cnt  & 0x3)
-		DBG_8192C("%s, size must be the multiple of 4 \n", __FUNCTION__);
+		DBG_9081C("%s, size must be the multiple of 4 \n", __FUNCTION__);
 
 	pintfhdl=&padapter->iopriv.intf;
 	
@@ -937,10 +937,10 @@ s32 sdio_local_write(
 	u8 *ptmpbuf;
 
 	if(addr & 0x3)
-		DBG_8192C("%s, address must be 4 bytes alignment\n", __FUNCTION__);
+		DBG_9081C("%s, address must be 4 bytes alignment\n", __FUNCTION__);
 
 	if(cnt  & 0x3)
-		DBG_8192C("%s, size must be the multiple of 4 \n", __FUNCTION__);
+		DBG_9081C("%s, size must be the multiple of 4 \n", __FUNCTION__);
 
 	pintfhdl=&padapter->iopriv.intf;
 	HalSdioGetCmdAddr8723ASdio(padapter, SDIO_LOCAL_DEVICE_ID, addr, &addr);
@@ -1383,7 +1383,7 @@ void ClearInterrupt9083ESdio(PADAPTER padapter)
     HAL_DATA_TYPE   *pHalData = GET_HAL_DATA(padapter);
     u32 v32 = 0;
 
-	DBG_8192C("+%s+\n", __func__);
+	DBG_9081C("+%s+\n", __func__);
 
 	v32 = pHalData->sdio_himr | SDIO_HISR_CPWM2;
 	
@@ -1396,7 +1396,7 @@ void ClearInterrupt9083ESdio(PADAPTER padapter)
         sdio_local_write(padapter, SDIO_REG_HISR, 4, (u8*)&v32);
     }
 
-	DBG_8192C("-%s-\n", __func__);
+	DBG_9081C("-%s-\n", __func__);
 }
 #endif
 
@@ -1409,7 +1409,7 @@ static void sd_recv_loopback(PADAPTER padapter, u32 size)
 
 
 	readsize = size;
-	DBG_8192C("%s: read size=%d\n", __func__, readsize);
+	DBG_9081C("%s: read size=%d\n", __func__, readsize);
 	allocsize = _RND(readsize, adapter_to_dvobj(padapter)->intf_data.block_transfer_len);
 
 	ploopback = padapter->ploopback;
@@ -1420,7 +1420,7 @@ static void sd_recv_loopback(PADAPTER padapter, u32 size)
 	else {
 		preadbuf = tlw_malloc(allocsize);
 		if (preadbuf == NULL) {
-			DBG_8192C("%s: malloc fail size=%d\n", __func__, allocsize);
+			DBG_9081C("%s: malloc fail size=%d\n", __func__, allocsize);
 			return;
 		}
 	}
@@ -1433,9 +1433,9 @@ static void sd_recv_loopback(PADAPTER padapter, u32 size)
 	else {
 		u32 i;
 
-		DBG_8192C("%s: drop pkt\n", __func__);
+		DBG_9081C("%s: drop pkt\n", __func__);
 		for (i = 0; i < readsize; i+=4) {
-			DBG_8192C("%08X", *(u32*)(preadbuf + i));
+			DBG_9081C("%08X", *(u32*)(preadbuf + i));
 			if ((i+4) & 0x1F) printk(" ");
 			else printk("\n");
 		}
@@ -1692,10 +1692,10 @@ void sd_int_dpc(PADAPTER padapter)
 			HalSdioGetCmdAddr8723ASdio(padapter, WLAN_IOREG_DEVICE_ID, addr, &addr);
 			_sd_read(pintfhdl, addr, 4, status);
 			_sd_write(pintfhdl, addr, 4, status);
-			DBG_8192C("%s: SDIO_HISR_TXERR (0x%08x)\n", __func__, le32_to_cpu(*(u32*)status));
+			DBG_9081C("%s: SDIO_HISR_TXERR (0x%08x)\n", __func__, le32_to_cpu(*(u32*)status));
 			tlw_mfree(status, 4);
 		} else {
-			DBG_8192C("%s: SDIO_HISR_TXERR, but can't allocate memory to read status!\n", __func__);
+			DBG_9081C("%s: SDIO_HISR_TXERR, but can't allocate memory to read status!\n", __func__);
 		}		
 	}
 
@@ -1712,13 +1712,13 @@ void sd_int_dpc(PADAPTER padapter)
 
 		#if 0 //for debug
 		if (pHalData->sdio_hisr & SDIO_HISR_BCNERLY_INT)
-			DBG_8192C("%s: SDIO_HISR_BCNERLY_INT\n", __func__);
+			DBG_9081C("%s: SDIO_HISR_BCNERLY_INT\n", __func__);
 		
 		if (pHalData->sdio_hisr & SDIO_HISR_TXBCNOK)	
-			DBG_8192C("%s: SDIO_HISR_TXBCNOK\n", __func__);
+			DBG_9081C("%s: SDIO_HISR_TXBCNOK\n", __func__);
 	
 		if (pHalData->sdio_hisr & SDIO_HISR_TXBCNERR)	
-			DBG_8192C("%s: SDIO_HISR_TXBCNERR\n", __func__);
+			DBG_9081C("%s: SDIO_HISR_TXBCNERR\n", __func__);
 		#endif
 
 		
@@ -1752,7 +1752,7 @@ void sd_int_dpc(PADAPTER padapter)
 
 		if(check_fwstate(pmlmepriv, _FW_LINKED) && check_fwstate(pmlmepriv, WIFI_STATION_STATE))
 		{
-			//DBG_8192C("BCNERLY_INT for enabling ext clk\n");
+			//DBG_9081C("BCNERLY_INT for enabling ext clk\n");
 			EnableGpio5ClockReq(padapter, _TRUE, 1);
 		}
 	}
@@ -1760,14 +1760,14 @@ void sd_int_dpc(PADAPTER padapter)
 
 	if (pHalData->sdio_hisr & SDIO_HISR_C2HCMD)
 	{
-		DBG_8192C("%s: C2H Command\n", __func__);
+		DBG_9081C("%s: C2H Command\n", __func__);
 	}
 
 	if (pHalData->sdio_hisr & SDIO_HISR_RX_REQUEST)
 	{
 		struct recv_buf *precvbuf;
 
-		//DBG_8192C("%s: RX Request, size=%d\n", __func__, phal->SdioRxFIFOSize);
+		//DBG_9081C("%s: RX Request, size=%d\n", __func__, phal->SdioRxFIFOSize);
 		pHalData->sdio_hisr ^= SDIO_HISR_RX_REQUEST;
 #ifdef CONFIG_MAC_LOOPBACK_DRIVER
 		sd_recv_loopback(padapter, pHalData->SdioRxFIFOSize);
@@ -1899,10 +1899,10 @@ u8 RecvOnePkt(PADAPTER padapter, u32 size)
 
 	u8 res = _FALSE;
 
-	DBG_8192C("+%s: size: %d+\n", __func__, size);
+	DBG_9081C("+%s: size: %d+\n", __func__, size);
 	
 	if (padapter == NULL) {
-		DBG_8192C(KERN_ERR "%s: padapter is NULL!\n", __func__);
+		DBG_9081C(KERN_ERR "%s: padapter is NULL!\n", __func__);
 		return _FALSE;
 	}
 	
@@ -1923,7 +1923,7 @@ u8 RecvOnePkt(PADAPTER padapter, u32 size)
 		}
 		sdio_release_host(func);
 	}
-	DBG_8192C("-%s-\n", __func__);
+	DBG_9081C("-%s-\n", __func__);
 	return res;
 }
 #endif //CONFIG_WOWLAN

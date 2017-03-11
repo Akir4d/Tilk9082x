@@ -17,8 +17,8 @@
  *
  *
  ******************************************************************************/
-#ifndef __INC_HAL8192EPHYCFG_H__
-#define __INC_HAL8192EPHYCFG_H__
+#ifndef __INC_HAL9081EPHYCFG_H__
+#define __INC_HAL9081EPHYCFG_H__
 
 
 /*--------------------------Define Parameters-------------------------------*/
@@ -56,18 +56,18 @@
 //
 // BB and RF register read/write
 //
-u32	PHY_QueryBBReg8192E(	IN	PADAPTER	Adapter,
+u32	PHY_QueryBBReg9081E(	IN	PADAPTER	Adapter,
 								IN	u32			RegAddr,
 								IN	u32			BitMask	);
-void	PHY_SetBBReg8192E(	IN	PADAPTER		Adapter,
+void	PHY_SetBBReg9081E(	IN	PADAPTER		Adapter,
 								IN	u32			RegAddr,
 								IN	u32			BitMask,
 								IN	u32			Data	);
-u32	PHY_QueryRFReg8192E(	IN	PADAPTER	Adapter,
+u32	PHY_QueryRFReg9081E(	IN	PADAPTER	Adapter,
 								IN	u8			eRFPath,
 								IN	u32			RegAddr,
 								IN	u32			BitMask	);
-void	PHY_SetRFReg8192E(	IN	PADAPTER		Adapter,
+void	PHY_SetRFReg9081E(	IN	PADAPTER		Adapter,
 							IN	u8			eRFPath,
 								IN	u32			RegAddr,
 								IN	u32			BitMask,
@@ -77,9 +77,9 @@ void	PHY_SetRFReg8192E(	IN	PADAPTER		Adapter,
 // Initialization related function
 //
 /* MAC/BB/RF HAL config */
-int	PHY_MACConfig8192E(IN PADAPTER	Adapter	);
-int	PHY_BBConfig8192E(IN PADAPTER	Adapter	);
-int	PHY_RFConfig8192E(IN PADAPTER	Adapter	);
+int	PHY_MACConfig9081E(IN PADAPTER	Adapter	);
+int	PHY_BBConfig9081E(IN PADAPTER	Adapter	);
+int	PHY_RFConfig9081E(IN PADAPTER	Adapter	);
 
 /* RF config */
 
@@ -87,12 +87,12 @@ int	PHY_RFConfig8192E(IN PADAPTER	Adapter	);
 //
 // BB TX Power R/W
 //
-void	PHY_GetTxPowerLevel8192E(	IN PADAPTER	Adapter, OUT s32*	powerlevel	);
-void	PHY_SetTxPowerLevel8192E(	IN PADAPTER	Adapter, IN u8	channel	);
-BOOLEAN	PHY_UpdateTxPowerDbm8192E( IN PADAPTER	Adapter, IN int	powerInDbm	);
+void	PHY_GetTxPowerLevel9081E(	IN PADAPTER	Adapter, OUT s32*	powerlevel	);
+void	PHY_SetTxPowerLevel9081E(	IN PADAPTER	Adapter, IN u8	channel	);
+BOOLEAN	PHY_UpdateTxPowerDbm9081E( IN PADAPTER	Adapter, IN int	powerInDbm	);
 
 VOID
-PHY_SetTxPowerIndex_8192E(
+PHY_SetTxPowerIndex_9081E(
 	IN	PADAPTER			Adapter,
 	IN	u32					PowerIndex,
 	IN	u8					RFPath,	
@@ -100,7 +100,7 @@ PHY_SetTxPowerIndex_8192E(
 	);
 
 u8
-PHY_GetTxPowerIndex_8192E(
+PHY_GetTxPowerIndex_9081E(
 	IN	PADAPTER			pAdapter,
 	IN	u8					RFPath,
 	IN	u8					Rate,	
@@ -109,10 +109,10 @@ PHY_GetTxPowerIndex_8192E(
 	);
 
 //
-// Switch bandwidth for 8192S
+// Switch bandwidth for 9081S
 //
 VOID
-PHY_SetBWMode8192E(
+PHY_SetBWMode9081E(
 	IN	PADAPTER			pAdapter,
 	IN	CHANNEL_WIDTH	Bandwidth,
 	IN	u8					Offset
@@ -122,14 +122,14 @@ PHY_SetBWMode8192E(
 // channel switch related funciton
 //
 VOID
-PHY_SwChnl8192E(
+PHY_SwChnl9081E(
 	IN	PADAPTER	Adapter,
 	IN	u8			channel
 );
 
 
 VOID
-PHY_SetSwChnlBWMode8192E(
+PHY_SetSwChnlBWMode9081E(
 	IN	PADAPTER			Adapter,
 	IN	u8					channel,
 	IN	CHANNEL_WIDTH	Bandwidth,
@@ -138,20 +138,20 @@ PHY_SetSwChnlBWMode8192E(
 );
 
 VOID
-PHY_SetRFEReg_8192E(
+PHY_SetRFEReg_9081E(
 	IN PADAPTER		Adapter
 );
 
 void 
-phy_SpurCalibration_8192E(
+phy_SpurCalibration_9081E(
 	IN	PADAPTER			Adapter,
 	IN	SPUR_CAL_METHOD	Method
 );
-void PHY_SpurCalibration_8192E(IN PADAPTER Adapter);
+void PHY_SpurCalibration_9081E(IN PADAPTER Adapter);
 
 #ifdef CONFIG_SPUR_CAL_NBI
 void 
-phy_SpurCalibration_8192E_NBI(
+phy_SpurCalibration_9081E_NBI(
 	IN	PADAPTER			Adapter
 );
 #endif
@@ -160,7 +160,7 @@ phy_SpurCalibration_8192E_NBI(
 //
 
 VOID
-PHY_SetRFPathSwitch_8192E(
+PHY_SetRFPathSwitch_9081E(
 	IN	PADAPTER	pAdapter,
 	IN	BOOLEAN		bMain
 );
@@ -174,5 +174,5 @@ storePwrIndexDiffRateOffset(
 	);
 
 /*--------------------------Exported Function prototype---------------------*/
-#endif	// __INC_HAL8192CPHYCFG_H
+#endif	// __INC_HAL9081CPHYCFG_H
 

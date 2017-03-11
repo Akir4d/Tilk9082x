@@ -122,7 +122,7 @@ PHY_SetTxPowerIndex_8812A(
 	);
 
 //
-// Switch bandwidth for 8192S
+// Switch bandwidth for 9081S
 //
 VOID
 PHY_SetBWMode8812(
@@ -161,5 +161,5 @@ PHY_SetRFPathSwitch_8812A(
 );
 
 /*--------------------------Exported Function prototype---------------------*/
-#endif	// __INC_HAL8192CPHYCFG_H
+#endif	// __INC_HAL9081CPHYCFG_H
 

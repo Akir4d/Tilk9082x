@@ -101,9 +101,9 @@ odm_FAThresholdCheck(
 	
 	if(pDM_Odm->bLinked && (bPerformance||bDFSBand))
 	{
-		if(pDM_Odm->SupportICType == ODM_TLL8192D)
+		if(pDM_Odm->SupportICType == ODM_TLL9081D)
 		{
-			// 8192D special case
+			// 9081D special case
 			dm_FA_thres[0] = DM_DIG_FA_TH0_92D;
 			dm_FA_thres[1] = DM_DIG_FA_TH1_92D;
 			dm_FA_thres[2] = DM_DIG_FA_TH2_92D;
@@ -248,7 +248,7 @@ odm_InbandNoiseCalculate (
 	u4Byte				tmp = 0;
 	static	u1Byte		failCnt = 0;
 
-	if(!(pDM_Odm->SupportICType & (ODM_TLL8192E)))
+	if(!(pDM_Odm->SupportICType & (ODM_TLL9081E)))
 		return;
 
 	if(pDM_Odm->RFType == ODM_1T1R || *(pDM_Odm->pOnePathCCA) != ODM_CCA_2R)
@@ -559,7 +559,7 @@ odm_DigAbort(
 	pDIG_T			pDM_DigTable = &pDM_Odm->DM_DigTable;
 
 #if (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	pttl8192cd_priv	priv = pDM_Odm->priv;
+	pttl9081cd_priv	priv = pDM_Odm->priv;
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		pAdapter	= pDM_Odm->Adapter;
 	pRXHP_T			pRX_HP_Table  = &pDM_Odm->DM_RXHP_Table;
@@ -727,7 +727,7 @@ odm_DIG(
 	PADAPTER					pAdapter	= pDM_Odm->Adapter;
 	HAL_DATA_TYPE				*pHalData = GET_HAL_DATA(pDM_Odm->Adapter);
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
-	pttl8192cd_priv				priv = pDM_Odm->priv;
+	pttl9081cd_priv				priv = pDM_Odm->priv;
 	PSTA_INFO_T   				pEntry;
 #endif
 
@@ -756,8 +756,8 @@ odm_DIG(
 	
 
 	//1 Update status
-#if (TLL8192D_SUPPORT==1) 
-	if(pDM_Odm->SupportICType == ODM_TLL8192D)
+#if (TLL9081D_SUPPORT==1) 
+	if(pDM_Odm->SupportICType == ODM_TLL9081D)
 	{
 		if(*(pDM_Odm->pMacPhyMode) == ODM_DMSP)
 		{
@@ -906,8 +906,8 @@ odm_DIG(
 #endif
 
 	//1 Boundary Decision
-#if (TLL8192C_SUPPORT==1) 
-	if((pDM_Odm->SupportICType & ODM_TLL8192C) && (pDM_Odm->BoardType & (ODM_BOARD_EXT_LNA | ODM_BOARD_EXT_PA)))
+#if (TLL9081C_SUPPORT==1) 
+	if((pDM_Odm->SupportICType & ODM_TLL9081C) && (pDM_Odm->BoardType & (ODM_BOARD_EXT_LNA | ODM_BOARD_EXT_PA)))
 	{
 		//2 High power case
 		if(pDM_Odm->SupportPlatform & (ODM_AP|ODM_ADSL))
@@ -958,9 +958,9 @@ odm_DIG(
 		if (priv->pmib->dot11RFEntry.tx2path && !bDFSBand && (*(pDM_Odm->pWirelessMode) == ODM_WM_B))
 				dm_dig_max = 0x2A;
 
-#if TLL8192E_SUPPORT
+#if TLL9081E_SUPPORT
 #ifdef HIGH_POWER_EXT_LNA
-		if ((pDM_Odm->SupportICType & (ODM_TLL8192E)) && (pDM_Odm->ExtLNA))
+		if ((pDM_Odm->SupportICType & (ODM_TLL9081E)) && (pDM_Odm->ExtLNA))
 			dm_dig_max = 0x42;						
 #endif
 #endif
@@ -1000,7 +1000,7 @@ odm_DIG(
 		offset = 15;
 #else
 		//4 Modify DIG upper bound for 92E, 8723A\B, 8821 & 8812 BT
-		if((pDM_Odm->SupportICType & (ODM_TLL8192E|ODM_TLL8723B|ODM_TLL8812|ODM_TLL8821|ODM_TLL8723A)) && (pDM_Odm->bBtLimitedDig==1))
+		if((pDM_Odm->SupportICType & (ODM_TLL9081E|ODM_TLL8723B|ODM_TLL8812|ODM_TLL8821|ODM_TLL8723A)) && (pDM_Odm->bBtLimitedDig==1))
 		{
 			offset = 10;
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_DIG, ODM_DBG_LOUD, ("odm_DIG(): Coex. case: Force upper bound to RSSI + %d !!!!!!\n", offset));		
@@ -1256,8 +1256,8 @@ odm_DIG(
 #endif
 
 	//1 Update status
-#if (TLL8192D_SUPPORT==1) 
-	if(pDM_Odm->SupportICType == ODM_TLL8192D)
+#if (TLL9081D_SUPPORT==1) 
+	if(pDM_Odm->SupportICType == ODM_TLL9081D)
 	{
 		//sherry  delete DualMacSmartConncurrent 20110517
 		if(*(pDM_Odm->pMacPhyMode) == ODM_DMSP)
@@ -1392,7 +1392,7 @@ odm_FalseAlarmCounterStatistics(
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
 //Mark there, and check this in odm_DMWatchDog
 #if 0 //(DM_ODM_SUPPORT_TYPE == ODM_AP)
-	pttl8192cd_priv priv		= pDM_Odm->priv;
+	pttl9081cd_priv priv		= pDM_Odm->priv;
 	if( (priv->auto_channel != 0) && (priv->auto_channel != 2) )
 		return;
 #endif
@@ -1439,8 +1439,8 @@ odm_FalseAlarmCounterStatistics(
 		}
 #endif
 
-#if (TLL8192D_SUPPORT==1) 
-		if(pDM_Odm->SupportICType == ODM_TLL8192D)
+#if (TLL9081D_SUPPORT==1) 
+		if(pDM_Odm->SupportICType == ODM_TLL9081D)
 		{
 			odm_GetCCKFalseAlarm_92D(pDM_Odm);
 		}
@@ -1471,13 +1471,13 @@ odm_FalseAlarmCounterStatistics(
 
 		FalseAlmCnt->Cnt_CCA_all = FalseAlmCnt->Cnt_OFDM_CCA + FalseAlmCnt->Cnt_CCK_CCA;
 
-#if (TLL8192C_SUPPORT==1)
-		if(pDM_Odm->SupportICType == ODM_TLL8192C)
+#if (TLL9081C_SUPPORT==1)
+		if(pDM_Odm->SupportICType == ODM_TLL9081C)
 			odm_ResetFACounter_92C(pDM_Odm);
 #endif
 
-#if (TLL8192D_SUPPORT==1)
-		if(pDM_Odm->SupportICType == ODM_TLL8192D)
+#if (TLL9081D_SUPPORT==1)
+		if(pDM_Odm->SupportICType == ODM_TLL9081D)
 			odm_ResetFACounter_92D(pDM_Odm);
 #endif
 
@@ -1728,8 +1728,8 @@ odm_CCKPacketDetectionThresh(
 			CurCCK_CCAThres = 0x40;
 	}
 	
-#if (TLL8192D_SUPPORT==1) 
-	if((pDM_Odm->SupportICType == ODM_TLL8192D) && (*pDM_Odm->pBandType == ODM_BAND_2_4G))
+#if (TLL9081D_SUPPORT==1) 
+	if((pDM_Odm->SupportICType == ODM_TLL9081D) && (*pDM_Odm->pBandType == ODM_BAND_2_4G))
 		ODM_Write_CCK_CCA_Thres_92D(pDM_Odm, CurCCK_CCAThres);
 	else
 #endif

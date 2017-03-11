@@ -91,7 +91,7 @@
 #define REG_WOL_EVENT					0x0081 //TLL9083E
 #define REG_MCUTSTCFG					0x0084
 #define REG_FDHM0						0x0088
-#define REG_HOST_SUSP_CNT				0x00BC	// TLL8192C Host suspend counter on FPGA platform
+#define REG_HOST_SUSP_CNT				0x00BC	// TLL9081C Host suspend counter on FPGA platform
 #define REG_SYSTEM_ON_CTRL			0x00CC	// For 8723AE Reset after S3
 #define REG_EFUSE_ACCESS				0x00CF	// Efuse access protection for TLL8723
 #define REG_BIST_SCAN					0x00D0
@@ -131,7 +131,7 @@
 #define REG_FWIMR						0x0130
 #define REG_FWISR						0x0134
 #define REG_FTIMR						0x0138
-#define REG_FTISR						0x013C //TLL8192C
+#define REG_FTISR						0x013C //TLL9081C
 #define REG_PKTBUF_DBG_CTRL			0x0140
 #define REG_RXPKTBUF_CTRL				(REG_PKTBUF_DBG_CTRL+2)
 #define REG_PKTBUF_DBG_DATA_L			0x0144
@@ -447,7 +447,7 @@
 //	The NAV upper value is very important to WiFi 11n 5.2.3 NAV test. The default value is
 //	always too small, but the WiFi TestPlan test by 25,000 microseconds of NAV through sending
 //	CTS in the air. We must update this value greater than 25,000 microseconds to pass the item.
-//	The offset of NAV_UPPER in 8192C Spec is incorrect, and the offset should be 0x0652. Commented
+//	The offset of NAV_UPPER in 9081C Spec is incorrect, and the offset should be 0x0652. Commented
 //	by SD1 Scott.
 // By Bruce, 2011-07-18.
 //
@@ -532,7 +532,7 @@
 
 //-----------------------------------------------------
 //
-//	Redifine 8192C register definition for compatibility
+//	Redifine 9081C register definition for compatibility
 //
 //-----------------------------------------------------
 
@@ -575,20 +575,20 @@
 #define MAX_MSS_DENSITY_1T 			0x0A
 
 //----------------------------------------------------------------------------
-//       8192C Cmd9346CR bits					(Offset 0xA, 16bit)
+//       9081C Cmd9346CR bits					(Offset 0xA, 16bit)
 //----------------------------------------------------------------------------
 #define CmdEEPROM_En				BIT5	 // EEPROM enable when set 1
 #define CmdEERPOMSEL				BIT4 	// System EEPROM select, 0: boot from E-FUSE, 1: The EEPROM used is 9346
 #define Cmd9346CR_9356SEL			BIT4
 
 //----------------------------------------------------------------------------
-//       8192C GPIO MUX Configuration Register (offset 0x40, 4 byte)
+//       9081C GPIO MUX Configuration Register (offset 0x40, 4 byte)
 //----------------------------------------------------------------------------
 #define GPIOSEL_GPIO				0
 #define GPIOSEL_ENBT				BIT5
 
 //----------------------------------------------------------------------------
-//       8192C GPIO PIN Control Register (offset 0x44, 4 byte)
+//       9081C GPIO PIN Control Register (offset 0x44, 4 byte)
 //----------------------------------------------------------------------------
 #define GPIO_IN					REG_GPIO_PIN_CTRL		// GPIO pins input value
 #define GPIO_OUT				(REG_GPIO_PIN_CTRL+1)	// GPIO pins output value
@@ -622,7 +622,7 @@
 #define HSISR_GPIO9_INT					BIT25
 
 //----------------------------------------------------------------------------
-//       8192C (MSR) Media Status Register	(Offset 0x4C, 8 bits)  
+//       9081C (MSR) Media Status Register	(Offset 0x4C, 8 bits)  
 //----------------------------------------------------------------------------
 /*
 Network Type
@@ -1048,10 +1048,10 @@ Current IOREG MAP
 0x2000h ~ 0x3FFFh   8051 FW Download Region (8196 Bytes)
 */
 	//----------------------------------------------------------------------------
-	//		 8192C (TXPAUSE) transmission pause 	(Offset 0x522, 8 bits)
+	//		 9081C (TXPAUSE) transmission pause 	(Offset 0x522, 8 bits)
 	//----------------------------------------------------------------------------
 // Note:
-//	The the bits of stoping AC(VO/VI/BE/BK) queue in datasheet TLL8192S/TLL8192C are wrong,
+//	The the bits of stoping AC(VO/VI/BE/BK) queue in datasheet TLL9081S/TLL9081C are wrong,
 //	the correct arragement is VO - Bit0, VI - Bit1, BE - Bit2, and BK - Bit3.
 //	8723 and 88E may be not correct either in the eralier version. Confirmed with DD Tim.
 // By Bruce, 2011-09-22.
@@ -1064,7 +1064,7 @@ Current IOREG MAP
 #define StopVO			BIT0
 
 //----------------------------------------------------------------------------
-//       8192C (RCR) Receive Configuration Register	(Offset 0x608, 32 bits)
+//       9081C (RCR) Receive Configuration Register	(Offset 0x608, 32 bits)
 //----------------------------------------------------------------------------
 #define RCR_APPFCS				BIT31	// WMAC append FCS after pauload
 #define RCR_APP_MIC				BIT30	// MACRX will retain the MIC at the bottom of the packet. 
@@ -1743,7 +1743,7 @@ Current IOREG MAP
 
 #define HAL92C_MSDU_LIFE_TIME_UNIT		128	// in us, said by Tim.
 
-//2 8192D PartNo.
+//2 9081D PartNo.
 #define PARTNO_92D_NIC							(BIT7|BIT6)
 #define PARTNO_92D_NIC_REMARK 				(BIT5|BIT4)
 #define PARTNO_SINGLE_BAND_VS  				BIT3
@@ -1758,7 +1758,7 @@ Current IOREG MAP
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_9083E(__Adapter)	   ( IS_VENDOR_9083E_I_CUT_SERIES(__Adapter) ? 255 : 175 )
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8812			255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8723B		255
-#define LAST_ENTRY_OF_TX_PKT_BUFFER_8192C		255
+#define LAST_ENTRY_OF_TX_PKT_BUFFER_9081C		255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_8703B		255
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_DUAL_MAC	127
 #define LAST_ENTRY_OF_TX_PKT_BUFFER_9083F		255
@@ -1773,8 +1773,8 @@ Current IOREG MAP
 
 // GPIO BIT
 #define	HAL_8812A_HW_GPIO_WPS_BIT	BIT2
-#define	HAL_8192C_HW_GPIO_WPS_BIT	BIT2
-#define	HAL_8192EU_HW_GPIO_WPS_BIT	BIT7
+#define	HAL_9081C_HW_GPIO_WPS_BIT	BIT2
+#define	HAL_9081EU_HW_GPIO_WPS_BIT	BIT7
 #define	HAL_9083E_HW_GPIO_WPS_BIT	BIT7
 
 #endif //__HAL_COMMON_H__

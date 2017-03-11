@@ -165,7 +165,7 @@ odm_pathdiv_debug(
 
 //#define   PATHDIV_ENABLE 	 1
 #define dm_PathDiv_RSSI_Check	ODM_PathDivChkPerPktRssi
-#define PathDivCheckBeforeLink8192C	ODM_PathDiversityBeforeLink92C
+#define PathDivCheckBeforeLink9081C	ODM_PathDiversityBeforeLink92C
 
 
 

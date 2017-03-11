@@ -33,8 +33,8 @@ void ttl9083eu_set_hal_ops(_adapter * padapter);
 void ttl8812au_set_hal_ops(_adapter * padapter);
 #endif
 
-#ifdef CONFIG_TLL8192E
-void ttl8192eu_set_hal_ops(_adapter * padapter);
+#ifdef CONFIG_TLL9081E
+void ttl9081eu_set_hal_ops(_adapter * padapter);
 #endif
 
 

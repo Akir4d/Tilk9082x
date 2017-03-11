@@ -906,7 +906,7 @@ u8	FwBuffer9083E[FW_9083E_SIZE];
 
 //
 //	Description:
-//		Download 8192C firmware code.
+//		Download 9081C firmware code.
 //
 //
 s32 ttl9083e_FirmwareDownload(PADAPTER padapter, BOOLEAN  bUsedWoWLANFw)
@@ -1315,7 +1315,7 @@ Hal_EfuseReadEFuse88E(
 	//
 	if((_offset + _size_byte)>EFUSE_MAP_LEN_88E)
 	{// total E-Fuse table is 512bytes
-		DBG_8192C("Hal_EfuseReadEFuse88E(): Invalid offset(%#x) with read bytes(%#x)!!\n",_offset, _size_byte);
+		DBG_9081C("Hal_EfuseReadEFuse88E(): Invalid offset(%#x) with read bytes(%#x)!!\n",_offset, _size_byte);
 		goto exit;
 	}
 
@@ -1346,7 +1346,7 @@ Hal_EfuseReadEFuse88E(
 	if(*rtemp8 != 0xFF)
 	{
 		efuse_utilized++;
-		//DBG_8192C("efuse_Addr-%d efuse_data=%x\n", eFuse_Addr, *rtemp8);
+		//DBG_9081C("efuse_Addr-%d efuse_data=%x\n", eFuse_Addr, *rtemp8);
 		eFuse_Addr++;
 	}
 	else
@@ -2037,7 +2037,7 @@ hal_EfusePgPacketRead_9083e(
 					}
 					else
 					{
-						DBG_8192C("Error, All words disabled\n");
+						DBG_9081C("Error, All words disabled\n");
 						efuse_addr++;
 						continue;
 					}
@@ -2943,7 +2943,7 @@ u8 GetEEPROMSize9083E(PADAPTER padapter)
 	// 6: EEPROM used is 93C46, 4: boot from E-Fuse.
 	size = (cr & BOOT_FROM_EEPROM) ? 6 : 4;
 
-	MSG_8192C("EEPROM type is %s\n", size==4 ? "E-FUSE" : "93C46");
+	MSG_9081C("EEPROM type is %s\n", size==4 ? "E-FUSE" : "93C46");
 
 	return size;
 }
@@ -3109,7 +3109,7 @@ Hal_EfuseParseIDCode88E(
 	EEPROMId = le16_to_cpu(*((u16*)hwinfo));
 	if (EEPROMId != TLL_EEPROM_ID)
 	{
-		DBG_8192C("EEPROM ID(%#x) is invalid!!\n", EEPROMId);
+		DBG_9081C("EEPROM ID(%#x) is invalid!!\n", EEPROMId);
 		pHalData->bautoload_fail_flag = _TRUE;
 	}
 	else
@@ -3345,10 +3345,10 @@ void Hal_ReadPowerSavingMode88E(
 		pwrctl->bSupportRemoteWakeup = (hwinfo[EEPROM_USB_OPTIONAL_FUNCTION0] & BIT1)?_TRUE :_FALSE;
 #endif //CONFIG_USB_HCI
 	
-		DBG_8192C("%s...bHWPwrPindetect(%x)-bHWPowerdown(%x) ,bSupportRemoteWakeup(%x)\n",__FUNCTION__,
+		DBG_9081C("%s...bHWPwrPindetect(%x)-bHWPowerdown(%x) ,bSupportRemoteWakeup(%x)\n",__FUNCTION__,
 			pwrctl->bHWPwrPindetect, pwrctl->bHWPowerdown, pwrctl->bSupportRemoteWakeup);
 
-		DBG_8192C("### PS params=>  power_mgnt(%x),usbss_enable(%x) ###\n",padapter->registrypriv.power_mgnt,padapter->registrypriv.usbss_enable);
+		DBG_9081C("### PS params=>  power_mgnt(%x),usbss_enable(%x) ###\n",padapter->registrypriv.power_mgnt,padapter->registrypriv.usbss_enable);
 	
 	}
 
@@ -3692,7 +3692,7 @@ BOOLEAN HalDetectPwrDownMode88E(PADAPTER Adapter)
 		pHalData->pwrdown = _FALSE;
 	}
 
-	DBG_8192C("HalDetectPwrDownMode(): PDN=%d\n", pHalData->pwrdown);
+	DBG_9081C("HalDetectPwrDownMode(): PDN=%d\n", pHalData->pwrdown);
 
 	return pHalData->pwrdown;
 }	// HalDetectPwrDownMode
@@ -3711,7 +3711,7 @@ void Hal_DetectWoWMode(PADAPTER pAdapter)
 // We just reserve the value of the register in variable pHalData->RegBcnCtrlVal and then operate
 // the value of the register via atomic operation.
 // This prevents from race condition when setting this register.
-// The value of pHalData->RegBcnCtrlVal is initialized in HwConfigureTLL8192CE() function.
+// The value of pHalData->RegBcnCtrlVal is initialized in HwConfigureTLL9081CE() function.
 //
 void SetBcnCtrlReg(
 	PADAPTER	padapter,
@@ -4569,7 +4569,7 @@ _func_enter_;
 
 			pHalData->BasicRateSet = BrateCfg;
 
-			DBG_8192C("HW_VAR_BASIC_RATE: %#x -> %#x -> %#x\n", input_b, masked, ioted);
+			DBG_9081C("HW_VAR_BASIC_RATE: %#x -> %#x -> %#x\n", input_b, masked, ioted);
 
 			// Set RRSR rate table.
 			tlw_write16(adapter, REG_RRSR, BrateCfg);
@@ -4811,7 +4811,7 @@ _func_enter_;
 				struct mlme_ext_info	*pmlmeinfo = &(pmlmeext->mlmext_info);
 				u16 bcn_interval = 	*((u16 *)val);
 				if((pmlmeinfo->state&0x03) == WIFI_FW_AP_STATE){
-					DBG_8192C("%s==> bcn_interval:%d, eraly_int:%d \n",__FUNCTION__,bcn_interval,bcn_interval>>1);
+					DBG_9081C("%s==> bcn_interval:%d, eraly_int:%d \n",__FUNCTION__,bcn_interval,bcn_interval>>1);
 					tlw_write8(adapter, REG_DRVERLYINT, bcn_interval>>1);// 50ms for sdio 
 				}			
 			}
@@ -5000,13 +5000,13 @@ _func_enter_;
 		case HW_VAR_BT_SET_COEXIST:
 			{
 				u8	bStart = (*(u8 *)val);
-				ttl8192c_set_dm_bt_coexist(adapter, bStart);
+				ttl9081c_set_dm_bt_coexist(adapter, bStart);
 			}
 			break;
 		case HW_VAR_BT_ISSUE_DELBA:
 			{
 				u8	dir = (*(u8 *)val);
-				ttl8192c_issue_delete_ba(adapter, dir);
+				ttl9081c_issue_delete_ba(adapter, dir);
 			}
 			break;
 #endif
@@ -5015,7 +5015,7 @@ _func_enter_;
 			{
 				u16	min_rpt_time = (*(u16 *)val);
 
-				//DBG_8192C("==> HW_VAR_ANTENNA_DIVERSITY_SELECT , Ant_(%s)\n",(Optimum_antenna==2)?"A":"B");
+				//DBG_9081C("==> HW_VAR_ANTENNA_DIVERSITY_SELECT , Ant_(%s)\n",(Optimum_antenna==2)?"A":"B");
 
 				ODM_RA_Set_TxRPT_Time(podmpriv,min_rpt_time);	
 			}
@@ -5024,7 +5024,7 @@ _func_enter_;
 
 #ifdef CONFIG_SW_ANTENNA_DIVERSITY
 		case HW_VAR_ANTENNA_DIVERSITY_LINK:
-			//odm_SwAntDivRestAfterLink8192C(Adapter);
+			//odm_SwAntDivRestAfterLink9081C(Adapter);
 			ODM_SwAntDivRestAfterLink(podmpriv);
 			break;
 #endif			
@@ -5034,14 +5034,14 @@ _func_enter_;
 				u8	Optimum_antenna = (*(u8 *)val);
 				u8 	Ant ; 
 				//switch antenna to Optimum_antenna
-				//DBG_8192C("==> HW_VAR_ANTENNA_DIVERSITY_SELECT , Ant_(%s)\n",(Optimum_antenna==2)?"A":"B");
+				//DBG_9081C("==> HW_VAR_ANTENNA_DIVERSITY_SELECT , Ant_(%s)\n",(Optimum_antenna==2)?"A":"B");
 				if(pHalData->CurAntenna !=  Optimum_antenna)		
 				{					
 					Ant = (Optimum_antenna==2)?MAIN_ANT:AUX_ANT;
 					ODM_UpdateRxIdleAnt(&pHalData->odmpriv, Ant);
 					
 					pHalData->CurAntenna = Optimum_antenna ;
-					//DBG_8192C("==> HW_VAR_ANTENNA_DIVERSITY_SELECT , Ant_(%s)\n",(Optimum_antenna==2)?"A":"B");
+					//DBG_9081C("==> HW_VAR_ANTENNA_DIVERSITY_SELECT , Ant_(%s)\n",(Optimum_antenna==2)?"A":"B");
 				}
 			}
 			break;
@@ -5069,7 +5069,7 @@ _func_enter_;
 							break;
 					}while(trycnt--);
 					if(trycnt ==0)
-						DBG_8192C("Stop RX DMA failed...... \n");
+						DBG_9081C("Stop RX DMA failed...... \n");
 
 					//RQPN Load 0
 					tlw_write16(adapter,REG_RQPN_NPQ,0x0);
@@ -5093,7 +5093,7 @@ _func_enter_;
 			{
 				if(pHalData->fw_ractrl == _FALSE){
 					u8 maxMacid = *val;				
-					DBG_8192C("### MacID(%d),Set Max Tx RPT MID(%d)\n",maxMacid,maxMacid+1);
+					DBG_9081C("### MacID(%d),Set Max Tx RPT MID(%d)\n",maxMacid,maxMacid+1);
 					tlw_write8(adapter, REG_TX_RPT_CTRL+1, maxMacid+1);
 				}
 			}
@@ -5210,7 +5210,7 @@ _func_enter_;
 			}
 
 			val32 = tlw_read32(adapter, reg_macid_sleep);
-			DBG_8192C(FUNC_ADPT_FMT ": [HW_VAR_MACID_SLEEP] macid=%d, org reg_0x%03x=0x%08X\n",
+			DBG_9081C(FUNC_ADPT_FMT ": [HW_VAR_MACID_SLEEP] macid=%d, org reg_0x%03x=0x%08X\n",
 				FUNC_ADPT_ARG(adapter), id, reg_macid_sleep, val32);
 
 			if (val32 & BIT(bit_shift))
@@ -5240,7 +5240,7 @@ _func_enter_;
 			}
 
 			val32 = tlw_read32(adapter, reg_macid_sleep);
-			DBG_8192C(FUNC_ADPT_FMT ": [HW_VAR_MACID_WAKEUP] macid=%d, org reg_0x%03x=0x%08X\n",
+			DBG_9081C(FUNC_ADPT_FMT ": [HW_VAR_MACID_WAKEUP] macid=%d, org reg_0x%03x=0x%08X\n",
 				FUNC_ADPT_ARG(adapter), id, reg_macid_sleep, val32);
 
 			if (!(val32 & BIT(bit_shift)))
@@ -5483,10 +5483,10 @@ break;
 					DBG_871X("============ RA status - Mac_id:%d ===================\n",mac_id);
 					if(pHalData->fw_ractrl == _FALSE){
 						#if (RATE_ADAPTIVE_SUPPORT == 1)											
-						DBG_8192C("Mac_id:%d ,RSSI:%d(%%) ,PTStage = %d\n",
+						DBG_9081C("Mac_id:%d ,RSSI:%d(%%) ,PTStage = %d\n",
 							mac_id,pHalData->odmpriv.RAInfo[mac_id].RssiStaRA,pHalData->odmpriv.RAInfo[mac_id].PTStage);							
 
-						DBG_8192C("RateID = %d,RAUseRate = 0x%08x,RateSGI = %d, DecisionRate = %s\n",
+						DBG_9081C("RateID = %d,RAUseRate = 0x%08x,RateSGI = %d, DecisionRate = %s\n",
 							pHalData->odmpriv.RAInfo[mac_id].RateID,
 							pHalData->odmpriv.RAInfo[mac_id].RAUseRate,
 							pHalData->odmpriv.RAInfo[mac_id].RateSGI,
@@ -5496,7 +5496,7 @@ break;
 						u8 cur_rate = tlw_read8(Adapter,REG_ADAPTIVE_DATA_RATE_0+mac_id);
 						u8 sgi = (cur_rate & BIT7)?_TRUE:_FALSE;
 						cur_rate &= 0x7f;
-						DBG_8192C("Mac_id:%d ,SGI:%d ,Rate:%s \n",mac_id,sgi,HDATA_RATE(cur_rate));
+						DBG_9081C("Mac_id:%d ,SGI:%d ,Rate:%s \n",mac_id,sgi,HDATA_RATE(cur_rate));
 					}
 				}
 			}

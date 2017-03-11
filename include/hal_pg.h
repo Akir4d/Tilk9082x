@@ -56,53 +56,53 @@
 #define EEPROM_MAC_ADDR_88EU					0xD7
 #define EEPROM_VID_88EU						0xD0
 #define EEPROM_PID_88EU						0xD2
-#define EEPROM_USB_OPTIONAL_FUNCTION0		0xD4 //9083EU,8192EU, 8812AU is the same
+#define EEPROM_USB_OPTIONAL_FUNCTION0		0xD4 //9083EU,9081EU, 8812AU is the same
 #define EEPROM_USB_OPTIONAL_FUNCTION0_8811AU 0x104
 
 // TLL88ES
 #define EEPROM_MAC_ADDR_88ES					0x11A
 //====================================================
-//			EEPROM/Efuse PG Offset for 8192EE/8192EU/8192ES
+//			EEPROM/Efuse PG Offset for 9081EE/9081EU/9081ES
 //====================================================
 // 0x10 ~ 0x63 = TX power area.
-#define	EEPROM_TX_PWR_INX_8192E				0x10
+#define	EEPROM_TX_PWR_INX_9081E				0x10
 
-#define	EEPROM_ChannelPlan_8192E				0xB8
-#define	EEPROM_XTAL_8192E						0xB9
-#define	EEPROM_THERMAL_METER_8192E			0xBA
-#define	EEPROM_IQK_LCK_8192E					0xBB
-#define	EEPROM_2G_5G_PA_TYPE_8192E			0xBC
-#define	EEPROM_2G_LNA_TYPE_GAIN_SEL_8192E	0xBD
-#define	EEPROM_5G_LNA_TYPE_GAIN_SEL_8192E	0xBF
+#define	EEPROM_ChannelPlan_9081E				0xB8
+#define	EEPROM_XTAL_9081E						0xB9
+#define	EEPROM_THERMAL_METER_9081E			0xBA
+#define	EEPROM_IQK_LCK_9081E					0xBB
+#define	EEPROM_2G_5G_PA_TYPE_9081E			0xBC
+#define	EEPROM_2G_LNA_TYPE_GAIN_SEL_9081E	0xBD
+#define	EEPROM_5G_LNA_TYPE_GAIN_SEL_9081E	0xBF
 
-#define	EEPROM_RF_BOARD_OPTION_8192E		0xC1
-#define	EEPROM_RF_FEATURE_OPTION_8192E		0xC2
-#define	EEPROM_RF_BT_SETTING_8192E			0xC3
-#define	EEPROM_VERSION_8192E					0xC4
-#define	EEPROM_CustomID_8192E				0xC5
-#define	EEPROM_TX_BBSWING_2G_8192E			0xC6
-#define	EEPROM_TX_BBSWING_5G_8192E			0xC7
-#define	EEPROM_TX_PWR_CALIBRATE_RATE_8192E	0xC8
-#define	EEPROM_RF_ANTENNA_OPT_8192E			0xC9
-#define	EEPROM_RFE_OPTION_8192E				0xCA
+#define	EEPROM_RF_BOARD_OPTION_9081E		0xC1
+#define	EEPROM_RF_FEATURE_OPTION_9081E		0xC2
+#define	EEPROM_RF_BT_SETTING_9081E			0xC3
+#define	EEPROM_VERSION_9081E					0xC4
+#define	EEPROM_CustomID_9081E				0xC5
+#define	EEPROM_TX_BBSWING_2G_9081E			0xC6
+#define	EEPROM_TX_BBSWING_5G_9081E			0xC7
+#define	EEPROM_TX_PWR_CALIBRATE_RATE_9081E	0xC8
+#define	EEPROM_RF_ANTENNA_OPT_9081E			0xC9
+#define	EEPROM_RFE_OPTION_9081E				0xCA
 
-// TLL8192EE
-#define	EEPROM_MAC_ADDR_8192EE				0xD0
-#define	EEPROM_VID_8192EE						0xD6
-#define	EEPROM_DID_8192EE						0xD8
-#define	EEPROM_SVID_8192EE					0xDA
-#define	EEPROM_SMID_8192EE					0xDC
+// TLL9081EE
+#define	EEPROM_MAC_ADDR_9081EE				0xD0
+#define	EEPROM_VID_9081EE						0xD6
+#define	EEPROM_DID_9081EE						0xD8
+#define	EEPROM_SVID_9081EE					0xDA
+#define	EEPROM_SMID_9081EE					0xDC
 
-//TLL8192EU
-#define	EEPROM_MAC_ADDR_8192EU				0xD7
-#define	EEPROM_VID_8192EU						0xD0
-#define	EEPROM_PID_8192EU						0xD2
-#define 	EEPROM_PA_TYPE_8192EU               		0xBC
-#define 	EEPROM_LNA_TYPE_2G_8192EU           	0xBD
-#define 	EEPROM_LNA_TYPE_5G_8192EU           	0xBF
+//TLL9081EU
+#define	EEPROM_MAC_ADDR_9081EU				0xD7
+#define	EEPROM_VID_9081EU						0xD0
+#define	EEPROM_PID_9081EU						0xD2
+#define 	EEPROM_PA_TYPE_9081EU               		0xBC
+#define 	EEPROM_LNA_TYPE_2G_9081EU           	0xBD
+#define 	EEPROM_LNA_TYPE_5G_9081EU           	0xBF
 
-// TLL8192ES
-#define	EEPROM_MAC_ADDR_8192ES				0x11A
+// TLL9081ES
+#define	EEPROM_MAC_ADDR_9081ES				0x11A
 //====================================================
 //			EEPROM/Efuse PG Offset for 8812AE/8812AU/8812AS
 //====================================================
@@ -234,7 +234,7 @@
 
 
 //====================================================
-//			EEPROM/Efuse PG Offset for 8192 SE/SU
+//			EEPROM/Efuse PG Offset for 9081 SE/SU
 //====================================================
 #define EEPROM_VID_92SE						0x0A
 #define EEPROM_DID_92SE						0x0C
@@ -418,7 +418,7 @@
 #define EEPROM_Default_ThermalMeter_92SU		0x7
 #define EEPROM_Default_ThermalMeter_88E		0x18
 #define EEPROM_Default_ThermalMeter_8812		0x18
-#define	EEPROM_Default_ThermalMeter_8192E			0x1A
+#define	EEPROM_Default_ThermalMeter_9081E			0x1A
 #define	EEPROM_Default_ThermalMeter_8723B		0x18
 #define	EEPROM_Default_ThermalMeter_8703B		0x18
 #define	EEPROM_Default_ThermalMeter_9083F		0x18
@@ -430,7 +430,7 @@
 #define EEPROM_Default_CrystalCap_88E 			0x20
 #define EEPROM_Default_CrystalCap_8812			0x20
 #define EEPROM_Default_CrystalCap_8814			0x20
-#define EEPROM_Default_CrystalCap_8192E			0x20
+#define EEPROM_Default_CrystalCap_9081E			0x20
 #define EEPROM_Default_CrystalCap_8723B			0x20
 #define EEPROM_Default_CrystalCap_8703B			0x20
 #define EEPROM_Default_CrystalCap_9083F			0x20
@@ -479,7 +479,7 @@
 #define EEPROM_DEFAULT_DIFF				0XFE
 #define EEPROM_DEFAULT_CHANNEL_PLAN		0x7F
 #define EEPROM_DEFAULT_BOARD_OPTION		0x00
-#define EEPROM_DEFAULT_RFE_OPTION_8192E 0x03
+#define EEPROM_DEFAULT_RFE_OPTION_9081E 0x03
 #define EEPROM_DEFAULT_RFE_OPTION		0x04
 #define EEPROM_DEFAULT_FEATURE_OPTION	0x00
 #define EEPROM_DEFAULT_BT_OPTION			0x10
@@ -599,7 +599,7 @@ typedef	enum _BT_CoType{
 	BT_TLL8723A		= 6,
 	BT_TLL8821		= 7,
 	BT_TLL8723B		= 8,
-	BT_TLL8192E		= 9,
+	BT_TLL9081E		= 9,
 	BT_TLL8814A		= 10,
 	BT_TLL8812A		= 11,
 	BT_TLL8703B		= 12

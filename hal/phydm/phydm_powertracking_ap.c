@@ -492,7 +492,7 @@ u1Byte DeltaSwingTableIdx_2GA_N_DEFAULT[DELTA_SWINGIDX_SIZE] = {0, 0, 0, 2, 2, 3
 , 4, 5, 5,  6,  6,  7,  7,  7,  7,  8,  8,  9,  9, 10, 10, 10, 11, 11, 11, 11}; 
 
 
-#ifdef CONFIG_WLAN_HAL_8192EE
+#ifdef CONFIG_WLAN_HAL_9081EE
 u4Byte OFDMSwingTable_92E[OFDM_TABLE_SIZE_92E] = {
 	/* Index0   6  dB */ 0x7fc001ff,
 	/* Index1   5.7dB */ 0x7b4001ed,
@@ -802,7 +802,7 @@ odm_TXPowerTrackingThermalMeterInit(
 		if(pDM_Odm->mp_mode == FALSE)
 			pDM_Odm->RFCalibrateInfo.TxPowerTrackControl = _TRUE;
 		
-		MSG_8192C("pDM_Odm TxPowerTrackControl = %d\n", pDM_Odm->RFCalibrateInfo.TxPowerTrackControl);
+		MSG_9081C("pDM_Odm TxPowerTrackControl = %d\n", pDM_Odm->RFCalibrateInfo.TxPowerTrackControl);
 	}
 	#else
 	{
@@ -810,7 +810,7 @@ odm_TXPowerTrackingThermalMeterInit(
 		HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 		struct dm_priv	*pdmpriv = &pHalData->dmpriv;
 
-		//if(IS_HARDWARE_TYPE_8192C(pHalData))
+		//if(IS_HARDWARE_TYPE_9081C(pHalData))
 		{
 			pdmpriv->bTXPowerTracking = _TRUE;
 			pdmpriv->TXPowercount = 0;
@@ -820,7 +820,7 @@ odm_TXPowerTrackingThermalMeterInit(
 				pdmpriv->TxPowerTrackControl = _TRUE;
 
 		}
-		MSG_8192C("pdmpriv->TxPowerTrackControl = %d\n", pdmpriv->TxPowerTrackControl);
+		MSG_9081C("pdmpriv->TxPowerTrackControl = %d\n", pdmpriv->TxPowerTrackControl);
 	
 	}	
 	#endif//endif (CONFIG_TLL9083E==1)	
@@ -847,7 +847,7 @@ odm_TXPowerTrackingThermalMeterInit(
 	
 #if TLL9083E_SUPPORT	
 	pRFCalibrateInfo->DefaultCckIndex = 20;	// -6 dB	
-#elif TLL8192E_SUPPORT
+#elif TLL9081E_SUPPORT
 	pRFCalibrateInfo->DefaultCckIndex = 8;	// -12 dB
 #endif
 	pRFCalibrateInfo->BbSwingIdxOfdmBase = pRFCalibrateInfo->DefaultOfdmIndex;
@@ -870,7 +870,7 @@ ODM_TXPowerTrackingCheck(
 	)
 {
 	// 
-	// For AP/ADSL use pttl8192cd_priv
+	// For AP/ADSL use pttl9081cd_priv
 	// For CE/NIC use PADAPTER
 	//
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
@@ -914,15 +914,15 @@ odm_TXPowerTrackingCheckCE(
 #if (DM_ODM_SUPPORT_TYPE == ODM_CE)
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	PADAPTER	Adapter = pDM_Odm->Adapter;
-	#if( (TLL8192C_SUPPORT==1) ||  (TLL8723A_SUPPORT==1) )
-	ttl8192c_odm_CheckTXPowerTracking(Adapter);
+	#if( (TLL9081C_SUPPORT==1) ||  (TLL8723A_SUPPORT==1) )
+	ttl9081c_odm_CheckTXPowerTracking(Adapter);
 	#endif
 
-	#if (TLL8192D_SUPPORT==1) 
-	#if (TLL8192D_EASY_SMART_CONCURRENT == 1)
+	#if (TLL9081D_SUPPORT==1) 
+	#if (TLL9081D_EASY_SMART_CONCURRENT == 1)
 	if(!Adapter->bSlaveOfDMSP)
 	#endif
-		ttl8192d_odm_CheckTXPowerTracking(Adapter);
+		ttl9081d_odm_CheckTXPowerTracking(Adapter);
 	#endif
 	#if(TLL9083E_SUPPORT==1)
 
@@ -936,7 +936,7 @@ odm_TXPowerTrackingCheckCE(
 	{
 		//pHalData->TxPowerCheckCnt++;	//cosa add for debug
 		ODM_SetRFReg(pDM_Odm, RF_PATH_A, RF_T_METER, bRFRegOffsetMask, 0x60);
-		//DBG_8192C("Trigger 92C Thermal Meter!!\n");
+		//DBG_9081C("Trigger 92C Thermal Meter!!\n");
 		
 		pDM_Odm->RFCalibrateInfo.TM_Trigger = 1;
 		return;
@@ -944,7 +944,7 @@ odm_TXPowerTrackingCheckCE(
 	}
 	else
 	{
-		//DBG_8192C("Schedule TxPowerTracking direct call!!\n");
+		//DBG_9081C("Schedule TxPowerTracking direct call!!\n");
 		odm_TXPowerTrackingCallback_ThermalMeter_9083E(Adapter);
 		pDM_Odm->RFCalibrateInfo.TM_Trigger = 0;
 	}
@@ -982,20 +982,20 @@ odm_TXPowerTrackingCheckAP(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	pttl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl9081cd_priv	priv		= pDM_Odm->priv;
 
-#if ((TLL9083E_SUPPORT==1)||(TLL8192E_SUPPORT==1) ||(TLL8812E_SUPPORT==1)||(TLL8881A_SUPPORT==1)||(TLL8814A_SUPPORT==1))	
-	if (pDM_Odm->SupportICType & (ODM_TLL9083E|ODM_TLL8192E|ODM_TLL8812|ODM_TLL8881A|ODM_TLL8814A))
+#if ((TLL9083E_SUPPORT==1)||(TLL9081E_SUPPORT==1) ||(TLL8812E_SUPPORT==1)||(TLL8881A_SUPPORT==1)||(TLL8814A_SUPPORT==1))	
+	if (pDM_Odm->SupportICType & (ODM_TLL9083E|ODM_TLL9081E|ODM_TLL8812|ODM_TLL8881A|ODM_TLL8814A))
 		ODM_TXPowerTrackingCallback_ThermalMeter(pDM_Odm);
 	else
 #endif
-#if (TLL8192D_SUPPORT==1) 
-	if (pDM_Odm->SupportICType==ODM_TLL8192D)
+#if (TLL9081D_SUPPORT==1) 
+	if (pDM_Odm->SupportICType==ODM_TLL9081D)
 		tx_power_tracking_92D(priv);
 	else 
 #endif
-#if (TLL8192C_SUPPORT==1) 			
-	if (pDM_Odm->SupportICType==ODM_TLL8192C)
+#if (TLL9081C_SUPPORT==1) 			
+	if (pDM_Odm->SupportICType==ODM_TLL9081C)
 		tx_power_tracking(priv);
 	else
 #endif
@@ -1013,7 +1013,7 @@ odm_TXPowerTrackingThermalMeterCheck(
 	)
 {
 #ifndef AP_BUILD_WORKAROUND
-#if (HAL_CODE_BASE==TLL8192_C)
+#if (HAL_CODE_BASE==TLL9081_C)
 	PMGNT_INFO      		pMgntInfo = &Adapter->MgntInfo;
 	//HAL_DATA_TYPE			*pHalData = GET_HAL_DATA(Adapter);
 	static u1Byte			TM_Trigger = 0;
@@ -1026,7 +1026,7 @@ odm_TXPowerTrackingThermalMeterCheck(
 
 	if(!TM_Trigger)		//at least delay 1 sec
 	{
-		if(IS_HARDWARE_TYPE_8192D(Adapter))
+		if(IS_HARDWARE_TYPE_9081D(Adapter))
 			PHY_SetRFReg(Adapter, RF_PATH_A, RF_T_METER_92D, BIT17 | BIT16, 0x03);
 		else if(IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_8812(Adapter))
 			PHY_SetRFReg(Adapter, RF_PATH_A, RF_T_METER_88E, BIT17 | BIT16, 0x03);

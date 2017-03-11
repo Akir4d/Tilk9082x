@@ -44,9 +44,9 @@ void ConfigureTxpowerTrack(
 	OUT	PTXPWRTRACK_CFG	pConfig
 	)
 {
-#if TLL8192E_SUPPORT
-	if(pDM_Odm->SupportICType==ODM_TLL8192E)
-		ConfigureTxpowerTrack_8192E(pConfig);
+#if TLL9081E_SUPPORT
+	if(pDM_Odm->SupportICType==ODM_TLL9081E)
+		ConfigureTxpowerTrack_9081E(pConfig);
 #endif	
 #if TLL8821A_SUPPORT
 	if(pDM_Odm->SupportICType==ODM_TLL8821)
@@ -564,7 +564,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) higher than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));			
 
-			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E ||pDM_Odm->SupportICType == ODM_TLL8821 ||
+			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL9081E ||pDM_Odm->SupportICType == ODM_TLL8821 ||
 				pDM_Odm->SupportICType == ODM_TLL8812  || pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8814A)
 			{
 				ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("**********Enter POWER Tracking MIX_MODE**********\n"));
@@ -583,7 +583,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 			ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,
 				("Temperature(%d) lower than PG value(%d)\n", ThermalValue, pHalData->EEPROMThermalMeter));
 
-			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8821 ||
+			if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL9081E || pDM_Odm->SupportICType == ODM_TLL8821 ||
 				pDM_Odm->SupportICType == ODM_TLL8812  || pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8814A)
 			{
 	            		ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("**********Enter POWER Tracking MIX_MODE**********\n"));
@@ -676,7 +676,7 @@ ODM_ResetIQKResult(
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN || DM_ODM_SUPPORT_TYPE == ODM_CE)
 	PADAPTER	Adapter = pDM_Odm->Adapter;
 
-	if (!IS_HARDWARE_TYPE_8192D(Adapter))
+	if (!IS_HARDWARE_TYPE_9081D(Adapter))
 		return;
 #endif
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,("PHY_ResetIQKResult:: settings regs %d default regs %d\n", sizeof(pRFCalibrateInfo->IQKMatrixRegSetting)/sizeof(IQK_MATRIX_REGS_SETTING), IQK_Matrix_Settings_NUM));

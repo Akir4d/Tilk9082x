@@ -278,5 +278,5 @@ VOID PHY_Set_SecCCATH_by_RXANT_8814A(PADAPTER	pAdapter, u4Byte ulAntennaRx);
 /*--------------------------Exported Function prototype---------------------*/
 
 /*--------------------------Exported Function prototype---------------------*/
-#endif	// __INC_HAL8192CPHYCFG_H
+#endif	// __INC_HAL9081CPHYCFG_H
 

@@ -759,7 +759,7 @@ struct dvobj_priv
 	WCHAR			active_path[MAX_ACTIVE_REG_PATH];	// adapter regpath
 	USB_EXTENSION	usb_extension;
 
-	_nic_hdl		pipehdls_r8192c[0x10];
+	_nic_hdl		pipehdls_r9081c[0x10];
 #endif
 
 	u32	config_descriptor_len;//ULONG UsbConfigurationDescriptorLength;

@@ -61,7 +61,7 @@
 #define _module_ttl871x_ioctl_os_c		BIT(25)
 #define _module_ttl8712_cmd_c_		BIT(26)
 //#define _module_efuse_			BIT(27)
-#define	_module_ttl8192c_xmit_c_ BIT(28)
+#define	_module_ttl9081c_xmit_c_ BIT(28)
 #define _module_hal_xmit_c_	BIT(28)
 #define _module_efuse_			BIT(29)
 #define _module_ttl8712_recv_c_		BIT(30)
@@ -129,13 +129,13 @@
 	#define	_MODULE_DEFINE_	_module_ttl871x_ioctl_os_c
 #elif defined _TTL9022_CMD_C_
 	#define	_MODULE_DEFINE_	_module_ttl8712_cmd_c_
-#elif defined _TLL8192C_XMIT_C_
+#elif defined _TLL9081C_XMIT_C_
 	#define	_MODULE_DEFINE_	1
 #elif defined _TLL8723AS_XMIT_C_
 	#define	_MODULE_DEFINE_	1
 #elif defined _TTL9022_RECV_C_
 	#define	_MODULE_DEFINE_	_module_ttl8712_recv_c_
-#elif defined _TLL8192CU_RECV_C_
+#elif defined _TLL9081CU_RECV_C_
 	#define	_MODULE_DEFINE_	_module_ttl8712_recv_c_
 #elif defined _TTL902X_MLME_EXT_C_
 	#define _MODULE_DEFINE_	_module_mlme_osdep_c_
@@ -158,13 +158,13 @@ extern void ttl871x_cedbg(const char *fmt, ...);
 
 #ifdef PLATFORM_WINDOWS
 	#define DBG_871X do {} while(0)
-	#define MSG_8192C do {} while(0)
-	#define DBG_8192C do {} while(0)
+	#define MSG_9081C do {} while(0)
+	#define DBG_9081C do {} while(0)
 	#define DBG_871X_LEVEL do {} while(0)
 #else
 	#define DBG_871X(x, ...) do {} while(0)
-	#define MSG_8192C(x, ...) do {} while(0)
-	#define DBG_8192C(x,...) do {} while(0)
+	#define MSG_9081C(x, ...) do {} while(0)
+	#define DBG_9081C(x,...) do {} while(0)
 	#define DBG_871X_LEVEL(x,...) do {} while(0)
 #endif
 
@@ -254,13 +254,13 @@ extern void ttl871x_cedbg(const char *fmt, ...);
 		_dbgdump(DRIVER_PREFIX __VA_ARGS__);\
 	}while(0)
 
-	#undef MSG_8192C
-	#define MSG_8192C(...)     do {\
+	#undef MSG_9081C
+	#define MSG_9081C(...)     do {\
 		_dbgdump(DRIVER_PREFIX __VA_ARGS__);\
 	}while(0)
 
-	#undef DBG_8192C
-	#define DBG_8192C(...)     do {\
+	#undef DBG_9081C
+	#define DBG_9081C(...)     do {\
 		_dbgdump(DRIVER_PREFIX __VA_ARGS__);\
 	}while(0)
 #endif /* defined(_dbgdump) */

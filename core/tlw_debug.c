@@ -1107,7 +1107,7 @@ ssize_t proc_set_survey_info(struct file *file, const char __user *buffer, size_
 	}
 
 	if (check_fwstate(pmlmepriv, _FW_UNDER_SURVEY|_FW_UNDER_LINKING) == _TRUE) {
-		DBG_8192C("scan abort!! fwstate=0x%x\n", pmlmepriv->fw_state);
+		DBG_9081C("scan abort!! fwstate=0x%x\n", pmlmepriv->fw_state);
 		goto exit;
 	}
 
@@ -2351,7 +2351,7 @@ ssize_t proc_set_rx_stbc(struct file *file, const char __user *buffer, size_t co
 
 	if (count < 1)
 	{
-		DBG_8192C("argument size is less than 1\n");
+		DBG_9081C("argument size is less than 1\n");
 		return -EFAULT;
 	}	
 
@@ -2365,18 +2365,18 @@ ssize_t proc_set_rx_stbc(struct file *file, const char __user *buffer, size_t co
 		int num = sscanf(tmp, "%x", &enable);
 
 		if (num !=  1) {
-			DBG_8192C("invalid set_rssi_disp parameter!\n");
+			DBG_9081C("invalid set_rssi_disp parameter!\n");
 			return count;
 		}
 		
 		if(enable)
 		{			
-			DBG_8192C("Linked info Function Enable\n");
+			DBG_9081C("Linked info Function Enable\n");
 			padapter->bLinkInfoDump = enable ;			
 		}
 		else
 		{
-			DBG_8192C("Linked info Function Disable\n");
+			DBG_9081C("Linked info Function Disable\n");
 			padapter->bLinkInfoDump = 0 ;
 		}
 	

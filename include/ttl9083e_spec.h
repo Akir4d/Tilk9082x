@@ -151,7 +151,7 @@
 #define CAM_ENTRY_NUM_88E 32
 
 //----------------------------------------------------------------------------
-//       8192C EEPROM/EFUSE share register definition.
+//       9081C EEPROM/EFUSE share register definition.
 //----------------------------------------------------------------------------
 
 #define EFUSE_ACCESS_ON			0x69	// For TLL8723 only.

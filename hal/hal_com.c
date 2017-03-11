@@ -41,8 +41,8 @@ void dump_chip_info(HAL_VERSION	ChipVersion)
 		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_9083F_");
 	else if (IS_8812_SERIES(ChipVersion))
 		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8812_");
-	else if (IS_8192E(ChipVersion))
-		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8192E_");
+	else if (IS_9081E(ChipVersion))
+		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_9081E_");
 	else if (IS_8821_SERIES(ChipVersion))
 		cnt += sprintf((buf+cnt), "Chip Version Info: CHIP_8821_");
 	else if (IS_8723B_SERIES(ChipVersion))
@@ -730,7 +730,7 @@ s32 c2h_evt_read_88xx(_adapter *adapter, u8 *buf)
 	if (buf == NULL)
 		goto exit;
 
-#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL8192E) || defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B)
+#if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL9081E) || defined(CONFIG_TLL8723B) || defined(CONFIG_TLL8703B)
 
 	trigger = tlw_read8(adapter, REG_C2HEVT_CLEAR);
 
@@ -1093,7 +1093,7 @@ void tlw_hal_set_FwRsvdPage_cmd(PADAPTER padapter, PRSVDPAGE_LOC rsvdpageloc)
 #ifdef CONFIG_GPIO_WAKEUP
 /*
  * Switch GPIO_13, GPIO_14 to wlan control, or pull GPIO_13,14 MUST fail.
- * It happended at 8723B/8192E/8821A. New IC will check multi function GPIO,
+ * It happended at 8723B/9081E/8821A. New IC will check multi function GPIO,
  * and implement HAL function.
  */
 static void tlw_hal_switch_gpio_wl_ctrl(_adapter* padapter, u8 index, u8 enable)
@@ -2705,7 +2705,7 @@ static void tlw_hal_construct_P2PProbeRsp(_adapter *padapter, u8 *pframe, u32 *p
 		wpsielen += 2;	
 
 		//	Value:
-		_tlw_memcpy( wpsie + wpsielen, "8192CU", 6 );
+		_tlw_memcpy( wpsie + wpsielen, "9081CU", 6 );
 		wpsielen += 6;
 
 		//	Model Number
@@ -4507,7 +4507,7 @@ void tlw_hal_set_wow_fw_rsvd_page(_adapter *adapter, u8 *pframe, u16 index,
 		if (psta == NULL) {
 			_tlw_memset(kek, 0, TLW_KEK_LEN);
 			_tlw_memset(kck, 0, TLW_KCK_LEN);
-			DBG_8192C("%s, KEK, KCK download rsvd page all zero \n",
+			DBG_9081C("%s, KEK, KCK download rsvd page all zero \n",
 					__func__);
 		} else {
 			_tlw_memcpy(kek, psta->kek, TLW_KEK_LEN);
@@ -5204,8 +5204,8 @@ void tlw_hal_set_p2p_wow_fw_rsvd_page(_adapter* adapter, u8 *pframe, u16 index,
  *		    to Hw again and set the lengh in descriptor to the real beacon lengh.
  * 2009.10.15 by tynli.
  *
- * Page Size = 128: 9083e, 8723a/b, 8192c/d,  
- * Page Size = 256: 8192e, 8821a
+ * Page Size = 128: 9083e, 8723a/b, 9081c/d,  
+ * Page Size = 256: 9081e, 8821a
  * Page Size = 512: 8812a
  */
 
@@ -5721,11 +5721,11 @@ void SetHalODMVar(
 			{	
 				struct sta_info *psta = (struct sta_info *)pValue1;				
 				if(bSet){
-					DBG_8192C("### Set STA_(%d) info ###\n",psta->mac_id);
+					DBG_9081C("### Set STA_(%d) info ###\n",psta->mac_id);
 					ODM_CmnInfoPtrArrayHook(podmpriv, ODM_CMNINFO_STA_STATUS,psta->mac_id,psta);
 				}
 				else{
-					DBG_8192C("### Clean STA_(%d) info ###\n",psta->mac_id);
+					DBG_9081C("### Clean STA_(%d) info ###\n",psta->mac_id);
 					//_enter_critical_bh(&pHalData->odm_stainfo_lock, &irqL);
 					ODM_CmnInfoPtrArrayHook(podmpriv, ODM_CMNINFO_STA_STATUS,psta->mac_id,NULL);
 					
@@ -5749,7 +5749,7 @@ void SetHalODMVar(
 				struct noise_info *pinfo = (struct noise_info *)pValue1;
 
 				#ifdef DBG_NOISE_MONITOR
-				DBG_8192C("### Noise monitor chan(%d)-bPauseDIG:%d,IGIValue:0x%02x,max_time:%d (ms) ###\n",
+				DBG_9081C("### Noise monitor chan(%d)-bPauseDIG:%d,IGIValue:0x%02x,max_time:%d (ms) ###\n",
 					pinfo->chan,pinfo->bPauseDIG,pinfo->IGIValue,pinfo->max_time);
 				#endif
 				
@@ -5866,7 +5866,7 @@ void GetHalODMVar(
 			u8 chan = *(u8 *)pValue1;
 			*(s16 *)pValue2 = pHalData->noise[chan];
 			#ifdef DBG_NOISE_MONITOR
-			DBG_8192C("### Noise monitor chan(%d)-noise:%d (dBm) ###\n",
+			DBG_9081C("### Noise monitor chan(%d)-noise:%d (dBm) ###\n",
 				chan, pHalData->noise[chan]);
 			#endif
 		}
@@ -6212,7 +6212,7 @@ void tlw_hal_check_rxfifo_full(_adapter *adapter)
 	//switch counter to RX fifo
 	if (IS_9083E(pHalData->VersionID) || IS_9083F(pHalData->VersionID)
 		|| IS_8812_SERIES(pHalData->VersionID) || IS_8821_SERIES(pHalData->VersionID)
-		|| IS_8723B_SERIES(pHalData->VersionID) || IS_8192E(pHalData->VersionID) || IS_8703B_SERIES(pHalData->VersionID))
+		|| IS_8723B_SERIES(pHalData->VersionID) || IS_9081E(pHalData->VersionID) || IS_8703B_SERIES(pHalData->VersionID))
 	{
 		tlw_write8(adapter, REG_RXERR_RPT+3, tlw_read8(adapter, REG_RXERR_RPT+3)|0xa0);
 		save_cnt = _TRUE;
@@ -6367,8 +6367,8 @@ int check_phy_efuse_tx_power_info_valid(PADAPTER padapter) {
 		case TLL9083F:
 			tx_index_offset = EEPROM_TX_PWR_INX_9083F;
 		break;
-		case TLL8192E:
-			tx_index_offset = EEPROM_TX_PWR_INX_8192E;
+		case TLL9081E:
+			tx_index_offset = EEPROM_TX_PWR_INX_9081E;
 		break;
 		case TLL8821:
 			tx_index_offset = EEPROM_TX_PWR_INX_8821;
@@ -6452,14 +6452,14 @@ int hal_efuse_macaddr_offset(_adapter *adapter)
 			addr_offset = EEPROM_MAC_ADDR_8821AE;
 		break;
 #endif
-#ifdef CONFIG_TLL8192E
-	case TLL8192E:
+#ifdef CONFIG_TLL9081E
+	case TLL9081E:
 		if (interface_type == TLW_USB)
-			addr_offset = EEPROM_MAC_ADDR_8192EU;
+			addr_offset = EEPROM_MAC_ADDR_9081EU;
 		else if (interface_type == TLW_SDIO)
-			addr_offset = EEPROM_MAC_ADDR_8192ES;
+			addr_offset = EEPROM_MAC_ADDR_9081ES;
 		else if (interface_type == TLW_PCIE)
-			addr_offset = EEPROM_MAC_ADDR_8192EE;
+			addr_offset = EEPROM_MAC_ADDR_9081EE;
 		break;
 #endif
 #ifdef CONFIG_TLL8814A
@@ -6778,7 +6778,7 @@ void dm_DynamicUsbTxAgg(_adapter *padapter, u8 from_timer)
 #endif //CONFIG_CONCURRENT_MODE
 
 #ifdef CONFIG_USB_RX_AGGREGATION	
-	if(IS_HARDWARE_TYPE_8821U(padapter) )//|| IS_HARDWARE_TYPE_8192EU(padapter))
+	if(IS_HARDWARE_TYPE_8821U(padapter) )//|| IS_HARDWARE_TYPE_9081EU(padapter))
 	{
 		//This AGG_PH_TH only for UsbRxAggMode == USB_RX_AGG_USB
 		if((pHalData->UsbRxAggMode == USB_RX_AGG_USB) && (check_fwstate(pmlmepriv, _FW_LINKED)== _TRUE))

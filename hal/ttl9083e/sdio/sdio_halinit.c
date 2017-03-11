@@ -167,7 +167,7 @@ void _InitClockTo26MHz(
 		u1temp =  tlw_read8(Adapter, REG_XCK_OUT_CTRL);
 		u1temp |= 0x18;
 		tlw_write8(Adapter, REG_XCK_OUT_CTRL, u1temp);
-		MSG_8192C("D cut version\n");
+		MSG_9081C("D cut version\n");
 	}
 
 	EnableGpio5ClockReq(Adapter, _FALSE, 1);
@@ -464,7 +464,7 @@ static void _init_available_page_threshold(PADAPTER padapter, u8 numHQ, u8 numNQ
 	tlw_write16(padapter, 0x218, HQ_threshold);
 	tlw_write16(padapter, 0x21A, NQ_threshold);
 	tlw_write16(padapter, 0x21C, LQ_threshold);
-	DBG_8192C("%s(): Enable Tx FIFO Page Threshold H:0x%x,N:0x%x,L:0x%x\n", __FUNCTION__, HQ_threshold, NQ_threshold, LQ_threshold);
+	DBG_9081C("%s(): Enable Tx FIFO Page Threshold H:0x%x,N:0x%x,L:0x%x\n", __FUNCTION__, HQ_threshold, NQ_threshold, LQ_threshold);
 }
 
 static void _InitQueueReservedPage(PADAPTER padapter)
@@ -1090,7 +1090,7 @@ static void _InitRFType(PADAPTER padapter)
 #endif
 	pHalData->rf_chip	= RF_6052;
 
-	MSG_8192C("Set RF Chip ID to RF_6052 and RF type to %d.\n", pHalData->rf_type);
+	MSG_9081C("Set RF Chip ID to RF_6052 and RF type to %d.\n", pHalData->rf_type);
 }
 
 // Set CCK and OFDM Block "ON"
@@ -1234,7 +1234,7 @@ static u32 ttl9083es_hal_init(PADAPTER padapter)
 	#define HAL_INIT_PROFILE_TAG(stage) do {} while(0)
 #endif //DBG_HAL_INIT_PROFILING
 
-	DBG_8192C("+ttl9083es_hal_init\n");
+	DBG_9081C("+ttl9083es_hal_init\n");
 
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BEGIN);
 	// Disable Interrupt first.
@@ -1351,7 +1351,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_DOWNLOAD_FW);
 		pHalData->fw_ractrl = _FALSE;
 		goto exit;
 	} else {
-		RT_TRACE(_module_hci_hal_init_c_, _drv_info_, ("Initializepadapter8192CSdio(): Download Firmware Success!!\n"));
+		RT_TRACE(_module_hci_hal_init_c_, _drv_info_, ("Initializepadapter9081CSdio(): Download Firmware Success!!\n"));
 		padapter->bFWReady = _TRUE;
 		#ifdef CONFIG_SFW_SUPPORTED
 		pHalData->fw_ractrl = IS_VENDOR_9083E_I_CUT_SERIES(padapter)?_TRUE:_FALSE;
@@ -1368,7 +1368,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MAC);
 #if (HAL_MAC_ENABLE == 1)
 	ret = PHY_MACConfig9083E(padapter);
 	if(ret != _SUCCESS){
-//		RT_TRACE(COMP_INIT, DBG_LOUD, ("Initializepadapter8192CSdio(): Fail to configure MAC!!\n"));
+//		RT_TRACE(COMP_INIT, DBG_LOUD, ("Initializepadapter9081CSdio(): Fail to configure MAC!!\n"));
 		goto exit;
 	}
 #endif
@@ -1380,7 +1380,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_BB);
 #if (HAL_BB_ENABLE == 1)
 	ret = PHY_BBConfig9083E(padapter);
 	if(ret != _SUCCESS){
-//		RT_TRACE(COMP_INIT, DBG_SERIOUS, ("Initializepadapter8192CSdio(): Fail to configure BB!!\n"));
+//		RT_TRACE(COMP_INIT, DBG_SERIOUS, ("Initializepadapter9081CSdio(): Fail to configure BB!!\n"));
 		goto exit;
 	}
 #endif
@@ -1392,7 +1392,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_RF);
 	ret = PHY_RFConfig9083E(padapter);
 
 	if(ret != _SUCCESS){
-//		RT_TRACE(COMP_INIT, DBG_LOUD, ("Initializepadapter8192CSdio(): Fail to configure RF!!\n"));
+//		RT_TRACE(COMP_INIT, DBG_LOUD, ("Initializepadapter9081CSdio(): Fail to configure RF!!\n"));
 		goto exit;
 	}
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_EFUSE_PATCH);
@@ -1471,7 +1471,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_LLTT);
 	}
 
 	// 2010/08/09 MH We need to check if we need to turnon or off RF after detecting
-	// HW GPIO pin. Before PHY_RFConfig8192C.
+	// HW GPIO pin. Before PHY_RFConfig9081C.
 	HalDetectPwrDownMode88E(padapter);
 
 
@@ -1590,7 +1590,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_HAL_DM);
 #endif //(MP_DRIVER == 1)
 	{
 	//
-	// 2010/08/11 MH Merge from 8192SE for Minicard init. We need to confirm current radio status
+	// 2010/08/11 MH Merge from 9081SE for Minicard init. We need to confirm current radio status
 	// and then decide to enable RF or not.!!!??? For Selective suspend mode. We may not
 	// call init_adapter. May cause some problem??
 	//
@@ -1625,7 +1625,7 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_INIT_HAL_DM);
 	}
 	//DrvIFIndicateCurrentPhyStatus(padapter); // 2010/08/17 MH Disable to prevent BSOD.
 
-	// 2010/08/26 MH Merge from 8192CE.
+	// 2010/08/26 MH Merge from 9081CE.
 	if(pwrctrlpriv->rf_pwrstate == rf_on)
 	{
 	
@@ -1725,9 +1725,9 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 	tlw_write16(padapter,REG_TXDMA_OFFSET_CHK, (tlw_read16(padapter,REG_TXDMA_OFFSET_CHK) | DROP_DATA_EN));
 
 //#debug print for checking compile flags
-	//DBG_8192C("TLL9083E_FPGA_TRUE_PHY_VERIFICATION=%d\n", TLL9083E_FPGA_TRUE_PHY_VERIFICATION);
-	DBG_8192C("DISABLE_BB_RF=%d\n", DISABLE_BB_RF);	
-	DBG_8192C("IS_HARDWARE_TYPE_9083ES=%d\n", IS_HARDWARE_TYPE_9083ES(padapter));
+	//DBG_9081C("TLL9083E_FPGA_TRUE_PHY_VERIFICATION=%d\n", TLL9083E_FPGA_TRUE_PHY_VERIFICATION);
+	DBG_9081C("DISABLE_BB_RF=%d\n", DISABLE_BB_RF);	
+	DBG_9081C("IS_HARDWARE_TYPE_9083ES=%d\n", IS_HARDWARE_TYPE_9083ES(padapter));
 //#
 
 #ifdef CONFIG_PLATFORM_SPRD
@@ -1752,8 +1752,8 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 		ODM_SetBBReg(pDM_Odm,
 				rOFDM0_ECCAThreshold, bMaskDWord, 0x00fe0301);
 
-	//RT_TRACE(COMP_INIT, DBG_LOUD, ("<---Initializepadapter8192CSdio()\n"));
-	DBG_8192C("-ttl9083es_hal_init\n");
+	//RT_TRACE(COMP_INIT, DBG_LOUD, ("<---Initializepadapter9081CSdio()\n"));
+	DBG_9081C("-ttl9083es_hal_init\n");
 
 exit:
 HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_END);
@@ -1996,8 +1996,8 @@ static s32 _ReadAdapterInfo9083ES(PADAPTER padapter)
 	_InitOtherVariable(padapter);
 
 
-	//MSG_8192C("%s()(done), rf_chip=0x%x, rf_type=0x%x\n",  __FUNCTION__, pHalData->rf_chip, pHalData->rf_type);
-	MSG_8192C("<==== ReadAdapterInfo9083ES in %d ms\n", tlw_get_passing_time_ms(start));
+	//MSG_9081C("%s()(done), rf_chip=0x%x, rf_type=0x%x\n",  __FUNCTION__, pHalData->rf_chip, pHalData->rf_type);
+	MSG_9081C("<==== ReadAdapterInfo9083ES in %d ms\n", tlw_get_passing_time_ms(start));
 
 	return _SUCCESS;
 }

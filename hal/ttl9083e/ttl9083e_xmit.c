@@ -85,16 +85,16 @@ void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc)
 	if(bDumpTxDesc){
 		//	ptxdesc->txdw4 = cpu_to_le32(0x00001006);//RTS Rate=24M
 		//	ptxdesc->txdw6 = 0x6666f800;
-		DBG_8192C("=====================================\n");
-		DBG_8192C("txdw0(0x%08x)\n",ptxdesc->txdw0);
-		DBG_8192C("txdw1(0x%08x)\n",ptxdesc->txdw1);
-		DBG_8192C("txdw2(0x%08x)\n",ptxdesc->txdw2);
-		DBG_8192C("txdw3(0x%08x)\n",ptxdesc->txdw3);
-		DBG_8192C("txdw4(0x%08x)\n",ptxdesc->txdw4);
-		DBG_8192C("txdw5(0x%08x)\n",ptxdesc->txdw5);
-		DBG_8192C("txdw6(0x%08x)\n",ptxdesc->txdw6);
-		DBG_8192C("txdw7(0x%08x)\n",ptxdesc->txdw7);
-		DBG_8192C("=====================================\n");
+		DBG_9081C("=====================================\n");
+		DBG_9081C("txdw0(0x%08x)\n",ptxdesc->txdw0);
+		DBG_9081C("txdw1(0x%08x)\n",ptxdesc->txdw1);
+		DBG_9081C("txdw2(0x%08x)\n",ptxdesc->txdw2);
+		DBG_9081C("txdw3(0x%08x)\n",ptxdesc->txdw3);
+		DBG_9081C("txdw4(0x%08x)\n",ptxdesc->txdw4);
+		DBG_9081C("txdw5(0x%08x)\n",ptxdesc->txdw5);
+		DBG_9081C("txdw6(0x%08x)\n",ptxdesc->txdw6);
+		DBG_9081C("txdw7(0x%08x)\n",ptxdesc->txdw7);
+		DBG_9081C("=====================================\n");
 	}
 
 }
@@ -143,9 +143,9 @@ InsertEMContent_9083E(
 	#ifdef DBG_EMINFO
 	{
 		int i;
-		DBG_8192C("\n%s ==> pEMInfo->EMPktNum =%d\n",__FUNCTION__,pEMInfo->EMPktNum);
+		DBG_9081C("\n%s ==> pEMInfo->EMPktNum =%d\n",__FUNCTION__,pEMInfo->EMPktNum);
 		for(i=0;i< EARLY_MODE_MAX_PKT_NUM;i++){
-			DBG_8192C("%s ==> pEMInfo->EMPktLen[%d] =%d\n",__FUNCTION__,i,pEMInfo->EMPktLen[i]);
+			DBG_9081C("%s ==> pEMInfo->EMPktLen[%d] =%d\n",__FUNCTION__,i,pEMInfo->EMPktLen[i]);
 		}
 
 	}
@@ -225,12 +225,12 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 	pmem= pframe->buf_addr;	
 	
 	#ifdef DBG_EMINFO			
-	DBG_8192C("\n%s ==> agg_num:%d\n",__FUNCTION__, pframe->agg_num);
+	DBG_9081C("\n%s ==> agg_num:%d\n",__FUNCTION__, pframe->agg_num);
 	for(index=0;index<pframe->agg_num;index++){
 		offset = 	pxmitpriv->agg_pkt[index].offset;
 		pktlen = pxmitpriv->agg_pkt[index].pkt_len;
-		DBG_8192C("%s ==> agg_pkt[%d].offset=%d\n",__FUNCTION__,index,offset);
-		DBG_8192C("%s ==> agg_pkt[%d].pkt_len=%d\n",__FUNCTION__,index,pktlen);
+		DBG_9081C("%s ==> agg_pkt[%d].offset=%d\n",__FUNCTION__,index,offset);
+		DBG_9081C("%s ==> agg_pkt[%d].pkt_len=%d\n",__FUNCTION__,index,pktlen);
 	}
 	#endif
 	
@@ -275,7 +275,7 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 			}
 			
 			#ifdef DBG_EMINFO
-			DBG_8192C("%s ==> desc.pkt_len=%d\n",__FUNCTION__,ptxdesc->pktlen);
+			DBG_9081C("%s ==> desc.pkt_len=%d\n",__FUNCTION__,ptxdesc->pktlen);
 			#endif
 			InsertEMContent_9083E(&eminfo,pEMInfo_mem);
 		}	

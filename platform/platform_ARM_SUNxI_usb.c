@@ -58,11 +58,11 @@ int platform_wifi_power_on(void)
 		/* ----------get usb_wifi_usbc_num------------- */
 		ret = script_parser_fetch("usb_wifi_para", "usb_wifi_usbc_num", (int *)&usb_wifi_host, 64);
 		if(ret != 0){
-			DBG_8192C("ERR: script_parser_fetch usb_wifi_usbc_num failed\n");
+			DBG_9081C("ERR: script_parser_fetch usb_wifi_usbc_num failed\n");
 			ret = -ENOMEM;
 			goto exit;
 		}
-		DBG_8192C("sw_usb_enable_hcd: usbc_num = %d\n", usb_wifi_host);
+		DBG_9081C("sw_usb_enable_hcd: usbc_num = %d\n", usb_wifi_host);
 		sw_usb_enable_hcd(usb_wifi_host);
 	}
 #endif //CONFIG_TLL8723A
@@ -119,7 +119,7 @@ void platform_wifi_power_off(void)
 
 #ifdef CONFIG_PLATFORM_ARM_SUNxI
 #ifndef CONFIG_TLL8723A
-	DBG_8192C("sw_usb_disable_hcd: usbc_num = %d\n", usb_wifi_host);
+	DBG_9081C("sw_usb_disable_hcd: usbc_num = %d\n", usb_wifi_host);
 	sw_usb_disable_hcd(usb_wifi_host);
 #endif //ifndef CONFIG_TLL8723A
 #endif	//CONFIG_PLATFORM_ARM_SUNxI

@@ -51,7 +51,7 @@ __PACK typedef struct _Phy_Rx_AGC_Info
 	#endif
 } __WLAN_ATTRIB_PACK__ PHY_RX_AGC_INFO_T, *pPHY_RX_AGC_INFO_T;
 
-__PACK typedef struct _Phy_Status_Rpt_8192cd {
+__PACK typedef struct _Phy_Status_Rpt_9081cd {
 	PHY_RX_AGC_INFO_T path_agc[2];
 	u1Byte	ch_corr[2];
 	u1Byte	cck_sig_qual_ofdm_pwdb_all;
@@ -87,7 +87,7 @@ __PACK typedef struct _Phy_Status_Rpt_8192cd {
 	u1Byte	sgi_en: 1;
 	u1Byte	antsel_rx_keep_2: 1;/*ex_intf_flg:1;*/
 #endif
-} __WLAN_ATTRIB_PACK__ PHY_STATUS_RPT_8192CD_T, *PPHY_STATUS_RPT_8192CD_T;
+} __WLAN_ATTRIB_PACK__ PHY_STATUS_RPT_9081CD_T, *PPHY_STATUS_RPT_9081CD_T;
 
 
 typedef struct _Phy_Status_Rpt_8812 {

@@ -1475,7 +1475,7 @@ _func_enter_;
 	{
 		//	Added by Albert 2010/06/23
 		//	For the WEP mode, we will use the bg mode to do the connection to avoid some IOT issue.
-		//	Especially for Realtek 8192u SoftAP.
+		//	Especially for Realtek 9081u SoftAP.
 		if (	( padapter->securitypriv.dot11PrivacyAlgrthm != _WEP40_ ) &&
 			( padapter->securitypriv.dot11PrivacyAlgrthm != _WEP104_ ) &&
 			( padapter->securitypriv.dot11PrivacyAlgrthm != _TKIP_ ))

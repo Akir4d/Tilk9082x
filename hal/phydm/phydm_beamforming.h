@@ -8,7 +8,7 @@
 /*Beamforming Related*/
 #include "txbf/halcomtxbf.h"
 #include "txbf/haltxbfjaguar.h"
-#include "txbf/haltxbf8192e.h"
+#include "txbf/haltxbf9081e.h"
 #include "txbf/haltxbf8814a.h"
 #include "txbf/haltxbf8821b.h"
 

@@ -44,7 +44,7 @@ odm_SetCrystalCap(
 
 	pCfoTrack->CrystalCap = CrystalCap;
 
-	if(pDM_Odm->SupportICType & ODM_TLL8192D)
+	if(pDM_Odm->SupportICType & ODM_TLL9081D)
 	{
 		ODM_SetBBReg(pDM_Odm, REG_AFE_XTAL_CTRL, 0x000000F0, CrystalCap & 0x0F);
 		ODM_SetBBReg(pDM_Odm, REG_AFE_PLL_CTRL, 0xF0000000, ((CrystalCap & 0xF0) >> 4));
@@ -62,7 +62,7 @@ odm_SetCrystalCap(
 		ODM_SetBBReg(pDM_Odm, REG_MAC_PHY_CTRL, 0x7FF80000, (CrystalCap | (CrystalCap << 6)));
 	}	
 	else if (((pDM_Odm->SupportICType & ODM_TLL8723A) && bEEPROMCheck) ||
-		(pDM_Odm->SupportICType & (ODM_TLL8703B | ODM_TLL8723B | ODM_TLL8192E | ODM_TLL8821)))
+		(pDM_Odm->SupportICType & (ODM_TLL8703B | ODM_TLL8723B | ODM_TLL9081E | ODM_TLL8821)))
 	{
 		// 0x2C[23:18] = 0x2C[17:12] = CrystalCap
 		CrystalCap = CrystalCap & 0x3F;
@@ -105,7 +105,7 @@ odm_GetDefaultCrytaltalCap(
 
 	CrystalCap = pHalData->CrystalCap;
 #else
-	pttl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl9081cd_priv	priv		= pDM_Odm->priv;
 
 	if(priv->pmib->dot11RFEntry.xcap > 0)
 		CrystalCap = priv->pmib->dot11RFEntry.xcap;

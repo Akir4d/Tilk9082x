@@ -57,7 +57,7 @@ odm_DynamicBBPowerSaving(
 		return;
 	
 	//1 2.Power Saving for 92C
-	if((pDM_Odm->SupportICType == ODM_TLL8192C) &&(pDM_Odm->RFType == ODM_2T2R))
+	if((pDM_Odm->SupportICType == ODM_TLL9081C) &&(pDM_Odm->RFType == ODM_2T2R))
 	{
 		odm_1R_CCA(pDM_Odm);
 	}

@@ -448,7 +448,7 @@ efuse_OneByteRead(
 	}
 	
 	if(	IS_HARDWARE_TYPE_8723B(pAdapter) ||
-		(IS_HARDWARE_TYPE_8192E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
+		(IS_HARDWARE_TYPE_9081E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
 		(IS_VENDOR_9083E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
 	  )
 	{
@@ -522,9 +522,9 @@ efuse_OneByteWrite(
 	efuseValue &= ~(0x3FFFF);
 	efuseValue |= ((addr<<8 | data) & 0x3FFFF);
 
-	// <20130227, Kordan> 8192E MP chip A-cut had better not set 0x34[11] until B-Cut.
+	// <20130227, Kordan> 9081E MP chip A-cut had better not set 0x34[11] until B-Cut.
 	if (	IS_HARDWARE_TYPE_8723B(pAdapter) ||
-		(IS_HARDWARE_TYPE_8192E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
+		(IS_HARDWARE_TYPE_9081E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
 		(IS_VENDOR_9083E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
 		) {
 		// <20130121, Kordan> For SMIC EFUSE specificatoin.
@@ -557,7 +557,7 @@ efuse_OneByteWrite(
 
 	// disable Efuse program enable
 	if (	IS_HARDWARE_TYPE_8723B(pAdapter) ||
-		(IS_HARDWARE_TYPE_8192E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
+		(IS_HARDWARE_TYPE_9081E(pAdapter) && (!IS_A_CUT(pHalData->VersionID))) ||
 		(IS_VENDOR_9083E_I_CUT_SERIES(pAdapter)) || (IS_CHIP_VENDOR_SMIC(pHalData->VersionID))
 		) {
 		PHY_SetMacReg(pAdapter, EFUSE_TEST, BIT(11), 0);
@@ -868,9 +868,9 @@ efuse_IsMasked(
 	if (IS_HARDWARE_TYPE_8821(pAdapter))  
 		return (IS_MASKED(8821A,_MUSB,Offset)) ? TRUE : FALSE;		
 #endif		
-#if defined(CONFIG_TLL8192E)
-	if (IS_HARDWARE_TYPE_8192E(pAdapter))  
-		return (IS_MASKED(8192E,_MUSB,Offset)) ? TRUE : FALSE;
+#if defined(CONFIG_TLL9081E)
+	if (IS_HARDWARE_TYPE_9081E(pAdapter))  
+		return (IS_MASKED(9081E,_MUSB,Offset)) ? TRUE : FALSE;
 #endif
 #if defined(CONFIG_TLL8723B)
 	if (IS_HARDWARE_TYPE_8723B(pAdapter))  
@@ -889,9 +889,9 @@ efuse_IsMasked(
 	if (IS_HARDWARE_TYPE_9083E(pAdapter))  
 		return (IS_MASKED(9083E,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif
-#if defined(CONFIG_TLL8192E)
-   	if (IS_HARDWARE_TYPE_8192E(pAdapter))	
-		return (IS_MASKED(8192E,_MPCIE,Offset)) ? TRUE : FALSE;
+#if defined(CONFIG_TLL9081E)
+   	if (IS_HARDWARE_TYPE_9081E(pAdapter))	
+		return (IS_MASKED(9081E,_MPCIE,Offset)) ? TRUE : FALSE;
 #endif	
 #if defined(CONFIG_TLL8812A)
 	if (IS_HARDWARE_TYPE_8812(pAdapter))  
@@ -976,7 +976,7 @@ u8 tlw_efuse_map_write(PADAPTER padapter, u16 addr, u16 cnts, u8 *data)
 				if ( efuse_IsMasked(padapter, addr+i ))
 						data[i] = map[addr+i];
 			}
-			DBG_8192C("%s , data[%d] = %x, map[addr+i]= %x\n", __func__, i, data[i], map[addr+i]);
+			DBG_9081C("%s , data[%d] = %x, map[addr+i]= %x\n", __func__, i, data[i], map[addr+i]);
 		}
 	}
 	Efuse_PowerSwitch(padapter, _TRUE, _TRUE);
@@ -1002,7 +1002,7 @@ u8 tlw_efuse_map_write(PADAPTER padapter, u16 addr, u16 cnts, u8 *data)
 						if(pHalData->adjuseVoltageVal == 6)
 						{
 								newdata[i] = map[addr + idx];
-							 	DBG_8192C(" %s ,\n adjuseVoltageVal = %d ,newdata[%d] = %x \n",__func__,pHalData->adjuseVoltageVal,i,newdata[i]);	 
+							 	DBG_9081C(" %s ,\n adjuseVoltageVal = %d ,newdata[%d] = %x \n",__func__,pHalData->adjuseVoltageVal,i,newdata[i]);	 
 						}
 					}
 				  }
@@ -1050,10 +1050,10 @@ u8 tlw_efuse_mask_map_read(PADAPTER padapter, u16 addr, u16 cnts, u8 *data)
 					if (tlw_file_efuse_IsMasked(padapter, addr+i)) /*use file efuse mask.*/ 
 							data[i] = 0xff;
 				} else {
-					/*DBG_8192C(" %s , data[%d] = %x\n", __func__, i, data[i]);*/
+					/*DBG_9081C(" %s , data[%d] = %x\n", __func__, i, data[i]);*/
 					if (efuse_IsMasked(padapter, addr+i)) {
 						data[i] = 0xff;
-						/*DBG_8192C(" %s ,mask data[%d] = %x\n", __func__, i, data[i]);*/
+						/*DBG_9081C(" %s ,mask data[%d] = %x\n", __func__, i, data[i]);*/
 					}
 				}
 			}

@@ -97,15 +97,15 @@ extern void ClearInterrupt8723BSdio(PADAPTER padapter);
 #endif
 
 
-#ifdef CONFIG_TLL8192E
-extern void InitInterrupt8192ESdio(PADAPTER padapter);
-extern void EnableInterrupt8192ESdio(PADAPTER padapter);
-extern void DisableInterrupt8192ESdio(PADAPTER padapter);
-extern void UpdateInterruptMask8192ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR);
-extern u8 HalQueryTxBufferStatus8192ESdio(PADAPTER padapter);
-extern u8 HalQueryTxOQTBufferStatus8192ESdio(PADAPTER padapter);
-extern void ClearInterrupt8192ESdio(PADAPTER padapter);
-#endif // CONFIG_TLL8192E
+#ifdef CONFIG_TLL9081E
+extern void InitInterrupt9081ESdio(PADAPTER padapter);
+extern void EnableInterrupt9081ESdio(PADAPTER padapter);
+extern void DisableInterrupt9081ESdio(PADAPTER padapter);
+extern void UpdateInterruptMask9081ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR);
+extern u8 HalQueryTxBufferStatus9081ESdio(PADAPTER padapter);
+extern u8 HalQueryTxOQTBufferStatus9081ESdio(PADAPTER padapter);
+extern void ClearInterrupt9081ESdio(PADAPTER padapter);
+#endif // CONFIG_TLL9081E
 
 #ifdef CONFIG_TLL8703B
 extern void InitInterrupt8703BSdio(PADAPTER padapter);

@@ -26,8 +26,8 @@
 #ifdef CONFIG_TLL8723B
 #include <ttl8723b_hal.h>
 #endif
-#ifdef CONFIG_TLL8192E
-#include <ttl8192e_hal.h>
+#ifdef CONFIG_TLL9081E
+#include <ttl9081e_hal.h>
 #endif
 #ifdef CONFIG_TLL8814A
 #include <ttl8814a_hal.h>
@@ -461,12 +461,12 @@ void hal_mpt_SetTxPower(PADAPTER pAdapter)
 	if (pHalData->rf_chip < RF_TYPE_MAX) {
 		if (IS_HARDWARE_TYPE_9083E(pAdapter) || 
 			IS_HARDWARE_TYPE_8723B(pAdapter) || 
-			IS_HARDWARE_TYPE_8192E(pAdapter) || 
+			IS_HARDWARE_TYPE_9081E(pAdapter) || 
 			IS_HARDWARE_TYPE_8703B(pAdapter) ||
 			IS_HARDWARE_TYPE_9083F(pAdapter)) {
 			u8 path = (pHalData->AntennaTxPath == ANTENNA_A) ? (ODM_RF_PATH_A) : (ODM_RF_PATH_B);
 
-			DBG_8192C("===> MPT_ProSetTxPower: Old\n");
+			DBG_9081C("===> MPT_ProSetTxPower: Old\n");
 
 			RT_TRACE(_module_mp_, DBG_LOUD, ("===> MPT_ProSetTxPower[Old]:\n"));
 			mpt_SetTxPower_Old(pAdapter, MPT_CCK, pMptCtx->TxPwrLevel);		
@@ -481,7 +481,7 @@ void hal_mpt_SetTxPower(PADAPTER pAdapter)
 
 			}
 	} else
-		DBG_8192C("RFChipID < RF_TYPE_MAX, the RF chip is not supported - %d\n", pHalData->rf_chip);
+		DBG_9081C("RFChipID < RF_TYPE_MAX, the RF chip is not supported - %d\n", pHalData->rf_chip);
 
 	ODM_ClearTxPowerTrackingState(pDM_Odm);
 
@@ -972,7 +972,7 @@ void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 	ulAntennaRx = pHalData->AntennaRxPath;
 
 	if (pHalData->rf_chip >= RF_TYPE_MAX) {
-		DBG_8192C("This RF chip ID is not supported\n");
+		DBG_9081C("This RF chip ID is not supported\n");
 		return;
 	}
 
@@ -997,7 +997,7 @@ void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 				
 				if (offset != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);
-					DBG_8192C("Switch to S1 TxIQC(offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S1 TxIQC(offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 
 			}
@@ -1007,7 +1007,7 @@ void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 				
 				if (offset != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);					
-					DBG_8192C("Switch to S1 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S1 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 			}
 			}
@@ -1034,7 +1034,7 @@ void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 				
 				if (pRFCalibrateInfo->TxIQC_8723B[ODM_RF_PATH_B][i][0] != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);
-					DBG_8192C("Switch to S0 TxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S0 TxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 			}
 			/*/ <20130603, Kordan> Because BB suppors only 1T1R, we restore IQC to S1 instead of S0.*/
@@ -1043,7 +1043,7 @@ void mpt_SetRFPath_9083F(PADAPTER pAdapter)
 				data = pRFCalibrateInfo->RxIQC_8723B[ODM_RF_PATH_B][i][1]; 
 				if (pRFCalibrateInfo->RxIQC_8723B[ODM_RF_PATH_B][i][0] != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);
-					DBG_8192C("Switch to S0 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S0 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 			}
 			
@@ -1072,7 +1072,7 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 	ulAntennaRx = pHalData->AntennaRxPath;
 
 	if (pHalData->rf_chip >= RF_TYPE_MAX) {
-		DBG_8192C("This RF chip ID is not supported\n");
+		DBG_9081C("This RF chip ID is not supported\n");
 		return;
 	}
 
@@ -1097,7 +1097,7 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 				
 				if (offset != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);
-					DBG_8192C("Switch to S1 TxIQC(offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S1 TxIQC(offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 
 			}
@@ -1107,7 +1107,7 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 				
 				if (offset != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);					
-					DBG_8192C("Switch to S1 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S1 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 			}
 			}
@@ -1133,7 +1133,7 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 				data = pRFCalibrateInfo->TxIQC_8723B[ODM_RF_PATH_B][i][1];
 				if (pRFCalibrateInfo->TxIQC_8723B[ODM_RF_PATH_B][i][0] != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);
-					DBG_8192C("Switch to S0 TxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S0 TxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 			}
 			/*/ <20130603, Kordan> Because BB suppors only 1T1R, we restore IQC to S1 instead of S0.*/
@@ -1143,7 +1143,7 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 				
 				if (pRFCalibrateInfo->RxIQC_8723B[ODM_RF_PATH_B][i][0] != 0) {
 					PHY_SetBBReg(pAdapter, offset, bMaskDWord, data);
-					DBG_8192C("Switch to S0 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
+					DBG_9081C("Switch to S0 RxIQC (offset, data) = (0x%X, 0x%X)\n", offset, data);
 				}
 			}
 			}
@@ -1188,7 +1188,7 @@ VOID mpt_SetRFPath_819X(PADAPTER	pAdapter)
 			p_cck_txrx->r_ccktx_enable	= 0x8;
 			chgTx = 1;
 			/*/ From SD3 Willis suggestion !!! Set RF A=TX and B as standby*/
-			/*/if (IS_HARDWARE_TYPE_8192S(pAdapter))*/
+			/*/if (IS_HARDWARE_TYPE_9081S(pAdapter))*/
 			{
 				PHY_SetBBReg(pAdapter, rFPGA0_XA_HSSIParameter2, 0xe, 2);
 				PHY_SetBBReg(pAdapter, rFPGA0_XB_HSSIParameter2, 0xe, 1);
@@ -1215,7 +1215,7 @@ VOID mpt_SetRFPath_819X(PADAPTER	pAdapter)
 			p_cck_txrx->r_ccktx_enable	= 0x4;
 			chgTx = 1;
 			/*/ From SD3 Willis suggestion !!! Set RF A as standby*/
-			/*/if (IS_HARDWARE_TYPE_8192S(pAdapter))*/
+			/*/if (IS_HARDWARE_TYPE_9081S(pAdapter))*/
 			{
 				PHY_SetBBReg(pAdapter, rFPGA0_XA_HSSIParameter2, 0xe, 1);
 				PHY_SetBBReg(pAdapter, rFPGA0_XB_HSSIParameter2, 0xe, 2);
@@ -1233,7 +1233,7 @@ VOID mpt_SetRFPath_819X(PADAPTER	pAdapter)
 			}
 			pMptCtx->MptRfPath = ODM_RF_PATH_B;		
 			break;
-	case ANTENNA_AB:/*/ For 8192S*/
+	case ANTENNA_AB:/*/ For 9081S*/
 			p_ofdm_tx->r_tx_antenna		= 0x3;
 			r_ofdm_tx_en_val		= 0x3;
 			p_ofdm_tx->r_ant_l		= 0x3;
@@ -1242,7 +1242,7 @@ VOID mpt_SetRFPath_819X(PADAPTER	pAdapter)
 			p_cck_txrx->r_ccktx_enable	= 0xC;
 			chgTx = 1;
 			/*/ From SD3Willis suggestion !!! Set RF B as standby*/
-			/*/if (IS_HARDWARE_TYPE_8192S(pAdapter))*/
+			/*/if (IS_HARDWARE_TYPE_9081S(pAdapter))*/
 			{
 			PHY_SetBBReg(pAdapter, rFPGA0_XA_HSSIParameter2, 0xe, 2);
 			PHY_SetBBReg(pAdapter, rFPGA0_XB_HSSIParameter2, 0xe, 2);
@@ -1282,7 +1282,7 @@ VOID mpt_SetRFPath_819X(PADAPTER	pAdapter)
 		p_cck_txrx->r_cckrx_enable_2	= 0x1;	/*/ option: B*/
 		chgRx = 1;
 		break;
-	case ANTENNA_AB:/*/ For 8192S and 8192E/U...*/
+	case ANTENNA_AB:/*/ For 9081S and 9081E/U...*/
 		r_rx_antenna_ofdm		= 0x3;/*/ AB*/
 		p_cck_txrx->r_cckrx_enable	= 0x0;/*/ default:A*/
 		p_cck_txrx->r_cckrx_enable_2	= 0x1;/*/ option:B*/
@@ -1303,7 +1303,7 @@ VOID mpt_SetRFPath_819X(PADAPTER	pAdapter)
 				PHY_SetBBReg(pAdapter, rFPGA0_TxInfo, 0x0000000f, r_ofdm_tx_en_val);		/*/OFDM Tx*/
 				PHY_SetBBReg(pAdapter, rOFDM0_TRxPathEnable, 0x0000000f, r_rx_antenna_ofdm);	/*/OFDM Rx*/
 				PHY_SetBBReg(pAdapter, rOFDM1_TRxPathEnable, 0x0000000f, r_rx_antenna_ofdm);	/*/OFDM Rx*/
-				if (IS_HARDWARE_TYPE_8192E(pAdapter)) {
+				if (IS_HARDWARE_TYPE_9081E(pAdapter)) {
 					PHY_SetBBReg(pAdapter, rOFDM0_TRxPathEnable, 0x000000F0, r_rx_antenna_ofdm);	/*/OFDM Rx*/
 					PHY_SetBBReg(pAdapter, rOFDM1_TRxPathEnable, 0x000000F0, r_rx_antenna_ofdm);	/*/OFDM Rx*/
 				}
@@ -1500,7 +1500,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, LNA_Low_Gain_3, BIT1, 0x1); /*/ RF LO enabled*/	
 			PHY_SetBBReg(pAdapter, rFPGA0_RFMOD, bCCKEn, 0x0);
 			PHY_SetBBReg(pAdapter, rFPGA0_RFMOD, bOFDMEn, 0x0);
-		} else if (IS_HARDWARE_TYPE_8192E(pAdapter)) { /*/ USB need to do RF LO disable first, PCIE isn't required to follow this order.*/
+		} else if (IS_HARDWARE_TYPE_9081E(pAdapter)) { /*/ USB need to do RF LO disable first, PCIE isn't required to follow this order.*/
 						/*/Set MAC REG 88C: Prevent SingleTone Fail*/
 			PHY_SetMacReg(pAdapter, 0x88C, 0xF00000, 0xF);
 			PHY_SetRFReg(pAdapter, pMptCtx->MptRfPath, LNA_Low_Gain_3, BIT1, 0x1); /*/ RF LO disabled*/
@@ -1575,7 +1575,7 @@ void hal_mpt_SetSingleToneTx(PADAPTER pAdapter, u8 bStart)
 			PHY_SetRFReg(pAdapter, ODM_RF_PATH_A, LNA_Low_Gain_3, bRFRegOffsetMask, regRF);
 			PHY_SetBBReg(pAdapter, rFPGA0_RFMOD, bCCKEn, 0x1);
 			PHY_SetBBReg(pAdapter, rFPGA0_RFMOD, bOFDMEn, 0x1);
-		} else if (IS_HARDWARE_TYPE_8192E(pAdapter)) {
+		} else if (IS_HARDWARE_TYPE_9081E(pAdapter)) {
 			PHY_SetRFReg(pAdapter, pMptCtx->MptRfPath, RF_AC, 0xF0000, 0x3);/*/ Tx mode*/
 			PHY_SetRFReg(pAdapter, pMptCtx->MptRfPath, LNA_Low_Gain_3, BIT1, 0x0);/*/ RF LO disabled */
 			/*/ RESTORE MAC REG 88C: Enable RF Functions*/

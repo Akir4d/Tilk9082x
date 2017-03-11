@@ -56,16 +56,16 @@
 #define HAL_HW_PCI_8198_DEVICE_ID           	0x8198	//8185b		
 #define HAL_HW_PCI_8190_DEVICE_ID           	0x8190	//8190
 #define HAL_HW_PCI_8723E_DEVICE_ID		0x8723	//8723E
-#define HAL_HW_PCI_8192_DEVICE_ID           	0x8192	//8192 PCI-E
-#define HAL_HW_PCI_8192SE_DEVICE_ID		0x8192	//8192 SE
-#define HAL_HW_PCI_8174_DEVICE_ID           	0x8174	//8192 SE 
+#define HAL_HW_PCI_9081_DEVICE_ID           	0x9081	//9081 PCI-E
+#define HAL_HW_PCI_9081SE_DEVICE_ID		0x9081	//9081 SE
+#define HAL_HW_PCI_8174_DEVICE_ID           	0x8174	//9081 SE 
 #define HAL_HW_PCI_8173_DEVICE_ID           	0x8173	//8191 SE Crab
 #define HAL_HW_PCI_8172_DEVICE_ID           	0x8172	//8191 SE RE
 #define HAL_HW_PCI_8171_DEVICE_ID           	0x8171	//8191 SE Unicron
 #define HAL_HW_PCI_0045_DEVICE_ID			0x0045	//8190 PCI for Ceraga
 #define HAL_HW_PCI_0046_DEVICE_ID			0x0046	//8190 Cardbus for Ceraga
-#define HAL_HW_PCI_0044_DEVICE_ID			0x0044	//8192e PCIE for Ceraga
-#define HAL_HW_PCI_0047_DEVICE_ID			0x0047	//8192e Express Card for Ceraga
+#define HAL_HW_PCI_0044_DEVICE_ID			0x0044	//9081e PCIE for Ceraga
+#define HAL_HW_PCI_0047_DEVICE_ID			0x0047	//9081e Express Card for Ceraga
 #define HAL_HW_PCI_700F_DEVICE_ID			0x700F
 #define HAL_HW_PCI_701F_DEVICE_ID			0x701F
 #define HAL_HW_PCI_DLINK_DEVICE_ID		0x3304
@@ -73,14 +73,14 @@
 
 #define HAL_MEMORY_MAPPED_IO_RANGE_8190PCI 		0x1000     //8190 support 16 pages of IO registers
 #define HAL_HW_PCI_REVISION_ID_8190PCI			0x00
-#define HAL_MEMORY_MAPPED_IO_RANGE_8192PCIE	0x4000	//8192 support 16 pages of IO registers
-#define HAL_HW_PCI_REVISION_ID_8192PCIE			0x01
-#define HAL_MEMORY_MAPPED_IO_RANGE_8192SE		0x4000	//8192 support 16 pages of IO registers
-#define HAL_HW_PCI_REVISION_ID_8192SE			0x10
-#define HAL_HW_PCI_REVISION_ID_8192CE			0x1
-#define HAL_MEMORY_MAPPED_IO_RANGE_8192CE		0x4000	//8192 support 16 pages of IO registers
-#define HAL_HW_PCI_REVISION_ID_8192DE			0x0
-#define HAL_MEMORY_MAPPED_IO_RANGE_8192DE		0x4000	//8192 support 16 pages of IO registers
+#define HAL_MEMORY_MAPPED_IO_RANGE_9081PCIE	0x4000	//9081 support 16 pages of IO registers
+#define HAL_HW_PCI_REVISION_ID_9081PCIE			0x01
+#define HAL_MEMORY_MAPPED_IO_RANGE_9081SE		0x4000	//9081 support 16 pages of IO registers
+#define HAL_HW_PCI_REVISION_ID_9081SE			0x10
+#define HAL_HW_PCI_REVISION_ID_9081CE			0x1
+#define HAL_MEMORY_MAPPED_IO_RANGE_9081CE		0x4000	//9081 support 16 pages of IO registers
+#define HAL_HW_PCI_REVISION_ID_9081DE			0x0
+#define HAL_MEMORY_MAPPED_IO_RANGE_9081DE		0x4000	//9081 support 16 pages of IO registers
 
 enum pci_bridge_vendor {
 	PCI_BRIDGE_VENDOR_INTEL = 0x0,//0b'0000,0001

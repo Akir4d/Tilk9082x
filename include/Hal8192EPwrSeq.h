@@ -1,9 +1,9 @@
-#ifndef REALTEK_POWER_SEQUENCE_8192E
-#define REALTEK_POWER_SEQUENCE_8192E
+#ifndef REALTEK_POWER_SEQUENCE_9081E
+#define REALTEK_POWER_SEQUENCE_9081E
 
 #include "HalPwrSeqCmd.h"
 /* 
-	Check document WM-20110607-Paul-TLL8192E_Power_Architecture-R02.vsd
+	Check document WM-20110607-Paul-TLL9081E_Power_Architecture-R02.vsd
 	There are 6 HW Power States:
 	0: POFF--Power Off
 	1: PDN--Power Down
@@ -23,18 +23,18 @@
 
 	TRANS_END
 */
-#define	TLL8192E_TRANS_CARDEMU_TO_ACT_STEPS	18
-#define	TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS	18
-#define	TLL8192E_TRANS_CARDEMU_TO_SUS_STEPS	18
-#define	TLL8192E_TRANS_SUS_TO_CARDEMU_STEPS	18
-#define	TLL8192E_TRANS_CARDEMU_TO_PDN_STEPS	18
-#define	TLL8192E_TRANS_PDN_TO_CARDEMU_STEPS	18
-#define	TLL8192E_TRANS_ACT_TO_LPS_STEPS	23
-#define	TLL8192E_TRANS_LPS_TO_ACT_STEPS	23	
-#define	TLL8192E_TRANS_END_STEPS	1
+#define	TLL9081E_TRANS_CARDEMU_TO_ACT_STEPS	18
+#define	TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS	18
+#define	TLL9081E_TRANS_CARDEMU_TO_SUS_STEPS	18
+#define	TLL9081E_TRANS_SUS_TO_CARDEMU_STEPS	18
+#define	TLL9081E_TRANS_CARDEMU_TO_PDN_STEPS	18
+#define	TLL9081E_TRANS_PDN_TO_CARDEMU_STEPS	18
+#define	TLL9081E_TRANS_ACT_TO_LPS_STEPS	23
+#define	TLL9081E_TRANS_LPS_TO_ACT_STEPS	23	
+#define	TLL9081E_TRANS_END_STEPS	1
 
 
-#define TLL8192E_TRANS_CARDEMU_TO_ACT 														\
+#define TLL9081E_TRANS_CARDEMU_TO_ACT 														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 0},/* disable HWPDN 0x04[15]=0*/	\
@@ -46,7 +46,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT0, 0},/**/	\
 
 	
-#define TLL8192E_TRANS_ACT_TO_CARDEMU													\
+#define TLL9081E_TRANS_ACT_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x001F, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0},/*0x1F[7:0] = 0 turn off RF*/	\
@@ -55,7 +55,7 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_POLLING, BIT1, 0}, /*wait till 0x04[9] = 0 polling until return 0 to disable*/	\
 
 
-#define TLL8192E_TRANS_CARDEMU_TO_SUS													\
+#define TLL9081E_TRANS_CARDEMU_TO_SUS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT4|BIT3, (BIT4|BIT3)}, /*0x04[12:11] = 2b'11 enable WL suspend for PCIe*/	\
@@ -64,14 +64,14 @@
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, BIT0}, /*Set SDIO suspend local register*/	\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, 0}, /*wait power state to suspend*/
 
-#define TLL8192E_TRANS_SUS_TO_CARDEMU													\
+#define TLL9081E_TRANS_SUS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, 0}, /*Set SDIO suspend local register*/	\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, BIT1}, /*wait power state to suspend*/\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3|BIT4, 0}, /*0x04[12:11] = 2b'01enable WL suspend*/
 
-#define TLL8192E_TRANS_CARDEMU_TO_CARDDIS													\
+#define TLL9081E_TRANS_CARDEMU_TO_CARDDIS													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0007, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0x20}, /*0x07=0x20 , SOP option to disable BG/MB*/	\
@@ -82,7 +82,7 @@
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, BIT0}, /*Set SDIO suspend local register*/	\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_POLLING, BIT1, 0}, /*wait power state to suspend*/
 
-#define TLL8192E_TRANS_CARDDIS_TO_CARDEMU													\
+#define TLL9081E_TRANS_CARDDIS_TO_CARDEMU													\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0086, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, BIT0, 0}, /*Set SDIO suspend local register*/	\
@@ -92,18 +92,18 @@
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT3|BIT4, 0}, /*0x04[12:11] = 2b'01enable WL suspend*/\
 
 
-#define TLL8192E_TRANS_CARDEMU_TO_PDN												\
+#define TLL9081E_TRANS_CARDEMU_TO_PDN												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0006, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT0, 0},/* 0x04[16] = 0*/\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, BIT7},/* 0x04[15] = 1*/
 
-#define TLL8192E_TRANS_PDN_TO_CARDEMU												\
+#define TLL9081E_TRANS_PDN_TO_CARDEMU												\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0005, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT7, 0},/* 0x04[15] = 0*/
 
-#define TLL8192E_TRANS_ACT_TO_LPS														\
+#define TLL9081E_TRANS_ACT_TO_LPS														\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0301, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_PCI_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0xFF},/*PCIe DMA stop*/	\
@@ -121,7 +121,7 @@
 	{0x0553, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, BIT5, BIT5},/*Respond TxOK to scheduler*/	\
 
 
-#define TLL8192E_TRANS_LPS_TO_ACT															\
+#define TLL9081E_TRANS_LPS_TO_ACT															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0x0080, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_SDIO_MSK,PWR_BASEADDR_SDIO,PWR_CMD_WRITE, 0xFF, 0x84}, /*SDIO RPWM, For Repeatly In and out, Taggle bit should be changed*/\
@@ -136,20 +136,20 @@
 	{0x0522, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0}, /*.	0x522 = 0*/\
 	{0x013D, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,PWR_BASEADDR_MAC,PWR_CMD_WRITE, 0xFF, 0xFF}, /*Clear ISR*/
  
-#define TLL8192E_TRANS_END															\
+#define TLL9081E_TRANS_END															\
 	/* format */																\
 	/* { offset, cut_msk, fab_msk|interface_msk, base|cmd, msk, value }, // comments here*/								\
 	{0xFFFF, PWR_CUT_ALL_MSK, PWR_FAB_ALL_MSK, PWR_INTF_ALL_MSK,0,PWR_CMD_END, 0, 0}, //
 
 
-extern WLAN_PWR_CFG ttl8192E_power_on_flow[TLL8192E_TRANS_CARDEMU_TO_ACT_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_radio_off_flow[TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_card_disable_flow[TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS+TLL8192E_TRANS_CARDEMU_TO_PDN_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_card_enable_flow[TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS+TLL8192E_TRANS_CARDEMU_TO_PDN_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_suspend_flow[TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS+TLL8192E_TRANS_CARDEMU_TO_SUS_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_resume_flow[TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS+TLL8192E_TRANS_CARDEMU_TO_SUS_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_hwpdn_flow[TLL8192E_TRANS_ACT_TO_CARDEMU_STEPS+TLL8192E_TRANS_CARDEMU_TO_PDN_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_enter_lps_flow[TLL8192E_TRANS_ACT_TO_LPS_STEPS+TLL8192E_TRANS_END_STEPS];
-extern WLAN_PWR_CFG ttl8192E_leave_lps_flow[TLL8192E_TRANS_LPS_TO_ACT_STEPS+TLL8192E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_power_on_flow[TLL9081E_TRANS_CARDEMU_TO_ACT_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_radio_off_flow[TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_card_disable_flow[TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS+TLL9081E_TRANS_CARDEMU_TO_PDN_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_card_enable_flow[TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS+TLL9081E_TRANS_CARDEMU_TO_PDN_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_suspend_flow[TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS+TLL9081E_TRANS_CARDEMU_TO_SUS_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_resume_flow[TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS+TLL9081E_TRANS_CARDEMU_TO_SUS_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_hwpdn_flow[TLL9081E_TRANS_ACT_TO_CARDEMU_STEPS+TLL9081E_TRANS_CARDEMU_TO_PDN_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_enter_lps_flow[TLL9081E_TRANS_ACT_TO_LPS_STEPS+TLL9081E_TRANS_END_STEPS];
+extern WLAN_PWR_CFG ttl9081E_leave_lps_flow[TLL9081E_TRANS_LPS_TO_ACT_STEPS+TLL9081E_TRANS_END_STEPS];
 
 #endif

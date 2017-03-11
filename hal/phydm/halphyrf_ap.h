@@ -67,7 +67,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 #endif
 	);
 
-#if (TLL8192E_SUPPORT==1) 
+#if (TLL9081E_SUPPORT==1) 
 VOID
 ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -110,27 +110,27 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 // BB/MAC/RF other monitor API
 //
 
-void	PHY_SetMonitorMode8192C(IN	PADAPTER	pAdapter,
+void	PHY_SetMonitorMode9081C(IN	PADAPTER	pAdapter,
 										IN	BOOLEAN		bEnableMonitorMode	);
 										
 //
 // IQ calibrate
 //
 void	
-PHY_IQCalibrate_8192C(		IN	PADAPTER	pAdapter,	
+PHY_IQCalibrate_9081C(		IN	PADAPTER	pAdapter,	
 							IN	BOOLEAN 	bReCovery);
 							
 //
 // LC calibrate
 //
 void	
-PHY_LCCalibrate_8192C(		IN	PADAPTER	pAdapter);
+PHY_LCCalibrate_9081C(		IN	PADAPTER	pAdapter);
 
 //
 // AP calibrate
 //
 void	
-PHY_APCalibrate_8192C(		IN	PADAPTER	pAdapter,
+PHY_APCalibrate_9081C(		IN	PADAPTER	pAdapter,
 								IN 	s1Byte		delta);
 #endif
 

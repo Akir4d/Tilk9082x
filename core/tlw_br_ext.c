@@ -32,16 +32,16 @@
 #if 1	// tlw_wifi_driver
 #include <drv_types.h>
 #else	// tlw_wifi_driver
-#include "./8192cd_cfg.h"
+#include "./9081cd_cfg.h"
 
 #ifndef __KERNEL__
 #include "./sys-support.h"
 #endif
 
-#include "./8192cd.h"
-#include "./8192cd_headers.h"
-#include "./8192cd_br_ext.h"
-#include "./8192cd_debug.h"
+#include "./9081cd.h"
+#include "./9081cd_headers.h"
+#include "./9081cd_br_ext.h"
+#include "./9081cd_debug.h"
 #endif	// tlw_wifi_driver
 
 #ifdef CL_IPV6_PASS
@@ -1571,7 +1571,7 @@ void mac_clone(_adapter *priv, unsigned char *addr)
 	memcpy(sa.sa_data, addr, ETH_ALEN);
 	DBG_871X("MAC Clone: Addr=%02x%02x%02x%02x%02x%02x\n",
 		addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
-	ttl8192cd_set_hwaddr(priv->dev, &sa);
+	ttl9081cd_set_hwaddr(priv->dev, &sa);
 }
 
 

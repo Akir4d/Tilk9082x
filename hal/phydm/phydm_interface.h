@@ -78,9 +78,9 @@ ODM_REG(DIG,_pDM_Odm)
 // only sample code
 //#define _cat(_name, _ic_type, _func)									\
 //	( 															\
-//		((_ic_type) & ODM_TLL8192C)? _func##_ic(_name, _8192C):		\
-//		((_ic_type) & ODM_TLL8192D)? _func##_ic(_name, _8192D):		\
-//		((_ic_type) & ODM_TLL8192S)? _func##_ic(_name, _8192S):		\
+//		((_ic_type) & ODM_TLL9081C)? _func##_ic(_name, _9081C):		\
+//		((_ic_type) & ODM_TLL9081D)? _func##_ic(_name, _9081D):		\
+//		((_ic_type) & ODM_TLL9081S)? _func##_ic(_name, _9081S):		\
 //		((_ic_type) & ODM_TLL8723A)? _func##_ic(_name, _8723A):		\
 //		((_ic_type) & ODM_TLL9083E)? _func##_ic(_name, _9083E):		\
 //		_func##_ic(_name, _8195)									\
@@ -89,7 +89,7 @@ ODM_REG(DIG,_pDM_Odm)
 
 // _name: name of register or bit.
 // Example: "ODM_REG(R_A_AGC_CORE1, pDM_Odm)" 
-//        gets "ODM_R_A_AGC_CORE1" or "ODM_R_A_AGC_CORE1_8192C", depends on SupportICType.
+//        gets "ODM_R_A_AGC_CORE1" or "ODM_R_A_AGC_CORE1_9081C", depends on SupportICType.
 #ifdef __ECOS
 #define ODM_REG(_name, _pDM_Odm)	_rtk_cat(_name, _pDM_Odm->SupportICType, _reg)
 #define ODM_BIT(_name, _pDM_Odm)	_rtk_cat(_name, _pDM_Odm->SupportICType, _bit)

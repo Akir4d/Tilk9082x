@@ -328,7 +328,7 @@ odm_RA_ParaAdjust_init(
 		odm_RA_ParaAdjust_Send_H2C(pDM_Odm);
 	}
 
-	if (pDM_Odm->SupportICType == ODM_TLL8192E)
+	if (pDM_Odm->SupportICType == ODM_TLL9081E)
 		pRA_Table->rate_length = ODM_RATEMCS15;
 	else if ((pDM_Odm->SupportICType == ODM_TLL8723B) || (pDM_Odm->SupportICType == ODM_TLL9083E))
 		pRA_Table->rate_length = ODM_RATEMCS7;
@@ -408,7 +408,7 @@ phydm_reset_retry_limit_table(
 	#if (DM_ODM_SUPPORT_TYPE == ODM_WIN) /*support all IC platform*/
 
 	#else
-		#if ((TLL8192E_SUPPORT == 1) || (TLL8723B_SUPPORT == 1) || (TLL9083E_SUPPORT == 1)) 
+		#if ((TLL9081E_SUPPORT == 1) || (TLL8723B_SUPPORT == 1) || (TLL9083E_SUPPORT == 1)) 
 			u1Byte per_rate_retrylimit_table_20M[ODM_RATEMCS15+1] = {
 				1, 1, 2, 4,					/*CCK*/
 				2, 2, 4, 6, 8, 12, 16, 18,		/*OFDM*/
@@ -514,7 +514,7 @@ phydm_ra_dynamic_rate_id_on_assoc(
 	
 	if ((pDM_Odm->RFType == ODM_2T2R) | (pDM_Odm->RFType == ODM_2T2R_GREEN) | (pDM_Odm->RFType == ODM_2T3R) | (pDM_Odm->RFType == ODM_2T4R)) {
 		
-		if ((pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL8192E)) &&
+		if ((pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL9081E)) &&
 			(wireless_mode & (ODM_WM_N24G | ODM_WM_N5G))
 			){
 			ODM_RT_TRACE(pDM_Odm, ODM_COMP_RATE_ADAPTIVE, ODM_DBG_LOUD, ("[ON ASSOC] set N-2SS ARFR5 table\n"));
@@ -538,7 +538,7 @@ phydm_ra_dynamic_rate_id_init(
 {
 	PDM_ODM_T	pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	
-	if (pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL8192E)) {
+	if (pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL9081E)) {
 		
 		ODM_SetMACReg(pDM_Odm, 0x4a4, bMaskDWord, 0xfc1ffff);	/*N-2SS, ARFR5, rate_id = 0xe*/
 		ODM_SetMACReg(pDM_Odm, 0x4a8, bMaskDWord, 0x0);		/*N-2SS, ARFR5, rate_id = 0xe*/
@@ -658,7 +658,7 @@ phydm_c2h_ra_report_handler(
 
 
 	#if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	if (pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL8192E))
+	if (pDM_Odm->SupportICType & (ODM_TLL8812|ODM_TLL9081E))
 		phydm_update_rate_id(pDM_Odm, rate, macid);
 	#endif
 
@@ -698,7 +698,7 @@ odm_RSSIMonitorCheck(
 )
 {
 	//
-	// For AP/ADSL use pttl8192cd_priv
+	// For AP/ADSL use pttl9081cd_priv
 	// For CE/NIC use PADAPTER
 	//
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
@@ -986,7 +986,7 @@ odm_RSSIMonitorCheckMP(
 	} else
 		PlatformEFIOWrite1Byte(Adapter, 0x4fe, (u1Byte)pHalData->UndecoratedSmoothedPWDB);
 
-	if ((pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8192E))
+	if ((pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL9081E))
 		odm_RSSIDumpToRegister(pDM_Odm);
 
 
@@ -1091,7 +1091,7 @@ odm_RSSIMonitorCheckCE(
 				if (psta->rssi_stat.UndecoratedSmoothedPWDB != (-1)) {
 
 #ifdef CONFIG_80211N_HT
-					if (pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL8812) {
+					if (pDM_Odm->SupportICType == ODM_TLL9081E || pDM_Odm->SupportICType == ODM_TLL8812) {
 #ifdef CONFIG_BEAMFORMING
 						BEAMFORMING_CAP Beamform_cap = beamforming_get_entry_beam_cap_by_mac_id(&Adapter->mlmepriv, psta->mac_id);
 
@@ -1115,7 +1115,7 @@ odm_RSSIMonitorCheckCE(
 					}
 #endif
 
-					if ((pDM_Odm->SupportICType == ODM_TLL8192E) || (pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8821)) {
+					if ((pDM_Odm->SupportICType == ODM_TLL9081E) || (pDM_Odm->SupportICType == ODM_TLL8812) || (pDM_Odm->SupportICType == ODM_TLL8821)) {
 						PWDB_rssi[sta_cnt++] = (((u8)(psta->mac_id & 0xFF)) | ((psta->rssi_stat.UndecoratedSmoothedPWDB & 0x7F) << 16) | (STBC_TX << 25) | (NoiseState<<26) | (FirstConnect << 29) | (TxBF_EN << 30));
 					}
 					else
@@ -1136,9 +1136,9 @@ odm_RSSIMonitorCheckCE(
 						ttl8812_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 					}
 #endif
-#if(TLL8192E_SUPPORT==1)
-					if (pDM_Odm->SupportICType == ODM_TLL8192E)
-						ttl8192e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
+#if(TLL9081E_SUPPORT==1)
+					if (pDM_Odm->SupportICType == ODM_TLL9081E)
+						ttl9081e_set_rssi_cmd(Adapter, (u8 *)(&PWDB_rssi[i]));
 #endif
 #if(TLL8723B_SUPPORT==1)
 					if (pDM_Odm->SupportICType == ODM_TLL8723B)
@@ -1197,7 +1197,7 @@ odm_RSSIMonitorCheckAP(
 )
 {
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-#if (TLL8812A_SUPPORT||TLL8881A_SUPPORT||TLL8192E_SUPPORT||TLL8814A_SUPPORT)
+#if (TLL8812A_SUPPORT||TLL8881A_SUPPORT||TLL9081E_SUPPORT||TLL8814A_SUPPORT)
 
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	u1Byte 			H2C_Parameter[4] = {0};
@@ -1206,7 +1206,7 @@ odm_RSSIMonitorCheckAP(
 	u1Byte			cmdlen = 3 ;
 	u1Byte			TxBF_EN = 0, stbc_en = 0;
 
-	pttl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl9081cd_priv	priv		= pDM_Odm->priv;
 	PSTA_INFO_T 		pstat;
 	BOOLEAN			act_bfer = FALSE;
 
@@ -1567,7 +1567,7 @@ odm_RefreshRateAdaptiveMaskAPADSL(
 {
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
-	struct ttl8192cd_priv *priv = pDM_Odm->priv;
+	struct ttl9081cd_priv *priv = pDM_Odm->priv;
 	struct aid_obj *aidarray;
 	u4Byte i;
 	PSTA_INFO_T pstat;
@@ -1889,7 +1889,7 @@ ODM_UpdateNoisyState(
 
 	/*DbgPrint("Get C2H Command! NoisyState=0x%x\n ", bNoisyStateFromC2H);*/
 	if (pDM_Odm->SupportICType == ODM_TLL8821  || pDM_Odm->SupportICType == ODM_TLL8812  ||
-		pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL9083E)
+		pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL9081E || pDM_Odm->SupportICType == ODM_TLL9083E)
 		pDM_Odm->bNoisyState = bNoisyStateFromC2H;
 	odm_Set_RA_DM_ARFB_by_Noisy(pDM_Odm);
 };
@@ -1974,7 +1974,7 @@ ODM_UpdateInitRate(
 	ODM_RT_TRACE(pDM_Odm, ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD, ("Get C2H Command! Rate=0x%x\n", Rate));
 
 	if (pDM_Odm->SupportICType == ODM_TLL8821  || pDM_Odm->SupportICType == ODM_TLL8812  ||
-		pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL8192E || pDM_Odm->SupportICType == ODM_TLL9083E) {
+		pDM_Odm->SupportICType == ODM_TLL8723B || pDM_Odm->SupportICType == ODM_TLL9081E || pDM_Odm->SupportICType == ODM_TLL9083E) {
 		pDM_Odm->TxRate = Rate;
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 #if DEV_BUS_TYPE == RT_PCI_INTERFACE
@@ -1995,9 +1995,9 @@ ODM_UpdateInitRate(
 #if (TLL8723B_SUPPORT == 1)
 			ODM_TxPwrTrackSetPwr_8723B(pDM_Odm, MIX_MODE, ODM_RF_PATH_A, 0);
 #endif
-		} else if (pDM_Odm->SupportICType == ODM_TLL8192E) {
-			for (p = ODM_RF_PATH_A; p < MAX_PATH_NUM_8192E; p++) {
-#if (TLL8192E_SUPPORT == 1)
+		} else if (pDM_Odm->SupportICType == ODM_TLL9081E) {
+			for (p = ODM_RF_PATH_A; p < MAX_PATH_NUM_9081E; p++) {
+#if (TLL9081E_SUPPORT == 1)
 				ODM_TxPwrTrackSetPwr92E(pDM_Odm, MIX_MODE, p, 0);
 #endif
 			}
@@ -2044,7 +2044,7 @@ odm_RSSIDumpToRegister(
 		/* Rx Cfo_Tail*/
 		PlatformEFIOWrite2Byte(Adapter, rA_CfoLongDump_Jaguar, Adapter->RxStats.RxCfoTail[0]);
 		PlatformEFIOWrite2Byte(Adapter, rB_CfoLongDump_Jaguar, Adapter->RxStats.RxCfoTail[1]);
-	} else if (pDM_Odm->SupportICType == ODM_TLL8192E) {
+	} else if (pDM_Odm->SupportICType == ODM_TLL9081E) {
 		PlatformEFIOWrite1Byte(Adapter, rA_RSSIDump_92E, Adapter->RxStats.RxRSSIPercentage[0]);
 		PlatformEFIOWrite1Byte(Adapter, rB_RSSIDump_92E, Adapter->RxStats.RxRSSIPercentage[1]);
 		/* Rx EVM*/
@@ -2107,7 +2107,7 @@ ODM_DynamicARFBSelect(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 	pRA_T			pRA_Table = &pDM_Odm->DM_RA_Table;
 
-	if (pDM_Odm->SupportICType != ODM_TLL8192E)
+	if (pDM_Odm->SupportICType != ODM_TLL9081E)
 		return;
 
 	if (Collision_State == pRA_Table->PT_collision_pre)
@@ -2117,84 +2117,84 @@ ODM_DynamicARFBSelect(
 		if (Collision_State == 1) {
 			if (rate == DESC_RATEMCS12) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x0);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x07060501);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x0);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x07060501);
 			} else if (rate == DESC_RATEMCS11) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x0);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x07070605);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x0);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x07070605);
 			} else if (rate == DESC_RATEMCS10) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x0);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x08080706);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x0);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x08080706);
 			} else if (rate == DESC_RATEMCS9) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x0);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x08080707);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x0);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x08080707);
 			} else {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x0);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x09090808);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x0);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x09090808);
 			}
 		} else { /* Collision_State == 0*/
 			if (rate == DESC_RATEMCS12) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x05010000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x09080706);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x05010000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x09080706);
 			} else if (rate == DESC_RATEMCS11) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x06050000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x09080807);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x06050000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x09080807);
 			} else if (rate == DESC_RATEMCS10) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x07060000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x0a090908);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x07060000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x0a090908);
 			} else if (rate == DESC_RATEMCS9) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x07070000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x0a090808);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x07070000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x0a090808);
 			} else {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x08080000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x0b0a0909);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x08080000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x0b0a0909);
 			}
 		}
 	} else { /* MCS13~MCS15,  1SS, G-mode*/
 		if (Collision_State == 1) {
 			if (rate == DESC_RATEMCS15) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x00000000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x05040302);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x00000000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x05040302);
 			} else if (rate == DESC_RATEMCS14) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x00000000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x06050302);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x00000000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x06050302);
 			} else if (rate == DESC_RATEMCS13) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x00000000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x07060502);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x00000000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x07060502);
 			} else {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x00000000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x06050402);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x00000000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x06050402);
 			}
 		} else { // Collision_State == 0
 			if (rate == DESC_RATEMCS15) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x03020000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x07060504);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x03020000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x07060504);
 			} else if (rate == DESC_RATEMCS14) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x03020000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x08070605);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x03020000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x08070605);
 			} else if (rate == DESC_RATEMCS13) {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x05020000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x09080706);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x05020000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x09080706);
 			} else {
 
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E, 0x04020000);
-				ODM_Write4Byte(pDM_Odm, REG_DARFRC_8192E+4, 0x08070605);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E, 0x04020000);
+				ODM_Write4Byte(pDM_Odm, REG_DARFRC_9081E+4, 0x08070605);
 			}
 
 
@@ -2232,7 +2232,7 @@ FindMinimumRSSI(
 	} else
 		pHalData->MinUndecoratedPWDBForDM = pHalData->EntryMinUndecoratedSmoothedPWDB;
 
-	/*DBG_8192C("%s=>MinUndecoratedPWDBForDM(%d)\n",__FUNCTION__,pdmpriv->MinUndecoratedPWDBForDM);*/
+	/*DBG_9081C("%s=>MinUndecoratedPWDBForDM(%d)\n",__FUNCTION__,pdmpriv->MinUndecoratedPWDBForDM);*/
 	/*ODM_RT_TRACE(pDM_Odm,COMP_DIG, DBG_LOUD, ("MinUndecoratedPWDBForDM =%d\n",pHalData->MinUndecoratedPWDBForDM));*/
 }
 

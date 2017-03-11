@@ -132,7 +132,7 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 	{
 		// Here we only set bPbcPressed to true
 		// After trigger PBC, the variable will be set to false
-		DBG_8192C("CheckPbcGPIO - PBC is pressed\n");
+		DBG_9081C("CheckPbcGPIO - PBC is pressed\n");
 		tlw_request_wps_pbc_event(padapter);
 	}
 }
@@ -181,7 +181,7 @@ dm_InterruptMigration(
 
 	//Update current settings.
 	if( bCurrentIntMt != IntMtToSet ){
-		DBG_8192C("%s(): Update interrrupt migration(%d)\n",__FUNCTION__,IntMtToSet);
+		DBG_9081C("%s(): Update interrrupt migration(%d)\n",__FUNCTION__,IntMtToSet);
 		if(IntMtToSet)
 		{
 			//
@@ -201,7 +201,7 @@ dm_InterruptMigration(
 	}
 
 	/*if( bCurrentACIntDisable != ACIntToSet ){
-		DBG_8192C("%s(): Update AC interrrupt(%d)\n",__FUNCTION__,ACIntToSet);
+		DBG_9081C("%s(): Update AC interrrupt(%d)\n",__FUNCTION__,ACIntToSet);
 		if(ACIntToSet) // Disable four ACs interrupts.
 		{
 			//
@@ -209,12 +209,12 @@ dm_InterruptMigration(
 			// When extremely highly Rx OK occurs, we will disable Tx interrupts.
 			// 2010.03.05.
 			//
-			UpdateInterruptMask8192CE( Adapter, 0, RT_AC_INT_MASKS );
+			UpdateInterruptMask9081CE( Adapter, 0, RT_AC_INT_MASKS );
 			pHalData->bDisableTxInt = ACIntToSet;
 		}
 		else// Enable four ACs interrupts.
 		{
-			UpdateInterruptMask8192CE( Adapter, RT_AC_INT_MASKS, 0 );
+			UpdateInterruptMask9081CE( Adapter, RT_AC_INT_MASKS, 0 );
 			pHalData->bDisableTxInt = ACIntToSet;
 		}
 	}*/
@@ -478,7 +478,7 @@ void	AntDivCompare9083E(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(Adapter);
 	if(0 != pHalData->AntDivCfg )
 	{
-		//DBG_8192C("update_network=> orgRSSI(%d)(%d),newRSSI(%d)(%d)\n",dst->Rssi,query_rx_pwr_percentage(dst->Rssi),
+		//DBG_9081C("update_network=> orgRSSI(%d)(%d),newRSSI(%d)(%d)\n",dst->Rssi,query_rx_pwr_percentage(dst->Rssi),
 		//	src->Rssi,query_rx_pwr_percentage(src->Rssi));
 		//select optimum_antenna for before linked =>For antenna diversity
 		if(dst->Rssi >=  src->Rssi )//keep org parameter
@@ -501,7 +501,7 @@ u8 AntDivBeforeLink9083E(PADAPTER Adapter )
 	// Condition that does not need to use antenna diversity.
 	if(pHalData->AntDivCfg==0)
 	{
-		//DBG_8192C("odm_AntDivBeforeLink8192C(): No AntDiv Mechanism.\n");
+		//DBG_9081C("odm_AntDivBeforeLink9081C(): No AntDiv Mechanism.\n");
 		return _FALSE;
 	}
 
@@ -518,7 +518,7 @@ u8 AntDivBeforeLink9083E(PADAPTER Adapter )
 
 		//PHY_SetBBReg(Adapter, rFPGA0_XA_RFInterfaceOE, 0x300, pDM_SWAT_Table->CurAntenna);
 		tlw_antenna_select_cmd(Adapter, pDM_SWAT_Table->CurAntenna, _FALSE);
-		//DBG_8192C("%s change antenna to ANT_( %s ).....\n",__FUNCTION__, (pDM_SWAT_Table->CurAntenna==MAIN_ANT)?"MAIN":"AUX");
+		//DBG_9081C("%s change antenna to ANT_( %s ).....\n",__FUNCTION__, (pDM_SWAT_Table->CurAntenna==MAIN_ANT)?"MAIN":"AUX");
 		return _TRUE;
 	}
 	else

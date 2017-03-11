@@ -763,7 +763,7 @@ odm_PathDiversityInit(
 //
 // 2011/12/02 MH Copy from MP oursrc for temporarily test.
 //
-#if TLL8192C_SUPPORT
+#if TLL9081C_SUPPORT
 BOOLEAN
 odm_IsConnected_92C(
 	IN	PADAPTER	Adapter
@@ -1530,7 +1530,7 @@ odm_PathDivChkAntSwitch(
 	}
 
 	// Condition that does not need to use antenna diversity.
-	if(pDM_Odm->SupportICType != ODM_TLL8192D)
+	if(pDM_Odm->SupportICType != ODM_TLL9081D)
 	{
 		ODM_RT_TRACE(pDM_Odm,ODM_COMP_PATH_DIV, ODM_DBG_LOUD, ("odm_PathDiversityMechanims(): No PathDiv Mechanism.\n"));
 		return;
@@ -1835,7 +1835,7 @@ odm_PathDivChkAntSwitch(
 		    pathdiv_para = 0x02;   //02 to switchback to RF path A
 		    fw_value = 0x03;
 #if DEV_BUS_TYPE==RT_PCI_INTERFACE
-                 odm_PathDiversity_8192D(pDM_Odm, pathdiv_para);
+                 odm_PathDiversity_9081D(pDM_Odm, pathdiv_para);
 #else
                  ODM_FillH2CCmd(pDM_Odm, ODM_H2C_PathDiv,1,(pu1Byte)(&fw_value));	
 #endif
@@ -1850,14 +1850,14 @@ odm_PathDivChkAntSwitch(
 			  fw_value=0x00;    // to backup RF Path A Releated Registers		  
 					  
 #if DEV_BUS_TYPE==RT_PCI_INTERFACE
-                     odm_PathDiversity_8192D(pDM_Odm, pathdiv_para);
+                     odm_PathDiversity_9081D(pDM_Odm, pathdiv_para);
 #else
                      ODM_FillH2CCmd(pDM_Odm, ODM_H2C_PathDiv,1,(pu1Byte)(&fw_value));	
                      //for(u1Byte n=0; n<80,n++)
                      //{
                      //delay_us(500);
 			  ODM_delay_ms(500);
-                     odm_PathDiversity_8192D(pDM_Odm, pathdiv_para);
+                     odm_PathDiversity_9081D(pDM_Odm, pathdiv_para);
 			 		 
 			 fw_value=0x01;   	// to backup RF Path A Releated Registers		 
                      ODM_FillH2CCmd(pDM_Odm, ODM_H2C_PathDiv,1,(pu1Byte)(&fw_value));	
@@ -1869,13 +1869,13 @@ odm_PathDivChkAntSwitch(
 		        pathdiv_para = 0x01;
 			 fw_value = 0x02;	
 #if DEV_BUS_TYPE==RT_PCI_INTERFACE
-                     odm_PathDiversity_8192D(pDM_Odm, pathdiv_para);
+                     odm_PathDiversity_9081D(pDM_Odm, pathdiv_para);
 #else
                      ODM_FillH2CCmd(pDM_Odm, ODM_H2C_PathDiv,1,(pu1Byte)(&fw_value));	
 #endif	
 		    }		
 	       }
-           //   odm_PathDiversity_8192D(Adapter, pathdiv_para);
+           //   odm_PathDiversity_9081D(Adapter, pathdiv_para);
 	}
 
 	//1 5.Reset Statistics
@@ -2023,7 +2023,7 @@ ODM_CCKPathDiversityChkPerPktRssi(
 //
 //
 // 20100503 Joseph:
-// Add new function SwAntDivCheck8192C().
+// Add new function SwAntDivCheck9081C().
 // This is the main function of Antenna diversity function before link.
 // Mainly, it just retains last scan result and scan again.
 // After that, it compares the scan result to see which one gets better RSSI.

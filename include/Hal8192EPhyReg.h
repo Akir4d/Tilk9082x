@@ -1,7 +1,7 @@
 /*****************************************************************************
  *	Copyright(c) 2008,  RealTEK Technology Inc. All Right Reserved.
  *
- * Module:	__INC_HAL8192SPHYREG_H
+ * Module:	__INC_HAL9081SPHYREG_H
  *
  *
  * Note:	1. Define PMAC/BB register map
@@ -22,14 +22,14 @@
  *	09/25/2008	MH		1. Add RL6052 register definition
  * 
  *****************************************************************************/
-#ifndef __INC_HAL8192EPHYREG_H
-#define __INC_HAL8192EPHYREG_H
+#ifndef __INC_HAL9081EPHYREG_H
+#define __INC_HAL9081EPHYREG_H
 
 
 /*--------------------------Define Parameters-------------------------------*/
 
 //============================================================
-//       8192S Regsiter offset definition
+//       9081S Regsiter offset definition
 //============================================================
 
 //
@@ -425,7 +425,7 @@
 
 #define		RF_TX_BB1					0x23	// 
 
-#define		RF_T_METER_8192E			0x42	// 
+#define		RF_T_METER_9081E			0x42	// 
 #define		RF_T_METER_88E				0x42	//
 #define		RF_T_METER					0x24	// 
 

@@ -43,14 +43,14 @@ void	ttl8812ae_prepare_bcn_tasklet(void *priv);
 void	ttl8812ae_set_intf_ops(struct _io_ops	*pops);
 #endif
 
-#ifdef CONFIG_TLL8192E
-u32	ttl8192ee_init_desc_ring(_adapter *padapter);
-u32	ttl8192ee_free_desc_ring(_adapter *padapter);
-void	ttl8192ee_reset_desc_ring(_adapter *padapter);
-void	ttl8192ee_recv_tasklet(void *priv);
-void	ttl8192ee_prepare_bcn_tasklet(void *priv);
-int	ttl8192ee_interrupt(PADAPTER Adapter);
-void	ttl8192ee_set_intf_ops(struct _io_ops	*pops);
+#ifdef CONFIG_TLL9081E
+u32	ttl9081ee_init_desc_ring(_adapter *padapter);
+u32	ttl9081ee_free_desc_ring(_adapter *padapter);
+void	ttl9081ee_reset_desc_ring(_adapter *padapter);
+void	ttl9081ee_recv_tasklet(void *priv);
+void	ttl9081ee_prepare_bcn_tasklet(void *priv);
+int	ttl9081ee_interrupt(PADAPTER Adapter);
+void	ttl9081ee_set_intf_ops(struct _io_ops	*pops);
 #endif
 
 #ifdef CONFIG_TLL8723B

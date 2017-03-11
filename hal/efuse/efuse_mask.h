@@ -13,8 +13,8 @@
 	#include "ttl8812a/HalEfuseMask8821A_USB.h"
 	#endif
 
-	#if defined(CONFIG_TLL8192E)
-	#include "ttl8192e/HalEfuseMask8192E_USB.h"
+	#if defined(CONFIG_TLL9081E)
+	#include "ttl9081e/HalEfuseMask9081E_USB.h"
 	#endif
 
 	#if defined(CONFIG_TLL8723B)
@@ -47,8 +47,8 @@
 	#include "ttl8812a/HalEfuseMask8821A_PCIE.h"
 	#endif
 
-	#if defined(CONFIG_TLL8192E)
-	#include "ttl8192e/HalEfuseMask8192E_PCIE.h"
+	#if defined(CONFIG_TLL9081E)
+	#include "ttl9081e/HalEfuseMask9081E_PCIE.h"
 	#endif
 
 	#if defined(CONFIG_TLL8723B)

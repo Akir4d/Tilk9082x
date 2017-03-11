@@ -54,7 +54,7 @@ static void fill_txdesc_sectype(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdes
  
  static void fill_txdesc_vcs(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdesc)
 {
-	//DBG_8192C("cvs_mode=%d\n", pattrib->vcs_mode);
+	//DBG_9081C("cvs_mode=%d\n", pattrib->vcs_mode);
 
 	switch (pattrib->vcs_mode)
 	{
@@ -104,7 +104,7 @@ static void fill_txdesc_sectype(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdes
 
 static void fill_txdesc_phy(struct pkt_attrib *pattrib, PTXDESC_9083E ptxdesc)
 {
-	//DBG_8192C("bwmode=%d, ch_off=%d\n", pattrib->bwmode, pattrib->ch_offset);
+	//DBG_9081C("bwmode=%d, ch_off=%d\n", pattrib->bwmode, pattrib->ch_offset);
 
 	if (pattrib->ht_en)
 	{
@@ -711,9 +711,9 @@ InsertEMContent_9083E(
 	#ifdef DBG_EMINFO
 	{
 		int i;
-		DBG_8192C("\n%s ==> pEMInfo->EMPktNum =%d\n",__FUNCTION__,pEMInfo->EMPktNum);
+		DBG_9081C("\n%s ==> pEMInfo->EMPktNum =%d\n",__FUNCTION__,pEMInfo->EMPktNum);
 		for(i=0;i< EARLY_MODE_MAX_PKT_NUM;i++){
-			DBG_8192C("%s ==> pEMInfo->EMPktLen[%d] =%d\n",__FUNCTION__,i,pEMInfo->EMPktLen[i]);
+			DBG_9081C("%s ==> pEMInfo->EMPktLen[%d] =%d\n",__FUNCTION__,i,pEMInfo->EMPktLen[i]);
 		}
 
 	}
@@ -793,12 +793,12 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 	pmem= pframe->buf_addr;	
 	
 	#ifdef DBG_EMINFO			
-	DBG_8192C("\n%s ==> agg_num:%d\n",__FUNCTION__, pframe->agg_num);
+	DBG_9081C("\n%s ==> agg_num:%d\n",__FUNCTION__, pframe->agg_num);
 	for(index=0;index<pframe->agg_num;index++){
 		offset = 	pxmitpriv->agg_pkt[index].offset;
 		pktlen = pxmitpriv->agg_pkt[index].pkt_len;
-		DBG_8192C("%s ==> agg_pkt[%d].offset=%d\n",__FUNCTION__,index,offset);
-		DBG_8192C("%s ==> agg_pkt[%d].pkt_len=%d\n",__FUNCTION__,index,pktlen);
+		DBG_9081C("%s ==> agg_pkt[%d].offset=%d\n",__FUNCTION__,index,offset);
+		DBG_9081C("%s ==> agg_pkt[%d].pkt_len=%d\n",__FUNCTION__,index,pktlen);
 	}
 	#endif
 	
@@ -834,7 +834,7 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 			ptxdesc = (PTXDESC_9083E)(pmem+offset);
 			pEMInfo_mem = pmem+offset+TXDESC_SIZE;	
 			#ifdef DBG_EMINFO
-			DBG_8192C("%s ==> desc.pkt_len=%d\n",__FUNCTION__,ptxdesc->pktlen);
+			DBG_9081C("%s ==> desc.pkt_len=%d\n",__FUNCTION__,ptxdesc->pktlen);
 			#endif
 			InsertEMContent_9083E(&eminfo,pEMInfo_mem);
 		}	
@@ -1161,7 +1161,7 @@ static s32 xmit_xmitframes(PADAPTER padapter, struct xmit_priv *pxmitpriv)
 							pframe = (struct xmit_frame*)pxmitbuf->priv_data;
 							pframe->agg_num = agg_num;
 							pxmitbuf->agg_num = agg_num;
-							//DBG_8192C("==> agg_num:%d\n",agg_num);
+							//DBG_9081C("==> agg_num:%d\n",agg_num);
 							ttl9083es_update_txdesc(pframe, pframe->buf_addr);
 							#ifdef CONFIG_TX_EARLY_MODE						
 							UpdateEarlyModeInfo9083E(pxmitpriv, pxmitbuf);

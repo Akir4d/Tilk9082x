@@ -81,7 +81,7 @@
 // 2011/09/28 MH Define ODM SW team support flag.
 //
 
-//For SW AntDiv, PathDiv, 8192C AntDiv joint use
+//For SW AntDiv, PathDiv, 9081C AntDiv joint use
 #define	TP_MODE		0
 #define	RSSI_MODE		1
 
@@ -110,10 +110,10 @@
 // We need to remove to other position???
 //
 #if(DM_ODM_SUPPORT_TYPE & (ODM_CE|ODM_WIN))
-typedef		struct ttl8192cd_priv {
+typedef		struct ttl9081cd_priv {
 	u1Byte		temp;
 
-}ttl8192cd_priv, *pttl8192cd_priv;
+}ttl9081cd_priv, *pttl9081cd_priv;
 #endif
 
 
@@ -122,7 +122,7 @@ typedef		struct _ADAPTER{
 	u1Byte		temp;
 	#ifdef AP_BUILD_WORKAROUND
 	HAL_DATA_TYPE*		temp2;
-	pttl8192cd_priv		priv;
+	pttl9081cd_priv		priv;
 	#endif
 }ADAPTER, *PADAPTER;
 #endif
@@ -153,7 +153,7 @@ typedef struct _Dynamic_Primary_CCA{
 #define MAX_TOLERANCE			5
 #define IQK_DELAY_TIME			1		//ms
 #endif
-#if 0//defined in 8192cd.h
+#if 0//defined in 9081cd.h
 //
 // Indicate different AP vendor for IOT issue.
 //
@@ -563,12 +563,12 @@ typedef  struct DM_Out_Source_Dynamic_Mechanism_Structure
 	//	Add for different team use temporarily
 	//
 	PADAPTER		Adapter;		// For CE/NIC team
-	pttl8192cd_priv	priv;			// For AP/ADSL team
+	pttl9081cd_priv	priv;			// For AP/ADSL team
 	// WHen you use Adapter or priv pointer, you must make sure the pointer is ready.
 	BOOLEAN			odm_ready;
 
 #if(DM_ODM_SUPPORT_TYPE & (ODM_CE|ODM_WIN))
-	ttl8192cd_priv		fake_priv;
+	ttl9081cd_priv		fake_priv;
 #endif
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	// ADSL_AP_BUILD_WORKAROUND
@@ -1330,8 +1330,8 @@ typedef enum tag_DIG_Connect_Definition
 //
 /*
 #define odm_TXPowerTrackingDirectCall(_Adapter)	\
-	IS_HARDWARE_TYPE_8192D(_Adapter) ? odm_TXPowerTrackingCallback_ThermalMeter_92D(_Adapter) : \
-	IS_HARDWARE_TYPE_8192C(_Adapter) ? odm_TXPowerTrackingCallback_ThermalMeter_92C(_Adapter) : \
+	IS_HARDWARE_TYPE_9081D(_Adapter) ? odm_TXPowerTrackingCallback_ThermalMeter_92D(_Adapter) : \
+	IS_HARDWARE_TYPE_9081C(_Adapter) ? odm_TXPowerTrackingCallback_ThermalMeter_92C(_Adapter) : \
 	IS_HARDWARE_TYPE_8723A(_Adapter) ? odm_TXPowerTrackingCallback_ThermalMeter_8723A(_Adapter) :\
 	ODM_TXPowerTrackingCallback_ThermalMeter(_Adapter)
 */
@@ -1359,8 +1359,8 @@ PhyDM_Get_Structure(
 
 #define	IS_HARDWARE_TYPE_8723A(_Adapter)			FALSE
 #define IS_HARDWARE_TYPE_8723AE(_Adapter)			FALSE
-#define	IS_HARDWARE_TYPE_8192C(_Adapter)			FALSE
-#define	IS_HARDWARE_TYPE_8192D(_Adapter)			FALSE
+#define	IS_HARDWARE_TYPE_9081C(_Adapter)			FALSE
+#define	IS_HARDWARE_TYPE_9081D(_Adapter)			FALSE
 #define	RF_T_METER_92D					0x42
 
 
@@ -1392,7 +1392,7 @@ FillH2CCmd92C(
 	IN	pu1Byte	pCmdBuffer
 );
 VOID
-PHY_SetTxPowerLevel8192C(
+PHY_SetTxPowerLevel9081C(
 	IN	PADAPTER		Adapter,
 	IN	u1Byte			channel
 	);

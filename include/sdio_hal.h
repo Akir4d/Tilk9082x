@@ -40,8 +40,8 @@ void ttl8723bs_set_hal_ops(PADAPTER padapter);
 void ttl8821as_set_hal_ops(PADAPTER padapter);
 #endif
 
-#ifdef CONFIG_TLL8192E
-void ttl8192es_set_hal_ops(PADAPTER padapter);
+#ifdef CONFIG_TLL9081E
+void ttl9081es_set_hal_ops(PADAPTER padapter);
 #endif
 
 #ifdef CONFIG_TLL8703B

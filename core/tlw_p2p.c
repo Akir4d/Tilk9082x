@@ -2433,12 +2433,12 @@ u32 process_assoc_req_p2p_ie(struct wifidirect_info *pwdinfo, u8 *pframe, uint l
 
 	if ( !p2p_ie )
 	{
-		DBG_8192C( "[%s] P2P IE not Found!!\n", __FUNCTION__ );
+		DBG_9081C( "[%s] P2P IE not Found!!\n", __FUNCTION__ );
 		status_code =  P2P_STATUS_FAIL_INVALID_PARAM;
 	}
 	else
 	{
-		DBG_8192C( "[%s] P2P IE Found!!\n", __FUNCTION__ );
+		DBG_9081C( "[%s] P2P IE Found!!\n", __FUNCTION__ );
 	}
 	
 	while ( p2p_ie )
@@ -2446,7 +2446,7 @@ u32 process_assoc_req_p2p_ie(struct wifidirect_info *pwdinfo, u8 *pframe, uint l
 		//Check P2P Capability ATTR
 		if( tlw_get_p2p_attr_content( p2p_ie, p2p_ielen, P2P_ATTR_CAPABILITY, (u8*)&cap_attr, (uint*) &attr_contentlen) )
 		{
-			DBG_8192C( "[%s] Got P2P Capability Attr!!\n", __FUNCTION__ );
+			DBG_9081C( "[%s] Got P2P Capability Attr!!\n", __FUNCTION__ );
 			cap_attr = le16_to_cpu(cap_attr);
 			psta->dev_cap = cap_attr&0xff;
 		}
@@ -2457,7 +2457,7 @@ u32 process_assoc_req_p2p_ie(struct wifidirect_info *pwdinfo, u8 *pframe, uint l
 		//Check P2P Device Info ATTR
 		if(tlw_get_p2p_attr_content(p2p_ie, p2p_ielen, P2P_ATTR_DEVICE_INFO, NULL, (uint*)&attr_contentlen))
 		{
-			DBG_8192C( "[%s] Got P2P DEVICE INFO Attr!!\n", __FUNCTION__ );		
+			DBG_9081C( "[%s] Got P2P DEVICE INFO Attr!!\n", __FUNCTION__ );		
 			pattr_content = pbuf = tlw_zmalloc(attr_contentlen);
 			if(pattr_content)
 			{
@@ -3223,12 +3223,12 @@ u8 process_p2p_group_negotation_resp( struct wifidirect_info *pwdinfo, u8 *pfram
 		u8	attr_content[ 10 ] = { 0x00 };
 		u32	attr_contentlen = 0;
 
-		DBG_8192C( "[%s] WFD IE Found!!\n", __FUNCTION__ );
+		DBG_9081C( "[%s] WFD IE Found!!\n", __FUNCTION__ );
 		tlw_get_wfd_attr_content( wfd_ie, wfd_ielen, WFD_ATTR_DEVICE_INFO, attr_content, &attr_contentlen);
 		if ( attr_contentlen )
 		{
 			pwdinfo->wfd_info->peer_rtsp_ctrlport = TLW_GET_BE16( attr_content + 2 );
-			DBG_8192C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
+			DBG_9081C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
 		}
 	}
 #endif // CONFIG_WFD
@@ -3498,7 +3498,7 @@ _func_enter_;
 				//	If the pwdinfo->ext_listen_period = 0, that means the P2P listen state is not available on listen channel.
 				if ( pwdinfo->ext_listen_period > 0 )
 				{
-					DBG_8192C( "[%s] P2P_STATE_IDLE, ext_listen_period = %d\n", __FUNCTION__, pwdinfo->ext_listen_period );
+					DBG_9081C( "[%s] P2P_STATE_IDLE, ext_listen_period = %d\n", __FUNCTION__, pwdinfo->ext_listen_period );
 
 					if ( pbuddy_mlmeext->cur_channel != pwdinfo->listen_channel )
 					{
@@ -3524,7 +3524,7 @@ _func_enter_;
 					tlw_p2p_chk_state(pwdinfo, P2P_STATE_RX_PROVISION_DIS_REQ) )
 			{
 				//	Now, the driver is in the listen state of P2P mode.
-				DBG_8192C( "[%s] P2P_STATE_IDLE, ext_listen_interval = %d\n", __FUNCTION__, pwdinfo->ext_listen_interval );
+				DBG_9081C( "[%s] P2P_STATE_IDLE, ext_listen_interval = %d\n", __FUNCTION__, pwdinfo->ext_listen_interval );
 
 				//	Commented by Albert 2012/11/01
 				//	If the AP's channel is the same as the listen channel, we should still be in the listen state
@@ -4865,7 +4865,7 @@ static void pre_tx_scan_timer_process (void *FunctionContext)
 	}
 	else
 	{
-		DBG_8192C( "[%s] p2p_state is %d, ignore!!\n", __FUNCTION__, tlw_p2p_state(pwdinfo) );
+		DBG_9081C( "[%s] p2p_state is %d, ignore!!\n", __FUNCTION__, tlw_p2p_state(pwdinfo) );
 	}
 	
 	_exit_critical_bh(&pmlmepriv->lock, &irqL);
@@ -5072,7 +5072,7 @@ void init_wifidirect_info( _adapter* padapter, enum P2P_ROLE role)
 	tlw_p2p_findphase_ex_set(pwdinfo, P2P_FINDPHASE_EX_NONE);
 
 	pwdinfo->listen_dwell = ( u8 ) (( tlw_get_current_time() % 3 ) + 1);
-	//DBG_8192C( "[%s] listen_dwell time is %d00ms\n", __FUNCTION__, pwdinfo->listen_dwell );
+	//DBG_9081C( "[%s] listen_dwell time is %d00ms\n", __FUNCTION__, pwdinfo->listen_dwell );
 
 	_tlw_memset( &pwdinfo->tx_prov_disc_info, 0x00, sizeof( struct tx_provdisc_req_info ) );
 	pwdinfo->tx_prov_disc_info.wps_config_method_request = WPS_CM_NONE;

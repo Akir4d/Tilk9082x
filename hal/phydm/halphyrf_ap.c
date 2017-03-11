@@ -70,7 +70,7 @@ void ConfigureTxpowerTrack(
 #endif 
 }
 
-#if (TLL8192E_SUPPORT==1) 
+#if (TLL9081E_SUPPORT==1) 
 VOID
 ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -88,7 +88,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
     	u4Byte	ThermalValue_AVG = 0, Reg0x18;
 	u4Byte	i = 0, j = 0, rf;
 	s4Byte	value32, CCK_index = 0, ele_A, ele_D, ele_C, X, Y;
-	pttl8192cd_priv 	priv = pDM_Odm->priv;
+	pttl9081cd_priv 	priv = pDM_Odm->priv;
 
 	rf_mimo_mode = pDM_Odm->RFType;
 	//ODM_RT_TRACE(pDM_Odm,ODM_COMP_TX_PWR_TRACK, ODM_DBG_LOUD,("%s:%d rf_mimo_mode:%d\n", __FUNCTION__, __LINE__, rf_mimo_mode));
@@ -279,7 +279,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_92E(
 #ifdef MP_TEST
 			if (!(priv->pshare->rf_ft_var.mp_specific && (OPMODE & (WIFI_MP_CTX_BACKGROUND | WIFI_MP_CTX_PACKET))))
 #endif	
-				PHY_IQCalibrate_8192E(pDM_Odm,false);
+				PHY_IQCalibrate_9081E(pDM_Odm,false);
 		}
 
 		if (delta_LCK > 8) {
@@ -323,7 +323,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries2(
 	u4Byte 			BBSwingReg[4] = {rA_TxScale_Jaguar,rB_TxScale_Jaguar,rC_TxScale_Jaguar2,rD_TxScale_Jaguar2};
 	s4Byte			ele_D;
 	u4Byte			BBswingIdx;
-	pttl8192cd_priv	priv = pDM_Odm->priv;
+	pttl9081cd_priv	priv = pDM_Odm->priv;
 	TXPWRTRACK_CFG 	c;
 	BOOLEAN			bTSSIenable = FALSE;
 	PODM_RF_CAL_T	pRFCalibrateInfo = &(pDM_Odm->RFCalibrateInfo);
@@ -583,7 +583,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter_JaguarSeries(
 	int 					ele_D, value32;
 	char					OFDM_index[2], index;
 	unsigned int			i = 0, j = 0, rf_path, max_rf_path =2 ,rf;
-	pttl8192cd_priv		priv = pDM_Odm->priv;
+	pttl9081cd_priv		priv = pDM_Odm->priv;
 	unsigned char			OFDM_min_index = 7; //OFDM BB Swing should be less than +2.5dB, which is required by Arthur and Mimic
 
 #ifdef MP_TEST
@@ -794,8 +794,8 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
 	}
 #endif
 
-#if (TLL8192E_SUPPORT == 1)
-	if (pDM_Odm->SupportICType==ODM_TLL8192E) {
+#if (TLL9081E_SUPPORT == 1)
+	if (pDM_Odm->SupportICType==ODM_TLL9081E) {
 		ODM_TXPowerTrackingCallback_ThermalMeter_92E(pDM_Odm);
 		return;
 	}
@@ -841,7 +841,7 @@ ODM_TXPowerTrackingCallback_ThermalMeter(
                     };		
 
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
-	pttl8192cd_priv	priv = pDM_Odm->priv;
+	pttl9081cd_priv	priv = pDM_Odm->priv;
 #endif	
 
 	//4 2. Initilization ( 7 steps in total )
@@ -1084,7 +1084,7 @@ phy_PathAStandBy(
 //#define IQK_DELAY_TIME		1		//ms
 
 u1Byte			//bit0 = 1 => Tx OK, bit1 = 1 => Rx OK
-phy_PathA_IQK_8192C(
+phy_PathA_IQK_9081C(
 	IN	PADAPTER	pAdapter,
 	IN	BOOLEAN		configPathB
 	)
@@ -1120,7 +1120,7 @@ phy_PathA_IQK_8192C(
 		PHY_SetBBReg(pAdapter, rTx_IQK_Tone_B, bMaskDWord, 0x10008c22);
 		PHY_SetBBReg(pAdapter, rRx_IQK_Tone_B, bMaskDWord, 0x10008c22);
 		PHY_SetBBReg(pAdapter, rTx_IQK_PI_B, bMaskDWord, 0x82140102);
-		if(IS_HARDWARE_TYPE_8192D(pAdapter))
+		if(IS_HARDWARE_TYPE_9081D(pAdapter))
 			PHY_SetBBReg(pAdapter, rRx_IQK_PI_B, bMaskDWord, 0x28160206);
 		else
 			PHY_SetBBReg(pAdapter, rRx_IQK_PI_B, bMaskDWord, 0x28160202);
@@ -1128,7 +1128,7 @@ phy_PathA_IQK_8192C(
 
 	//LO calibration setting
 	RTPRINT(FINIT, INIT_IQK, ("LO calibration setting!\n"));
-	if(IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(IS_HARDWARE_TYPE_9081D(pAdapter))
 		PHY_SetBBReg(pAdapter, rIQK_AGC_Rsp, bMaskDWord, 0x00462911);
 	else
 		PHY_SetBBReg(pAdapter, rIQK_AGC_Rsp, bMaskDWord, 0x001028d1);
@@ -1172,7 +1172,7 @@ phy_PathA_IQK_8192C(
 }
 
 u1Byte				//bit0 = 1 => Tx OK, bit1 = 1 => Rx OK
-phy_PathB_IQK_8192C(
+phy_PathB_IQK_9081C(
 	IN	PADAPTER	pAdapter
 	)
 {
@@ -1248,7 +1248,7 @@ phy_PathAFillIQKMatrix(
 		TX0_A = (X * Oldval_0) >> 8;
 		RTPRINT(FINIT, INIT_IQK, ("X = 0x%x, TX0_A = 0x%x, Oldval_0 0x%x\n", X, TX0_A, Oldval_0));
 		PHY_SetBBReg(pAdapter, rOFDM0_XATxIQImbalance, 0x3FF, TX0_A);
-		if(IS_HARDWARE_TYPE_8192D(pAdapter))
+		if(IS_HARDWARE_TYPE_9081D(pAdapter))
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT24, ((X* Oldval_0>>7) & 0x1));
 		else
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT(31), ((X* Oldval_0>>7) & 0x1));
@@ -1265,7 +1265,7 @@ phy_PathAFillIQKMatrix(
 		RTPRINT(FINIT, INIT_IQK, ("Y = 0x%x, TX = 0x%x\n", Y, TX0_C));
 		PHY_SetBBReg(pAdapter, rOFDM0_XCTxAFE, 0xF0000000, ((TX0_C&0x3C0)>>6));
 		PHY_SetBBReg(pAdapter, rOFDM0_XATxIQImbalance, 0x003F0000, (TX0_C&0x3F));
-		if(IS_HARDWARE_TYPE_8192D(pAdapter)/*&&is2T*/)
+		if(IS_HARDWARE_TYPE_9081D(pAdapter)/*&&is2T*/)
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT26, ((Y* Oldval_0>>7) & 0x1));
 		else
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT(29), ((Y* Oldval_0>>7) & 0x1));
@@ -1315,7 +1315,7 @@ phy_PathBFillIQKMatrix(
 		TX1_A = (X * Oldval_1) >> 8;
 		RTPRINT(FINIT, INIT_IQK, ("X = 0x%x, TX1_A = 0x%x\n", X, TX1_A));
 		PHY_SetBBReg(pAdapter, rOFDM0_XBTxIQImbalance, 0x3FF, TX1_A);
-		if(IS_HARDWARE_TYPE_8192D(pAdapter))
+		if(IS_HARDWARE_TYPE_9081D(pAdapter))
            		PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT28, ((X* Oldval_1>>7) & 0x1));
 		else
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT(27), ((X* Oldval_1>>7) & 0x1));
@@ -1329,7 +1329,7 @@ phy_PathBFillIQKMatrix(
 		RTPRINT(FINIT, INIT_IQK, ("Y = 0x%x, TX1_C = 0x%x\n", Y, TX1_C));
 		PHY_SetBBReg(pAdapter, rOFDM0_XDTxAFE, 0xF0000000, ((TX1_C&0x3C0)>>6));
 		PHY_SetBBReg(pAdapter, rOFDM0_XBTxIQImbalance, 0x003F0000, (TX1_C&0x3F));
-		if(IS_HARDWARE_TYPE_8192D(pAdapter))
+		if(IS_HARDWARE_TYPE_9081D(pAdapter))
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT30, ((Y* Oldval_1>>7) & 0x1));
 		else
 			PHY_SetBBReg(pAdapter, rOFDM0_ECCAThreshold, BIT(25), ((Y* Oldval_1>>7) & 0x1));
@@ -1429,7 +1429,7 @@ phy_SimularityCompare(
 	IN	u1Byte		 c2
 	)
 {	
-	if(IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(IS_HARDWARE_TYPE_9081D(pAdapter))
 		return phy_SimularityCompare_92D(pAdapter, result, c1, c2);
 	else
 		return phy_SimularityCompare_92C(pAdapter, result, c1, c2);	
@@ -1437,7 +1437,7 @@ phy_SimularityCompare(
 }
 
 VOID	
-phy_IQCalibrate_8192C(
+phy_IQCalibrate_9081C(
 	IN	PADAPTER	pAdapter,
 	IN	s4Byte 		result[][8],
 	IN	u1Byte		t,
@@ -1492,14 +1492,14 @@ phy_IQCalibrate_8192C(
 	if(t==0)
 	{
 	 	 //bbvalue = PHY_QueryBBReg(pAdapter, rFPGA0_RFMOD, bMaskDWord);
-		//	RTPRINT(FINIT, INIT_IQK, ("phy_IQCalibrate_8192C()==>0x%08x\n",bbvalue));
+		//	RTPRINT(FINIT, INIT_IQK, ("phy_IQCalibrate_9081C()==>0x%08x\n",bbvalue));
 
 			RTPRINT(FINIT, INIT_IQK, ("IQ Calibration for %s\n", (is2T ? "2T2R" : "1T1R")));
 	
 	 	// Save ADDA parameters, turn Path A ADDA on
 	 	phy_SaveADDARegisters(pAdapter, ADDA_REG, pHalData->ADDA_backup, IQK_ADDA_REG_NUM);
 		phy_SaveMACRegisters(pAdapter, IQK_MAC_REG, pHalData->IQK_MAC_backup);
-		if(IS_HARDWARE_TYPE_8192D(pAdapter))
+		if(IS_HARDWARE_TYPE_9081D(pAdapter))
 		 	phy_SaveADDARegisters(pAdapter, IQK_BB_REG_92D, pHalData->IQK_BB_backup, IQK_BB_REG_NUM_92D);		
 		else
 		 	phy_SaveADDARegisters(pAdapter, IQK_BB_REG_92C, pHalData->IQK_BB_backup, IQK_BB_REG_NUM);				
@@ -1509,7 +1509,7 @@ phy_IQCalibrate_8192C(
 
 	
 	
-	if(IS_HARDWARE_TYPE_8192D(pAdapter)){
+	if(IS_HARDWARE_TYPE_9081D(pAdapter)){
 		//==============================
 		//3 Path Diversity  
 	 	////Neil Chen--2011--05--20
@@ -1550,7 +1550,7 @@ phy_IQCalibrate_8192C(
 	PHY_SetBBReg(pAdapter, rOFDM0_TRxPathEnable, bMaskDWord, 0x03a05600);
 	PHY_SetBBReg(pAdapter, rOFDM0_TRMuxPar, bMaskDWord, 0x000800e4);
 	PHY_SetBBReg(pAdapter, rFPGA0_XCD_RFInterfaceSW, bMaskDWord, 0x22204000);
-	if(IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(IS_HARDWARE_TYPE_9081D(pAdapter))
 		PHY_SetBBReg(pAdapter, rFPGA0_AnalogParameter4, 0xf00000, 0x0f); 
 	else
 	{
@@ -1566,7 +1566,7 @@ phy_IQCalibrate_8192C(
 		PHY_SetBBReg(pAdapter, rFPGA0_XB_LSSIParameter, bMaskDWord, 0x00010000);
 	}
 
-	if(IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(IS_HARDWARE_TYPE_9081D(pAdapter))
 	{
 		PHY_SetBBReg(pAdapter, rConfig_AntA, bMaskDWord, 0x0f600000);
 		
@@ -1592,7 +1592,7 @@ phy_IQCalibrate_8192C(
 	PHY_SetBBReg(pAdapter, rRx_IQK, bMaskDWord, 0x01004800);
 
 	for(i = 0 ; i < retryCount ; i++){
-		PathAOK = phy_PathA_IQK_8192C(pAdapter, is2T);
+		PathAOK = phy_PathA_IQK_9081C(pAdapter, is2T);
 		if(PathAOK == 0x03){
 			RTPRINT(FINIT, INIT_IQK, ("Path A IQK Success!!\n"));
 				result[t][0] = (PHY_QueryBBReg(pAdapter, rTx_Power_Before_IQK_A, bMaskDWord)&0x3FF0000)>>16;
@@ -1621,7 +1621,7 @@ phy_IQCalibrate_8192C(
 		phy_PathADDAOn(pAdapter, ADDA_REG, FALSE, is2T);
 
 		for(i = 0 ; i < retryCount ; i++){
-			PathBOK = phy_PathB_IQK_8192C(pAdapter);
+			PathBOK = phy_PathB_IQK_9081C(pAdapter);
 			if(PathBOK == 0x03){
 				RTPRINT(FINIT, INIT_IQK, ("Path B IQK Success!!\n"));
 				result[t][4] = (PHY_QueryBBReg(pAdapter, rTx_Power_Before_IQK_B, bMaskDWord)&0x3FF0000)>>16;
@@ -1661,7 +1661,7 @@ phy_IQCalibrate_8192C(
 		phy_ReloadMACRegisters(pAdapter, IQK_MAC_REG, pHalData->IQK_MAC_backup);
 		
 	 	// Reload BB parameters
-	 	if(IS_HARDWARE_TYPE_8192D(pAdapter))
+	 	if(IS_HARDWARE_TYPE_9081D(pAdapter))
 	 	{
 			if(is2T)
 		 		phy_ReloadADDARegisters(pAdapter, IQK_BB_REG_92D, pHalData->IQK_BB_backup, IQK_BB_REG_NUM_92D);
@@ -1671,7 +1671,7 @@ phy_IQCalibrate_8192C(
 		else
 		 	phy_ReloadADDARegisters(pAdapter, IQK_BB_REG_92C, pHalData->IQK_BB_backup, IQK_BB_REG_NUM);
 		
-		if(!IS_HARDWARE_TYPE_8192D(pAdapter))
+		if(!IS_HARDWARE_TYPE_9081D(pAdapter))
 		{
 			// Restore RX initial gain
 			PHY_SetBBReg(pAdapter, rFPGA0_XA_LSSIParameter, bMaskDWord, 0x00032ed3);
@@ -1684,7 +1684,7 @@ phy_IQCalibrate_8192C(
 		PHY_SetBBReg(pAdapter, rRx_IQK_Tone_A, bMaskDWord, 0x01008c00);				
 		
 	}
-	RTPRINT(FINIT, INIT_IQK, ("phy_IQCalibrate_8192C() <==\n"));
+	RTPRINT(FINIT, INIT_IQK, ("phy_IQCalibrate_9081C() <==\n"));
 	
 }
 
@@ -1759,7 +1759,7 @@ phy_LCCalibrate(
 	IN	BOOLEAN		is2T
 	)
 {
-	if(IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(IS_HARDWARE_TYPE_9081D(pAdapter))
 	{
 #if SWLCK == 1
 		phy_LCCalibrate92DSW(pAdapter, is2T);
@@ -1781,7 +1781,7 @@ phy_LCCalibrate(
 #define		PATH_NUM		2
 
 VOID	
-phy_APCalibrate_8192C(
+phy_APCalibrate_9081C(
 	IN	PADAPTER	pAdapter,
 	IN	s1Byte 		delta,
 	IN	BOOLEAN		is2T
@@ -1894,7 +1894,7 @@ phy_APCalibrate_8192C(
 	pMptCtx->APK_bound[1] = 52;		
 #endif
 
-	RTPRINT(FINIT, INIT_IQK, ("==>phy_APCalibrate_8192C() delta %d\n", delta));
+	RTPRINT(FINIT, INIT_IQK, ("==>phy_APCalibrate_9081C() delta %d\n", delta));
 	RTPRINT(FINIT, INIT_IQK, ("AP Calibration for %s\n", (is2T ? "2T2R" : "1T1R")));
 	if(!is2T)
 		pathbound = 1;
@@ -1955,7 +1955,7 @@ phy_APCalibrate_8192C(
 			for(index = 0; index < 11; index ++)			
 			{
 				PHY_SetBBReg(pAdapter, offset, bMaskDWord, APK_normal_setting_value_1[index]);
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
 				
 				offset += 0x04;
 			}
@@ -1966,7 +1966,7 @@ phy_APCalibrate_8192C(
 			for(; index < 13; index ++) 		
 			{
 				PHY_SetBBReg(pAdapter, offset, bMaskDWord, APK_normal_setting_value_1[index]);
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
 				
 				offset += 0x04;
 			}	
@@ -1979,7 +1979,7 @@ phy_APCalibrate_8192C(
 			for(index = 0; index < 16; index++)
 			{
 				PHY_SetBBReg(pAdapter, offset, bMaskDWord, APK_normal_setting_value_2[index]);		
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
 				
 				offset += 0x04;
 			}				
@@ -1994,7 +1994,7 @@ phy_APCalibrate_8192C(
 			for(index = 0; index < 10; index ++)			
 			{
 				PHY_SetBBReg(pAdapter, offset, bMaskDWord, APK_normal_setting_value_1[index]);
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
 				
 				offset += 0x04;
 			}
@@ -2007,7 +2007,7 @@ phy_APCalibrate_8192C(
 			for(; index < 13; index ++) //offset 0xb68, 0xb6c		
 			{
 				PHY_SetBBReg(pAdapter, offset, bMaskDWord, APK_normal_setting_value_1[index]);
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
 				
 				offset += 0x04;
 			}	
@@ -2020,7 +2020,7 @@ phy_APCalibrate_8192C(
 			for(index = 0; index < 16; index++)
 			{
 				PHY_SetBBReg(pAdapter, offset, bMaskDWord, APK_normal_setting_value_2[index]);		
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", offset, PHY_QueryBBReg(pAdapter, offset, bMaskDWord))); 	
 				
 				offset += 0x04;
 			}				
@@ -2033,7 +2033,7 @@ phy_APCalibrate_8192C(
 		//Path A AFE all on, path B AFE All off or vise versa
 		for(index = 0; index < IQK_ADDA_REG_NUM ; index++)
 			PHY_SetBBReg(pAdapter, AFE_REG[index], bMaskDWord, AFE_on_off[path]);
-		RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0xe70 %x\n", PHY_QueryBBReg(pAdapter, rRx_Wait_CCA, bMaskDWord)));		
+		RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0xe70 %x\n", PHY_QueryBBReg(pAdapter, rRx_Wait_CCA, bMaskDWord)));		
 
 		//BB to AP mode
 		if(path == 0)
@@ -2061,7 +2061,7 @@ phy_APCalibrate_8192C(
 		
 		}
 
-		RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x800 %x\n", PHY_QueryBBReg(pAdapter, 0x800, bMaskDWord)));				
+		RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x800 %x\n", PHY_QueryBBReg(pAdapter, 0x800, bMaskDWord)));				
 
 		//MAC settings
 		phy_MACSettingCalibration(pAdapter, MAC_REG, MAC_backup);
@@ -2104,7 +2104,7 @@ phy_APCalibrate_8192C(
 				
 				BB_offset += delta_V;
 
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() APK index %d tmpReg 0x%x delta_V %d delta_offset %d\n", index, tmpReg, delta_V, delta_offset));		
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() APK index %d tmpReg 0x%x delta_V %d delta_offset %d\n", index, tmpReg, delta_V, delta_offset));		
 				
 				if(BB_offset < 0)
 				{
@@ -2125,11 +2125,11 @@ phy_APCalibrate_8192C(
 			else
 #endif	
 				PHY_SetRFReg(pAdapter, path, RF_IPA_A, bRFRegOffsetMask, 0x8992e);
-			RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0xc %x\n", PHY_QueryRFReg(pAdapter, path, RF_IPA_A, bRFRegOffsetMask)));		
+			RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0xc %x\n", PHY_QueryRFReg(pAdapter, path, RF_IPA_A, bRFRegOffsetMask)));		
 			PHY_SetRFReg(pAdapter, path, RF_AC, bRFRegOffsetMask, APK_RF_value_0[path][index]);
-			RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x0 %x\n", PHY_QueryRFReg(pAdapter, path, RF_AC, bRFRegOffsetMask)));		
+			RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x0 %x\n", PHY_QueryRFReg(pAdapter, path, RF_AC, bRFRegOffsetMask)));		
 			PHY_SetRFReg(pAdapter, path, RF_TXBIAS_A, bRFRegOffsetMask, tmpReg);
-			RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0xd %x\n", PHY_QueryRFReg(pAdapter, path, RF_TXBIAS_A, bRFRegOffsetMask)));					
+			RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0xd %x\n", PHY_QueryRFReg(pAdapter, path, RF_TXBIAS_A, bRFRegOffsetMask)));					
 			
 			// PA11+PAD01111, one shot	
 			i = 0;
@@ -2138,10 +2138,10 @@ phy_APCalibrate_8192C(
 				PHY_SetBBReg(pAdapter, rFPGA0_IQK, 0xffffff00, 0x800000);
 				{
 					PHY_SetBBReg(pAdapter, APK_offset[path], bMaskDWord, APK_value[0]);		
-					RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", APK_offset[path], PHY_QueryBBReg(pAdapter, APK_offset[path], bMaskDWord)));
+					RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", APK_offset[path], PHY_QueryBBReg(pAdapter, APK_offset[path], bMaskDWord)));
 					delay_ms(3);				
 					PHY_SetBBReg(pAdapter, APK_offset[path], bMaskDWord, APK_value[1]);
-					RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0x%x value 0x%x\n", APK_offset[path], PHY_QueryBBReg(pAdapter, APK_offset[path], bMaskDWord)));
+					RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0x%x value 0x%x\n", APK_offset[path], PHY_QueryBBReg(pAdapter, APK_offset[path], bMaskDWord)));
 
 					delay_ms(20);
 				}
@@ -2151,7 +2151,7 @@ phy_APCalibrate_8192C(
 					tmpReg = PHY_QueryBBReg(pAdapter, rAPK, 0x03E00000);
 				else
 					tmpReg = PHY_QueryBBReg(pAdapter, rAPK, 0xF8000000);
-				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_8192C() offset 0xbd8[25:21] %x\n", tmpReg));		
+				RTPRINT(FINIT, INIT_IQK, ("phy_APCalibrate_9081C() offset 0xbd8[25:21] %x\n", tmpReg));		
 				
 
 				i++;
@@ -2214,12 +2214,12 @@ phy_APCalibrate_8192C(
 
 	pHalData->bAPKdone = TRUE;
 
-	RTPRINT(FINIT, INIT_IQK, ("<==phy_APCalibrate_8192C()\n"));
+	RTPRINT(FINIT, INIT_IQK, ("<==phy_APCalibrate_9081C()\n"));
 }
 
 
 VOID
-PHY_IQCalibrate_8192C(
+PHY_IQCalibrate_9081C(
 	IN	PADAPTER	pAdapter,
 	IN	BOOLEAN 	bReCovery
 	)
@@ -2257,7 +2257,7 @@ PHY_IQCalibrate_8192C(
 	if(pAdapter->bSlaveOfDMSP)
 		return;
 
-	if(!IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(!IS_HARDWARE_TYPE_9081D(pAdapter))
 	{
 		if(bReCovery)
 		{
@@ -2283,25 +2283,25 @@ PHY_IQCalibrate_8192C(
 	is13simular = FALSE;
 
 
-	RTPRINT(FINIT, INIT_IQK, ("IQK !!!interface %d currentband %d ishardwareD %d \n", pAdapter->interfaceIndex, pHalData->CurrentBandType, IS_HARDWARE_TYPE_8192D(pAdapter)));
+	RTPRINT(FINIT, INIT_IQK, ("IQK !!!interface %d currentband %d ishardwareD %d \n", pAdapter->interfaceIndex, pHalData->CurrentBandType, IS_HARDWARE_TYPE_9081D(pAdapter)));
 	AcquireCCKAndRWPageAControl(pAdapter);
 //	RT_TRACE(COMP_INIT,DBG_LOUD,("Acquire Mutex in IQCalibrate \n"));
 	for (i=0; i<3; i++)
 	{
-//		if(IS_HARDWARE_TYPE_8192C(pAdapter) || IS_HARDWARE_TYPE_8723A(pAdapter))
-		if(!IS_HARDWARE_TYPE_8192D(pAdapter))
+//		if(IS_HARDWARE_TYPE_9081C(pAdapter) || IS_HARDWARE_TYPE_8723A(pAdapter))
+		if(!IS_HARDWARE_TYPE_9081D(pAdapter))
 		{
 	 		if(IS_92C_SERIAL( pHalData->VersionID))
 			{
-			 	phy_IQCalibrate_8192C(pAdapter, result, i, TRUE);
+			 	phy_IQCalibrate_9081C(pAdapter, result, i, TRUE);
 	 		}
 		 	else
 			{
 		 		// For 88C 1T1R
-		 		phy_IQCalibrate_8192C(pAdapter, result, i, FALSE);
+		 		phy_IQCalibrate_9081C(pAdapter, result, i, FALSE);
 	 		}
 		}
-		else/* if(IS_HARDWARE_TYPE_8192D(pAdapter))*/
+		else/* if(IS_HARDWARE_TYPE_9081D(pAdapter))*/
 		{
 			if(pHalData->CurrentBandType == BAND_ON_5G)
 			{
@@ -2310,9 +2310,9 @@ PHY_IQCalibrate_8192C(
 			else if(pHalData->CurrentBandType == BAND_ON_2_4G)
 			{
 				if(IS_92D_SINGLEPHY(pHalData->VersionID))
-					phy_IQCalibrate_8192C(pAdapter, result, i, TRUE);
+					phy_IQCalibrate_9081C(pAdapter, result, i, TRUE);
 				else
-					phy_IQCalibrate_8192C(pAdapter, result, i, FALSE);
+					phy_IQCalibrate_9081C(pAdapter, result, i, FALSE);
 			}
 		}
 		
@@ -2406,7 +2406,7 @@ PHY_IQCalibrate_8192C(
 		}
 	}
 	
-	if(IS_HARDWARE_TYPE_8192D(pAdapter) && final_candidate != 0xFF)
+	if(IS_HARDWARE_TYPE_9081D(pAdapter) && final_candidate != 0xFF)
 	{
 		Indexforchannel = GetRightChnlPlaceforIQK(pHalData->CurrentChannel);
 	
@@ -2419,14 +2419,14 @@ PHY_IQCalibrate_8192C(
 		RTPRINT(FINIT, INIT_IQK, ("\nIQK OK Indexforchannel %d.\n", Indexforchannel));
 	}
 
-	if(!IS_HARDWARE_TYPE_8192D(pAdapter))
+	if(!IS_HARDWARE_TYPE_9081D(pAdapter))
 		phy_SaveADDARegisters(pAdapter, IQK_BB_REG_92C, pHalData->IQK_BB_backup_recover, 9);
 
 }
 
 
 VOID
-PHY_LCCalibrate_8192C(
+PHY_LCCalibrate_9081C(
 	IN	PADAPTER	pAdapter
 	)
 {
@@ -2491,7 +2491,7 @@ PHY_LCCalibrate_8192C(
 }
 
 VOID
-PHY_APCalibrate_8192C(
+PHY_APCalibrate_9081C(
 	IN	PADAPTER	pAdapter,
 	IN	s1Byte 		delta	
 	)
@@ -2505,7 +2505,7 @@ PHY_APCalibrate_8192C(
 	return;
 #endif
 
-	if(IS_HARDWARE_TYPE_8192D(pAdapter) || IS_HARDWARE_TYPE_8723A(pAdapter))
+	if(IS_HARDWARE_TYPE_9081D(pAdapter) || IS_HARDWARE_TYPE_8723A(pAdapter))
 		return;
 
 #if FOR_BRAZIL_PRETEST != 1
@@ -2514,11 +2514,11 @@ PHY_APCalibrate_8192C(
 		return;
 
 	if(IS_92C_SERIAL( pHalData->VersionID)){
-		phy_APCalibrate_8192C(pAdapter, delta, TRUE);
+		phy_APCalibrate_9081C(pAdapter, delta, TRUE);
 	}
 	else{
 		// For 88C 1T1R
-		phy_APCalibrate_8192C(pAdapter, delta, FALSE);
+		phy_APCalibrate_9081C(pAdapter, delta, FALSE);
 	}
 }
 
@@ -2540,7 +2540,7 @@ ODM_ResetIQKResult(
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN || DM_ODM_SUPPORT_TYPE == ODM_CE)
 	PADAPTER	Adapter = pDM_Odm->Adapter;
 
-	if (!IS_HARDWARE_TYPE_8192D(Adapter))
+	if (!IS_HARDWARE_TYPE_9081D(Adapter))
 		return;
 #endif
 	ODM_RT_TRACE(pDM_Odm,ODM_COMP_CALIBRATION, ODM_DBG_LOUD,("PHY_ResetIQKResult:: settings regs %d default regs %d\n", sizeof(pDM_Odm->RFCalibrateInfo.IQKMatrixRegSetting)/sizeof(IQK_MATRIX_REGS_SETTING), IQK_Matrix_Settings_NUM));

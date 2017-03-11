@@ -106,7 +106,7 @@ void tlw_btcoex_ConnectNotify(PADAPTER padapter, u8 action)
 #ifdef DBG_CONFIG_ERROR_RESET
 	if (_TRUE == tlw_hal_sreset_inprogress(padapter))
 	{
-		DBG_8192C(FUNC_ADPT_FMT ": [BTCoex] under reset, skip notify!\n",
+		DBG_9081C(FUNC_ADPT_FMT ": [BTCoex] under reset, skip notify!\n",
 			FUNC_ADPT_ARG(padapter));
 		return;
 	}
@@ -135,7 +135,7 @@ void tlw_btcoex_MediaStatusNotify(PADAPTER padapter, u8 mediaStatus)
 #ifdef DBG_CONFIG_ERROR_RESET
 	if (_TRUE == tlw_hal_sreset_inprogress(padapter))
 	{
-		DBG_8192C(FUNC_ADPT_FMT ": [BTCoex] under reset, skip notify!\n",
+		DBG_9081C(FUNC_ADPT_FMT ": [BTCoex] under reset, skip notify!\n",
 			FUNC_ADPT_ARG(padapter));
 		return;
 	}

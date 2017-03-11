@@ -42,7 +42,7 @@
 #define IQK_MAC_REG_NUM		4
 #define IQK_ADDA_REG_NUM		16
 #define IQK_BB_REG_NUM_MAX	10
-#if (TLL8192D_SUPPORT==1) 
+#if (TLL9081D_SUPPORT==1) 
 #define IQK_BB_REG_NUM		10
 #else
 #define IQK_BB_REG_NUM		9
@@ -81,7 +81,7 @@ extern u1Byte DeltaSwingTableIdx_2GA_N_DEFAULT[DELTA_SWINGIDX_SIZE];
 //extern	u1Byte CCKSwingTable_Ch1_Ch13_92E[CCK_TABLE_SIZE_92E][8];
 //extern	u1Byte CCKSwingTable_Ch14_92E[CCK_TABLE_SIZE_92E][8];
 
-#ifdef CONFIG_WLAN_HAL_8192EE
+#ifdef CONFIG_WLAN_HAL_9081EE
 #define	OFDM_TABLE_SIZE_92E 	54
 #define	CCK_TABLE_SIZE_92E     	54
 extern	u4Byte OFDMSwingTable_92E[OFDM_TABLE_SIZE_92E];

@@ -28,7 +28,7 @@ CONFIG_MULTIDRV = n
 CONFIG_TLL9083E = y
 CONFIG_TLL8812A = n
 CONFIG_TLL8821A = n
-CONFIG_TLL8192E = n
+CONFIG_TLL9081E = n
 CONFIG_TLL8723B = n
 CONFIG_TLL8814A = n
 CONFIG_TLL8703B = n
@@ -213,8 +213,8 @@ _PLATFORM_FILES := platform/platform_ops.o
 
 ifeq ($(CONFIG_BT_COEXIST), y)
 EXTRA_CFLAGS += -I$(src)/hal/btc
-_OUTSRC_FILES += hal/btc/HalBtc8192e1Ant.o \
-				hal/btc/HalBtc8192e2Ant.o \
+_OUTSRC_FILES += hal/btc/HalBtc9081e1Ant.o \
+				hal/btc/HalBtc9081e2Ant.o \
 				hal/btc/HalBtc8723b1Ant.o \
 				hal/btc/HalBtc8723b2Ant.o \
 				hal/btc/HalBtc8812a1Ant.o \
@@ -297,24 +297,24 @@ _OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg9083e_mac.o\
 
 endif
 
-########### HAL_TLL8192E #################################
-ifeq ($(CONFIG_TLL8192E), y)
+########### HAL_TLL9081E #################################
+ifeq ($(CONFIG_TLL9081E), y)
 
-TTL902X = ttl8192e
+TTL902X = ttl9081e
 ifeq ($(CONFIG_SDIO_HCI), y)
-MODULE_NAME = 8192es
+MODULE_NAME = 9081es
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-MODULE_NAME = 8192eu
+MODULE_NAME = 9081eu
 endif
 
 ifeq ($(CONFIG_PCI_HCI), y)
-MODULE_NAME = 8192ee
+MODULE_NAME = 9081ee
 endif
-EXTRA_CFLAGS += -DCONFIG_TLL8192E
+EXTRA_CFLAGS += -DCONFIG_TLL9081E
 _HAL_INTFS_FILES += hal/HalPwrSeqCmd.o \
-					hal/$(TTL902X)/Hal8192EPwrSeq.o\
+					hal/$(TTL902X)/Hal9081EPwrSeq.o\
 					hal/$(TTL902X)/$(TTL902X)_xmit.o\
 					hal/$(TTL902X)/$(TTL902X)_sreset.o
 
@@ -340,20 +340,20 @@ endif
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8192E_USB.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9081E_USB.o
 endif
 ifeq ($(CONFIG_PCI_HCI), y)
-_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask8192E_PCIE.o
+_HAL_INTFS_FILES +=hal/efuse/$(TTL902X)/HalEfuseMask9081E_PCIE.o
 endif
 
 #hal/OUTSRC/$(TTL902X)/HalHWImg9083E_FW.o
-_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg8192e_mac.o\
-		hal/phydm/$(TTL902X)/halhwimg8192e_bb.o\
-		hal/phydm/$(TTL902X)/halhwimg8192e_rf.o\
-		hal/phydm/$(TTL902X)/halhwimg8192e_fw.o\
-		hal/phydm/$(TTL902X)/halphyrf_8192e_ce.o\
-		hal/phydm/$(TTL902X)/phydm_regconfig8192e.o\
-		hal/phydm/$(TTL902X)/phydm_ttl8192e.o
+_OUTSRC_FILES += hal/phydm/$(TTL902X)/halhwimg9081e_mac.o\
+		hal/phydm/$(TTL902X)/halhwimg9081e_bb.o\
+		hal/phydm/$(TTL902X)/halhwimg9081e_rf.o\
+		hal/phydm/$(TTL902X)/halhwimg9081e_fw.o\
+		hal/phydm/$(TTL902X)/halphyrf_9081e_ce.o\
+		hal/phydm/$(TTL902X)/phydm_regconfig9081e.o\
+		hal/phydm/$(TTL902X)/phydm_ttl9081e.o
 
 endif
 
@@ -1470,7 +1470,7 @@ ARCH := arm
 ifeq ($(CROSS_COMPILE),)
        CROSS_COMPILE = arm-hisiv200-linux-
 endif
-MODULE_NAME := ttl8192eu
+MODULE_NAME := ttl9081eu
 ifeq ($(KSRC),)
        KSRC := ../../../../../../kernel/linux-3.4.y
 endif
@@ -1550,7 +1550,7 @@ KVER  := 3.10.24
 #KSRC :=/home/android_sdk/Allwinner/a20/android-kitkat44/lichee/linux-3.4
 CROSS_COMPILE := /home/realtek/software_phoenix/phoenix/toolchain/usr/local/arm-2013.11/bin/arm-linux-gnueabihf-
 KSRC := /home/realtek/software_phoenix/linux-kernel
-MODULE_NAME := 8192eu
+MODULE_NAME := 9081eu
 
 endif
 

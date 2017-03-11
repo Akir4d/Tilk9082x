@@ -71,9 +71,9 @@ do {\
 
 #include "HalBtcOutSrc.h"
 #include "HalBtc9083c2Ant.h"
-#include "HalBtc8192d2Ant.h"
-#include "HalBtc8192e1Ant.h"
-#include "HalBtc8192e2Ant.h"
+#include "HalBtc9081d2Ant.h"
+#include "HalBtc9081e1Ant.h"
+#include "HalBtc9081e2Ant.h"
 #include "HalBtc8723a1Ant.h"
 #include "HalBtc8723a2Ant.h"
 #include "HalBtc8723b1Ant.h"

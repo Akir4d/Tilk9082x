@@ -388,7 +388,7 @@ static u1Byte odm_SQ_process_patch_RT_CID_819x_Lenovo(
 #endif		
 
 		}
-		else if(IS_HARDWARE_TYPE_8192E(pDM_Odm->Adapter)){
+		else if(IS_HARDWARE_TYPE_9081E(pDM_Odm->Adapter)){
 
 			//
 			// <Roger_Notes> Expected signal strength and bars indication at Lenovo lab. 2013.04.11
@@ -440,7 +440,7 @@ static u1Byte odm_SQ_process_patch_RT_CID_819x_Lenovo(
 	{//OFDM rate		
 
 		if(IS_HARDWARE_TYPE_8723AE(pDM_Odm->Adapter) ||
-			IS_HARDWARE_TYPE_8192E(pDM_Odm->Adapter))
+			IS_HARDWARE_TYPE_9081E(pDM_Odm->Adapter))
 		{
 			if(RSSI >= 45)
 				SQ = 100;
@@ -523,7 +523,7 @@ static u1Byte odm_SQ_process_patch_RT_CID_819x_Acer(
 	{//OFDM rate		
 
 		if(IS_HARDWARE_TYPE_8723AE(pDM_Odm->Adapter) ||
-			IS_HARDWARE_TYPE_8192E(pDM_Odm->Adapter))
+			IS_HARDWARE_TYPE_9081E(pDM_Odm->Adapter))
 		{
 			if(RSSI >= 45)
 				SQ = 100;
@@ -682,7 +682,7 @@ odm_RxPhyStatus92CSeries_Parsing(
 	u1Byte				cck_highpwr = 0;
 	u1Byte				LNA_idx = 0;
 	u1Byte				VGA_idx = 0;
-	PPHY_STATUS_RPT_8192CD_T pPhyStaRpt = (PPHY_STATUS_RPT_8192CD_T)pPhyStatus;
+	PPHY_STATUS_RPT_9081CD_T pPhyStaRpt = (PPHY_STATUS_RPT_9081CD_T)pPhyStatus;
 
 	isCCKrate = (pPktinfo->DataRate <= ODM_RATE11M) ? TRUE : FALSE;
 	pPhyInfo->RxMIMOSignalQuality[ODM_RF_PATH_A] = -1;
@@ -727,13 +727,13 @@ odm_RxPhyStatus92CSeries_Parsing(
 			
 			}
 			#endif
-		} else if (pDM_Odm->SupportICType & (ODM_TLL9083E | ODM_TLL8192E | ODM_TLL8723B | ODM_TLL9083F)) /*3 bit LNA*/
+		} else if (pDM_Odm->SupportICType & (ODM_TLL9083E | ODM_TLL9081E | ODM_TLL8723B | ODM_TLL9083F)) /*3 bit LNA*/
 		{
 			LNA_idx = ((cck_agc_rpt & 0xE0) >>5);
 			VGA_idx = (cck_agc_rpt & 0x1F); 
-			if(pDM_Odm->SupportICType & (ODM_TLL9083E|ODM_TLL8192E))
+			if(pDM_Odm->SupportICType & (ODM_TLL9083E|ODM_TLL9081E))
 			{
-				if(pDM_Odm->cck_agc_report_type == 0 && (pDM_Odm->SupportICType & ODM_TLL8192E) )
+				if(pDM_Odm->cck_agc_report_type == 0 && (pDM_Odm->SupportICType & ODM_TLL9081E) )
 				{
 					switch(LNA_idx)
 					{
@@ -815,7 +815,7 @@ odm_RxPhyStatus92CSeries_Parsing(
 					rx_pwr_all += 8;
 
 					//2012.10.08 LukeLee: Modify for 92E CCK RSSI
-					if(pDM_Odm->SupportICType == ODM_TLL8192E)
+					if(pDM_Odm->SupportICType == ODM_TLL9081E)
 						rx_pwr_all += 8;
 					
 					PWDB_ALL = odm_QueryRxPwrPercentage(rx_pwr_all);
@@ -1006,7 +1006,7 @@ odm_RxPhyStatus92CSeries_Parsing(
 			//RT_DISP(FRX, RX_PHY_SS, ("RF-%d RXPWR=%x RSSI=%d\n", i, rx_pwr[i], RSSI));
 
 
-			if(pDM_Odm->SupportICType&ODM_TLL8192C)
+			if(pDM_Odm->SupportICType&ODM_TLL9081C)
 			{	
 			        //Modification for ext-LNA board	
 				if(pDM_Odm->BoardType & (ODM_BOARD_EXT_LNA | ODM_BOARD_EXT_PA))
@@ -1912,10 +1912,10 @@ ODM_PhyStatusQuery_92CSeries(
 				pRfd);
 			#elif (DM_ODM_SUPPORT_TYPE == ODM_CE)
 			// Select the packets to do RSSI checking for antenna switching.
-			//odm_SwAntDivRSSICheck8192C(padapter, precvframe->u.hdr.attrib.RxPWDBAll);
+			//odm_SwAntDivRSSICheck9081C(padapter, precvframe->u.hdr.attrib.RxPWDBAll);
 			#endif
 				*/
-#if (TLL8192C_SUPPORT == 1)
+#if (TLL9081C_SUPPORT == 1)
 				ODM_SwAntDivChkPerPktRssi(pDM_Odm,pPktinfo->StationID,pPhyInfo);
 #endif
 		}	
@@ -2091,17 +2091,17 @@ ODM_ConfigRFWithHeaderFile(
 	}
 #endif
 
-#if (TLL8192E_SUPPORT == 1)
-	if (pDM_Odm->SupportICType == ODM_TLL8192E)
+#if (TLL9081E_SUPPORT == 1)
+	if (pDM_Odm->SupportICType == ODM_TLL9081E)
 	{
 		if(ConfigType == CONFIG_RF_RADIO) {
 		 	if(eRFPath == ODM_RF_PATH_A)
-				READ_AND_CONFIG_MP(8192E,_RadioA);
+				READ_AND_CONFIG_MP(9081E,_RadioA);
 			else if(eRFPath == ODM_RF_PATH_B)
-				READ_AND_CONFIG_MP(8192E,_RadioB);
+				READ_AND_CONFIG_MP(9081E,_RadioB);
 		}
 		else if(ConfigType == CONFIG_RF_TXPWR_LMT)
-			READ_AND_CONFIG_MP(8192E,_TXPWR_LMT);
+			READ_AND_CONFIG_MP(9081E,_TXPWR_LMT);
 	}
 #endif
 #endif//(DM_ODM_SUPPORT_TYPE !=  ODM_AP)
@@ -2232,15 +2232,15 @@ ODM_ConfigRFWithTxPwrTrackHeaderFile(
 		
 	}
 #endif	
-#if TLL8192E_SUPPORT 	
-	if(pDM_Odm->SupportICType == ODM_TLL8192E)
+#if TLL9081E_SUPPORT 	
+	if(pDM_Odm->SupportICType == ODM_TLL9081E)
 	{
 		if (pDM_Odm->SupportInterface == ODM_ITRF_PCIE)
-			READ_AND_CONFIG_MP(8192E,_TxPowerTrack_PCIE);
+			READ_AND_CONFIG_MP(9081E,_TxPowerTrack_PCIE);
 		else if (pDM_Odm->SupportInterface == ODM_ITRF_USB)
-			READ_AND_CONFIG_MP(8192E,_TxPowerTrack_USB); 
+			READ_AND_CONFIG_MP(9081E,_TxPowerTrack_USB); 
 		else if (pDM_Odm->SupportInterface == ODM_ITRF_SDIO)
-			READ_AND_CONFIG_MP(8192E,_TxPowerTrack_SDIO); 
+			READ_AND_CONFIG_MP(9081E,_TxPowerTrack_SDIO); 
 	}
 #endif
 #if TLL8723B_SUPPORT 	
@@ -2408,15 +2408,15 @@ ODM_ConfigBBWithHeaderFile(
 		}
 	}
 #endif
-#if (TLL8192E_SUPPORT == 1)
-	if(pDM_Odm->SupportICType == ODM_TLL8192E)
+#if (TLL9081E_SUPPORT == 1)
+	if(pDM_Odm->SupportICType == ODM_TLL9081E)
 	{
 		if(ConfigType == CONFIG_BB_PHY_REG){
-			READ_AND_CONFIG_MP(8192E,_PHY_REG);
+			READ_AND_CONFIG_MP(9081E,_PHY_REG);
 		}else if(ConfigType == CONFIG_BB_AGC_TAB){
-			READ_AND_CONFIG_MP(8192E,_AGC_TAB);
+			READ_AND_CONFIG_MP(9081E,_AGC_TAB);
 		}else if(ConfigType == CONFIG_BB_PHY_REG_PG){
-			READ_AND_CONFIG_MP(8192E,_PHY_REG_PG);
+			READ_AND_CONFIG_MP(9081E,_PHY_REG_PG);
 		}
 	}
 #endif
@@ -2567,9 +2567,9 @@ ODM_ConfigMACWithHeaderFile(
 		READ_AND_CONFIG_MP(8723B,_MAC_REG);
 	}
 #endif
-#if (TLL8192E_SUPPORT == 1)  
-	if (pDM_Odm->SupportICType == ODM_TLL8192E){
-		READ_AND_CONFIG_MP(8192E,_MAC_REG);
+#if (TLL9081E_SUPPORT == 1)  
+	if (pDM_Odm->SupportICType == ODM_TLL9081E){
+		READ_AND_CONFIG_MP(9081E,_MAC_REG);
 	}
 #endif
 #endif//(DM_ODM_SUPPORT_TYPE !=  ODM_AP)
@@ -2705,16 +2705,16 @@ ODM_ConfigFWWithHeaderFile(
 			READ_FIRMWARE_MP(8821A,_FW_NIC_BT);
 	}
 #endif
-#if (TLL8192E_SUPPORT == 1)
-	if (pDM_Odm->SupportICType == ODM_TLL8192E)
+#if (TLL9081E_SUPPORT == 1)
+	if (pDM_Odm->SupportICType == ODM_TLL9081E)
 	{
 		if (ConfigType == CONFIG_FW_NIC)
-			READ_FIRMWARE_MP(8192E,_FW_NIC);
+			READ_FIRMWARE_MP(9081E,_FW_NIC);
 		else if (ConfigType == CONFIG_FW_WoWLAN)
-			READ_FIRMWARE_MP(8192E,_FW_WoWLAN);
+			READ_FIRMWARE_MP(9081E,_FW_WoWLAN);
 		#ifdef CONFIG_AP_WOWLAN
 		else if (ConfigType == CONFIG_FW_AP_WoWLAN)
-			READ_FIRMWARE_MP(8192E,_FW_AP);
+			READ_FIRMWARE_MP(9081E,_FW_AP);
 		#endif
 	}
 #endif
@@ -2807,9 +2807,9 @@ ODM_GetHWImgVersion(
 	if (pDM_Odm->SupportICType == ODM_TLL8821)
 		Version = GET_VERSION_MP(8821A,_MAC_REG);
 #endif
-#if (TLL8192E_SUPPORT == 1)  
-	if (pDM_Odm->SupportICType == ODM_TLL8192E)
-		Version = GET_VERSION_MP(8192E,_MAC_REG);
+#if (TLL9081E_SUPPORT == 1)  
+	if (pDM_Odm->SupportICType == ODM_TLL9081E)
+		Version = GET_VERSION_MP(9081E,_MAC_REG);
 #endif
 #if (TLL8812A_SUPPORT == 1)  
 	if (pDM_Odm->SupportICType == ODM_TLL8812)

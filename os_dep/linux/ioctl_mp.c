@@ -1078,8 +1078,8 @@ int tlw_mp_thermal(struct net_device *dev,
 #if defined(CONFIG_TLL8812A) || defined(CONFIG_TLL8821A) || defined(CONFIG_TLL8814A)
 	u16 addr = EEPROM_THERMAL_METER_8812;
 #endif
-#ifdef CONFIG_TLL8192E
-	u16 addr = EEPROM_THERMAL_METER_8192E;
+#ifdef CONFIG_TLL9081E
+	u16 addr = EEPROM_THERMAL_METER_9081E;
 #endif
 #ifdef CONFIG_TLL8723B
 	u16 addr = EEPROM_THERMAL_METER_8723B;
@@ -1915,7 +1915,7 @@ int tlw_mp_SetBT(struct net_device *dev,
 		mptbt_BtControlProcess(padapter, &BtReq);
 		tlw_msleep_os(100);
 
-		DBG_8192C("FirmwareDownloadBT ready = 0x%x 0x%x", pMptCtx->mptOutBuf[4], pMptCtx->mptOutBuf[5]);
+		DBG_9081C("FirmwareDownloadBT ready = 0x%x 0x%x", pMptCtx->mptOutBuf[4], pMptCtx->mptOutBuf[5]);
 		if ((pMptCtx->mptOutBuf[4] == 0x00) && (pMptCtx->mptOutBuf[5] == 0x00)) {
 
 			if (padapter->mppriv.bTxBufCkFail == _TRUE)
@@ -1986,7 +1986,7 @@ int tlw_mp_SetBT(struct net_device *dev,
 		mptbt_BtControlProcess(padapter, &BtReq);
 		tlw_msleep_os(200);
 
-		DBG_8192C("FirmwareDownloadBT ready = 0x%x 0x%x", pMptCtx->mptOutBuf[4], pMptCtx->mptOutBuf[5]);
+		DBG_9081C("FirmwareDownloadBT ready = 0x%x 0x%x", pMptCtx->mptOutBuf[4], pMptCtx->mptOutBuf[5]);
 		if ((pMptCtx->mptOutBuf[4] == 0x00) && (pMptCtx->mptOutBuf[5] == 0x00)) {
 			if (padapter->mppriv.bTxBufCkFail == _TRUE)
 				sprintf(extra, "check TxBuf Fail.\n");

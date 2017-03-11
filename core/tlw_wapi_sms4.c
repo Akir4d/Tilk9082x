@@ -344,7 +344,7 @@ u8 WapiIncreasePN(u8 *PN, u8 AddCount)
 	//YJ,test,091102
 	/*
 	if(AddCount == 2){
-		DBG_8192C("############################%s(): PN[0]=0x%x\n", __FUNCTION__, PN[0]);
+		DBG_9081C("############################%s(): PN[0]=0x%x\n", __FUNCTION__, PN[0]);
 		if(PN[0] == 0x48){
 			PN[0] += AddCount;
 			return 1;

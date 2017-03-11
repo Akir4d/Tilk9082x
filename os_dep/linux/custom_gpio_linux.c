@@ -62,7 +62,7 @@ int tlw_wifi_gpio_init(void)
 
 		oob_irq = gpio_to_irq(GPIO_WIFI_IRQ);
 
-		DBG_8192C("%s oob_irq:%d\n", __func__, oob_irq);
+		DBG_9081C("%s oob_irq:%d\n", __func__, oob_irq);
 	}
 #endif
 	if (GPIO_WIFI_RESET > 0)
@@ -111,7 +111,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 	switch (onoff)
 	{
 		case WLAN_PWDN_OFF:
-			DBG_8192C("%s: call customer specific GPIO(%d) to set wifi power down pin to 0\n",
+			DBG_9081C("%s: call customer specific GPIO(%d) to set wifi power down pin to 0\n",
 				__FUNCTION__, GPIO_WIFI_RESET);
 
 #ifndef CONFIG_DONT_BUS_SCAN
@@ -121,7 +121,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_PWDN_ON:
-			DBG_8192C("%s: callc customer specific GPIO(%d) to set wifi power down pin to 1\n",
+			DBG_9081C("%s: callc customer specific GPIO(%d) to set wifi power down pin to 1\n",
 				__FUNCTION__, GPIO_WIFI_RESET);
 
 			if (GPIO_WIFI_RESET > 0)
@@ -193,7 +193,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 	switch (onoff)
 	{
 		case WLAN_PWDN_OFF:
-			DBG_8192C("%s: call customer specific GPIO to set wifi power down pin to 0\n",
+			DBG_9081C("%s: call customer specific GPIO to set wifi power down pin to 0\n",
 				__FUNCTION__);
 			if (sprd_3rdparty_gpio_wifi_pwd > 0)
 			{
@@ -201,16 +201,16 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 			}
 
 			if (sprd_3rdparty_gpio_wifi_pwd == 60) {
-				DBG_8192C("%s: turn off VSIM2 2.8V\n", __func__);
+				DBG_9081C("%s: turn off VSIM2 2.8V\n", __func__);
 				LDO_TurnOffLDO(LDO_LDO_SIM2);
 			}
 		break;
 
 		case WLAN_PWDN_ON:
-			DBG_8192C("%s: callc customer specific GPIO to set wifi power down pin to 1\n",
+			DBG_9081C("%s: callc customer specific GPIO to set wifi power down pin to 1\n",
 				__FUNCTION__);
 			if (sprd_3rdparty_gpio_wifi_pwd == 60) {
-				DBG_8192C("%s: turn on VSIM2 2.8V\n", __func__);
+				DBG_9081C("%s: turn on VSIM2 2.8V\n", __func__);
 				LDO_SetVoltLevel(LDO_LDO_SIM2, LDO_VOLT_LEVEL0);
 				LDO_TurnOnLDO(LDO_LDO_SIM2);
 			}
@@ -223,14 +223,14 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		case WLAN_POWER_OFF:
 #ifdef CONFIG_TLL9083E
 #ifdef CONFIG_WIF1_LDO
-			DBG_8192C("%s: turn off VDD-WIFI0 1.2V\n", __FUNCTION__);
+			DBG_9081C("%s: turn off VDD-WIFI0 1.2V\n", __FUNCTION__);
 			LDO_TurnOffLDO(LDO_LDO_WIF1);
 #endif //CONFIG_WIF1_LDO
 
-			DBG_8192C("%s: turn off VDD-WIFI0 3.3V\n", __FUNCTION__);
+			DBG_9081C("%s: turn off VDD-WIFI0 3.3V\n", __FUNCTION__);
 			LDO_TurnOffLDO(LDO_LDO_WIF0);
 
-			DBG_8192C("%s: call customer specific GPIO(%d) to turn off wifi power\n",
+			DBG_9081C("%s: call customer specific GPIO(%d) to turn off wifi power\n",
 				__FUNCTION__, sprd_3rdparty_gpio_wifi_power);
 			if (sprd_3rdparty_gpio_wifi_power != 65535)
 				gpio_set_value(sprd_3rdparty_gpio_wifi_power, 0);
@@ -239,17 +239,17 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 
 		case WLAN_POWER_ON:
 #ifdef CONFIG_TLL9083E
-			DBG_8192C("%s: call customer specific GPIO(%d) to turn on wifi power\n",
+			DBG_9081C("%s: call customer specific GPIO(%d) to turn on wifi power\n",
 				__FUNCTION__, sprd_3rdparty_gpio_wifi_power);
 			if (sprd_3rdparty_gpio_wifi_power != 65535)
 				gpio_set_value(sprd_3rdparty_gpio_wifi_power, 1);
 
-			DBG_8192C("%s: turn on VDD-WIFI0 3.3V\n", __FUNCTION__);
+			DBG_9081C("%s: turn on VDD-WIFI0 3.3V\n", __FUNCTION__);
 			LDO_TurnOnLDO(LDO_LDO_WIF0);
 			LDO_SetVoltLevel(LDO_LDO_WIF0,LDO_VOLT_LEVEL1);
 
 #ifdef CONFIG_WIF1_LDO
-			DBG_8192C("%s: turn on VDD-WIFI1 1.2V\n", __func__);
+			DBG_9081C("%s: turn on VDD-WIFI1 1.2V\n", __func__);
 			LDO_TurnOnLDO(LDO_LDO_WIF1);
 			LDO_SetVoltLevel(LDO_LDO_WIF1,LDO_VOLT_LEVEL3);
 #endif //CONFIG_WIF1_LDO
@@ -257,7 +257,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_BT_PWDN_OFF:
-			DBG_8192C("%s: call customer specific GPIO to set bt power down pin to 0\n",
+			DBG_9081C("%s: call customer specific GPIO to set bt power down pin to 0\n",
 				__FUNCTION__);
 #if defined(CONFIG_TLL8723B)
 			if (sprd_3rdparty_gpio_bt_reset > 0)
@@ -266,7 +266,7 @@ void tlw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_BT_PWDN_ON:
-			DBG_8192C("%s: callc customer specific GPIO to set bt power down pin to 1\n",
+			DBG_9081C("%s: callc customer specific GPIO to set bt power down pin to 1\n",
 				__FUNCTION__);
 #if defined(CONFIG_TLL8723B)
 			if (sprd_3rdparty_gpio_bt_reset > 0)
@@ -292,7 +292,7 @@ int tlw_wifi_gpio_init(void)
 
 		oob_irq = gpio_to_irq(GPIO_WIFI_IRQ);
 
-		DBG_8192C("%s oob_irq:%d\n", __func__, oob_irq);
+		DBG_9081C("%s oob_irq:%d\n", __func__, oob_irq);
 	}
 #endif
 	return 0;
@@ -319,7 +319,7 @@ extern int tlw_register_gpio_interrupt(struct net_device *netdev, int gpio_num, 
 extern int tlw_disable_gpio_interrupt(struct net_device *netdev, int gpio_num);
 void gpio_int(u8 is_high)
 {
-	DBG_8192C("%s level=%d\n",__func__, is_high);
+	DBG_9081C("%s level=%d\n",__func__, is_high);
 }
 int register_net_gpio_init(void)
 {

@@ -2313,7 +2313,7 @@ PHY_IQCalibrate_9083E(
 	if (ODM_CheckPowerStatus(pAdapter) == FALSE)
 		return;
 #else
-	pttl8192cd_priv	priv = pDM_Odm->priv;
+	pttl9081cd_priv	priv = pDM_Odm->priv;
 
 #ifdef MP_TEST
 	if(priv->pshare->rf_ft_var.mp_specific)

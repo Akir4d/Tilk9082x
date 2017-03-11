@@ -126,7 +126,7 @@ typedef enum _USB_RX_AGG_MODE{
 	USB_RX_AGG_MIX
 }USB_RX_AGG_MODE;
 
-//#define MAX_RX_DMA_BUFFER_SIZE	10240		// 10K for 8192C RX DMA buffer
+//#define MAX_RX_DMA_BUFFER_SIZE	10240		// 10K for 9081C RX DMA buffer
 
 #endif
 
@@ -506,7 +506,7 @@ typedef struct hal_com_data
 	USB_RX_AGG_MODE	UsbRxAggMode;
 	u8			UsbRxAggBlockCount;		/* FOR USB Mode, USB Block count. Block size is 512-byte in hight speed and 64-byte in full speed */
 	u8			UsbRxAggBlockTimeout;
-	u8			UsbRxAggPageCount;			/* FOR DMA Mode, 8192C DMA page count*/
+	u8			UsbRxAggPageCount;			/* FOR DMA Mode, 9081C DMA page count*/
 	u8			UsbRxAggPageTimeout;
 
 	u8			RegAcUsbDmaSize;

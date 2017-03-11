@@ -312,7 +312,7 @@ phy_PathA_IQK_9083E(
 #ifndef SMP_SYNC
 	unsigned long x;
 #endif
-	struct ttl8192cd_priv *priv = pDM_Odm->priv;
+	struct ttl9081cd_priv *priv = pDM_Odm->priv;
 	SAVE_INT_AND_CLI(x);	
 #endif
 #if !(DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -414,7 +414,7 @@ phy_PathA_RxIQK(
 #ifndef SMP_SYNC
 	unsigned long x;
 #endif
-	struct ttl8192cd_priv *priv = pDM_Odm->priv;
+	struct ttl9081cd_priv *priv = pDM_Odm->priv;
 	SAVE_INT_AND_CLI(x);	
 #endif
 
@@ -1190,7 +1190,7 @@ phy_IQCalibrate_9083E(
 #ifndef SMP_SYNC
 	unsigned long x;
 #endif
-	struct ttl8192cd_priv *priv = pDM_Odm->priv;
+	struct ttl9081cd_priv *priv = pDM_Odm->priv;
 	u4Byte	retryCount = 2;
 #else
 #if MP_DRIVER
@@ -1465,7 +1465,7 @@ phy_LCCalibrate_9083E(
 #ifndef SMP_SYNC
 	unsigned long x;
 #endif
-	struct ttl8192cd_priv *priv = pDM_Odm->priv;
+	struct ttl9081cd_priv *priv = pDM_Odm->priv;
 	SAVE_INT_AND_CLI(x);	
 #endif
 #if !(DM_ODM_SUPPORT_TYPE & ODM_AP)
@@ -2089,7 +2089,7 @@ PHY_IQCalibrate_9083E(
 #ifndef SMP_SYNC
 	unsigned long x;
 #endif
-	pttl8192cd_priv	priv = pDM_Odm->priv;
+	pttl9081cd_priv	priv = pDM_Odm->priv;
 
 #ifdef MP_TEST
 	if(priv->pshare->rf_ft_var.mp_specific)

@@ -63,7 +63,7 @@ u8 tlw_hal_data_init(_adapter *padapter)
 		padapter->hal_data_sz = sizeof(HAL_DATA_TYPE);
 		padapter->HalData = tlw_zvmalloc(padapter->hal_data_sz);
 		if(padapter->HalData == NULL){
-			DBG_8192C("cant not alloc memory for HAL DATA \n");
+			DBG_9081C("cant not alloc memory for HAL DATA \n");
 			return _FAIL;
 		}
 	}
@@ -666,7 +666,7 @@ bool tlw_hal_c2h_valid(_adapter *adapter, u8 *buf)
 
 	if (IS_9083E(*hal_ver)) {
 		ret = c2h_evt_valid((struct c2h_evt_hdr *)buf);
-	} else if(IS_8192E(*hal_ver) || IS_8812_SERIES(*hal_ver) || IS_8821_SERIES(*hal_ver) || IS_8723B_SERIES(*hal_ver)) {
+	} else if(IS_9081E(*hal_ver) || IS_8812_SERIES(*hal_ver) || IS_8821_SERIES(*hal_ver) || IS_8723B_SERIES(*hal_ver)) {
 		ret = c2h_evt_valid((struct c2h_evt_hdr_88xx*)buf);
 	} else {
 		tlw_warn_on(1);
@@ -683,7 +683,7 @@ s32 tlw_hal_c2h_evt_read(_adapter *adapter, u8 *buf)
 
 	if (IS_9083E(*hal_ver)) {
 		ret = c2h_evt_read(adapter, buf);
-	} else if(IS_8192E(*hal_ver) || IS_8812_SERIES(*hal_ver) || IS_8821_SERIES(*hal_ver) || IS_8723B_SERIES(*hal_ver)) {
+	} else if(IS_9081E(*hal_ver) || IS_8812_SERIES(*hal_ver) || IS_8821_SERIES(*hal_ver) || IS_8723B_SERIES(*hal_ver)) {
 		ret = c2h_evt_read_88xx(adapter, buf);
 	} else {
 		tlw_warn_on(1);

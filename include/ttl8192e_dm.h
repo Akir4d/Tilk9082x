@@ -17,22 +17,22 @@
  *
  *
  ******************************************************************************/
-#ifndef __TLL8192E_DM_H__
-#define __TLL8192E_DM_H__
+#ifndef __TLL9081E_DM_H__
+#define __TLL9081E_DM_H__
 
 
-void ttl8192e_init_dm_priv(IN PADAPTER Adapter);
-void ttl8192e_deinit_dm_priv(IN PADAPTER Adapter);
-void ttl8192e_InitHalDm(IN PADAPTER Adapter);
-void ttl8192e_HalDmWatchDog(IN PADAPTER Adapter);
+void ttl9081e_init_dm_priv(IN PADAPTER Adapter);
+void ttl9081e_deinit_dm_priv(IN PADAPTER Adapter);
+void ttl9081e_InitHalDm(IN PADAPTER Adapter);
+void ttl9081e_HalDmWatchDog(IN PADAPTER Adapter);
 
-//VOID ttl8192c_dm_CheckTXPowerTracking(IN PADAPTER Adapter);
+//VOID ttl9081c_dm_CheckTXPowerTracking(IN PADAPTER Adapter);
 
-//void ttl8192c_dm_RF_Saving(IN PADAPTER pAdapter, IN u8 bForceInNormal);
+//void ttl9081c_dm_RF_Saving(IN PADAPTER pAdapter, IN u8 bForceInNormal);
 
 #ifdef CONFIG_ANTENNA_DIVERSITY
-void	AntDivCompare8192e(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src);
-u8 AntDivBeforeLink8192e(PADAPTER Adapter );
+void	AntDivCompare9081e(PADAPTER Adapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src);
+u8 AntDivBeforeLink9081e(PADAPTER Adapter );
 #endif
 #endif
 

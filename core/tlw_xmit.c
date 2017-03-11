@@ -1188,7 +1188,7 @@ static s32 update_attrib(_adapter *padapter, _pkt *pkt, struct pkt_attrib *pattr
 
 	update_attrib_phy_info(padapter, pattrib, psta);
 
-	//DBG_8192C("%s ==> mac_id(%d)\n",__FUNCTION__,pattrib->mac_id );
+	//DBG_9081C("%s ==> mac_id(%d)\n",__FUNCTION__,pattrib->mac_id );
 	
 	pattrib->psta = psta;
 	//TODO:_unlock
@@ -2057,7 +2057,7 @@ _func_enter_;
 	}
 */
 	if (pxmitframe->buf_addr == NULL){
-		DBG_8192C("==> %s buf_addr==NULL \n",__FUNCTION__);
+		DBG_9081C("==> %s buf_addr==NULL \n",__FUNCTION__);
 		return _FAIL;
 	}
 
@@ -2077,7 +2077,7 @@ _func_enter_;
 
 	if (tlw_make_wlanhdr(padapter, mem_start, pattrib) == _FAIL) {
 		RT_TRACE(_module_ttl871x_xmit_c_, _drv_err_, ("tlw_xmitframe_coalesce: tlw_make_wlanhdr fail; drop pkt\n"));
-		DBG_8192C("tlw_xmitframe_coalesce: tlw_make_wlanhdr fail; drop pkt\n");
+		DBG_9081C("tlw_xmitframe_coalesce: tlw_make_wlanhdr fail; drop pkt\n");
 		res = _FAIL;
 		goto exit;
 	}
@@ -2200,7 +2200,7 @@ _func_enter_;
 	if (xmitframe_addmic(padapter, pxmitframe) == _FAIL)
 	{
 		RT_TRACE(_module_ttl871x_xmit_c_, _drv_err_, ("xmitframe_addmic(padapter, pxmitframe)==_FAIL\n"));
-		DBG_8192C("xmitframe_addmic(padapter, pxmitframe)==_FAIL\n");
+		DBG_9081C("xmitframe_addmic(padapter, pxmitframe)==_FAIL\n");
 		res = _FAIL;
 		goto exit;
 	}
@@ -3383,7 +3383,7 @@ _func_enter_;
 	if (psta == NULL) {
 		DBG_COUNTER(padapter->tx_logs.core_tx_enqueue_class_err_nosta);
 		res = _FAIL;
-		DBG_8192C("tlw_xmit_classifier: psta == NULL\n");
+		DBG_9081C("tlw_xmit_classifier: psta == NULL\n");
 		RT_TRACE(_module_ttl871x_xmit_c_,_drv_err_,("tlw_xmit_classifier: psta == NULL\n"));
 		goto exit;
 	}

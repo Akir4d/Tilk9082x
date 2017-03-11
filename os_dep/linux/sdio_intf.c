@@ -61,9 +61,9 @@ static const struct sdio_device_id sdio_ids[] =
 	{ SDIO_DEVICE(0x024c, 0x8821),.driver_data = TLL8821},
 #endif //CONFIG_TLL8821A
 
-#ifdef CONFIG_TLL8192E
-	{ SDIO_DEVICE(0x024c, 0x818B),.driver_data = TLL8192E},
-#endif //CONFIG_TLL8192E
+#ifdef CONFIG_TLL9081E
+	{ SDIO_DEVICE(0x024c, 0x818B),.driver_data = TLL9081E},
+#endif //CONFIG_TLL9081E
 
 #ifdef CONFIG_TLL8703B
 	{ SDIO_DEVICE(0x024c, 0xB703), .driver_data = TLL8703B},
@@ -266,14 +266,14 @@ _func_enter_;
 	err = sdio_enable_func(func);
 	if (err) {
 		dvobj->drv_dbg.dbg_sdio_init_error_cnt++;
-		DBG_8192C(KERN_CRIT "%s: sdio_enable_func FAIL(%d)!\n", __func__, err);
+		DBG_9081C(KERN_CRIT "%s: sdio_enable_func FAIL(%d)!\n", __func__, err);
 		goto release;
 	}
 
 	err = sdio_set_block_size(func, 512);
 	if (err) {
 		dvobj->drv_dbg.dbg_sdio_init_error_cnt++;
-		DBG_8192C(KERN_CRIT "%s: sdio_set_block_size FAIL(%d)!\n", __func__, err);
+		DBG_9081C(KERN_CRIT "%s: sdio_set_block_size FAIL(%d)!\n", __func__, err);
 		goto release;
 	}
 	psdio_data->block_transfer_len = 512;
@@ -306,7 +306,7 @@ static void sdio_deinit(struct dvobj_priv *dvobj)
 		if (err)
 		{
 			dvobj->drv_dbg.dbg_sdio_deinit_error_cnt++;
-			DBG_8192C(KERN_ERR "%s: sdio_disable_func(%d)\n", __func__, err);
+			DBG_9081C(KERN_ERR "%s: sdio_disable_func(%d)\n", __func__, err);
 		}
 
 		if (dvobj->irq_alloc) {
@@ -314,7 +314,7 @@ static void sdio_deinit(struct dvobj_priv *dvobj)
 			if (err)
 			{
 				dvobj->drv_dbg.dbg_sdio_free_irq_error_cnt++;
-				DBG_8192C(KERN_ERR "%s: sdio_release_irq(%d)\n", __func__, err);
+				DBG_9081C(KERN_ERR "%s: sdio_release_irq(%d)\n", __func__, err);
 			}
 			else
 				dvobj->drv_dbg.dbg_sdio_free_irq_cnt++;
@@ -347,10 +347,10 @@ static void tlw_decide_chip_type_by_device_id(struct dvobj_priv *dvobj, const st
 	}
 #endif
 
-#if defined(CONFIG_TLL8192E)
-	if (dvobj->chip_type == TLL8192E) {
-		dvobj->HardwareType = HARDWARE_TYPE_TLL8192ES;
-		DBG_871X("CHIP TYPE: TLL8192E\n");
+#if defined(CONFIG_TLL9081E)
+	if (dvobj->chip_type == TLL9081E) {
+		dvobj->HardwareType = HARDWARE_TYPE_TLL9081ES;
+		DBG_871X("CHIP TYPE: TLL9081E\n");
 	}
 #endif
 
@@ -445,9 +445,9 @@ u8 tlw_set_hal_ops(PADAPTER padapter)
 		ttl8821as_set_hal_ops(padapter);
 #endif
 
-#if defined(CONFIG_TLL8192E)
-	if (tlw_get_chip_type(padapter) == TLL8192E)
-		ttl8192es_set_hal_ops(padapter);
+#if defined(CONFIG_TLL9081E)
+	if (tlw_get_chip_type(padapter) == TLL9081E)
+		ttl9081es_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_TLL8703B)
@@ -469,7 +469,7 @@ u8 tlw_set_hal_ops(PADAPTER padapter)
 static void sd_intf_start(PADAPTER padapter)
 {
 	if (padapter == NULL) {
-		DBG_8192C(KERN_ERR "%s: padapter is NULL!\n", __func__);
+		DBG_9081C(KERN_ERR "%s: padapter is NULL!\n", __func__);
 		return;
 	}
 
@@ -480,7 +480,7 @@ static void sd_intf_start(PADAPTER padapter)
 static void sd_intf_stop(PADAPTER padapter)
 {
 	if (padapter == NULL) {
-		DBG_8192C(KERN_ERR "%s: padapter is NULL!\n", __func__);
+		DBG_9081C(KERN_ERR "%s: padapter is NULL!\n", __func__);
 		return;
 	}
 

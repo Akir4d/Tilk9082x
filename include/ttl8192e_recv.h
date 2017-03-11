@@ -17,14 +17,14 @@
  *
  *
  ******************************************************************************/
-#ifndef __TLL8192E_RECV_H__
-#define __TLL8192E_RECV_H__
+#ifndef __TLL9081E_RECV_H__
+#define __TLL9081E_RECV_H__
 
 #if defined(CONFIG_USB_HCI)
 
 #ifndef MAX_RECVBUF_SZ
 #ifdef PLATFORM_OS_CE
-#define MAX_RECVBUF_SZ (8192+1024) // 8K+1k
+#define MAX_RECVBUF_SZ (9081+1024) // 8K+1k
 #else
 	#ifdef CONFIG_MINIMAL_MEMORY_USAGE
 		#define MAX_RECVBUF_SZ (4000) // about 4K
@@ -39,7 +39,7 @@
 		//#define MAX_RECVBUF_SZ (20480) //20K
 		//#define MAX_RECVBUF_SZ (10240) //10K 
 		//#define MAX_RECVBUF_SZ (16384) //  16k - 92E RX BUF :16K
-		//#define MAX_RECVBUF_SZ (8192+1024) // 8K+1k		
+		//#define MAX_RECVBUF_SZ (9081+1024) // 8K+1k		
 	#endif
 #endif
 #endif //!MAX_RECVBUF_SZ
@@ -153,26 +153,26 @@
 
 
 #ifdef CONFIG_SDIO_HCI
-s32 ttl8192es_init_recv_priv(PADAPTER padapter);
-void ttl8192es_free_recv_priv(PADAPTER padapter);
-void ttl8192es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+s32 ttl9081es_init_recv_priv(PADAPTER padapter);
+void ttl9081es_free_recv_priv(PADAPTER padapter);
+void ttl9081es_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
 #endif
 
 #ifdef CONFIG_USB_HCI
-void ttl8192eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
-s32 ttl8192eu_init_recv_priv(PADAPTER padapter);
-void ttl8192eu_free_recv_priv(PADAPTER padapter);
-void ttl8192eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
-void ttl8192eu_recv_tasklet(void *priv);
+void ttl9081eu_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf);
+s32 ttl9081eu_init_recv_priv(PADAPTER padapter);
+void ttl9081eu_free_recv_priv(PADAPTER padapter);
+void ttl9081eu_recv_hdl(PADAPTER padapter, struct recv_buf *precvbuf);
+void ttl9081eu_recv_tasklet(void *priv);
 
 #endif
 
 #ifdef CONFIG_PCI_HCI
-s32 ttl8192ee_init_recv_priv(PADAPTER padapter);
-void ttl8192ee_free_recv_priv(PADAPTER padapter);
+s32 ttl9081ee_init_recv_priv(PADAPTER padapter);
+void ttl9081ee_free_recv_priv(PADAPTER padapter);
 #endif
 
-void ttl8192e_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
+void ttl9081e_query_rx_desc_status(union recv_frame *precvframe, u8 *pdesc);
 
-#endif /* __TLL8192E_RECV_H__ */
+#endif /* __TLL9081E_RECV_H__ */
 

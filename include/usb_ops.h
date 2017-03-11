@@ -76,11 +76,11 @@ void interrupt_handler_8814au(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 #endif /* CONFIG_TLL8814 */
 
-#ifdef CONFIG_TLL8192E
-void ttl8192eu_set_hw_type(struct dvobj_priv *pdvobj);
-void ttl8192eu_set_intf_ops(struct _io_ops *pops);
+#ifdef CONFIG_TLL9081E
+void ttl9081eu_set_hw_type(struct dvobj_priv *pdvobj);
+void ttl9081eu_set_intf_ops(struct _io_ops *pops);
 #ifdef CONFIG_SUPPORT_USB_INT
-void interrupt_handler_8192eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
+void interrupt_handler_9081eu(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 
 #endif

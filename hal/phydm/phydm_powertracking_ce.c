@@ -376,7 +376,7 @@ getSwingIndex(
 	pu4Byte 			pSwingTable;
 
 	if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8723B ||
-		pDM_Odm->SupportICType == ODM_TLL8192E) 
+		pDM_Odm->SupportICType == ODM_TLL9081E) 
 	{
 		bbSwing = PHY_QueryBBReg(Adapter, rOFDM0_XATxIQImbalance, 0xFFC00000);
 
@@ -442,7 +442,7 @@ odm_TXPowerTrackingThermalMeterInit(
 		pRFCalibrateInfo->TxPowerTrackControl = _TRUE;
 
 
-	MSG_8192C("pDM_Odm TxPowerTrackControl = %d\n", pRFCalibrateInfo->TxPowerTrackControl);
+	MSG_9081C("pDM_Odm TxPowerTrackControl = %d\n", pRFCalibrateInfo->TxPowerTrackControl);
 	
 #elif (DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	#ifdef TLL9083E_SUPPORT
@@ -462,7 +462,7 @@ odm_TXPowerTrackingThermalMeterInit(
 
 	// The index of "0 dB" in SwingTable.
 	if (pDM_Odm->SupportICType == ODM_TLL9083E || pDM_Odm->SupportICType == ODM_TLL8723B ||
-		pDM_Odm->SupportICType == ODM_TLL8192E) 
+		pDM_Odm->SupportICType == ODM_TLL9081E) 
 	{
 		pRFCalibrateInfo->DefaultOfdmIndex = (defaultSwingIndex >= OFDM_TABLE_SIZE) ? 30 : defaultSwingIndex;
 		pRFCalibrateInfo->DefaultCckIndex = 20;	
@@ -526,31 +526,31 @@ odm_TXPowerTrackingCheckCE(
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_CE)
 	PADAPTER	Adapter = pDM_Odm->Adapter;
-	#if( (TLL8192C_SUPPORT==1) ||  (TLL8723A_SUPPORT==1) )
-	if(IS_HARDWARE_TYPE_8192C(Adapter)){
-		ttl8192c_odm_CheckTXPowerTracking(Adapter);
+	#if( (TLL9081C_SUPPORT==1) ||  (TLL8723A_SUPPORT==1) )
+	if(IS_HARDWARE_TYPE_9081C(Adapter)){
+		ttl9081c_odm_CheckTXPowerTracking(Adapter);
 		return;
 	}
 	#endif
 
-	#if (TLL8192D_SUPPORT==1) 
-	if(IS_HARDWARE_TYPE_8192D(Adapter)){	
-		#if (TLL8192D_EASY_SMART_CONCURRENT == 1)
+	#if (TLL9081D_SUPPORT==1) 
+	if(IS_HARDWARE_TYPE_9081D(Adapter)){	
+		#if (TLL9081D_EASY_SMART_CONCURRENT == 1)
 		if(!Adapter->bSlaveOfDMSP)
 		#endif
-			ttl8192d_odm_CheckTXPowerTracking(Adapter);
+			ttl9081d_odm_CheckTXPowerTracking(Adapter);
 		return;	
 	}
 	#endif
 
-	#if (((TLL9083E_SUPPORT == 1) ||  (TLL8812A_SUPPORT == 1) ||  (TLL8821A_SUPPORT == 1) ||  (TLL8192E_SUPPORT == 1)  ||  (TLL8723B_SUPPORT == 1)  ||  (TLL8814A_SUPPORT == 1) || (TLL9083F_SUPPORT == 1)))
+	#if (((TLL9083E_SUPPORT == 1) ||  (TLL8812A_SUPPORT == 1) ||  (TLL8821A_SUPPORT == 1) ||  (TLL9081E_SUPPORT == 1)  ||  (TLL8723B_SUPPORT == 1)  ||  (TLL8814A_SUPPORT == 1) || (TLL9083F_SUPPORT == 1)))
 	if (!(pDM_Odm->SupportAbility & ODM_RF_TX_PWR_TRACK))
 		return;
 
 	if(!pDM_Odm->RFCalibrateInfo.TM_Trigger)		//at least delay 1 sec
 	{
 		//pHalData->TxPowerCheckCnt++;	//cosa add for debug
-		if (IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_JAGUAR(Adapter) || IS_HARDWARE_TYPE_8192E(Adapter) || IS_HARDWARE_TYPE_8723B(Adapter) || IS_HARDWARE_TYPE_8814A(Adapter))
+		if (IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_JAGUAR(Adapter) || IS_HARDWARE_TYPE_9081E(Adapter) || IS_HARDWARE_TYPE_8723B(Adapter) || IS_HARDWARE_TYPE_8814A(Adapter))
 			ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_T_METER_NEW, (BIT17 | BIT16), 0x03);
 		else
 			ODM_SetRFReg(pDM_Odm, ODM_RF_PATH_A, RF_T_METER_OLD, bRFRegOffsetMask, 0x60);
@@ -605,11 +605,11 @@ odm_TXPowerTrackingCheckAP(
 {
 	PDM_ODM_T		pDM_Odm = (PDM_ODM_T)pDM_VOID;
 #if (DM_ODM_SUPPORT_TYPE == ODM_AP)
-	pttl8192cd_priv	priv		= pDM_Odm->priv;
+	pttl9081cd_priv	priv		= pDM_Odm->priv;
 
 	if ( (priv->pmib->dot11RFEntry.ther) && ((priv->up_time % priv->pshare->rf_ft_var.tpt_period) == 0)){
 #ifdef CONFIG_TLL_92D_SUPPORT
-		if (GET_CHIP_VER(priv)==VERSION_8192D){
+		if (GET_CHIP_VER(priv)==VERSION_9081D){
 			tx_power_tracking_92D(priv);
 		} else 
 #endif
@@ -641,9 +641,9 @@ odm_TXPowerTrackingThermalMeterCheck(
 
 	if(!TM_Trigger)		//at least delay 1 sec
 	{
-		if(IS_HARDWARE_TYPE_8192D(Adapter))
+		if(IS_HARDWARE_TYPE_9081D(Adapter))
 			PHY_SetRFReg(Adapter, ODM_RF_PATH_A, RF_T_METER_92D, BIT17 | BIT16, 0x03);
-		else if(IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_JAGUAR(Adapter) || IS_HARDWARE_TYPE_8192E(Adapter) ||
+		else if(IS_HARDWARE_TYPE_9083E(Adapter) || IS_HARDWARE_TYPE_JAGUAR(Adapter) || IS_HARDWARE_TYPE_9081E(Adapter) ||
 			    IS_HARDWARE_TYPE_8723B(Adapter))
 			PHY_SetRFReg(Adapter, ODM_RF_PATH_A, RF_T_METER_88E, BIT17 | BIT16, 0x03);
 		else

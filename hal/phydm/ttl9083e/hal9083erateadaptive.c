@@ -1076,7 +1076,7 @@ ODM_RA_TxRPT2Handle_9083E(
 							  pRAInfo->RTY[4] + \
 							  pRAInfo->DROP;
 #if defined(TXRETRY_CNT)
-			extern struct stat_info *get_macidinfo(struct ttl8192cd_priv *priv, unsigned int aid);
+			extern struct stat_info *get_macidinfo(struct ttl9081cd_priv *priv, unsigned int aid);
 
 			{
 				struct stat_info *pstat = get_macidinfo(pDM_Odm->priv, MacId);

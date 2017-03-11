@@ -2677,12 +2677,12 @@ unsigned int OnAssocReq(_adapter *padapter, union recv_frame *precv_frame)
 			u8	attr_content[ 10 ] = { 0x00 };
 			u32	attr_contentlen = 0;
 
-			DBG_8192C( "[%s] WFD IE Found!!\n", __FUNCTION__ );
+			DBG_9081C( "[%s] WFD IE Found!!\n", __FUNCTION__ );
 			tlw_get_wfd_attr_content( wfd_ie, wfd_ielen, WFD_ATTR_DEVICE_INFO, attr_content, &attr_contentlen);
 			if ( attr_contentlen )
 			{
 				pwdinfo->wfd_info->peer_rtsp_ctrlport = TLW_GET_BE16( attr_content + 2 );
-				DBG_8192C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
+				DBG_9081C( "[%s] Peer PORT NUM = %d\n", __FUNCTION__, pwdinfo->wfd_info->peer_rtsp_ctrlport );
 			}
 		}
 #endif
@@ -5885,7 +5885,7 @@ void issue_probersp_p2p(_adapter *padapter, unsigned char *da)
 		wpsielen += 2;	
 
 		//	Value:
-		_tlw_memcpy( wpsie + wpsielen, "8192CU", 6 );
+		_tlw_memcpy( wpsie + wpsielen, "9081CU", 6 );
 		wpsielen += 6;
 
 		//	Model Number
@@ -10216,7 +10216,7 @@ int _issue_action_SM_PS(_adapter *padapter ,  unsigned char *raddr , u8 NewMimoP
 	}
 
         if (ret != _SUCCESS)
-            DBG_8192C("%s, ack to\n", __func__);
+            DBG_9081C("%s, ack to\n", __func__);
 
 	return ret;
 }
@@ -10390,7 +10390,7 @@ unsigned int send_beacon(_adapter *padapter)
 
 	tlw_hal_set_hwreg(padapter, HW_VAR_BCN_VALID, NULL);
 
-	/* 8192EE Port select for Beacon DL */
+	/* 9081EE Port select for Beacon DL */
 	tlw_hal_set_hwreg(padapter, HW_VAR_DL_BCN_SEL, NULL);
 
 	issue_beacon(padapter, 0);
@@ -11026,7 +11026,7 @@ static void process_80211d(PADAPTER padapter, WLAN_BSSID_EX *bssid)
 		DBG_871X("%s: AP[%s] channel plan {", __FUNCTION__, bssid->Ssid.Ssid);
 		while ((i < chplan_ap.Len) && (chplan_ap.Channel[i] != 0))
 		{
-			DBG_8192C("%02d,", chplan_ap.Channel[i]);
+			DBG_9081C("%02d,", chplan_ap.Channel[i]);
 			i++;
 		}
 		DBG_871X("}\n");

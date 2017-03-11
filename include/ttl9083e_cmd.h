@@ -145,7 +145,7 @@ u8 ttl9083e_set_rssi_cmd(PADAPTER padapter, u8 *param);
 u8 ttl9083e_set_raid_cmd(_adapter *padapter, u32 bitmap, u8 *arg);
 void ttl9083e_Add_RateATid(PADAPTER padapter, u64 rate_bitmap, u8 *arg, u8 rssi_level);
 s32 FillH2CCmd_88E(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
-//u8 ttl8192c_set_FwSelectSuspend_cmd(PADAPTER padapter, u8 bfwpoll, u16 period);
+//u8 ttl9081c_set_FwSelectSuspend_cmd(PADAPTER padapter, u8 bfwpoll, u16 period);
 u8 GetTxBufferRsvdPageNum9083E(_adapter *padapter, bool wowlan);
 
 

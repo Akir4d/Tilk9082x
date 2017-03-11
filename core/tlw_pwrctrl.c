@@ -2538,16 +2538,16 @@ int _tlw_pwr_wakeup(_adapter *padapter, u32 ips_deffer_ms, const char *caller)
 #ifdef CONFIG_AUTOSUSPEND
 		 if(pwrpriv->brfoffbyhw==_TRUE)
 		{
-			DBG_8192C("hw still in rf_off state ...........\n");
+			DBG_9081C("hw still in rf_off state ...........\n");
 			ret = _FAIL;
 			goto exit;
 		}
 		else if(padapter->registrypriv.usbss_enable)
 		{
-			DBG_8192C("%s call autoresume_enter....\n",__FUNCTION__);
+			DBG_9081C("%s call autoresume_enter....\n",__FUNCTION__);
 			if(_FAIL ==  autoresume_enter(padapter))
 			{
-				DBG_8192C("======> autoresume fail.............\n");
+				DBG_9081C("======> autoresume fail.............\n");
 				ret = _FAIL;
 				goto exit;
 			}	
@@ -2557,10 +2557,10 @@ int _tlw_pwr_wakeup(_adapter *padapter, u32 ips_deffer_ms, const char *caller)
 #endif
 		{
 #ifdef CONFIG_IPS
-			DBG_8192C("%s call ips_leave....\n",__FUNCTION__);
+			DBG_9081C("%s call ips_leave....\n",__FUNCTION__);
 			if(_FAIL ==  ips_leave(padapter))
 			{
-				DBG_8192C("======> ips_leave fail.............\n");
+				DBG_9081C("======> ips_leave fail.............\n");
 				ret = _FAIL;
 				goto exit;
 			}
@@ -2573,7 +2573,7 @@ int _tlw_pwr_wakeup(_adapter *padapter, u32 ips_deffer_ms, const char *caller)
 		|| !padapter->bup
 		|| !tlw_is_hw_init_completed(padapter)
 	) {
-		DBG_8192C("%s: bDriverStopped=%s, bup=%d, hw_init_completed=%u\n"
+		DBG_9081C("%s: bDriverStopped=%s, bup=%d, hw_init_completed=%u\n"
 			, caller
 			, tlw_is_drv_stopped(padapter)?"True":"False"
 			, padapter->bup
