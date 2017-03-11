@@ -29,11 +29,11 @@
 
 
 #define AUTOCONF_INCLUDED
-#define RTL871X_MODULE_NAME "8189ES"
-#define DRV_NAME "rtl8189es"
+#define RTL871X_MODULE_NAME "9082ES"
+#define DRV_NAME "rtl9082es"
 
 #ifndef EFUSE_MAP_PATH
-	#define EFUSE_MAP_PATH "/system/etc/wifi/wifi_efuse_8189e.map"
+	#define EFUSE_MAP_PATH "/system/etc/wifi/wifi_efuse_9082e.map"
 #endif
 
 #define CONFIG_SDIO_HCI

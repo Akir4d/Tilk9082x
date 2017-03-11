@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL8189ES_LED_C_
+#define _RTL9082ES_LED_C_
 
 #include "drv_types.h"
 #include "rtl8188e_hal.h"

@@ -173,8 +173,8 @@ extern void InitInterrupt8188EGspi(PADAPTER padapter);
 extern void EnableInterrupt8188EGspi(PADAPTER padapter);
 extern void DisableInterrupt8188EGspi(PADAPTER padapter);
 extern void UpdateInterruptMask8188EGspi(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR);
-extern u8 HalQueryTxBufferStatus8189EGspi(PADAPTER padapter);
-extern u8 HalQueryTxOQTBufferStatus8189EGspi(PADAPTER padapter);
+extern u8 HalQueryTxBufferStatus9082EGspi(PADAPTER padapter);
+extern u8 HalQueryTxOQTBufferStatus9082EGspi(PADAPTER padapter);
 extern void ClearInterrupt8188EGspi(PADAPTER padapter);
 extern u8 CheckIPSStatus(PADAPTER padapter);
 #endif // CONFIG_RTL8188E

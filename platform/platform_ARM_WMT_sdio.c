@@ -33,10 +33,10 @@ int platform_wifi_power_on(void)
 		return err;
 	}
 	gpio_direction_output(WMT_PIN_GP62_SUSGPIO1, 0);//pull sus_gpio1 to 0 to open vcc_wifi.
-	printk("power on rtl8189.\n");
+	printk("power on rtl9082.\n");
 	msleep(500);
 	wmt_detect_sdio2();
-	printk("[rtl8189es] %s: new card, power on.\n", __FUNCTION__);
+	printk("[rtl9082es] %s: new card, power on.\n", __FUNCTION__);
 	return err;
 }
 
@@ -45,7 +45,7 @@ void platform_wifi_power_off(void)
 	force_remove_sdio2();
 
 	gpio_direction_output(WMT_PIN_GP62_SUSGPIO1, 1);//pull sus_gpio1 to 1 to close vcc_wifi.
-	printk("power off rtl8189.\n");
+	printk("power off rtl9082.\n");
 	gpio_free(WMT_PIN_GP62_SUSGPIO1);
-	printk("[rtl8189es] %s: remove card, power off.\n", __FUNCTION__);
+	printk("[rtl9082es] %s: remove card, power off.\n", __FUNCTION__);
 }

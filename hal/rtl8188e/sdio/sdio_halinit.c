@@ -1689,8 +1689,8 @@ HAL_INIT_PROFILE_TAG(HAL_INIT_STAGES_MISC31);
 	//
 	// Update current Tx FIFO page status.
 	//
-	HalQueryTxBufferStatus8189ESdio(padapter);
-	HalQueryTxOQTBufferStatus8189ESdio(padapter);
+	HalQueryTxBufferStatus9082ESdio(padapter);
+	HalQueryTxOQTBufferStatus9082ESdio(padapter);
 	pHalData->SdioTxOQTMaxFreeSpace = pHalData->SdioTxOQTFreeSpace;
 
 

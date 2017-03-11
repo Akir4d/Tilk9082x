@@ -67,8 +67,8 @@ extern void InitInterrupt8188ESdio(PADAPTER padapter);
 extern void EnableInterrupt8188ESdio(PADAPTER padapter);
 extern void DisableInterrupt8188ESdio(PADAPTER padapter);
 extern void UpdateInterruptMask8188ESdio(PADAPTER padapter, u32 AddMSR, u32 RemoveMSR);
-extern u8 HalQueryTxBufferStatus8189ESdio(PADAPTER padapter);
-extern u8 HalQueryTxOQTBufferStatus8189ESdio(PADAPTER padapter);
+extern u8 HalQueryTxBufferStatus9082ESdio(PADAPTER padapter);
+extern u8 HalQueryTxOQTBufferStatus9082ESdio(PADAPTER padapter);
 extern void ClearInterrupt8188ESdio(PADAPTER padapter);
 #endif // CONFIG_RTL8188E
 

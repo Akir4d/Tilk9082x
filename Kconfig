@@ -1,5 +1,5 @@
-config RTL8189ES
-	tristate "Realtek 8189E SDIO WiFi"
+config RTL9082ES
+	tristate "Realtek 9082E SDIO WiFi"
 	depends on USB
 	---help---
-	  Help message of RTL8189ES
+	  Help message of RTL9082ES

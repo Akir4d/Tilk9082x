@@ -17,7 +17,7 @@
  *
  *
  ******************************************************************************/
-#define _RTL8189ES_XMIT_C_
+#define _RTL9082ES_XMIT_C_
 
 #include <drv_types.h>
 #include <rtl8188e_hal.h>
@@ -489,7 +489,7 @@ static u8 rtw_sdio_wait_enough_TxOQT_space(PADAPTER padapter, u8 agg_num)
 			return _FALSE;
 		}
 
-		HalQueryTxOQTBufferStatus8189ESdio(padapter);
+		HalQueryTxOQTBufferStatus9082ESdio(padapter);
 		
 		if ((++n % 60) == 0) {
 			if ((n % 300) == 0) {			
@@ -556,7 +556,7 @@ query_free_page:
 #ifdef CONFIG_SDIO_TX_ENABLE_AVAL_INT
 		if (!bUpdatePageNum) {
 			// Total number of page is NOT available, so update current FIFO status
-			HalQueryTxBufferStatus8189ESdio(padapter);
+			HalQueryTxBufferStatus9082ESdio(padapter);
 			bUpdatePageNum = _TRUE;
 			goto query_free_page;
 		} else {
@@ -573,7 +573,7 @@ query_free_page:
 		}
 
 		// Total number of page is NOT available, so update current FIFO status
-		HalQueryTxBufferStatus8189ESdio(padapter);
+		HalQueryTxBufferStatus9082ESdio(padapter);
 		goto query_free_page;
 #endif //CONFIG_SDIO_TX_ENABLE_AVAL_INT
 	}

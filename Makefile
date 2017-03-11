@@ -232,11 +232,11 @@ ifeq ($(CONFIG_RTL8188E), y)
 
 RTL871X = rtl8188e
 ifeq ($(CONFIG_SDIO_HCI), y)
-MODULE_NAME = 8189es
+MODULE_NAME = 9082es
 endif
 
 ifeq ($(CONFIG_GSPI_HCI), y)
-MODULE_NAME = 8189es
+MODULE_NAME = 9082es
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
@@ -647,7 +647,7 @@ ifeq ($(CONFIG_PCI_HCI), y)
 MODULE_NAME = 8188fe
 endif
 ifeq ($(CONFIG_SDIO_HCI), y)
-MODULE_NAME = 8189fs
+MODULE_NAME = 9082fs
 endif
 
 EXTRA_CFLAGS += -DCONFIG_RTL8188F
@@ -702,9 +702,9 @@ ifeq ($(CONFIG_MULTIDRV), y)
 $(shell cp $(TopDIR)/autoconf_multidrv_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
 ifeq ($(CONFIG_RTL8188E)$(CONFIG_SDIO_HCI),yy)
-$(shell cp $(TopDIR)/autoconf_rtl8189e_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
+$(shell cp $(TopDIR)/autoconf_rtl9082e_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else ifeq ($(CONFIG_RTL8188F)$(CONFIG_SDIO_HCI),yy)
-$(shell cp $(TopDIR)/autoconf_rtl8189f_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
+$(shell cp $(TopDIR)/autoconf_rtl9082f_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 else
 $(shell cp $(TopDIR)/autoconf_$(RTL871X)_$(HCI_NAME)_linux.h $(TopDIR)/include/autoconf.h)
 endif
@@ -758,8 +758,8 @@ EXTRA_CFLAGS += -DCONFIG_EFUSE_CONFIG_FILE
 USER_EFUSE_MAP_PATH ?=
 ifneq ($(USER_EFUSE_MAP_PATH),)
 EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"$(USER_EFUSE_MAP_PATH)\"
-else ifeq ($(MODULE_NAME), 8189es)
-EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"/system/etc/wifi/wifi_efuse_8189e.map\"
+else ifeq ($(MODULE_NAME), 9082es)
+EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"/system/etc/wifi/wifi_efuse_9082e.map\"
 else ifeq ($(MODULE_NAME), 8723bs)
 EXTRA_CFLAGS += -DEFUSE_MAP_PATH=\"/system/etc/wifi/wifi_efuse_8723bs.map\"
 else
@@ -1520,7 +1520,7 @@ endif
 ARCH := arm
 CROSS_COMPILE := /home/android_sdk/WonderMedia/wm8880-android4.4/toolchain/arm_201103_gcc4.5.2/mybin/arm_1103_le-
 KSRC := /home/android_sdk/WonderMedia/wm8880-android4.4/kernel4.4/
-MODULE_NAME :=8189es_kk
+MODULE_NAME :=9082es_kk
 endif
 
 ifeq ($(CONFIG_PLATFORM_RTK119X), y)
@@ -1645,7 +1645,7 @@ obj-m := $(MODULE_NAME).o
 
 else
 
-export CONFIG_RTL8189ES = m
+export CONFIG_RTL9082ES = m
 
 all: modules
 

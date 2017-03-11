@@ -1853,7 +1853,7 @@ void sd_int_hdl(PADAPTER padapter)
 //
 //	Created by Roger, 2011.01.28.
 //
-u8 HalQueryTxBufferStatus8189ESdio(PADAPTER padapter)
+u8 HalQueryTxBufferStatus9082ESdio(PADAPTER padapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	u32 NumOfFreePage;
@@ -1882,7 +1882,7 @@ u8 HalQueryTxBufferStatus8189ESdio(PADAPTER padapter)
 //	Description:
 //		Query SDIO Local register to get the current number of TX OQT Free Space.
 //
-u8 HalQueryTxOQTBufferStatus8189ESdio(PADAPTER padapter)
+u8 HalQueryTxOQTBufferStatus9082ESdio(PADAPTER padapter)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(padapter);
 	pHalData->SdioTxOQTFreeSpace = SdioLocalCmd52Read1Byte(padapter, 0x0025/*SDIO_REG_OQT_FREE_PG*/);

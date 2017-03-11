@@ -26,32 +26,32 @@
 #define SDIOID (CONFIG_CHIP_ID==1123 ? 3 : 1)
 #endif // !CONFIG_WITS_EVB_V13
 
-#define SUNXI_SDIO_WIFI_NUM_RTL8189ES  10
+#define SUNXI_SDIO_WIFI_NUM_RTL9082ES  10
 extern void sunximmc_rescan_card(unsigned id, unsigned insert);
 extern int mmc_pm_get_mod_type(void);
 extern int mmc_pm_gpio_ctrl(char* name, int level);
 /*
- *	rtl8189es_shdn	= port:PH09<1><default><default><0>
- *	rtl8189es_wakeup	= port:PH10<1><default><default><1>
- *	rtl8189es_vdd_en  = port:PH11<1><default><default><0>
- *	rtl8189es_vcc_en  = port:PH12<1><default><default><0>
+ *	rtl9082es_shdn	= port:PH09<1><default><default><0>
+ *	rtl9082es_wakeup	= port:PH10<1><default><default><1>
+ *	rtl9082es_vdd_en  = port:PH11<1><default><default><0>
+ *	rtl9082es_vcc_en  = port:PH12<1><default><default><0>
  */
 
-int rtl8189es_sdio_powerup(void)
+int rtl9082es_sdio_powerup(void)
 {
-	mmc_pm_gpio_ctrl("rtl8189es_vdd_en", 1);
+	mmc_pm_gpio_ctrl("rtl9082es_vdd_en", 1);
 	udelay(100);
-	mmc_pm_gpio_ctrl("rtl8189es_vcc_en", 1);
+	mmc_pm_gpio_ctrl("rtl9082es_vcc_en", 1);
 	udelay(50);
-	mmc_pm_gpio_ctrl("rtl8189es_shdn", 1);
+	mmc_pm_gpio_ctrl("rtl9082es_shdn", 1);
 	return 0;
 }
 
-int rtl8189es_sdio_poweroff(void)
+int rtl9082es_sdio_poweroff(void)
 {
-	mmc_pm_gpio_ctrl("rtl8189es_shdn", 0);
-	mmc_pm_gpio_ctrl("rtl8189es_vcc_en", 0);
-	mmc_pm_gpio_ctrl("rtl8189es_vdd_en", 0);
+	mmc_pm_gpio_ctrl("rtl9082es_shdn", 0);
+	mmc_pm_gpio_ctrl("rtl9082es_vcc_en", 0);
+	mmc_pm_gpio_ctrl("rtl9082es_vdd_en", 0);
 	return 0;
 }
 #endif // CONFIG_MMC_SUNXI_POWER_CONTROL
@@ -70,13 +70,13 @@ int platform_wifi_power_on(void)
 
 
 #ifdef CONFIG_MMC_SUNXI_POWER_CONTROL
-	if (mod_sel == SUNXI_SDIO_WIFI_NUM_RTL8189ES) {
-		rtl8189es_sdio_powerup();
+	if (mod_sel == SUNXI_SDIO_WIFI_NUM_RTL9082ES) {
+		rtl9082es_sdio_powerup();
 		sunximmc_rescan_card(SDIOID, 1);
-		printk("[rtl8189es] %s: power up, rescan card.\n", __FUNCTION__);
+		printk("[rtl9082es] %s: power up, rescan card.\n", __FUNCTION__);
 	} else {
 		ret = -1;
-		printk("[rtl8189es] %s: mod_sel = %d is incorrect.\n", __FUNCTION__, mod_sel);
+		printk("[rtl9082es] %s: mod_sel = %d is incorrect.\n", __FUNCTION__, mod_sel);
 	}
 #endif // CONFIG_MMC_SUNXI_POWER_CONTROL
 
@@ -88,8 +88,8 @@ void platform_wifi_power_off(void)
 #ifdef CONFIG_MMC_SUNXI_POWER_CONTROL
 	sunximmc_rescan_card(SDIOID, 0);
 #ifdef CONFIG_RTL8188E
-	rtl8189es_sdio_poweroff();
-	printk("[rtl8189es] %s: remove card, power off.\n", __FUNCTION__);
+	rtl9082es_sdio_poweroff();
+	printk("[rtl9082es] %s: remove card, power off.\n", __FUNCTION__);
 #endif // CONFIG_RTL8188E
 #endif // CONFIG_MMC_SUNXI_POWER_CONTROL
 }
