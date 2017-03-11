@@ -608,15 +608,15 @@ typedef struct hal_com_data HAL_DATA_TYPE, *PHAL_DATA_TYPE;
 
 #define get_hal_mac_addr(adapter) 				(GET_HAL_DATA(adapter)->EEPROMMACAddr)
 #define is_boot_from_eeprom(adapter) 			(GET_HAL_DATA(adapter)->EepromOrEfuse)
-#define rtw_get_hw_init_completed(adapter)		(GET_HAL_DATA(adapter)->hw_init_completed)
-#define rtw_is_hw_init_completed(adapter)		(GET_HAL_DATA(adapter)->hw_init_completed == _TRUE)
+#define tlw_get_hw_init_completed(adapter)		(GET_HAL_DATA(adapter)->hw_init_completed)
+#define tlw_is_hw_init_completed(adapter)		(GET_HAL_DATA(adapter)->hw_init_completed == _TRUE)
 #endif
 
 #ifdef CONFIG_AUTO_CHNL_SEL_NHM
 #define GET_ACS_STATE(padapter)					(ATOMIC_READ(&GET_HAL_DATA(padapter)->acs.state))
 #define SET_ACS_STATE(padapter, set_state)			(ATOMIC_SET(&GET_HAL_DATA(padapter)->acs.state, set_state))
-#define rtw_get_acs_channel(padapter)				(GET_HAL_DATA(padapter)->acs.ch)
-#define rtw_set_acs_channel(padapter, survey_ch)	(GET_HAL_DATA(padapter)->acs.ch = survey_ch)
+#define tlw_get_acs_channel(padapter)				(GET_HAL_DATA(padapter)->acs.ch)
+#define tlw_set_acs_channel(padapter, survey_ch)	(GET_HAL_DATA(padapter)->acs.ch = survey_ch)
 #endif /*CONFIG_AUTO_CHNL_SEL_NHM*/
 
 #endif //__HAL_DATA_H__

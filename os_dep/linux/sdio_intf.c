@@ -31,7 +31,7 @@
 #ifdef CONFIG_ACPI
 #include <linux/acpi.h>
 #include <linux/acpi_gpio.h>
-#include "rtw_android.h"
+#include "tlw_android.h"
 #endif
 static int wlan_en_gpio = -1;
 #endif //CONFIG_PLATFORM_INTEL_BYT
@@ -81,16 +81,16 @@ static const struct sdio_device_id sdio_ids[] =
 
 MODULE_DEVICE_TABLE(sdio, sdio_ids);
 
-static int rtw_drv_init(struct sdio_func *func, const struct sdio_device_id *id);
-static void rtw_dev_remove(struct sdio_func *func);
-static int rtw_sdio_resume(struct device *dev);
-static int rtw_sdio_suspend(struct device *dev);
-extern void rtw_dev_unload(PADAPTER padapter);
+static int tlw_drv_init(struct sdio_func *func, const struct sdio_device_id *id);
+static void tlw_dev_remove(struct sdio_func *func);
+static int tlw_sdio_resume(struct device *dev);
+static int tlw_sdio_suspend(struct device *dev);
+extern void tlw_dev_unload(PADAPTER padapter);
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,29)) 
-static const struct dev_pm_ops rtw_sdio_pm_ops = {
-	.suspend	= rtw_sdio_suspend,
-	.resume	= rtw_sdio_resume,
+static const struct dev_pm_ops tlw_sdio_pm_ops = {
+	.suspend	= tlw_sdio_suspend,
+	.resume	= tlw_sdio_resume,
 };
 #endif
 	
@@ -100,13 +100,13 @@ struct sdio_drv_priv {
 };
 
 static struct sdio_drv_priv sdio_drvpriv = {
-	.r871xs_drv.probe = rtw_drv_init,
-	.r871xs_drv.remove = rtw_dev_remove,
+	.r871xs_drv.probe = tlw_drv_init,
+	.r871xs_drv.remove = tlw_dev_remove,
 	.r871xs_drv.name = (char*)DRV_NAME,
 	.r871xs_drv.id_table = sdio_ids,
 	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,29)) 
 	.r871xs_drv.drv = {
-		.pm = &rtw_sdio_pm_ops,
+		.pm = &tlw_sdio_pm_ops,
 	}
 	#endif
 };
@@ -122,9 +122,9 @@ static void sd_sync_int_hdl(struct sdio_func *func)
 		return;
 	}
 
-	rtw_sdio_set_irq_thd(psdpriv, current);
+	tlw_sdio_set_irq_thd(psdpriv, current);
 	sd_int_hdl(psdpriv->padapters[IFACE_ID0]);
-	rtw_sdio_set_irq_thd(psdpriv, NULL);
+	tlw_sdio_set_irq_thd(psdpriv, NULL);
 }
 
 int sdio_alloc_irq(struct dvobj_priv *dvobj)
@@ -190,7 +190,7 @@ static irqreturn_t gpio_hostwakeup_irq_thread(int irq, void *data)
 	DBG_871X_LEVEL(_drv_always_, "gpio_hostwakeup_irq_thread\n");
 	/* Disable interrupt before calling handler */
 	//disable_irq_nosync(oob_irq);
-	rtw_lock_suspend_timeout(HZ/2);
+	tlw_lock_suspend_timeout(HZ/2);
 #ifdef CONFIG_PLATFORM_ARM_SUN6I
 	return 0;
 #else
@@ -220,7 +220,7 @@ static u8 gpio_hostwakeup_alloc_irq(PADAPTER padapter)
 		status |= IRQF_TRIGGER_FALLING;
 
 	err = request_threaded_irq(oob_irq, gpio_hostwakeup_irq_thread, NULL,
-				   status, "rtw_wifi_gpio_wakeup", padapter);
+				   status, "tlw_wifi_gpio_wakeup", padapter);
 
 	if (err < 0) {
 		DBG_871X("Oops: can't allocate gpio irq %d err:%d\n", oob_irq, err);
@@ -324,7 +324,7 @@ static void sdio_deinit(struct dvobj_priv *dvobj)
 	}
 }
 
-static void rtw_decide_chip_type_by_device_id(struct dvobj_priv *dvobj, const struct sdio_device_id  *pdid)
+static void tlw_decide_chip_type_by_device_id(struct dvobj_priv *dvobj, const struct sdio_device_id  *pdid)
 {
 	dvobj->chip_type = pdid->driver_data;
 
@@ -391,9 +391,9 @@ _func_enter_;
 	}
 
 	dvobj->interface_type = RTW_SDIO;
-	rtw_decide_chip_type_by_device_id(dvobj, pdid);
+	tlw_decide_chip_type_by_device_id(dvobj, pdid);
 
-	rtw_reset_continual_io_error(dvobj);
+	tlw_reset_continual_io_error(dvobj);
 	status = _SUCCESS;
 
 free_dvobj:
@@ -424,43 +424,43 @@ _func_exit_;
 	return;
 }
 
-u8 rtw_set_hal_ops(PADAPTER padapter)
+u8 tlw_set_hal_ops(PADAPTER padapter)
 {
 	//alloc memory for HAL DATA
-	if(rtw_hal_data_init(padapter) == _FAIL)
+	if(tlw_hal_data_init(padapter) == _FAIL)
 		return _FAIL;
 
 #if defined(CONFIG_RTL9083E)
-	if (rtw_get_chip_type(padapter) == RTL9083E)
+	if (tlw_get_chip_type(padapter) == RTL9083E)
 		ttl9083es_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8723B)
-	if (rtw_get_chip_type(padapter) == RTL8723B)
+	if (tlw_get_chip_type(padapter) == RTL8723B)
 		ttl8723bs_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8821A)
-	if (rtw_get_chip_type(padapter) == RTL8821)
+	if (tlw_get_chip_type(padapter) == RTL8821)
 		ttl8821as_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8192E)
-	if (rtw_get_chip_type(padapter) == RTL8192E)
+	if (tlw_get_chip_type(padapter) == RTL8192E)
 		ttl8192es_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL8703B)
-	if (rtw_get_chip_type(padapter) == RTL8703B)
+	if (tlw_get_chip_type(padapter) == RTL8703B)
 		ttl8703bs_set_hal_ops(padapter);
 #endif
 
 #if defined(CONFIG_RTL9083F)
-	if (rtw_get_chip_type(padapter) == RTL9083F)
+	if (tlw_get_chip_type(padapter) == RTL9083F)
 		ttl9083fs_set_hal_ops(padapter);
 #endif
 
-	if( rtw_hal_ops_check(padapter) == _FAIL)
+	if( tlw_hal_ops_check(padapter) == _FAIL)
 		return _FAIL;
 
 	return _SUCCESS;
@@ -474,7 +474,7 @@ static void sd_intf_start(PADAPTER padapter)
 	}
 
 	// hal dep
-	rtw_hal_enable_interrupt(padapter);
+	tlw_hal_enable_interrupt(padapter);
 }
 
 static void sd_intf_stop(PADAPTER padapter)
@@ -485,7 +485,7 @@ static void sd_intf_stop(PADAPTER padapter)
 	}
 
 	// hal dep
-	rtw_hal_disable_interrupt(padapter);
+	tlw_hal_disable_interrupt(padapter);
 }
 
 
@@ -493,12 +493,12 @@ static void sd_intf_stop(PADAPTER padapter)
 PADAPTER g_test_adapter = NULL;
 #endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
 
-_adapter *rtw_sdio_if1_init(struct dvobj_priv *dvobj)
+_adapter *tlw_sdio_if1_init(struct dvobj_priv *dvobj)
 {
 	int status = _FAIL;
 	PADAPTER padapter = NULL;
 
-	padapter = (_adapter *)rtw_zvmalloc(sizeof(*padapter));
+	padapter = (_adapter *)tlw_zvmalloc(sizeof(*padapter));
 	if (padapter == NULL)
 		goto exit;
 
@@ -510,7 +510,7 @@ _adapter *rtw_sdio_if1_init(struct dvobj_priv *dvobj)
 #endif // RTW_SUPPORT_PLATFORM_SHUTDOWN
 	padapter->dvobj = dvobj;
 
-	rtw_set_drv_stopped(padapter);/*init*/
+	tlw_set_drv_stopped(padapter);/*init*/
 
 	dvobj->padapters[dvobj->iface_nums++] = padapter;
 	padapter->iface_id = IFACE_ID0;
@@ -529,7 +529,7 @@ _adapter *rtw_sdio_if1_init(struct dvobj_priv *dvobj)
 	//3 3. init driver special setting, interface, OS and hardware relative
 
 	//4 3.1 set hardware operation functions
-	if (rtw_set_hal_ops(padapter)== _FAIL)
+	if (tlw_set_hal_ops(padapter)== _FAIL)
 		goto free_hal_data;
 
 	//3 5. initialize Chip version
@@ -541,69 +541,69 @@ _adapter *rtw_sdio_if1_init(struct dvobj_priv *dvobj)
 	padapter->intf_alloc_irq = &sdio_alloc_irq;
 	padapter->intf_free_irq = &sdio_free_irq;
 
-	if (rtw_init_io_priv(padapter, sdio_set_intf_ops) == _FAIL)
+	if (tlw_init_io_priv(padapter, sdio_set_intf_ops) == _FAIL)
 	{
 		RT_TRACE(_module_hci_intfs_c_, _drv_err_,
-			("rtw_drv_init: Can't init io_priv\n"));
+			("tlw_drv_init: Can't init io_priv\n"));
 		goto free_hal_data;
 	}
 
-	rtw_hal_read_chip_version(padapter);
+	tlw_hal_read_chip_version(padapter);
 
-	rtw_hal_chip_configure(padapter);
+	tlw_hal_chip_configure(padapter);
 
 #ifdef CONFIG_BT_COEXIST
-	rtw_btcoex_Initialize(padapter);
+	tlw_btcoex_Initialize(padapter);
 #endif // CONFIG_BT_COEXIST
 
 	//3 6. read efuse/eeprom data
-	rtw_hal_read_chip_info(padapter);
+	tlw_hal_read_chip_info(padapter);
 
 	//3 7. init driver common data
-	if (rtw_init_drv_sw(padapter) == _FAIL) {
+	if (tlw_init_drv_sw(padapter) == _FAIL) {
 		RT_TRACE(_module_hci_intfs_c_, _drv_err_,
-			 ("rtw_drv_init: Initialize driver software resource Failed!\n"));
+			 ("tlw_drv_init: Initialize driver software resource Failed!\n"));
 		goto free_hal_data;
 	}
 
 	//3 8. get WLan MAC address
 	// set mac addr
-	rtw_macaddr_cfg(adapter_mac_addr(padapter),  get_hal_mac_addr(padapter));
-	rtw_init_wifidirect_addrs(padapter, adapter_mac_addr(padapter), adapter_mac_addr(padapter));
+	tlw_macaddr_cfg(adapter_mac_addr(padapter),  get_hal_mac_addr(padapter));
+	tlw_init_wifidirect_addrs(padapter, adapter_mac_addr(padapter), adapter_mac_addr(padapter));
 
-	rtw_hal_disable_interrupt(padapter);
+	tlw_hal_disable_interrupt(padapter);
 
 	if (padapter->net_closed == _TRUE)
-		rtw_hal_deinit(padapter);
+		tlw_hal_deinit(padapter);
 
 	DBG_871X("bDriverStopped:%s, bSurpriseRemoved:%s, bup:%d, hw_init_completed:%d\n"
-		, rtw_is_drv_stopped(padapter)?"True":"False"
-		, rtw_is_surprise_removed(padapter)?"True":"False"
+		, tlw_is_drv_stopped(padapter)?"True":"False"
+		, tlw_is_surprise_removed(padapter)?"True":"False"
 		, padapter->bup
-		, rtw_get_hw_init_completed(padapter)
+		, tlw_get_hw_init_completed(padapter)
 	);
 	
 	status = _SUCCESS;
 	
 free_hal_data:
 	if (status != _SUCCESS && padapter->HalData)
-		rtw_hal_free_data(padapter);
+		tlw_hal_free_data(padapter);
 
 free_adapter:
 	if (status != _SUCCESS && padapter) {
-		rtw_vmfree((u8 *)padapter, sizeof(*padapter));
+		tlw_vmfree((u8 *)padapter, sizeof(*padapter));
 		padapter = NULL;
 	}
 exit:
 	return padapter;
 }
 
-static void rtw_sdio_if1_deinit(_adapter *if1)
+static void tlw_sdio_if1_deinit(_adapter *if1)
 {
 	struct mlme_priv *pmlmepriv= &if1->mlmepriv;
 
 	if(check_fwstate(pmlmepriv, _FW_LINKED))
-		rtw_disassoc_cmd(if1, 0, _FALSE);
+		tlw_disassoc_cmd(if1, 0, _FALSE);
 
 #ifdef CONFIG_AP_MODE
 	free_mlme_ap_info(if1);
@@ -621,22 +621,22 @@ static void rtw_sdio_if1_deinit(_adapter *if1)
 #endif
 #endif
 
-	rtw_cancel_all_timer(if1);
+	tlw_cancel_all_timer(if1);
 
 #ifdef CONFIG_WOWLAN
 	adapter_to_pwrctl(if1)->wowlan_mode=_FALSE;
 	DBG_871X_LEVEL(_drv_always_, "%s wowlan_mode:%d\n", __func__, adapter_to_pwrctl(if1)->wowlan_mode);
 #endif //CONFIG_WOWLAN
 
-	rtw_dev_unload(if1);
-	DBG_871X("+r871xu_dev_remove, hw_init_completed=%d\n", rtw_get_hw_init_completed(if1));
+	tlw_dev_unload(if1);
+	DBG_871X("+r871xu_dev_remove, hw_init_completed=%d\n", tlw_get_hw_init_completed(if1));
 
-	rtw_free_drv_sw(if1);
+	tlw_free_drv_sw(if1);
 
-	/* TODO: use rtw_os_ndevs_deinit instead at the first stage of driver's dev deinit function */
-	rtw_os_ndev_free(if1);
+	/* TODO: use tlw_os_ndevs_deinit instead at the first stage of driver's dev deinit function */
+	tlw_os_ndev_free(if1);
 
-	rtw_vmfree((u8 *)if1, sizeof(_adapter));
+	tlw_vmfree((u8 *)if1, sizeof(_adapter));
 
 #ifdef CONFIG_PLATFORM_RTD2880B
 	DBG_871X("wlan link down\n");
@@ -654,7 +654,7 @@ static void rtw_sdio_if1_deinit(_adapter *if1)
  * notes: drv_init() is called when the bus driver has located a card for us to support.
  *        We accept the new device by returning 0.
  */
-static int rtw_drv_init(
+static int tlw_drv_init(
 	struct sdio_func *func,
 	const struct sdio_device_id *id)
 {
@@ -682,26 +682,26 @@ static int rtw_drv_init(
 			DBG_871X("Disabling ACPI power management support!\n");
 		}
 		oob_gpio = acpi_get_gpio_by_index(&func->dev, 0, NULL);
-		DBG_871X("rtw_drv_init: ACPI_HANDLE found oob_gpio %d!\n", oob_gpio);
+		DBG_871X("tlw_drv_init: ACPI_HANDLE found oob_gpio %d!\n", oob_gpio);
 		wifi_configure_gpio();
 	}
 	else
-		DBG_871X("rtw_drv_init: ACPI_HANDLE NOT found!\n");
+		DBG_871X("tlw_drv_init: ACPI_HANDLE NOT found!\n");
 #endif
 
 #if defined(CONFIG_ACPI)
 	if (&func->dev && ACPI_HANDLE(&func->dev)) {
 		wlan_en_gpio = acpi_get_gpio_by_index(&func->dev, 1, NULL);
-		DBG_871X("rtw_drv_init: ACPI_HANDLE found wlan_en %d!\n", wlan_en_gpio);
+		DBG_871X("tlw_drv_init: ACPI_HANDLE found wlan_en %d!\n", wlan_en_gpio);
 	}
 	else
-		DBG_871X("rtw_drv_init: ACPI_HANDLE NOT found!\n");
+		DBG_871X("tlw_drv_init: ACPI_HANDLE NOT found!\n");
 #endif
 #endif //CONFIG_PLATFORM_INTEL_BYT
 
 
 	RT_TRACE(_module_hci_intfs_c_, _drv_info_,
-		("+rtw_drv_init: vendor=0x%04x device=0x%04x class=0x%02x\n",
+		("+tlw_drv_init: vendor=0x%04x device=0x%04x class=0x%02x\n",
 		func->vendor, func->device, func->class));
 
 	if ((dvobj = sdio_dvobj_init(func, id)) == NULL) {
@@ -709,19 +709,19 @@ static int rtw_drv_init(
 		goto exit;
 	}
 
-	if ((if1 = rtw_sdio_if1_init(dvobj)) == NULL) {
-		DBG_871X("rtw_init_primary_adapter Failed!\n");
+	if ((if1 = tlw_sdio_if1_init(dvobj)) == NULL) {
+		DBG_871X("tlw_init_primary_adapter Failed!\n");
 		goto free_dvobj;
 	}
 
 #ifdef CONFIG_CONCURRENT_MODE
-	if ((if2 = rtw_drv_if2_init(if1, sdio_set_intf_ops)) == NULL) {
+	if ((if2 = tlw_drv_if2_init(if1, sdio_set_intf_ops)) == NULL) {
 		goto free_if1;
 	}
 #endif
 
 	//dev_alloc_name && register_netdev
-	if (rtw_os_ndevs_init(dvobj) != _SUCCESS)
+	if (tlw_os_ndevs_init(dvobj) != _SUCCESS)
 		goto free_if2;
 
 #ifdef CONFIG_HOSTAPD_MLME
@@ -751,7 +751,7 @@ static int rtw_drv_init(
 #ifdef CONFIG_GLOBAL_UI_PID
 	if(ui_pid[1]!=0) {
 		DBG_871X("ui_pid[1]:%d\n",ui_pid[1]);
-		rtw_signal_process(ui_pid[1], SIGUSR2);
+		tlw_signal_process(ui_pid[1], SIGUSR2);
 	}
 #endif
 
@@ -761,17 +761,17 @@ static int rtw_drv_init(
 
 os_ndevs_deinit:
 	if (status != _SUCCESS)
-		rtw_os_ndevs_deinit(dvobj);
+		tlw_os_ndevs_deinit(dvobj);
 free_if2:
 	if(status != _SUCCESS && if2) {
 		#ifdef CONFIG_CONCURRENT_MODE
-		rtw_drv_if2_stop(if2);
-		rtw_drv_if2_free(if2);
+		tlw_drv_if2_stop(if2);
+		tlw_drv_if2_free(if2);
 		#endif
 	}
 free_if1:
 	if (status != _SUCCESS && if1) {
-		rtw_sdio_if1_deinit(if1);
+		tlw_sdio_if1_deinit(if1);
 	}
 free_dvobj:
 	if (status != _SUCCESS)
@@ -780,7 +780,7 @@ exit:
 	return status == _SUCCESS?0:-ENODEV;
 }
 
-static void rtw_dev_remove(struct sdio_func *func)
+static void tlw_dev_remove(struct sdio_func *func)
 {
 	struct dvobj_priv *dvobj = sdio_get_drvdata(func);
 	struct pwrctrl_priv *pwrctl = dvobj_to_pwrctl(dvobj);
@@ -788,14 +788,14 @@ static void rtw_dev_remove(struct sdio_func *func)
 
 _func_enter_;
 
-	RT_TRACE(_module_hci_intfs_c_, _drv_notice_, ("+rtw_dev_remove\n"));
+	RT_TRACE(_module_hci_intfs_c_, _drv_notice_, ("+tlw_dev_remove\n"));
 
 	dvobj->processing_dev_remove = _TRUE;
 
-	/* TODO: use rtw_os_ndevs_deinit instead at the first stage of driver's dev deinit function */
-	rtw_os_ndevs_unregister(dvobj);
+	/* TODO: use tlw_os_ndevs_deinit instead at the first stage of driver's dev deinit function */
+	tlw_os_ndevs_unregister(dvobj);
 
-	if (!rtw_is_surprise_removed(padapter)) {
+	if (!tlw_is_surprise_removed(padapter)) {
 		int err;
 
 		/* test surprise remove */
@@ -803,47 +803,47 @@ _func_enter_;
 		sdio_readb(func, 0, &err);
 		sdio_release_host(func);
 		if (err == -ENOMEDIUM) {
-			rtw_set_surprise_removed(padapter);
+			tlw_set_surprise_removed(padapter);
 			DBG_871X(KERN_NOTICE "%s: device had been removed!\n", __func__);
 		}
 	}
 
 #if defined(CONFIG_HAS_EARLYSUSPEND) || defined(CONFIG_ANDROID_POWER)
-	rtw_unregister_early_suspend(pwrctl);
+	tlw_unregister_early_suspend(pwrctl);
 #endif
 
 	if (padapter->bFWReady == _TRUE) {
-		rtw_ps_deny(padapter, PS_DENY_DRV_REMOVE);
-		rtw_pm_set_ips(padapter, IPS_NONE);
-		rtw_pm_set_lps(padapter, PS_MODE_ACTIVE);
+		tlw_ps_deny(padapter, PS_DENY_DRV_REMOVE);
+		tlw_pm_set_ips(padapter, IPS_NONE);
+		tlw_pm_set_lps(padapter, PS_MODE_ACTIVE);
 		LeaveAllPowerSaveMode(padapter);
 	}
 
-	rtw_set_drv_stopped(padapter);	/*for stop thread*/
+	tlw_set_drv_stopped(padapter);	/*for stop thread*/
 #ifdef CONFIG_CONCURRENT_MODE
-	rtw_drv_if2_stop(dvobj->padapters[IFACE_ID1]);
+	tlw_drv_if2_stop(dvobj->padapters[IFACE_ID1]);
 #endif
 
 #ifdef CONFIG_BT_COEXIST
-	rtw_btcoex_HaltNotify(padapter);
+	tlw_btcoex_HaltNotify(padapter);
 #endif
 
-	rtw_sdio_if1_deinit(padapter);
+	tlw_sdio_if1_deinit(padapter);
 
 #ifdef CONFIG_CONCURRENT_MODE
-	rtw_drv_if2_free(dvobj->padapters[IFACE_ID1]);
+	tlw_drv_if2_free(dvobj->padapters[IFACE_ID1]);
 #endif
 
 	sdio_dvobj_deinit(func);
 
-	RT_TRACE(_module_hci_intfs_c_, _drv_notice_, ("-rtw_dev_remove\n"));
+	RT_TRACE(_module_hci_intfs_c_, _drv_notice_, ("-tlw_dev_remove\n"));
 
 _func_exit_;
 }
 extern int pm_netdev_open(struct net_device *pnetdev,u8 bnormal);
 extern int pm_netdev_close(struct net_device *pnetdev,u8 bnormal);
 
-static int rtw_sdio_suspend(struct device *dev)
+static int tlw_sdio_suspend(struct device *dev)
 {
 	struct sdio_func *func =dev_to_sdio_func(dev);
 	struct dvobj_priv *psdpriv = sdio_get_drvdata(func);
@@ -859,7 +859,7 @@ static int rtw_sdio_suspend(struct device *dev)
 	pwrpriv = dvobj_to_pwrctl(psdpriv);
 	padapter = psdpriv->padapters[IFACE_ID0];
 	pdbgpriv = &psdpriv->drv_dbg;
-	if (rtw_is_drv_stopped(padapter)) {
+	if (tlw_is_drv_stopped(padapter)) {
 		DBG_871X("%s bDriverStopped == _TRUE\n", __func__);
 		goto exit;
 	}
@@ -871,7 +871,7 @@ static int rtw_sdio_suspend(struct device *dev)
 		goto exit;
 	}
 
-	ret = rtw_suspend_common(padapter);		
+	ret = tlw_suspend_common(padapter);		
 
 exit:
 #ifdef CONFIG_RTW_SDIO_PM_KEEP_POWER 
@@ -899,7 +899,7 @@ exit:
 #endif
 	return ret;
 }
-int rtw_resume_process(_adapter *padapter)
+int tlw_resume_process(_adapter *padapter)
 {
 	struct pwrctrl_priv *pwrpriv = adapter_to_pwrctl(padapter);
 	struct dvobj_priv *psdpriv = padapter->dvobj;
@@ -912,10 +912,10 @@ int rtw_resume_process(_adapter *padapter)
 		return -1;
 	}
 	
-	return rtw_resume_common(padapter);
+	return tlw_resume_common(padapter);
 }
 
-static int rtw_sdio_resume(struct device *dev)
+static int tlw_sdio_resume(struct device *dev)
 {
 	struct sdio_func *func =dev_to_sdio_func(dev);
 	struct dvobj_priv *psdpriv = sdio_get_drvdata(func);
@@ -931,7 +931,7 @@ static int rtw_sdio_resume(struct device *dev)
 
 	if(pwrpriv->bInternalAutoSuspend)
 	{
- 		ret = rtw_resume_process(padapter);
+ 		ret = tlw_resume_process(padapter);
 	}
 	else
 	{
@@ -941,36 +941,36 @@ static int rtw_sdio_resume(struct device *dev)
 		if(pwrpriv->wowlan_mode || pwrpriv->wowlan_ap_mode)
 #endif
 		{
-			rtw_resume_lock_suspend();			
-			ret = rtw_resume_process(padapter);
-			rtw_resume_unlock_suspend();
+			tlw_resume_lock_suspend();			
+			ret = tlw_resume_process(padapter);
+			tlw_resume_unlock_suspend();
 		}
 		else
 		{
 #ifdef CONFIG_RESUME_IN_WORKQUEUE
-			rtw_resume_in_workqueue(pwrpriv);
+			tlw_resume_in_workqueue(pwrpriv);
 #else			
-			if (rtw_is_earlysuspend_registered(pwrpriv))
+			if (tlw_is_earlysuspend_registered(pwrpriv))
 			{
 				/* jeff: bypass resume here, do in late_resume */
-				rtw_set_do_late_resume(pwrpriv, _TRUE);
+				tlw_set_do_late_resume(pwrpriv, _TRUE);
 			}	
 			else
 			{
-				rtw_resume_lock_suspend();			
-				ret = rtw_resume_process(padapter);
-				rtw_resume_unlock_suspend();
+				tlw_resume_lock_suspend();			
+				ret = tlw_resume_process(padapter);
+				tlw_resume_unlock_suspend();
 			}
 #endif
 		}
 	}
-	pmlmeext->last_scan_time = rtw_get_current_time();
+	pmlmeext->last_scan_time = tlw_get_current_time();
 	DBG_871X("<========  %s return %d\n", __FUNCTION__, ret);
 	return ret;
 
 }
 
-static int __init rtw_drv_entry(void)
+static int __init tlw_drv_entry(void)
 {
 	int ret = 0;
 
@@ -998,23 +998,23 @@ static int __init rtw_drv_entry(void)
 	}
 
 	sdio_drvpriv.drv_registered = _TRUE;
-	rtw_suspend_lock_init();
-	rtw_drv_proc_init();
-	rtw_ndev_notifier_register();
+	tlw_suspend_lock_init();
+	tlw_drv_proc_init();
+	tlw_ndev_notifier_register();
 
 	ret = sdio_register_driver(&sdio_drvpriv.r871xs_drv);
 	if (ret != 0)
 	{
 		sdio_drvpriv.drv_registered = _FALSE;
-		rtw_suspend_lock_uninit();
-		rtw_drv_proc_deinit();
-		rtw_ndev_notifier_unregister();
+		tlw_suspend_lock_uninit();
+		tlw_drv_proc_deinit();
+		tlw_ndev_notifier_unregister();
 		DBG_871X("%s: register driver failed!!(%d)\n", __FUNCTION__, ret);
 		goto poweroff;
 	}
 
 #ifndef CONFIG_PLATFORM_INTEL_BYT
-	rtw_android_wifictrl_func_add();
+	tlw_android_wifictrl_func_add();
 #endif //!CONFIG_PLATFORM_INTEL_BYT
 	goto exit;
 
@@ -1028,7 +1028,7 @@ exit:
 	return ret;
 }
 
-static void __exit rtw_drv_halt(void)
+static void __exit tlw_drv_halt(void)
 {
 	DBG_871X_LEVEL(_drv_always_, "module exit start\n");
 
@@ -1036,24 +1036,24 @@ static void __exit rtw_drv_halt(void)
 
 	sdio_unregister_driver(&sdio_drvpriv.r871xs_drv);
 
-	rtw_android_wifictrl_func_del();
+	tlw_android_wifictrl_func_del();
 
 	platform_wifi_power_off();
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 14, 0))
 	wifi_teardown_dt();
 #endif
-	rtw_suspend_lock_uninit();
-	rtw_drv_proc_deinit();
-	rtw_ndev_notifier_unregister();
+	tlw_suspend_lock_uninit();
+	tlw_drv_proc_deinit();
+	tlw_ndev_notifier_unregister();
 
 	DBG_871X_LEVEL(_drv_always_, "module exit success\n");
 
-	rtw_mstat_dump(RTW_DBGDUMP);
+	tlw_mstat_dump(RTW_DBGDUMP);
 }
 
 #ifdef CONFIG_PLATFORM_INTEL_BYT
-int rtw_sdio_set_power(int on)
+int tlw_sdio_set_power(int on)
 {
 
 	if(wlan_en_gpio >= 0){
@@ -1067,6 +1067,6 @@ int rtw_sdio_set_power(int on)
 }
 #endif //CONFIG_PLATFORM_INTEL_BYT
 
-module_init(rtw_drv_entry);
-module_exit(rtw_drv_halt);
+module_init(tlw_drv_entry);
+module_exit(tlw_drv_halt);
 

@@ -260,7 +260,7 @@ void hal_mpt_SetChannel(PADAPTER pAdapter)
 	
 	pHalData->bSwChnl = _TRUE;
 	pHalData->bSetChnlBW = _TRUE;
-	rtw_hal_set_chnl_bw(pAdapter, channel, bandwidth, 0, 0);
+	tlw_hal_set_chnl_bw(pAdapter, channel, bandwidth, 0, 0);
 
 	hal_mpt_CCKTxPowerAdjust(pAdapter, pHalData->bCCKinCH14);
 
@@ -281,7 +281,7 @@ void hal_mpt_SetBandwidth(PADAPTER pAdapter)
 	SetBWMode(pAdapter, pmp->bandwidth, pmp->prime_channel_offset);
 	pHalData->bSwChnl = _TRUE;
 	pHalData->bSetChnlBW = _TRUE;
-	rtw_hal_set_chnl_bw(pAdapter, channel, bandwidth, 0, 0);
+	tlw_hal_set_chnl_bw(pAdapter, channel, bandwidth, 0, 0);
 	
 	hal_mpt_SwitchRfSetting(pAdapter);
 }
@@ -1407,12 +1407,12 @@ void hal_mpt_GetThermalMeter(PADAPTER pAdapter, u8 *value)
 {
 #if 0
 	fw_cmd(pAdapter, IOCMD_GET_THERMAL_METER);
-	rtw_msleep_os(1000);
+	tlw_msleep_os(1000);
 	fw_cmd_data(pAdapter, value, 1);
 	*value &= 0xFF;
 #else
 	hal_mpt_TriggerRFThermalMeter(pAdapter);
-	rtw_msleep_os(1000);
+	tlw_msleep_os(1000);
 	*value = hal_mpt_ReadRFThermalMeter(pAdapter);
 #endif
 
@@ -1458,7 +1458,7 @@ void hal_mpt_SetSingleCarrierTx(PADAPTER pAdapter, u8 bStart)
 		
 			PHY_SetBBReg(pAdapter, rOFDM1_LSTF, BIT30|BIT29|BIT28, OFDM_ALL_OFF);
 
-		rtw_msleep_os(10);
+		tlw_msleep_os(10);
 		/*/BB Reset*/
 	    PHY_SetBBReg(pAdapter, rPMAC_Reset, bBBResetB, 0x0);
 	    PHY_SetBBReg(pAdapter, rPMAC_Reset, bBBResetB, 0x1);
@@ -1780,7 +1780,7 @@ void hal_mpt_SetOFDMContinuousTx(PADAPTER pAdapter, u8 bStart)
 		else
 			PHY_SetBBReg(pAdapter, rOFDM1_LSTF, BIT30|BIT29|BIT28, OFDM_ALL_OFF);
 		/*/Delay 10 ms*/
-		rtw_msleep_os(10);
+		tlw_msleep_os(10);
 		
 		if (!IS_HARDWARE_TYPE_JAGUAR(pAdapter) && !IS_HARDWARE_TYPE_8814A(pAdapter) /*&&! IS_HARDWARE_TYPE_8822B(pAdapter)*/) {
 			PHY_SetBBReg(pAdapter, 0xa14, 0x300, 0x0);/*/ 0xa15[1:0] = 0*/

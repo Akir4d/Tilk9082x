@@ -44,7 +44,7 @@ const u16 VHT_MCS_DATA_RATE[3][2][30] =
 			195, 390, 585, 780, 1170, 1560, 1755, 1950, 2340, 2340}	}	// Short GI, 80MHz
 	};
 
-u8	rtw_get_vht_highest_rate(u8 *pvht_mcs_map)
+u8	tlw_get_vht_highest_rate(u8 *pvht_mcs_map)
 {
 	u8	i, j;
 	u8	bit_map;
@@ -68,7 +68,7 @@ u8	rtw_get_vht_highest_rate(u8 *pvht_mcs_map)
 	return vht_mcs_rate;
 }
 
-u8	rtw_vht_mcsmap_to_nss(u8 *pvht_mcs_map)
+u8	tlw_vht_mcsmap_to_nss(u8 *pvht_mcs_map)
 {
 	u8	i, j;
 	u8	bit_map;
@@ -92,7 +92,7 @@ u8	rtw_vht_mcsmap_to_nss(u8 *pvht_mcs_map)
 	return nss;
 }
 
-void	rtw_vht_nss_to_mcsmap(u8 nss, u8 *target_mcs_map, u8 *cur_mcs_map)
+void	tlw_vht_nss_to_mcsmap(u8 nss, u8 *target_mcs_map, u8 *cur_mcs_map)
 {
 	u8	i, j;
 	u8	cur_rate, target_rate;
@@ -117,7 +117,7 @@ void	rtw_vht_nss_to_mcsmap(u8 nss, u8 *target_mcs_map, u8 *cur_mcs_map)
 	//DBG_871X("%s : %dSS\n", __FUNCTION__, nss);
 }
 
-u16	rtw_vht_mcs_to_data_rate(u8 bw, u8 short_GI, u8 vht_mcs_rate)
+u16	tlw_vht_mcs_to_data_rate(u8 bw, u8 short_GI, u8 vht_mcs_rate)
 {
 	if(vht_mcs_rate > MGN_VHT3SS_MCS9)
 		vht_mcs_rate = MGN_VHT3SS_MCS9;
@@ -125,7 +125,7 @@ u16	rtw_vht_mcs_to_data_rate(u8 bw, u8 short_GI, u8 vht_mcs_rate)
 	return VHT_MCS_DATA_RATE[bw][short_GI][((vht_mcs_rate - MGN_VHT1SS_MCS0)&0x3f)];
 }
 
-void	rtw_vht_use_default_setting(_adapter *padapter)
+void	tlw_vht_use_default_setting(_adapter *padapter)
 {
 	struct mlme_priv 		*pmlmepriv = &padapter->mlmepriv;
 	struct vht_priv		*pvhtpriv = &pmlmepriv->vhtpriv;
@@ -137,14 +137,14 @@ void	rtw_vht_use_default_setting(_adapter *padapter)
 	pvhtpriv->sgi_80m = TEST_FLAG(pregistrypriv->short_gi, BIT2) ? _TRUE : _FALSE;
 
 	// LDPC support
-	rtw_hal_get_def_var(padapter, HAL_DEF_RX_LDPC, (u8 *)&bHwLDPCSupport);
+	tlw_hal_get_def_var(padapter, HAL_DEF_RX_LDPC, (u8 *)&bHwLDPCSupport);
 	CLEAR_FLAGS(pvhtpriv->ldpc_cap);
 	if(bHwLDPCSupport)
 	{
 		if(TEST_FLAG(pregistrypriv->ldpc_cap, BIT0))
 			SET_FLAG(pvhtpriv->ldpc_cap, LDPC_VHT_ENABLE_RX);
 	}
-	rtw_hal_get_def_var(padapter, HAL_DEF_TX_LDPC, (u8 *)&bHwLDPCSupport);
+	tlw_hal_get_def_var(padapter, HAL_DEF_TX_LDPC, (u8 *)&bHwLDPCSupport);
 	if(bHwLDPCSupport)
 	{
 		if(TEST_FLAG(pregistrypriv->ldpc_cap, BIT1))
@@ -154,14 +154,14 @@ void	rtw_vht_use_default_setting(_adapter *padapter)
 		DBG_871X("[VHT] Support LDPC = 0x%02X\n", pvhtpriv->ldpc_cap);
 
 	// STBC
-	rtw_hal_get_def_var(padapter, HAL_DEF_TX_STBC, (u8 *)&bHwSTBCSupport);
+	tlw_hal_get_def_var(padapter, HAL_DEF_TX_STBC, (u8 *)&bHwSTBCSupport);
 	CLEAR_FLAGS(pvhtpriv->stbc_cap);
 	if(bHwSTBCSupport)
 	{
 		if(TEST_FLAG(pregistrypriv->stbc_cap, BIT1))
 			SET_FLAG(pvhtpriv->stbc_cap, STBC_VHT_ENABLE_TX);
 	}
-	rtw_hal_get_def_var(padapter, HAL_DEF_RX_STBC, (u8 *)&bHwSTBCSupport);
+	tlw_hal_get_def_var(padapter, HAL_DEF_RX_STBC, (u8 *)&bHwSTBCSupport);
 	if(bHwSTBCSupport)
 	{
 		if(TEST_FLAG(pregistrypriv->stbc_cap, BIT0))
@@ -171,8 +171,8 @@ void	rtw_vht_use_default_setting(_adapter *padapter)
 		DBG_871X("[VHT] Support STBC = 0x%02X\n", pvhtpriv->stbc_cap);
 
 	// Beamforming setting
-	rtw_hal_get_def_var(padapter, HAL_DEF_EXPLICIT_BEAMFORMER, (u8 *)&bHwSupportBeamformer);
-	rtw_hal_get_def_var(padapter, HAL_DEF_EXPLICIT_BEAMFORMEE, (u8 *)&bHwSupportBeamformee);
+	tlw_hal_get_def_var(padapter, HAL_DEF_EXPLICIT_BEAMFORMER, (u8 *)&bHwSupportBeamformer);
+	tlw_hal_get_def_var(padapter, HAL_DEF_EXPLICIT_BEAMFORMEE, (u8 *)&bHwSupportBeamformee);
 	CLEAR_FLAGS(pvhtpriv->beamform_cap);
 	if(TEST_FLAG(pregistrypriv->beamform_cap, BIT0) && bHwSupportBeamformer)
 	{
@@ -187,7 +187,7 @@ void	rtw_vht_use_default_setting(_adapter *padapter)
 
 	pvhtpriv->ampdu_len = pregistrypriv->ampdu_factor;
 
-	rtw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
+	tlw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
 
 	if (rf_type == RF_3T3R)
 		pvhtpriv->vht_mcs_map[0] = 0xea;	/* support 1SS MCS 0~9 2SS MCS 0~9 3SS MCS 0~9 */
@@ -234,10 +234,10 @@ void	rtw_vht_use_default_setting(_adapter *padapter)
 		pvhtpriv->vht_mcs_map[0] = 0xf4;	// support 1SS MCS 0-7 2SS MCS 0~8
 	}
 
-	pvhtpriv->vht_highest_rate = rtw_get_vht_highest_rate(pvhtpriv->vht_mcs_map);
+	pvhtpriv->vht_highest_rate = tlw_get_vht_highest_rate(pvhtpriv->vht_mcs_map);
 }
 
-u64	rtw_vht_rate_to_bitmap(u8 *pVHTRate)
+u64	tlw_vht_rate_to_bitmap(u8 *pVHTRate)
 {
 
 	u8	i,j , tmpRate;
@@ -342,9 +342,9 @@ void	update_sta_vht_info_apmode(_adapter *padapter, PVOID sta)
 	pvhtpriv_sta->ampdu_len = GET_VHT_CAPABILITY_ELE_MAX_RXAMPDU_FACTOR(pvhtpriv_sta->vht_cap);
 
 	pcap_mcs = GET_VHT_CAPABILITY_ELE_RX_MCS(pvhtpriv_sta->vht_cap);
-	_rtw_memcpy(pvhtpriv_sta->vht_mcs_map, pcap_mcs, 2);
+	_tlw_memcpy(pvhtpriv_sta->vht_mcs_map, pcap_mcs, 2);
 
-	pvhtpriv_sta->vht_highest_rate = rtw_get_vht_highest_rate(pvhtpriv_sta->vht_mcs_map);
+	pvhtpriv_sta->vht_highest_rate = tlw_get_vht_highest_rate(pvhtpriv_sta->vht_mcs_map);
 
 }
 
@@ -359,7 +359,7 @@ void	update_hw_vht_param(_adapter *padapter)
 	ht_AMPDU_len = pmlmeinfo->HT_caps.u.HT_cap_element.AMPDU_para & 0x03;
 
 	if(pvhtpriv->ampdu_len > ht_AMPDU_len)
-		rtw_hal_set_hwreg(padapter, HW_VAR_AMPDU_FACTOR, (u8 *)(&pvhtpriv->ampdu_len));
+		tlw_hal_set_hwreg(padapter, HW_VAR_AMPDU_FACTOR, (u8 *)(&pvhtpriv->ampdu_len));
 }
 
 void VHT_caps_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE)
@@ -422,9 +422,9 @@ void VHT_caps_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE)
 	pvhtpriv->ampdu_len = GET_VHT_CAPABILITY_ELE_MAX_RXAMPDU_FACTOR(pIE->data);
 
 	pcap_mcs = GET_VHT_CAPABILITY_ELE_RX_MCS(pIE->data);
-	_rtw_memcpy(vht_mcs, pcap_mcs, 2);
+	_tlw_memcpy(vht_mcs, pcap_mcs, 2);
 
-	rtw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
+	tlw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
 	if ((rf_type == RF_1T1R) || (rf_type == RF_1T2R))
 		vht_mcs[0] |= 0xfc;
 	else if (rf_type == RF_2T2R)
@@ -432,9 +432,9 @@ void VHT_caps_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE)
 	else if (rf_type == RF_3T3R)
 		vht_mcs[0] |= 0xc0;
 
-	_rtw_memcpy(pvhtpriv->vht_mcs_map, vht_mcs, 2);
+	_tlw_memcpy(pvhtpriv->vht_mcs_map, vht_mcs, 2);
 
-	pvhtpriv->vht_highest_rate = rtw_get_vht_highest_rate(pvhtpriv->vht_mcs_map);
+	pvhtpriv->vht_highest_rate = tlw_get_vht_highest_rate(pvhtpriv->vht_mcs_map);
 }
 
 void VHT_operation_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE)
@@ -447,7 +447,7 @@ void VHT_operation_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE)
 	if(pvhtpriv->vht_option == _FALSE)	return;
 }
 
-void rtw_process_vht_op_mode_notify(_adapter *padapter, u8 *pframe, PVOID sta)
+void tlw_process_vht_op_mode_notify(_adapter *padapter, u8 *pframe, PVOID sta)
 {
 	struct sta_info		*psta = (struct sta_info *)sta;
 	struct mlme_priv 		*pmlmepriv = &padapter->mlmepriv;
@@ -471,22 +471,22 @@ void rtw_process_vht_op_mode_notify(_adapter *padapter, u8 *pframe, PVOID sta)
 		}
 	}
 
-	current_rxss = rtw_vht_mcsmap_to_nss(psta->vhtpriv.vht_mcs_map);
+	current_rxss = tlw_vht_mcsmap_to_nss(psta->vhtpriv.vht_mcs_map);
 	if (target_rxss != current_rxss) {
 		update_ra = _TRUE;
 
-		rtw_vht_nss_to_mcsmap(target_rxss, vht_mcs_map, psta->vhtpriv.vht_mcs_map);
-		_rtw_memcpy(psta->vhtpriv.vht_mcs_map, vht_mcs_map, 2);
+		tlw_vht_nss_to_mcsmap(target_rxss, vht_mcs_map, psta->vhtpriv.vht_mcs_map);
+		_tlw_memcpy(psta->vhtpriv.vht_mcs_map, vht_mcs_map, 2);
 		
-		rtw_hal_update_sta_rate_mask(padapter, psta);
+		tlw_hal_update_sta_rate_mask(padapter, psta);
 	}
 
 	if (update_ra) {
-		rtw_dm_ra_mask_wk_cmd(padapter, (u8 *)psta);
+		tlw_dm_ra_mask_wk_cmd(padapter, (u8 *)psta);
 	}
 }
 
-u32	rtw_build_vht_operation_ie(_adapter *padapter, u8 *pbuf, u8 channel)
+u32	tlw_build_vht_operation_ie(_adapter *padapter, u8 *pbuf, u8 channel)
 {
 	struct registry_priv	*pregistrypriv = &padapter->registrypriv;
 	struct mlme_priv		*pmlmepriv = &padapter->mlmepriv;
@@ -496,15 +496,15 @@ u32	rtw_build_vht_operation_ie(_adapter *padapter, u8 *pbuf, u8 channel)
 	u32	len = 0;
 	u8	operation[5];
 	
-	rtw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
+	tlw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
 	
-	_rtw_memset(operation, 0, 5);
+	_tlw_memset(operation, 0, 5);
 
 	bw_mode = pregistrypriv->bw_mode >> 4;
 
 	if (bw_mode >= CHANNEL_WIDTH_80)
 	{
-		center_freq = rtw_get_center_ch(channel, bw_mode, HAL_PRIME_CHNL_OFFSET_LOWER);
+		center_freq = tlw_get_center_ch(channel, bw_mode, HAL_PRIME_CHNL_OFFSET_LOWER);
 		ChnlWidth = 1;
 	}
 	else
@@ -548,12 +548,12 @@ u32	rtw_build_vht_operation_ie(_adapter *padapter, u8 *pbuf, u8 channel)
 	DBG_871X("%s, %d, unknown rf type\n", __func__, __LINE__);
 	}
 
-	rtw_set_ie(pbuf, EID_VHTOperation, 5, operation, &len);
+	tlw_set_ie(pbuf, EID_VHTOperation, 5, operation, &len);
 
 	return len;
 }
 
-u32	rtw_build_vht_op_mode_notify_ie(_adapter *padapter, u8 *pbuf, u8 bw)
+u32	tlw_build_vht_op_mode_notify_ie(_adapter *padapter, u8 *pbuf, u8 bw)
 {
 	//struct registry_priv *pregistrypriv = &padapter->registrypriv;
 	struct mlme_priv	*pmlmepriv = &padapter->mlmepriv;
@@ -564,7 +564,7 @@ u32	rtw_build_vht_op_mode_notify_ie(_adapter *padapter, u8 *pbuf, u8 bw)
 
 	chnl_width = bw;
 
-	rtw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
+	tlw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
 	if(rf_type == RF_3T3R)
 		rx_nss = 3;
 	else if(rf_type == RF_2T2R)
@@ -578,12 +578,12 @@ u32	rtw_build_vht_op_mode_notify_ie(_adapter *padapter, u8 *pbuf, u8 bw)
 
 	pvhtpriv->vht_op_mode_notify = opmode;
 
-	pbuf = rtw_set_ie(pbuf, EID_OpModeNotification, 1, &opmode, &len);
+	pbuf = tlw_set_ie(pbuf, EID_OpModeNotification, 1, &opmode, &len);
 
 	return len;
 }
 
-u32	rtw_build_vht_cap_ie(_adapter *padapter, u8 *pbuf)
+u32	tlw_build_vht_cap_ie(_adapter *padapter, u8 *pbuf)
 {
 	u8	bw, rf_type;
 	u16	HighestRate;
@@ -594,7 +594,7 @@ u32	rtw_build_vht_cap_ie(_adapter *padapter, u8 *pbuf)
 	struct vht_priv	*pvhtpriv = &pmlmepriv->vhtpriv;
 
 	pcap = pvhtpriv->vht_cap;
-	_rtw_memset(pcap, 0, 32);
+	_tlw_memset(pcap, 0, 32);
 	
 	/* B0 B1 Maximum MPDU Length */
 	SET_VHT_CAPABILITY_ELE_MAX_MPDU_LENGTH(pcap, 2); 
@@ -623,7 +623,7 @@ u32	rtw_build_vht_cap_ie(_adapter *padapter, u8 *pbuf)
 	// B8 B9 B10 Rx STBC
 	if(TEST_FLAG(pvhtpriv->stbc_cap, STBC_VHT_ENABLE_RX))
 	{
-		rtw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
+		tlw_hal_get_hwreg(padapter, HW_VAR_RF_TYPE, (u8 *)(&rf_type));
 		if ((rf_type == RF_2T2R) || (rf_type == RF_1T2R)) {
 			SET_VHT_CAPABILITY_ELE_RX_STBC(pcap, 1);
 		}
@@ -669,10 +669,10 @@ u32	rtw_build_vht_cap_ie(_adapter *padapter, u8 *pbuf)
 	SET_VHT_CAPABILITY_ELE_LINK_ADAPTION(pcap, 0);
 
 	pcap_mcs = GET_VHT_CAPABILITY_ELE_RX_MCS(pcap);
-	_rtw_memcpy(pcap_mcs, pvhtpriv->vht_mcs_map, 2);
+	_tlw_memcpy(pcap_mcs, pvhtpriv->vht_mcs_map, 2);
 
 	pcap_mcs = GET_VHT_CAPABILITY_ELE_TX_MCS(pcap);
-	_rtw_memcpy(pcap_mcs, pvhtpriv->vht_mcs_map, 2);
+	_tlw_memcpy(pcap_mcs, pvhtpriv->vht_mcs_map, 2);
 
 	bw = (pregistrypriv->bw_mode >> 4);
 	HighestRate = VHT_MCS_DATA_RATE[bw][pvhtpriv->sgi_80m][((pvhtpriv->vht_highest_rate - MGN_VHT1SS_MCS0)&0x3f)];
@@ -681,12 +681,12 @@ u32	rtw_build_vht_cap_ie(_adapter *padapter, u8 *pbuf)
 	SET_VHT_CAPABILITY_ELE_MCS_RX_HIGHEST_RATE(pcap, HighestRate); //indicate we support highest rx rate is 600Mbps.
 	SET_VHT_CAPABILITY_ELE_MCS_TX_HIGHEST_RATE(pcap, HighestRate); //indicate we support highest tx rate is 600Mbps.
 
-	pbuf = rtw_set_ie(pbuf, EID_VHTCapability, 12, pcap, &len);
+	pbuf = tlw_set_ie(pbuf, EID_VHTCapability, 12, pcap, &len);
 
 	return len;
 }
 
-u32 rtw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_len, uint *pout_len)
+u32 tlw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_len, uint *pout_len)
 {
 	u32	ielen=0, out_len=0;
 	u8	cap_len=0, notify_len=0, notify_bw=0, operation_bw=0, supported_chnl_width=0;
@@ -695,18 +695,18 @@ u32 rtw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_le
 	struct mlme_priv	*pmlmepriv = &padapter->mlmepriv;
 	struct vht_priv	*pvhtpriv = &pmlmepriv->vhtpriv;
 
-	rtw_vht_use_default_setting(padapter);
+	tlw_vht_use_default_setting(padapter);
 
-	p = rtw_get_ie(in_ie+12, EID_VHTCapability, &ielen, in_len-12);
+	p = tlw_get_ie(in_ie+12, EID_VHTCapability, &ielen, in_len-12);
 	if (p && ielen>0) {
 		supported_chnl_width = GET_VHT_CAPABILITY_ELE_CHL_WIDTH(p+2);
 		
 		// VHT Capabilities element
-		cap_len = rtw_build_vht_cap_ie(padapter, out_ie+*pout_len);
+		cap_len = tlw_build_vht_cap_ie(padapter, out_ie+*pout_len);
 		*pout_len += cap_len;
 
 		// Get HT BW
-		p = rtw_get_ie(in_ie+12, _HT_EXTRA_INFO_IE_, &ielen, in_len-12);
+		p = tlw_get_ie(in_ie+12, _HT_EXTRA_INFO_IE_, &ielen, in_len-12);
 		if (p && ielen>0) {
 			struct HT_info_element *pht_info = (struct HT_info_element *)(p+2);
 			if (pht_info->infos[0] & BIT(2))
@@ -716,7 +716,7 @@ u32 rtw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_le
 		}
 
 		// VHT Operation element
-		p = rtw_get_ie(in_ie+12, EID_VHTOperation, &ielen, in_len-12);
+		p = tlw_get_ie(in_ie+12, EID_VHTOperation, &ielen, in_len-12);
 		if (p && ielen>0) {
 			out_len = *pout_len;
 			if (GET_VHT_OPERATION_ELE_CHL_WIDTH(p+2) >= 1) {
@@ -727,7 +727,7 @@ u32 rtw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_le
 				else
 					operation_bw = CHANNEL_WIDTH_80;
 			}
-			pframe = rtw_set_ie(out_ie+out_len, EID_VHTOperation, ielen, p+2 , pout_len);
+			pframe = tlw_set_ie(out_ie+out_len, EID_VHTOperation, ielen, p+2 , pout_len);
 		}
 
 		notify_bw = pregistrypriv->bw_mode >> 4;
@@ -736,7 +736,7 @@ u32 rtw_restructure_vht_ie(_adapter *padapter, u8 *in_ie, u8 *out_ie, uint in_le
 			notify_bw = operation_bw;
 
 		// Operating Mode Notification element
-		notify_len = rtw_build_vht_op_mode_notify_ie(padapter, out_ie+*pout_len, notify_bw);
+		notify_len = tlw_build_vht_op_mode_notify_ie(padapter, out_ie+*pout_len, notify_bw);
 		*pout_len += notify_len;
 
 		pvhtpriv->vht_option = _TRUE;
@@ -765,9 +765,9 @@ void VHTOnAssocRsp(_adapter *padapter)
 	ht_AMPDU_len = pmlmeinfo->HT_caps.u.HT_cap_element.AMPDU_para & 0x03;
 
 	if(pvhtpriv->ampdu_len > ht_AMPDU_len)
-		rtw_hal_set_hwreg(padapter, HW_VAR_AMPDU_FACTOR, (u8 *)(&pvhtpriv->ampdu_len));
+		tlw_hal_set_hwreg(padapter, HW_VAR_AMPDU_FACTOR, (u8 *)(&pvhtpriv->ampdu_len));
 
-	rtw_hal_set_hwreg(padapter, HW_VAR_AMPDU_MAX_TIME, (u8 *)(&pvhtpriv->vht_highest_rate));
+	tlw_hal_set_hwreg(padapter, HW_VAR_AMPDU_MAX_TIME, (u8 *)(&pvhtpriv->vht_highest_rate));
 }
 
 #endif //CONFIG_80211AC_VHT

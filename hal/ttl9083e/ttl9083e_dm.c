@@ -74,14 +74,14 @@ dm_CheckStatistics(
 		return;
 
 	//2008.12.10 tynli Add for getting Current_Tx_Rate_Reg flexibly.
-	rtw_hal_get_hwreg( Adapter, HW_VAR_INIT_TX_RATE, (pu1Byte)(&Adapter->TxStats.CurrentInitTxRate) );
+	tlw_hal_get_hwreg( Adapter, HW_VAR_INIT_TX_RATE, (pu1Byte)(&Adapter->TxStats.CurrentInitTxRate) );
 
 	// Calculate current Tx Rate(Successful transmited!!)
 
 	// Calculate current Rx Rate(Successful received!!)
 
 	//for tx tx retry count
-	rtw_hal_get_hwreg( Adapter, HW_VAR_RETRY_COUNT, (pu1Byte)(&Adapter->TxStats.NumTxRetryCount) );
+	tlw_hal_get_hwreg( Adapter, HW_VAR_RETRY_COUNT, (pu1Byte)(&Adapter->TxStats.NumTxRetryCount) );
 #endif
 }
 
@@ -95,18 +95,18 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 		return;
 
 #ifdef CONFIG_USB_HCI
-	tmp1byte = rtw_read8(padapter, GPIO_IO_SEL);
+	tmp1byte = tlw_read8(padapter, GPIO_IO_SEL);
 	tmp1byte |= (HAL_9083E_HW_GPIO_WPS_BIT);
-	rtw_write8(padapter, GPIO_IO_SEL, tmp1byte);	//enable GPIO[2] as output mode
+	tlw_write8(padapter, GPIO_IO_SEL, tmp1byte);	//enable GPIO[2] as output mode
 
 	tmp1byte &= ~(HAL_9083E_HW_GPIO_WPS_BIT);
-	rtw_write8(padapter,  GPIO_IN, tmp1byte);		//reset the floating voltage level
+	tlw_write8(padapter,  GPIO_IN, tmp1byte);		//reset the floating voltage level
 
-	tmp1byte = rtw_read8(padapter, GPIO_IO_SEL);
+	tmp1byte = tlw_read8(padapter, GPIO_IO_SEL);
 	tmp1byte &= ~(HAL_9083E_HW_GPIO_WPS_BIT);
-	rtw_write8(padapter, GPIO_IO_SEL, tmp1byte);	//enable GPIO[2] as input mode
+	tlw_write8(padapter, GPIO_IO_SEL, tmp1byte);	//enable GPIO[2] as input mode
 
-	tmp1byte =rtw_read8(padapter, GPIO_IN);
+	tmp1byte =tlw_read8(padapter, GPIO_IN);
 
 	if (tmp1byte == 0xff)
 		return ;
@@ -116,7 +116,7 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 		bPbcPressed = _TRUE;
 	}
 #else
-	tmp1byte = rtw_read8(padapter, GPIO_IN);
+	tmp1byte = tlw_read8(padapter, GPIO_IN);
 	//RT_TRACE(COMP_IO, DBG_TRACE, ("dm_CheckPbcGPIO - %x\n", tmp1byte));
 
 	if (tmp1byte == 0xff || padapter->init_adpt_in_progress)
@@ -133,7 +133,7 @@ static void dm_CheckPbcGPIO(_adapter *padapter)
 		// Here we only set bPbcPressed to true
 		// After trigger PBC, the variable will be set to false
 		DBG_8192C("CheckPbcGPIO - PBC is pressed\n");
-		rtw_request_wps_pbc_event(padapter);
+		tlw_request_wps_pbc_event(padapter);
 	}
 }
 #endif//#ifdef CONFIG_SUPPORT_HW_WPS_PBC
@@ -189,13 +189,13 @@ dm_InterruptMigration(
 			// timer 25ns*0xfa0=100us for 0xf packets.
 			// 2010.03.05.
 			//
-			rtw_write32(Adapter, REG_INT_MIG, 0xff000fa0);// 0x306:Rx, 0x307:Tx
+			tlw_write32(Adapter, REG_INT_MIG, 0xff000fa0);// 0x306:Rx, 0x307:Tx
 			pHalData->bInterruptMigration = IntMtToSet;
 		}
 		else
 		{
 			// Reset all interrupt migration settings.
-			rtw_write32(Adapter, REG_INT_MIG, 0);
+			tlw_write32(Adapter, REG_INT_MIG, 0);
 			pHalData->bInterruptMigration = IntMtToSet;
 		}
 	}
@@ -235,10 +235,10 @@ dm_InitGPIOSetting(
 
 	u8	tmp1byte;
 
-	tmp1byte = rtw_read8(Adapter, REG_GPIO_MUXCFG);
+	tmp1byte = tlw_read8(Adapter, REG_GPIO_MUXCFG);
 	tmp1byte &= (GPIOSEL_GPIO | ~GPIOSEL_ENBT);
 
-	rtw_write8(Adapter, REG_GPIO_MUXCFG, tmp1byte);
+	tlw_write8(Adapter, REG_GPIO_MUXCFG, tmp1byte);
 
 }
 
@@ -303,8 +303,8 @@ static void Update_ODM_ComInfo_88E(PADAPTER	Adapter)
 //		| ODM_BB_PWR_TRAIN
 		;
 
-	if (rtw_odm_adaptivity_needed(Adapter) == _TRUE) {
-		rtw_odm_adaptivity_config_msg(RTW_DBGDUMP, Adapter);
+	if (tlw_odm_adaptivity_needed(Adapter) == _TRUE) {
+		tlw_odm_adaptivity_config_msg(RTW_DBGDUMP, Adapter);
 		SupportAbility |= ODM_BB_ADAPTIVITY;
 	}
 
@@ -368,12 +368,12 @@ ttl9083e_HalDmWatchDog(
 
 	_func_enter_;
 
-	if (!rtw_is_hw_init_completed(Adapter))
+	if (!tlw_is_hw_init_completed(Adapter))
 		goto skip_dm;
 
 #ifdef CONFIG_LPS
 	bFwCurrentInPSMode = adapter_to_pwrctl(Adapter)->bFwCurrentInPSMode;
-	rtw_hal_get_hwreg(Adapter, HW_VAR_FWLPS_RF_ON, (u8 *)(&bFwPSAwake));
+	tlw_hal_get_hwreg(Adapter, HW_VAR_FWLPS_RF_ON, (u8 *)(&bFwPSAwake));
 #endif
 
 #ifdef CONFIG_P2P_PS
@@ -383,14 +383,14 @@ ttl9083e_HalDmWatchDog(
 		bFwPSAwake = _FALSE;
 #endif //CONFIG_P2P_PS
 
-	if ((rtw_is_hw_init_completed(Adapter))
+	if ((tlw_is_hw_init_completed(Adapter))
 		&& ((!bFwCurrentInPSMode) && bFwPSAwake)) {
 		//
 		// Calculate Tx/Rx statistics.
 		//
 		dm_CheckStatistics(Adapter);
 		
-		rtw_hal_check_rxfifo_full(Adapter);
+		tlw_hal_check_rxfifo_full(Adapter);
 		//
 		// Dynamically switch RTS/CTS protection.
 		//
@@ -409,21 +409,21 @@ ttl9083e_HalDmWatchDog(
 
 
 	//ODM
-	if (rtw_is_hw_init_completed(Adapter)) {
+	if (tlw_is_hw_init_completed(Adapter)) {
 		u8	bLinked=_FALSE;
 		u8	bsta_state=_FALSE;
 		#ifdef CONFIG_DISABLE_ODM
 		pHalData->odmpriv.SupportAbility = 0;
 		#endif
 
-		if(rtw_linked_check(Adapter)){			
+		if(tlw_linked_check(Adapter)){			
 			bLinked = _TRUE;
 			if (check_fwstate(&Adapter->mlmepriv, WIFI_STATION_STATE))
 				bsta_state = _TRUE;
 		}
 		
 #ifdef CONFIG_CONCURRENT_MODE
-		if(pbuddy_adapter && rtw_linked_check(pbuddy_adapter)){
+		if(pbuddy_adapter && tlw_linked_check(pbuddy_adapter)){
 			bLinked = _TRUE;
 			if(pbuddy_adapter && check_fwstate(&pbuddy_adapter->mlmepriv, WIFI_STATION_STATE))
 				bsta_state = _TRUE;
@@ -452,7 +452,7 @@ void ttl9083e_init_dm_priv(IN PADAPTER Adapter)
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(Adapter);
 	PDM_ODM_T 		podmpriv = &pHalData->odmpriv;
 
-	//_rtw_spinlock_init(&(pHalData->odm_stainfo_lock));
+	//_tlw_spinlock_init(&(pHalData->odm_stainfo_lock));
 	Init_ODM_ComInfo_88E(Adapter);
 	ODM_InitAllTimers(podmpriv );	
 	PHYDM_InitDebugSetting(podmpriv);	
@@ -462,7 +462,7 @@ void ttl9083e_deinit_dm_priv(IN PADAPTER Adapter)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(Adapter);
 	PDM_ODM_T 		podmpriv = &pHalData->odmpriv;
-	//_rtw_spinlock_free(&pHalData->odm_stainfo_lock);
+	//_tlw_spinlock_free(&pHalData->odm_stainfo_lock);
 	ODM_CancelAllTimers(podmpriv);	
 }
 
@@ -517,7 +517,7 @@ u8 AntDivBeforeLink9083E(PADAPTER Adapter )
 		pDM_SWAT_Table->CurAntenna = (pDM_SWAT_Table->CurAntenna==MAIN_ANT)?AUX_ANT:MAIN_ANT;
 
 		//PHY_SetBBReg(Adapter, rFPGA0_XA_RFInterfaceOE, 0x300, pDM_SWAT_Table->CurAntenna);
-		rtw_antenna_select_cmd(Adapter, pDM_SWAT_Table->CurAntenna, _FALSE);
+		tlw_antenna_select_cmd(Adapter, pDM_SWAT_Table->CurAntenna, _FALSE);
 		//DBG_8192C("%s change antenna to ANT_( %s ).....\n",__FUNCTION__, (pDM_SWAT_Table->CurAntenna==MAIN_ANT)?"MAIN":"AUX");
 		return _TRUE;
 	}

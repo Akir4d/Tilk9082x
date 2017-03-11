@@ -18,7 +18,7 @@
  *
  ******************************************************************************/
 
-#include <rtw_odm.h>
+#include <tlw_odm.h>
 #include <hal_data.h>
 
 const char *odm_comp_str[] = {
@@ -101,7 +101,7 @@ const char *odm_dbg_level_str[] = {
 
 #define RTW_ODM_DBG_LEVEL_NUM 6
 
-void rtw_odm_dbg_comp_msg(void *sel, _adapter *adapter)
+void tlw_odm_dbg_comp_msg(void *sel, _adapter *adapter)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &pHalData->odmpriv;
@@ -109,7 +109,7 @@ void rtw_odm_dbg_comp_msg(void *sel, _adapter *adapter)
 	u64 dbg_comp = 0;
 	int i;
 
-	rtw_hal_get_odm_var(adapter, HAL_ODM_DBG_FLAG, &dbg_comp, NULL);
+	tlw_hal_get_odm_var(adapter, HAL_ODM_DBG_FLAG, &dbg_comp, NULL);
 
 	DBG_871X_SEL_NL(sel, "odm.DebugComponents = 0x%016llx\n", dbg_comp);
 	for (i=0;i<RTW_ODM_COMP_MAX;i++) {
@@ -119,12 +119,12 @@ void rtw_odm_dbg_comp_msg(void *sel, _adapter *adapter)
 	}
 }
 
-inline void rtw_odm_dbg_comp_set(_adapter *adapter, u64 comps)
+inline void tlw_odm_dbg_comp_set(_adapter *adapter, u64 comps)
 {
-	rtw_hal_set_odm_var(adapter, HAL_ODM_DBG_FLAG, &comps, _FALSE);
+	tlw_hal_set_odm_var(adapter, HAL_ODM_DBG_FLAG, &comps, _FALSE);
 }
 
-void rtw_odm_dbg_level_msg(void *sel, _adapter *adapter)
+void tlw_odm_dbg_level_msg(void *sel, _adapter *adapter)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &pHalData->odmpriv;
@@ -132,7 +132,7 @@ void rtw_odm_dbg_level_msg(void *sel, _adapter *adapter)
 	u32 dbg_level = 0;
 	int i;
 
-	rtw_hal_get_odm_var(adapter, HAL_ODM_DBG_LEVEL, &dbg_level, NULL);
+	tlw_hal_get_odm_var(adapter, HAL_ODM_DBG_LEVEL, &dbg_level, NULL);
 	DBG_871X_SEL_NL(sel, "odm.DebugLevel = %u\n", dbg_level);
 	for (i=0;i<RTW_ODM_DBG_LEVEL_NUM;i++) {
 		if (odm_dbg_level_str[i])
@@ -140,12 +140,12 @@ void rtw_odm_dbg_level_msg(void *sel, _adapter *adapter)
 	}
 }
 
-inline void rtw_odm_dbg_level_set(_adapter *adapter, u32 level)
+inline void tlw_odm_dbg_level_set(_adapter *adapter, u32 level)
 {
-	rtw_hal_set_odm_var(adapter, HAL_ODM_DBG_LEVEL, &level, _FALSE);
+	tlw_hal_set_odm_var(adapter, HAL_ODM_DBG_LEVEL, &level, _FALSE);
 }
 
-void rtw_odm_ability_msg(void *sel, _adapter *adapter)
+void tlw_odm_ability_msg(void *sel, _adapter *adapter)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &pHalData->odmpriv;
@@ -153,7 +153,7 @@ void rtw_odm_ability_msg(void *sel, _adapter *adapter)
 	u32 ability = 0;
 	int i;
 
-	ability = rtw_phydm_ability_get(adapter);
+	ability = tlw_phydm_ability_get(adapter);
 	DBG_871X_SEL_NL(sel, "odm.SupportAbility = 0x%08x\n", ability);
 	for (i=0;i<RTW_ODM_ABILITY_MAX;i++) {
 		if (odm_ability_str[i])
@@ -162,12 +162,12 @@ void rtw_odm_ability_msg(void *sel, _adapter *adapter)
 	}
 }
 
-inline void rtw_odm_ability_set(_adapter *adapter, u32 ability)
+inline void tlw_odm_ability_set(_adapter *adapter, u32 ability)
 {
-	rtw_phydm_ability_set(adapter, ability);
+	tlw_phydm_ability_set(adapter, ability);
 }
 
-void rtw_odm_adaptivity_ver_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_ver_msg(void *sel, _adapter *adapter)
 {
 	DBG_871X_SEL_NL(sel, "ADAPTIVITY_VERSION "ADAPTIVITY_VERSION"\n");
 }
@@ -175,7 +175,7 @@ void rtw_odm_adaptivity_ver_msg(void *sel, _adapter *adapter)
 #define RTW_ADAPTIVITY_EN_DISABLE 0
 #define RTW_ADAPTIVITY_EN_ENABLE 1
 
-void rtw_odm_adaptivity_en_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_en_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 	struct mlme_priv *mlme = &adapter->mlmepriv;
@@ -196,7 +196,7 @@ void rtw_odm_adaptivity_en_msg(void *sel, _adapter *adapter)
 #define RTW_ADAPTIVITY_MODE_NORMAL 0
 #define RTW_ADAPTIVITY_MODE_CARRIER_SENSE 1
 
-void rtw_odm_adaptivity_mode_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_mode_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 
@@ -214,7 +214,7 @@ void rtw_odm_adaptivity_mode_msg(void *sel, _adapter *adapter)
 #define RTW_ADAPTIVITY_DML_DISABLE 0
 #define RTW_ADAPTIVITY_DML_ENABLE 1
 
-void rtw_odm_adaptivity_dml_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_dml_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 
@@ -229,23 +229,23 @@ void rtw_odm_adaptivity_dml_msg(void *sel, _adapter *adapter)
 	}
 }
 
-void rtw_odm_adaptivity_dc_backoff_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_dc_backoff_msg(void *sel, _adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 
 	DBG_871X_SEL_NL(sel, "RTW_ADAPTIVITY_DC_BACKOFF:%u\n", regsty->adaptivity_dc_backoff);
 }
 
-void rtw_odm_adaptivity_config_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_config_msg(void *sel, _adapter *adapter)
 {
-	rtw_odm_adaptivity_ver_msg(sel, adapter);
-	rtw_odm_adaptivity_en_msg(sel, adapter);
-	rtw_odm_adaptivity_mode_msg(sel, adapter);
-	rtw_odm_adaptivity_dml_msg(sel, adapter);
-	rtw_odm_adaptivity_dc_backoff_msg(sel, adapter);
+	tlw_odm_adaptivity_ver_msg(sel, adapter);
+	tlw_odm_adaptivity_en_msg(sel, adapter);
+	tlw_odm_adaptivity_mode_msg(sel, adapter);
+	tlw_odm_adaptivity_dml_msg(sel, adapter);
+	tlw_odm_adaptivity_dc_backoff_msg(sel, adapter);
 }
 
-bool rtw_odm_adaptivity_needed(_adapter *adapter)
+bool tlw_odm_adaptivity_needed(_adapter *adapter)
 {
 	struct registry_priv *regsty = &adapter->registrypriv;
 	struct mlme_priv *mlme = &adapter->mlmepriv;
@@ -257,12 +257,12 @@ bool rtw_odm_adaptivity_needed(_adapter *adapter)
 	return ret;
 }
 
-void rtw_odm_adaptivity_parm_msg(void *sel, _adapter *adapter)
+void tlw_odm_adaptivity_parm_msg(void *sel, _adapter *adapter)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &pHalData->odmpriv;
 
-	rtw_odm_adaptivity_config_msg(sel, adapter);
+	tlw_odm_adaptivity_config_msg(sel, adapter);
 
 	DBG_871X_SEL_NL(sel, "%10s %16s %16s %22s %12s\n"
 		, "TH_L2H_ini", "TH_EDCCA_HL_diff", "TH_L2H_ini_mode2", "TH_EDCCA_HL_diff_mode2", "EDCCA_enable");
@@ -281,7 +281,7 @@ void rtw_odm_adaptivity_parm_msg(void *sel, _adapter *adapter)
 	);
 }
 
-void rtw_odm_adaptivity_parm_set(_adapter *adapter, s8 TH_L2H_ini, s8 TH_EDCCA_HL_diff, s8 TH_L2H_ini_mode2, s8 TH_EDCCA_HL_diff_mode2, u8 EDCCA_enable)
+void tlw_odm_adaptivity_parm_set(_adapter *adapter, s8 TH_L2H_ini, s8 TH_EDCCA_HL_diff, s8 TH_L2H_ini_mode2, s8 TH_EDCCA_HL_diff_mode2, u8 EDCCA_enable)
 {
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &pHalData->odmpriv;
@@ -293,7 +293,7 @@ void rtw_odm_adaptivity_parm_set(_adapter *adapter, s8 TH_L2H_ini, s8 TH_EDCCA_H
 	odm->EDCCA_enable = EDCCA_enable;
 }
 
-void rtw_odm_get_perpkt_rssi(void *sel, _adapter *adapter)
+void tlw_odm_get_perpkt_rssi(void *sel, _adapter *adapter)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	DM_ODM_T *odm = &(hal_data->odmpriv);	
@@ -303,7 +303,7 @@ void rtw_odm_get_perpkt_rssi(void *sel, _adapter *adapter)
 }
 
 
-void rtw_odm_acquirespinlock(_adapter *adapter,	RT_SPINLOCK_TYPE type)
+void tlw_odm_acquirespinlock(_adapter *adapter,	RT_SPINLOCK_TYPE type)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(adapter);
 	_irqL irqL;
@@ -317,7 +317,7 @@ void rtw_odm_acquirespinlock(_adapter *adapter,	RT_SPINLOCK_TYPE type)
 	}
 }
 
-void rtw_odm_releasespinlock(_adapter *adapter,	RT_SPINLOCK_TYPE type)
+void tlw_odm_releasespinlock(_adapter *adapter,	RT_SPINLOCK_TYPE type)
 {
 	PHAL_DATA_TYPE	pHalData = GET_HAL_DATA(adapter);
 	_irqL irqL;
@@ -332,7 +332,7 @@ void rtw_odm_releasespinlock(_adapter *adapter,	RT_SPINLOCK_TYPE type)
 }
 
 #ifdef CONFIG_DFS_MASTER
-VOID rtw_odm_radar_detect_reset(_adapter *adapter)
+VOID tlw_odm_radar_detect_reset(_adapter *adapter)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
@@ -345,11 +345,11 @@ VOID rtw_odm_radar_detect_reset(_adapter *adapter)
 		ODM_SetBBReg(pDM_Odm, 0x924 , BIT15, 1);
 	} else {
 		/* not supported yet */
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 	}
 }
 
-VOID rtw_odm_radar_detect_disable(_adapter *adapter)
+VOID tlw_odm_radar_detect_disable(_adapter *adapter)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
@@ -359,11 +359,11 @@ VOID rtw_odm_radar_detect_disable(_adapter *adapter)
 	else if (pDM_Odm->SupportICType & ODM_RTL8821)
 		ODM_SetBBReg(pDM_Odm, 0x924 , BIT15, 0);
 	else
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 }
 
 /* called after ch, bw is set, chance to adjust parameter for different ch conditions */
-VOID rtw_odm_radar_detect_enable(_adapter *adapter)
+VOID tlw_odm_radar_detect_enable(_adapter *adapter)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
@@ -383,13 +383,13 @@ VOID rtw_odm_radar_detect_enable(_adapter *adapter)
 		ODM_SetBBReg(pDM_Odm, 0x920, bMaskDWord, 0xe0f57204);
 	} else {
 		/* not supported yet */
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 	}
 
-	rtw_odm_radar_detect_reset(adapter);
+	tlw_odm_radar_detect_reset(adapter);
 }
 
-BOOLEAN rtw_odm_radar_detect(_adapter *adapter)
+BOOLEAN tlw_odm_radar_detect(_adapter *adapter)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	PDM_ODM_T pDM_Odm = &(hal_data->odmpriv);
@@ -439,7 +439,7 @@ BOOLEAN rtw_odm_radar_detect(_adapter *adapter)
 			, enable_DFS, radar_detected, bypass, throughput, tp_th);
 
 	if (enable_DFS && radar_detected)
-		rtw_odm_radar_detect_reset(adapter);
+		tlw_odm_radar_detect_reset(adapter);
 
 exit:
 	return (enable_DFS && radar_detected && !bypass);

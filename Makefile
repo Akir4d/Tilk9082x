@@ -158,10 +158,10 @@ _OS_INTFS_FILES :=	os_dep/osdep_service.o \
 			os_dep/linux/mlme_linux.o \
 			os_dep/linux/recv_linux.o \
 			os_dep/linux/ioctl_cfg80211.o \
-			os_dep/linux/rtw_cfgvendor.o \
+			os_dep/linux/tlw_cfgvendor.o \
 			os_dep/linux/wifi_regd.o \
-			os_dep/linux/rtw_android.o \
-			os_dep/linux/rtw_proc.o
+			os_dep/linux/tlw_android.o \
+			os_dep/linux/tlw_proc.o
 
 ifeq ($(CONFIG_MP_INCLUDED), y)
 _OS_INTFS_FILES += os_dep/linux/ioctl_mp.o
@@ -1572,15 +1572,15 @@ endif
 ifeq ($(CONFIG_MULTIDRV), y)
 
 ifeq ($(CONFIG_SDIO_HCI), y)
-MODULE_NAME := rtw_sdio
+MODULE_NAME := tlw_sdio
 endif
 
 ifeq ($(CONFIG_USB_HCI), y)
-MODULE_NAME := rtw_usb
+MODULE_NAME := tlw_usb
 endif
 
 ifeq ($(CONFIG_PCI_HCI), y)
-MODULE_NAME := rtw_pci
+MODULE_NAME := tlw_pci
 endif
 
 
@@ -1593,52 +1593,52 @@ endif
 
 ifneq ($(KERNELRELEASE),)
 
-rtk_core :=	core/rtw_cmd.o \
-		core/rtw_security.o \
-		core/rtw_debug.o \
-		core/rtw_io.o \
-		core/rtw_ioctl_query.o \
-		core/rtw_ioctl_set.o \
-		core/rtw_ieee80211.o \
-		core/rtw_mlme.o \
-		core/rtw_mlme_ext.o \
-		core/rtw_wlan_util.o \
-		core/rtw_vht.o \
-		core/rtw_pwrctrl.o \
-		core/rtw_rf.o \
-		core/rtw_recv.o \
-		core/rtw_sta_mgt.o \
-		core/rtw_ap.o \
-		core/rtw_xmit.o	\
-		core/rtw_p2p.o \
-		core/rtw_tdls.o \
-		core/rtw_br_ext.o \
-		core/rtw_iol.o \
-		core/rtw_sreset.o \
-		core/rtw_btcoex.o \
-		core/rtw_beamforming.o \
-		core/rtw_odm.o \
-		core/efuse/rtw_efuse.o 
+rtk_core :=	core/tlw_cmd.o \
+		core/tlw_security.o \
+		core/tlw_debug.o \
+		core/tlw_io.o \
+		core/tlw_ioctl_query.o \
+		core/tlw_ioctl_set.o \
+		core/tlw_ieee80211.o \
+		core/tlw_mlme.o \
+		core/tlw_mlme_ext.o \
+		core/tlw_wlan_util.o \
+		core/tlw_vht.o \
+		core/tlw_pwrctrl.o \
+		core/tlw_rf.o \
+		core/tlw_recv.o \
+		core/tlw_sta_mgt.o \
+		core/tlw_ap.o \
+		core/tlw_xmit.o	\
+		core/tlw_p2p.o \
+		core/tlw_tdls.o \
+		core/tlw_br_ext.o \
+		core/tlw_iol.o \
+		core/tlw_sreset.o \
+		core/tlw_btcoex.o \
+		core/tlw_beamforming.o \
+		core/tlw_odm.o \
+		core/efuse/tlw_efuse.o 
 
 $(MODULE_NAME)-y += $(rtk_core)
 
-$(MODULE_NAME)-$(CONFIG_INTEL_WIDI) += core/rtw_intel_widi.o
+$(MODULE_NAME)-$(CONFIG_INTEL_WIDI) += core/tlw_intel_widi.o
 
-$(MODULE_NAME)-$(CONFIG_WAPI_SUPPORT) += core/rtw_wapi.o	\
-					core/rtw_wapi_sms4.o
+$(MODULE_NAME)-$(CONFIG_WAPI_SUPPORT) += core/tlw_wapi.o	\
+					core/tlw_wapi_sms4.o
 
 $(MODULE_NAME)-y += $(_OS_INTFS_FILES)
 $(MODULE_NAME)-y += $(_HAL_INTFS_FILES)
 $(MODULE_NAME)-y += $(_OUTSRC_FILES)
 $(MODULE_NAME)-y += $(_PLATFORM_FILES)
 
-$(MODULE_NAME)-$(CONFIG_MP_INCLUDED) += core/rtw_mp.o
+$(MODULE_NAME)-$(CONFIG_MP_INCLUDED) += core/tlw_mp.o
 
 ifeq ($(CONFIG_RTL8723B), y)
-$(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/rtw_bt_mp.o
+$(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/tlw_bt_mp.o
 endif
 ifeq ($(CONFIG_RTL8821A), y)
-$(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/rtw_bt_mp.o
+$(MODULE_NAME)-$(CONFIG_MP_INCLUDED)+= core/tlw_bt_mp.o
 endif
 
 obj-m := $(MODULE_NAME).o

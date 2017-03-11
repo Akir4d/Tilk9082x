@@ -49,11 +49,11 @@ extern unsigned int oob_irq;
 #endif // CONFIG_GSPI_HCI
 
 #ifdef CONFIG_SDIO_HCI
-extern int rtw_mp_mode;
+extern int tlw_mp_mode;
 #else // !CONFIG_SDIO_HCI
 #endif // !CONFIG_SDIO_HCI
 
-int rtw_wifi_gpio_init(void)
+int tlw_wifi_gpio_init(void)
 {
 #ifdef CONFIG_GSPI_HCI
 	if (GPIO_WIFI_IRQ > 0) {
@@ -72,7 +72,7 @@ int rtw_wifi_gpio_init(void)
 
 #ifdef CONFIG_SDIO_HCI
 #if (defined(CONFIG_RTL8723B)) && (MP_DRIVER == 1) 
-	if(rtw_mp_mode==1){
+	if(tlw_mp_mode==1){
 		DBG_871X("%s GPIO_BT_RESET pin special for mp_test\n", __func__);	
 		if (GPIO_BT_RESET > 0)
 			gpio_request(GPIO_BT_RESET , "bt_rst");
@@ -82,7 +82,7 @@ int rtw_wifi_gpio_init(void)
 	return 0;
 }
 
-int rtw_wifi_gpio_deinit(void)
+int tlw_wifi_gpio_deinit(void)
 {
 #ifdef CONFIG_GSPI_HCI
 	if (GPIO_WIFI_IRQ > 0)
@@ -95,7 +95,7 @@ int rtw_wifi_gpio_deinit(void)
 
 #ifdef CONFIG_SDIO_HCI
 #if ( defined(CONFIG_RTL8723B)) && (MP_DRIVER == 1) 
-	if(rtw_mp_mode==1){
+	if(tlw_mp_mode==1){
 		DBG_871X("%s GPIO_BT_RESET pin special for mp_test\n", __func__);
 		if (GPIO_BT_RESET > 0)
 			gpio_free(GPIO_BT_RESET);
@@ -106,7 +106,7 @@ int rtw_wifi_gpio_deinit(void)
 }
 
 /* Customer function to control hw specific wlan gpios */
-void rtw_wifi_gpio_wlan_ctrl(int onoff)
+void tlw_wifi_gpio_wlan_ctrl(int onoff)
 {
 	switch (onoff)
 	{
@@ -136,7 +136,7 @@ void rtw_wifi_gpio_wlan_ctrl(int onoff)
 #ifdef CONFIG_SDIO_HCI
 #if ( defined(CONFIG_RTL8723B)) && (MP_DRIVER == 1) 
 		case WLAN_BT_PWDN_OFF:
-		if(rtw_mp_mode==1)
+		if(tlw_mp_mode==1)
 		{
 			DBG_871X("%s: call customer specific GPIO to set wifi power down pin to 0\n",
 				       	__FUNCTION__);
@@ -146,7 +146,7 @@ void rtw_wifi_gpio_wlan_ctrl(int onoff)
 		break;
 
 		case WLAN_BT_PWDN_ON:
-		if(rtw_mp_mode==1)
+		if(tlw_mp_mode==1)
 		{
 			DBG_871X("%s: callc customer specific GPIO to set wifi power down pin to 1 %x\n",
 					__FUNCTION__, GPIO_BT_RESET);
@@ -172,7 +172,7 @@ extern int sprd_3rdparty_gpio_wifi_pwd;
 extern int sprd_3rdparty_gpio_bt_reset;
 #endif
 
-int rtw_wifi_gpio_init(void)
+int tlw_wifi_gpio_init(void)
 {
 #if defined(CONFIG_RTL8723B)
 	if (sprd_3rdparty_gpio_bt_reset > 0)
@@ -182,13 +182,13 @@ int rtw_wifi_gpio_init(void)
 	return 0;
 }
 
-int rtw_wifi_gpio_deinit(void)
+int tlw_wifi_gpio_deinit(void)
 {
 	return 0;
 }
 
 /* Customer function to control hw specific wlan gpios */
-void rtw_wifi_gpio_wlan_ctrl(int onoff)
+void tlw_wifi_gpio_wlan_ctrl(int onoff)
 {
 	switch (onoff)
 	{
@@ -282,7 +282,7 @@ void rtw_wifi_gpio_wlan_ctrl(int onoff)
 
 #define GPIO_WIFI_IRQ		RK30_PIN2_PC2
 extern unsigned int oob_irq;
-int rtw_wifi_gpio_init(void)
+int tlw_wifi_gpio_init(void)
 {
 #ifdef CONFIG_GSPI_HCI
 	if (GPIO_WIFI_IRQ > 0) {
@@ -299,7 +299,7 @@ int rtw_wifi_gpio_init(void)
 }
 
 
-int rtw_wifi_gpio_deinit(void)
+int tlw_wifi_gpio_deinit(void)
 {
 #ifdef CONFIG_GSPI_HCI
 	if (GPIO_WIFI_IRQ > 0)
@@ -308,15 +308,15 @@ int rtw_wifi_gpio_deinit(void)
 	return 0;
 }
 
-void rtw_wifi_gpio_wlan_ctrl(int onoff)
+void tlw_wifi_gpio_wlan_ctrl(int onoff)
 {
 }
 
 #ifdef CONFIG_GPIO_API
 //this is a demo for extending GPIO pin[7] as interrupt mode
 struct net_device * ttl_net;
-extern int rtw_register_gpio_interrupt(struct net_device *netdev, int gpio_num, void(*callback)(u8 level));
-extern int rtw_disable_gpio_interrupt(struct net_device *netdev, int gpio_num);
+extern int tlw_register_gpio_interrupt(struct net_device *netdev, int gpio_num, void(*callback)(u8 level));
+extern int tlw_disable_gpio_interrupt(struct net_device *netdev, int gpio_num);
 void gpio_int(u8 is_high)
 {
 	DBG_8192C("%s level=%d\n",__func__, is_high);
@@ -329,7 +329,7 @@ int register_net_gpio_init(void)
 		DBG_871X_LEVEL(_drv_always_, "ttl_net init fail!\n");
 		return -1;
 	}
-	return rtw_register_gpio_interrupt(ttl_net,7, gpio_int);
+	return tlw_register_gpio_interrupt(ttl_net,7, gpio_int);
 }
 int unregister_net_gpio_init(void)
 {
@@ -339,18 +339,18 @@ int unregister_net_gpio_init(void)
 		DBG_871X_LEVEL(_drv_always_, "ttl_net init fail!\n");
 		return -1;
 	}
-	return rtw_disable_gpio_interrupt(ttl_net,7);
+	return tlw_disable_gpio_interrupt(ttl_net,7);
 }
 #endif
 
 #else
 
-int rtw_wifi_gpio_init(void)
+int tlw_wifi_gpio_init(void)
 {
 	return 0;
 }
 
-void rtw_wifi_gpio_wlan_ctrl(int onoff)
+void tlw_wifi_gpio_wlan_ctrl(int onoff)
 {
 }
 #endif //CONFIG_PLATFORM_SPRD

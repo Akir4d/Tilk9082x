@@ -74,17 +74,17 @@ void sitesurvey_ctrl_handler(void *FunctionContext)
 }
 */
 
-void rtw_join_timeout_handler (void *FunctionContext)
+void tlw_join_timeout_handler (void *FunctionContext)
 {
 	_adapter *adapter = (_adapter *)FunctionContext;
-	_rtw_join_timeout_handler(adapter);
+	_tlw_join_timeout_handler(adapter);
 }
 
 
-void _rtw_scan_timeout_handler (void *FunctionContext)
+void _tlw_scan_timeout_handler (void *FunctionContext)
 {
 	_adapter *adapter = (_adapter *)FunctionContext;
-	rtw_scan_timeout_handler(adapter);
+	tlw_scan_timeout_handler(adapter);
 }
 
 
@@ -103,39 +103,39 @@ void _dynamic_check_timer_handlder (void *FunctionContext)
 
 #ifdef CONFIG_CONCURRENT_MODE
 	if(adapter->pbuddy_adapter)
-		rtw_dynamic_check_timer_handlder(adapter->pbuddy_adapter);
+		tlw_dynamic_check_timer_handlder(adapter->pbuddy_adapter);
 #endif //CONFIG_CONCURRENT_MODE
 
-	rtw_dynamic_check_timer_handlder(adapter);
+	tlw_dynamic_check_timer_handlder(adapter);
 	
 	_set_timer(&adapter->mlmepriv.dynamic_chk_timer, 2000);
 }
 
 #ifdef CONFIG_SET_SCAN_DENY_TIMER
-void _rtw_set_scan_deny_timer_hdl(void *FunctionContext)
+void _tlw_set_scan_deny_timer_hdl(void *FunctionContext)
 {
 	_adapter *adapter = (_adapter *)FunctionContext;	 
-	rtw_set_scan_deny_timer_hdl(adapter);
+	tlw_set_scan_deny_timer_hdl(adapter);
 }
 #endif
 
 
-void rtw_init_mlme_timer(_adapter *padapter)
+void tlw_init_mlme_timer(_adapter *padapter)
 {
 	struct	mlme_priv *pmlmepriv = &padapter->mlmepriv;
 
-	_init_timer(&(pmlmepriv->assoc_timer), padapter->pnetdev, rtw_join_timeout_handler, padapter);
+	_init_timer(&(pmlmepriv->assoc_timer), padapter->pnetdev, tlw_join_timeout_handler, padapter);
 	//_init_timer(&(pmlmepriv->sitesurveyctrl.sitesurvey_ctrl_timer), padapter->pnetdev, sitesurvey_ctrl_handler, padapter);
-	_init_timer(&(pmlmepriv->scan_to_timer), padapter->pnetdev, _rtw_scan_timeout_handler, padapter);
+	_init_timer(&(pmlmepriv->scan_to_timer), padapter->pnetdev, _tlw_scan_timeout_handler, padapter);
 
 	#ifdef CONFIG_DFS_MASTER
-	_init_timer(&(pmlmepriv->dfs_master_timer), padapter->pnetdev, rtw_dfs_master_timer_hdl, padapter);
+	_init_timer(&(pmlmepriv->dfs_master_timer), padapter->pnetdev, tlw_dfs_master_timer_hdl, padapter);
 	#endif
 
 	_init_timer(&(pmlmepriv->dynamic_chk_timer), padapter->pnetdev, _dynamic_check_timer_handlder, padapter);
 
 	#ifdef CONFIG_SET_SCAN_DENY_TIMER
-	_init_timer(&(pmlmepriv->set_scan_deny_timer), padapter->pnetdev, _rtw_set_scan_deny_timer_hdl, padapter);
+	_init_timer(&(pmlmepriv->set_scan_deny_timer), padapter->pnetdev, _tlw_set_scan_deny_timer_hdl, padapter);
 	#endif
 
 #ifdef RTK_DMP_PLATFORM
@@ -145,10 +145,10 @@ void rtw_init_mlme_timer(_adapter *padapter)
 
 }
 
-extern void rtw_indicate_wx_assoc_event(_adapter *padapter);
-extern void rtw_indicate_wx_disassoc_event(_adapter *padapter);
+extern void tlw_indicate_wx_assoc_event(_adapter *padapter);
+extern void tlw_indicate_wx_disassoc_event(_adapter *padapter);
 
-void rtw_os_indicate_connect(_adapter *adapter)
+void tlw_os_indicate_connect(_adapter *adapter)
 {
 	struct mlme_priv *pmlmepriv = &(adapter->mlmepriv);
 _func_enter_;	
@@ -157,17 +157,17 @@ _func_enter_;
 	if ( (check_fwstate(pmlmepriv, WIFI_ADHOC_MASTER_STATE)==_TRUE ) || 
 		(check_fwstate(pmlmepriv, WIFI_ADHOC_STATE)==_TRUE ) )
 	{
-		rtw_cfg80211_ibss_indicate_connect(adapter);
+		tlw_cfg80211_ibss_indicate_connect(adapter);
 	}
 	else
-		rtw_cfg80211_indicate_connect(adapter);
+		tlw_cfg80211_indicate_connect(adapter);
 #endif //CONFIG_IOCTL_CFG80211
 
-	rtw_indicate_wx_assoc_event(adapter);
+	tlw_indicate_wx_assoc_event(adapter);
 	netif_carrier_on(adapter->pnetdev);
 
 	if(adapter->pid[2] !=0)
-		rtw_signal_process(adapter->pid[2], SIGALRM);
+		tlw_signal_process(adapter->pid[2], SIGALRM);
 
 #ifdef RTK_DMP_PLATFORM
 	_set_workitem(&adapter->mlmepriv.Linkup_workitem);
@@ -178,16 +178,16 @@ _func_exit_;
 }
 
 extern void indicate_wx_scan_complete_event(_adapter *padapter);
-void rtw_os_indicate_scan_done( _adapter *padapter, bool aborted)
+void tlw_os_indicate_scan_done( _adapter *padapter, bool aborted)
 {
 #ifdef CONFIG_IOCTL_CFG80211
-	rtw_cfg80211_indicate_scan_done(padapter, aborted);
+	tlw_cfg80211_indicate_scan_done(padapter, aborted);
 #endif
 	indicate_wx_scan_complete_event(padapter);
 }
 
 static RT_PMKID_LIST   backupPMKIDList[ NUM_PMKID_CACHE ];
-void rtw_reset_securitypriv( _adapter *adapter )
+void tlw_reset_securitypriv( _adapter *adapter )
 {
 	u8	backupPMKIDIndex = 0;
 	u8	backupTKIPCountermeasure = 0x00;
@@ -206,9 +206,9 @@ void rtw_reset_securitypriv( _adapter *adapter )
 		// Backup the btkip_countermeasure information.
 		// When the countermeasure is trigger, the driver have to disconnect with AP for 60 seconds.
 
-		_rtw_memset( &backupPMKIDList[ 0 ], 0x00, sizeof( RT_PMKID_LIST ) * NUM_PMKID_CACHE );
+		_tlw_memset( &backupPMKIDList[ 0 ], 0x00, sizeof( RT_PMKID_LIST ) * NUM_PMKID_CACHE );
 
-		_rtw_memcpy( &backupPMKIDList[ 0 ], &adapter->securitypriv.PMKIDList[ 0 ], sizeof( RT_PMKID_LIST ) * NUM_PMKID_CACHE );
+		_tlw_memcpy( &backupPMKIDList[ 0 ], &adapter->securitypriv.PMKIDList[ 0 ], sizeof( RT_PMKID_LIST ) * NUM_PMKID_CACHE );
 		backupPMKIDIndex = adapter->securitypriv.PMKIDIndex;
 		backupTKIPCountermeasure = adapter->securitypriv.btkip_countermeasure;
 		backupTKIPcountermeasure_time = adapter->securitypriv.btkip_countermeasure_time;		
@@ -216,12 +216,12 @@ void rtw_reset_securitypriv( _adapter *adapter )
 		//reset RX BIP packet number
 		pmlmeext->mgnt_80211w_IPN_rx = 0;
 #endif //CONFIG_IEEE80211W
-		_rtw_memset((unsigned char *)&adapter->securitypriv, 0, sizeof (struct security_priv));
-		//_init_timer(&(adapter->securitypriv.tkip_timer),adapter->pnetdev, rtw_use_tkipkey_handler, adapter);
+		_tlw_memset((unsigned char *)&adapter->securitypriv, 0, sizeof (struct security_priv));
+		//_init_timer(&(adapter->securitypriv.tkip_timer),adapter->pnetdev, tlw_use_tkipkey_handler, adapter);
 
 		// Added by Albert 2009/02/18
 		// Restore the PMK information to securitypriv structure for the following connection.
-		_rtw_memcpy( &adapter->securitypriv.PMKIDList[ 0 ], &backupPMKIDList[ 0 ], sizeof( RT_PMKID_LIST ) * NUM_PMKID_CACHE );
+		_tlw_memcpy( &adapter->securitypriv.PMKIDList[ 0 ], &backupPMKIDList[ 0 ], sizeof( RT_PMKID_LIST ) * NUM_PMKID_CACHE );
 		adapter->securitypriv.PMKIDIndex = backupPMKIDIndex;
 		adapter->securitypriv.btkip_countermeasure = backupTKIPCountermeasure;
 		adapter->securitypriv.btkip_countermeasure_time = backupTKIPcountermeasure_time;		
@@ -253,7 +253,7 @@ void rtw_reset_securitypriv( _adapter *adapter )
 	DBG_871X(FUNC_ADPT_FMT" - End to Disconnect\n", FUNC_ADPT_ARG(adapter));
 }
 
-void rtw_os_indicate_disconnect( _adapter *adapter )
+void tlw_os_indicate_disconnect( _adapter *adapter )
 {
 	//RT_PMKID_LIST   backupPMKIDList[ NUM_PMKID_CACHE ];
 
@@ -262,22 +262,22 @@ _func_enter_;
 	netif_carrier_off(adapter->pnetdev); // Do it first for tx broadcast pkt after disconnection issue!
 
 #ifdef CONFIG_IOCTL_CFG80211
-	rtw_cfg80211_indicate_disconnect(adapter);
+	tlw_cfg80211_indicate_disconnect(adapter);
 #endif //CONFIG_IOCTL_CFG80211
 
-	rtw_indicate_wx_disassoc_event(adapter);
+	tlw_indicate_wx_disassoc_event(adapter);
 
 #ifdef RTK_DMP_PLATFORM
 	_set_workitem(&adapter->mlmepriv.Linkdown_workitem);
 #endif
 	 //modify for CONFIG_IEEE80211W, none 11w also can use the same command
-	 rtw_reset_securitypriv_cmd(adapter);
+	 tlw_reset_securitypriv_cmd(adapter);
 
 _func_exit_;
 
 }
 
-void rtw_report_sec_ie(_adapter *adapter,u8 authmode,u8 *sec_ie)
+void tlw_report_sec_ie(_adapter *adapter,u8 authmode,u8 *sec_ie)
 {
 	uint	len;
 	u8	*buff,*p,i;
@@ -285,14 +285,14 @@ void rtw_report_sec_ie(_adapter *adapter,u8 authmode,u8 *sec_ie)
 
 _func_enter_;
 
-	RT_TRACE(_module_mlme_osdep_c_,_drv_info_,("+rtw_report_sec_ie, authmode=%d\n", authmode));
+	RT_TRACE(_module_mlme_osdep_c_,_drv_info_,("+tlw_report_sec_ie, authmode=%d\n", authmode));
 
 	buff = NULL;
 	if(authmode==_WPA_IE_ID_)
 	{
-		RT_TRACE(_module_mlme_osdep_c_,_drv_info_,("rtw_report_sec_ie, authmode=%d\n", authmode));
+		RT_TRACE(_module_mlme_osdep_c_,_drv_info_,("tlw_report_sec_ie, authmode=%d\n", authmode));
 
-		buff = rtw_zmalloc(IW_CUSTOM_MAX);
+		buff = tlw_zmalloc(IW_CUSTOM_MAX);
 		if (NULL == buff) {
 			DBG_871X(FUNC_ADPT_FMT ": alloc memory FAIL!!\n",
 				FUNC_ADPT_ARG(adapter));
@@ -311,7 +311,7 @@ _func_enter_;
 
 		p+=sprintf(p,")");
 
-		_rtw_memset(&wrqu,0,sizeof(wrqu));
+		_tlw_memset(&wrqu,0,sizeof(wrqu));
 
 		wrqu.data.length=p-buff;
 
@@ -321,7 +321,7 @@ _func_enter_;
 		wireless_send_event(adapter->pnetdev,IWEVCUSTOM,&wrqu,buff);
 #endif
 
-		rtw_mfree(buff, IW_CUSTOM_MAX);
+		tlw_mfree(buff, IW_CUSTOM_MAX);
 	}
 
 exit:
@@ -400,7 +400,7 @@ void init_mlme_ext_timer(_adapter *padapter)
 
 #ifdef CONFIG_AP_MODE
 
-void rtw_indicate_sta_assoc_event(_adapter *padapter, struct sta_info *psta)
+void tlw_indicate_sta_assoc_event(_adapter *padapter, struct sta_info *psta)
 {
 	union iwreq_data wrqu;
 	struct sta_priv *pstapriv = &padapter->stapriv;
@@ -417,9 +417,9 @@ void rtw_indicate_sta_assoc_event(_adapter *padapter, struct sta_info *psta)
 	
 	wrqu.addr.sa_family = ARPHRD_ETHER;	
 	
-	_rtw_memcpy(wrqu.addr.sa_data, psta->hwaddr, ETH_ALEN);
+	_tlw_memcpy(wrqu.addr.sa_data, psta->hwaddr, ETH_ALEN);
 
-	DBG_871X("+rtw_indicate_sta_assoc_event\n");
+	DBG_871X("+tlw_indicate_sta_assoc_event\n");
 	
 #ifndef CONFIG_IOCTL_CFG80211
 	wireless_send_event(padapter->pnetdev, IWEVREGISTERED, &wrqu, NULL);
@@ -427,7 +427,7 @@ void rtw_indicate_sta_assoc_event(_adapter *padapter, struct sta_info *psta)
 
 }
 
-void rtw_indicate_sta_disassoc_event(_adapter *padapter, struct sta_info *psta)
+void tlw_indicate_sta_disassoc_event(_adapter *padapter, struct sta_info *psta)
 {
 	union iwreq_data wrqu;
 	struct sta_priv *pstapriv = &padapter->stapriv;
@@ -444,9 +444,9 @@ void rtw_indicate_sta_disassoc_event(_adapter *padapter, struct sta_info *psta)
 	
 	wrqu.addr.sa_family = ARPHRD_ETHER;	
 	
-	_rtw_memcpy(wrqu.addr.sa_data, psta->hwaddr, ETH_ALEN);
+	_tlw_memcpy(wrqu.addr.sa_data, psta->hwaddr, ETH_ALEN);
 
-	DBG_871X("+rtw_indicate_sta_disassoc_event\n");
+	DBG_871X("+tlw_indicate_sta_disassoc_event\n");
 	
 #ifndef CONFIG_IOCTL_CFG80211
 	wireless_send_event(padapter->pnetdev, IWEVEXPIRED, &wrqu, NULL);
@@ -459,34 +459,34 @@ void rtw_indicate_sta_disassoc_event(_adapter *padapter, struct sta_info *psta)
 
 static int mgnt_xmit_entry(struct sk_buff *skb, struct net_device *pnetdev)
 {
-	struct hostapd_priv *phostapdpriv = rtw_netdev_priv(pnetdev);
+	struct hostapd_priv *phostapdpriv = tlw_netdev_priv(pnetdev);
 	_adapter *padapter = (_adapter *)phostapdpriv->padapter;
 
 	//DBG_871X("%s\n", __FUNCTION__);
 
-	return rtw_hal_hostap_mgnt_xmit_entry(padapter, skb);
+	return tlw_hal_hostap_mgnt_xmit_entry(padapter, skb);
 }
 
 static int mgnt_netdev_open(struct net_device *pnetdev)
 {
-	struct hostapd_priv *phostapdpriv = rtw_netdev_priv(pnetdev);
+	struct hostapd_priv *phostapdpriv = tlw_netdev_priv(pnetdev);
 
 	DBG_871X("mgnt_netdev_open: MAC Address:" MAC_FMT "\n", MAC_ARG(pnetdev->dev_addr));
 
 
 	init_usb_anchor(&phostapdpriv->anchored);
 	
-	rtw_netif_wake_queue(pnetdev);
+	tlw_netif_wake_queue(pnetdev);
 
 	netif_carrier_on(pnetdev);
 		
-	//rtw_write16(phostapdpriv->padapter, 0x0116, 0x0100);//only excluding beacon 
+	//tlw_write16(phostapdpriv->padapter, 0x0116, 0x0100);//only excluding beacon 
 		
 	return 0;	
 }
 static int mgnt_netdev_close(struct net_device *pnetdev)
 {
-	struct hostapd_priv *phostapdpriv = rtw_netdev_priv(pnetdev);
+	struct hostapd_priv *phostapdpriv = tlw_netdev_priv(pnetdev);
 
 	DBG_871X("%s\n", __FUNCTION__);
 
@@ -494,9 +494,9 @@ static int mgnt_netdev_close(struct net_device *pnetdev)
 
 	netif_carrier_off(pnetdev);
 
-	rtw_netif_stop_queue(pnetdev);
+	tlw_netif_stop_queue(pnetdev);
 
-	//rtw_write16(phostapdpriv->padapter, 0x0116, 0x3f3f);
+	//tlw_write16(phostapdpriv->padapter, 0x0116, 0x3f3f);
 	
 	return 0;	
 }
@@ -518,7 +518,7 @@ int hostapd_mode_init(_adapter *padapter)
 	struct hostapd_priv *phostapdpriv;
 	struct net_device *pnetdev;
 	
-	pnetdev = rtw_alloc_etherdev(sizeof(struct hostapd_priv));	
+	pnetdev = tlw_alloc_etherdev(sizeof(struct hostapd_priv));	
 	if (!pnetdev)
 	   return -ENOMEM;
 
@@ -527,7 +527,7 @@ int hostapd_mode_init(_adapter *padapter)
 
 	//pnetdev->type = ARPHRD_IEEE80211;
 	
-	phostapdpriv = rtw_netdev_priv(pnetdev);
+	phostapdpriv = tlw_netdev_priv(pnetdev);
 	phostapdpriv->pmgnt_netdev = pnetdev;
 	phostapdpriv->padapter= padapter;
 	padapter->phostapdpriv = phostapdpriv;
@@ -582,7 +582,7 @@ int hostapd_mode_init(_adapter *padapter)
 	mac[4]=0x11;
 	mac[5]=0x12;
 				
-	_rtw_memcpy(pnetdev->dev_addr, mac, ETH_ALEN);
+	_tlw_memcpy(pnetdev->dev_addr, mac, ETH_ALEN);
 	
 
 	netif_carrier_off(pnetdev);
@@ -595,7 +595,7 @@ int hostapd_mode_init(_adapter *padapter)
 		
 		if(pnetdev)
       		{	 
-			rtw_free_netdev(pnetdev);
+			tlw_free_netdev(pnetdev);
       		}
 	}
 	
@@ -609,7 +609,7 @@ void hostapd_mode_unload(_adapter *padapter)
 	struct net_device *pnetdev = phostapdpriv->pmgnt_netdev;
 
 	unregister_netdev(pnetdev);
-	rtw_free_netdev(pnetdev);
+	tlw_free_netdev(pnetdev);
 	
 }
 

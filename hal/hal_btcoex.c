@@ -138,7 +138,7 @@ static void DBG_BT_INFO_INIT(PBTCDBGINFO pinfo, u8 *pbuf, u32 size)
 {
 	if (NULL == pinfo) return;
 
-	_rtw_memset(pinfo, 0, sizeof(BTCDBGINFO));
+	_tlw_memset(pinfo, 0, sizeof(BTCDBGINFO));
 
 	if (pbuf && size) {
 		pinfo->info = pbuf;
@@ -163,7 +163,7 @@ void DBG_BT_INFO(u8 *dbgmsg)
 		return;
 
 	pbuf = pinfo->info + pinfo->len;
-	_rtw_memcpy(pbuf, dbgmsg, msglen);
+	_tlw_memcpy(pbuf, dbgmsg, msglen);
 	pinfo->len += msglen;
 }
 
@@ -223,7 +223,7 @@ static void halbtcoutsrc_LeaveLps(PBTC_COEXIST pBtCoexist)
 	pBtCoexist->btInfo.bBtCtrlLps = _TRUE;
 	pBtCoexist->btInfo.bBtLpsOn = _FALSE;
 
-	rtw_btcoex_LPS_Leave(padapter);
+	tlw_btcoex_LPS_Leave(padapter);
 }
 
 void halbtcoutsrc_EnterLps(PBTC_COEXIST pBtCoexist)
@@ -236,7 +236,7 @@ void halbtcoutsrc_EnterLps(PBTC_COEXIST pBtCoexist)
 	pBtCoexist->btInfo.bBtCtrlLps = _TRUE;
 	pBtCoexist->btInfo.bBtLpsOn = _TRUE;
 
-	rtw_btcoex_LPS_Enter(padapter);
+	tlw_btcoex_LPS_Enter(padapter);
 }
 
 void halbtcoutsrc_NormalLps(PBTC_COEXIST pBtCoexist)
@@ -251,7 +251,7 @@ void halbtcoutsrc_NormalLps(PBTC_COEXIST pBtCoexist)
 	if (pBtCoexist->btInfo.bBtCtrlLps)
 	{
 		pBtCoexist->btInfo.bBtLpsOn = _FALSE;
-		rtw_btcoex_LPS_Leave(padapter);
+		tlw_btcoex_LPS_Leave(padapter);
 		pBtCoexist->btInfo.bBtCtrlLps = _FALSE;
 
 		// recover the LPS state to the original
@@ -293,17 +293,17 @@ void halbtcoutsrc_LeaveLowPower(PBTC_COEXIST pBtCoexist)
 	if (GLBtcBtCoexAliveRegistered == _TRUE)
 		return;
 
-	stime = rtw_get_current_time();
+	stime = tlw_get_current_time();
 	do {
-		ready = rtw_register_task_alive(padapter, BTCOEX_ALIVE);
+		ready = tlw_register_task_alive(padapter, BTCOEX_ALIVE);
 		if (_SUCCESS == ready)
 			break;
 
-		utime = rtw_get_passing_time_ms(stime);
+		utime = tlw_get_passing_time_ms(stime);
 		if (utime > timeout)
 			break;
 
-		rtw_msleep_os(1);
+		tlw_msleep_os(1);
 	} while (1);
 
 	GLBtcBtCoexAliveRegistered = _TRUE;
@@ -323,7 +323,7 @@ void halbtcoutsrc_NormalLowPower(PBTC_COEXIST pBtCoexist)
 		return;
 
 	padapter = pBtCoexist->Adapter;
-	rtw_unregister_task_alive(padapter, BTCOEX_ALIVE);
+	tlw_unregister_task_alive(padapter, BTCOEX_ALIVE);
 
 	GLBtcBtCoexAliveRegistered = _FALSE;
 #endif // CONFIG_LPS_LCLK
@@ -353,7 +353,7 @@ void halbtcoutsrc_AggregationCheck(PBTC_COEXIST pBtCoexist)
 	// It can only be called after 8 seconds.
 	//=====================================
 
-	curTime = rtw_systime_to_ms(rtw_get_current_time());
+	curTime = tlw_systime_to_ms(tlw_get_current_time());
 	if((curTime - preTime) < HALBTCOUTSRC_AGG_CHK_WINDOW_IN_MS)	// over 8 seconds you can execute this function again.
 	{
 		return;
@@ -395,7 +395,7 @@ void halbtcoutsrc_AggregationCheck(PBTC_COEXIST pBtCoexist)
 	}
 
 	if (bNeedToAct)
-		rtw_btcoex_rx_ampdu_apply(padapter);
+		tlw_btcoex_rx_ampdu_apply(padapter);
 }
 
 u8 halbtcoutsrc_IsWifiBusy(PADAPTER padapter)
@@ -440,7 +440,7 @@ static u32 _halbtcoutsrc_GetWifiLinkStatus(PADAPTER padapter)
 	portConnectedStatus = 0;
 
 #ifdef CONFIG_P2P
-	if (!rtw_p2p_chk_state(&padapter->wdinfo, P2P_STATE_NONE))
+	if (!tlw_p2p_chk_state(&padapter->wdinfo, P2P_STATE_NONE))
 		bp2p = _TRUE;
 #endif // CONFIG_P2P
 
@@ -950,8 +950,8 @@ u8 halbtcoutsrc_Set(void *pBtcContext, u8 setType, void *pInBuf)
 				PWLAN_BSSID_EX cur_network;
 
 				cur_network = &padapter->mlmeextpriv.mlmext_info.network;
-				psta = rtw_get_stainfo(&padapter->stapriv, cur_network->MacAddress);
-				rtw_hal_update_ra_mask(psta, 0);
+				psta = tlw_get_stainfo(&padapter->stapriv, cur_network->MacAddress);
+				tlw_hal_update_ra_mask(psta, 0);
 			}
 			break;
 
@@ -982,7 +982,7 @@ u8 halbtcoutsrc_Set(void *pBtcContext, u8 setType, void *pInBuf)
 				u8 tmpBuf[20];
 				if (dataLen)
 				{
-					_rtw_memcpy(tmpBuf, pU1Tmp+1, dataLen);
+					_tlw_memcpy(tmpBuf, pU1Tmp+1, dataLen);
 				}
 				BT_SendEventExtBtInfoControl(padapter, dataLen, &tmpBuf[0]);
 			}
@@ -998,7 +998,7 @@ u8 halbtcoutsrc_Set(void *pBtcContext, u8 setType, void *pInBuf)
 				u8 tmpBuf[20];
 				if (dataLen)
 				{
-					_rtw_memcpy(tmpBuf, pU1Tmp+1, dataLen);
+					_tlw_memcpy(tmpBuf, pU1Tmp+1, dataLen);
 				}
 				BT_SendEventExtBtCoexControl(padapter, _FALSE, dataLen, &tmpBuf[0]);
 			}
@@ -1052,7 +1052,7 @@ u8 halbtcoutsrc_UnderIps(PBTC_COEXIST pBtCoexist)
 		return _TRUE;
 	}
 
-	rtw_hal_get_hwreg(padapter, HW_VAR_APFM_ON_MAC, &bMacPwrCtrlOn);
+	tlw_hal_get_hwreg(padapter, HW_VAR_APFM_ON_MAC, &bMacPwrCtrlOn);
 	if (_FALSE == bMacPwrCtrlOn)
 	{
 		return _TRUE;
@@ -1279,7 +1279,7 @@ u8 halbtcoutsrc_Read1Byte(void *pBtcContext, u32 RegAddr)
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	return rtw_read8(padapter, RegAddr);
+	return tlw_read8(padapter, RegAddr);
 }
 
 u16 halbtcoutsrc_Read2Byte(void *pBtcContext, u32 RegAddr)
@@ -1291,7 +1291,7 @@ u16 halbtcoutsrc_Read2Byte(void *pBtcContext, u32 RegAddr)
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	return	rtw_read16(padapter, RegAddr);
+	return	tlw_read16(padapter, RegAddr);
 }
 
 u32 halbtcoutsrc_Read4Byte(void *pBtcContext, u32 RegAddr)
@@ -1303,7 +1303,7 @@ u32 halbtcoutsrc_Read4Byte(void *pBtcContext, u32 RegAddr)
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	return	rtw_read32(padapter, RegAddr);
+	return	tlw_read32(padapter, RegAddr);
 }
 
 void halbtcoutsrc_Write1Byte(void *pBtcContext, u32 RegAddr, u8 Data)
@@ -1315,7 +1315,7 @@ void halbtcoutsrc_Write1Byte(void *pBtcContext, u32 RegAddr, u8 Data)
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	rtw_write8(padapter, RegAddr, Data);
+	tlw_write8(padapter, RegAddr, Data);
 }
 
 void halbtcoutsrc_BitMaskWrite1Byte(void *pBtcContext, u32 regAddr, u8 bitMask, u8 data1b)
@@ -1333,7 +1333,7 @@ void halbtcoutsrc_BitMaskWrite1Byte(void *pBtcContext, u32 regAddr, u8 bitMask, 
 
 	if(bitMask != 0xff)
 	{
-		originalValue = rtw_read8(padapter, regAddr);
+		originalValue = tlw_read8(padapter, regAddr);
 
 		for (i=0; i<=7; i++)
 		{
@@ -1345,7 +1345,7 @@ void halbtcoutsrc_BitMaskWrite1Byte(void *pBtcContext, u32 regAddr, u8 bitMask, 
 		data1b = (originalValue & ~bitMask) | ((data1b << bitShift) & bitMask);
 	}
 
-	rtw_write8(padapter, regAddr, data1b);
+	tlw_write8(padapter, regAddr, data1b);
 }
 
 void halbtcoutsrc_Write2Byte(void *pBtcContext, u32 RegAddr, u16 Data)
@@ -1357,7 +1357,7 @@ void halbtcoutsrc_Write2Byte(void *pBtcContext, u32 RegAddr, u16 Data)
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	rtw_write16(padapter, RegAddr, Data);
+	tlw_write16(padapter, RegAddr, Data);
 }
 
 void halbtcoutsrc_Write4Byte(void *pBtcContext, u32 RegAddr, u32 Data)
@@ -1369,7 +1369,7 @@ void halbtcoutsrc_Write4Byte(void *pBtcContext, u32 RegAddr, u32 Data)
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	rtw_write32(padapter, RegAddr, Data);
+	tlw_write32(padapter, RegAddr, Data);
 }
 
 void halbtcoutsrc_WriteLocalReg1Byte(void *pBtcContext, u32 RegAddr, u8 Data)
@@ -1379,11 +1379,11 @@ void halbtcoutsrc_WriteLocalReg1Byte(void *pBtcContext, u32 RegAddr, u8 Data)
 
 	if(BTC_INTF_SDIO == pBtCoexist->chipInterface)
 	{
-		rtw_write8(Adapter, SDIO_LOCAL_BASE | RegAddr, Data);
+		tlw_write8(Adapter, SDIO_LOCAL_BASE | RegAddr, Data);
 	}
 	else
 	{
-		rtw_write8(Adapter, RegAddr, Data);
+		tlw_write8(Adapter, RegAddr, Data);
 	}
 }
 
@@ -1456,16 +1456,16 @@ void halbtcoutsrc_SetBtReg(void *pBtcContext, u8 RegType, u32 RegAddr, u32 Data)
 		CmdBuffer1[0] |= ((ReqNum << 4) & 0xf0);				/* Set ReqNum */
 		CmdBuffer1[1] = 0x0d; 									/* Set OpCode to BT_LO_OP_WRITE_REG_VALUE */
 		CmdBuffer1[2] = ValueToSet[0]; 							/* Set WriteRegValue */
-		rtw_hal_fill_h2c_cmd(padapter, 0x67, 4, &(CmdBuffer1[0]));
+		tlw_hal_fill_h2c_cmd(padapter, 0x67, 4, &(CmdBuffer1[0]));
 
-		rtw_msleep_os(200);
+		tlw_msleep_os(200);
 		ReqNum++;
 
 		CmdBuffer2[0] |= (OperVer & 0x0f);						/* Set OperVer */
 		CmdBuffer2[0] |= ((ReqNum << 4) & 0xf0);				/* Set ReqNum */
 		CmdBuffer2[1] = 0x0c; 									/* Set OpCode of BT_LO_OP_WRITE_REG_ADDR */
 		CmdBuffer2[3] = AddrToSet[0];							/* Set WriteRegAddr */
-		rtw_hal_fill_h2c_cmd(padapter, 0x67, 4, &(CmdBuffer2[0]));
+		tlw_hal_fill_h2c_cmd(padapter, 0x67, 4, &(CmdBuffer2[0]));
 	}
 }
 
@@ -1503,7 +1503,7 @@ void halbtcoutsrc_FillH2cCmd(void *pBtcContext, u8 elementId, u32 cmdLen, u8 *pC
 	pBtCoexist = (PBTC_COEXIST)pBtcContext;
 	padapter = pBtCoexist->Adapter;
 
-	rtw_hal_fill_h2c_cmd(padapter, elementId, cmdLen, pCmdBuffer);
+	tlw_hal_fill_h2c_cmd(padapter, elementId, cmdLen, pCmdBuffer);
 }
 
 //====================================
@@ -2736,14 +2736,14 @@ static void halbt_InitHwConfig92C(PADAPTER padapter)
 		if (pHalData->rf_type == RF_1T1R)
 		{
 			// Config to 1T1R
-			u1Tmp = rtw_read8(padapter, rOFDM0_TRxPathEnable);
+			u1Tmp = tlw_read8(padapter, rOFDM0_TRxPathEnable);
 			u1Tmp &= ~BIT(1);
-			rtw_write8(padapter, rOFDM0_TRxPathEnable, u1Tmp);
+			tlw_write8(padapter, rOFDM0_TRxPathEnable, u1Tmp);
 			RT_DISP(FBT, BT_TRACE, ("[BTCoex], BT write 0xC04 = 0x%x\n", u1Tmp));
 
-			u1Tmp = rtw_read8(padapter, rOFDM1_TRxPathEnable);
+			u1Tmp = tlw_read8(padapter, rOFDM1_TRxPathEnable);
 			u1Tmp &= ~BIT(1);
-			rtw_write8(padapter, rOFDM1_TRxPathEnable, u1Tmp);
+			tlw_write8(padapter, rOFDM1_TRxPathEnable, u1Tmp);
 			RT_DISP(FBT, BT_TRACE, ("[BTCoex], BT write 0xD04 = 0x%x\n", u1Tmp));
 		}
 	}
@@ -2761,14 +2761,14 @@ static void halbt_InitHwConfig92D(PADAPTER padapter)
 		if (pHalData->rf_type == RF_1T1R)
 		{
 			// Config to 1T1R
-			u1Tmp = rtw_read8(padapter, rOFDM0_TRxPathEnable);
+			u1Tmp = tlw_read8(padapter, rOFDM0_TRxPathEnable);
 			u1Tmp &= ~BIT(1);
-			rtw_write8(padapter, rOFDM0_TRxPathEnable, u1Tmp);
+			tlw_write8(padapter, rOFDM0_TRxPathEnable, u1Tmp);
 			RT_DISP(FBT, BT_TRACE, ("[BTCoex], BT write 0xC04 = 0x%x\n", u1Tmp));
 
-			u1Tmp = rtw_read8(padapter, rOFDM1_TRxPathEnable);
+			u1Tmp = tlw_read8(padapter, rOFDM1_TRxPathEnable);
 			u1Tmp &= ~BIT(1);
-			rtw_write8(padapter, rOFDM1_TRxPathEnable, u1Tmp);
+			tlw_write8(padapter, rOFDM1_TRxPathEnable, u1Tmp);
 			RT_DISP(FBT, BT_TRACE, ("[BTCoex], BT write 0xD04 = 0x%x\n", u1Tmp));
 		}
 	}
@@ -2870,7 +2870,7 @@ u8 hal_btcoex_Initialize(PADAPTER padapter)
 	u8 ret2;
 
 
-	_rtw_memset(&GLBtCoexist, 0, sizeof(GLBtCoexist));
+	_tlw_memset(&GLBtCoexist, 0, sizeof(GLBtCoexist));
 	ret1 = EXhalbtcoutsrc_InitlizeVariables((void*)padapter);
 	ret2 = (ret1==_TRUE) ? _TRUE : _FALSE;
 
@@ -3056,7 +3056,7 @@ void hal_btcoex_RecordPwrMode(PADAPTER padapter, u8 *pCmdBuf, u8 cmdLen)
 		pCmdBuf[0]<<8|pCmdBuf[1],
 		pCmdBuf[2]<<24|pCmdBuf[3]<<16|pCmdBuf[4]<<8|pCmdBuf[5]));
 
-	_rtw_memcpy(GLBtCoexist.pwrModeVal, pCmdBuf, cmdLen);
+	_tlw_memcpy(GLBtCoexist.pwrModeVal, pCmdBuf, cmdLen);
 }
 
 void hal_btcoex_DisplayBtCoexInfo(PADAPTER padapter, u8 *pbuf, u32 bufsize)
@@ -3097,19 +3097,19 @@ u32 hal_btcoex_GetDBG(PADAPTER padapter, u8 *pStrBuf, u32 bufSize)
 	leftSize = bufSize;
 //	DBG_871X(FUNC_ADPT_FMT ": bufsize=%d\n", FUNC_ADPT_ARG(padapter), bufSize);
 
-	count = rtw_sprintf(pstr, leftSize, "#define DBG\t%d\n", DBG);
+	count = tlw_sprintf(pstr, leftSize, "#define DBG\t%d\n", DBG);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
 
-	count = rtw_sprintf(pstr, leftSize, "BTCOEX Debug Setting:\n");
+	count = tlw_sprintf(pstr, leftSize, "BTCOEX Debug Setting:\n");
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
 
-	count = rtw_sprintf(pstr, leftSize,
+	count = tlw_sprintf(pstr, leftSize,
 		"COMP_COEX: 0x%08X\n\n",
 		GLBtcDbgType[COMP_COEX]);
 	if ((count < 0) || (count >= leftSize))
@@ -3118,84 +3118,84 @@ u32 hal_btcoex_GetDBG(PADAPTER padapter, u8 *pStrBuf, u32 bufSize)
 	leftSize -= count;
 
 #if 0
-	count = rtw_sprintf(pstr, leftSize, "INTERFACE Debug Setting Definition:\n");
+	count = tlw_sprintf(pstr, leftSize, "INTERFACE Debug Setting Definition:\n");
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[0]=%d for INTF_INIT\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[0]=%d for INTF_INIT\n",
 		GLBtcDbgType[BTC_MSG_INTERFACE]&INTF_INIT?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[2]=%d for INTF_NOTIFY\n\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[2]=%d for INTF_NOTIFY\n\n",
 		GLBtcDbgType[BTC_MSG_INTERFACE]&INTF_NOTIFY?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
 	
-	count = rtw_sprintf(pstr, leftSize, "ALGORITHM Debug Setting Definition:\n");
+	count = tlw_sprintf(pstr, leftSize, "ALGORITHM Debug Setting Definition:\n");
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[0]=%d for BT_RSSI_STATE\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[0]=%d for BT_RSSI_STATE\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_BT_RSSI_STATE?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[1]=%d for WIFI_RSSI_STATE\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[1]=%d for WIFI_RSSI_STATE\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_WIFI_RSSI_STATE?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[2]=%d for BT_MONITOR\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[2]=%d for BT_MONITOR\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_BT_MONITOR?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[3]=%d for TRACE\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[3]=%d for TRACE\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[4]=%d for TRACE_FW\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[4]=%d for TRACE_FW\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE_FW?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[5]=%d for TRACE_FW_DETAIL\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[5]=%d for TRACE_FW_DETAIL\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE_FW_DETAIL?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[6]=%d for TRACE_FW_EXEC\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[6]=%d for TRACE_FW_EXEC\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE_FW_EXEC?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[7]=%d for TRACE_SW\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[7]=%d for TRACE_SW\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE_SW?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[8]=%d for TRACE_SW_DETAIL\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[8]=%d for TRACE_SW_DETAIL\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE_SW_DETAIL?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
 	pstr += count;
 	leftSize -= count;
-	count = rtw_sprintf(pstr, leftSize, "\tbit[9]=%d for TRACE_SW_EXEC\n",
+	count = tlw_sprintf(pstr, leftSize, "\tbit[9]=%d for TRACE_SW_EXEC\n",
 		GLBtcDbgType[BTC_MSG_ALGORITHM]&ALGO_TRACE_SW_EXEC?1:0);
 	if ((count < 0) || (count >= leftSize))
 		goto exit;
@@ -3344,7 +3344,7 @@ hal_btcoex_ParseAntIsolationConfigFile(
 							DBG_871X("Fail to parse parameters , format error!\n");
 							break;
 						}
-						_rtw_memset((PVOID)param_value_string , 0 , 10);
+						_tlw_memset((PVOID)param_value_string , 0 , 10);
 						if (!ParseQualifiedString(szLine , &i , param_value_string , '"' , '"')) {
 							DBG_871X("Fail to parse parameters\n");
 							return _FAIL;
@@ -3394,14 +3394,14 @@ hal_btcoex_AntIsolationConfig_ParaFile(
 	HAL_DATA_TYPE *pHalData = GET_HAL_DATA(Adapter);
 	int	rlen = 0 , rtStatus = _FAIL;
 
-	_rtw_memset(pHalData->para_file_buf , 0 , MAX_PARA_FILE_BUF_LEN);
+	_tlw_memset(pHalData->para_file_buf , 0 , MAX_PARA_FILE_BUF_LEN);
 
 
-	rtw_merge_string(rtw_phy_para_file_path, PATH_LENGTH_MAX, rtw_phy_file_path, pFileName);
+	tlw_merge_string(tlw_phy_para_file_path, PATH_LENGTH_MAX, tlw_phy_file_path, pFileName);
 
-	if (rtw_is_file_readable(rtw_phy_para_file_path) == _TRUE)
+	if (tlw_is_file_readable(tlw_phy_para_file_path) == _TRUE)
 	{
-		rlen = rtw_retrieve_from_file(rtw_phy_para_file_path, pHalData->para_file_buf, MAX_PARA_FILE_BUF_LEN);
+		rlen = tlw_retrieve_from_file(tlw_phy_para_file_path, pHalData->para_file_buf, MAX_PARA_FILE_BUF_LEN);
 		if (rlen > 0)
 		{
 			rtStatus = _SUCCESS;

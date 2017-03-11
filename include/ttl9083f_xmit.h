@@ -321,7 +321,7 @@ void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc)
 #ifdef CONFIG_PCI_HCI
 s32 ttl9083fe_init_xmit_priv(PADAPTER padapter);
 void ttl9083fe_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf *ttl9083fe_dequeue_xmitbuf(struct rtw_tx_ring *ring);
+struct xmit_buf *ttl9083fe_dequeue_xmitbuf(struct tlw_tx_ring *ring);
 void	ttl9083fe_xmitframe_resume(_adapter *padapter);
 s32 ttl9083fe_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
 s32 ttl9083fe_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);

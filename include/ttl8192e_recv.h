@@ -30,7 +30,7 @@
 		#define MAX_RECVBUF_SZ (4000) // about 4K
 	#else
 		#ifdef CONFIG_PREALLOC_RX_SKB_BUFFER
-			#define MAX_RECVBUF_SZ (rtw_rtkm_get_buff_size()) /*depend rtkm*/
+			#define MAX_RECVBUF_SZ (tlw_rtkm_get_buff_size()) /*depend rtkm*/
 		#elif defined(CONFIG_PLATFORM_HISILICON)
 			#define MAX_RECVBUF_SZ (16384) /* 16k */
 		#else

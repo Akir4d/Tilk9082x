@@ -20,7 +20,7 @@
 
 #include <drv_types.h>
 
-static bool rtw_sdio_claim_host_needed(struct sdio_func *func)
+static bool tlw_sdio_claim_host_needed(struct sdio_func *func)
 {
 	struct dvobj_priv *dvobj = sdio_get_drvdata(func);
 	PSDIO_DATA sdio_data = &dvobj->intf_data;
@@ -30,7 +30,7 @@ static bool rtw_sdio_claim_host_needed(struct sdio_func *func)
 	return _TRUE;
 }
 
-inline void rtw_sdio_set_irq_thd(struct dvobj_priv *dvobj, _thread_hdl_ thd_hdl)
+inline void tlw_sdio_set_irq_thd(struct dvobj_priv *dvobj, _thread_hdl_ thd_hdl)
 {
 	PSDIO_DATA sdio_data = &dvobj->intf_data;
 
@@ -53,13 +53,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return v;
 	}	
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -88,13 +88,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return;
 	}	
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -126,7 +126,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
@@ -166,13 +166,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}	
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -204,7 +204,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
@@ -244,13 +244,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -277,7 +277,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return v;
 	}
@@ -309,13 +309,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return v;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -345,13 +345,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return v;
 	}
 		
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -380,7 +380,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return v;
 	}
@@ -402,18 +402,18 @@ _func_enter_;
 			v = sdio_readl(func, addr, err);
 			//sdio_release_host(func);
 			if (*err == 0){
-				rtw_reset_continual_io_error(psdiodev);
+				tlw_reset_continual_io_error(psdiodev);
 				break;
 			}
 			else{
 				DBG_871X(KERN_ERR "%s: (%d) addr=0x%05x, val=0x%x, try_cnt=%d\n", __func__, *err, addr, v, i);
 				if(( -ESHUTDOWN == *err ) || ( -ENODEV == *err))
 				{			
-					rtw_set_surprise_removed(padapter);
+					tlw_set_surprise_removed(padapter);
 				}
 
-				if(rtw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
-					rtw_set_surprise_removed(padapter);
+				if(tlw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
+					tlw_set_surprise_removed(padapter);
 					break;
 				}						
 					
@@ -447,13 +447,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return v;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -475,16 +475,16 @@ _func_enter_;
 			if (claim_needed) sdio_release_host(func);
 			
 			if (*err == 0){
-				rtw_reset_continual_io_error(psdiodev);
+				tlw_reset_continual_io_error(psdiodev);
 				break;
 			}else{				
 				DBG_871X(KERN_ERR "%s: (%d) addr=0x%05x, val=0x%x, try_cnt=%d\n", __func__, *err, addr, v, i);
 				if(( -ESHUTDOWN == *err ) || ( -ENODEV == *err)){			
-					rtw_set_surprise_removed(padapter);
+					tlw_set_surprise_removed(padapter);
 				}
 
-				if(rtw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
-					rtw_set_surprise_removed(padapter);
+				if(tlw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
+					tlw_set_surprise_removed(padapter);
 					break;
 				}
 			}
@@ -517,13 +517,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return ;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -550,13 +550,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return ;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -582,7 +582,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return ;
 	}
@@ -602,16 +602,16 @@ _func_enter_;
 		{
 			sdio_writel(func, v, addr, err);
 			if (*err == 0){
-				rtw_reset_continual_io_error(psdiodev);
+				tlw_reset_continual_io_error(psdiodev);
 				break;
 			}else{				
 				DBG_871X(KERN_ERR "%s: (%d) addr=0x%05x, val=0x%x, try_cnt=%d\n", __func__, *err, addr, v, i);
 				if(( -ESHUTDOWN == *err ) || ( -ENODEV == *err)){			
-					rtw_set_surprise_removed(padapter);
+					tlw_set_surprise_removed(padapter);
 				}
 
-				if(rtw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
-					rtw_set_surprise_removed(padapter);
+				if(tlw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
+					tlw_set_surprise_removed(padapter);
 					break;
 				}
 			}
@@ -640,13 +640,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return ;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -667,16 +667,16 @@ _func_enter_;
 			sdio_writel(func, v, addr, err);
 			if (claim_needed) sdio_release_host(func);
 			if (*err == 0){
-				rtw_reset_continual_io_error(psdiodev);
+				tlw_reset_continual_io_error(psdiodev);
 				break;
 			}else{				
 				DBG_871X(KERN_ERR "%s: (%d) addr=0x%05x, val=0x%x, try_cnt=%d\n", __func__, *err, addr, v, i);
 				if(( -ESHUTDOWN == *err ) || ( -ENODEV == *err)){			
-					rtw_set_surprise_removed(padapter);
+					tlw_set_surprise_removed(padapter);
 				}
 
-				if(rtw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
-					rtw_set_surprise_removed(padapter);
+				if(tlw_inc_and_chk_continual_io_error(psdiodev) == _TRUE ){
+					tlw_set_surprise_removed(padapter);
 					break;
 				}
 			}
@@ -720,7 +720,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 	
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
@@ -782,12 +782,12 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 	
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);
@@ -828,7 +828,7 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 	
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
@@ -891,13 +891,13 @@ _func_enter_;
 	psdiodev = pintfhdl->pintf_dev;
 	psdio = &psdiodev->intf_data;
 	
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		//DBG_871X(" %s (padapter->bSurpriseRemoved ||adapter->pwrctrlpriv.pnp_bstop_trx)!!!\n",__FUNCTION__);
 		return err;
 	}
 	
 	func = psdio->func;
-	claim_needed = rtw_sdio_claim_host_needed(func);
+	claim_needed = tlw_sdio_claim_host_needed(func);
 
 	if (claim_needed)
 		sdio_claim_host(func);

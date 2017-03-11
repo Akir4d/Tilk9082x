@@ -693,7 +693,7 @@ odm_RATxRPTTimerSetting(
 		#if(DM_ODM_SUPPORT_TYPE & (ODM_WIN|ODM_AP))
 		ODM_RA_Set_TxRPT_Time(pDM_Odm,minRptTime);	
 		#else
-		rtw_rpt_timer_cfg_cmd(pDM_Odm->Adapter,minRptTime);
+		tlw_rpt_timer_cfg_cmd(pDM_Odm->Adapter,minRptTime);
 		#endif	
 		pDM_Odm->CurrminRptTime = minRptTime;
 	}

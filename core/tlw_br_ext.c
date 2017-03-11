@@ -29,9 +29,9 @@
 #include <linux/if_pppox.h>
 #endif
 
-#if 1	// rtw_wifi_driver
+#if 1	// tlw_wifi_driver
 #include <drv_types.h>
-#else	// rtw_wifi_driver
+#else	// tlw_wifi_driver
 #include "./8192cd_cfg.h"
 
 #ifndef __KERNEL__
@@ -42,7 +42,7 @@
 #include "./8192cd_headers.h"
 #include "./8192cd_br_ext.h"
 #include "./8192cd_debug.h"
-#endif	// rtw_wifi_driver
+#endif	// tlw_wifi_driver
 
 #ifdef CL_IPV6_PASS
 #ifdef __KERNEL__
@@ -521,7 +521,7 @@ static void __nat25_db_network_insert(_adapter *priv,
 		db = db->next_hash;
 	}
 
-	db = (struct nat25_network_db_entry *) rtw_malloc(sizeof(*db));
+	db = (struct nat25_network_db_entry *) tlw_malloc(sizeof(*db));
 	if(db == NULL) {
 		_exit_critical_bh(&priv->br_ext_lock, &irqL);
 		return;
@@ -648,7 +648,7 @@ void nat25_db_cleanup(_adapter *priv)
 				priv->scdb_entry = NULL;
 			}
 			__network_hash_unlink(f);
-			rtw_mfree((u8 *) f, sizeof(struct nat25_network_db_entry));
+			tlw_mfree((u8 *) f, sizeof(struct nat25_network_db_entry));
 
 			f = g;
 		}
@@ -738,7 +738,7 @@ void nat25_db_expire(_adapter *priv)
 							priv->scdb_entry = NULL;
 						}
 						__network_hash_unlink(f);
-						rtw_mfree((u8 *) f, sizeof(struct nat25_network_db_entry));
+						tlw_mfree((u8 *) f, sizeof(struct nat25_network_db_entry));
 					}
 				}
 

@@ -22,7 +22,7 @@
 #include <drv_types.h>
 #include <hal_data.h>
 
-u8 rtw_hal_sdio_max_txoqt_free_space(_adapter *padapter)
+u8 tlw_hal_sdio_max_txoqt_free_space(_adapter *padapter)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 
@@ -32,7 +32,7 @@ u8 rtw_hal_sdio_max_txoqt_free_space(_adapter *padapter)
 	return pHalData->SdioTxOQTMaxFreeSpace;	
 }
 
-u8 rtw_hal_sdio_query_tx_freepage(_adapter *padapter, u8 PageIdx, u8 RequiredPageNum)
+u8 tlw_hal_sdio_query_tx_freepage(_adapter *padapter, u8 PageIdx, u8 RequiredPageNum)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 
@@ -42,7 +42,7 @@ u8 rtw_hal_sdio_query_tx_freepage(_adapter *padapter, u8 PageIdx, u8 RequiredPag
 		return _FALSE;
 }
 
-void rtw_hal_sdio_update_tx_freepage(_adapter *padapter, u8 PageIdx, u8 RequiredPageNum)
+void tlw_hal_sdio_update_tx_freepage(_adapter *padapter, u8 PageIdx, u8 RequiredPageNum)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	u8	DedicatedPgNum = 0;
@@ -63,13 +63,13 @@ void rtw_hal_sdio_update_tx_freepage(_adapter *padapter, u8 PageIdx, u8 Required
 	//_exit_critical_bh(&pHalData->SdioTxFIFOFreePageLock, &irql);
 }
 
-void rtw_hal_set_sdio_tx_max_length(PADAPTER padapter, u8 numHQ, u8 numNQ, u8 numLQ, u8 numPubQ)
+void tlw_hal_set_sdio_tx_max_length(PADAPTER padapter, u8 numHQ, u8 numNQ, u8 numLQ, u8 numPubQ)
 {
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);
 	u32	page_size;
 	u32	lenHQ, lenNQ, lenLQ;
 
-	rtw_hal_get_def_var(padapter, HAL_DEF_TX_PAGE_SIZE,&page_size);
+	tlw_hal_get_def_var(padapter, HAL_DEF_TX_PAGE_SIZE,&page_size);
 
 	lenHQ = ((numHQ + numPubQ) >> 1) * page_size;
 	lenNQ = ((numNQ + numPubQ) >> 1) * page_size;
@@ -80,7 +80,7 @@ void rtw_hal_set_sdio_tx_max_length(PADAPTER padapter, u8 numHQ, u8 numNQ, u8 nu
 	pHalData->sdio_tx_max_len[LOW_QUEUE_IDX] = (lenLQ > MAX_XMITBUF_SZ)? MAX_XMITBUF_SZ:lenLQ;
 }
 
-u32 rtw_hal_get_sdio_tx_max_length(PADAPTER padapter, u8 queue_idx)
+u32 tlw_hal_get_sdio_tx_max_length(PADAPTER padapter, u8 queue_idx)
 {
 	struct dvobj_priv	*pdvobjpriv = adapter_to_dvobj(padapter);
 	HAL_DATA_TYPE	*pHalData = GET_HAL_DATA(padapter);

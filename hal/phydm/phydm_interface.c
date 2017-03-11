@@ -40,7 +40,7 @@ ODM_Read1Byte(
 	return	RTL_R8(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
-	return rtw_read8(Adapter,RegAddr);
+	return tlw_read8(Adapter,RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	return	PlatformEFIORead1Byte(Adapter, RegAddr);
@@ -60,7 +60,7 @@ ODM_Read2Byte(
 	return	RTL_R16(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
-	return rtw_read16(Adapter,RegAddr);
+	return tlw_read16(Adapter,RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	return	PlatformEFIORead2Byte(Adapter, RegAddr);
@@ -80,7 +80,7 @@ ODM_Read4Byte(
 	return	RTL_R32(RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
-	return rtw_read32(Adapter,RegAddr);
+	return tlw_read32(Adapter,RegAddr);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	return	PlatformEFIORead4Byte(Adapter, RegAddr);
@@ -101,7 +101,7 @@ ODM_Write1Byte(
 	RTL_W8(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
-	rtw_write8(Adapter,RegAddr, Data);
+	tlw_write8(Adapter,RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	PlatformEFIOWrite1Byte(Adapter, RegAddr, Data);
@@ -122,7 +122,7 @@ ODM_Write2Byte(
 	RTL_W16(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
-	rtw_write16(Adapter,RegAddr, Data);
+	tlw_write16(Adapter,RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	PlatformEFIOWrite2Byte(Adapter, RegAddr, Data);
@@ -143,7 +143,7 @@ ODM_Write4Byte(
 	RTL_W32(RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
-	rtw_write32(Adapter,RegAddr, Data);
+	tlw_write32(Adapter,RegAddr, Data);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	PlatformEFIOWrite4Byte(Adapter, RegAddr, Data);
@@ -267,7 +267,7 @@ ODM_AllocateMemory(
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	*pPtr = kmalloc(length, GFP_ATOMIC);
 #elif (DM_ODM_SUPPORT_TYPE & ODM_CE )
-	*pPtr = rtw_zvmalloc(length);
+	*pPtr = tlw_zvmalloc(length);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	PlatformAllocateMemory(Adapter, pPtr, length);
@@ -285,7 +285,7 @@ ODM_FreeMemory(
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	kfree(pPtr);
 #elif (DM_ODM_SUPPORT_TYPE & ODM_CE )	
-	rtw_vmfree(pPtr, length);
+	tlw_vmfree(pPtr, length);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	//PADAPTER    Adapter = pDM_Odm->Adapter;
 	PlatformFreeMemory(pPtr, length);
@@ -303,7 +303,7 @@ ODM_MoveMemory(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	memcpy(pDest, pSrc, Length);
 #elif (DM_ODM_SUPPORT_TYPE & ODM_CE )	
-	_rtw_memcpy(pDest, pSrc, Length);
+	_tlw_memcpy(pDest, pSrc, Length);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PlatformMoveMemory(pDest, pSrc, Length);
 #endif	
@@ -319,7 +319,7 @@ void ODM_Memory_Set(
 #if (DM_ODM_SUPPORT_TYPE & ODM_AP)
 	memset(pbuf, value, length);
 #elif (DM_ODM_SUPPORT_TYPE & ODM_CE )	
-	_rtw_memset(pbuf,value, length);
+	_tlw_memset(pbuf,value, length);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PlatformFillMemory(pbuf,length,value);
 #endif
@@ -334,7 +334,7 @@ s4Byte ODM_CompareMemory(
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	return memcmp(pBuf1,pBuf2,length);
 #elif (DM_ODM_SUPPORT_TYPE & ODM_CE )	
-	return _rtw_memcmp(pBuf1,pBuf2,length);
+	return _tlw_memcmp(pBuf1,pBuf2,length);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)	
 	return PlatformCompareMemory(pBuf1,pBuf2,length);
 #endif	
@@ -355,7 +355,7 @@ ODM_AcquireSpinLock(
 	
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
 	PADAPTER Adapter = pDM_Odm->Adapter;
-	rtw_odm_acquirespinlock(Adapter, type);
+	tlw_odm_acquirespinlock(Adapter, type);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	PlatformAcquireSpinLock(Adapter, type);
@@ -371,7 +371,7 @@ ODM_ReleaseSpinLock(
 
 #elif (DM_ODM_SUPPORT_TYPE & ODM_CE )
 	PADAPTER Adapter = pDM_Odm->Adapter;
-	rtw_odm_releasespinlock(Adapter, type);
+	tlw_odm_releasespinlock(Adapter, type);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PADAPTER		Adapter = pDM_Odm->Adapter;
 	PlatformReleaseSpinLock(Adapter, type);
@@ -488,7 +488,7 @@ ODM_StallExecution(
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	rtw_udelay_os(usDelay);
+	tlw_udelay_os(usDelay);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PlatformStallExecution(usDelay);
 #endif	
@@ -500,7 +500,7 @@ ODM_delay_ms(IN u4Byte	ms)
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	delay_ms(ms);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	rtw_mdelay_os(ms);
+	tlw_mdelay_os(ms);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	delay_ms(ms);
 #endif			
@@ -512,7 +512,7 @@ ODM_delay_us(IN u4Byte	us)
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	delay_us(us);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	rtw_udelay_os(us);
+	tlw_udelay_os(us);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	PlatformStallExecution(us);
 #endif			
@@ -524,7 +524,7 @@ ODM_sleep_ms(IN u4Byte	ms)
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	rtw_msleep_os(ms);
+	tlw_msleep_os(ms);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)	
 #endif		
 }
@@ -535,7 +535,7 @@ ODM_sleep_us(IN u4Byte	us)
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	rtw_usleep_os(us);
+	tlw_usleep_os(us);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)	
 #endif		
 }
@@ -873,7 +873,7 @@ ODM_FillH2CCmd(
 			FillH2CCmd(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
 		}
 	#elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-		rtw_hal_fill_h2c_cmd(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
+		tlw_hal_fill_h2c_cmd(Adapter, platform_h2c_id, CmdLen, pCmdBuffer);
 
 	#elif(DM_ODM_SUPPORT_TYPE & ODM_AP)	
 		#if((RTL8881A_SUPPORT==1)||(RTL8192E_SUPPORT==1)||(RTL8814A_SUPPORT==1)) 
@@ -901,7 +901,7 @@ ODM_GetCurrentTime(
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	return  0;
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	return (u8Byte)rtw_get_current_time();
+	return (u8Byte)tlw_get_current_time();
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)	
 	return  PlatformGetCurrentTime();
 #endif
@@ -916,7 +916,7 @@ ODM_GetProgressingTime(
 #if(DM_ODM_SUPPORT_TYPE & (ODM_AP|ODM_ADSL))
 	return  0;
 #elif(DM_ODM_SUPPORT_TYPE & ODM_CE)
-	return rtw_get_passing_time_ms((u4Byte)Start_Time);
+	return tlw_get_passing_time_ms((u4Byte)Start_Time);
 #elif(DM_ODM_SUPPORT_TYPE & ODM_WIN)
 	return   ((PlatformGetCurrentTime() - Start_Time)>>10);
 #endif

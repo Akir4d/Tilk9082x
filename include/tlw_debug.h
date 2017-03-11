@@ -239,7 +239,7 @@ extern void ttl871x_cedbg(const char *fmt, ...);
 		if (sel == RTW_DBGDUMP)\
 			DBG_871X_LEVEL(_drv_always_, fmt, ##arg); \
 		else {\
-			_seqdump(sel, fmt, ##arg) /*rtw_warn_on(1)*/; \
+			_seqdump(sel, fmt, ##arg) /*tlw_warn_on(1)*/; \
 		} \
 	}while(0)
 
@@ -338,12 +338,12 @@ void mac_reg_dump(void *sel, _adapter *adapter);
 void bb_reg_dump(void *sel, _adapter *adapter);
 void rf_reg_dump(void *sel, _adapter *adapter);
 
-bool rtw_fwdl_test_trigger_chksum_fail(void);
-bool rtw_fwdl_test_trigger_wintint_rdy_fail(void);
-bool rtw_del_rx_ampdu_test_trigger_no_tx_fail(void);
+bool tlw_fwdl_test_trigger_chksum_fail(void);
+bool tlw_fwdl_test_trigger_wintint_rdy_fail(void);
+bool tlw_del_rx_ampdu_test_trigger_no_tx_fail(void);
 
-u32 rtw_get_wait_hiq_empty_ms(void);
-void rtw_sink_rtp_seq_dbg( _adapter *adapter,_pkt *pkt);
+u32 tlw_get_wait_hiq_empty_ms(void);
+void tlw_sink_rtp_seq_dbg( _adapter *adapter,_pkt *pkt);
 
 struct sta_info;
 void sta_rx_reorder_ctl_dump(void *sel, struct sta_info *sta);

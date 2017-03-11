@@ -372,7 +372,7 @@ s32 ttl8192eu_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv
 #ifdef CONFIG_PCI_HCI
 s32 ttl8192ee_init_xmit_priv(PADAPTER padapter);
 void ttl8192ee_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf *ttl8192ee_dequeue_xmitbuf(struct rtw_tx_ring *ring);
+struct xmit_buf *ttl8192ee_dequeue_xmitbuf(struct tlw_tx_ring *ring);
 s32	ttl8192ee_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
 void	ttl8192ee_xmitframe_resume(_adapter *padapter);
 s32 ttl8192ee_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);

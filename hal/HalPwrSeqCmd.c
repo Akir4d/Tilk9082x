@@ -113,13 +113,13 @@ u8 HalPwrSeqCmdParsing(
 							offset = SPI_LOCAL_OFFSET | offset;
 #endif
 						// Read the value from system register
-						value = rtw_read8(padapter, offset);
+						value = tlw_read8(padapter, offset);
 
 						value=value&(~(GET_PWR_CFG_MASK(PwrCfgCmd)));
 						value=value|(GET_PWR_CFG_VALUE(PwrCfgCmd)&GET_PWR_CFG_MASK(PwrCfgCmd));
 
 						// Write the value back to sytem register
-						rtw_write8(padapter, offset, value);
+						tlw_write8(padapter, offset, value);
 					}
 					break;
 
@@ -138,13 +138,13 @@ u8 HalPwrSeqCmdParsing(
 							value = SdioLocalCmd52Read1Byte(padapter, offset);
 						else
 #endif
-							value = rtw_read8(padapter, offset);
+							value = tlw_read8(padapter, offset);
 
 						value=value&GET_PWR_CFG_MASK(PwrCfgCmd);
 						if (value == (GET_PWR_CFG_VALUE(PwrCfgCmd) & GET_PWR_CFG_MASK(PwrCfgCmd)))
 							bPollingBit = _TRUE;
 						else
-							rtw_udelay_os(10);
+							tlw_udelay_os(10);
 
 						if (pollingCount++ > maxPollingCnt) {
 							DBG_871X_LEVEL(_drv_err_, "HalPwrSeqCmdParsing: Fail to polling Offset[%#x]=%02x\n", offset, value);
@@ -157,9 +157,9 @@ u8 HalPwrSeqCmdParsing(
 				case PWR_CMD_DELAY:
 					RT_TRACE(_module_hal_init_c_ , _drv_info_, ("HalPwrSeqCmdParsing: PWR_CMD_DELAY\n"));
 					if (GET_PWR_CFG_VALUE(PwrCfgCmd) == PWRSEQ_DELAY_US)
-						rtw_udelay_os(GET_PWR_CFG_OFFSET(PwrCfgCmd));
+						tlw_udelay_os(GET_PWR_CFG_OFFSET(PwrCfgCmd));
 					else
-						rtw_udelay_os(GET_PWR_CFG_OFFSET(PwrCfgCmd)*1000);
+						tlw_udelay_os(GET_PWR_CFG_OFFSET(PwrCfgCmd)*1000);
 					break;
 
 				case PWR_CMD_END:

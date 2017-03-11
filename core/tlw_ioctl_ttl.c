@@ -22,7 +22,7 @@
 #include <drv_types.h>
 
 #ifdef CONFIG_MP_INCLUDED
-#include <rtw_mp_ioctl.h>
+#include <tlw_mp_ioctl.h>
 #endif
 
 struct oid_obj_priv oid_ttl_seg_01_01[] =
@@ -170,7 +170,7 @@ NDIS_STATUS oid_rt_pro_set_fw_dig_state_hdl(struct oid_par_priv* poid_par_priv)
 	if(poid_par_priv->information_buf_len >= sizeof(struct setdig_parm))
 	{
 		//DEBUG_ERR(("===> oid_rt_pro_set_fw_dig_state_hdl. type:0x%02x.\n",*((unsigned char*)poid_par_priv->information_buf )));	
-		if(!rtw_setfwdig_cmd(Adapter,*((unsigned char*)poid_par_priv->information_buf )))			
+		if(!tlw_setfwdig_cmd(Adapter,*((unsigned char*)poid_par_priv->information_buf )))			
 		{
 			status = NDIS_STATUS_NOT_ACCEPTED;
 		}
@@ -206,7 +206,7 @@ NDIS_STATUS oid_rt_pro_set_fw_ra_state_hdl(struct oid_par_priv* poid_par_priv)
 	if(poid_par_priv->information_buf_len >= sizeof(struct setra_parm))
 	{
 		//DEBUG_ERR(("===> oid_rt_pro_set_fw_ra_state_hdl. type:0x%02x.\n",*((unsigned char*)poid_par_priv->information_buf )));	
-		if(!rtw_setfwra_cmd(Adapter,*((unsigned char*)poid_par_priv->information_buf )))			
+		if(!tlw_setfwra_cmd(Adapter,*((unsigned char*)poid_par_priv->information_buf )))			
 		{
 			status = NDIS_STATUS_NOT_ACCEPTED;
 		}
@@ -416,7 +416,7 @@ NDIS_STATUS oid_rt_get_rx_icv_err_hdl(struct oid_par_priv* poid_par_priv)
 	}
 	if(poid_par_priv->information_buf_len>= sizeof(u32))
 	{
-		//_rtw_memcpy(*(uint *)poid_par_priv->information_buf,padapter->recvpriv.rx_icv_err,sizeof(u32));
+		//_tlw_memcpy(*(uint *)poid_par_priv->information_buf,padapter->recvpriv.rx_icv_err,sizeof(u32));
 		*(uint *)poid_par_priv->information_buf = padapter->recvpriv.rx_icv_err;
 		*poid_par_priv->bytes_rw = poid_par_priv->information_buf_len;
 	}
@@ -608,7 +608,7 @@ NDIS_STATUS oid_rt_get_total_rx_bytes_hdl(struct oid_par_priv* poid_par_priv)
 	}
 	if(poid_par_priv->information_buf_len>= sizeof(ULONG))
 	{
-		//_rtw_memcpy(*(uint *)poid_par_priv->information_buf,padapter->recvpriv.rx_icv_err,sizeof(u32));
+		//_tlw_memcpy(*(uint *)poid_par_priv->information_buf,padapter->recvpriv.rx_icv_err,sizeof(u32));
 		*(u64 *)poid_par_priv->information_buf = padapter->recvpriv.rx_bytes;
 		*poid_par_priv->bytes_rw = poid_par_priv->information_buf_len;
 	}
@@ -869,7 +869,7 @@ NDIS_STATUS oid_rt_pro_rf_write_registry_hdl(struct oid_par_priv* poid_par_priv)
 		//RegOffsetValue = *((unsigned long*)InformationBuffer);
 		//RegDataWidth = *((unsigned long*)InformationBuffer+1);	   
 		//RegDataValue =  *((unsigned long*)InformationBuffer+2);	
-		if(!rtw_setrfreg_cmd(Adapter, 
+		if(!tlw_setrfreg_cmd(Adapter, 
 						*(unsigned char*)poid_par_priv->information_buf, 
 						(unsigned long)(*((unsigned long*)poid_par_priv->information_buf+2))))
 		{
@@ -924,7 +924,7 @@ NDIS_STATUS oid_rt_pro_rf_read_registry_hdl(struct oid_par_priv* poid_par_priv)
 			//RegOffsetValue = *((unsigned long*)InformationBuffer);
 			//RegDataWidth = *((unsigned long*)InformationBuffer+1);	   
 			//RegDataValue =  *((unsigned long*)InformationBuffer+2);	   	 	                   
-			if(!rtw_getrfreg_cmd(Adapter, 
+			if(!tlw_getrfreg_cmd(Adapter, 
 							*(unsigned char*)poid_par_priv->information_buf, 
 							(unsigned char*)&Adapter->mppriv.workparam.io_value))
 			{

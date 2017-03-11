@@ -20,7 +20,7 @@
 #ifndef _RTL9083F_SRESET_H_
 #define _RTL9083F_SRESET_H_
 
-#include <rtw_sreset.h>
+#include <tlw_sreset.h>
 
 #ifdef DBG_CONFIG_ERROR_DETECT
 extern void ttl9083f_sreset_xmit_status_check(_adapter *padapter);

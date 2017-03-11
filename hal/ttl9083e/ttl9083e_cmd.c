@@ -37,15 +37,15 @@ static u8 _is_fw_read_cmd_down(_adapter* padapter, u8 msgbox_num)
 
 	u8 valid;
 
-	//DBG_8192C(" _is_fw_read_cmd_down ,reg_1cc(%x),msg_box(%d)...\n",rtw_read8(padapter,REG_HMETFR),msgbox_num);
+	//DBG_8192C(" _is_fw_read_cmd_down ,reg_1cc(%x),msg_box(%d)...\n",tlw_read8(padapter,REG_HMETFR),msgbox_num);
 
 	do{
-		valid = rtw_read8(padapter,REG_HMETFR) & BIT(msgbox_num);
+		valid = tlw_read8(padapter,REG_HMETFR) & BIT(msgbox_num);
 		if(0 == valid ){
 			read_down = _TRUE;
 		}
 		else
-			rtw_msleep_os(1);
+			tlw_msleep_os(1);
 	}while( (!read_down) && (retry_cnts--));
 
 	return read_down;
@@ -94,7 +94,7 @@ _func_enter_;
 	if (CmdLen > RTL88E_MAX_CMD_LEN) {
 		goto exit;
 	}
-	if (rtw_is_surprise_removed(padapter))
+	if (tlw_is_surprise_removed(padapter))
 		goto exit;
 
 	//pay attention to if  race condition happened in  H2C cmd setting.
@@ -110,33 +110,33 @@ _func_enter_;
 
 		if(CmdLen<=3)
 		{
-			_rtw_memcpy((u8*)(&h2c_cmd)+1, pCmdBuffer, CmdLen );
+			_tlw_memcpy((u8*)(&h2c_cmd)+1, pCmdBuffer, CmdLen );
 		}
 		else{			
-			_rtw_memcpy((u8*)(&h2c_cmd)+1, pCmdBuffer,3);
+			_tlw_memcpy((u8*)(&h2c_cmd)+1, pCmdBuffer,3);
 			ext_cmd_len = CmdLen-3;	
-			_rtw_memcpy((u8*)(&h2c_cmd_ex), pCmdBuffer+3,ext_cmd_len );
+			_tlw_memcpy((u8*)(&h2c_cmd_ex), pCmdBuffer+3,ext_cmd_len );
 
 			//Write Ext command
 			msgbox_ex_addr = REG_HMEBOX_EXT_0 + (h2c_box_num *RTL88E_EX_MESSAGE_BOX_SIZE);
 			#ifdef CONFIG_H2C_EF
 			for(cmd_idx=0;cmd_idx<ext_cmd_len;cmd_idx++ ){
-				rtw_write8(padapter,msgbox_ex_addr+cmd_idx,*((u8*)(&h2c_cmd_ex)+cmd_idx));
+				tlw_write8(padapter,msgbox_ex_addr+cmd_idx,*((u8*)(&h2c_cmd_ex)+cmd_idx));
 			}
 			#else
 			h2c_cmd_ex = le32_to_cpu( h2c_cmd_ex );
-			rtw_write32(padapter, msgbox_ex_addr, h2c_cmd_ex);
+			tlw_write32(padapter, msgbox_ex_addr, h2c_cmd_ex);
 			#endif
 		}
 		// Write command
 		msgbox_addr =REG_HMEBOX_0 + (h2c_box_num *RTL88E_MESSAGE_BOX_SIZE);
 		#ifdef CONFIG_H2C_EF
 		for(cmd_idx=0;cmd_idx<RTL88E_MESSAGE_BOX_SIZE;cmd_idx++ ){
-			rtw_write8(padapter,msgbox_addr+cmd_idx,*((u8*)(&h2c_cmd)+cmd_idx));
+			tlw_write8(padapter,msgbox_addr+cmd_idx,*((u8*)(&h2c_cmd)+cmd_idx));
 		}
 		#else
 		h2c_cmd = le32_to_cpu( h2c_cmd );
-		rtw_write32(padapter,msgbox_addr, h2c_cmd);
+		tlw_write32(padapter,msgbox_addr, h2c_cmd);
 		#endif
 		
 
@@ -268,7 +268,7 @@ u8 ttl9083e_set_raid_cmd(_adapter*padapter, u32 bitmap, u8* arg)
 	//The firmware Rate Adaption function is triggered by TBTT INT, so to
 	// enable the rate adaption, we need to enable the hardware Beacon function Reg 0x550[3]		
 	//SetBcnCtrlReg(padapter, BIT3, 0);		
-	rtw_write8(padapter, REG_BCN_CTRL, rtw_read8(padapter, REG_BCN_CTRL)|BIT3);
+	tlw_write8(padapter, REG_BCN_CTRL, tlw_read8(padapter, REG_BCN_CTRL)|BIT3);
 
 	return res;
 
@@ -399,11 +399,11 @@ void ttl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt )
 	//Delete select macid (MACID 0~63) from queue list.
 	if(opmode == 1)// 1:connect
 	{
-		rtw_write32(padapter,reg_macid_no_link, (rtw_read32(padapter,reg_macid_no_link) & (~BIT(macid))));
+		tlw_write32(padapter,reg_macid_no_link, (tlw_read32(padapter,reg_macid_no_link) & (~BIT(macid))));
 	}
 	else//0: disconnect
 	{
-		rtw_write32(padapter,reg_macid_no_link, (rtw_read32(padapter,reg_macid_no_link)|BIT(macid)));
+		tlw_write32(padapter,reg_macid_no_link, (tlw_read32(padapter,reg_macid_no_link)|BIT(macid)));
 	}
 	
 	
@@ -412,7 +412,7 @@ void ttl9083e_set_FwMediaStatus_cmd(PADAPTER padapter, u16 mstatus_rpt )
 
 void ConstructBeacon(_adapter *padapter, u8 *pframe, u32 *pLength)
 {
-	struct rtw_ieee80211_hdr	*pwlanhdr;
+	struct tlw_ieee80211_hdr	*pwlanhdr;
 	u16					*fctrl;
 	u32					rate_len, pktlen;
 	struct mlme_ext_priv	*pmlmeext = &(padapter->mlmeextpriv);
@@ -423,34 +423,34 @@ void ConstructBeacon(_adapter *padapter, u8 *pframe, u32 *pLength)
 
 	//DBG_871X("%s\n", __FUNCTION__);
 
-	pwlanhdr = (struct rtw_ieee80211_hdr *)pframe;
+	pwlanhdr = (struct tlw_ieee80211_hdr *)pframe;
 
 	fctrl = &(pwlanhdr->frame_ctl);
 	*(fctrl) = 0;
 
-	_rtw_memcpy(pwlanhdr->addr1, bc_addr, ETH_ALEN);
-	_rtw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
-	_rtw_memcpy(pwlanhdr->addr3, get_my_bssid(cur_network), ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr1, bc_addr, ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr3, get_my_bssid(cur_network), ETH_ALEN);
 
 	SetSeqNum(pwlanhdr, 0/*pmlmeext->mgnt_seq*/);
 	//pmlmeext->mgnt_seq++;
 	SetFrameSubType(pframe, WIFI_BEACON);
 
-	pframe += sizeof(struct rtw_ieee80211_hdr_3addr);
-	pktlen = sizeof (struct rtw_ieee80211_hdr_3addr);
+	pframe += sizeof(struct tlw_ieee80211_hdr_3addr);
+	pktlen = sizeof (struct tlw_ieee80211_hdr_3addr);
 
 	//timestamp will be inserted by hardware
 	pframe += 8;
 	pktlen += 8;
 
 	// beacon interval: 2 bytes
-	_rtw_memcpy(pframe, (unsigned char *)(rtw_get_beacon_interval_from_ie(cur_network->IEs)), 2);
+	_tlw_memcpy(pframe, (unsigned char *)(tlw_get_beacon_interval_from_ie(cur_network->IEs)), 2);
 
 	pframe += 2;
 	pktlen += 2;
 
 	// capability info: 2 bytes
-	_rtw_memcpy(pframe, (unsigned char *)(rtw_get_capability_from_ie(cur_network->IEs)), 2);
+	_tlw_memcpy(pframe, (unsigned char *)(tlw_get_capability_from_ie(cur_network->IEs)), 2);
 
 	pframe += 2;
 	pktlen += 2;
@@ -459,7 +459,7 @@ void ConstructBeacon(_adapter *padapter, u8 *pframe, u32 *pLength)
 	{
 		//DBG_871X("ie len=%d\n", cur_network->IELength);
 		pktlen += cur_network->IELength - sizeof(NDIS_802_11_FIXED_IEs);
-		_rtw_memcpy(pframe, cur_network->IEs+sizeof(NDIS_802_11_FIXED_IEs), pktlen);
+		_tlw_memcpy(pframe, cur_network->IEs+sizeof(NDIS_802_11_FIXED_IEs), pktlen);
 
 		goto _ConstructBeacon;
 	}
@@ -467,14 +467,14 @@ void ConstructBeacon(_adapter *padapter, u8 *pframe, u32 *pLength)
 	//below for ad-hoc mode
 
 	// SSID
-	pframe = rtw_set_ie(pframe, _SSID_IE_, cur_network->Ssid.SsidLength, cur_network->Ssid.Ssid, &pktlen);
+	pframe = tlw_set_ie(pframe, _SSID_IE_, cur_network->Ssid.SsidLength, cur_network->Ssid.Ssid, &pktlen);
 
 	// supported rates...
-	rate_len = rtw_get_rateset_len(cur_network->SupportedRates);
-	pframe = rtw_set_ie(pframe, _SUPPORTEDRATES_IE_, ((rate_len > 8)? 8: rate_len), cur_network->SupportedRates, &pktlen);
+	rate_len = tlw_get_rateset_len(cur_network->SupportedRates);
+	pframe = tlw_set_ie(pframe, _SUPPORTEDRATES_IE_, ((rate_len > 8)? 8: rate_len), cur_network->SupportedRates, &pktlen);
 
 	// DS parameter set
-	pframe = rtw_set_ie(pframe, _DSSET_IE_, 1, (unsigned char *)&(cur_network->Configuration.DSConfig), &pktlen);
+	pframe = tlw_set_ie(pframe, _DSSET_IE_, 1, (unsigned char *)&(cur_network->Configuration.DSConfig), &pktlen);
 
 	if( (pmlmeinfo->state&0x03) == WIFI_FW_ADHOC_STATE)
 	{
@@ -482,7 +482,7 @@ void ConstructBeacon(_adapter *padapter, u8 *pframe, u32 *pLength)
 		// IBSS Parameter Set...
 		//ATIMWindow = cur->Configuration.ATIMWindow;
 		ATIMWindow = 0;
-		pframe = rtw_set_ie(pframe, _IBSS_PARA_IE_, 2, (unsigned char *)(&ATIMWindow), &pktlen);
+		pframe = tlw_set_ie(pframe, _IBSS_PARA_IE_, 2, (unsigned char *)(&ATIMWindow), &pktlen);
 	}
 
 
@@ -492,7 +492,7 @@ void ConstructBeacon(_adapter *padapter, u8 *pframe, u32 *pLength)
 	// EXTERNDED SUPPORTED RATE
 	if (rate_len > 8)
 	{
-		pframe = rtw_set_ie(pframe, _EXT_SUPPORTEDRATES_IE_, (rate_len - 8), (cur_network->SupportedRates + 8), &pktlen);
+		pframe = tlw_set_ie(pframe, _EXT_SUPPORTEDRATES_IE_, (rate_len - 8), (cur_network->SupportedRates + 8), &pktlen);
 	}
 
 
@@ -514,7 +514,7 @@ _ConstructBeacon:
 
 void ConstructPSPoll(_adapter *padapter, u8 *pframe, u32 *pLength)
 {
-	struct rtw_ieee80211_hdr	*pwlanhdr;
+	struct tlw_ieee80211_hdr	*pwlanhdr;
 	u16					*fctrl;
 	u32					pktlen;
 	struct mlme_ext_priv	*pmlmeext = &(padapter->mlmeextpriv);
@@ -522,7 +522,7 @@ void ConstructPSPoll(_adapter *padapter, u8 *pframe, u32 *pLength)
 
 	//DBG_871X("%s\n", __FUNCTION__);
 
-	pwlanhdr = (struct rtw_ieee80211_hdr *)pframe;
+	pwlanhdr = (struct tlw_ieee80211_hdr *)pframe;
 
 	// Frame control.
 	fctrl = &(pwlanhdr->frame_ctl);
@@ -534,10 +534,10 @@ void ConstructPSPoll(_adapter *padapter, u8 *pframe, u32 *pLength)
 	SetDuration(pframe, (pmlmeinfo->aid | 0xc000));
 
 	// BSSID.
-	_rtw_memcpy(pwlanhdr->addr1, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr1, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
 
 	// TA.
-	_rtw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
 
 	*pLength = 16;
 }
@@ -552,7 +552,7 @@ void ConstructNullFunctionData(
 	u8		bEosp,
 	u8		bForcePowerSave)
 {
-	struct rtw_ieee80211_hdr	*pwlanhdr;
+	struct tlw_ieee80211_hdr	*pwlanhdr;
 	u16						*fctrl;
 	u32						pktlen;
 	struct mlme_priv		*pmlmepriv = &padapter->mlmepriv;
@@ -563,7 +563,7 @@ void ConstructNullFunctionData(
 
 	//DBG_871X("%s:%d\n", __FUNCTION__, bForcePowerSave);
 
-	pwlanhdr = (struct rtw_ieee80211_hdr*)pframe;
+	pwlanhdr = (struct tlw_ieee80211_hdr*)pframe;
 
 	fctrl = &pwlanhdr->frame_ctl;
 	*(fctrl) = 0;
@@ -576,40 +576,40 @@ void ConstructNullFunctionData(
 	{
 		case Ndis802_11Infrastructure:
 			SetToDs(fctrl);
-			_rtw_memcpy(pwlanhdr->addr1, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
-			_rtw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
-			_rtw_memcpy(pwlanhdr->addr3, StaAddr, ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr1, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr3, StaAddr, ETH_ALEN);
 			break;
 		case Ndis802_11APMode:
 			SetFrDs(fctrl);
-			_rtw_memcpy(pwlanhdr->addr1, StaAddr, ETH_ALEN);
-			_rtw_memcpy(pwlanhdr->addr2, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
-			_rtw_memcpy(pwlanhdr->addr3, adapter_mac_addr(padapter), ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr1, StaAddr, ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr2, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr3, adapter_mac_addr(padapter), ETH_ALEN);
 			break;
 		case Ndis802_11IBSS:
 		default:
-			_rtw_memcpy(pwlanhdr->addr1, StaAddr, ETH_ALEN);
-			_rtw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
-			_rtw_memcpy(pwlanhdr->addr3, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr1, StaAddr, ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr2, adapter_mac_addr(padapter), ETH_ALEN);
+			_tlw_memcpy(pwlanhdr->addr3, get_my_bssid(&(pmlmeinfo->network)), ETH_ALEN);
 			break;
 	}
 
 	SetSeqNum(pwlanhdr, 0);
 
 	if (bQoS == _TRUE) {
-		struct rtw_ieee80211_hdr_3addr_qos *pwlanqoshdr;
+		struct tlw_ieee80211_hdr_3addr_qos *pwlanqoshdr;
 
 		SetFrameSubType(pframe, WIFI_QOS_DATA_NULL);
 
-		pwlanqoshdr = (struct rtw_ieee80211_hdr_3addr_qos*)pframe;
+		pwlanqoshdr = (struct tlw_ieee80211_hdr_3addr_qos*)pframe;
 		SetPriority(&pwlanqoshdr->qc, AC);
 		SetEOSP(&pwlanqoshdr->qc, bEosp);
 
-		pktlen = sizeof(struct rtw_ieee80211_hdr_3addr_qos);
+		pktlen = sizeof(struct tlw_ieee80211_hdr_3addr_qos);
 	} else {
 		SetFrameSubType(pframe, WIFI_DATA_NULL);
 
-		pktlen = sizeof(struct rtw_ieee80211_hdr_3addr);
+		pktlen = sizeof(struct tlw_ieee80211_hdr_3addr);
 	}
 
 	*pLength = pktlen;
@@ -617,7 +617,7 @@ void ConstructNullFunctionData(
 
 void ConstructProbeRsp(_adapter *padapter, u8 *pframe, u32 *pLength, u8 *StaAddr, BOOLEAN bHideSSID)
 {
-	struct rtw_ieee80211_hdr	*pwlanhdr;
+	struct tlw_ieee80211_hdr	*pwlanhdr;
 	u16					*fctrl;
 	u8					*mac, *bssid;
 	u32					pktlen;
@@ -628,27 +628,27 @@ void ConstructProbeRsp(_adapter *padapter, u8 *pframe, u32 *pLength, u8 *StaAddr
 
 	//DBG_871X("%s\n", __FUNCTION__);
 
-	pwlanhdr = (struct rtw_ieee80211_hdr *)pframe;
+	pwlanhdr = (struct tlw_ieee80211_hdr *)pframe;
 
 	mac = adapter_mac_addr(padapter);
 	bssid = cur_network->MacAddress;
 
 	fctrl = &(pwlanhdr->frame_ctl);
 	*(fctrl) = 0;
-	_rtw_memcpy(pwlanhdr->addr1, StaAddr, ETH_ALEN);
-	_rtw_memcpy(pwlanhdr->addr2, mac, ETH_ALEN);
-	_rtw_memcpy(pwlanhdr->addr3, bssid, ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr1, StaAddr, ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr2, mac, ETH_ALEN);
+	_tlw_memcpy(pwlanhdr->addr3, bssid, ETH_ALEN);
 
 	SetSeqNum(pwlanhdr, 0);
 	SetFrameSubType(fctrl, WIFI_PROBERSP);
 
-	pktlen = sizeof(struct rtw_ieee80211_hdr_3addr);
+	pktlen = sizeof(struct tlw_ieee80211_hdr_3addr);
 	pframe += pktlen;
 
 	if(cur_network->IELength>MAX_IE_SZ)
 		return;
 
-	_rtw_memcpy(pframe, cur_network->IEs, cur_network->IELength);
+	_tlw_memcpy(pframe, cur_network->IEs, cur_network->IELength);
 	pframe += cur_network->IELength;
 	pktlen += cur_network->IELength;
 
@@ -711,7 +711,7 @@ GetTxBufferRsvdPageNum9083E(_adapter *padapter, bool wowlan)
 	// default reseved 1 page for the IC type which is undefined.
 	u8	TxPageBndy= LAST_ENTRY_OF_TX_PKT_BUFFER_9083E(padapter);
 
-	rtw_hal_get_def_var(padapter, HAL_DEF_TX_PAGE_BOUNDARY, (u8 *)&TxPageBndy);
+	tlw_hal_get_def_var(padapter, HAL_DEF_TX_PAGE_BOUNDARY, (u8 *)&TxPageBndy);
 
 	RsvdPageNum = LAST_ENTRY_OF_TX_PKT_BUFFER_9083E(padapter) - TxPageBndy + 1;
 
@@ -741,24 +741,24 @@ _func_enter_;
 	{
 		// We should set AID, correct TSF, HW seq enable before set JoinBssReport to Fw in 88/92C.
 		// Suggested by filen. Added by tynli.
-		rtw_write16(padapter, REG_BCN_PSR_RPT, (0xC000|pmlmeinfo->aid));
+		tlw_write16(padapter, REG_BCN_PSR_RPT, (0xC000|pmlmeinfo->aid));
 		// Do not set TSF again here or vWiFi beacon DMA INT will not work.
 		//correct_TSF(padapter, pmlmeext);
 		// Hw sequende enable by dedault. 2010.06.23. by tynli.
-		//rtw_write16(padapter, REG_NQOS_SEQ, ((pmlmeext->mgnt_seq+100)&0xFFF));
-		//rtw_write8(padapter, REG_HWSEQ_CTRL, 0xFF);
+		//tlw_write16(padapter, REG_NQOS_SEQ, ((pmlmeext->mgnt_seq+100)&0xFFF));
+		//tlw_write8(padapter, REG_HWSEQ_CTRL, 0xFF);
 
 		//Set REG_CR bit 8. DMA beacon by SW.
 		pHalData->RegCR_1 |= BIT0;
-		rtw_write8(padapter,  REG_CR+1, pHalData->RegCR_1);
+		tlw_write8(padapter,  REG_CR+1, pHalData->RegCR_1);
 
 		// Disable Hw protection for a time which revserd for Hw sending beacon.
 		// Fix download reserved page packet fail that access collision with the protection time.
 		// 2010.05.11. Added by tynli.
 		//SetBcnCtrlReg(padapter, 0, BIT3);
 		//SetBcnCtrlReg(padapter, BIT4, 0);
-		rtw_write8(padapter, REG_BCN_CTRL, rtw_read8(padapter, REG_BCN_CTRL)&(~BIT(3)));
-		rtw_write8(padapter, REG_BCN_CTRL, rtw_read8(padapter, REG_BCN_CTRL)|BIT(4));
+		tlw_write8(padapter, REG_BCN_CTRL, tlw_read8(padapter, REG_BCN_CTRL)&(~BIT(3)));
+		tlw_write8(padapter, REG_BCN_CTRL, tlw_read8(padapter, REG_BCN_CTRL)|BIT(4));
 
 		if(pHalData->RegFwHwTxQCtrl&BIT6)
 		{
@@ -767,24 +767,24 @@ _func_enter_;
 		}
 
 		// Set FWHW_TXQ_CTRL 0x422[6]=0 to tell Hw the packet is not a real beacon frame.
-		rtw_write8(padapter, REG_FWHW_TXQ_CTRL+2, (pHalData->RegFwHwTxQCtrl&(~BIT6)));
+		tlw_write8(padapter, REG_FWHW_TXQ_CTRL+2, (pHalData->RegFwHwTxQCtrl&(~BIT6)));
 		pHalData->RegFwHwTxQCtrl &= (~BIT6);
 
 		// Clear beacon valid check bit.
-		rtw_hal_set_hwreg(padapter, HW_VAR_BCN_VALID, NULL);
+		tlw_hal_set_hwreg(padapter, HW_VAR_BCN_VALID, NULL);
 		DLBcnCount = 0;
 		poll = 0;
 		do
 		{
 			/* download rsvd page.*/
-			rtw_hal_set_fw_rsvd_page(padapter, _FALSE);
+			tlw_hal_set_fw_rsvd_page(padapter, _FALSE);
 			DLBcnCount++;
 			do
 			{
-				rtw_yield_os();
-				//rtw_mdelay_os(10);
+				tlw_yield_os();
+				//tlw_mdelay_os(10);
 				// check rsvd page download OK.
-				rtw_hal_get_hwreg(padapter, HW_VAR_BCN_VALID, (u8*)(&bcn_valid));
+				tlw_hal_get_hwreg(padapter, HW_VAR_BCN_VALID, (u8*)(&bcn_valid));
 				poll++;
 			} while (!bcn_valid && (poll%10) != 0 && !RTW_CANNOT_RUN(padapter));
 			
@@ -806,8 +806,8 @@ _func_enter_;
 		// Enable Bcn
 		//SetBcnCtrlReg(padapter, BIT3, 0);
 		//SetBcnCtrlReg(padapter, 0, BIT4);
-		rtw_write8(padapter, REG_BCN_CTRL, rtw_read8(padapter, REG_BCN_CTRL)|BIT(3));
-		rtw_write8(padapter, REG_BCN_CTRL, rtw_read8(padapter, REG_BCN_CTRL)&(~BIT(4)));
+		tlw_write8(padapter, REG_BCN_CTRL, tlw_read8(padapter, REG_BCN_CTRL)|BIT(3));
+		tlw_write8(padapter, REG_BCN_CTRL, tlw_read8(padapter, REG_BCN_CTRL)&(~BIT(4)));
 
 		// To make sure that if there exists an adapter which would like to send beacon.
 		// If exists, the origianl value of 0x422[6] will be 1, we should check this to
@@ -816,7 +816,7 @@ _func_enter_;
 		// 2010.06.23. Added by tynli.
 		if(bSendBeacon)
 		{
-			rtw_write8(padapter, REG_FWHW_TXQ_CTRL+2, (pHalData->RegFwHwTxQCtrl|BIT6));
+			tlw_write8(padapter, REG_FWHW_TXQ_CTRL+2, (pHalData->RegFwHwTxQCtrl|BIT6));
 			pHalData->RegFwHwTxQCtrl |= BIT6;
 		}
 
@@ -825,7 +825,7 @@ _func_enter_;
 		//
 		if(bcn_valid)
 		{
-			rtw_hal_set_hwreg(padapter, HW_VAR_BCN_VALID, NULL);
+			tlw_hal_set_hwreg(padapter, HW_VAR_BCN_VALID, NULL);
 			DBG_871X("Set RSVD page location to Fw.\n");
 			//FillH2CCmd88E(Adapter, H2C_88E_RSVDPAGE, H2C_RSVDPAGE_LOC_LENGTH, pMgntInfo->u1RsvdPageLoc);
 		}
@@ -835,7 +835,7 @@ _func_enter_;
 		{
 			// Clear CR[8] or beacon packet will not be send to TxBuf anymore.
 			pHalData->RegCR_1 &= (~BIT0);
-			rtw_write8(padapter,  REG_CR+1, pHalData->RegCR_1);
+			tlw_write8(padapter,  REG_CR+1, pHalData->RegCR_1);
 		}
 	}
 _func_exit_;
@@ -857,7 +857,7 @@ _func_enter_;
 	{
 		case P2P_PS_DISABLE:
 			DBG_8192C("P2P_PS_DISABLE \n");
-			_rtw_memset(p2p_ps_offload, 0 ,1);
+			_tlw_memset(p2p_ps_offload, 0 ,1);
 			break;
 		case P2P_PS_ENABLE:
 			DBG_8192C("P2P_PS_ENABLE \n");
@@ -865,14 +865,14 @@ _func_enter_;
 			if( pwdinfo->ctwindow > 0 )
 			{
 				p2p_ps_offload->CTWindow_En = 1;
-				rtw_write8(padapter, REG_P2P_CTWIN, pwdinfo->ctwindow);
+				tlw_write8(padapter, REG_P2P_CTWIN, pwdinfo->ctwindow);
 			}
 
 			// hw only support 2 set of NoA
 			for( i=0 ; i<pwdinfo->noa_num ; i++)
 			{
 				// To control the register setting for which NOA
-				rtw_write8(padapter, REG_NOA_DESC_SEL, (i << 4));
+				tlw_write8(padapter, REG_NOA_DESC_SEL, (i << 4));
 				if(i == 0)
 					p2p_ps_offload->NoA0_En = 1;
 				else
@@ -880,22 +880,22 @@ _func_enter_;
 
 				// config P2P NoA Descriptor Register
 				//DBG_8192C("%s(): noa_duration = %x\n",__FUNCTION__,pwdinfo->noa_duration[i]);
-				rtw_write32(padapter, REG_NOA_DESC_DURATION, pwdinfo->noa_duration[i]);
+				tlw_write32(padapter, REG_NOA_DESC_DURATION, pwdinfo->noa_duration[i]);
 
 				//DBG_8192C("%s(): noa_interval = %x\n",__FUNCTION__,pwdinfo->noa_interval[i]);
-				rtw_write32(padapter, REG_NOA_DESC_INTERVAL, pwdinfo->noa_interval[i]);
+				tlw_write32(padapter, REG_NOA_DESC_INTERVAL, pwdinfo->noa_interval[i]);
 
 				//DBG_8192C("%s(): start_time = %x\n",__FUNCTION__,pwdinfo->noa_start_time[i]);
-				rtw_write32(padapter, REG_NOA_DESC_START, pwdinfo->noa_start_time[i]);
+				tlw_write32(padapter, REG_NOA_DESC_START, pwdinfo->noa_start_time[i]);
 
 				//DBG_8192C("%s(): noa_count = %x\n",__FUNCTION__,pwdinfo->noa_count[i]);
-				rtw_write8(padapter, REG_NOA_DESC_COUNT, pwdinfo->noa_count[i]);
+				tlw_write8(padapter, REG_NOA_DESC_COUNT, pwdinfo->noa_count[i]);
 			}
 
 			if( (pwdinfo->opp_ps == 1) || (pwdinfo->noa_num > 0) )
 			{
 				// rst p2p circuit
-				rtw_write8(padapter, REG_DUAL_TSF_RST, BIT(4));
+				tlw_write8(padapter, REG_DUAL_TSF_RST, BIT(4));
 
 				p2p_ps_offload->Offload_En = 1;
 
@@ -965,14 +965,14 @@ int reset_tsf(PADAPTER Adapter, u8 reset_port )
 	u32 reg_bcncttl = (IFACE_PORT0==reset_port) ?
 				REG_BCN_CTRL_1:REG_BCN_CTRL;
 
-	rtw_scan_abort(Adapter->pbuddy_adapter);	/*	site survey will cause reset_tsf fail	*/
-	reset_cnt_after = reset_cnt_before = rtw_read8(Adapter,reg_reset_tsf_cnt);
+	tlw_scan_abort(Adapter->pbuddy_adapter);	/*	site survey will cause reset_tsf fail	*/
+	reset_cnt_after = reset_cnt_before = tlw_read8(Adapter,reg_reset_tsf_cnt);
 	ttl9083e_reset_tsf(Adapter, reset_port);
 
 	while ((reset_cnt_after == reset_cnt_before ) && (loop_cnt < 10)) {
-		rtw_msleep_os(100);
+		tlw_msleep_os(100);
 		loop_cnt++;
-		reset_cnt_after = rtw_read8(Adapter, reg_reset_tsf_cnt);
+		reset_cnt_after = tlw_read8(Adapter, reg_reset_tsf_cnt);
 	}
 
 	return(loop_cnt >= 10) ? _FAIL : _TRUE;

@@ -1308,7 +1308,7 @@ ODM_UpdateRxIdleAnt_8723B(
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 			 pAdapter->HalFunc.SetTxPowerLevelHandler(pAdapter, pHalData->CurrentChannel);
 #elif(DM_ODM_SUPPORT_TYPE == ODM_CE)
-			rtw_hal_set_tx_power_level(pAdapter, pHalData->CurrentChannel);
+			tlw_hal_set_tx_power_level(pAdapter, pHalData->CurrentChannel);
 #endif
 
 			// Set IQC by S0/S1
@@ -2650,7 +2650,7 @@ ODM_SW_AntDiv_Callback(void *FunctionContext)
 	#if 0 /* Can't do I/O in timer callback*/
 	odm_S0S1_SwAntDiv(pDM_Odm, SWAW_STEP_DETERMINE);
 	#else
-	rtw_run_in_thread_cmd(padapter, ODM_SW_AntDiv_WorkitemCallback, padapter);
+	tlw_run_in_thread_cmd(padapter, ODM_SW_AntDiv_WorkitemCallback, padapter);
 	#endif
 }
 #endif

@@ -443,12 +443,12 @@ static const unsigned long K[64] = {
 #ifdef CONFIG_IEEE80211W
 int omac1_aes_128(u8 *key, u8 *data, size_t data_len, u8 *mac);
 #endif //CONFIG_IEEE80211W
-void rtw_secmicsetkey(struct mic_data *pmicdata, u8 * key );
-void rtw_secmicappendbyte(struct mic_data *pmicdata, u8 b );
-void rtw_secmicappend(struct mic_data *pmicdata, u8 * src, u32 nBytes );
-void rtw_secgetmic(struct mic_data *pmicdata, u8 * dst );
+void tlw_secmicsetkey(struct mic_data *pmicdata, u8 * key );
+void tlw_secmicappendbyte(struct mic_data *pmicdata, u8 b );
+void tlw_secmicappend(struct mic_data *pmicdata, u8 * src, u32 nBytes );
+void tlw_secgetmic(struct mic_data *pmicdata, u8 * dst );
 
-void rtw_seccalctkipmic(
+void tlw_seccalctkipmic(
 	u8 * key,
 	u8 *header,
 	u8 *data,
@@ -456,15 +456,15 @@ void rtw_seccalctkipmic(
 	u8 *Miccode,
 	u8   priority);
 
-u32 rtw_aes_encrypt(_adapter *padapter, u8 *pxmitframe);
-u32 rtw_tkip_encrypt(_adapter *padapter, u8 *pxmitframe);
-void rtw_wep_encrypt(_adapter *padapter, u8  *pxmitframe);
+u32 tlw_aes_encrypt(_adapter *padapter, u8 *pxmitframe);
+u32 tlw_tkip_encrypt(_adapter *padapter, u8 *pxmitframe);
+void tlw_wep_encrypt(_adapter *padapter, u8  *pxmitframe);
 
-u32 rtw_aes_decrypt(_adapter *padapter, u8  *precvframe);
-u32 rtw_tkip_decrypt(_adapter *padapter, u8  *precvframe);
-void rtw_wep_decrypt(_adapter *padapter, u8  *precvframe);
+u32 tlw_aes_decrypt(_adapter *padapter, u8  *precvframe);
+u32 tlw_tkip_decrypt(_adapter *padapter, u8  *precvframe);
+void tlw_wep_decrypt(_adapter *padapter, u8  *precvframe);
 #ifdef CONFIG_IEEE80211W
-u32	rtw_BIP_verify(_adapter *padapter, u8 *precvframe);
+u32	tlw_BIP_verify(_adapter *padapter, u8 *precvframe);
 #endif //CONFIG_IEEE80211W
 #ifdef CONFIG_TDLS
 void wpa_tdls_generate_tpk(_adapter *padapter, PVOID sta);
@@ -477,13 +477,13 @@ int tdls_verify_mic(u8 *kck, u8 trans_seq,
 						u8 *lnkid, u8 *rsnie, u8 *timeoutie, u8 *ftie);
 #endif //CONFIG_TDLS
 
-void rtw_use_tkipkey_handler(RTW_TIMER_HDL_ARGS);
+void tlw_use_tkipkey_handler(RTW_TIMER_HDL_ARGS);
 
-void rtw_sec_restore_wep_key(_adapter *adapter);
-u8 rtw_handle_tkip_countermeasure(_adapter* adapter, const char *caller);
+void tlw_sec_restore_wep_key(_adapter *adapter);
+u8 tlw_handle_tkip_countermeasure(_adapter* adapter, const char *caller);
 
 #ifdef CONFIG_WOWLAN
-u16 rtw_calc_crc(u8  *pdata, int length);
+u16 tlw_calc_crc(u8  *pdata, int length);
 #endif /*CONFIG_WOWLAN*/
 
 #endif	//__TTL902X_SECURITY_H_

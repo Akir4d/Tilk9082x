@@ -117,7 +117,7 @@ PHY_RFShadowCompare(
 	// Check if we need to check the register
 	if (RF_Shadow[eRFPath][Offset].Compare == _TRUE)
 	{
-		reg = rtw_hal_read_rfreg(Adapter, eRFPath, Offset, bRFRegOffsetMask);
+		reg = tlw_hal_read_rfreg(Adapter, eRFPath, Offset, bRFRegOffsetMask);
 		// Compare shadow and real rf register for 20bits!!
 		if (RF_Shadow[eRFPath][Offset].Value != reg)
 		{
@@ -145,7 +145,7 @@ PHY_RFShadowRecorver(
 		// Check if we need to recorver the register.
 		if (RF_Shadow[eRFPath][Offset].Recorver == _TRUE)
 		{
-			rtw_hal_write_rfreg(Adapter, eRFPath, Offset, bRFRegOffsetMask,
+			tlw_hal_write_rfreg(Adapter, eRFPath, Offset, bRFRegOffsetMask,
 							RF_Shadow[eRFPath][Offset].Value);
 			//RT_TRACE(COMP_INIT, DBG_LOUD,
 			//("PHY_RFShadowRecorver RF-%d Addr%02lx=%05lx",

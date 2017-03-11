@@ -177,46 +177,46 @@ typedef struct _WLAN_HEADER_WAPI_EXTENSION
 u32 WapiComparePN(u8 *PN1, u8 *PN2);
 
 
-void rtw_wapi_init(_adapter *padapter);
+void tlw_wapi_init(_adapter *padapter);
 
-void rtw_wapi_free(_adapter *padapter);
+void tlw_wapi_free(_adapter *padapter);
 
-void rtw_wapi_disable_tx(_adapter *padapter);
+void tlw_wapi_disable_tx(_adapter *padapter);
 
-u8 rtw_wapi_is_wai_packet(_adapter* padapter,u8 *pkt_data);
+u8 tlw_wapi_is_wai_packet(_adapter* padapter,u8 *pkt_data);
 
-void rtw_wapi_update_info(_adapter *padapter, union recv_frame *precv_frame);
+void tlw_wapi_update_info(_adapter *padapter, union recv_frame *precv_frame);
 
-u8 rtw_wapi_check_for_drop(_adapter *padapter, union recv_frame *precv_frame);
+u8 tlw_wapi_check_for_drop(_adapter *padapter, union recv_frame *precv_frame);
 
-void rtw_build_probe_resp_wapi_ie(_adapter *padapter, unsigned char *pframe, struct pkt_attrib *pattrib);
+void tlw_build_probe_resp_wapi_ie(_adapter *padapter, unsigned char *pframe, struct pkt_attrib *pattrib);
 
-void rtw_build_beacon_wapi_ie(_adapter *padapter, unsigned char *pframe, struct pkt_attrib *pattrib);
+void tlw_build_beacon_wapi_ie(_adapter *padapter, unsigned char *pframe, struct pkt_attrib *pattrib);
 
-void rtw_build_assoc_req_wapi_ie(_adapter *padapter, unsigned char *pframe, struct pkt_attrib *pattrib);
+void tlw_build_assoc_req_wapi_ie(_adapter *padapter, unsigned char *pframe, struct pkt_attrib *pattrib);
 
-void rtw_wapi_on_assoc_ok(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE);
+void tlw_wapi_on_assoc_ok(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE);
 
-void rtw_wapi_return_one_sta_info(_adapter *padapter, u8 *MacAddr);
+void tlw_wapi_return_one_sta_info(_adapter *padapter, u8 *MacAddr);
 
-void rtw_wapi_return_all_sta_info(_adapter *padapter);
+void tlw_wapi_return_all_sta_info(_adapter *padapter);
 
-void rtw_wapi_clear_cam_entry(_adapter *padapter, u8 *pMacAddr);
+void tlw_wapi_clear_cam_entry(_adapter *padapter, u8 *pMacAddr);
 
-void rtw_wapi_clear_all_cam_entry(_adapter *padapter);
+void tlw_wapi_clear_all_cam_entry(_adapter *padapter);
 
-void rtw_wapi_set_key(_adapter *padapter, RT_WAPI_KEY *pWapiKey, RT_WAPI_STA_INFO *pWapiSta, u8 bGroupKey, u8 bUseDefaultKey);
+void tlw_wapi_set_key(_adapter *padapter, RT_WAPI_KEY *pWapiKey, RT_WAPI_STA_INFO *pWapiSta, u8 bGroupKey, u8 bUseDefaultKey);
 
-int rtw_wapi_create_event_send(_adapter *padapter, u8 EventId, u8 *MacAddr, u8 *Buff, u16 BufLen);
+int tlw_wapi_create_event_send(_adapter *padapter, u8 EventId, u8 *MacAddr, u8 *Buff, u16 BufLen);
 
-u32	rtw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe);
+u32	tlw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe);
 
-u32	rtw_sms4_decrypt(_adapter *padapter, u8 *precvframe);
+u32	tlw_sms4_decrypt(_adapter *padapter, u8 *precvframe);
 
-void rtw_wapi_get_iv(_adapter *padapter, u8*pRA, u8*IV);
+void tlw_wapi_get_iv(_adapter *padapter, u8*pRA, u8*IV);
 
 u8 WapiIncreasePN(u8 *PN, u8 AddCount);
 
-bool rtw_wapi_drop_for_key_absent(_adapter *padapter,u8 *pRA);
+bool tlw_wapi_drop_for_key_absent(_adapter *padapter,u8 *pRA);
 
 #endif

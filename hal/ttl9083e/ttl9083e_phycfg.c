@@ -69,7 +69,7 @@ sic_IsSICReady(
 		//if(RT_SDIO_CANNOT_IO(Adapter))
 		//	return _FALSE;
 
-		sic_cmd = rtw_read8(Adapter, SIC_CMD_REG);
+		sic_cmd = tlw_read8(Adapter, SIC_CMD_REG);
 		//sic_cmd = PlatformEFIORead1Byte(Adapter, SIC_CMD_REG);
 #if(SIC_HW_SUPPORT == 1)
 		sic_cmd &= 0xf0;	// [7:4]
@@ -79,7 +79,7 @@ sic_IsSICReady(
 			return _TRUE;
 		else
 		{
-			rtw_msleep_os(1);
+			tlw_msleep_os(1);
 			//delay_ms(1);
 		}
 	}
@@ -121,34 +121,34 @@ sic_Read4Byte(
 	if(sic_IsSICReady(Adapter))
 	{
 #if(SIC_HW_SUPPORT == 1)
-		rtw_write8(Adapter, SIC_CMD_REG, SIC_CMD_PREREAD);
+		tlw_write8(Adapter, SIC_CMD_REG, SIC_CMD_PREREAD);
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_PREREAD);
 		//RTPRINT(FPHY, PHY_SICR, ("write cmdreg 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_PREREAD));
 #endif
-		rtw_write8(Adapter, SIC_ADDR_REG, (u8)(offset&0xff));
+		tlw_write8(Adapter, SIC_ADDR_REG, (u8)(offset&0xff));
 		//PlatformEFIOWrite1Byte(Adapter, SIC_ADDR_REG, (u1Byte)(offset&0xff));
 		//RTPRINT(FPHY, PHY_SICR, ("write 0x%x = 0x%x\n", SIC_ADDR_REG, (u1Byte)(offset&0xff)));
-		rtw_write8(Adapter, SIC_ADDR_REG+1, (u8)((offset&0xff00)>>8));
+		tlw_write8(Adapter, SIC_ADDR_REG+1, (u8)((offset&0xff00)>>8));
 		//PlatformEFIOWrite1Byte(Adapter, SIC_ADDR_REG+1, (u1Byte)((offset&0xff00)>>8));
 		//RTPRINT(FPHY, PHY_SICR, ("write 0x%x = 0x%x\n", SIC_ADDR_REG+1, (u1Byte)((offset&0xff00)>>8)));
-		rtw_write8(Adapter, SIC_CMD_REG, SIC_CMD_READ);
+		tlw_write8(Adapter, SIC_CMD_REG, SIC_CMD_READ);
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_READ);
 		//RTPRINT(FPHY, PHY_SICR, ("write cmdreg 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_READ));
 
 #if RTL9083E_SUPPORT == 1
 		retry = 4;
 		while(retry--){			
-			rtw_udelay_os(50);
+			tlw_udelay_os(50);
 			//PlatformStallExecution(50);
 		}
 #else
-		rtw_udelay_os(200);
+		tlw_udelay_os(200);
 		//PlatformStallExecution(200);
 #endif
 
 		if(sic_IsSICReady(Adapter))
 		{
-			u4ret = rtw_read32(Adapter, SIC_DATA_REG);
+			u4ret = tlw_read32(Adapter, SIC_DATA_REG);
 			//u4ret = PlatformEFIORead4Byte(Adapter, SIC_DATA_REG);
 			//RTPRINT(FPHY, PHY_SICR, ("read 0x%x = 0x%x\n", SIC_DATA_REG, u4ret));
 			//DbgPrint("<===Read 0x%x = 0x%x\n", offset, u4ret);
@@ -173,29 +173,29 @@ sic_Write4Byte(
 	if(sic_IsSICReady(Adapter))
 	{
 #if(SIC_HW_SUPPORT == 1)
-		rtw_write8(Adapter, SIC_CMD_REG, SIC_CMD_PREWRITE);
+		tlw_write8(Adapter, SIC_CMD_REG, SIC_CMD_PREWRITE);
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_PREWRITE);
 		//RTPRINT(FPHY, PHY_SICW, ("write data 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_PREWRITE));
 #endif
-		rtw_write8(Adapter, SIC_ADDR_REG, (u8)(offset&0xff));
+		tlw_write8(Adapter, SIC_ADDR_REG, (u8)(offset&0xff));
 		//PlatformEFIOWrite1Byte(Adapter, SIC_ADDR_REG, (u1Byte)(offset&0xff));
 		//RTPRINT(FPHY, PHY_SICW, ("write 0x%x=0x%x\n", SIC_ADDR_REG, (u1Byte)(offset&0xff)));
-		rtw_write8(Adapter, SIC_ADDR_REG+1, (u8)((offset&0xff00)>>8));
+		tlw_write8(Adapter, SIC_ADDR_REG+1, (u8)((offset&0xff00)>>8));
 		//PlatformEFIOWrite1Byte(Adapter, SIC_ADDR_REG+1, (u1Byte)((offset&0xff00)>>8));
 		//RTPRINT(FPHY, PHY_SICW, ("write 0x%x=0x%x\n", (SIC_ADDR_REG+1), (u1Byte)((offset&0xff00)>>8)));
-		rtw_write32(Adapter, SIC_DATA_REG, (u32)data);
+		tlw_write32(Adapter, SIC_DATA_REG, (u32)data);
 		//PlatformEFIOWrite4Byte(Adapter, SIC_DATA_REG, (u4Byte)data);
 		//RTPRINT(FPHY, PHY_SICW, ("write data 0x%x = 0x%x\n", SIC_DATA_REG, data));
-		rtw_write8(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
+		tlw_write8(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
 		//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_WRITE);
 		//RTPRINT(FPHY, PHY_SICW, ("write data 0x%x = 0x%x\n", SIC_CMD_REG, SIC_CMD_WRITE));
 #if RTL9083E_SUPPORT == 1
 		while(retry--){
-			rtw_udelay_os(50);
+			tlw_udelay_os(50);
 			//PlatformStallExecution(50);
 		}
 #else
-		rtw_udelay_os(150);
+		tlw_udelay_os(150);
 		//PlatformStallExecution(150);
 #endif
 
@@ -298,17 +298,17 @@ SIC_Init(
 #if(SIC_HW_SUPPORT == 1)
 	//RTPRINT(FPHY, PHY_SICR, ("[SIC], SIC_Init(), write 0x%x = 0x%x\n", 
 	//	SIC_INIT_REG, SIC_INIT_VAL));
-	rtw_write8(Adapter, SIC_INIT_REG, SIC_INIT_VAL);
+	tlw_write8(Adapter, SIC_INIT_REG, SIC_INIT_VAL);
 	//PlatformEFIOWrite1Byte(Adapter, SIC_INIT_REG, SIC_INIT_VAL);
 	//RTPRINT(FPHY, PHY_SICR, ("[SIC], SIC_Init(), write 0x%x = 0x%x\n", 
 	//	SIC_CMD_REG, SIC_CMD_INIT));
-	rtw_write8(Adapter, SIC_CMD_REG, SIC_CMD_INIT);
+	tlw_write8(Adapter, SIC_CMD_REG, SIC_CMD_INIT);
 	//PlatformEFIOWrite1Byte(Adapter, SIC_CMD_REG, SIC_CMD_INIT);
 #else
 	//RTPRINT(FPHY, PHY_SICR, ("[SIC], SIC_Init(), write 0x1b8~0x1bf = 0x0\n"));
-	rtw_write32(Adapter, SIC_CMD_REG, 0);
+	tlw_write32(Adapter, SIC_CMD_REG, 0);
 	//PlatformEFIOWrite4Byte(Adapter, SIC_CMD_REG, 0);
-	rtw_write32(Adapter, SIC_CMD_REG+4, 0);
+	tlw_write32(Adapter, SIC_CMD_REG+4, 0);
 	//PlatformEFIOWrite4Byte(Adapter, SIC_CMD_REG+4, 0);
 #endif
 }
@@ -358,7 +358,7 @@ PHY_QueryBBReg9083E(
 
 	//RT_TRACE(COMP_RF, DBG_TRACE, ("--->PHY_QueryBBReg(): RegAddr(%#lx), BitMask(%#lx)\n", RegAddr, BitMask));
 
-	OriginalValue = rtw_read32(Adapter, RegAddr);
+	OriginalValue = tlw_read32(Adapter, RegAddr);
 	BitShift = PHY_CalculateBitShift(BitMask);
 	ReturnValue = (OriginalValue & BitMask) >> BitShift;
 
@@ -412,12 +412,12 @@ PHY_SetBBReg9083E(
 	//RT_TRACE(COMP_RF, DBG_TRACE, ("--->PHY_SetBBReg(): RegAddr(%#lx), BitMask(%#lx), Data(%#lx)\n", RegAddr, BitMask, Data));
 
 	if(BitMask!= bMaskDWord){//if not "double word" write
-		OriginalValue = rtw_read32(Adapter, RegAddr);
+		OriginalValue = tlw_read32(Adapter, RegAddr);
 		BitShift = PHY_CalculateBitShift(BitMask);
 		Data = ((OriginalValue & (~BitMask)) | ((Data << BitShift) & BitMask));
 	}
 
-	rtw_write32(Adapter, RegAddr, Data);
+	tlw_write32(Adapter, RegAddr, Data);
 
 	//RTPRINT(FPHY, PHY_BBW, ("BBW MASK=0x%lx Addr[0x%lx]=0x%lx\n", BitMask, RegAddr, Data));
 	//RT_TRACE(COMP_RF, DBG_TRACE, ("<---PHY_SetBBReg(): RegAddr(%#lx), BitMask(%#lx), Data(%#lx)\n", RegAddr, BitMask, Data));
@@ -495,13 +495,13 @@ phy_RFSerialRead(
 	tmplong2 = (tmplong2 & (~bLSSIReadAddress)) | (NewOffset<<23) | bLSSIReadEdge;	//T65 RF
 
 	PHY_SetBBReg(Adapter, rFPGA0_XA_HSSIParameter2, bMaskDWord, tmplong&(~bLSSIReadEdge));
-	rtw_udelay_os(10);// PlatformStallExecution(10);
+	tlw_udelay_os(10);// PlatformStallExecution(10);
 
 	PHY_SetBBReg(Adapter, pPhyReg->rfHSSIPara2, bMaskDWord, tmplong2);
-	rtw_udelay_os(100);//PlatformStallExecution(100);
+	tlw_udelay_os(100);//PlatformStallExecution(100);
 
 	//PHY_SetBBReg(Adapter, rFPGA0_XA_HSSIParameter2, bMaskDWord, tmplong|bLSSIReadEdge);
-	rtw_udelay_os(10);//PlatformStallExecution(10);
+	tlw_udelay_os(10);//PlatformStallExecution(10);
 
 	if(eRFPath == RF_PATH_A)
 		RfPiEnable = (u8)PHY_QueryBBReg(Adapter, rFPGA0_XA_HSSIParameter1, BIT8);
@@ -809,8 +809,8 @@ s32 PHY_MACConfig9083E(PADAPTER Adapter)
 	val |= MAX_AGGR_NUM;
 	val = val << 8;
 	val |= MAX_AGGR_NUM;
-	rtw_write16(Adapter, REG_MAX_AGGR_NUM, val);
-	//rtw_write8(Adapter, REG_MAX_AGGR_NUM, 0x0B); 
+	tlw_write16(Adapter, REG_MAX_AGGR_NUM, val);
+	//tlw_write8(Adapter, REG_MAX_AGGR_NUM, 0x0B); 
 
 	return rtStatus;
 
@@ -835,7 +835,7 @@ phy_InitBBRFRegisterDefinition(
 {
 	HAL_DATA_TYPE		*pHalData = GET_HAL_DATA(Adapter);
 
-	// RF Interface Sowrtware Control
+	// RF Interface Sowtlware Control
 	pHalData->PHYRegDef[RF_PATH_A].rfintfs = rFPGA0_XAB_RFInterfaceSW; // 16 LSBs if read 32-bit from 0x870
 	pHalData->PHYRegDef[RF_PATH_B].rfintfs = rFPGA0_XAB_RFInterfaceSW; // 16 MSBs if read 32-bit from 0x870 (16-bit for 0x872)
 	pHalData->PHYRegDef[RF_PATH_C].rfintfs = rFPGA0_XCD_RFInterfaceSW;// 16 LSBs if read 32-bit from 0x874
@@ -1195,33 +1195,33 @@ PHY_BBConfig9083E(
 
 
 	// Enable BB and RF
-	RegVal = rtw_read16(Adapter, REG_SYS_FUNC_EN);
-	rtw_write16(Adapter, REG_SYS_FUNC_EN, (u16)(RegVal|BIT13|BIT0|BIT1));
+	RegVal = tlw_read16(Adapter, REG_SYS_FUNC_EN);
+	tlw_write16(Adapter, REG_SYS_FUNC_EN, (u16)(RegVal|BIT13|BIT0|BIT1));
 
 	// 20090923 Joseph: Advised by Steven and Jenyu. Power sequence before init RF.
-	//rtw_write8(Adapter, REG_AFE_PLL_CTRL, 0x83);
-	//rtw_write8(Adapter, REG_AFE_PLL_CTRL+1, 0xdb);
+	//tlw_write8(Adapter, REG_AFE_PLL_CTRL, 0x83);
+	//tlw_write8(Adapter, REG_AFE_PLL_CTRL+1, 0xdb);
 
-	rtw_write8(Adapter, REG_RF_CTRL, RF_EN|RF_RSTB|RF_SDMRSTB);
+	tlw_write8(Adapter, REG_RF_CTRL, RF_EN|RF_RSTB|RF_SDMRSTB);
 
 #ifdef CONFIG_USB_HCI
-	rtw_write8(Adapter, REG_SYS_FUNC_EN, FEN_USBA | FEN_USBD | FEN_BB_GLB_RSTn | FEN_BBRSTB);
+	tlw_write8(Adapter, REG_SYS_FUNC_EN, FEN_USBA | FEN_USBD | FEN_BB_GLB_RSTn | FEN_BBRSTB);
 #else
-	rtw_write8(Adapter, REG_SYS_FUNC_EN, FEN_PPLL|FEN_PCIEA|FEN_DIO_PCIE|FEN_BB_GLB_RSTn|FEN_BBRSTB);
+	tlw_write8(Adapter, REG_SYS_FUNC_EN, FEN_PPLL|FEN_PCIEA|FEN_DIO_PCIE|FEN_BB_GLB_RSTn|FEN_BBRSTB);
 #endif
 
 #if 0
 #ifdef CONFIG_USB_HCI
 	//To Fix MAC loopback mode fail. Suggested by SD4 Johnny. 2010.03.23.
-	rtw_write8(Adapter, REG_LDOHCI12_CTRL, 0x0f);
-	rtw_write8(Adapter, 0x15, 0xe9);
+	tlw_write8(Adapter, REG_LDOHCI12_CTRL, 0x0f);
+	tlw_write8(Adapter, 0x15, 0xe9);
 #endif
 
-	rtw_write8(Adapter, REG_AFE_XTAL_CTRL+1, 0x80);
+	tlw_write8(Adapter, REG_AFE_XTAL_CTRL+1, 0x80);
 #endif
 
 #ifdef CONFIG_USB_HCI
-		//rtw_write8(Adapter, 0x15, 0xe9);
+		//tlw_write8(Adapter, 0x15, 0xe9);
 #endif
 
 
@@ -1229,8 +1229,8 @@ PHY_BBConfig9083E(
 	// Force use left antenna by default for 88C.
 	if(Adapter->ledpriv.LedStrategy != SW_LED_MODE10)
 	{
-		RegVal = rtw_read32(Adapter, REG_LEDCFG0);
-		rtw_write32(Adapter, REG_LEDCFG0, RegVal|BIT23);
+		RegVal = tlw_read32(Adapter, REG_LEDCFG0);
+		tlw_write32(Adapter, REG_LEDCFG0, RegVal|BIT23);
 	}
 #endif
 
@@ -1597,18 +1597,18 @@ PHY_ScanOperationBackup9083E(
 #if 0
 	IO_TYPE	IoType;
 
-	if (!rtw_is_drv_stopped(padapter)) {
+	if (!tlw_is_drv_stopped(padapter)) {
 		switch(Operation)
 		{
 			case SCAN_OPT_BACKUP:
 				IoType = IO_CMD_PAUSE_DM_BY_SCAN;
-				rtw_hal_set_hwreg(Adapter,HW_VAR_IO_CMD,  (pu1Byte)&IoType);
+				tlw_hal_set_hwreg(Adapter,HW_VAR_IO_CMD,  (pu1Byte)&IoType);
 
 				break;
 
 			case SCAN_OPT_RESTORE:
 				IoType = IO_CMD_RESUME_DM_BY_SCAN;
-				rtw_hal_set_hwreg(Adapter,HW_VAR_IO_CMD,  (pu1Byte)&IoType);
+				tlw_hal_set_hwreg(Adapter,HW_VAR_IO_CMD,  (pu1Byte)&IoType);
 				break;
 
 			default:
@@ -1684,7 +1684,7 @@ _PHY_SetBWMode88E(
 	if(pHalData->rf_chip==RF_8225)
 		return;
 
-	if (rtw_is_drv_stopped(Adapter))
+	if (tlw_is_drv_stopped(Adapter))
 		return;
 
 	// Added it for 20/40 mhz switch time evaluation by guangan 070531
@@ -1697,25 +1697,25 @@ _PHY_SetBWMode88E(
 	//3//
 	//Adapter->HalFunc.SetBWModeHandler();
 
-	regBwOpMode = rtw_read8(Adapter, REG_BWOPMODE);
-	regRRSR_RSC = rtw_read8(Adapter, REG_RRSR+2);
-	//regBwOpMode = rtw_hal_get_hwreg(Adapter,HW_VAR_BWMODE,(pu1Byte)&regBwOpMode);
+	regBwOpMode = tlw_read8(Adapter, REG_BWOPMODE);
+	regRRSR_RSC = tlw_read8(Adapter, REG_RRSR+2);
+	//regBwOpMode = tlw_hal_get_hwreg(Adapter,HW_VAR_BWMODE,(pu1Byte)&regBwOpMode);
 
 	switch(pHalData->CurrentChannelBW)
 	{
 		case CHANNEL_WIDTH_20:
 			regBwOpMode |= BW_OPMODE_20MHZ;
 			   // 2007/02/07 Mark by Emily becasue we have not verify whether this register works
-			rtw_write8(Adapter, REG_BWOPMODE, regBwOpMode);
+			tlw_write8(Adapter, REG_BWOPMODE, regBwOpMode);
 			break;
 
 		case CHANNEL_WIDTH_40:
 			regBwOpMode &= ~BW_OPMODE_20MHZ;
 				// 2007/02/07 Mark by Emily becasue we have not verify whether this register works
-			rtw_write8(Adapter, REG_BWOPMODE, regBwOpMode);
+			tlw_write8(Adapter, REG_BWOPMODE, regBwOpMode);
 
 			regRRSR_RSC = (regRRSR_RSC&0x90) |(pHalData->nCur40MhzPrimeSC<<5);
-			rtw_write8(Adapter, REG_RRSR+2, regRRSR_RSC);
+			tlw_write8(Adapter, REG_RRSR+2, regRRSR_RSC);
 			break;
 
 		default:
@@ -1940,7 +1940,7 @@ PHY_SwChnl9083E(	// Call after initialization
 
 	while(pHalData->odmpriv.RFCalibrateInfo.bLCKInProgress)
 	{
-		rtw_msleep_os(50);		
+		tlw_msleep_os(50);		
 	}	
 
 	//--------------------------------------------
@@ -2057,7 +2057,7 @@ PHY_SetMonitorMode8192C(
 
 		pHalData->bInMonitorMode = TRUE;
 		pAdapter->HalFunc.AllowAllDestAddrHandler(pAdapter, TRUE, TRUE);
-		rtw_hal_set_hwreg(pAdapter, HW_VAR_CHECK_BSSID, (pu1Byte)&bFilterOutNonAssociatedBSSID);
+		tlw_hal_set_hwreg(pAdapter, HW_VAR_CHECK_BSSID, (pu1Byte)&bFilterOutNonAssociatedBSSID);
 	}
 	else
 	{
@@ -2066,7 +2066,7 @@ PHY_SetMonitorMode8192C(
 
 		pAdapter->HalFunc.AllowAllDestAddrHandler(pAdapter, FALSE, TRUE);
 		pHalData->bInMonitorMode = FALSE;
-		rtw_hal_set_hwreg(pAdapter, HW_VAR_CHECK_BSSID, (pu1Byte)&bFilterOutNonAssociatedBSSID);
+		tlw_hal_set_hwreg(pAdapter, HW_VAR_CHECK_BSSID, (pu1Byte)&bFilterOutNonAssociatedBSSID);
 	}
 #endif
 }
@@ -2120,9 +2120,9 @@ static VOID _PHY_SetRFPathSwitch(
 {
 	u8	u1bTmp;
 
-	if (!rtw_is_hw_init_completed(pAdapter)) {
-		u1bTmp = rtw_read8(pAdapter, REG_LEDCFG2) | BIT7;
-		rtw_write8(pAdapter, REG_LEDCFG2, u1bTmp);
+	if (!tlw_is_hw_init_completed(pAdapter)) {
+		u1bTmp = tlw_read8(pAdapter, REG_LEDCFG2) | BIT7;
+		tlw_write8(pAdapter, REG_LEDCFG2, u1bTmp);
 		//PHY_SetBBReg(pAdapter, REG_LEDCFG0, BIT23, 0x01);
 		PHY_SetBBReg(pAdapter, rFPGA0_XAB_RFParameter, BIT13, 0x01);
 	}
@@ -2155,7 +2155,7 @@ static BOOLEAN _PHY_QueryRFPathSwitch(
 //	if(is2T)
 //		return _TRUE;
 
-	if (!rtw_is_hw_init_completed(pAdapter)) {
+	if (!tlw_is_hw_init_completed(pAdapter)) {
 		PHY_SetBBReg(pAdapter, REG_LEDCFG0, BIT23, 0x01);
 		PHY_SetBBReg(pAdapter, rFPGA0_XAB_RFParameter, BIT13, 0x01);
 	}

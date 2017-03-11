@@ -168,7 +168,7 @@ struct work_struct {
 #define spin_unlock_irqrestore mtx_unlock_irqrestore
 #define spin_unlock_bh mtx_unlock_irqrestore
 #define mtx_unlock_irqrestore(lock,x)    mtx_unlock(lock);
-extern void	_rtw_spinlock_init(_lock *plock);
+extern void	_tlw_spinlock_init(_lock *plock);
 
 //modify private structure to match freebsd
 #define BITS_PER_LONG 32
@@ -190,9 +190,9 @@ union ktime {
 typedef unsigned char *sk_buff_data_t;
 typedef union ktime ktime_t;		/* Kill this */
 
-void rtw_mtx_lock(_lock *plock);
+void tlw_mtx_lock(_lock *plock);
 	
-void rtw_mtx_unlock(_lock *plock);
+void tlw_mtx_unlock(_lock *plock);
 
 /** 
  *	struct sk_buff - socket buffer
@@ -464,7 +464,7 @@ static inline void __skb_queue_head_init(struct sk_buff_head *list)
  */
 static inline void skb_queue_head_init(struct sk_buff_head *list)
 {
-	_rtw_spinlock_init(&list->lock);
+	_tlw_spinlock_init(&list->lock);
 	__skb_queue_head_init(list);
 }
 unsigned long copy_from_user(void *to, const void *from, unsigned long n);
@@ -534,33 +534,33 @@ usb_put_dev(struct usb_device *dev)
 }
 
 
-// rtw_usb_compat_linux
-int rtw_usb_submit_urb(struct urb *urb, uint16_t mem_flags);
-int rtw_usb_unlink_urb(struct urb *urb);
-int rtw_usb_clear_halt(struct usb_device *dev, struct usb_host_endpoint *uhe);
-int rtw_usb_control_msg(struct usb_device *dev, struct usb_host_endpoint *uhe,
+// tlw_usb_compat_linux
+int tlw_usb_submit_urb(struct urb *urb, uint16_t mem_flags);
+int tlw_usb_unlink_urb(struct urb *urb);
+int tlw_usb_clear_halt(struct usb_device *dev, struct usb_host_endpoint *uhe);
+int tlw_usb_control_msg(struct usb_device *dev, struct usb_host_endpoint *uhe,
     uint8_t request, uint8_t requesttype,
     uint16_t value, uint16_t index, void *data,
     uint16_t size, usb_timeout_t timeout);
-int rtw_usb_set_interface(struct usb_device *dev, uint8_t iface_no, uint8_t alt_index);
-int rtw_usb_setup_endpoint(struct usb_device *dev,
+int tlw_usb_set_interface(struct usb_device *dev, uint8_t iface_no, uint8_t alt_index);
+int tlw_usb_setup_endpoint(struct usb_device *dev,
     struct usb_host_endpoint *uhe, usb_size_t bufsize);
-struct urb *rtw_usb_alloc_urb(uint16_t iso_packets, uint16_t mem_flags);
-struct usb_host_endpoint *rtw_usb_find_host_endpoint(struct usb_device *dev, uint8_t type, uint8_t ep);
-struct usb_host_interface *rtw_usb_altnum_to_altsetting(const struct usb_interface *intf, uint8_t alt_index);
-struct usb_interface *rtw_usb_ifnum_to_if(struct usb_device *dev, uint8_t iface_no);
-void *rtw_usbd_get_intfdata(struct usb_interface *intf);
-void rtw_usb_linux_register(void *arg);
-void rtw_usb_linux_deregister(void *arg);
-void rtw_usb_linux_free_device(struct usb_device *dev);
-void rtw_usb_free_urb(struct urb *urb);
-void rtw_usb_init_urb(struct urb *urb);
-void rtw_usb_kill_urb(struct urb *urb);
-void rtw_usb_set_intfdata(struct usb_interface *intf, void *data);
-void rtw_usb_fill_bulk_urb(struct urb *urb, struct usb_device *udev,
+struct urb *tlw_usb_alloc_urb(uint16_t iso_packets, uint16_t mem_flags);
+struct usb_host_endpoint *tlw_usb_find_host_endpoint(struct usb_device *dev, uint8_t type, uint8_t ep);
+struct usb_host_interface *tlw_usb_altnum_to_altsetting(const struct usb_interface *intf, uint8_t alt_index);
+struct usb_interface *tlw_usb_ifnum_to_if(struct usb_device *dev, uint8_t iface_no);
+void *tlw_usbd_get_intfdata(struct usb_interface *intf);
+void tlw_usb_linux_register(void *arg);
+void tlw_usb_linux_deregister(void *arg);
+void tlw_usb_linux_free_device(struct usb_device *dev);
+void tlw_usb_free_urb(struct urb *urb);
+void tlw_usb_init_urb(struct urb *urb);
+void tlw_usb_kill_urb(struct urb *urb);
+void tlw_usb_set_intfdata(struct usb_interface *intf, void *data);
+void tlw_usb_fill_bulk_urb(struct urb *urb, struct usb_device *udev,
     struct usb_host_endpoint *uhe, void *buf,
     int length, usb_complete_t callback, void *arg);
-int rtw_usb_bulk_msg(struct usb_device *udev, struct usb_host_endpoint *uhe,
+int tlw_usb_bulk_msg(struct usb_device *udev, struct usb_host_endpoint *uhe,
     void *data, int len, uint16_t *pactlen, usb_timeout_t timeout);
 void *usb_get_intfdata(struct usb_interface *intf);
 int usb_linux_init_endpoints(struct usb_device *udev);
@@ -668,7 +668,7 @@ static inline void INIT_LIST_HEAD(struct list_head *list)
 	list->next = list;
 	list->prev = list;
 }
-__inline static void rtw_list_delete(_list *plist)
+__inline static void tlw_list_delete(_list *plist)
 {
 	__list_del(plist->prev, plist->next);
 	INIT_LIST_HEAD(plist);
@@ -685,9 +685,9 @@ __inline static void _set_timer(_timer *ptimer,u32 delay_time)
 {	
 	//	mod_timer(ptimer , (jiffies+(delay_time*HZ/1000)));
 	if(ptimer->function && ptimer->arg){
-		rtw_mtx_lock(NULL);
+		tlw_mtx_lock(NULL);
 		callout_reset(&ptimer->callout, delay_time,ptimer->function, ptimer->arg);
-		rtw_mtx_unlock(NULL);
+		tlw_mtx_unlock(NULL);
 	}
 }
 
@@ -695,9 +695,9 @@ __inline static void _cancel_timer(_timer *ptimer,u8 *bcancelled)
 {
 	//	del_timer_sync(ptimer); 	
 	//	*bcancelled=  _TRUE;//TRUE ==1; FALSE==0	
-	rtw_mtx_lock(NULL);
+	tlw_mtx_lock(NULL);
 	callout_drain(&ptimer->callout);
-	rtw_mtx_unlock(NULL);
+	tlw_mtx_unlock(NULL);
 }
 
 __inline static void _init_workitem(_workitem *pwork, void *pfunc, PVOID cntx)
@@ -730,9 +730,9 @@ static __inline void thread_enter(char *name);
 //Atomic integer operations
 typedef uint32_t ATOMIC_T ;
 
-#define rtw_netdev_priv(netdev) (((struct ifnet *)netdev)->if_softc)
+#define tlw_netdev_priv(netdev) (((struct ifnet *)netdev)->if_softc)
 
-#define rtw_free_netdev(netdev) if_free((netdev))
+#define tlw_free_netdev(netdev) if_free((netdev))
 
 #define NDEV_FMT "%s"
 #define NDEV_ARG(ndev) ""

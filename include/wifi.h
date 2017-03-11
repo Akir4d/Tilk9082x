@@ -753,13 +753,13 @@ typedef	enum _ELEMENT_ID{
 #define ACT_CAT_VENDOR				0x7F/* 127 */
 
 /**
- * struct rtw_ieee80211_bar - HT Block Ack Request
+ * struct tlw_ieee80211_bar - HT Block Ack Request
  *
  * This structure refers to "HT BlockAckReq" as
  * described in 802.11n draft section 7.2.1.7.1
  */
  #if defined(PLATFORM_LINUX) || defined(CONFIG_TTL9022FW)
-struct rtw_ieee80211_bar {
+struct tlw_ieee80211_bar {
 	unsigned short frame_control;
 	unsigned short duration;
 	unsigned char ra[6];
@@ -779,13 +779,13 @@ struct rtw_ieee80211_bar {
 
 
  /**
- * struct rtw_ieee80211_ht_cap - HT capabilities
+ * struct tlw_ieee80211_ht_cap - HT capabilities
  *
  * This structure refers to "HT capabilities element" as
  * described in 802.11n draft section 7.3.2.52
  */
  
-struct rtw_ieee80211_ht_cap {
+struct tlw_ieee80211_ht_cap {
 	unsigned short 	cap_info;
 	unsigned char 	ampdu_params_info;
 	unsigned char 	supp_mcs_set[16];
@@ -795,7 +795,7 @@ struct rtw_ieee80211_ht_cap {
 } __attribute__ ((packed));
 
 /**
- * struct rtw_ieee80211_ht_cap - HT additional information
+ * struct tlw_ieee80211_ht_cap - HT additional information
  *
  * This structure refers to "HT information element" as
  * described in 802.11n draft section 7.3.2.53
@@ -864,7 +864,7 @@ struct ADDBA_request
 
 #pragma pack(1)
 
-struct rtw_ieee80211_ht_cap {
+struct tlw_ieee80211_ht_cap {
 	unsigned short 	cap_info;
 	unsigned char 	ampdu_params_info;
 	unsigned char 	supp_mcs_set[16];
@@ -1354,7 +1354,7 @@ struct regd_pair_mapping {
 	u16 reg_2ghz_ctl;
 };
 
-struct rtw_regulatory {
+struct tlw_regulatory {
 	char alpha2[2];
 	u16 country_code;
 	u16 max_power_level;

@@ -213,7 +213,7 @@ Chip specific
 -------------------------------------------------------------------------*/
 
 /* pic buffer descriptor */
-#if 1 /* according to the define in the rtw_xmit.h, rtw_recv.h */
+#if 1 /* according to the define in the tlw_xmit.h, tlw_recv.h */
 #define RTL8814AE_SEG_NUM  TX_BUFFER_SEG_NUM /* 0:2 seg, 1: 4 seg, 2: 8 seg */
 #define TX_DESC_NUM_8814A  TXDESC_NUM   /* 128 */
 #define RX_DESC_NUM_8814A  PCI_MAX_RX_COUNT /* 128 */

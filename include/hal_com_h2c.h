@@ -321,14 +321,14 @@ typedef struct _RSVDPAGE_LOC {
 
 #endif
 void dump_TX_FIFO(PADAPTER padapter, u8 page_num, u16 page_size);
-u8 rtw_hal_set_fw_media_status_cmd(_adapter* adapter, u8 mstatus, u8 macid);
+u8 tlw_hal_set_fw_media_status_cmd(_adapter* adapter, u8 mstatus, u8 macid);
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
 //WOW command function
-void rtw_hal_set_fw_wow_related_cmd(_adapter* padapter, u8 enable);
+void tlw_hal_set_fw_wow_related_cmd(_adapter* padapter, u8 enable);
 #ifdef CONFIG_P2P_WOWLAN
 //H2C 0x8A
-u8 rtw_hal_set_FwP2PRsvdPage_cmd(_adapter* adapter, PRSVDPAGE_LOC rsvdpageloc);
+u8 tlw_hal_set_FwP2PRsvdPage_cmd(_adapter* adapter, PRSVDPAGE_LOC rsvdpageloc);
 //H2C 0x8B
-u8 rtw_hal_set_p2p_wowlan_offload_cmd(_adapter* adapter);
+u8 tlw_hal_set_p2p_wowlan_offload_cmd(_adapter* adapter);
 #endif //CONFIG_P2P_WOWLAN
 #endif

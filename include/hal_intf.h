@@ -402,28 +402,28 @@ typedef enum _HARDWARE_TYPE{
 	HARDWARE_TYPE_MAX,
 }HARDWARE_TYPE;
 
-#define IS_NEW_GENERATION_IC(_Adapter)	(rtw_get_hw_type(_Adapter) >= HARDWARE_TYPE_RTL8192EE)
+#define IS_NEW_GENERATION_IC(_Adapter)	(tlw_get_hw_type(_Adapter) >= HARDWARE_TYPE_RTL8192EE)
 //
 // RTL9083E Series
 //
-#define IS_HARDWARE_TYPE_9083EE(_Adapter)	(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083EE)
-#define IS_HARDWARE_TYPE_9083EU(_Adapter)	(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083EU)
-#define IS_HARDWARE_TYPE_9083ES(_Adapter)	(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083ES)
+#define IS_HARDWARE_TYPE_9083EE(_Adapter)	(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083EE)
+#define IS_HARDWARE_TYPE_9083EU(_Adapter)	(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083EU)
+#define IS_HARDWARE_TYPE_9083ES(_Adapter)	(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083ES)
 #define	IS_HARDWARE_TYPE_9083E(_Adapter)	\
 (IS_HARDWARE_TYPE_9083EE(_Adapter) || IS_HARDWARE_TYPE_9083EU(_Adapter) || IS_HARDWARE_TYPE_9083ES(_Adapter))
 
 // RTL8812 Series
-#define IS_HARDWARE_TYPE_8812E(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8812E)
-#define IS_HARDWARE_TYPE_8812AU(_Adapter)	(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8812AU)
+#define IS_HARDWARE_TYPE_8812E(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8812E)
+#define IS_HARDWARE_TYPE_8812AU(_Adapter)	(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8812AU)
 #define IS_HARDWARE_TYPE_8812(_Adapter)			\
 (IS_HARDWARE_TYPE_8812E(_Adapter) || IS_HARDWARE_TYPE_8812AU(_Adapter))
 
 // RTL8821 Series
-#define IS_HARDWARE_TYPE_8821E(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821E)
-#define IS_HARDWARE_TYPE_8811AU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8811AU)
-#define IS_HARDWARE_TYPE_8821U(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821U ||	\
-													rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8811AU)
-#define IS_HARDWARE_TYPE_8821S(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821S)
+#define IS_HARDWARE_TYPE_8821E(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821E)
+#define IS_HARDWARE_TYPE_8811AU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8811AU)
+#define IS_HARDWARE_TYPE_8821U(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821U ||	\
+													tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8811AU)
+#define IS_HARDWARE_TYPE_8821S(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821S)
 #define IS_HARDWARE_TYPE_8821(_Adapter)			\
 (IS_HARDWARE_TYPE_8821E(_Adapter) || IS_HARDWARE_TYPE_8821U(_Adapter)|| IS_HARDWARE_TYPE_8821S(_Adapter))
 
@@ -431,24 +431,24 @@ typedef enum _HARDWARE_TYPE{
 (IS_HARDWARE_TYPE_8812(_Adapter) || IS_HARDWARE_TYPE_8821(_Adapter))
 
 //RTL8192E Series
-#define IS_HARDWARE_TYPE_8192EE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8192EE)
-#define IS_HARDWARE_TYPE_8192EU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8192EU)
-#define IS_HARDWARE_TYPE_8192ES(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8192ES)
+#define IS_HARDWARE_TYPE_8192EE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8192EE)
+#define IS_HARDWARE_TYPE_8192EU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8192EU)
+#define IS_HARDWARE_TYPE_8192ES(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8192ES)
 
 #define IS_HARDWARE_TYPE_8192E(_Adapter)		\
 (IS_HARDWARE_TYPE_8192EE(_Adapter) || IS_HARDWARE_TYPE_8192EU(_Adapter) ||IS_HARDWARE_TYPE_8192ES(_Adapter))
 
-#define IS_HARDWARE_TYPE_8723BE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8723BE)
-#define IS_HARDWARE_TYPE_8723BU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8723BU)
-#define IS_HARDWARE_TYPE_8723BS(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8723BS)
+#define IS_HARDWARE_TYPE_8723BE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8723BE)
+#define IS_HARDWARE_TYPE_8723BU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8723BU)
+#define IS_HARDWARE_TYPE_8723BS(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8723BS)
 
 #define IS_HARDWARE_TYPE_8723B(_Adapter) \
 	(IS_HARDWARE_TYPE_8723BE(_Adapter) || IS_HARDWARE_TYPE_8723BU(_Adapter) ||IS_HARDWARE_TYPE_8723BS(_Adapter))
 
 /* RTL8814A Series */
-#define IS_HARDWARE_TYPE_8814AE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8814AE)
-#define IS_HARDWARE_TYPE_8814AU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8814AU)
-#define IS_HARDWARE_TYPE_8814AS(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8814AS)
+#define IS_HARDWARE_TYPE_8814AE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8814AE)
+#define IS_HARDWARE_TYPE_8814AU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8814AU)
+#define IS_HARDWARE_TYPE_8814AS(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8814AS)
 
 #define IS_HARDWARE_TYPE_8814A(_Adapter)		\
 (IS_HARDWARE_TYPE_8814AE(_Adapter) || IS_HARDWARE_TYPE_8814AU(_Adapter) || IS_HARDWARE_TYPE_8814AS(_Adapter))
@@ -460,29 +460,29 @@ typedef enum _HARDWARE_TYPE{
 (IS_HARDWARE_TYPE_JAGUAR(_Adapter) || IS_HARDWARE_TYPE_JAGUAR2(_Adapter))
 
 /* RTL8703B Series */
-#define IS_HARDWARE_TYPE_8703BE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8703BE)
-#define IS_HARDWARE_TYPE_8703BS(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8703BS)
-#define IS_HARDWARE_TYPE_8703BU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8703BU)
+#define IS_HARDWARE_TYPE_8703BE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8703BE)
+#define IS_HARDWARE_TYPE_8703BS(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8703BS)
+#define IS_HARDWARE_TYPE_8703BU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8703BU)
 #define	IS_HARDWARE_TYPE_8703B(_Adapter)			\
 (IS_HARDWARE_TYPE_8703BE(_Adapter) || IS_HARDWARE_TYPE_8703BU(_Adapter) || IS_HARDWARE_TYPE_8703BS(_Adapter))
 
 /* RTL9083F Series */
-#define IS_HARDWARE_TYPE_9083FE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083FE)
-#define IS_HARDWARE_TYPE_9083FS(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083FS)
-#define IS_HARDWARE_TYPE_9083FU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083FU)
+#define IS_HARDWARE_TYPE_9083FE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083FE)
+#define IS_HARDWARE_TYPE_9083FS(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083FS)
+#define IS_HARDWARE_TYPE_9083FU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL9083FU)
 #define	IS_HARDWARE_TYPE_9083F(_Adapter)			\
 (IS_HARDWARE_TYPE_9083FE(_Adapter) || IS_HARDWARE_TYPE_9083FU(_Adapter) || IS_HARDWARE_TYPE_9083FS(_Adapter))
 
-#define IS_HARDWARE_TYPE_8821BE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821BE)
-#define IS_HARDWARE_TYPE_8821BU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821BU)
-#define IS_HARDWARE_TYPE_8821BS(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821BS)
+#define IS_HARDWARE_TYPE_8821BE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821BE)
+#define IS_HARDWARE_TYPE_8821BU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821BU)
+#define IS_HARDWARE_TYPE_8821BS(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8821BS)
 
 #define IS_HARDWARE_TYPE_8821B(_Adapter)		\
 (IS_HARDWARE_TYPE_8821BE(_Adapter) || IS_HARDWARE_TYPE_8821BU(_Adapter) || IS_HARDWARE_TYPE_8821BS(_Adapter))
 
-#define IS_HARDWARE_TYPE_8822BE(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8822BE)
-#define IS_HARDWARE_TYPE_8822BU(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8822BU)
-#define IS_HARDWARE_TYPE_8822BS(_Adapter)		(rtw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8822BS)
+#define IS_HARDWARE_TYPE_8822BE(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8822BE)
+#define IS_HARDWARE_TYPE_8822BU(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8822BU)
+#define IS_HARDWARE_TYPE_8822BS(_Adapter)		(tlw_get_hw_type(_Adapter) == HARDWARE_TYPE_RTL8822BS)
 #define IS_HARDWARE_TYPE_8822B(_Adapter)		\
 (IS_HARDWARE_TYPE_8822BE(_Adapter) || IS_HARDWARE_TYPE_8822BU(_Adapter) || IS_HARDWARE_TYPE_8822BS(_Adapter))
 
@@ -514,157 +514,157 @@ struct wowlan_ioctl_param{
 #define	RX_PNOWakeUp			0x55
 #define	AP_WakeUp			0x66
 
-u8 rtw_hal_data_init(_adapter *padapter);
-void rtw_hal_data_deinit(_adapter *padapter);
+u8 tlw_hal_data_init(_adapter *padapter);
+void tlw_hal_data_deinit(_adapter *padapter);
 
-void rtw_hal_def_value_init(_adapter *padapter);
+void tlw_hal_def_value_init(_adapter *padapter);
 
-void	rtw_hal_free_data(_adapter *padapter);
+void	tlw_hal_free_data(_adapter *padapter);
 
-void rtw_hal_dm_init(_adapter *padapter);
-void rtw_hal_dm_deinit(_adapter *padapter);
-void rtw_hal_sw_led_init(_adapter *padapter);
-void rtw_hal_sw_led_deinit(_adapter *padapter);
+void tlw_hal_dm_init(_adapter *padapter);
+void tlw_hal_dm_deinit(_adapter *padapter);
+void tlw_hal_sw_led_init(_adapter *padapter);
+void tlw_hal_sw_led_deinit(_adapter *padapter);
 
-u32 rtw_hal_power_on(_adapter *padapter);
-void rtw_hal_power_off(_adapter *padapter);
+u32 tlw_hal_power_on(_adapter *padapter);
+void tlw_hal_power_off(_adapter *padapter);
 
-uint rtw_hal_init(_adapter *padapter);
-uint rtw_hal_deinit(_adapter *padapter);
-void rtw_hal_stop(_adapter *padapter);
-void rtw_hal_set_hwreg(PADAPTER padapter, u8 variable, u8 *val);
-void rtw_hal_get_hwreg(PADAPTER padapter, u8 variable, u8 *val);
+uint tlw_hal_init(_adapter *padapter);
+uint tlw_hal_deinit(_adapter *padapter);
+void tlw_hal_stop(_adapter *padapter);
+void tlw_hal_set_hwreg(PADAPTER padapter, u8 variable, u8 *val);
+void tlw_hal_get_hwreg(PADAPTER padapter, u8 variable, u8 *val);
 
 #ifdef CONFIG_C2H_PACKET_EN
-void rtw_hal_set_hwreg_with_buf(_adapter *padapter, u8 variable, u8 *pbuf, int len);
+void tlw_hal_set_hwreg_with_buf(_adapter *padapter, u8 variable, u8 *pbuf, int len);
 #endif
 
-void rtw_hal_chip_configure(_adapter *padapter);
-void rtw_hal_read_chip_info(_adapter *padapter);
-void rtw_hal_read_chip_version(_adapter *padapter);
+void tlw_hal_chip_configure(_adapter *padapter);
+void tlw_hal_read_chip_info(_adapter *padapter);
+void tlw_hal_read_chip_version(_adapter *padapter);
 
-u8 rtw_hal_set_def_var(_adapter *padapter, HAL_DEF_VARIABLE eVariable, PVOID pValue);
-u8 rtw_hal_get_def_var(_adapter *padapter, HAL_DEF_VARIABLE eVariable, PVOID pValue);
+u8 tlw_hal_set_def_var(_adapter *padapter, HAL_DEF_VARIABLE eVariable, PVOID pValue);
+u8 tlw_hal_get_def_var(_adapter *padapter, HAL_DEF_VARIABLE eVariable, PVOID pValue);
 
-void rtw_hal_set_odm_var(_adapter *padapter, HAL_ODM_VARIABLE eVariable, PVOID pValue1,BOOLEAN bSet);
-void	rtw_hal_get_odm_var(_adapter *padapter, HAL_ODM_VARIABLE eVariable, PVOID pValue1,PVOID pValue2);
+void tlw_hal_set_odm_var(_adapter *padapter, HAL_ODM_VARIABLE eVariable, PVOID pValue1,BOOLEAN bSet);
+void	tlw_hal_get_odm_var(_adapter *padapter, HAL_ODM_VARIABLE eVariable, PVOID pValue1,PVOID pValue2);
 
-void rtw_hal_enable_interrupt(_adapter *padapter);
-void rtw_hal_disable_interrupt(_adapter *padapter);
+void tlw_hal_enable_interrupt(_adapter *padapter);
+void tlw_hal_disable_interrupt(_adapter *padapter);
 
-u8 rtw_hal_check_ips_status(_adapter *padapter);
+u8 tlw_hal_check_ips_status(_adapter *padapter);
 
 #if defined(CONFIG_USB_HCI)||defined(CONFIG_PCI_HCI)
-u32	rtw_hal_inirp_init(_adapter *padapter);
-u32	rtw_hal_inirp_deinit(_adapter *padapter);
+u32	tlw_hal_inirp_init(_adapter *padapter);
+u32	tlw_hal_inirp_deinit(_adapter *padapter);
 #endif
 
 #if defined(CONFIG_PCI_HCI)
-void	rtw_hal_irp_reset(_adapter *padapter);
+void	tlw_hal_irp_reset(_adapter *padapter);
 #endif
 
-u8	rtw_hal_intf_ps_func(_adapter *padapter,HAL_INTF_PS_FUNC efunc_id, u8* val);
+u8	tlw_hal_intf_ps_func(_adapter *padapter,HAL_INTF_PS_FUNC efunc_id, u8* val);
 
-s32	rtw_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
-s32	rtw_hal_xmit(_adapter *padapter, struct xmit_frame *pxmitframe);
-s32	rtw_hal_mgnt_xmit(_adapter *padapter, struct xmit_frame *pmgntframe);
+s32	tlw_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe);
+s32	tlw_hal_xmit(_adapter *padapter, struct xmit_frame *pxmitframe);
+s32	tlw_hal_mgnt_xmit(_adapter *padapter, struct xmit_frame *pmgntframe);
 
-s32	rtw_hal_init_xmit_priv(_adapter *padapter);
-void	rtw_hal_free_xmit_priv(_adapter *padapter);
+s32	tlw_hal_init_xmit_priv(_adapter *padapter);
+void	tlw_hal_free_xmit_priv(_adapter *padapter);
 
-s32	rtw_hal_init_recv_priv(_adapter *padapter);
-void	rtw_hal_free_recv_priv(_adapter *padapter);
+s32	tlw_hal_init_recv_priv(_adapter *padapter);
+void	tlw_hal_free_recv_priv(_adapter *padapter);
 
-void rtw_hal_update_ra_mask(struct sta_info *psta, u8 rssi_level);
-void	rtw_hal_add_ra_tid(_adapter *padapter, u64 bitmap, u8 *arg, u8 rssi_level);
+void tlw_hal_update_ra_mask(struct sta_info *psta, u8 rssi_level);
+void	tlw_hal_add_ra_tid(_adapter *padapter, u64 bitmap, u8 *arg, u8 rssi_level);
 
-void	rtw_hal_start_thread(_adapter *padapter);
-void	rtw_hal_stop_thread(_adapter *padapter);
+void	tlw_hal_start_thread(_adapter *padapter);
+void	tlw_hal_stop_thread(_adapter *padapter);
 
-void rtw_hal_bcn_related_reg_setting(_adapter *padapter);
+void tlw_hal_bcn_related_reg_setting(_adapter *padapter);
 
-u32	rtw_hal_read_bbreg(_adapter *padapter, u32 RegAddr, u32 BitMask);
-void	rtw_hal_write_bbreg(_adapter *padapter, u32 RegAddr, u32 BitMask, u32 Data);
-u32	rtw_hal_read_rfreg(_adapter *padapter, u32 eRFPath, u32 RegAddr, u32 BitMask);
-void	rtw_hal_write_rfreg(_adapter *padapter, u32 eRFPath, u32 RegAddr, u32 BitMask, u32 Data);
+u32	tlw_hal_read_bbreg(_adapter *padapter, u32 RegAddr, u32 BitMask);
+void	tlw_hal_write_bbreg(_adapter *padapter, u32 RegAddr, u32 BitMask, u32 Data);
+u32	tlw_hal_read_rfreg(_adapter *padapter, u32 eRFPath, u32 RegAddr, u32 BitMask);
+void	tlw_hal_write_rfreg(_adapter *padapter, u32 eRFPath, u32 RegAddr, u32 BitMask, u32 Data);
 
-#define PHY_QueryBBReg(Adapter, RegAddr, BitMask) rtw_hal_read_bbreg((Adapter), (RegAddr), (BitMask))
-#define PHY_SetBBReg(Adapter, RegAddr, BitMask, Data) rtw_hal_write_bbreg((Adapter), (RegAddr), (BitMask), (Data))
-#define PHY_QueryRFReg(Adapter, eRFPath, RegAddr, BitMask) rtw_hal_read_rfreg((Adapter), (eRFPath), (RegAddr), (BitMask))
-#define PHY_SetRFReg(Adapter, eRFPath, RegAddr, BitMask, Data) rtw_hal_write_rfreg((Adapter), (eRFPath), (RegAddr), (BitMask), (Data))
+#define PHY_QueryBBReg(Adapter, RegAddr, BitMask) tlw_hal_read_bbreg((Adapter), (RegAddr), (BitMask))
+#define PHY_SetBBReg(Adapter, RegAddr, BitMask, Data) tlw_hal_write_bbreg((Adapter), (RegAddr), (BitMask), (Data))
+#define PHY_QueryRFReg(Adapter, eRFPath, RegAddr, BitMask) tlw_hal_read_rfreg((Adapter), (eRFPath), (RegAddr), (BitMask))
+#define PHY_SetRFReg(Adapter, eRFPath, RegAddr, BitMask, Data) tlw_hal_write_rfreg((Adapter), (eRFPath), (RegAddr), (BitMask), (Data))
 
 #define PHY_SetMacReg	PHY_SetBBReg
 #define PHY_QueryMacReg PHY_QueryBBReg
 
 #if defined(CONFIG_PCI_HCI)
-s32	rtw_hal_interrupt_handler(_adapter *padapter);
+s32	tlw_hal_interrupt_handler(_adapter *padapter);
 #endif
 #if  defined(CONFIG_USB_HCI) && defined(CONFIG_SUPPORT_USB_INT)
-void	rtw_hal_interrupt_handler(_adapter *padapter, u16 pkt_len, u8 *pbuf);
+void	tlw_hal_interrupt_handler(_adapter *padapter, u16 pkt_len, u8 *pbuf);
 #endif
 
-void	rtw_hal_set_bwmode(_adapter *padapter, CHANNEL_WIDTH Bandwidth, u8 Offset);
-void	rtw_hal_set_chan(_adapter *padapter, u8 channel);
-void	rtw_hal_set_chnl_bw(_adapter *padapter, u8 channel, CHANNEL_WIDTH Bandwidth, u8 Offset40, u8 Offset80);
-void	rtw_hal_dm_watchdog(_adapter *padapter);
-void	rtw_hal_dm_watchdog_in_lps(_adapter *padapter);
+void	tlw_hal_set_bwmode(_adapter *padapter, CHANNEL_WIDTH Bandwidth, u8 Offset);
+void	tlw_hal_set_chan(_adapter *padapter, u8 channel);
+void	tlw_hal_set_chnl_bw(_adapter *padapter, u8 channel, CHANNEL_WIDTH Bandwidth, u8 Offset40, u8 Offset80);
+void	tlw_hal_dm_watchdog(_adapter *padapter);
+void	tlw_hal_dm_watchdog_in_lps(_adapter *padapter);
 
-void	rtw_hal_set_tx_power_level(_adapter *padapter, u8 channel);
-void	rtw_hal_get_tx_power_level(_adapter *padapter, s32 *powerlevel);
+void	tlw_hal_set_tx_power_level(_adapter *padapter, u8 channel);
+void	tlw_hal_get_tx_power_level(_adapter *padapter, s32 *powerlevel);
 
 #ifdef CONFIG_ANTENNA_DIVERSITY
-u8	rtw_hal_antdiv_before_linked(_adapter *padapter);
-void	rtw_hal_antdiv_rssi_compared(_adapter *padapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src);
+u8	tlw_hal_antdiv_before_linked(_adapter *padapter);
+void	tlw_hal_antdiv_rssi_compared(_adapter *padapter, WLAN_BSSID_EX *dst, WLAN_BSSID_EX *src);
 #endif
 
 #ifdef CONFIG_HOSTAPD_MLME
-s32	rtw_hal_hostap_mgnt_xmit_entry(_adapter *padapter, _pkt *pkt);
+s32	tlw_hal_hostap_mgnt_xmit_entry(_adapter *padapter, _pkt *pkt);
 #endif
 
 #ifdef DBG_CONFIG_ERROR_DETECT
-void rtw_hal_sreset_init(_adapter *padapter);
-void rtw_hal_sreset_reset(_adapter *padapter);
-void rtw_hal_sreset_reset_value(_adapter *padapter);
-void rtw_hal_sreset_xmit_status_check(_adapter *padapter);
-void rtw_hal_sreset_linked_status_check (_adapter *padapter);
-u8   rtw_hal_sreset_get_wifi_status(_adapter *padapter);
-bool rtw_hal_sreset_inprogress(_adapter *padapter);
+void tlw_hal_sreset_init(_adapter *padapter);
+void tlw_hal_sreset_reset(_adapter *padapter);
+void tlw_hal_sreset_reset_value(_adapter *padapter);
+void tlw_hal_sreset_xmit_status_check(_adapter *padapter);
+void tlw_hal_sreset_linked_status_check (_adapter *padapter);
+u8   tlw_hal_sreset_get_wifi_status(_adapter *padapter);
+bool tlw_hal_sreset_inprogress(_adapter *padapter);
 #endif
 
 #ifdef CONFIG_IOL
-int rtw_hal_iol_cmd(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms, u32 bndy_cnt);
+int tlw_hal_iol_cmd(ADAPTER *adapter, struct xmit_frame *xmit_frame, u32 max_wating_ms, u32 bndy_cnt);
 #endif
 
 #ifdef CONFIG_XMIT_THREAD_MODE
-s32 rtw_hal_xmit_thread_handler(_adapter *padapter);
+s32 tlw_hal_xmit_thread_handler(_adapter *padapter);
 #endif
 
-void rtw_hal_notch_filter(_adapter * adapter, bool enable);
+void tlw_hal_notch_filter(_adapter * adapter, bool enable);
 
-bool rtw_hal_c2h_valid(_adapter *adapter, u8 *buf);
-s32 rtw_hal_c2h_evt_read(_adapter *adapter, u8 *buf);
-s32 rtw_hal_c2h_handler(_adapter *adapter, u8 *c2h_evt);
-c2h_id_filter rtw_hal_c2h_id_filter_ccx(_adapter *adapter);
+bool tlw_hal_c2h_valid(_adapter *adapter, u8 *buf);
+s32 tlw_hal_c2h_evt_read(_adapter *adapter, u8 *buf);
+s32 tlw_hal_c2h_handler(_adapter *adapter, u8 *c2h_evt);
+c2h_id_filter tlw_hal_c2h_id_filter_ccx(_adapter *adapter);
 
-s32 rtw_hal_is_disable_sw_channel_plan(PADAPTER padapter);
+s32 tlw_hal_is_disable_sw_channel_plan(PADAPTER padapter);
 
-s32 rtw_hal_macid_sleep(PADAPTER padapter, u8 macid);
-s32 rtw_hal_macid_wakeup(PADAPTER padapter, u8 macid);
+s32 tlw_hal_macid_sleep(PADAPTER padapter, u8 macid);
+s32 tlw_hal_macid_wakeup(PADAPTER padapter, u8 macid);
 
-s32 rtw_hal_fill_h2c_cmd(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
-void rtw_hal_fill_fake_txdesc(_adapter *padapter, u8 *pDesc, u32 BufferLen,
+s32 tlw_hal_fill_h2c_cmd(PADAPTER padapter, u8 ElementID, u32 CmdLen, u8 *pCmdBuffer);
+void tlw_hal_fill_fake_txdesc(_adapter *padapter, u8 *pDesc, u32 BufferLen,
 		u8 IsPsPoll, u8 IsBTQosNull, u8 bDataFrame);
-u8 rtw_hal_get_txbuff_rsvd_page_num(_adapter *adapter, bool wowlan);
+u8 tlw_hal_get_txbuff_rsvd_page_num(_adapter *adapter, bool wowlan);
 
 #ifdef CONFIG_GPIO_API
-void rtw_hal_update_hisr_hsisr_ind(_adapter *padapter, u32 flag);
+void tlw_hal_update_hisr_hsisr_ind(_adapter *padapter, u32 flag);
 #endif
 
 #if defined(CONFIG_WOWLAN) || defined(CONFIG_AP_WOWLAN)
-void rtw_hal_clear_interrupt(_adapter *padapter);
-void rtw_hal_set_wowlan_fw(_adapter *padapter, u8 sleep);
+void tlw_hal_clear_interrupt(_adapter *padapter);
+void tlw_hal_set_wowlan_fw(_adapter *padapter, u8 sleep);
 #endif
-u8 rtw_hal_ops_check(_adapter *padapter);
+u8 tlw_hal_ops_check(_adapter *padapter);
 
 #endif //__HAL_INTF_H__
 

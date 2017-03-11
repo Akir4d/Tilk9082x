@@ -3,7 +3,7 @@
 #include <linux/unistd.h>
 #include <linux/etherdevice.h>
 #include <drv_types.h>
-#include <rtw_wapi.h>
+#include <tlw_wapi.h>
 
 
 #ifdef CONFIG_WAPI_SW_SMS4
@@ -466,7 +466,7 @@ u8 WapiCheckPnInSwDecrypt(
 	else
 		pDaddr = header->addr1;
 
-	if ((_rtw_memcmp(pRaddr, padapter->pnetdev->dev_addr, ETH_ALEN) == 0)
+	if ((_tlw_memcmp(pRaddr, padapter->pnetdev->dev_addr, ETH_ALEN) == 0)
 		&&	! (pDaddr)
 		&& (GetFrameType(&fc) == WIFI_QOS_DATA_TYPE))
 		//&& ieee->pHTInfo->bCurrentHTSupport &&
@@ -524,7 +524,7 @@ int SecSMS4HeaderFillIV(_adapter *padapter, u8 *pxmitframe)
 			if (bPNOverflow){
 				// Update MSK Notification.
 				WAPI_TRACE(WAPI_ERR,"===============>%s():multicast PN overflow\n",__FUNCTION__);
-				rtw_wapi_app_event_handler(padapter,NULL,0,pRA, false, false, true, 0, false);
+				tlw_wapi_app_event_handler(padapter,NULL,0,pRA, false, false, true, 0, false);
 			}
 		}else{
 			WAPI_TRACE(WAPI_ERR,"%s: Invalid Wapi Multicast KeyIdx!!\n",__FUNCTION__);
@@ -555,7 +555,7 @@ int SecSMS4HeaderFillIV(_adapter *padapter, u8 *pxmitframe)
 				if (bPNOverflow){
 					// Update USK Notification.
 					WAPI_TRACE(WAPI_ERR,"===============>%s():unicast PN overflow\n",__FUNCTION__);
-					rtw_wapi_app_event_handler(padapter,NULL,0,pWapiSta->PeerMacAddr, false, true, false, 0, false);
+					tlw_wapi_app_event_handler(padapter,NULL,0,pWapiSta->PeerMacAddr, false, true, false, 0, false);
 				}
 			}else{
 				WAPI_TRACE(WAPI_ERR,"%s: Invalid Wapi Unicast KeyIdx!!\n",__FUNCTION__);
@@ -847,7 +847,7 @@ u8 SecSWSMS4Decryption(
 	return true;
 }
 
-u32	rtw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe)
+u32	tlw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe)
 {
 
 	u8	*pframe;
@@ -872,7 +872,7 @@ u32	rtw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe)
 	return res;
 }
 
-u32	rtw_sms4_decrypt(_adapter *padapter, u8 *precvframe)
+u32	tlw_sms4_decrypt(_adapter *padapter, u8 *precvframe)
 {
 	u8	*pframe;
 	u32 res = _SUCCESS;
@@ -904,14 +904,14 @@ u32	rtw_sms4_decrypt(_adapter *padapter, u8 *precvframe)
 
 #else
 
-u32	rtw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe)
+u32	tlw_sms4_encrypt(_adapter *padapter, u8 *pxmitframe)
 {
 	WAPI_TRACE(WAPI_TX, "=========>Dummy %s\n", __FUNCTION__);
 	WAPI_TRACE(WAPI_TX, "<=========Dummy %s\n", __FUNCTION__);
 	return _SUCCESS;
 }
 
-u32	rtw_sms4_decrypt(_adapter *padapter, u8 *precvframe)
+u32	tlw_sms4_decrypt(_adapter *padapter, u8 *precvframe)
 {
 	WAPI_TRACE(WAPI_RX, "=========>Dummy %s\n", __FUNCTION__);
 	WAPI_TRACE(WAPI_RX, "<=========Dummy %s\n", __FUNCTION__);

@@ -48,7 +48,7 @@ struct ht_priv
 	u8	beamform_cap;
 	u8	smps_cap; /*spatial multiplexing power save mode. 0:static SMPS, 1:dynamic SMPS, 3:SMPS disabled, 2:reserved*/
 
-	struct rtw_ieee80211_ht_cap ht_cap;
+	struct tlw_ieee80211_ht_cap ht_cap;
 	
 };
 

@@ -54,9 +54,9 @@ void handle_txrpt_ccx_88e(_adapter *adapter, u8 *buf)
 
 	if (txrpt_ccx->int_ccx) {
 		if (txrpt_ccx->pkt_ok)
-			rtw_ack_tx_done(&adapter->xmitpriv, RTW_SCTX_DONE_SUCCESS);
+			tlw_ack_tx_done(&adapter->xmitpriv, RTW_SCTX_DONE_SUCCESS);
 		else
-			rtw_ack_tx_done(&adapter->xmitpriv, RTW_SCTX_DONE_CCX_PKT_FAIL);
+			tlw_ack_tx_done(&adapter->xmitpriv, RTW_SCTX_DONE_CCX_PKT_FAIL);
 	}
 }
 #endif //CONFIG_XMIT_ACK
@@ -65,7 +65,7 @@ void _dbg_dump_tx_info(_adapter	*padapter,int frame_tag,struct tx_desc *ptxdesc)
 {
 	u8 bDumpTxPkt;
 	u8 bDumpTxDesc = _FALSE;
-	rtw_hal_get_def_var(padapter, HAL_DEF_DBG_DUMP_TXPKT, &(bDumpTxPkt));
+	tlw_hal_get_def_var(padapter, HAL_DEF_DBG_DUMP_TXPKT, &(bDumpTxPkt));
 
 	if(bDumpTxPkt ==1){//dump txdesc for data frame
 		DBG_871X("dump tx_desc for data frame\n");
@@ -136,7 +136,7 @@ InsertEMContent_9083E(
 	u4Byte	dwtmp=0;
 #endif
 
-	_rtw_memset(VirtualAddress, 0, EARLY_MODE_INFO_SIZE);
+	_tlw_memset(VirtualAddress, 0, EARLY_MODE_INFO_SIZE);
 	if(pEMInfo->EMPktNum==0)
 		return;
 
@@ -245,7 +245,7 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 		offset = pxmitpriv->agg_pkt[index].offset;
 		pktlen = pxmitpriv->agg_pkt[index].pkt_len;		
 
-		_rtw_memset(&eminfo,0,sizeof(struct EMInfo));
+		_tlw_memset(&eminfo,0,sizeof(struct EMInfo));
 		if( pframe->agg_num > EARLY_MODE_MAX_PKT_NUM){
 			if(node_num_0 > EARLY_MODE_MAX_PKT_NUM){
 				eminfo.EMPktNum = EARLY_MODE_MAX_PKT_NUM;
@@ -282,7 +282,7 @@ void UpdateEarlyModeInfo9083E(struct xmit_priv *pxmitpriv,struct xmit_buf *pxmit
 		
 		
 	} 
-	_rtw_memset(pxmitpriv->agg_pkt,0,sizeof(struct agg_pkt_info)*MAX_AGG_PKT_NUM);
+	_tlw_memset(pxmitpriv->agg_pkt,0,sizeof(struct agg_pkt_info)*MAX_AGG_PKT_NUM);
 
 }
 #endif

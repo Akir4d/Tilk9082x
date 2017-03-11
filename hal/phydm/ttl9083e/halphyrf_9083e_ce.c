@@ -1007,11 +1007,11 @@ ODM_CheckPowerStatus(
 	//
 	//	2011/07/19 MH We can not execute tx pwoer tracking/ LLC calibrate or IQK.
 	//
-	rtw_hal_get_hwreg(Adapter, HW_VAR_RF_STATE, (pu1Byte)(&rtState));
-	if (rtw_is_drv_stopped(padapter) || Adapter->bDriverIsGoingToPnpSetPowerSleep || rtState == eRfOff)
+	tlw_hal_get_hwreg(Adapter, HW_VAR_RF_STATE, (pu1Byte)(&rtState));
+	if (tlw_is_drv_stopped(padapter) || Adapter->bDriverIsGoingToPnpSetPowerSleep || rtState == eRfOff)
 	{
 		ODM_RT_TRACE(pDM_Odm,COMP_INIT, DBG_LOUD, ("ODM_CheckPowerStatus Return FALSE, due to drv_stop: %s /%d/%d\n", 
-		rtw_is_drv_stopped(padapter)?"True":"False", Adapter->bDriverIsGoingToPnpSetPowerSleep, rtState));
+		tlw_is_drv_stopped(padapter)?"True":"False", Adapter->bDriverIsGoingToPnpSetPowerSleep, rtState));
 		return	FALSE;
 	}
 */
@@ -2633,7 +2633,7 @@ VOID phy_SetRFPathSwitch_9083E(
 	#if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 	if(!pAdapter->bHWInitReady)	
 	#elif  (DM_ODM_SUPPORT_TYPE == ODM_CE)
-	if (!rtw_is_hw_init_completed(pAdapter))
+	if (!tlw_is_hw_init_completed(pAdapter))
 	#endif
 	{
 		u1Byte	u1bTmp;

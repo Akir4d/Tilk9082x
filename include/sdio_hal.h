@@ -26,7 +26,7 @@ extern u8 sd_hal_bus_deinit(PADAPTER padapter);
 
 u8 sd_int_isr(PADAPTER padapter);
 void sd_int_dpc(PADAPTER padapter);
-u8 rtw_set_hal_ops(_adapter *padapter);
+u8 tlw_set_hal_ops(_adapter *padapter);
 
 #ifdef CONFIG_RTL9083E
 void ttl9083es_set_hal_ops(PADAPTER padapter);

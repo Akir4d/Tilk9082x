@@ -23,7 +23,7 @@
 int usb_init_recv_priv(_adapter *padapter, u16 ini_in_buf_sz);
 void usb_free_recv_priv (_adapter *padapter, u16 ini_in_buf_sz);
 
-u8 rtw_set_hal_ops(_adapter *padapter);
+u8 tlw_set_hal_ops(_adapter *padapter);
 
 #ifdef CONFIG_RTL9083E
 void ttl9083eu_set_hal_ops(_adapter * padapter);
@@ -51,7 +51,7 @@ void ttl9083fu_set_hal_ops(_adapter *padapter);
 #endif
 
 #ifdef CONFIG_INTEL_PROXIM	
-extern _adapter  *rtw_usb_get_sw_pointer(void);
+extern _adapter  *tlw_usb_get_sw_pointer(void);
 #endif	//CONFIG_INTEL_PROXIM
 #endif //__USB_HAL_H__
 

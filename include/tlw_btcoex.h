@@ -98,7 +98,7 @@ typedef struct _PACKET_IRP_HCIEVENT_DATA {
 	    u8		EventCode;
 	    u8		Length; //total cmd length = extension event length+1(extension event code length)
 	    u8		Data[1]; // byte1 is extension event code
-} rtw_HCI_event;
+} tlw_HCI_event;
 
 
 struct btinfo_8761ATV {
@@ -324,73 +324,73 @@ struct bt_coex_info {
 #define	PACKET_ARP				2
 #define	PACKET_EAPOL			3
 
-void rtw_btcoex_Initialize(PADAPTER);
-void rtw_btcoex_PowerOnSetting(PADAPTER padapter);
-void rtw_btcoex_PreLoadFirmware(PADAPTER padapter);
-void rtw_btcoex_HAL_Initialize(PADAPTER padapter, u8 bWifiOnly);
-void rtw_btcoex_IpsNotify(PADAPTER, u8 type);
-void rtw_btcoex_LpsNotify(PADAPTER, u8 type);
-void rtw_btcoex_ScanNotify(PADAPTER, u8 type);
-void rtw_btcoex_ConnectNotify(PADAPTER, u8 action);
-void rtw_btcoex_MediaStatusNotify(PADAPTER, u8 mediaStatus);
-void rtw_btcoex_SpecialPacketNotify(PADAPTER, u8 pktType);
-void rtw_btcoex_IQKNotify(PADAPTER padapter, u8 state);
-void rtw_btcoex_BtInfoNotify(PADAPTER, u8 length, u8 *tmpBuf);
-void rtw_btcoex_SuspendNotify(PADAPTER, u8 state);
-void rtw_btcoex_HaltNotify(PADAPTER);
-void rtw_btcoex_SwitchBtTRxMask(PADAPTER);
-void rtw_btcoex_Switch(PADAPTER, u8 enable);
-u8 rtw_btcoex_IsBtDisabled(PADAPTER);
-void rtw_btcoex_Handler(PADAPTER);
-s32 rtw_btcoex_IsBTCoexRejectAMPDU(PADAPTER padapter);
-s32 rtw_btcoex_IsBTCoexCtrlAMPDUSize(PADAPTER);
-u32 rtw_btcoex_GetAMPDUSize(PADAPTER);
-void rtw_btcoex_SetManualControl(PADAPTER, u8 bmanual);
-u8 rtw_btcoex_1Ant(PADAPTER);
-u8 rtw_btcoex_IsBtControlLps(PADAPTER);
-u8 rtw_btcoex_IsLpsOn(PADAPTER);
-u8 rtw_btcoex_RpwmVal(PADAPTER);
-u8 rtw_btcoex_LpsVal(PADAPTER);
-void rtw_btcoex_SetBTCoexist(PADAPTER, u8 bBtExist);
-void rtw_btcoex_SetChipType(PADAPTER, u8 chipType);
-void rtw_btcoex_SetPGAntNum(PADAPTER, u8 antNum);
-u8 rtw_btcoex_GetPGAntNum(PADAPTER);
-void rtw_btcoex_SetSingleAntPath(PADAPTER padapter, u8 singleAntPath);
-u32 rtw_btcoex_GetRaMask(PADAPTER);
-void rtw_btcoex_RecordPwrMode(PADAPTER, u8 *pCmdBuf, u8 cmdLen);
-void rtw_btcoex_DisplayBtCoexInfo(PADAPTER, u8 *pbuf, u32 bufsize);
-void rtw_btcoex_SetDBG(PADAPTER, u32 *pDbgModule);
-u32 rtw_btcoex_GetDBG(PADAPTER, u8 *pStrBuf, u32 bufSize);
-u8 rtw_btcoex_IncreaseScanDeviceNum(PADAPTER);
-u8 rtw_btcoex_IsBtLinkExist(PADAPTER);
-void rtw_btcoex_BTOffOnNotify(PADAPTER padapter, u8 bBTON);
+void tlw_btcoex_Initialize(PADAPTER);
+void tlw_btcoex_PowerOnSetting(PADAPTER padapter);
+void tlw_btcoex_PreLoadFirmware(PADAPTER padapter);
+void tlw_btcoex_HAL_Initialize(PADAPTER padapter, u8 bWifiOnly);
+void tlw_btcoex_IpsNotify(PADAPTER, u8 type);
+void tlw_btcoex_LpsNotify(PADAPTER, u8 type);
+void tlw_btcoex_ScanNotify(PADAPTER, u8 type);
+void tlw_btcoex_ConnectNotify(PADAPTER, u8 action);
+void tlw_btcoex_MediaStatusNotify(PADAPTER, u8 mediaStatus);
+void tlw_btcoex_SpecialPacketNotify(PADAPTER, u8 pktType);
+void tlw_btcoex_IQKNotify(PADAPTER padapter, u8 state);
+void tlw_btcoex_BtInfoNotify(PADAPTER, u8 length, u8 *tmpBuf);
+void tlw_btcoex_SuspendNotify(PADAPTER, u8 state);
+void tlw_btcoex_HaltNotify(PADAPTER);
+void tlw_btcoex_SwitchBtTRxMask(PADAPTER);
+void tlw_btcoex_Switch(PADAPTER, u8 enable);
+u8 tlw_btcoex_IsBtDisabled(PADAPTER);
+void tlw_btcoex_Handler(PADAPTER);
+s32 tlw_btcoex_IsBTCoexRejectAMPDU(PADAPTER padapter);
+s32 tlw_btcoex_IsBTCoexCtrlAMPDUSize(PADAPTER);
+u32 tlw_btcoex_GetAMPDUSize(PADAPTER);
+void tlw_btcoex_SetManualControl(PADAPTER, u8 bmanual);
+u8 tlw_btcoex_1Ant(PADAPTER);
+u8 tlw_btcoex_IsBtControlLps(PADAPTER);
+u8 tlw_btcoex_IsLpsOn(PADAPTER);
+u8 tlw_btcoex_RpwmVal(PADAPTER);
+u8 tlw_btcoex_LpsVal(PADAPTER);
+void tlw_btcoex_SetBTCoexist(PADAPTER, u8 bBtExist);
+void tlw_btcoex_SetChipType(PADAPTER, u8 chipType);
+void tlw_btcoex_SetPGAntNum(PADAPTER, u8 antNum);
+u8 tlw_btcoex_GetPGAntNum(PADAPTER);
+void tlw_btcoex_SetSingleAntPath(PADAPTER padapter, u8 singleAntPath);
+u32 tlw_btcoex_GetRaMask(PADAPTER);
+void tlw_btcoex_RecordPwrMode(PADAPTER, u8 *pCmdBuf, u8 cmdLen);
+void tlw_btcoex_DisplayBtCoexInfo(PADAPTER, u8 *pbuf, u32 bufsize);
+void tlw_btcoex_SetDBG(PADAPTER, u32 *pDbgModule);
+u32 tlw_btcoex_GetDBG(PADAPTER, u8 *pStrBuf, u32 bufSize);
+u8 tlw_btcoex_IncreaseScanDeviceNum(PADAPTER);
+u8 tlw_btcoex_IsBtLinkExist(PADAPTER);
+void tlw_btcoex_BTOffOnNotify(PADAPTER padapter, u8 bBTON);
 #ifdef CONFIG_BT_COEXIST_SOCKET_TRX
-void rtw_btcoex_SetBtPatchVersion(PADAPTER padapter,u16 btHciVer, u16 btPatchVer);
-void rtw_btcoex_SetHciVersion(PADAPTER  padapter, u16 hciVersion);
-void rtw_btcoex_StackUpdateProfileInfo(void);
-void rtw_btcoex_init_socket(_adapter *padapter);
-void rtw_btcoex_close_socket(_adapter *padapter);
-void rtw_btcoex_dump_tx_msg(u8 *tx_msg, u8 len, u8 *msg_name);
-u8 rtw_btcoex_sendmsgbysocket(_adapter *padapter, u8 *msg, u8 msg_size, bool force);
-u8 rtw_btcoex_create_kernel_socket(_adapter *padapter);
-void rtw_btcoex_close_kernel_socket(_adapter *padapter);
-void rtw_btcoex_recvmsgbysocket(void *data);
-u16 rtw_btcoex_parse_recv_data(u8 *msg, u8 msg_size);
-u8 rtw_btcoex_btinfo_cmd(PADAPTER padapter, u8 *pbuf, u16 length);
-void rtw_btcoex_parse_hci_cmd(_adapter *padapter, u8 *cmd, u16 len);
-void rtw_btcoex_SendEventExtBtCoexControl(PADAPTER Adapter, u8 bNeedDbgRsp, u8 dataLen, void *pData);
-void rtw_btcoex_SendEventExtBtInfoControl(PADAPTER Adapter, u8 dataLen, void *pData);
-void rtw_btcoex_SendScanNotify(PADAPTER padapter, u8 scanType);
-#define BT_SendEventExtBtCoexControl(Adapter, bNeedDbgRsp, dataLen, pData) rtw_btcoex_SendEventExtBtCoexControl(Adapter, bNeedDbgRsp, dataLen, pData)
-#define BT_SendEventExtBtInfoControl(Adapter, dataLen, pData) rtw_btcoex_SendEventExtBtInfoControl(Adapter, dataLen, pData)
+void tlw_btcoex_SetBtPatchVersion(PADAPTER padapter,u16 btHciVer, u16 btPatchVer);
+void tlw_btcoex_SetHciVersion(PADAPTER  padapter, u16 hciVersion);
+void tlw_btcoex_StackUpdateProfileInfo(void);
+void tlw_btcoex_init_socket(_adapter *padapter);
+void tlw_btcoex_close_socket(_adapter *padapter);
+void tlw_btcoex_dump_tx_msg(u8 *tx_msg, u8 len, u8 *msg_name);
+u8 tlw_btcoex_sendmsgbysocket(_adapter *padapter, u8 *msg, u8 msg_size, bool force);
+u8 tlw_btcoex_create_kernel_socket(_adapter *padapter);
+void tlw_btcoex_close_kernel_socket(_adapter *padapter);
+void tlw_btcoex_recvmsgbysocket(void *data);
+u16 tlw_btcoex_parse_recv_data(u8 *msg, u8 msg_size);
+u8 tlw_btcoex_btinfo_cmd(PADAPTER padapter, u8 *pbuf, u16 length);
+void tlw_btcoex_parse_hci_cmd(_adapter *padapter, u8 *cmd, u16 len);
+void tlw_btcoex_SendEventExtBtCoexControl(PADAPTER Adapter, u8 bNeedDbgRsp, u8 dataLen, void *pData);
+void tlw_btcoex_SendEventExtBtInfoControl(PADAPTER Adapter, u8 dataLen, void *pData);
+void tlw_btcoex_SendScanNotify(PADAPTER padapter, u8 scanType);
+#define BT_SendEventExtBtCoexControl(Adapter, bNeedDbgRsp, dataLen, pData) tlw_btcoex_SendEventExtBtCoexControl(Adapter, bNeedDbgRsp, dataLen, pData)
+#define BT_SendEventExtBtInfoControl(Adapter, dataLen, pData) tlw_btcoex_SendEventExtBtInfoControl(Adapter, dataLen, pData)
 #endif //CONFIG_BT_COEXIST_SOCKET_TRX
 
 // ==================================================
 // Below Functions are called by BT-Coex
 // ==================================================
-void rtw_btcoex_rx_ampdu_apply(PADAPTER);
-void rtw_btcoex_LPS_Enter(PADAPTER);
-void rtw_btcoex_LPS_Leave(PADAPTER);
+void tlw_btcoex_rx_ampdu_apply(PADAPTER);
+void tlw_btcoex_LPS_Enter(PADAPTER);
+void tlw_btcoex_LPS_Leave(PADAPTER);
 
 #endif // __RTW_BTCOEX_H__
 

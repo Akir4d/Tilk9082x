@@ -48,7 +48,7 @@ enum sta_info_update_type {
 
 //if mode ==0, then the sta is allowed once the addr is hit.
 //if mode ==1, then the sta is rejected once the addr is non-hit.
-struct rtw_wlan_acl_node {
+struct tlw_wlan_acl_node {
         _list		        list;
         u8       addr[ETH_ALEN];
         u8       valid;
@@ -60,7 +60,7 @@ struct rtw_wlan_acl_node {
 struct wlan_acl_pool {
 	int mode;
 	int num;
-	struct rtw_wlan_acl_node aclnode[NUM_ACL];
+	struct tlw_wlan_acl_node aclnode[NUM_ACL];
 	_queue	acl_node_q;
 };
 
@@ -491,20 +491,20 @@ __inline static u32 wifi_mac_hash(u8 *mac)
 }
 
 
-extern u32	_rtw_init_sta_priv(struct sta_priv *pstapriv);
-extern u32	_rtw_free_sta_priv(struct sta_priv *pstapriv);
+extern u32	_tlw_init_sta_priv(struct sta_priv *pstapriv);
+extern u32	_tlw_free_sta_priv(struct sta_priv *pstapriv);
 
 #define stainfo_offset_valid(offset) (offset < NUM_STA && offset >= 0)
-int rtw_stainfo_offset(struct sta_priv *stapriv, struct sta_info *sta);
-struct sta_info *rtw_get_stainfo_by_offset(struct sta_priv *stapriv, int offset);
+int tlw_stainfo_offset(struct sta_priv *stapriv, struct sta_info *sta);
+struct sta_info *tlw_get_stainfo_by_offset(struct sta_priv *stapriv, int offset);
 
-extern struct sta_info *rtw_alloc_stainfo(struct	sta_priv *pstapriv, u8 *hwaddr);
-extern u32	rtw_free_stainfo(_adapter *padapter , struct sta_info *psta);
-extern void rtw_free_all_stainfo(_adapter *padapter);
-extern struct sta_info *rtw_get_stainfo(struct sta_priv *pstapriv, u8 *hwaddr);
-extern u32 rtw_init_bcmc_stainfo(_adapter* padapter);
-extern struct sta_info* rtw_get_bcmc_stainfo(_adapter* padapter);
-extern u8 rtw_access_ctrl(_adapter *padapter, u8 *mac_addr);
+extern struct sta_info *tlw_alloc_stainfo(struct	sta_priv *pstapriv, u8 *hwaddr);
+extern u32	tlw_free_stainfo(_adapter *padapter , struct sta_info *psta);
+extern void tlw_free_all_stainfo(_adapter *padapter);
+extern struct sta_info *tlw_get_stainfo(struct sta_priv *pstapriv, u8 *hwaddr);
+extern u32 tlw_init_bcmc_stainfo(_adapter* padapter);
+extern struct sta_info* tlw_get_bcmc_stainfo(_adapter* padapter);
+extern u8 tlw_access_ctrl(_adapter *padapter, u8 *mac_addr);
 
 #endif //_STA_INFO_H_
 

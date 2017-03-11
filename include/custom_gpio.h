@@ -25,8 +25,8 @@ typedef enum cust_gpio_modes {
 	WLAN_BT_PWDN_OFF
 } cust_gpio_modes_t;
 
-extern int rtw_wifi_gpio_init(void);
-extern int rtw_wifi_gpio_deinit(void);
-extern void rtw_wifi_gpio_wlan_ctrl(int onoff);
+extern int tlw_wifi_gpio_init(void);
+extern int tlw_wifi_gpio_deinit(void);
+extern void tlw_wifi_gpio_wlan_ctrl(int onoff);
 
 #endif

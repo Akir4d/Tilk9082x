@@ -44,11 +44,11 @@
 
 #ifdef DBG_MEM_ALLOC
 extern bool match_mstat_sniff_rules(const enum mstat_f flags, const size_t size);
-struct sk_buff * dbg_rtw_cfg80211_vendor_event_alloc(struct wiphy *wiphy, int len, int event_id, gfp_t gfp
+struct sk_buff * dbg_tlw_cfg80211_vendor_event_alloc(struct wiphy *wiphy, int len, int event_id, gfp_t gfp
 	, const enum mstat_f flags, const char *func, const int line)
 {
 	_adapter *padapter = wiphy_to_adapter(wiphy);
-	struct wireless_dev *wdev = padapter->rtw_wdev;
+	struct wireless_dev *wdev = padapter->tlw_wdev;
 
 	struct sk_buff *skb;
 	unsigned int truesize = 0;
@@ -65,7 +65,7 @@ struct sk_buff * dbg_rtw_cfg80211_vendor_event_alloc(struct wiphy *wiphy, int le
 	if(!skb || truesize < len || match_mstat_sniff_rules(flags, truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d), skb:%p, truesize=%u\n", func, line, __FUNCTION__, len, skb, truesize);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, skb ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, truesize
@@ -74,7 +74,7 @@ struct sk_buff * dbg_rtw_cfg80211_vendor_event_alloc(struct wiphy *wiphy, int le
 	return skb;
 }
 
-void dbg_rtw_cfg80211_vendor_event(struct sk_buff *skb, gfp_t gfp
+void dbg_tlw_cfg80211_vendor_event(struct sk_buff *skb, gfp_t gfp
 	, const enum mstat_f flags, const char *func, const int line)
 {
 	unsigned int truesize = skb->truesize;
@@ -84,14 +84,14 @@ void dbg_rtw_cfg80211_vendor_event(struct sk_buff *skb, gfp_t gfp
 
 	cfg80211_vendor_event(skb, gfp);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, truesize
 	);
 }
 
-struct sk_buff *dbg_rtw_cfg80211_vendor_cmd_alloc_reply_skb(struct wiphy *wiphy, int len
+struct sk_buff *dbg_tlw_cfg80211_vendor_cmd_alloc_reply_skb(struct wiphy *wiphy, int len
 	, const enum mstat_f flags, const char *func, const int line)
 {
 	struct sk_buff *skb;
@@ -105,7 +105,7 @@ struct sk_buff *dbg_rtw_cfg80211_vendor_cmd_alloc_reply_skb(struct wiphy *wiphy,
 	if(!skb || truesize < len || match_mstat_sniff_rules(flags, truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d), skb:%p, truesize=%u\n", func, line, __FUNCTION__, len, skb, truesize);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, skb ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, truesize
@@ -114,7 +114,7 @@ struct sk_buff *dbg_rtw_cfg80211_vendor_cmd_alloc_reply_skb(struct wiphy *wiphy,
 	return skb;
 }
 
-int dbg_rtw_cfg80211_vendor_cmd_reply(struct sk_buff *skb
+int dbg_tlw_cfg80211_vendor_cmd_reply(struct sk_buff *skb
 	, const enum mstat_f flags, const char *func, const int line)
 {
 	unsigned int truesize = skb->truesize;
@@ -125,7 +125,7 @@ int dbg_rtw_cfg80211_vendor_cmd_reply(struct sk_buff *skb
 
 	ret = cfg80211_vendor_cmd_reply(skb);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, truesize
@@ -134,24 +134,24 @@ int dbg_rtw_cfg80211_vendor_cmd_reply(struct sk_buff *skb
 	return ret;
 }
 
-#define rtw_cfg80211_vendor_event_alloc(wiphy, len, event_id, gfp) \
-	dbg_rtw_cfg80211_vendor_event_alloc(wiphy, len, event_id, gfp, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_cfg80211_vendor_event_alloc(wiphy, len, event_id, gfp) \
+	dbg_tlw_cfg80211_vendor_event_alloc(wiphy, len, event_id, gfp, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
 	
-#define rtw_cfg80211_vendor_event(skb, gfp) \
-	dbg_rtw_cfg80211_vendor_event(skb, gfp, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_cfg80211_vendor_event(skb, gfp) \
+	dbg_tlw_cfg80211_vendor_event(skb, gfp, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
 	
-#define rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len) \
-	dbg_rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len) \
+	dbg_tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
 
-#define rtw_cfg80211_vendor_cmd_reply(skb) \
-		dbg_rtw_cfg80211_vendor_cmd_reply(skb, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_cfg80211_vendor_cmd_reply(skb) \
+		dbg_tlw_cfg80211_vendor_cmd_reply(skb, MSTAT_FUNC_CFG_VENDOR|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
 #else
 
-struct sk_buff * rtw_cfg80211_vendor_event_alloc(
+struct sk_buff * tlw_cfg80211_vendor_event_alloc(
 		struct wiphy *wiphy, int len, int event_id, gfp_t gfp)
 {
 	_adapter *padapter = wiphy_to_adapter(wiphy);
-	struct wireless_dev *wdev = padapter->rtw_wdev;
+	struct wireless_dev *wdev = padapter->tlw_wdev;
 	struct sk_buff *skb;
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(4, 1, 0))
@@ -162,23 +162,23 @@ struct sk_buff * rtw_cfg80211_vendor_event_alloc(
 	return skb;
 }
 
-#define rtw_cfg80211_vendor_event(skb, gfp) \
+#define tlw_cfg80211_vendor_event(skb, gfp) \
 	cfg80211_vendor_event(skb, gfp)
 	
-#define rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len) \
+#define tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len) \
 	cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len)
 
-#define rtw_cfg80211_vendor_cmd_reply(skb) \
+#define tlw_cfg80211_vendor_cmd_reply(skb) \
 	cfg80211_vendor_cmd_reply(skb)
 #endif /* DBG_MEM_ALLOC */
 
 /*
  * This API is to be used for asynchronous vendor events. This
  * shouldn't be used in response to a vendor command from its
- * do_it handler context (instead rtw_cfgvendor_send_cmd_reply should
+ * do_it handler context (instead tlw_cfgvendor_send_cmd_reply should
  * be used).
  */
-int rtw_cfgvendor_send_async_event(struct wiphy *wiphy,
+int tlw_cfgvendor_send_async_event(struct wiphy *wiphy,
 	struct net_device *dev, int event_id, const void  *data, int len)
 {
 	u16 kflags;
@@ -187,7 +187,7 @@ int rtw_cfgvendor_send_async_event(struct wiphy *wiphy,
 	kflags = in_atomic() ? GFP_ATOMIC : GFP_KERNEL;
 
 	/* Alloc the SKB for vendor_event */
-	skb = rtw_cfg80211_vendor_event_alloc(wiphy, len, event_id, kflags);
+	skb = tlw_cfg80211_vendor_event_alloc(wiphy, len, event_id, kflags);
 	if (!skb) {
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" skb alloc failed", FUNC_NDEV_ARG(dev));
 		return -ENOMEM;
@@ -196,18 +196,18 @@ int rtw_cfgvendor_send_async_event(struct wiphy *wiphy,
 	/* Push the data to the skb */
 	nla_put_nohdr(skb, len, data);
 
-	rtw_cfg80211_vendor_event(skb, kflags);
+	tlw_cfg80211_vendor_event(skb, kflags);
 
 	return 0;
 }
 
-static int rtw_cfgvendor_send_cmd_reply(struct wiphy *wiphy,
+static int tlw_cfgvendor_send_cmd_reply(struct wiphy *wiphy,
 	struct net_device *dev, const void  *data, int len)
 {
 	struct sk_buff *skb;
 
 	/* Alloc the SKB for vendor_event */
-	skb = rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len);
+	skb = tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, len);
 	if (unlikely(!skb)) {
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" skb alloc failed", FUNC_NDEV_ARG(dev));
 		return -ENOMEM;
@@ -216,7 +216,7 @@ static int rtw_cfgvendor_send_cmd_reply(struct wiphy *wiphy,
 	/* Push the data to the skb */
 	nla_put_nohdr(skb, len, data);
 
-	return rtw_cfg80211_vendor_cmd_reply(skb);
+	return tlw_cfg80211_vendor_cmd_reply(skb);
 }
 
 #define WIFI_FEATURE_INFRA              0x0001      /* Basic infrastructure mode        */
@@ -239,9 +239,9 @@ static int rtw_cfgvendor_send_cmd_reply(struct wiphy *wiphy,
 #define MAX_FEATURE_SET_CONCURRRENT_GROUPS  3
 
 #include <hal_data.h>
-int rtw_dev_get_feature_set(struct net_device *dev)
+int tlw_dev_get_feature_set(struct net_device *dev)
 {
-	_adapter *adapter = (_adapter *)rtw_netdev_priv(dev);
+	_adapter *adapter = (_adapter *)tlw_netdev_priv(dev);
 	HAL_DATA_TYPE *HalData = GET_HAL_DATA(adapter);
 	HAL_VERSION *hal_ver = &HalData->VersionID;
 
@@ -271,14 +271,14 @@ int rtw_dev_get_feature_set(struct net_device *dev)
 	return feature_set;
 }
 
-int *rtw_dev_get_feature_set_matrix(struct net_device *dev, int *num)
+int *tlw_dev_get_feature_set_matrix(struct net_device *dev, int *num)
 {
 	int feature_set_full, mem_needed;
 	int *ret;
 
 	*num = 0;
 	mem_needed = sizeof(int) * MAX_FEATURE_SET_CONCURRRENT_GROUPS;
-	ret = (int *)rtw_malloc(mem_needed);
+	ret = (int *)tlw_malloc(mem_needed);
 
 	if (!ret) {
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" failed to allocate %d bytes\n"
@@ -286,7 +286,7 @@ int *rtw_dev_get_feature_set_matrix(struct net_device *dev, int *num)
 		return ret;
 	}
 
-	feature_set_full = rtw_dev_get_feature_set(dev);
+	feature_set_full = tlw_dev_get_feature_set(dev);
 
 	ret[0] = (feature_set_full & WIFI_FEATURE_INFRA) |
 	         (feature_set_full & WIFI_FEATURE_INFRA_5G) |
@@ -322,15 +322,15 @@ int *rtw_dev_get_feature_set_matrix(struct net_device *dev, int *num)
 	return ret;
 }
 
-static int rtw_cfgvendor_get_feature_set(struct wiphy *wiphy,
+static int tlw_cfgvendor_get_feature_set(struct wiphy *wiphy,
 	struct wireless_dev *wdev, const void  *data, int len)
 {
 	int err = 0;
 	int reply;
 
-	reply = rtw_dev_get_feature_set(wdev_to_ndev(wdev));
+	reply = tlw_dev_get_feature_set(wdev_to_ndev(wdev));
 
-	err =  rtw_cfgvendor_send_cmd_reply(wiphy, wdev_to_ndev(wdev), &reply, sizeof(int));
+	err =  tlw_cfgvendor_send_cmd_reply(wiphy, wdev_to_ndev(wdev), &reply, sizeof(int));
 
 	if (unlikely(err))
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" Vendor Command reply failed ret:%d \n"
@@ -339,7 +339,7 @@ static int rtw_cfgvendor_get_feature_set(struct wiphy *wiphy,
 	return err;
 }
 
-static int rtw_cfgvendor_get_feature_set_matrix(struct wiphy *wiphy,
+static int tlw_cfgvendor_get_feature_set_matrix(struct wiphy *wiphy,
 	struct wireless_dev *wdev, const void  *data, int len)
 {
 	int err = 0;
@@ -347,7 +347,7 @@ static int rtw_cfgvendor_get_feature_set_matrix(struct wiphy *wiphy,
 	int *reply;
 	int num, mem_needed, i;
 
-	reply = rtw_dev_get_feature_set_matrix(wdev_to_ndev(wdev), &num);
+	reply = tlw_dev_get_feature_set_matrix(wdev_to_ndev(wdev), &num);
 
 	if (!reply) {
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" Could not get feature list matrix\n"
@@ -360,7 +360,7 @@ static int rtw_cfgvendor_get_feature_set_matrix(struct wiphy *wiphy,
 	             ATTRIBUTE_U32_LEN;
 
 	/* Alloc the SKB for vendor_event */
-	skb = rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, mem_needed);
+	skb = tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, mem_needed);
 	if (unlikely(!skb)) {
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" skb alloc failed", FUNC_NDEV_ARG(wdev_to_ndev(wdev)));
 		err = -ENOMEM;
@@ -372,13 +372,13 @@ static int rtw_cfgvendor_get_feature_set_matrix(struct wiphy *wiphy,
 		nla_put_u32(skb, ANDR_WIFI_ATTRIBUTE_FEATURE_SET, reply[i]);
 	}
 
-	err =  rtw_cfg80211_vendor_cmd_reply(skb);
+	err =  tlw_cfg80211_vendor_cmd_reply(skb);
 
 	if (unlikely(err))
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT" Vendor Command reply failed ret:%d \n"
 			, FUNC_NDEV_ARG(wdev_to_ndev(wdev)), err);
 exit:
-	rtw_mfree((u8*)reply, sizeof(int)*num);
+	tlw_mfree((u8*)reply, sizeof(int)*num);
 	return err;
 }
 
@@ -405,7 +405,7 @@ int wl_cfgvendor_send_hotlist_event(struct wiphy *wiphy,
 		kflags = in_atomic() ? GFP_ATOMIC : GFP_KERNEL;
 
 		/* Alloc the SKB for vendor_event */
-		skb = rtw_cfg80211_vendor_event_alloc(wiphy, malloc_len, event, kflags);
+		skb = tlw_cfg80211_vendor_event_alloc(wiphy, malloc_len, event, kflags);
 		if (!skb) {
 			WL_ERR(("skb alloc failed"));
 			return -ENOMEM;
@@ -428,7 +428,7 @@ int wl_cfgvendor_send_hotlist_event(struct wiphy *wiphy,
 
 		}
 
-		rtw_cfg80211_vendor_event(skb, kflags);
+		tlw_cfg80211_vendor_event(skb, kflags);
 	}
 
 	return 0;
@@ -452,7 +452,7 @@ static int wl_cfgvendor_gscan_get_capabilities(struct wiphy *wiphy,
 		return err;
 	}
 
-	err =  rtw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
+	err =  tlw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
 	        reply, reply_len);
 
 	if (unlikely(err))
@@ -491,7 +491,7 @@ static int wl_cfgvendor_gscan_get_channel_list(struct wiphy *wiphy,
 	mem_needed = reply_len + VENDOR_REPLY_OVERHEAD + (ATTRIBUTE_U32_LEN * 2);
 
 	/* Alloc the SKB for vendor_event */
-	skb = rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, mem_needed);
+	skb = tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, mem_needed);
 	if (unlikely(!skb)) {
 		WL_ERR(("skb alloc failed"));
 		err = -ENOMEM;
@@ -501,7 +501,7 @@ static int wl_cfgvendor_gscan_get_channel_list(struct wiphy *wiphy,
 	nla_put_u32(skb, GSCAN_ATTRIBUTE_NUM_CHANNELS, num_channels);
 	nla_put(skb, GSCAN_ATTRIBUTE_CHANNEL_LIST, reply_len, reply);
 
-	err =  rtw_cfg80211_vendor_cmd_reply(skb);
+	err =  tlw_cfg80211_vendor_cmd_reply(skb);
 
 	if (unlikely(err))
 		WL_ERR(("Vendor Command reply failed ret:%d \n", err));
@@ -530,7 +530,7 @@ static int wl_cfgvendor_gscan_get_batch_results(struct wiphy *wiphy,
 
 	if (!results) {
 		WL_ERR(("No results to send %d\n", err));
-		err =  rtw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
+		err =  tlw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
 		        results, 0);
 
 		if (unlikely(err))
@@ -554,7 +554,7 @@ static int wl_cfgvendor_gscan_get_batch_results(struct wiphy *wiphy,
 	WL_TRACE(("complete %d mem_needed %d max_mem %d\n", complete, mem_needed,
 		(int)NLMSG_DEFAULT_SIZE));
 	/* Alloc the SKB for vendor_event */
-	skb = rtw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, mem_needed);
+	skb = tlw_cfg80211_vendor_cmd_alloc_reply_skb(wiphy, mem_needed);
 	if (unlikely(!skb)) {
 		WL_ERR(("skb alloc failed"));
 		dhd_dev_pno_unlock_access_batch_results(bcmcfg_to_prmry_ndev(cfg));
@@ -592,7 +592,7 @@ static int wl_cfgvendor_gscan_get_batch_results(struct wiphy *wiphy,
 	dhd_dev_gscan_batch_cache_cleanup(bcmcfg_to_prmry_ndev(cfg));
 	dhd_dev_pno_unlock_access_batch_results(bcmcfg_to_prmry_ndev(cfg));
 
-	return rtw_cfg80211_vendor_cmd_reply(skb);
+	return tlw_cfg80211_vendor_cmd_reply(skb);
 }
 
 static int wl_cfgvendor_initiate_gscan(struct wiphy *wiphy,
@@ -941,7 +941,7 @@ void wl_cfgvendor_rtt_evt(void *ctx, void *rtt_data)
 	rtt_list = (struct list_head *)rtt_data;
 	kflags = in_atomic() ? GFP_ATOMIC : GFP_KERNEL;
 	/* Alloc the SKB for vendor_event */
-	skb = rtw_cfg80211_vendor_event_alloc(wiphy, tot_len, GOOGLE_RTT_COMPLETE_EVENT, kflags);
+	skb = tlw_cfg80211_vendor_event_alloc(wiphy, tot_len, GOOGLE_RTT_COMPLETE_EVENT, kflags);
 	if (!skb) {
 		WL_ERR(("skb alloc failed"));
 		goto exit;
@@ -979,7 +979,7 @@ void wl_cfgvendor_rtt_evt(void *ctx, void *rtt_data)
 			kfree(rtt_report);
 		}
 	}
-	rtw_cfg80211_vendor_event(skb, kflags);
+	tlw_cfg80211_vendor_event(skb, kflags);
 exit:
 	return;
 }
@@ -1122,7 +1122,7 @@ static int wl_cfgvendor_rtt_get_capability(struct wiphy *wiphy, struct wireless_
 		WL_ERR(("Vendor Command reply failed ret:%d \n", err));
 		goto exit;
 	}
-	err =  rtw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
+	err =  tlw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
 	        &capability, sizeof(capability));
 
 	if (unlikely(err)) {
@@ -1140,7 +1140,7 @@ static int wl_cfgvendor_priv_string_handler(struct wiphy *wiphy,
 	u8 resp[1] = {'\0'};
 
 	DBG_871X_LEVEL(_drv_always_, FUNC_NDEV_FMT" %s\n", FUNC_NDEV_ARG(wdev_to_ndev(wdev)), (char*)data);
-	err =  rtw_cfgvendor_send_cmd_reply(wiphy, wdev_to_ndev(wdev), resp, 1);
+	err =  tlw_cfgvendor_send_cmd_reply(wiphy, wdev_to_ndev(wdev), resp, 1);
 	if (unlikely(err))
 		DBG_871X_LEVEL(_drv_err_, FUNC_NDEV_FMT"Vendor Command reply failed ret:%d \n"
 			, FUNC_NDEV_ARG(wdev_to_ndev(wdev)), err);
@@ -1164,7 +1164,7 @@ static int wl_cfgvendor_priv_string_handler(struct wiphy *wiphy,
 		cfg->ioctl_buf[data_len] = '\0';
 	}
 
-	err =  rtw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
+	err =  tlw_cfgvendor_send_cmd_reply(wiphy, bcmcfg_to_prmry_ndev(cfg),
 		cfg->ioctl_buf, data_len+1);
 	if (unlikely(err))
 		WL_ERR(("Vendor Command reply failed ret:%d \n", err));
@@ -1175,7 +1175,7 @@ static int wl_cfgvendor_priv_string_handler(struct wiphy *wiphy,
 #endif
 }
 
-static const struct wiphy_vendor_command rtw_vendor_cmds [] = {
+static const struct wiphy_vendor_command tlw_vendor_cmds [] = {
 	{
 		{
 			.vendor_id = OUI_RTK,
@@ -1290,7 +1290,7 @@ static const struct wiphy_vendor_command rtw_vendor_cmds [] = {
 			.subcmd = ANDR_WIFI_SUBCMD_GET_FEATURE_SET
 		},
 		.flags = WIPHY_VENDOR_CMD_NEED_WDEV | WIPHY_VENDOR_CMD_NEED_NETDEV,
-		.doit = rtw_cfgvendor_get_feature_set
+		.doit = tlw_cfgvendor_get_feature_set
 	},
 	{
 		{
@@ -1298,11 +1298,11 @@ static const struct wiphy_vendor_command rtw_vendor_cmds [] = {
 			.subcmd = ANDR_WIFI_SUBCMD_GET_FEATURE_SET_MATRIX
 		},
 		.flags = WIPHY_VENDOR_CMD_NEED_WDEV | WIPHY_VENDOR_CMD_NEED_NETDEV,
-		.doit = rtw_cfgvendor_get_feature_set_matrix
+		.doit = tlw_cfgvendor_get_feature_set_matrix
 	}
 };
 
-static const struct  nl80211_vendor_cmd_info rtw_vendor_events [] = {
+static const struct  nl80211_vendor_cmd_info tlw_vendor_events [] = {
 		{ OUI_RTK, RTK_VENDOR_EVENT_UNSPEC },
 		{ OUI_RTK, RTK_VENDOR_EVENT_PRIV_STR },
 #if defined(GSCAN_SUPPORT) && 0
@@ -1320,20 +1320,20 @@ static const struct  nl80211_vendor_cmd_info rtw_vendor_events [] = {
 #endif /* GSCAN_SUPPORT */
 };
 
-int rtw_cfgvendor_attach(struct wiphy *wiphy)
+int tlw_cfgvendor_attach(struct wiphy *wiphy)
 {
 
 	DBG_871X("Register RTW cfg80211 vendor cmd(0x%x) interface \n", NL80211_CMD_VENDOR);
 
-	wiphy->vendor_commands	= rtw_vendor_cmds;
-	wiphy->n_vendor_commands = ARRAY_SIZE(rtw_vendor_cmds);
-	wiphy->vendor_events	= rtw_vendor_events;
-	wiphy->n_vendor_events	= ARRAY_SIZE(rtw_vendor_events);
+	wiphy->vendor_commands	= tlw_vendor_cmds;
+	wiphy->n_vendor_commands = ARRAY_SIZE(tlw_vendor_cmds);
+	wiphy->vendor_events	= tlw_vendor_events;
+	wiphy->n_vendor_events	= ARRAY_SIZE(tlw_vendor_events);
 
 	return 0;
 }
 
-int rtw_cfgvendor_detach(struct wiphy *wiphy)
+int tlw_cfgvendor_detach(struct wiphy *wiphy)
 {
 	DBG_871X("Vendor: Unregister RTW cfg80211 vendor interface \n");
 

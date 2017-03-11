@@ -168,7 +168,7 @@ s32 ttl8821au_xmitframe_complete(PADAPTER padapter, struct xmit_priv *pxmitpriv,
 #ifdef CONFIG_PCI_HCI
 s32 ttl8821e_init_xmit_priv(PADAPTER padapter);
 void ttl8821e_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf* ttl8821e_dequeue_xmitbuf(struct rtw_tx_ring *ring);
+struct xmit_buf* ttl8821e_dequeue_xmitbuf(struct tlw_tx_ring *ring);
 void ttl8821e_xmitframe_resume(PADAPTER padapter);
 s32 ttl8821e_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
 s32 ttl8821e_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);

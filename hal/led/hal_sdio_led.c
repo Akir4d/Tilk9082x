@@ -1015,11 +1015,11 @@ void BlinkHandler(PLED_SDIO	pLed)
 	struct led_priv	*ledpriv = &(padapter->ledpriv);
 
 	//DBG_871X("%s (%s:%d)\n",__FUNCTION__, current->comm, current->pid);
-	if (RTW_CANNOT_RUN(padapter) || (!rtw_is_hw_init_completed(padapter))) {
+	if (RTW_CANNOT_RUN(padapter) || (!tlw_is_hw_init_completed(padapter))) {
 		DBG_871X("%s bDriverStopped:%s, bSurpriseRemoved:%s\n"
 		, __func__
-		, rtw_is_drv_stopped(padapter)?"True":"False"
-		, rtw_is_surprise_removed(padapter)?"True":"False");
+		, tlw_is_drv_stopped(padapter)?"True":"False"
+		, tlw_is_surprise_removed(padapter)?"True":"False");
 		
 		return;
 	}
@@ -1073,16 +1073,16 @@ void BlinkTimerCallback(void *data)
 
 	//DBG_871X("%s\n", __FUNCTION__);
 
-	if (RTW_CANNOT_RUN(padapter) || (!rtw_is_hw_init_completed(padapter))) {
+	if (RTW_CANNOT_RUN(padapter) || (!tlw_is_hw_init_completed(padapter))) {
 		/*DBG_871X("%s bDriverStopped:%s, bSurpriseRemoved:%s\n"
 			, __func__
-			, rtw_is_drv_stopped(padapter)?"True":"False"
-			, rtw_is_surprise_removed(padapter)?"True":"False" );*/
+			, tlw_is_drv_stopped(padapter)?"True":"False"
+			, tlw_is_surprise_removed(padapter)?"True":"False" );*/
 		return;
 	}
 
 	#ifdef CONFIG_LED_HANDLED_BY_CMD_THREAD
-	rtw_led_blink_cmd(padapter, pLed);
+	tlw_led_blink_cmd(padapter, pLed);
 	#else
 	_set_workitem(&(pLed->BlinkWorkItem));
 	#endif
@@ -2291,11 +2291,11 @@ LedControlSDIO(
 		return;
 #endif
 
-	if (RTW_CANNOT_RUN(padapter) || (!rtw_is_hw_init_completed(padapter))) {
+	if (RTW_CANNOT_RUN(padapter) || (!tlw_is_hw_init_completed(padapter))) {
 		/*DBG_871X("%s bDriverStopped:%s, bSurpriseRemoved:%s\n"
 		, __func__
-		, rtw_is_drv_stopped(padapter)?"True":"False"
-		, rtw_is_surprise_removed(padapter)?"True":"False");*/
+		, tlw_is_drv_stopped(padapter)?"True":"False"
+		, tlw_is_surprise_removed(padapter)?"True":"False");*/
 		return;
 	}
 

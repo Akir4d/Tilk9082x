@@ -125,7 +125,7 @@ __inline static _exit_critical_mutex(_mutex *pmutex, _irqL *pirqL)
 }
 
 
-__inline static void rtw_list_delete(_list *plist)
+__inline static void tlw_list_delete(_list *plist)
 {
 	RemoveEntryList(plist);
 	InitializeListHead(plist);	

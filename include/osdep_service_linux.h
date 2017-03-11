@@ -259,7 +259,7 @@ __inline static void _exit_critical_mutex(_mutex *pmutex, _irqL *pirqL)
 #endif
 }
 
-__inline static void rtw_list_delete(_list *plist)
+__inline static void tlw_list_delete(_list *plist)
 {
 	list_del_init(plist);
 }
@@ -334,7 +334,7 @@ __inline static void _cancel_workitem_sync(_workitem *pwork)
 	atomic_dec((atomic_t *)&(_MutexCounter));        \
 }
 
-static inline int rtw_netif_queue_stopped(struct net_device *pnetdev)
+static inline int tlw_netif_queue_stopped(struct net_device *pnetdev)
 {
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,35))
 	return (netif_tx_queue_stopped(netdev_get_tx_queue(pnetdev, 0)) &&
@@ -346,7 +346,7 @@ static inline int rtw_netif_queue_stopped(struct net_device *pnetdev)
 #endif
 }
 
-static inline void rtw_netif_wake_queue(struct net_device *pnetdev)
+static inline void tlw_netif_wake_queue(struct net_device *pnetdev)
 {
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,35))
 	netif_tx_wake_all_queues(pnetdev);
@@ -355,7 +355,7 @@ static inline void rtw_netif_wake_queue(struct net_device *pnetdev)
 #endif
 }
 
-static inline void rtw_netif_start_queue(struct net_device *pnetdev)
+static inline void tlw_netif_start_queue(struct net_device *pnetdev)
 {
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,35))
 	netif_tx_start_all_queues(pnetdev);
@@ -364,7 +364,7 @@ static inline void rtw_netif_start_queue(struct net_device *pnetdev)
 #endif
 }
 
-static inline void rtw_netif_stop_queue(struct net_device *pnetdev)
+static inline void tlw_netif_stop_queue(struct net_device *pnetdev)
 {
 #if (LINUX_VERSION_CODE>=KERNEL_VERSION(2,6,35))
 	netif_tx_stop_all_queues(pnetdev);
@@ -373,7 +373,7 @@ static inline void rtw_netif_stop_queue(struct net_device *pnetdev)
 #endif
 }
 
-static inline void rtw_merge_string(char *dst, int dst_len, char *src1, char *src2)
+static inline void tlw_merge_string(char *dst, int dst_len, char *src1, char *src2)
 {
 	int	len = 0;
 	len += snprintf(dst+len, dst_len - len, "%s", src1);
@@ -381,9 +381,9 @@ static inline void rtw_merge_string(char *dst, int dst_len, char *src1, char *sr
 }
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,27))
-#define rtw_signal_process(pid, sig) kill_pid(find_vpid((pid)),(sig), 1)
+#define tlw_signal_process(pid, sig) kill_pid(find_vpid((pid)),(sig), 1)
 #else //(LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,27))
-#define rtw_signal_process(pid, sig) kill_proc((pid), (sig), 1)
+#define tlw_signal_process(pid, sig) kill_proc((pid), (sig), 1)
 #endif //(LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,27))
 
 
@@ -400,7 +400,7 @@ static inline void rtw_merge_string(char *dst, int dst_len, char *src1, char *sr
 //Atomic integer operations
 #define ATOMIC_T atomic_t
 
-#define rtw_netdev_priv(netdev) ( ((struct rtw_netdev_priv_indicator *)netdev_priv(netdev))->priv )
+#define tlw_netdev_priv(netdev) ( ((struct tlw_netdev_priv_indicator *)netdev_priv(netdev))->priv )
 
 #define NDEV_FMT "%s"
 #define NDEV_ARG(ndev) ndev->name
@@ -411,12 +411,12 @@ static inline void rtw_merge_string(char *dst, int dst_len, char *src1, char *sr
 #define FUNC_ADPT_FMT "%s(%s)"
 #define FUNC_ADPT_ARG(adapter) __func__, adapter->pnetdev->name
 
-struct rtw_netdev_priv_indicator {
+struct tlw_netdev_priv_indicator {
 	void *priv;
 	u32 sizeof_priv;
 };
-struct net_device *rtw_alloc_etherdev_with_old_priv(int sizeof_priv, void *old_priv);
-extern struct net_device * rtw_alloc_etherdev(int sizeof_priv);
+struct net_device *tlw_alloc_etherdev_with_old_priv(int sizeof_priv, void *old_priv);
+extern struct net_device * tlw_alloc_etherdev(int sizeof_priv);
 
 #define STRUCT_PACKED __attribute__ ((packed))
 

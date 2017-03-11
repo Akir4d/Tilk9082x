@@ -1548,10 +1548,10 @@ odm_RefreshRateAdaptiveMaskCE(
 			if (TRUE == ODM_RAStateCheck(pDM_Odm, pstat->rssi_stat.UndecoratedSmoothedPWDB, FALSE , &pstat->rssi_level)) {
 				ODM_RT_TRACE(pDM_Odm, ODM_COMP_RA_MASK, ODM_DBG_LOUD, ("RSSI:%d, RSSI_LEVEL:%d\n", pstat->rssi_stat.UndecoratedSmoothedPWDB, pstat->rssi_level));
 				//printk("RSSI:%d, RSSI_LEVEL:%d\n", pstat->rssi_stat.UndecoratedSmoothedPWDB, pstat->rssi_level);
-				rtw_hal_update_ra_mask(pstat, pstat->rssi_level);
+				tlw_hal_update_ra_mask(pstat, pstat->rssi_level);
 			} else if (pDM_Odm->bChangeState) {
 				ODM_RT_TRACE(pDM_Odm, ODM_COMP_RA_MASK, ODM_DBG_LOUD, ("Change Power Training State, bDisablePowerTraining = %d\n", pDM_Odm->bDisablePowerTraining));
-				rtw_hal_update_ra_mask(pstat, pstat->rssi_level);
+				tlw_hal_update_ra_mask(pstat, pstat->rssi_level);
 			}
 
 		}

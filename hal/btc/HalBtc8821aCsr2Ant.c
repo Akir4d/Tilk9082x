@@ -20,8 +20,8 @@
 
 #define _BTCOEX_CSR 1
 
-#ifndef rtw_warn_on
-	#define rtw_warn_on(condition) do {} while (0)
+#ifndef tlw_warn_on
+	#define tlw_warn_on(condition) do {} while (0)
 #endif
 
 #if(BT_30_SUPPORT == 1)
@@ -544,7 +544,7 @@ halbtc8821aCsr2ant_QueryBtInfo(
 	RT_TRACE(COMP_COEX, DBG_TRACE, ("[BTCoex], Query Bt Info, FW write 0x61=0x%x\n", 
 		H2C_Parameter[0]));
 
-	rtw_warn_on(_BTCOEX_CSR);
+	tlw_warn_on(_BTCOEX_CSR);
 	pBtCoexist->fBtcFillH2c(pBtCoexist, 0x61, 1, H2C_Parameter);
 }
 
@@ -853,7 +853,7 @@ halbtc8821aCsr2ant_SetFwDecBtPwr(
 	RT_TRACE(COMP_COEX, DBG_TRACE, ("[BTCoex], decrease Bt Power : %s, FW write 0x62=0x%x\n", 
 		(bDecBtPwr? "Yes!!":"No!!"), H2C_Parameter[0]));
 
-	rtw_warn_on(_BTCOEX_CSR);
+	tlw_warn_on(_BTCOEX_CSR);
 	pBtCoexist->fBtcFillH2c(pBtCoexist, 0x62, 1, H2C_Parameter);	
 }
 
@@ -898,7 +898,7 @@ halbtc8821aCsr2ant_SetBtAutoReport(
 	RT_TRACE(COMP_COEX, DBG_TRACE, ("[BTCoex], BT FW auto report : %s, FW write 0x68=0x%x\n", 
 		(bEnableAutoReport? "Enabled!!":"Disabled!!"), H2C_Parameter[0]));
 
-	rtw_warn_on(_BTCOEX_CSR);
+	tlw_warn_on(_BTCOEX_CSR);
 	pBtCoexist->fBtcFillH2c(pBtCoexist, 0x68, 1, H2C_Parameter);	
 }
 
@@ -1251,7 +1251,7 @@ halbtc8821aCsr2ant_SetFwIgnoreWlanAct(
 	RT_TRACE(COMP_COEX, DBG_TRACE, ("[BTCoex], set FW for BT Ignore Wlan_Act, FW write 0x63=0x%x\n", 
 		H2C_Parameter[0]));
 
-	rtw_warn_on(_BTCOEX_CSR);
+	tlw_warn_on(_BTCOEX_CSR);
 	pBtCoexist->fBtcFillH2c(pBtCoexist, 0x63, 1, H2C_Parameter);
 }
 
@@ -4069,7 +4069,7 @@ EXhalbtc8821aCsr2ant_MediaStatusNotify(
 	RT_TRACE(COMP_COEX, DBG_TRACE, ("[BTCoex], FW write 0x66=0x%x\n", 
 		H2C_Parameter[0]<<16|H2C_Parameter[1]<<8|H2C_Parameter[2]));
 
-	rtw_warn_on(_BTCOEX_CSR);
+	tlw_warn_on(_BTCOEX_CSR);
 	pBtCoexist->fBtcFillH2c(pBtCoexist, 0x66, 3, H2C_Parameter);
 	#endif
 }

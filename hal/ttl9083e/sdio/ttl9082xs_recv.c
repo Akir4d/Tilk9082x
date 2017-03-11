@@ -33,8 +33,8 @@ static void ttl9083es_recv_tasklet(void *priv);
 
 static s32 initrecvbuf(struct recv_buf *precvbuf, PADAPTER padapter)
 {
-	_rtw_init_listhead(&precvbuf->list);
-	_rtw_spinlock_init(&precvbuf->recvbuf_lock);
+	_tlw_init_listhead(&precvbuf->list);
+	_tlw_spinlock_init(&precvbuf->recvbuf_lock);
 
 	precvbuf->adapter = padapter;
 
@@ -43,7 +43,7 @@ static s32 initrecvbuf(struct recv_buf *precvbuf, PADAPTER padapter)
 
 static void freerecvbuf(struct recv_buf *precvbuf)
 {
-	_rtw_spinlock_free(&precvbuf->recvbuf_lock);
+	_tlw_spinlock_free(&precvbuf->recvbuf_lock);
 }
 
 /*
@@ -65,11 +65,11 @@ s32 ttl9083es_init_recv_priv(PADAPTER padapter)
 	precvpriv = &padapter->recvpriv;
 
 	//3 1. init recv buffer
-	_rtw_init_queue(&precvpriv->free_recv_buf_queue);
-	_rtw_init_queue(&precvpriv->recv_buf_pending_queue);
+	_tlw_init_queue(&precvpriv->free_recv_buf_queue);
+	_tlw_init_queue(&precvpriv->recv_buf_pending_queue);
 
 	n = NR_RECVBUFF * sizeof(struct recv_buf) + 4;
-	precvpriv->pallocated_recv_buf = rtw_zmalloc(n);
+	precvpriv->pallocated_recv_buf = tlw_zmalloc(n);
 	if (precvpriv->pallocated_recv_buf == NULL) {
 		res = _FAIL;
 		RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("alloc recv_buf fail!\n"));
@@ -86,7 +86,7 @@ s32 ttl9083es_init_recv_priv(PADAPTER padapter)
 		if (res == _FAIL)
 			break;
 
-		res = rtw_os_recvbuf_resource_alloc(padapter, precvbuf);
+		res = tlw_os_recvbuf_resource_alloc(padapter, precvbuf);
 		if (res == _FAIL) {
 			freerecvbuf(precvbuf);
 			break;
@@ -97,13 +97,13 @@ s32 ttl9083es_init_recv_priv(PADAPTER padapter)
 			SIZE_PTR tmpaddr=0;
 			SIZE_PTR alignment=0;
 
-			rtw_hal_get_def_var(padapter, HAL_DEF_MAX_RECVBUF_SZ,
+			tlw_hal_get_def_var(padapter, HAL_DEF_MAX_RECVBUF_SZ,
 					    &max_recvbuf_sz);
 
 			if (max_recvbuf_sz == 0)
 				max_recvbuf_sz = MAX_RECVBUF_SZ;
 
-			precvbuf->pskb = rtw_skb_alloc(max_recvbuf_sz +
+			precvbuf->pskb = tlw_skb_alloc(max_recvbuf_sz +
 						       RECVBUFF_ALIGN_SZ);
 
 			if(precvbuf->pskb)
@@ -127,7 +127,7 @@ s32 ttl9083es_init_recv_priv(PADAPTER padapter)
 		}
 #endif
 
-		rtw_list_insert_tail(&precvbuf->list, &precvpriv->free_recv_buf_queue.queue);
+		tlw_list_insert_tail(&precvbuf->list, &precvpriv->free_recv_buf_queue.queue);
 
 		precvbuf++;
 	}
@@ -152,8 +152,8 @@ initbuferror:
 		precvpriv->free_recv_buf_queue_cnt = 0;
 		for (i = 0; i < n ; i++)
 		{
-			rtw_list_delete(&precvbuf->list);
-			rtw_os_recvbuf_resource_free(padapter, precvbuf);
+			tlw_list_delete(&precvbuf->list);
+			tlw_os_recvbuf_resource_free(padapter, precvbuf);
 			freerecvbuf(precvbuf);
 			precvbuf++;
 		}
@@ -162,7 +162,7 @@ initbuferror:
 
 	if (precvpriv->pallocated_recv_buf) {
 		n = NR_RECVBUFF * sizeof(struct recv_buf) + 4;
-		rtw_mfree(precvpriv->pallocated_recv_buf, n);
+		tlw_mfree(precvpriv->pallocated_recv_buf, n);
 		precvpriv->pallocated_recv_buf = NULL;
 	}
 
@@ -197,8 +197,8 @@ void ttl9083es_free_recv_priv(PADAPTER padapter)
 		precvpriv->free_recv_buf_queue_cnt = 0;
 		for (i = 0; i < n ; i++)
 		{
-			rtw_list_delete(&precvbuf->list);
-			rtw_os_recvbuf_resource_free(padapter, precvbuf);
+			tlw_list_delete(&precvbuf->list);
+			tlw_os_recvbuf_resource_free(padapter, precvbuf);
 			freerecvbuf(precvbuf);
 			precvbuf++;
 		}
@@ -207,7 +207,7 @@ void ttl9083es_free_recv_priv(PADAPTER padapter)
 
 	if (precvpriv->pallocated_recv_buf) {
 		n = NR_RECVBUFF * sizeof(struct recv_buf) + 4;
-		rtw_mfree(precvpriv->pallocated_recv_buf, n);
+		tlw_mfree(precvpriv->pallocated_recv_buf, n);
 		precvpriv->pallocated_recv_buf = NULL;
 	}
 }
@@ -234,7 +234,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 	{
 		secondary_myid = adapter_mac_addr(secondary_padapter);
 
-		if(_rtw_memcmp(paddr1, secondary_myid, ETH_ALEN))
+		if(_tlw_memcmp(paddr1, secondary_myid, ETH_ALEN))
 		{			
 			//change to secondary interface
 			precvframe->u.hdr.adapter = secondary_padapter;
@@ -249,34 +249,34 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 		_pkt	 *pkt_copy = NULL;
 		struct rx_pkt_attrib *pattrib = NULL;
 		
-		precvframe_if2 = rtw_alloc_recvframe(pfree_recv_queue);
+		precvframe_if2 = tlw_alloc_recvframe(pfree_recv_queue);
 
 		if(!precvframe_if2)
 			return _FAIL;
 		
 		precvframe_if2->u.hdr.adapter = secondary_padapter;
-		_rtw_memcpy(&precvframe_if2->u.hdr.attrib, &precvframe->u.hdr.attrib, sizeof(struct rx_pkt_attrib));
+		_tlw_memcpy(&precvframe_if2->u.hdr.attrib, &precvframe->u.hdr.attrib, sizeof(struct rx_pkt_attrib));
 		pattrib = &precvframe_if2->u.hdr.attrib;
 
 		//driver need to set skb len for skb_copy().
 		//If skb->len is zero, skb_copy() will not copy data from original skb.
 		skb_put(precvframe->u.hdr.pkt, pattrib->pkt_len);
 
-		pkt_copy = rtw_skb_copy( precvframe->u.hdr.pkt);
+		pkt_copy = tlw_skb_copy( precvframe->u.hdr.pkt);
 		if (pkt_copy == NULL)
 		{
 			if((pattrib->mfrag == 1)&&(pattrib->frag_num == 0))
 			{				
-				DBG_8192C("pre_recv_entry(): rtw_skb_copy fail , drop frag frame \n");
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				DBG_8192C("pre_recv_entry(): tlw_skb_copy fail , drop frag frame \n");
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				return ret;
 			}
 
-			pkt_copy = rtw_skb_clone( precvframe->u.hdr.pkt);
+			pkt_copy = tlw_skb_clone( precvframe->u.hdr.pkt);
 			if(pkt_copy == NULL)
 			{
-				DBG_8192C("pre_recv_entry(): rtw_skb_clone fail , drop frame\n");
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				DBG_8192C("pre_recv_entry(): tlw_skb_clone fail , drop frame\n");
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				return ret;
 			}
 		}
@@ -298,16 +298,16 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 		if (pattrib->physt) 
 			rx_query_phy_status(precvframe_if2, pphy_status);
 
-		if(rtw_recv_entry(precvframe_if2) != _SUCCESS)
+		if(tlw_recv_entry(precvframe_if2) != _SUCCESS)
 		{
 			RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
-				("recvbuf2recvframe: rtw_recv_entry(precvframe) != _SUCCESS\n"));
+				("recvbuf2recvframe: tlw_recv_entry(precvframe) != _SUCCESS\n"));
 		}
 	}
 	
 	if (precvframe->u.hdr.attrib.physt)
 		rx_query_phy_status(precvframe, pphy_status);
-	ret = rtw_recv_entry(precvframe);
+	ret = tlw_recv_entry(precvframe);
 
 #endif
 
@@ -343,17 +343,17 @@ static void ttl9083es_recv_tasklet(void *priv)
 			break;
 		}
 		
-		precvbuf = rtw_dequeue_recvbuf(&precvpriv->recv_buf_pending_queue);
+		precvbuf = tlw_dequeue_recvbuf(&precvpriv->recv_buf_pending_queue);
 		if (NULL == precvbuf) break;
 
 		transfer_len = (s32)precvbuf->len;
 		ptr = precvbuf->pdata;
 
 		do {
-			precvframe = rtw_alloc_recvframe(&precvpriv->free_recv_queue);
+			precvframe = tlw_alloc_recvframe(&precvpriv->free_recv_queue);
 			if (precvframe == NULL) {
 				RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: no enough recv frame!\n",__FUNCTION__));
-				rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
+				tlw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
 				// The case of can't allocte recvframe should be temporary,
 				// schedule again and hope recvframe is available next time.
@@ -374,7 +374,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 				#if !(MP_DRIVER==1)
 				DBG_8192C("%s()-%d: RX Warning! rx CRC ERROR !!\n", __FUNCTION__, __LINE__);
 				#endif
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
 			}
 
@@ -387,7 +387,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 
 			if ((pattrib->pkt_len==0) || (pkt_offset>transfer_len)) {
 				DBG_8192C("%s()-%d: RX Warning!,pkt_len==0 or pkt_offset(%d)> transfoer_len(%d) \n", __FUNCTION__, __LINE__, pkt_offset, transfer_len);
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
 			}
 
@@ -405,7 +405,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 			#endif
 			
 				DBG_8192C("%s: crc_err=%d icv_err=%d, skip!\n", __FUNCTION__, pattrib->crc_err, pattrib->icv_err);
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 			}
 			else
 			{
@@ -438,7 +438,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 					alloc_sz += 14;
 				}
 
-				pkt_copy = rtw_skb_alloc(alloc_sz);
+				pkt_copy = tlw_skb_alloc(alloc_sz);
 
 				if(pkt_copy)
 				{
@@ -446,7 +446,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 					precvframe->u.hdr.pkt = pkt_copy;
 					skb_reserve( pkt_copy, 8 - ((SIZE_PTR)( pkt_copy->data ) & 7 ));//force pkt_copy->data at 8-byte alignment address
 					skb_reserve( pkt_copy, shift_sz );//force ip_hdr at 8-byte alignment address according to shift_sz.
-					_rtw_memcpy(pkt_copy->data, (ptr + rx_report_sz + pattrib->shift_sz), skb_len);
+					_tlw_memcpy(pkt_copy->data, (ptr + rx_report_sz + pattrib->shift_sz), skb_len);
 					precvframe->u.hdr.rx_head = pkt_copy->head;
 					precvframe->u.hdr.rx_data = precvframe->u.hdr.rx_tail = pkt_copy->data;
 					precvframe->u.hdr.rx_end = skb_end_pointer(pkt_copy);
@@ -456,11 +456,11 @@ static void ttl9083es_recv_tasklet(void *priv)
 					if((pattrib->mfrag == 1)&&(pattrib->frag_num == 0))
 					{				
 						DBG_8192C("ttl9083es_recv_tasklet: alloc_skb fail , drop frag frame \n");
-						rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+						tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
 					
-					precvframe->u.hdr.pkt = rtw_skb_clone(precvbuf->pskb);
+					precvframe->u.hdr.pkt = tlw_skb_clone(precvbuf->pskb);
 					if(precvframe->u.hdr.pkt)
 					{
 						_pkt	*pkt_clone = precvframe->u.hdr.pkt;
@@ -473,8 +473,8 @@ static void ttl9083es_recv_tasklet(void *priv)
 					}
 					else
 					{
-						DBG_8192C("ttl9083es_recv_tasklet: rtw_skb_clone fail\n");
-						rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+						DBG_8192C("ttl9083es_recv_tasklet: tlw_skb_clone fail\n");
+						tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 						break;
 					}
 				}
@@ -497,7 +497,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 					pphy_status = (ptr + (rx_report_sz - pattrib->drvinfo_sz));
 				
 #ifdef CONFIG_CONCURRENT_MODE
-					if(rtw_buddy_adapter_up(padapter))
+					if(tlw_buddy_adapter_up(padapter))
 					{
 						if(pre_recv_entry(precvframe, precvbuf, pphy_status) != _SUCCESS)
 						{
@@ -511,9 +511,9 @@ static void ttl9083es_recv_tasklet(void *priv)
 						if (pattrib->physt)
 							rx_query_phy_status(precvframe, pphy_status);
 
-						if (rtw_recv_entry(precvframe) != _SUCCESS)
+						if (tlw_recv_entry(precvframe) != _SUCCESS)
 						{
-							RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: rtw_recv_entry(precvframe) != _SUCCESS\n",__FUNCTION__));
+							RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: tlw_recv_entry(precvframe) != _SUCCESS\n",__FUNCTION__));
 						}
 					}
 				}
@@ -541,7 +541,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 						printk("rx USB HISR \n");						
 					}*/
 
-					rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);					
+					tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);					
 
 				}
 			}
@@ -557,7 +557,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 
 		precvbuf->len = 0;
 
-		rtw_enqueue_recvbuf(precvbuf, &precvpriv->free_recv_buf_queue);
+		tlw_enqueue_recvbuf(precvbuf, &precvpriv->free_recv_buf_queue);
 	} while (1);
 
 }
@@ -584,7 +584,7 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 	{
 		secondary_myid = adapter_mac_addr(secondary_padapter);
 
-		if(_rtw_memcmp(paddr1, secondary_myid, ETH_ALEN))
+		if(_tlw_memcmp(paddr1, secondary_myid, ETH_ALEN))
 		{			
 			//change to secondary interface
 			precvframe->u.hdr.adapter = secondary_padapter;
@@ -601,28 +601,28 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 		_pkt	 *pkt_copy = NULL;
 		struct rx_pkt_attrib *pattrib = NULL;
 		
-		precvframe_if2 = rtw_alloc_recvframe(pfree_recv_queue);
+		precvframe_if2 = tlw_alloc_recvframe(pfree_recv_queue);
 
 		if(!precvframe_if2)
 			return _FAIL;
 		
 		precvframe_if2->u.hdr.adapter = secondary_padapter;
-		_rtw_init_listhead(&precvframe_if2->u.hdr.list);	
+		_tlw_init_listhead(&precvframe_if2->u.hdr.list);	
 		precvframe_if2->u.hdr.precvbuf = NULL;	//can't access the precvbuf for new arch.
 		precvframe_if2->u.hdr.len=0;
-		_rtw_memcpy(&precvframe_if2->u.hdr.attrib, &precvframe->u.hdr.attrib, sizeof(struct rx_pkt_attrib));
+		_tlw_memcpy(&precvframe_if2->u.hdr.attrib, &precvframe->u.hdr.attrib, sizeof(struct rx_pkt_attrib));
 		pattrib = &precvframe_if2->u.hdr.attrib;
 
-		pkt_copy = rtw_skb_copy( precvframe->u.hdr.pkt);
+		pkt_copy = tlw_skb_copy( precvframe->u.hdr.pkt);
 		if (pkt_copy == NULL)
 		{
 			RT_TRACE(_module_ttl871x_recv_c_, _drv_crit_, ("%s: no enough memory to allocate SKB!\n",__FUNCTION__));
-			rtw_free_recvframe(precvframe_if2, &precvpriv->free_recv_queue);
-			rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
+			tlw_free_recvframe(precvframe_if2, &precvpriv->free_recv_queue);
+			tlw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
 			// The case of can't allocte skb is serious and may never be recovered,
 			// once bDriverStopped is enable, this task should be stopped.
-			if (!rtw_is_drv_stopped(secondary_padapter))
+			if (!tlw_is_drv_stopped(secondary_padapter))
 #ifdef PLATFORM_LINUX
 				tasklet_schedule(&precvpriv->recv_tasklet);
 #endif
@@ -661,16 +661,16 @@ static s32 pre_recv_entry(union recv_frame *precvframe, struct recv_buf	*precvbu
 		if (pattrib->physt) 
 			rx_query_phy_status(precvframe_if2, pphy_status);
 
-		if(rtw_recv_entry(precvframe_if2) != _SUCCESS)
+		if(tlw_recv_entry(precvframe_if2) != _SUCCESS)
 		{
 			RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
-				("recvbuf2recvframe: rtw_recv_entry(precvframe) != _SUCCESS\n"));
+				("recvbuf2recvframe: tlw_recv_entry(precvframe) != _SUCCESS\n"));
 		}
 	}
 	
 	if (precvframe->u.hdr.attrib.physt)
 		rx_query_phy_status(precvframe, pphy_status);
-	ret = rtw_recv_entry(precvframe);
+	ret = tlw_recv_entry(precvframe);
 
 #endif
 
@@ -700,17 +700,17 @@ static void ttl9083es_recv_tasklet(void *priv)
 	precvpriv = &padapter->recvpriv;
 	
 	do {
-		precvbuf = rtw_dequeue_recvbuf(&precvpriv->recv_buf_pending_queue);
+		precvbuf = tlw_dequeue_recvbuf(&precvpriv->recv_buf_pending_queue);
 		if (NULL == precvbuf) break;
 
 		ptr = precvbuf->pdata;
 
 		while (ptr < precvbuf->ptail)
 		{
-			precvframe = rtw_alloc_recvframe(&precvpriv->free_recv_queue);
+			precvframe = tlw_alloc_recvframe(&precvpriv->free_recv_queue);
 			if (precvframe == NULL) {
 				RT_TRACE(_module_ttl871x_recv_c_, _drv_err_, ("%s: no enough recv frame!\n",__FUNCTION__));
-				rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
+				tlw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
 				// The case of can't allocte recvframe should be temporary,
 				// schedule again and hope recvframe is available next time.
@@ -735,7 +735,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 				if (padapter->registrypriv.mp_mode == 0)
 				DBG_8192C("%s()-%d: RX Warning! rx CRC ERROR !!\n", __FUNCTION__, __LINE__);
 				//#endif
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
 			}
 
@@ -743,7 +743,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 
 			if ((ptr + pkt_offset) > precvbuf->ptail) {
 				DBG_8192C("%s()-%d: : next pkt len(%p,%d) exceed ptail(%p)!\n", __FUNCTION__, __LINE__, ptr, pkt_offset, precvbuf->ptail);
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 				break;
 			}
 
@@ -761,20 +761,20 @@ static void ttl9083es_recv_tasklet(void *priv)
 			#endif
 	
 				DBG_8192C("%s: crc_err=%d icv_err=%d, skip!\n", __FUNCTION__, pattrib->crc_err, pattrib->icv_err);
-				rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+				tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
 			}
 			else
 			{
-				ppkt = rtw_skb_clone(precvbuf->pskb);
+				ppkt = tlw_skb_clone(precvbuf->pskb);
 				if (ppkt == NULL)
 				{
 					RT_TRACE(_module_ttl871x_recv_c_, _drv_crit_, ("%s: no enough memory to allocate SKB!\n",__FUNCTION__));
-					rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
-					rtw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
+					tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);
+					tlw_enqueue_recvbuf_to_head(precvbuf, &precvpriv->recv_buf_pending_queue);
 
 					// The case of can't allocte skb is serious and may never be recovered,
 					// once bDriverStopped is enable, this task should be stopped.
-					if (!rtw_is_drv_stopped(padapter)) {
+					if (!tlw_is_drv_stopped(padapter)) {
 #ifdef PLATFORM_LINUX
 						tasklet_schedule(&precvpriv->recv_tasklet);
 #endif
@@ -807,7 +807,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 				if(pattrib->pkt_rpt_type == NORMAL_RX)//Normal rx packet
 				{
 #ifdef CONFIG_CONCURRENT_MODE
-					if(rtw_buddy_adapter_up(padapter))
+					if(tlw_buddy_adapter_up(padapter))
 					{
 						if(pre_recv_entry(precvframe, precvbuf, ptr) != _SUCCESS)
 						{
@@ -821,10 +821,10 @@ static void ttl9083es_recv_tasklet(void *priv)
 						if (pattrib->physt) 
 							rx_query_phy_status(precvframe, ptr);
 
-					if (rtw_recv_entry(precvframe) != _SUCCESS)
+					if (tlw_recv_entry(precvframe) != _SUCCESS)
 					{
 							RT_TRACE(_module_ttl871x_recv_c_,_drv_err_,
-								("recvbuf2recvframe: rtw_recv_entry(precvframe) != _SUCCESS\n"));
+								("recvbuf2recvframe: tlw_recv_entry(precvframe) != _SUCCESS\n"));
 						}
 					}
 				}
@@ -850,7 +850,7 @@ static void ttl9083es_recv_tasklet(void *priv)
 						DBG_8192C("rx USB HISR \n");
 					}*/
 
-					rtw_free_recvframe(precvframe, &precvpriv->free_recv_queue);					
+					tlw_free_recvframe(precvframe, &precvpriv->free_recv_queue);					
 
 				}
 			}
@@ -863,9 +863,9 @@ static void ttl9083es_recv_tasklet(void *priv)
 
 		}
 
-		rtw_skb_free(precvbuf->pskb);
+		tlw_skb_free(precvbuf->pskb);
 		precvbuf->pskb = NULL;
-		rtw_enqueue_recvbuf(precvbuf, &precvpriv->free_recv_buf_queue);
+		tlw_enqueue_recvbuf(precvbuf, &precvpriv->free_recv_buf_queue);
 
 	} while (1);
 

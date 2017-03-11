@@ -77,18 +77,18 @@ enum ANDROID_WIFI_CMD {
 	ANDROID_WIFI_CMD_MAX
 };
 
-int rtw_android_cmdstr_to_num(char *cmdstr);
-int rtw_android_priv_cmd(struct net_device *net, struct ifreq *ifr, int cmd);
+int tlw_android_cmdstr_to_num(char *cmdstr);
+int tlw_android_priv_cmd(struct net_device *net, struct ifreq *ifr, int cmd);
 
 #if defined(CONFIG_PNO_SUPPORT) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3,0,0))
-int rtw_android_pno_enable(struct net_device *net, int pno_enable);
-int rtw_android_cfg80211_pno_setup(struct net_device *net,
+int tlw_android_pno_enable(struct net_device *net, int pno_enable);
+int tlw_android_cfg80211_pno_setup(struct net_device *net,
 		struct cfg80211_ssid *ssid, int n_ssids, int interval);
 #endif
 
 #if defined(RTW_ENABLE_WIFI_CONTROL_FUNC)
-int rtw_android_wifictrl_func_add(void);
-void rtw_android_wifictrl_func_del(void);
+int tlw_android_wifictrl_func_add(void);
+void tlw_android_wifictrl_func_del(void);
 void* wl_android_prealloc(int section, unsigned long size);
 
 int wifi_get_irq_number(unsigned long *irq_flags_ptr);
@@ -96,8 +96,8 @@ int wifi_set_power(int on, unsigned long msec);
 int wifi_get_mac_addr(unsigned char *buf);
 void *wifi_get_country_code(char *ccode);
 #else
-static int rtw_android_wifictrl_func_add(void) { return 0; }
-static void rtw_android_wifictrl_func_del(void) {}
+static int tlw_android_wifictrl_func_add(void) { return 0; }
+static void tlw_android_wifictrl_func_del(void) {}
 #endif /* defined(RTW_ENABLE_WIFI_CONTROL_FUNC) */
 
 #ifdef CONFIG_GPIO_WAKEUP

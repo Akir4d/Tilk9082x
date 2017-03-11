@@ -55,7 +55,7 @@ inline int RTW_STATUS_CODE(int error_code){
 }
 #endif
 
-u32 rtw_atoi(u8* s)
+u32 tlw_atoi(u8* s)
 {
 
 	int num=0,flag=0;
@@ -77,7 +77,7 @@ u32 rtw_atoi(u8* s)
 
 }
 
-inline u8* _rtw_vmalloc(u32 sz)
+inline u8* _tlw_vmalloc(u32 sz)
 {
 	u8 	*pbuf;
 #ifdef PLATFORM_LINUX	
@@ -103,11 +103,11 @@ inline u8* _rtw_vmalloc(u32 sz)
 	return pbuf;	
 }
 
-inline u8* _rtw_zvmalloc(u32 sz)
+inline u8* _tlw_zvmalloc(u32 sz)
 {
 	u8 	*pbuf;
 #ifdef PLATFORM_LINUX
-	pbuf = _rtw_vmalloc(sz);
+	pbuf = _tlw_vmalloc(sz);
 	if (pbuf != NULL)
 		memset(pbuf, 0, sz);
 #endif	
@@ -123,7 +123,7 @@ inline u8* _rtw_zvmalloc(u32 sz)
 	return pbuf;	
 }
 
-inline void _rtw_vmfree(u8 *pbuf, u32 sz)
+inline void _tlw_vmfree(u8 *pbuf, u32 sz)
 {
 #ifdef	PLATFORM_LINUX
 	vfree(pbuf);
@@ -143,7 +143,7 @@ inline void _rtw_vmfree(u8 *pbuf, u32 sz)
 #endif /* DBG_MEMORY_LEAK */
 }
 
-u8* _rtw_malloc(u32 sz)
+u8* _tlw_malloc(u32 sz)
 {
 
 	u8 	*pbuf=NULL;
@@ -180,12 +180,12 @@ u8* _rtw_malloc(u32 sz)
 }
 
 
-u8* _rtw_zmalloc(u32 sz)
+u8* _tlw_zmalloc(u32 sz)
 {
 #ifdef PLATFORM_FREEBSD
 	return malloc(sz,M_DEVBUF,M_ZERO|M_NOWAIT);
 #else // PLATFORM_FREEBSD
-	u8 	*pbuf = _rtw_malloc(sz);
+	u8 	*pbuf = _tlw_malloc(sz);
 
 	if (pbuf != NULL) {
 
@@ -203,7 +203,7 @@ u8* _rtw_zmalloc(u32 sz)
 #endif // PLATFORM_FREEBSD
 }
 
-void	_rtw_mfree(u8 *pbuf, u32 sz)
+void	_tlw_mfree(u8 *pbuf, u32 sz)
 {
 
 #ifdef	PLATFORM_LINUX
@@ -240,11 +240,11 @@ struct sk_buff * dev_alloc_skb(unsigned int size)
 	struct sk_buff *skb=NULL;
     	u8 *data=NULL;
 	
-	//skb = (struct sk_buff *)_rtw_zmalloc(sizeof(struct sk_buff)); // for skb->len, etc.
-	skb = (struct sk_buff *)_rtw_malloc(sizeof(struct sk_buff));
+	//skb = (struct sk_buff *)_tlw_zmalloc(sizeof(struct sk_buff)); // for skb->len, etc.
+	skb = (struct sk_buff *)_tlw_malloc(sizeof(struct sk_buff));
 	if(!skb)
 		goto out;
-	data = _rtw_malloc(size);
+	data = _tlw_malloc(size);
 	if(!data)
 		goto nodata;
 
@@ -258,7 +258,7 @@ struct sk_buff * dev_alloc_skb(unsigned int size)
 out:
 	return skb;
 nodata:
-	_rtw_mfree((u8 *)skb, sizeof(struct sk_buff));
+	_tlw_mfree((u8 *)skb, sizeof(struct sk_buff));
 	skb = NULL;
 goto out;
 	
@@ -268,10 +268,10 @@ void dev_kfree_skb_any(struct sk_buff *skb)
 {
 	//printf("%s()-%d: skb->head = %p\n", __FUNCTION__, __LINE__, skb->head);
 	if(skb->head)
-		_rtw_mfree(skb->head, 0);
+		_tlw_mfree(skb->head, 0);
 	//printf("%s()-%d: skb = %p\n", __FUNCTION__, __LINE__, skb);
 	if(skb)
-		_rtw_mfree((u8 *)skb, 0);
+		_tlw_mfree((u8 *)skb, 0);
 }
 struct sk_buff *skb_clone(const struct sk_buff *skb)
 {
@@ -280,7 +280,7 @@ struct sk_buff *skb_clone(const struct sk_buff *skb)
 
 #endif /* PLATFORM_FREEBSD */
 
-inline struct sk_buff *_rtw_skb_alloc(u32 sz)
+inline struct sk_buff *_tlw_skb_alloc(u32 sz)
 {
 #ifdef PLATFORM_LINUX
 	return __dev_alloc_skb(sz, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
@@ -291,12 +291,12 @@ inline struct sk_buff *_rtw_skb_alloc(u32 sz)
 #endif /* PLATFORM_FREEBSD */
 }
 
-inline void _rtw_skb_free(struct sk_buff *skb)
+inline void _tlw_skb_free(struct sk_buff *skb)
 {
 	dev_kfree_skb_any(skb);
 }
 
-inline struct sk_buff *_rtw_skb_copy(const struct sk_buff *skb)
+inline struct sk_buff *_tlw_skb_copy(const struct sk_buff *skb)
 {
 #ifdef PLATFORM_LINUX
 	return skb_copy(skb, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
@@ -307,7 +307,7 @@ inline struct sk_buff *_rtw_skb_copy(const struct sk_buff *skb)
 #endif /* PLATFORM_FREEBSD */
 }
 
-inline struct sk_buff *_rtw_skb_clone(struct sk_buff *skb)
+inline struct sk_buff *_tlw_skb_clone(struct sk_buff *skb)
 {
 #ifdef PLATFORM_LINUX
 	return skb_clone(skb, in_interrupt() ? GFP_ATOMIC : GFP_KERNEL);
@@ -318,7 +318,7 @@ inline struct sk_buff *_rtw_skb_clone(struct sk_buff *skb)
 #endif /* PLATFORM_FREEBSD */
 }
 
-inline int _rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb)
+inline int _tlw_netif_rx(_nic_hdl ndev, struct sk_buff *skb)
 {
 #ifdef PLATFORM_LINUX
 	skb->dev = ndev;
@@ -330,16 +330,16 @@ inline int _rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb)
 #endif /* PLATFORM_FREEBSD */
 }
 
-void _rtw_skb_queue_purge(struct sk_buff_head *list)
+void _tlw_skb_queue_purge(struct sk_buff_head *list)
 {
 	struct sk_buff *skb;
 
 	while ((skb = skb_dequeue(list)) != NULL)
-		_rtw_skb_free(skb);
+		_tlw_skb_free(skb);
 }
 
 #ifdef CONFIG_USB_HCI
-inline void *_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma)
+inline void *_tlw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma)
 {
 #ifdef PLATFORM_LINUX
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35))
@@ -353,7 +353,7 @@ inline void *_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr
 	return (malloc(size, M_USBDEV, M_NOWAIT | M_ZERO));
 #endif /* PLATFORM_FREEBSD */
 }
-inline void _rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma)
+inline void _tlw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma)
 {
 #ifdef PLATFORM_LINUX
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35))
@@ -371,16 +371,16 @@ inline void _rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr
 
 #if defined(DBG_MEM_ALLOC)
 
-struct rtw_mem_stat {
+struct tlw_mem_stat {
 	ATOMIC_T alloc; // the memory bytes we allocate currently
 	ATOMIC_T peak; // the peak memory bytes we allocate 
 	ATOMIC_T alloc_cnt; // the alloc count for alloc currently
 	ATOMIC_T alloc_err_cnt; // the error times we fail to allocate memory
 };
 
-struct rtw_mem_stat rtw_mem_type_stat[mstat_tf_idx(MSTAT_TYPE_MAX)];
+struct tlw_mem_stat tlw_mem_type_stat[mstat_tf_idx(MSTAT_TYPE_MAX)];
 #ifdef RTW_MEM_FUNC_STAT
-struct rtw_mem_stat rtw_mem_func_stat[mstat_ff_idx(MSTAT_FUNC_MAX)];
+struct tlw_mem_stat tlw_mem_func_stat[mstat_ff_idx(MSTAT_FUNC_MAX)];
 #endif
 
 char *MSTAT_TYPE_str[] = {
@@ -401,7 +401,7 @@ char *MSTAT_FUNC_str[] = {
 };
 #endif
 
-void rtw_mstat_dump(void *sel)
+void tlw_mstat_dump(void *sel)
 {
 	int i;
 	int value_t[4][mstat_tf_idx(MSTAT_TYPE_MAX)];
@@ -413,18 +413,18 @@ void rtw_mstat_dump(void *sel)
 	int tx_alloc, tx_peak, tx_alloc_err, rx_alloc, rx_peak, rx_alloc_err;
 
 	for(i=0;i<mstat_tf_idx(MSTAT_TYPE_MAX);i++) {
-		value_t[0][i] = ATOMIC_READ(&(rtw_mem_type_stat[i].alloc));
-		value_t[1][i] = ATOMIC_READ(&(rtw_mem_type_stat[i].peak));
-		value_t[2][i] = ATOMIC_READ(&(rtw_mem_type_stat[i].alloc_cnt));
-		value_t[3][i] = ATOMIC_READ(&(rtw_mem_type_stat[i].alloc_err_cnt));
+		value_t[0][i] = ATOMIC_READ(&(tlw_mem_type_stat[i].alloc));
+		value_t[1][i] = ATOMIC_READ(&(tlw_mem_type_stat[i].peak));
+		value_t[2][i] = ATOMIC_READ(&(tlw_mem_type_stat[i].alloc_cnt));
+		value_t[3][i] = ATOMIC_READ(&(tlw_mem_type_stat[i].alloc_err_cnt));
 	}
 
 	#ifdef RTW_MEM_FUNC_STAT
 	for(i=0;i<mstat_ff_idx(MSTAT_FUNC_MAX);i++) {
-		value_f[0][i] = ATOMIC_READ(&(rtw_mem_func_stat[i].alloc));
-		value_f[1][i] = ATOMIC_READ(&(rtw_mem_func_stat[i].peak));
-		value_f[2][i] = ATOMIC_READ(&(rtw_mem_func_stat[i].alloc_cnt));
-		value_f[3][i] = ATOMIC_READ(&(rtw_mem_func_stat[i].alloc_err_cnt));
+		value_f[0][i] = ATOMIC_READ(&(tlw_mem_func_stat[i].alloc));
+		value_f[1][i] = ATOMIC_READ(&(tlw_mem_func_stat[i].peak));
+		value_f[2][i] = ATOMIC_READ(&(tlw_mem_func_stat[i].alloc_cnt));
+		value_f[3][i] = ATOMIC_READ(&(tlw_mem_func_stat[i].alloc_err_cnt));
 	}
 	#endif
 
@@ -442,7 +442,7 @@ void rtw_mstat_dump(void *sel)
 	#endif
 }
 
-void rtw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 sz)
+void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 sz)
 {
 	static u32 update_time = 0;
 	int peak, alloc;
@@ -451,58 +451,58 @@ void rtw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 s
 	/* initialization */
 	if(!update_time) {
 		for(i=0;i<mstat_tf_idx(MSTAT_TYPE_MAX);i++) {
-			ATOMIC_SET(&(rtw_mem_type_stat[i].alloc), 0);
-			ATOMIC_SET(&(rtw_mem_type_stat[i].peak), 0);
-			ATOMIC_SET(&(rtw_mem_type_stat[i].alloc_cnt), 0);
-			ATOMIC_SET(&(rtw_mem_type_stat[i].alloc_err_cnt), 0);
+			ATOMIC_SET(&(tlw_mem_type_stat[i].alloc), 0);
+			ATOMIC_SET(&(tlw_mem_type_stat[i].peak), 0);
+			ATOMIC_SET(&(tlw_mem_type_stat[i].alloc_cnt), 0);
+			ATOMIC_SET(&(tlw_mem_type_stat[i].alloc_err_cnt), 0);
 		}
 		#ifdef RTW_MEM_FUNC_STAT
 		for(i=0;i<mstat_ff_idx(MSTAT_FUNC_MAX);i++) {
-			ATOMIC_SET(&(rtw_mem_func_stat[i].alloc), 0);
-			ATOMIC_SET(&(rtw_mem_func_stat[i].peak), 0);
-			ATOMIC_SET(&(rtw_mem_func_stat[i].alloc_cnt), 0);
-			ATOMIC_SET(&(rtw_mem_func_stat[i].alloc_err_cnt), 0);
+			ATOMIC_SET(&(tlw_mem_func_stat[i].alloc), 0);
+			ATOMIC_SET(&(tlw_mem_func_stat[i].peak), 0);
+			ATOMIC_SET(&(tlw_mem_func_stat[i].alloc_cnt), 0);
+			ATOMIC_SET(&(tlw_mem_func_stat[i].alloc_err_cnt), 0);
 		}
 		#endif
 	}
 
 	switch(status) {
 		case MSTAT_ALLOC_SUCCESS:
-			ATOMIC_INC(&(rtw_mem_type_stat[mstat_tf_idx(flags)].alloc_cnt));
-			alloc = ATOMIC_ADD_RETURN(&(rtw_mem_type_stat[mstat_tf_idx(flags)].alloc), sz);
-			peak=ATOMIC_READ(&(rtw_mem_type_stat[mstat_tf_idx(flags)].peak));
+			ATOMIC_INC(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc_cnt));
+			alloc = ATOMIC_ADD_RETURN(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc), sz);
+			peak=ATOMIC_READ(&(tlw_mem_type_stat[mstat_tf_idx(flags)].peak));
 			if (peak<alloc)
-				ATOMIC_SET(&(rtw_mem_type_stat[mstat_tf_idx(flags)].peak), alloc);
+				ATOMIC_SET(&(tlw_mem_type_stat[mstat_tf_idx(flags)].peak), alloc);
 
 			#ifdef RTW_MEM_FUNC_STAT
-			ATOMIC_INC(&(rtw_mem_func_stat[mstat_ff_idx(flags)].alloc_cnt));
-			alloc = ATOMIC_ADD_RETURN(&(rtw_mem_func_stat[mstat_ff_idx(flags)].alloc), sz);
-			peak=ATOMIC_READ(&(rtw_mem_func_stat[mstat_ff_idx(flags)].peak));
+			ATOMIC_INC(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc_cnt));
+			alloc = ATOMIC_ADD_RETURN(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc), sz);
+			peak=ATOMIC_READ(&(tlw_mem_func_stat[mstat_ff_idx(flags)].peak));
 			if (peak<alloc)
-				ATOMIC_SET(&(rtw_mem_func_stat[mstat_ff_idx(flags)].peak), alloc);
+				ATOMIC_SET(&(tlw_mem_func_stat[mstat_ff_idx(flags)].peak), alloc);
 			#endif
 			break;
 
 		case MSTAT_ALLOC_FAIL:
-			ATOMIC_INC(&(rtw_mem_type_stat[mstat_tf_idx(flags)].alloc_err_cnt));
+			ATOMIC_INC(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc_err_cnt));
 			#ifdef RTW_MEM_FUNC_STAT
-			ATOMIC_INC(&(rtw_mem_func_stat[mstat_ff_idx(flags)].alloc_err_cnt));
+			ATOMIC_INC(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc_err_cnt));
 			#endif
 			break;
 
 		case MSTAT_FREE:
-			ATOMIC_DEC(&(rtw_mem_type_stat[mstat_tf_idx(flags)].alloc_cnt));
-			ATOMIC_SUB(&(rtw_mem_type_stat[mstat_tf_idx(flags)].alloc), sz);
+			ATOMIC_DEC(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc_cnt));
+			ATOMIC_SUB(&(tlw_mem_type_stat[mstat_tf_idx(flags)].alloc), sz);
 			#ifdef RTW_MEM_FUNC_STAT
-			ATOMIC_DEC(&(rtw_mem_func_stat[mstat_ff_idx(flags)].alloc_cnt));
-			ATOMIC_SUB(&(rtw_mem_func_stat[mstat_ff_idx(flags)].alloc), sz);
+			ATOMIC_DEC(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc_cnt));
+			ATOMIC_SUB(&(tlw_mem_func_stat[mstat_ff_idx(flags)].alloc), sz);
 			#endif
 			break;
 	};
 
-	//if (rtw_get_passing_time_ms(update_time) > 5000) {
-	//	rtw_mstat_dump(RTW_DBGDUMP);
-		update_time=rtw_get_current_time();
+	//if (tlw_get_passing_time_ms(update_time) > 5000) {
+	//	tlw_mstat_dump(RTW_DBGDUMP);
+		update_time=tlw_get_current_time();
 	//}
 }
 
@@ -535,16 +535,16 @@ bool match_mstat_sniff_rules(const enum mstat_f flags, const size_t size)
 	return _FALSE;
 }
 
-inline u8* dbg_rtw_vmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line)
+inline u8* dbg_tlw_vmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line)
 {
 	u8  *p;
 
 	if (match_mstat_sniff_rules(flags, sz))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d)\n", func, line, __FUNCTION__, (sz));
 	
-	p=_rtw_vmalloc((sz));
+	p=_tlw_vmalloc((sz));
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, p ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, sz
@@ -553,16 +553,16 @@ inline u8* dbg_rtw_vmalloc(u32 sz, const enum mstat_f flags, const char *func, c
 	return p;
 }
 
-inline u8* dbg_rtw_zvmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line)
+inline u8* dbg_tlw_zvmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line)
 {
 	u8 *p;
 
 	if (match_mstat_sniff_rules(flags, sz))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d)\n", func, line, __FUNCTION__, (sz));
 
-	p=_rtw_zvmalloc((sz)); 
+	p=_tlw_zvmalloc((sz)); 
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, p ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, sz
@@ -571,31 +571,31 @@ inline u8* dbg_rtw_zvmalloc(u32 sz, const enum mstat_f flags, const char *func, 
 	return p;
 }
 
-inline void dbg_rtw_vmfree(u8 *pbuf, u32 sz, const enum mstat_f flags, const char *func, const int line)
+inline void dbg_tlw_vmfree(u8 *pbuf, u32 sz, const enum mstat_f flags, const char *func, const int line)
 {
 
 	if (match_mstat_sniff_rules(flags, sz))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d)\n", func, line, __FUNCTION__, (sz));
 
-	_rtw_vmfree((pbuf), (sz)); 
+	_tlw_vmfree((pbuf), (sz)); 
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, sz
 	);
 }
 
-inline u8* dbg_rtw_malloc(u32 sz, const enum mstat_f flags, const char *func, const int line) 
+inline u8* dbg_tlw_malloc(u32 sz, const enum mstat_f flags, const char *func, const int line) 
 {
 	u8 *p;
 
 	if (match_mstat_sniff_rules(flags, sz))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d)\n", func, line, __FUNCTION__, (sz));
 
-	p=_rtw_malloc((sz));
+	p=_tlw_malloc((sz));
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, p ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, sz
@@ -604,16 +604,16 @@ inline u8* dbg_rtw_malloc(u32 sz, const enum mstat_f flags, const char *func, co
 	return p;
 }
 
-inline u8* dbg_rtw_zmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line)
+inline u8* dbg_tlw_zmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line)
 {
 	u8 *p;
 
 	if (match_mstat_sniff_rules(flags, sz))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d)\n", func, line, __FUNCTION__, (sz));
 
-	p = _rtw_zmalloc((sz));
+	p = _tlw_zmalloc((sz));
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, p ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, sz
@@ -622,26 +622,26 @@ inline u8* dbg_rtw_zmalloc(u32 sz, const enum mstat_f flags, const char *func, c
 	return p;
 }
 
-inline void dbg_rtw_mfree(u8 *pbuf, u32 sz, const enum mstat_f flags, const char *func, const int line)
+inline void dbg_tlw_mfree(u8 *pbuf, u32 sz, const enum mstat_f flags, const char *func, const int line)
 {
 	if (match_mstat_sniff_rules(flags, sz))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d)\n", func, line, __FUNCTION__, (sz));
 
-	_rtw_mfree((pbuf), (sz));
+	_tlw_mfree((pbuf), (sz));
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, sz
 	);
 }
 
-inline struct sk_buff * dbg_rtw_skb_alloc(unsigned int size, const enum mstat_f flags, const char *func, int line)
+inline struct sk_buff * dbg_tlw_skb_alloc(unsigned int size, const enum mstat_f flags, const char *func, int line)
 {
 	struct sk_buff *skb;
 	unsigned int truesize = 0;
 
-	skb = _rtw_skb_alloc(size);
+	skb = _tlw_skb_alloc(size);
 
 	if(skb)
 		truesize = skb->truesize;
@@ -649,7 +649,7 @@ inline struct sk_buff * dbg_rtw_skb_alloc(unsigned int size, const enum mstat_f 
 	if(!skb || truesize < size || match_mstat_sniff_rules(flags, truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%d), skb:%p, truesize=%u\n", func, line, __FUNCTION__, size, skb, truesize);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, skb ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, truesize
@@ -658,36 +658,36 @@ inline struct sk_buff * dbg_rtw_skb_alloc(unsigned int size, const enum mstat_f 
 	return skb;
 }
 
-inline void dbg_rtw_skb_free(struct sk_buff *skb, const enum mstat_f flags, const char *func, int line)
+inline void dbg_tlw_skb_free(struct sk_buff *skb, const enum mstat_f flags, const char *func, int line)
 {
 	unsigned int truesize = skb->truesize;
 
 	if(match_mstat_sniff_rules(flags, truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s, truesize=%u\n", func, line, __FUNCTION__, truesize);
 
-	_rtw_skb_free(skb);
+	_tlw_skb_free(skb);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, truesize
 	);
 }
 
-inline struct sk_buff *dbg_rtw_skb_copy(const struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line)
+inline struct sk_buff *dbg_tlw_skb_copy(const struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line)
 {
 	struct sk_buff *skb_cp;
 	unsigned int truesize = skb->truesize;
 	unsigned int cp_truesize = 0;
 	
-	skb_cp = _rtw_skb_copy(skb);
+	skb_cp = _tlw_skb_copy(skb);
 	if(skb_cp)
 		cp_truesize = skb_cp->truesize;
 
 	if(!skb_cp || cp_truesize < truesize || match_mstat_sniff_rules(flags, cp_truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%u), skb_cp:%p, cp_truesize=%u\n", func, line, __FUNCTION__, truesize, skb_cp, cp_truesize);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, skb_cp ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, truesize
@@ -696,20 +696,20 @@ inline struct sk_buff *dbg_rtw_skb_copy(const struct sk_buff *skb, const enum ms
 	return skb_cp;
 }
 
-inline struct sk_buff *dbg_rtw_skb_clone(struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line)
+inline struct sk_buff *dbg_tlw_skb_clone(struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line)
 {
 	struct sk_buff *skb_cl;
 	unsigned int truesize = skb->truesize;
 	unsigned int cl_truesize = 0;
 
-	skb_cl = _rtw_skb_clone(skb);
+	skb_cl = _tlw_skb_clone(skb);
 	if(skb_cl)
 		cl_truesize = skb_cl->truesize;
 
 	if(!skb_cl || cl_truesize < truesize || match_mstat_sniff_rules(flags, cl_truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%u), skb_cl:%p, cl_truesize=%u\n", func, line, __FUNCTION__, truesize, skb_cl, cl_truesize);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, skb_cl ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, truesize
@@ -718,7 +718,7 @@ inline struct sk_buff *dbg_rtw_skb_clone(struct sk_buff *skb, const enum mstat_f
 	return skb_cl;
 }
 
-inline int dbg_rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb, const enum mstat_f flags, const char *func, int line)
+inline int dbg_tlw_netif_rx(_nic_hdl ndev, struct sk_buff *skb, const enum mstat_f flags, const char *func, int line)
 {
 	int ret;
 	unsigned int truesize = skb->truesize;
@@ -726,9 +726,9 @@ inline int dbg_rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb, const enum mstat
 	if(match_mstat_sniff_rules(flags, truesize))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s, truesize=%u\n", func, line, __FUNCTION__, truesize);
 
-	ret = _rtw_netif_rx(ndev, skb);
+	ret = _tlw_netif_rx(ndev, skb);
 	
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, truesize
@@ -737,25 +737,25 @@ inline int dbg_rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb, const enum mstat
 	return ret;
 }
 
-inline void dbg_rtw_skb_queue_purge(struct sk_buff_head *list, enum mstat_f flags, const char *func, int line)
+inline void dbg_tlw_skb_queue_purge(struct sk_buff_head *list, enum mstat_f flags, const char *func, int line)
 {
 	struct sk_buff *skb;
 
 	while ((skb = skb_dequeue(list)) != NULL)
-		dbg_rtw_skb_free(skb, flags, func, line);
+		dbg_tlw_skb_free(skb, flags, func, line);
 }
 
 #ifdef CONFIG_USB_HCI
-inline void *dbg_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma, const enum mstat_f flags, const char *func, int line)
+inline void *dbg_tlw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma, const enum mstat_f flags, const char *func, int line)
 {
 	void *p;
 
 	if(match_mstat_sniff_rules(flags, size))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%zu)\n", func, line, __FUNCTION__, size);
 
-	p = _rtw_usb_buffer_alloc(dev, size, dma);
+	p = _tlw_usb_buffer_alloc(dev, size, dma);
 	
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, p ? MSTAT_ALLOC_SUCCESS : MSTAT_ALLOC_FAIL
 		, size
@@ -764,15 +764,15 @@ inline void *dbg_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_a
 	return p;
 }
 
-inline void dbg_rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma, const enum mstat_f flags, const char *func, int line)
+inline void dbg_tlw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma, const enum mstat_f flags, const char *func, int line)
 {
 
 	if(match_mstat_sniff_rules(flags, size))
 		DBG_871X("DBG_MEM_ALLOC %s:%d %s(%zu)\n", func, line, __FUNCTION__, size);
 
-	_rtw_usb_buffer_free(dev, size, addr, dma);
+	_tlw_usb_buffer_free(dev, size, addr, dma);
 
-	rtw_mstat_update(
+	tlw_mstat_update(
 		flags
 		, MSTAT_FREE
 		, size
@@ -782,11 +782,11 @@ inline void dbg_rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *a
 
 #endif /* defined(DBG_MEM_ALLOC) */
 
-void* rtw_malloc2d(int h, int w, size_t size)
+void* tlw_malloc2d(int h, int w, size_t size)
 {
 	int j;
 
-	void **a = (void **) rtw_zmalloc( h*sizeof(void *) + h*w*size );
+	void **a = (void **) tlw_zmalloc( h*sizeof(void *) + h*w*size );
 	if(a == NULL)
 	{
 		DBG_871X("%s: alloc memory fail!\n", __FUNCTION__);
@@ -799,12 +799,12 @@ void* rtw_malloc2d(int h, int w, size_t size)
 	return a;
 }
 
-void rtw_mfree2d(void *pbuf, int h, int w, int size)
+void tlw_mfree2d(void *pbuf, int h, int w, int size)
 {
-	rtw_mfree((u8 *)pbuf, h*sizeof(void*) + w*h*size);
+	tlw_mfree((u8 *)pbuf, h*sizeof(void*) + w*h*size);
 }
 
-void _rtw_memcpy(void *dst, const void *src, u32 sz)
+void _tlw_memcpy(void *dst, const void *src, u32 sz)
 {
 
 #if defined (PLATFORM_LINUX)|| defined (PLATFORM_FREEBSD)
@@ -821,7 +821,7 @@ void _rtw_memcpy(void *dst, const void *src, u32 sz)
 
 }
 
-int	_rtw_memcmp(void *dst, void *src, u32 sz)
+int	_tlw_memcmp(void *dst, void *src, u32 sz)
 {
 
 #if defined (PLATFORM_LINUX)|| defined (PLATFORM_FREEBSD)
@@ -848,7 +848,7 @@ int	_rtw_memcmp(void *dst, void *src, u32 sz)
 	
 }
 
-void _rtw_memset(void *pbuf, int c, u32 sz)
+void _tlw_memset(void *pbuf, int c, u32 sz)
 {
 
 #if defined (PLATFORM_LINUX)|| defined (PLATFORM_FREEBSD)
@@ -879,7 +879,7 @@ static inline void __list_add(_list *pnew, _list *pprev, _list *pnext)
 #endif /* PLATFORM_FREEBSD */
 
 
-void _rtw_init_listhead(_list *list)
+void _tlw_init_listhead(_list *list)
 {
 
 #ifdef PLATFORM_LINUX
@@ -906,7 +906,7 @@ For the following list_xxx operations,
 caller must guarantee the atomic context.
 Otherwise, there will be racing condition.
 */
-u32	rtw_is_list_empty(_list *phead)
+u32	tlw_is_list_empty(_list *phead)
 {
 
 #ifdef PLATFORM_LINUX
@@ -939,7 +939,7 @@ u32	rtw_is_list_empty(_list *phead)
 	
 }
 
-void rtw_list_insert_head(_list *plist, _list *phead)
+void tlw_list_insert_head(_list *plist, _list *phead)
 {
 
 #ifdef PLATFORM_LINUX
@@ -955,7 +955,7 @@ void rtw_list_insert_head(_list *plist, _list *phead)
 #endif
 }
 
-void rtw_list_insert_tail(_list *plist, _list *phead)
+void tlw_list_insert_tail(_list *plist, _list *phead)
 {
 
 #ifdef PLATFORM_LINUX	
@@ -976,7 +976,7 @@ void rtw_list_insert_tail(_list *plist, _list *phead)
 	
 }
 
-void rtw_init_timer(_timer *ptimer, void *padapter, void *pfunc)
+void tlw_init_timer(_timer *ptimer, void *padapter, void *pfunc)
 {
 	_adapter *adapter = (_adapter *)padapter;	
 
@@ -993,12 +993,12 @@ void rtw_init_timer(_timer *ptimer, void *padapter, void *pfunc)
 
 /*
 
-Caller must check if the list is empty before calling rtw_list_delete
+Caller must check if the list is empty before calling tlw_list_delete
 
 */
 
 
-void _rtw_init_sema(_sema	*sema, int init_val)
+void _tlw_init_sema(_sema	*sema, int init_val)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1007,7 +1007,7 @@ void _rtw_init_sema(_sema	*sema, int init_val)
 
 #endif
 #ifdef PLATFORM_FREEBSD
-	sema_init(sema, init_val, "rtw_drv");
+	sema_init(sema, init_val, "tlw_drv");
 #endif
 #ifdef PLATFORM_OS_XP
 
@@ -1022,7 +1022,7 @@ void _rtw_init_sema(_sema	*sema, int init_val)
 
 }
 
-void _rtw_free_sema(_sema	*sema)
+void _tlw_free_sema(_sema	*sema)
 {
 #ifdef PLATFORM_FREEBSD
 	sema_destroy(sema);
@@ -1033,7 +1033,7 @@ void _rtw_free_sema(_sema	*sema)
 
 }
 
-void _rtw_up_sema(_sema	*sema)
+void _tlw_up_sema(_sema	*sema)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1055,7 +1055,7 @@ void _rtw_up_sema(_sema	*sema)
 #endif
 }
 
-u32 _rtw_down_sema(_sema *sema)
+u32 _tlw_down_sema(_sema *sema)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1088,7 +1088,7 @@ u32 _rtw_down_sema(_sema *sema)
 
 
 
-void	_rtw_mutex_init(_mutex *pmutex)
+void	_tlw_mutex_init(_mutex *pmutex)
 {
 #ifdef PLATFORM_LINUX
 
@@ -1113,8 +1113,8 @@ void	_rtw_mutex_init(_mutex *pmutex)
 #endif
 }
 
-void	_rtw_mutex_free(_mutex *pmutex);
-void	_rtw_mutex_free(_mutex *pmutex)
+void	_tlw_mutex_free(_mutex *pmutex);
+void	_tlw_mutex_free(_mutex *pmutex)
 {
 #ifdef PLATFORM_LINUX
 
@@ -1138,7 +1138,7 @@ void	_rtw_mutex_free(_mutex *pmutex)
 #endif
 }
 
-void	_rtw_spinlock_init(_lock *plock)
+void	_tlw_spinlock_init(_lock *plock)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1157,7 +1157,7 @@ void	_rtw_spinlock_init(_lock *plock)
 	
 }
 
-void	_rtw_spinlock_free(_lock *plock)
+void	_tlw_spinlock_free(_lock *plock)
 {
 #ifdef PLATFORM_FREEBSD
 	 mtx_destroy(plock);
@@ -1171,29 +1171,29 @@ void	_rtw_spinlock_free(_lock *plock)
 	
 }
 #ifdef PLATFORM_FREEBSD
-extern PADAPTER prtw_lock;
+extern PADAPTER ptlw_lock;
 
-void rtw_mtx_lock(_lock *plock){
-	if(prtw_lock){
-		mtx_lock(&prtw_lock->glock);
+void tlw_mtx_lock(_lock *plock){
+	if(ptlw_lock){
+		mtx_lock(&ptlw_lock->glock);
 	}
 	else{
-		printf("%s prtw_lock==NULL",__FUNCTION__);
+		printf("%s ptlw_lock==NULL",__FUNCTION__);
 	}
 }
-void rtw_mtx_unlock(_lock *plock){
-	if(prtw_lock){
-		mtx_unlock(&prtw_lock->glock);
+void tlw_mtx_unlock(_lock *plock){
+	if(ptlw_lock){
+		mtx_unlock(&ptlw_lock->glock);
 	}
 	else{
-		printf("%s prtw_lock==NULL",__FUNCTION__);
+		printf("%s ptlw_lock==NULL",__FUNCTION__);
 	}
 	
 }
 #endif //PLATFORM_FREEBSD
 
 
-void	_rtw_spinlock(_lock	*plock)
+void	_tlw_spinlock(_lock	*plock)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1212,7 +1212,7 @@ void	_rtw_spinlock(_lock	*plock)
 	
 }
 
-void	_rtw_spinunlock(_lock *plock)
+void	_tlw_spinunlock(_lock *plock)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1231,7 +1231,7 @@ void	_rtw_spinunlock(_lock *plock)
 }
 
 
-void	_rtw_spinlock_ex(_lock	*plock)
+void	_tlw_spinlock_ex(_lock	*plock)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1250,7 +1250,7 @@ void	_rtw_spinlock_ex(_lock	*plock)
 	
 }
 
-void	_rtw_spinunlock_ex(_lock *plock)
+void	_tlw_spinunlock_ex(_lock *plock)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1270,22 +1270,22 @@ void	_rtw_spinunlock_ex(_lock *plock)
 
 
 
-void	_rtw_init_queue(_queue	*pqueue)
+void	_tlw_init_queue(_queue	*pqueue)
 {
 
-	_rtw_init_listhead(&(pqueue->queue));
+	_tlw_init_listhead(&(pqueue->queue));
 
-	_rtw_spinlock_init(&(pqueue->lock));
+	_tlw_spinlock_init(&(pqueue->lock));
 
 }
 
-u32	  _rtw_queue_empty(_queue	*pqueue)
+u32	  _tlw_queue_empty(_queue	*pqueue)
 {
-	return (rtw_is_list_empty(&(pqueue->queue)));
+	return (tlw_is_list_empty(&(pqueue->queue)));
 }
 
 
-u32 rtw_end_of_queue_search(_list *head, _list *plist)
+u32 tlw_end_of_queue_search(_list *head, _list *plist)
 {
 	if (head == plist)
 		return _TRUE;
@@ -1294,7 +1294,7 @@ u32 rtw_end_of_queue_search(_list *head, _list *plist)
 }
 
 
-u32	rtw_get_current_time(void)
+u32	tlw_get_current_time(void)
 {
 	
 #ifdef PLATFORM_LINUX
@@ -1312,7 +1312,7 @@ u32	rtw_get_current_time(void)
 #endif
 }
 
-inline u32 rtw_systime_to_ms(u32 systime)
+inline u32 tlw_systime_to_ms(u32 systime)
 {
 #ifdef PLATFORM_LINUX
 	return systime * 1000 / HZ;
@@ -1325,7 +1325,7 @@ inline u32 rtw_systime_to_ms(u32 systime)
 #endif
 }
 
-inline u32 rtw_ms_to_systime(u32 ms)
+inline u32 tlw_ms_to_systime(u32 ms)
 {
 #ifdef PLATFORM_LINUX
 	return ms * HZ / 1000;
@@ -1338,37 +1338,37 @@ inline u32 rtw_ms_to_systime(u32 ms)
 #endif
 }
 
-// the input parameter start use the same unit as returned by rtw_get_current_time
-inline s32 rtw_get_passing_time_ms(u32 start)
+// the input parameter start use the same unit as returned by tlw_get_current_time
+inline s32 tlw_get_passing_time_ms(u32 start)
 {
 #ifdef PLATFORM_LINUX
-	return rtw_systime_to_ms(jiffies-start);
+	return tlw_systime_to_ms(jiffies-start);
 #endif
 #ifdef PLATFORM_FREEBSD
-	return rtw_systime_to_ms(rtw_get_current_time());
+	return tlw_systime_to_ms(tlw_get_current_time());
 #endif	
 #ifdef PLATFORM_WINDOWS
 	LARGE_INTEGER	SystemTime;
 	NdisGetCurrentSystemTime(&SystemTime);
-	return rtw_systime_to_ms((u32)(SystemTime.LowPart) - start) ;
+	return tlw_systime_to_ms((u32)(SystemTime.LowPart) - start) ;
 #endif
 }
 
-inline s32 rtw_get_time_interval_ms(u32 start, u32 end)
+inline s32 tlw_get_time_interval_ms(u32 start, u32 end)
 {
 #ifdef PLATFORM_LINUX
-	return rtw_systime_to_ms(end-start);
+	return tlw_systime_to_ms(end-start);
 #endif
 #ifdef PLATFORM_FREEBSD
-	return rtw_systime_to_ms(rtw_get_current_time());
+	return tlw_systime_to_ms(tlw_get_current_time());
 #endif	
 #ifdef PLATFORM_WINDOWS
-	return rtw_systime_to_ms(end-start);
+	return tlw_systime_to_ms(end-start);
 #endif
 }
 	
 
-void rtw_sleep_schedulable(int ms)	
+void tlw_sleep_schedulable(int ms)	
 {
 
 #ifdef PLATFORM_LINUX
@@ -1400,7 +1400,7 @@ void rtw_sleep_schedulable(int ms)
 }
 
 
-void rtw_msleep_os(int ms)
+void tlw_msleep_os(int ms)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1426,7 +1426,7 @@ void rtw_msleep_os(int ms)
 
 
 }
-void rtw_usleep_os(int us)
+void tlw_usleep_os(int us)
 {
 #ifdef PLATFORM_LINUX
 
@@ -1458,12 +1458,12 @@ void rtw_usleep_os(int us)
 
 
 #ifdef DBG_DELAY_OS
-void _rtw_mdelay_os(int ms, const char *func, const int line)
+void _tlw_mdelay_os(int ms, const char *func, const int line)
 {
 	#if 0
 	if(ms>10)
 		DBG_871X("%s:%d %s(%d)\n", func, line, __FUNCTION__, ms);
-		rtw_msleep_os(ms);
+		tlw_msleep_os(ms);
 	return;
 	#endif
 
@@ -1482,13 +1482,13 @@ void _rtw_mdelay_os(int ms, const char *func, const int line)
 
 
 }
-void _rtw_udelay_os(int us, const char *func, const int line)
+void _tlw_udelay_os(int us, const char *func, const int line)
 {
 
 	#if 0
 	if(us > 1000) {
 	DBG_871X("%s:%d %s(%d)\n", func, line, __FUNCTION__, us);
-		rtw_usleep_os(us);
+		tlw_usleep_os(us);
 		return;
 	}
 	#endif 
@@ -1509,7 +1509,7 @@ void _rtw_udelay_os(int us, const char *func, const int line)
 
 }
 #else
-void rtw_mdelay_os(int ms)
+void tlw_mdelay_os(int ms)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1529,7 +1529,7 @@ void rtw_mdelay_os(int ms)
 
 
 }
-void rtw_udelay_os(int us)
+void tlw_udelay_os(int us)
 {
 
 #ifdef PLATFORM_LINUX
@@ -1551,7 +1551,7 @@ void rtw_udelay_os(int us)
 }
 #endif
 
-void rtw_yield_os(void)
+void tlw_yield_os(void)
 {
 #ifdef PLATFORM_LINUX
 	yield();
@@ -1564,176 +1564,176 @@ void rtw_yield_os(void)
 #endif
 }
 
-#define RTW_SUSPEND_LOCK_NAME "rtw_wifi"
-#define RTW_SUSPEND_EXT_LOCK_NAME "rtw_wifi_ext"
-#define RTW_SUSPEND_RX_LOCK_NAME "rtw_wifi_rx"
-#define RTW_SUSPEND_TRAFFIC_LOCK_NAME "rtw_wifi_traffic"
-#define RTW_SUSPEND_RESUME_LOCK_NAME "rtw_wifi_resume"
-#define RTW_RESUME_SCAN_LOCK_NAME "rtw_wifi_scan"
+#define RTW_SUSPEND_LOCK_NAME "tlw_wifi"
+#define RTW_SUSPEND_EXT_LOCK_NAME "tlw_wifi_ext"
+#define RTW_SUSPEND_RX_LOCK_NAME "tlw_wifi_rx"
+#define RTW_SUSPEND_TRAFFIC_LOCK_NAME "tlw_wifi_traffic"
+#define RTW_SUSPEND_RESUME_LOCK_NAME "tlw_wifi_resume"
+#define RTW_RESUME_SCAN_LOCK_NAME "tlw_wifi_scan"
 #ifdef CONFIG_WAKELOCK
-static struct wake_lock rtw_suspend_lock;
-static struct wake_lock rtw_suspend_ext_lock;
-static struct wake_lock rtw_suspend_rx_lock;
-static struct wake_lock rtw_suspend_traffic_lock;
-static struct wake_lock rtw_suspend_resume_lock;
-static struct wake_lock rtw_resume_scan_lock;
+static struct wake_lock tlw_suspend_lock;
+static struct wake_lock tlw_suspend_ext_lock;
+static struct wake_lock tlw_suspend_rx_lock;
+static struct wake_lock tlw_suspend_traffic_lock;
+static struct wake_lock tlw_suspend_resume_lock;
+static struct wake_lock tlw_resume_scan_lock;
 #elif defined(CONFIG_ANDROID_POWER)
-static android_suspend_lock_t rtw_suspend_lock ={
+static android_suspend_lock_t tlw_suspend_lock ={
 	.name = RTW_SUSPEND_LOCK_NAME
 };
-static android_suspend_lock_t rtw_suspend_ext_lock ={
+static android_suspend_lock_t tlw_suspend_ext_lock ={
 	.name = RTW_SUSPEND_EXT_LOCK_NAME
 };
-static android_suspend_lock_t rtw_suspend_rx_lock ={
+static android_suspend_lock_t tlw_suspend_rx_lock ={
 	.name = RTW_SUSPEND_RX_LOCK_NAME
 };
-static android_suspend_lock_t rtw_suspend_traffic_lock ={
+static android_suspend_lock_t tlw_suspend_traffic_lock ={
 	.name = RTW_SUSPEND_TRAFFIC_LOCK_NAME
 };
-static android_suspend_lock_t rtw_suspend_resume_lock ={
+static android_suspend_lock_t tlw_suspend_resume_lock ={
 	.name = RTW_SUSPEND_RESUME_LOCK_NAME
 };
-static android_suspend_lock_t rtw_resume_scan_lock ={
+static android_suspend_lock_t tlw_resume_scan_lock ={
 	.name = RTW_RESUME_SCAN_LOCK_NAME
 };
 #endif
 
-inline void rtw_suspend_lock_init(void)
+inline void tlw_suspend_lock_init(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_init(&rtw_suspend_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_LOCK_NAME);
-	wake_lock_init(&rtw_suspend_ext_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_EXT_LOCK_NAME);
-	wake_lock_init(&rtw_suspend_rx_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_RX_LOCK_NAME);
-	wake_lock_init(&rtw_suspend_traffic_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_TRAFFIC_LOCK_NAME);
-	wake_lock_init(&rtw_suspend_resume_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_RESUME_LOCK_NAME);
-	wake_lock_init(&rtw_resume_scan_lock, WAKE_LOCK_SUSPEND, RTW_RESUME_SCAN_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_ext_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_EXT_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_rx_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_RX_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_traffic_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_TRAFFIC_LOCK_NAME);
+	wake_lock_init(&tlw_suspend_resume_lock, WAKE_LOCK_SUSPEND, RTW_SUSPEND_RESUME_LOCK_NAME);
+	wake_lock_init(&tlw_resume_scan_lock, WAKE_LOCK_SUSPEND, RTW_RESUME_SCAN_LOCK_NAME);
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_init_suspend_lock(&rtw_suspend_lock);
-	android_init_suspend_lock(&rtw_suspend_ext_lock);
-	android_init_suspend_lock(&rtw_suspend_rx_lock);
-	android_init_suspend_lock(&rtw_suspend_traffic_lock);
-	android_init_suspend_lock(&rtw_suspend_resume_lock);
-	android_init_suspend_lock(&rtw_resume_scan_lock);
+	android_init_suspend_lock(&tlw_suspend_lock);
+	android_init_suspend_lock(&tlw_suspend_ext_lock);
+	android_init_suspend_lock(&tlw_suspend_rx_lock);
+	android_init_suspend_lock(&tlw_suspend_traffic_lock);
+	android_init_suspend_lock(&tlw_suspend_resume_lock);
+	android_init_suspend_lock(&tlw_resume_scan_lock);
 	#endif
 }
 
-inline void rtw_suspend_lock_uninit(void)
+inline void tlw_suspend_lock_uninit(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_destroy(&rtw_suspend_lock);
-	wake_lock_destroy(&rtw_suspend_ext_lock);
-	wake_lock_destroy(&rtw_suspend_rx_lock);
-	wake_lock_destroy(&rtw_suspend_traffic_lock);
-	wake_lock_destroy(&rtw_suspend_resume_lock);
-	wake_lock_destroy(&rtw_resume_scan_lock);
+	wake_lock_destroy(&tlw_suspend_lock);
+	wake_lock_destroy(&tlw_suspend_ext_lock);
+	wake_lock_destroy(&tlw_suspend_rx_lock);
+	wake_lock_destroy(&tlw_suspend_traffic_lock);
+	wake_lock_destroy(&tlw_suspend_resume_lock);
+	wake_lock_destroy(&tlw_resume_scan_lock);
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_uninit_suspend_lock(&rtw_suspend_lock);
-	android_uninit_suspend_lock(&rtw_suspend_ext_lock);
-	android_uninit_suspend_lock(&rtw_suspend_rx_lock);
-	android_uninit_suspend_lock(&rtw_suspend_traffic_lock);
-	android_uninit_suspend_lock(&rtw_suspend_resume_lock);
-	android_uninit_suspend_lock(&rtw_resume_scan_lock);
+	android_uninit_suspend_lock(&tlw_suspend_lock);
+	android_uninit_suspend_lock(&tlw_suspend_ext_lock);
+	android_uninit_suspend_lock(&tlw_suspend_rx_lock);
+	android_uninit_suspend_lock(&tlw_suspend_traffic_lock);
+	android_uninit_suspend_lock(&tlw_suspend_resume_lock);
+	android_uninit_suspend_lock(&tlw_resume_scan_lock);
 	#endif
 }
 
-inline void rtw_lock_suspend(void)
+inline void tlw_lock_suspend(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock(&rtw_suspend_lock);
+	wake_lock(&tlw_suspend_lock);
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend(&rtw_suspend_lock);
+	android_lock_suspend(&tlw_suspend_lock);
 	#endif
 
 	#if  defined(CONFIG_WAKELOCK) || defined(CONFIG_ANDROID_POWER)
-	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, rtw_suspend_lock.stat.count);
+	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, tlw_suspend_lock.stat.count);
 	#endif
 }
 
-inline void rtw_unlock_suspend(void)
+inline void tlw_unlock_suspend(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_unlock(&rtw_suspend_lock);
+	wake_unlock(&tlw_suspend_lock);
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_unlock_suspend(&rtw_suspend_lock);
+	android_unlock_suspend(&tlw_suspend_lock);
 	#endif
 
 	#if  defined(CONFIG_WAKELOCK) || defined(CONFIG_ANDROID_POWER)
-	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, rtw_suspend_lock.stat.count);
+	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, tlw_suspend_lock.stat.count);
 	#endif
 }
 
-inline void rtw_resume_lock_suspend(void)
+inline void tlw_resume_lock_suspend(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock(&rtw_suspend_resume_lock);
+	wake_lock(&tlw_suspend_resume_lock);
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend(&rtw_suspend_resume_lock);
+	android_lock_suspend(&tlw_suspend_resume_lock);
 	#endif
 
 	#if  defined(CONFIG_WAKELOCK) || defined(CONFIG_ANDROID_POWER)
-	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, rtw_suspend_lock.stat.count);
+	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, tlw_suspend_lock.stat.count);
 	#endif
 }
 
-inline void rtw_resume_unlock_suspend(void)
+inline void tlw_resume_unlock_suspend(void)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_unlock(&rtw_suspend_resume_lock);
+	wake_unlock(&tlw_suspend_resume_lock);
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_unlock_suspend(&rtw_suspend_resume_lock);
+	android_unlock_suspend(&tlw_suspend_resume_lock);
 	#endif
 
 	#if  defined(CONFIG_WAKELOCK) || defined(CONFIG_ANDROID_POWER)
-	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, rtw_suspend_lock.stat.count);
+	//DBG_871X("####%s: suspend_lock_count:%d####\n", __FUNCTION__, tlw_suspend_lock.stat.count);
 	#endif
 }
 
-inline void rtw_lock_suspend_timeout(u32 timeout_ms)
+inline void tlw_lock_suspend_timeout(u32 timeout_ms)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_timeout(&rtw_suspend_lock, rtw_ms_to_systime(timeout_ms));
+	wake_lock_timeout(&tlw_suspend_lock, tlw_ms_to_systime(timeout_ms));
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend_auto_expire(&rtw_suspend_lock, rtw_ms_to_systime(timeout_ms));
+	android_lock_suspend_auto_expire(&tlw_suspend_lock, tlw_ms_to_systime(timeout_ms));
 	#endif
 }
 
-inline void rtw_lock_ext_suspend_timeout(u32 timeout_ms)
+inline void tlw_lock_ext_suspend_timeout(u32 timeout_ms)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_timeout(&rtw_suspend_ext_lock, rtw_ms_to_systime(timeout_ms));
+	wake_lock_timeout(&tlw_suspend_ext_lock, tlw_ms_to_systime(timeout_ms));
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend_auto_expire(&rtw_suspend_ext_lock, rtw_ms_to_systime(timeout_ms));
+	android_lock_suspend_auto_expire(&tlw_suspend_ext_lock, tlw_ms_to_systime(timeout_ms));
 	#endif
 	//DBG_871X("EXT lock timeout:%d\n", timeout_ms);
 }
 
-inline void rtw_lock_rx_suspend_timeout(u32 timeout_ms)
+inline void tlw_lock_rx_suspend_timeout(u32 timeout_ms)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_timeout(&rtw_suspend_rx_lock, rtw_ms_to_systime(timeout_ms));
+	wake_lock_timeout(&tlw_suspend_rx_lock, tlw_ms_to_systime(timeout_ms));
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend_auto_expire(&rtw_suspend_rx_lock, rtw_ms_to_systime(timeout_ms));
+	android_lock_suspend_auto_expire(&tlw_suspend_rx_lock, tlw_ms_to_systime(timeout_ms));
 	#endif
 	//DBG_871X("RX lock timeout:%d\n", timeout_ms);
 }
 
 
-inline void rtw_lock_traffic_suspend_timeout(u32 timeout_ms)
+inline void tlw_lock_traffic_suspend_timeout(u32 timeout_ms)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_timeout(&rtw_suspend_traffic_lock, rtw_ms_to_systime(timeout_ms));
+	wake_lock_timeout(&tlw_suspend_traffic_lock, tlw_ms_to_systime(timeout_ms));
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend_auto_expire(&rtw_suspend_traffic_lock, rtw_ms_to_systime(timeout_ms));
+	android_lock_suspend_auto_expire(&tlw_suspend_traffic_lock, tlw_ms_to_systime(timeout_ms));
 	#endif
 	//DBG_871X("traffic lock timeout:%d\n", timeout_ms);
 }
 
-inline void rtw_lock_resume_scan_timeout(u32 timeout_ms)
+inline void tlw_lock_resume_scan_timeout(u32 timeout_ms)
 {
 	#ifdef CONFIG_WAKELOCK
-	wake_lock_timeout(&rtw_resume_scan_lock, rtw_ms_to_systime(timeout_ms));
+	wake_lock_timeout(&tlw_resume_scan_lock, tlw_ms_to_systime(timeout_ms));
 	#elif defined(CONFIG_ANDROID_POWER)
-	android_lock_suspend_auto_expire(&rtw_resume_scan_lock, rtw_ms_to_systime(timeout_ms));
+	android_lock_suspend_auto_expire(&tlw_resume_scan_lock, tlw_ms_to_systime(timeout_ms));
 	#endif
 	//DBG_871X("resume scan lock:%d\n", timeout_ms);
 }
@@ -2031,7 +2031,7 @@ static int storeToFile(char *path, u8* buf, u32 sz)
 * @param path the path of the file to test
 * @return _TRUE or _FALSE
 */
-int rtw_is_file_readable(char *path)
+int tlw_is_file_readable(char *path)
 {
 #ifdef PLATFORM_LINUX
 	if(isFileReadable(path) == 0)
@@ -2051,7 +2051,7 @@ int rtw_is_file_readable(char *path)
 * @param sz how many bytes to read at most
 * @return the byte we've read
 */
-int rtw_retrieve_from_file(char *path, u8 *buf, u32 sz)
+int tlw_retrieve_from_file(char *path, u8 *buf, u32 sz)
 {
 #ifdef PLATFORM_LINUX
 	int ret =retriveFromFile(path, buf, sz);
@@ -2069,7 +2069,7 @@ int rtw_retrieve_from_file(char *path, u8 *buf, u32 sz)
 * @param sz how many bytes to write at most
 * @return the byte we've written
 */
-int rtw_store_to_file(char *path, u8* buf, u32 sz)
+int tlw_store_to_file(char *path, u8* buf, u32 sz)
 {
 #ifdef PLATFORM_LINUX
 	int ret =storeToFile(path, buf, sz);
@@ -2081,15 +2081,15 @@ int rtw_store_to_file(char *path, u8* buf, u32 sz)
 }
 
 #ifdef PLATFORM_LINUX
-struct net_device *rtw_alloc_etherdev_with_old_priv(int sizeof_priv, void *old_priv)
+struct net_device *tlw_alloc_etherdev_with_old_priv(int sizeof_priv, void *old_priv)
 {
 	struct net_device *pnetdev;
-	struct rtw_netdev_priv_indicator *pnpi;
+	struct tlw_netdev_priv_indicator *pnpi;
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35))
-	pnetdev = alloc_etherdev_mq(sizeof(struct rtw_netdev_priv_indicator), 4);
+	pnetdev = alloc_etherdev_mq(sizeof(struct tlw_netdev_priv_indicator), 4);
 #else
-	pnetdev = alloc_etherdev(sizeof(struct rtw_netdev_priv_indicator));
+	pnetdev = alloc_etherdev(sizeof(struct tlw_netdev_priv_indicator));
 #endif
 	if (!pnetdev)
 		goto RETURN;
@@ -2102,22 +2102,22 @@ RETURN:
 	return pnetdev;
 }
 
-struct net_device *rtw_alloc_etherdev(int sizeof_priv)
+struct net_device *tlw_alloc_etherdev(int sizeof_priv)
 {
 	struct net_device *pnetdev;
-	struct rtw_netdev_priv_indicator *pnpi;
+	struct tlw_netdev_priv_indicator *pnpi;
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,35))
-	pnetdev = alloc_etherdev_mq(sizeof(struct rtw_netdev_priv_indicator), 4);
+	pnetdev = alloc_etherdev_mq(sizeof(struct tlw_netdev_priv_indicator), 4);
 #else
-	pnetdev = alloc_etherdev(sizeof(struct rtw_netdev_priv_indicator));
+	pnetdev = alloc_etherdev(sizeof(struct tlw_netdev_priv_indicator));
 #endif
 	if (!pnetdev)
 		goto RETURN;
 	
 	pnpi = netdev_priv(pnetdev);
 	
-	pnpi->priv = rtw_zvmalloc(sizeof_priv);
+	pnpi->priv = tlw_zvmalloc(sizeof_priv);
 	if (!pnpi->priv) {
 		free_netdev(pnetdev);
 		pnetdev = NULL;
@@ -2129,9 +2129,9 @@ RETURN:
 	return pnetdev;
 }
 
-void rtw_free_netdev(struct net_device * netdev)
+void tlw_free_netdev(struct net_device * netdev)
 {
-	struct rtw_netdev_priv_indicator *pnpi;
+	struct tlw_netdev_priv_indicator *pnpi;
 	
 	if(!netdev)
 		goto RETURN;
@@ -2151,7 +2151,7 @@ RETURN:
 * Jeff: this function should be called under ioctl (rtnl_lock is accquired) while 
 * LINUX_VERSION_CODE < KERNEL_VERSION(2,6,26)
 */
-int rtw_change_ifname(_adapter *padapter, const char *ifname)
+int tlw_change_ifname(_adapter *padapter, const char *ifname)
 {
 	struct net_device *pnetdev;
 	struct net_device *cur_pnetdev;
@@ -2179,7 +2179,7 @@ int rtw_change_ifname(_adapter *padapter, const char *ifname)
 
 	rereg_priv->old_pnetdev=cur_pnetdev;
 
-	pnetdev = rtw_init_netdev(padapter);
+	pnetdev = tlw_init_netdev(padapter);
 	if (!pnetdev)  {
 		ret = -1;
 		goto error;
@@ -2187,9 +2187,9 @@ int rtw_change_ifname(_adapter *padapter, const char *ifname)
 
 	SET_NETDEV_DEV(pnetdev, dvobj_to_dev(adapter_to_dvobj(padapter)));
 
-	rtw_init_netdev_name(pnetdev, ifname);
+	tlw_init_netdev_name(pnetdev, ifname);
 
-	_rtw_memcpy(pnetdev->dev_addr, adapter_mac_addr(padapter), ETH_ALEN);
+	_tlw_memcpy(pnetdev->dev_addr, adapter_mac_addr(padapter), ETH_ALEN);
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,26))
 	if(!rtnl_is_locked())
@@ -2261,7 +2261,7 @@ copy_to_user(void *to, const void *from, unsigned long n)
 int 
 usb_register(struct usb_driver *driver)
 {
-        rtw_usb_linux_register(driver);
+        tlw_usb_linux_register(driver);
         return 0;
 }
 
@@ -2269,7 +2269,7 @@ usb_register(struct usb_driver *driver)
 int 
 usb_deregister(struct usb_driver *driver)
 {
-        rtw_usb_linux_deregister(driver);
+        tlw_usb_linux_deregister(driver);
         return 0;
 }
 
@@ -2289,7 +2289,7 @@ void module_init_exit_wrapper(void *arg)
 #include <asm-generic/div64.h>
 #endif
 
-u64 rtw_modular64(u64 x, u64 y)
+u64 tlw_modular64(u64 x, u64 y)
 {
 #ifdef PLATFORM_LINUX
 	return do_div(x, y);
@@ -2300,7 +2300,7 @@ u64 rtw_modular64(u64 x, u64 y)
 #endif
 }
 
-u64 rtw_division64(u64 x, u64 y)
+u64 tlw_division64(u64 x, u64 y)
 {
 #ifdef PLATFORM_LINUX
 	do_div(x, y);
@@ -2312,7 +2312,7 @@ u64 rtw_division64(u64 x, u64 y)
 #endif
 }
 
-inline u32 rtw_random32(void)
+inline u32 tlw_random32(void)
 {
 #ifdef PLATFORM_LINUX
 	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,8,0))
@@ -2331,7 +2331,7 @@ inline u32 rtw_random32(void)
 #endif
 }
 
-void rtw_buf_free(u8 **buf, u32 *buf_len)
+void tlw_buf_free(u8 **buf, u32 *buf_len)
 {
 	u32 ori_len;
 
@@ -2343,12 +2343,12 @@ void rtw_buf_free(u8 **buf, u32 *buf_len)
 	if (*buf) {
 		u32 tmp_buf_len = *buf_len;
 		*buf_len = 0;
-		rtw_mfree(*buf, tmp_buf_len);
+		tlw_mfree(*buf, tmp_buf_len);
 		*buf = NULL;
 	}
 }
 
-void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len)
+void tlw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len)
 {
 	u32 ori_len = 0, dup_len = 0;
 	u8 *ori = NULL;
@@ -2361,10 +2361,10 @@ void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len)
 		goto keep_ori;
 
 	/* duplicate src */
-	dup = rtw_malloc(src_len);
+	dup = tlw_malloc(src_len);
 	if (dup) {
 		dup_len = src_len;
-		_rtw_memcpy(dup, src, dup_len);
+		_tlw_memcpy(dup, src, dup_len);
 	}
 
 keep_ori:
@@ -2378,43 +2378,43 @@ keep_ori:
 
 	/* free ori */
 	if (ori && ori_len > 0)
-		rtw_mfree(ori, ori_len);
+		tlw_mfree(ori, ori_len);
 }
 
 
 /**
- * rtw_cbuf_full - test if cbuf is full
- * @cbuf: pointer of struct rtw_cbuf
+ * tlw_cbuf_full - test if cbuf is full
+ * @cbuf: pointer of struct tlw_cbuf
  *
  * Returns: _TRUE if cbuf is full
  */
-inline bool rtw_cbuf_full(struct rtw_cbuf *cbuf)
+inline bool tlw_cbuf_full(struct tlw_cbuf *cbuf)
 {
 	return (cbuf->write == cbuf->read-1)? _TRUE : _FALSE;
 }
 
 /**
- * rtw_cbuf_empty - test if cbuf is empty
- * @cbuf: pointer of struct rtw_cbuf
+ * tlw_cbuf_empty - test if cbuf is empty
+ * @cbuf: pointer of struct tlw_cbuf
  *
  * Returns: _TRUE if cbuf is empty
  */
-inline bool rtw_cbuf_empty(struct rtw_cbuf *cbuf)
+inline bool tlw_cbuf_empty(struct tlw_cbuf *cbuf)
 {
 	return (cbuf->write == cbuf->read)? _TRUE : _FALSE;
 }
 
 /**
- * rtw_cbuf_push - push a pointer into cbuf
- * @cbuf: pointer of struct rtw_cbuf
+ * tlw_cbuf_push - push a pointer into cbuf
+ * @cbuf: pointer of struct tlw_cbuf
  * @buf: pointer to push in
  *
  * Lock free operation, be careful of the use scheme
  * Returns: _TRUE push success
  */
-bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf)
+bool tlw_cbuf_push(struct tlw_cbuf *cbuf, void *buf)
 {
-	if (rtw_cbuf_full(cbuf))
+	if (tlw_cbuf_full(cbuf))
 		return _FAIL;
 
 	if (0)
@@ -2426,16 +2426,16 @@ bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf)
 }
 
 /**
- * rtw_cbuf_pop - pop a pointer from cbuf
- * @cbuf: pointer of struct rtw_cbuf
+ * tlw_cbuf_pop - pop a pointer from cbuf
+ * @cbuf: pointer of struct tlw_cbuf
  *
  * Lock free operation, be careful of the use scheme
  * Returns: pointer popped out
  */
-void *rtw_cbuf_pop(struct rtw_cbuf *cbuf)
+void *tlw_cbuf_pop(struct tlw_cbuf *cbuf)
 {
 	void *buf;
-	if (rtw_cbuf_empty(cbuf))
+	if (tlw_cbuf_empty(cbuf))
 		return NULL;
 
 	if (0)
@@ -2447,16 +2447,16 @@ void *rtw_cbuf_pop(struct rtw_cbuf *cbuf)
 }
 
 /**
- * rtw_cbuf_alloc - allocte a rtw_cbuf with given size and do initialization
+ * tlw_cbuf_alloc - allocte a tlw_cbuf with given size and do initialization
  * @size: size of pointer
  *
- * Returns: pointer of srtuct rtw_cbuf, NULL for allocation failure
+ * Returns: pointer of srtuct tlw_cbuf, NULL for allocation failure
  */
-struct rtw_cbuf *rtw_cbuf_alloc(u32 size)
+struct tlw_cbuf *tlw_cbuf_alloc(u32 size)
 {
-	struct rtw_cbuf *cbuf;
+	struct tlw_cbuf *cbuf;
 
-	cbuf = (struct rtw_cbuf *)rtw_malloc(sizeof(*cbuf) + sizeof(void*)*size);
+	cbuf = (struct tlw_cbuf *)tlw_malloc(sizeof(*cbuf) + sizeof(void*)*size);
 
 	if (cbuf) {
 		cbuf->write = cbuf->read = 0;
@@ -2467,11 +2467,11 @@ struct rtw_cbuf *rtw_cbuf_alloc(u32 size)
 }
 
 /**
- * rtw_cbuf_free - free the given rtw_cbuf
- * @cbuf: pointer of struct rtw_cbuf to free
+ * tlw_cbuf_free - free the given tlw_cbuf
+ * @cbuf: pointer of struct tlw_cbuf to free
  */
-void rtw_cbuf_free(struct rtw_cbuf *cbuf)
+void tlw_cbuf_free(struct tlw_cbuf *cbuf)
 {
-	rtw_mfree((u8*)cbuf, sizeof(*cbuf) + sizeof(void*)*cbuf->size);
+	tlw_mfree((u8*)cbuf, sizeof(*cbuf) + sizeof(void*)*cbuf->size);
 }
 

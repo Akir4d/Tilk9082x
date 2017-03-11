@@ -92,12 +92,12 @@ static u8 TDLS_SRC[] = { 0x01, 0x01, 0x02, 0x03, 0x04, 0x0c, 0x16, 0x17, 0x18, 0
 
 int check_ap_tdls_prohibited(u8 *pframe, u8 pkt_len);
 int check_ap_tdls_ch_switching_prohibited(u8 *pframe, u8 pkt_len);
-void rtw_reset_tdls_info(_adapter* padapter);
-int rtw_init_tdls_info(_adapter* padapter);
-void rtw_free_tdls_info(struct tdls_info *ptdlsinfo);
+void tlw_reset_tdls_info(_adapter* padapter);
+int tlw_init_tdls_info(_adapter* padapter);
+void tlw_free_tdls_info(struct tdls_info *ptdlsinfo);
 int issue_nulldata_to_TDLS_peer_STA(_adapter *padapter, unsigned char *da, unsigned int power_mode, int try_cnt, int wait_ms);
-void rtw_init_tdls_timer(_adapter *padapter, struct sta_info *psta);
-void	rtw_free_tdls_timer(struct sta_info *psta);
+void tlw_init_tdls_timer(_adapter *padapter, struct sta_info *psta);
+void	tlw_free_tdls_timer(struct sta_info *psta);
 void free_tdls_sta(_adapter *padapter, struct sta_info *ptdls_sta);
 #ifdef CONFIG_WFD
 int issue_tunneled_probe_req(_adapter *padapter);
@@ -124,25 +124,25 @@ int On_TDLS_Peer_Traffic_Rsp(_adapter *adapter, union recv_frame *precv_frame);
 #ifdef CONFIG_TDLS_CH_SW
 sint On_TDLS_Ch_Switch_Req(_adapter *adapter, union recv_frame *precv_frame);
 sint On_TDLS_Ch_Switch_Rsp(_adapter *adapter, union recv_frame *precv_frame);
-void rtw_build_tdls_ch_switch_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_ch_switch_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_ch_switch_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_ch_switch_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
 #endif
-void rtw_build_tdls_setup_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_setup_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_setup_cfm_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_teardown_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_dis_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_dis_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt, u8 privacy);
-void rtw_build_tdls_peer_traffic_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tdls_peer_traffic_indication_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
-void rtw_build_tunneled_probe_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe);
-void rtw_build_tunneled_probe_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe);
+void tlw_build_tdls_setup_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_setup_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_setup_cfm_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_teardown_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_dis_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_dis_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt, u8 privacy);
+void tlw_build_tdls_peer_traffic_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tdls_peer_traffic_indication_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe, struct tdls_txmgmt *ptxmgmt);
+void tlw_build_tunneled_probe_req_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe);
+void tlw_build_tunneled_probe_rsp_ies(_adapter * padapter, struct xmit_frame * pxmitframe, u8 *pframe);
 
 u8	update_sgi_tdls(_adapter *padapter, struct sta_info *psta);
 u32 update_mask_tdls(_adapter *padapter, struct sta_info *psta);
-int rtw_tdls_is_driver_setup(_adapter *padapter);
-void rtw_tdls_set_key(_adapter *padapter, struct sta_info *ptdls_sta);
-const char * rtw_tdls_action_txt(enum TDLS_ACTION_FIELD action);
+int tlw_tdls_is_driver_setup(_adapter *padapter);
+void tlw_tdls_set_key(_adapter *padapter, struct sta_info *ptdls_sta);
+const char * tlw_tdls_action_txt(enum TDLS_ACTION_FIELD action);
 #endif /* CONFIG_TDLS */
 
 #endif

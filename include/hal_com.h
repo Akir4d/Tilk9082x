@@ -223,10 +223,10 @@ struct dbg_rx_counter
 	u32	rx_cck_fa;
 	u32	rx_ht_fa;
 };
-void rtw_dump_mac_rx_counters(_adapter* padapter,struct dbg_rx_counter *rx_counter);
-void rtw_dump_phy_rx_counters(_adapter* padapter,struct dbg_rx_counter *rx_counter);
-void rtw_reset_mac_rx_counters(_adapter* padapter);
-void rtw_reset_phy_rx_counters(_adapter* padapter);
+void tlw_dump_mac_rx_counters(_adapter* padapter,struct dbg_rx_counter *rx_counter);
+void tlw_dump_phy_rx_counters(_adapter* padapter,struct dbg_rx_counter *rx_counter);
+void tlw_reset_mac_rx_counters(_adapter* padapter);
+void tlw_reset_phy_rx_counters(_adapter* padapter);
 
 #ifdef DBG_RX_COUNTER_DUMP
 #define DUMP_DRV_RX_COUNTER	BIT0
@@ -234,12 +234,12 @@ void rtw_reset_phy_rx_counters(_adapter* padapter);
 #define DUMP_PHY_RX_COUNTER	BIT2
 #define DUMP_DRV_TRX_COUNTER_DATA	BIT3
 
-void rtw_dump_phy_rxcnts_preprocess(_adapter* padapter,u8 rx_cnt_mode);
-void rtw_dump_rx_counters(_adapter* padapter);
+void tlw_dump_phy_rxcnts_preprocess(_adapter* padapter,u8 rx_cnt_mode);
+void tlw_dump_rx_counters(_adapter* padapter);
 #endif
 
 void dump_chip_info(HAL_VERSION	ChipVersion);
-void rtw_hal_config_rftype(PADAPTER  padapter);
+void tlw_hal_config_rftype(PADAPTER  padapter);
 
 u8	//return the final channel plan decision
 hal_com_config_channel_plan(
@@ -275,21 +275,21 @@ Hal_MappingOutPipe(
 
 void hal_init_macaddr(_adapter *adapter);
 
-void rtw_init_hal_com_default_value(PADAPTER Adapter);
+void tlw_init_hal_com_default_value(PADAPTER Adapter);
 
 void c2h_evt_clear(_adapter *adapter);
 s32 c2h_evt_read(_adapter *adapter, u8 *buf);
 s32 c2h_evt_read_88xx(_adapter *adapter, u8 *buf);
 
-u8  rtw_hal_networktype_to_raid(_adapter *adapter, struct sta_info *psta);
-u8 rtw_get_mgntframe_raid(_adapter *adapter,unsigned char network_type);
-void rtw_hal_update_sta_rate_mask(PADAPTER padapter, struct sta_info *psta);
+u8  tlw_hal_networktype_to_raid(_adapter *adapter, struct sta_info *psta);
+u8 tlw_get_mgntframe_raid(_adapter *adapter,unsigned char network_type);
+void tlw_hal_update_sta_rate_mask(PADAPTER padapter, struct sta_info *psta);
 
 void hw_var_port_switch(_adapter *adapter);
 
 void SetHwReg(PADAPTER padapter, u8 variable, u8 *val);
 void GetHwReg(PADAPTER padapter, u8 variable, u8 *val);
-void rtw_hal_check_rxfifo_full(_adapter *adapter);
+void tlw_hal_check_rxfifo_full(_adapter *adapter);
 
 u8 SetHalDefVar(_adapter *adapter, HAL_DEF_VARIABLE variable, void *value);
 u8 GetHalDefVar(_adapter *adapter, HAL_DEF_VARIABLE variable, void *value);
@@ -354,9 +354,9 @@ isAllSpaceOrTab(
 
 void linked_info_dump(_adapter *padapter,u8 benable);
 #ifdef DBG_RX_SIGNAL_DISPLAY_RAW_DATA
-void rtw_get_raw_rssi_info(void *sel, _adapter *padapter);
-void rtw_store_phy_info(_adapter *padapter, union recv_frame *prframe);
-void rtw_dump_raw_rssi_info(_adapter *padapter);
+void tlw_get_raw_rssi_info(void *sel, _adapter *padapter);
+void tlw_store_phy_info(_adapter *padapter, union recv_frame *prframe);
+void tlw_dump_raw_rssi_info(_adapter *padapter);
 #endif
 
 #define		HWSET_MAX_SIZE			512
@@ -371,11 +371,11 @@ int hal_efuse_macaddr_offset(_adapter *adapter);
 int Hal_GetPhyEfuseMACAddr(PADAPTER padapter, u8 *mac_addr);
 
 #ifdef CONFIG_RF_GAIN_OFFSET
-void rtw_bb_rf_gain_offset(_adapter *padapter);
+void tlw_bb_rf_gain_offset(_adapter *padapter);
 #endif //CONFIG_RF_GAIN_OFFSET
 
 void dm_DynamicUsbTxAgg(_adapter *padapter, u8 from_timer);
-u8 rtw_hal_busagg_qsel_check(_adapter *padapter,u8 pre_qsel,u8 next_qsel);
+u8 tlw_hal_busagg_qsel_check(_adapter *padapter,u8 pre_qsel,u8 next_qsel);
 void GetHalODMVar(	
 	PADAPTER				Adapter,
 	HAL_ODM_VARIABLE		eVariable,
@@ -397,20 +397,20 @@ struct noise_info
 };
 #endif
 
-void rtw_get_noise(_adapter* padapter);
+void tlw_get_noise(_adapter* padapter);
 
-void rtw_hal_set_fw_rsvd_page(_adapter* adapter, bool finished);
+void tlw_hal_set_fw_rsvd_page(_adapter* adapter, bool finished);
 
 #ifdef CONFIG_GPIO_API
-u8 rtw_hal_get_gpio(_adapter* adapter, u8 gpio_num);
-int rtw_hal_set_gpio_output_value(_adapter* adapter, u8 gpio_num, bool isHigh);
-int rtw_hal_config_gpio(_adapter* adapter, u8 gpio_num, bool isOutput);
-int rtw_hal_register_gpio_interrupt(_adapter* adapter, int gpio_num, void(*callback)(u8 level));
-int rtw_hal_disable_gpio_interrupt(_adapter* adapter, int gpio_num);
+u8 tlw_hal_get_gpio(_adapter* adapter, u8 gpio_num);
+int tlw_hal_set_gpio_output_value(_adapter* adapter, u8 gpio_num, bool isHigh);
+int tlw_hal_config_gpio(_adapter* adapter, u8 gpio_num, bool isOutput);
+int tlw_hal_register_gpio_interrupt(_adapter* adapter, int gpio_num, void(*callback)(u8 level));
+int tlw_hal_disable_gpio_interrupt(_adapter* adapter, int gpio_num);
 #endif
 
 #ifdef CONFIG_GPIO_WAKEUP
-void rtw_hal_set_output_gpio(_adapter *padapter, u8 index, u8 outputval);
+void tlw_hal_set_output_gpio(_adapter *padapter, u8 index, u8 outputval);
 #endif
 
 typedef enum _HAL_PHYDM_OPS {
@@ -425,41 +425,41 @@ typedef enum _HAL_PHYDM_OPS {
 
 
 #define DYNAMIC_FUNC_DISABLE		(0x0)
-u32 rtw_phydm_ability_ops(_adapter *adapter, HAL_PHYDM_OPS ops, u32 ability);
+u32 tlw_phydm_ability_ops(_adapter *adapter, HAL_PHYDM_OPS ops, u32 ability);
 
-#define rtw_phydm_func_disable_all(adapter)	\
-	rtw_phydm_ability_ops(adapter, HAL_PHYDM_DIS_ALL_FUNC, 0)
+#define tlw_phydm_func_disable_all(adapter)	\
+	tlw_phydm_ability_ops(adapter, HAL_PHYDM_DIS_ALL_FUNC, 0)
 
-#define rtw_phydm_func_for_offchannel(adapter) \
+#define tlw_phydm_func_for_offchannel(adapter) \
 	do { \
-		rtw_phydm_ability_ops(adapter, HAL_PHYDM_DIS_ALL_FUNC, 0); \
-		if (rtw_odm_adaptivity_needed(adapter)) \
-			rtw_phydm_ability_ops(adapter, HAL_PHYDM_FUNC_SET, ODM_BB_ADAPTIVITY); \
+		tlw_phydm_ability_ops(adapter, HAL_PHYDM_DIS_ALL_FUNC, 0); \
+		if (tlw_odm_adaptivity_needed(adapter)) \
+			tlw_phydm_ability_ops(adapter, HAL_PHYDM_FUNC_SET, ODM_BB_ADAPTIVITY); \
 	} while (0)
 
-#define rtw_phydm_func_set(adapter, ability)	\
-	rtw_phydm_ability_ops(adapter, HAL_PHYDM_FUNC_SET, ability)
+#define tlw_phydm_func_set(adapter, ability)	\
+	tlw_phydm_ability_ops(adapter, HAL_PHYDM_FUNC_SET, ability)
 
-#define rtw_phydm_func_clr(adapter, ability)	\
-	rtw_phydm_ability_ops(adapter, HAL_PHYDM_FUNC_CLR, ability)
+#define tlw_phydm_func_clr(adapter, ability)	\
+	tlw_phydm_ability_ops(adapter, HAL_PHYDM_FUNC_CLR, ability)
 
-#define rtw_phydm_ability_backup(adapter)	\
-	rtw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_BK, 0)
+#define tlw_phydm_ability_backup(adapter)	\
+	tlw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_BK, 0)
 
-#define rtw_phydm_ability_restore(adapter)	\
-	rtw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_RESTORE, 0)
+#define tlw_phydm_ability_restore(adapter)	\
+	tlw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_RESTORE, 0)
 
-#define rtw_phydm_ability_set(adapter, ability)	\
-	rtw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_SET, 0)
+#define tlw_phydm_ability_set(adapter, ability)	\
+	tlw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_SET, 0)
 
-static inline u32 rtw_phydm_ability_get(_adapter *adapter)
+static inline u32 tlw_phydm_ability_get(_adapter *adapter)
 {
-	return rtw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_GET, 0);
+	return tlw_phydm_ability_ops(adapter, HAL_PHYDM_ABILITY_GET, 0);
 }
 
 #ifdef CONFIG_LOAD_PHY_PARA_FROM_FILE
-extern char *rtw_phy_file_path;
-extern char rtw_phy_para_file_path[PATH_LENGTH_MAX];
+extern char *tlw_phy_file_path;
+extern char tlw_phy_para_file_path[PATH_LENGTH_MAX];
 #define GetLineFromBuffer(buffer)   strsep(&buffer, "\n")
 #endif
 
@@ -471,7 +471,7 @@ void Debug_FwC2H(PADAPTER padapter, u8 *pdata, u8 len);
 void update_IOT_info(_adapter *padapter);
 
 #ifdef CONFIG_AUTO_CHNL_SEL_NHM
-void rtw_acs_start(_adapter *padapter, bool bStart);
+void tlw_acs_start(_adapter *padapter, bool bStart);
 #endif
 
 #endif //__HAL_COMMON_H__

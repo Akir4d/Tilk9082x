@@ -43,7 +43,7 @@ void ttl9083e_query_rx_desc_status(
 	prxreport = (PRXREPORT)&report;
 
 	pattrib = &precvframe->u.hdr.attrib;
-	_rtw_memset(pattrib, 0, sizeof(struct rx_pkt_attrib));
+	_tlw_memset(pattrib, 0, sizeof(struct rx_pkt_attrib));
 
 	pattrib->crc_err = (u8)((report.rxdw0 >> 14) & 0x1);;//(u8)prxreport->crc32;	
 	

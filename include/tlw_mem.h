@@ -31,11 +31,11 @@
 #endif /* CONFIG_PLATFORM_MSTAR_HIGH */
 #define MAX_RTKM_NR_PREALLOC_RECV_SKB 16
 
-u16 rtw_rtkm_get_buff_size(void);
-u8 rtw_rtkm_get_nr_recv_skb(void);
-struct u8* rtw_alloc_revcbuf_premem(void);
-struct sk_buff *rtw_alloc_skb_premem(u16 in_size);
-int rtw_free_skb_premem(struct sk_buff *pskb);
+u16 tlw_rtkm_get_buff_size(void);
+u8 tlw_rtkm_get_nr_recv_skb(void);
+struct u8* tlw_alloc_revcbuf_premem(void);
+struct sk_buff *tlw_alloc_skb_premem(u16 in_size);
+int tlw_free_skb_premem(struct sk_buff *pskb);
 
 
 #endif //__RTW_MEM_H__

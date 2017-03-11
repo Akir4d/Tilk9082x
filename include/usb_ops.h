@@ -37,15 +37,15 @@ enum{
 
 #ifdef PLATFORM_LINUX
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,12)) 
-#define rtw_usb_control_msg(dev, pipe, request, requesttype, value, index, data, size, timeout_ms) \
+#define tlw_usb_control_msg(dev, pipe, request, requesttype, value, index, data, size, timeout_ms) \
 	usb_control_msg((dev), (pipe), (request), (requesttype), (value), (index), (data), (size), (timeout_ms)) 
-#define rtw_usb_bulk_msg(usb_dev, pipe, data, len, actual_length, timeout_ms) \
+#define tlw_usb_bulk_msg(usb_dev, pipe, data, len, actual_length, timeout_ms) \
 	usb_bulk_msg((usb_dev), (pipe), (data), (len), (actual_length), (timeout_ms))
 #else
-#define rtw_usb_control_msg(dev, pipe, request, requesttype, value, index, data, size,timeout_ms) \
+#define tlw_usb_control_msg(dev, pipe, request, requesttype, value, index, data, size,timeout_ms) \
 	usb_control_msg((dev), (pipe), (request), (requesttype), (value), (index), (data), (size), \
 		((timeout_ms) == 0) ||((timeout_ms)*HZ/1000>0)?((timeout_ms)*HZ/1000):1) 
-#define rtw_usb_bulk_msg(usb_dev, pipe, data, len, actual_length, timeout_ms) \
+#define tlw_usb_bulk_msg(usb_dev, pipe, data, len, actual_length, timeout_ms) \
 	usb_bulk_msg((usb_dev), (pipe), (data), (len), (actual_length), \
 		((timeout_ms) == 0) ||((timeout_ms)*HZ/1000>0)?((timeout_ms)*HZ/1000):1) 
 #endif
@@ -121,7 +121,7 @@ enum RTW_USB_SPEED {
 #define USB_HIGH_SPEED_BULK_SIZE	512		// usb 2.0
 #define USB_FULL_SPEED_BULK_SIZE	64		// usb 1.1
 
-static inline u8 rtw_usb_bulk_size_boundary(_adapter * padapter,int buf_len)
+static inline u8 tlw_usb_bulk_size_boundary(_adapter * padapter,int buf_len)
 {
 	u8 rst = _TRUE;
 

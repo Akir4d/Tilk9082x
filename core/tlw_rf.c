@@ -22,7 +22,7 @@
 #include <drv_types.h>
 #include <hal_data.h>
 
-int rtw_ch2freq(int chan)
+int tlw_ch2freq(int chan)
 {
 	/* see 802.11 17.3.8.3.2 and Annex J
 	* there are overlapping channel numbers in 5GHz and 2GHz bands */
@@ -44,7 +44,7 @@ int rtw_ch2freq(int chan)
 	return 0; /* not supported */
 }
 
-int rtw_freq2ch(int freq)
+int tlw_freq2ch(int freq)
 {
 	/* see 802.11 17.3.8.3.2 and Annex J */
 	if (freq == 2484)
@@ -61,7 +61,7 @@ int rtw_freq2ch(int freq)
 		return 0;
 }
 
-bool rtw_chbw_to_freq_range(u8 ch, u8 bw, u8 offset, u32 *hi, u32 *lo)
+bool tlw_chbw_to_freq_range(u8 ch, u8 bw, u8 offset, u32 *hi, u32 *lo)
 {
 	u8 c_ch;
 	u32 freq;
@@ -74,11 +74,11 @@ bool rtw_chbw_to_freq_range(u8 ch, u8 bw, u8 offset, u32 *hi, u32 *lo)
 	if (lo)
 		*lo = 0;
 
-	c_ch = rtw_get_center_ch(ch, bw, offset);
-	freq = rtw_ch2freq(c_ch);
+	c_ch = tlw_get_center_ch(ch, bw, offset);
+	freq = tlw_ch2freq(c_ch);
 
 	if (!freq) {
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 		goto exit;
 	}
 
@@ -92,7 +92,7 @@ bool rtw_chbw_to_freq_range(u8 ch, u8 bw, u8 offset, u32 *hi, u32 *lo)
 		hi_ret = freq + 10;
 		lo_ret = freq - 10;
 	} else {
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 	}
 
 	if (hi)
@@ -106,7 +106,7 @@ exit:
 	return valid;
 }
 
-int rtw_ch_to_bb_gain_sel(int ch)
+int tlw_ch_to_bb_gain_sel(int ch)
 {
 	int sel = -1;
 
@@ -128,17 +128,17 @@ int rtw_ch_to_bb_gain_sel(int ch)
 	return sel;
 }
 
-s8 rtw_rf_get_kfree_tx_gain_offset(_adapter *padapter, u8 path, u8 ch)
+s8 tlw_rf_get_kfree_tx_gain_offset(_adapter *padapter, u8 path, u8 ch)
 {
 	s8 kfree_offset = 0;
 
 #ifdef CONFIG_RF_GAIN_OFFSET
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(padapter);
 	struct kfree_data_t *kfree_data = GET_KFREE_DATA(padapter);
-	s8 bb_gain_sel = rtw_ch_to_bb_gain_sel(ch);
+	s8 bb_gain_sel = tlw_ch_to_bb_gain_sel(ch);
 
 	if (bb_gain_sel < BB_GAIN_2G || bb_gain_sel >= BB_GAIN_NUM) {
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 		goto exit;
 	}
 
@@ -154,30 +154,30 @@ exit:
 	return kfree_offset;
 }
 
-void rtw_rf_set_tx_gain_offset(_adapter *adapter, u8 path, s8 offset)
+void tlw_rf_set_tx_gain_offset(_adapter *adapter, u8 path, s8 offset)
 {
 	u8 write_value;
 
-	switch (rtw_get_chip_type(adapter)) {
+	switch (tlw_get_chip_type(adapter)) {
 #ifdef CONFIG_RTL9083F
 	case RTL9083F:
 		write_value = RF_TX_GAIN_OFFSET_9083F(offset);
-		rtw_hal_write_rfreg(adapter, path, 0x55, 0x0fc000, write_value);
+		tlw_hal_write_rfreg(adapter, path, 0x55, 0x0fc000, write_value);
 		break;
 #endif /* CONFIG_RTL9083F */
 #ifdef CONFIG_RTL8821A
 	case RTL8821:
 		write_value = RF_TX_GAIN_OFFSET_8821A(offset);
-		rtw_hal_write_rfreg(adapter, path, 0x55, 0x0f8000, write_value);
+		tlw_hal_write_rfreg(adapter, path, 0x55, 0x0f8000, write_value);
 		break;
 #endif /* CONFIG_RTL8821A */
 	default:
-		rtw_warn_on(1);
+		tlw_warn_on(1);
 		break;
 	}
 }
 
-void rtw_rf_apply_tx_gain_offset(_adapter *adapter, u8 ch)
+void tlw_rf_apply_tx_gain_offset(_adapter *adapter, u8 ch)
 {
 	HAL_DATA_TYPE *hal_data = GET_HAL_DATA(adapter);
 	s8 kfree_offset = 0;
@@ -186,39 +186,39 @@ void rtw_rf_apply_tx_gain_offset(_adapter *adapter, u8 ch)
 	int i;
 
 	for (i = 0; i < hal_data->NumTotalRFPath; i++) {
-		kfree_offset = rtw_rf_get_kfree_tx_gain_offset(adapter, i, ch);
+		kfree_offset = tlw_rf_get_kfree_tx_gain_offset(adapter, i, ch);
 		total_offset = kfree_offset + tx_pwr_track_offset;
-		rtw_rf_set_tx_gain_offset(adapter, i, total_offset);
+		tlw_rf_set_tx_gain_offset(adapter, i, total_offset);
 	}
 }
 
-bool rtw_is_dfs_range(u32 hi, u32 lo)
+bool tlw_is_dfs_range(u32 hi, u32 lo)
 {
-	return rtw_is_range_overlap(hi, lo, 5720 + 10, 5260 - 10)?_TRUE:_FALSE;
+	return tlw_is_range_overlap(hi, lo, 5720 + 10, 5260 - 10)?_TRUE:_FALSE;
 }
 
-bool rtw_is_dfs_ch(u8 ch, u8 bw, u8 offset)
+bool tlw_is_dfs_ch(u8 ch, u8 bw, u8 offset)
 {
 	u32 hi, lo;
 
-	if (rtw_chbw_to_freq_range(ch, bw, offset, &hi, &lo) == _FALSE)
+	if (tlw_chbw_to_freq_range(ch, bw, offset, &hi, &lo) == _FALSE)
 		return _FALSE;
 
-	return rtw_is_dfs_range(hi, lo)?_TRUE:_FALSE;
+	return tlw_is_dfs_range(hi, lo)?_TRUE:_FALSE;
 }
 
-bool rtw_is_long_cac_range(u32 hi, u32 lo)
+bool tlw_is_long_cac_range(u32 hi, u32 lo)
 {
-	return rtw_is_range_overlap(hi, lo, 5660 + 10, 5600 - 10)?_TRUE:_FALSE;
+	return tlw_is_range_overlap(hi, lo, 5660 + 10, 5600 - 10)?_TRUE:_FALSE;
 }
 
-bool rtw_is_long_cac_ch(u8 ch, u8 bw, u8 offset)
+bool tlw_is_long_cac_ch(u8 ch, u8 bw, u8 offset)
 {
 	u32 hi, lo;
 
-	if (rtw_chbw_to_freq_range(ch, bw, offset, &hi, &lo) == _FALSE)
+	if (tlw_chbw_to_freq_range(ch, bw, offset, &hi, &lo) == _FALSE)
 		return _FALSE;
 
-	return rtw_is_long_cac_range(hi, lo)?_TRUE:_FALSE;
+	return tlw_is_long_cac_range(hi, lo)?_TRUE:_FALSE;
 }
 

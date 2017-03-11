@@ -339,7 +339,7 @@ s32 ttl8812au_xmitframe_complete(_adapter *padapter, struct xmit_priv *pxmitpriv
 #ifdef CONFIG_PCI_HCI
 s32 ttl8812ae_init_xmit_priv(PADAPTER padapter);
 void ttl8812ae_free_xmit_priv(PADAPTER padapter);
-struct xmit_buf *ttl8812ae_dequeue_xmitbuf(struct rtw_tx_ring *ring);
+struct xmit_buf *ttl8812ae_dequeue_xmitbuf(struct tlw_tx_ring *ring);
 void	ttl8812ae_xmitframe_resume(_adapter *padapter);
 s32 ttl8812ae_hal_xmit(PADAPTER padapter, struct xmit_frame *pxmitframe);
 s32 ttl8812ae_mgnt_xmit(PADAPTER padapter, struct xmit_frame *pmgntframe);

@@ -24,27 +24,27 @@
 #include <hal_data.h>
 
 
-void rtw_btcoex_Initialize(PADAPTER padapter)
+void tlw_btcoex_Initialize(PADAPTER padapter)
 {
 	hal_btcoex_Initialize(padapter);
 }
 
-void rtw_btcoex_PowerOnSetting(PADAPTER padapter)
+void tlw_btcoex_PowerOnSetting(PADAPTER padapter)
 {
 	hal_btcoex_PowerOnSetting(padapter);
 }
 
-void rtw_btcoex_PreLoadFirmware(PADAPTER padapter)
+void tlw_btcoex_PreLoadFirmware(PADAPTER padapter)
 {
 	hal_btcoex_PreLoadFirmware(padapter);
 }
 
-void rtw_btcoex_HAL_Initialize(PADAPTER padapter, u8 bWifiOnly)
+void tlw_btcoex_HAL_Initialize(PADAPTER padapter, u8 bWifiOnly)
 {
 	hal_btcoex_InitHwConfig(padapter, bWifiOnly);
 }
 
-void rtw_btcoex_IpsNotify(PADAPTER padapter, u8 type)
+void tlw_btcoex_IpsNotify(PADAPTER padapter, u8 type)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -55,7 +55,7 @@ void rtw_btcoex_IpsNotify(PADAPTER padapter, u8 type)
 	hal_btcoex_IpsNotify(padapter, type);
 }
 
-void rtw_btcoex_LpsNotify(PADAPTER padapter, u8 type)
+void tlw_btcoex_LpsNotify(PADAPTER padapter, u8 type)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -66,7 +66,7 @@ void rtw_btcoex_LpsNotify(PADAPTER padapter, u8 type)
 	hal_btcoex_LpsNotify(padapter, type);
 }
 
-void rtw_btcoex_ScanNotify(PADAPTER padapter, u8 type)
+void tlw_btcoex_ScanNotify(PADAPTER padapter, u8 type)
 {
 	PHAL_DATA_TYPE	pHalData;
 #ifdef CONFIG_BT_COEXIST_SOCKET_TRX
@@ -89,13 +89,13 @@ void rtw_btcoex_ScanNotify(PADAPTER padapter, u8 type)
 
 #ifdef CONFIG_BT_COEXIST_SOCKET_TRX
 	if(pBtMgnt->ExtConfig.bEnableWifiScanNotify)
-		rtw_btcoex_SendScanNotify(padapter, type);
+		tlw_btcoex_SendScanNotify(padapter, type);
 #endif //CONFIG_BT_COEXIST_SOCKET_TRX	
 
 	hal_btcoex_ScanNotify(padapter, type);
 }
 
-void rtw_btcoex_ConnectNotify(PADAPTER padapter, u8 action)
+void tlw_btcoex_ConnectNotify(PADAPTER padapter, u8 action)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -104,7 +104,7 @@ void rtw_btcoex_ConnectNotify(PADAPTER padapter, u8 action)
 		return;
 
 #ifdef DBG_CONFIG_ERROR_RESET
-	if (_TRUE == rtw_hal_sreset_inprogress(padapter))
+	if (_TRUE == tlw_hal_sreset_inprogress(padapter))
 	{
 		DBG_8192C(FUNC_ADPT_FMT ": [BTCoex] under reset, skip notify!\n",
 			FUNC_ADPT_ARG(padapter));
@@ -124,7 +124,7 @@ void rtw_btcoex_ConnectNotify(PADAPTER padapter, u8 action)
 	hal_btcoex_ConnectNotify(padapter, action);
 }
 
-void rtw_btcoex_MediaStatusNotify(PADAPTER padapter, u8 mediaStatus)
+void tlw_btcoex_MediaStatusNotify(PADAPTER padapter, u8 mediaStatus)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -133,7 +133,7 @@ void rtw_btcoex_MediaStatusNotify(PADAPTER padapter, u8 mediaStatus)
 		return;
 
 #ifdef DBG_CONFIG_ERROR_RESET
-	if (_TRUE == rtw_hal_sreset_inprogress(padapter))
+	if (_TRUE == tlw_hal_sreset_inprogress(padapter))
 	{
 		DBG_8192C(FUNC_ADPT_FMT ": [BTCoex] under reset, skip notify!\n",
 			FUNC_ADPT_ARG(padapter));
@@ -153,13 +153,13 @@ void rtw_btcoex_MediaStatusNotify(PADAPTER padapter, u8 mediaStatus)
 	if ((RT_MEDIA_CONNECT == mediaStatus)
 		&& (check_fwstate(&padapter->mlmepriv, WIFI_AP_STATE) == _TRUE))
 	{
-		rtw_hal_set_hwreg(padapter, HW_VAR_DL_RSVD_PAGE, NULL);
+		tlw_hal_set_hwreg(padapter, HW_VAR_DL_RSVD_PAGE, NULL);
 	}
 
 	hal_btcoex_MediaStatusNotify(padapter, mediaStatus);
 }
 
-void rtw_btcoex_SpecialPacketNotify(PADAPTER padapter, u8 pktType)
+void tlw_btcoex_SpecialPacketNotify(PADAPTER padapter, u8 pktType)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -170,7 +170,7 @@ void rtw_btcoex_SpecialPacketNotify(PADAPTER padapter, u8 pktType)
 	hal_btcoex_SpecialPacketNotify(padapter, pktType);
 }
 
-void rtw_btcoex_IQKNotify(PADAPTER padapter, u8 state)
+void tlw_btcoex_IQKNotify(PADAPTER padapter, u8 state)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -181,7 +181,7 @@ void rtw_btcoex_IQKNotify(PADAPTER padapter, u8 state)
 	hal_btcoex_IQKNotify(padapter, state);
 }
 
-void rtw_btcoex_BtInfoNotify(PADAPTER padapter, u8 length, u8 *tmpBuf)
+void tlw_btcoex_BtInfoNotify(PADAPTER padapter, u8 length, u8 *tmpBuf)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -192,7 +192,7 @@ void rtw_btcoex_BtInfoNotify(PADAPTER padapter, u8 length, u8 *tmpBuf)
 	hal_btcoex_BtInfoNotify(padapter, length, tmpBuf);
 }
 
-void rtw_btcoex_SuspendNotify(PADAPTER padapter, u8 state)
+void tlw_btcoex_SuspendNotify(PADAPTER padapter, u8 state)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -203,7 +203,7 @@ void rtw_btcoex_SuspendNotify(PADAPTER padapter, u8 state)
 	hal_btcoex_SuspendNotify(padapter, state);
 }
 
-void rtw_btcoex_HaltNotify(PADAPTER padapter)
+void tlw_btcoex_HaltNotify(PADAPTER padapter)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -219,9 +219,9 @@ void rtw_btcoex_HaltNotify(PADAPTER padapter)
 		return;
 	}
 
-	if (rtw_is_surprise_removed(padapter)) {
+	if (tlw_is_surprise_removed(padapter)) {
 		DBG_871X(FUNC_ADPT_FMT ": bSurpriseRemoved=%s Skip!\n",
-			FUNC_ADPT_ARG(padapter), rtw_is_surprise_removed(padapter)?"True":"False");
+			FUNC_ADPT_ARG(padapter), tlw_is_surprise_removed(padapter)?"True":"False");
 
 		return;
 	}
@@ -229,22 +229,22 @@ void rtw_btcoex_HaltNotify(PADAPTER padapter)
 	hal_btcoex_HaltNotify(padapter);
 }
 
-void rtw_btcoex_SwitchBtTRxMask(PADAPTER padapter)
+void tlw_btcoex_SwitchBtTRxMask(PADAPTER padapter)
 {
 	hal_btcoex_SwitchBtTRxMask(padapter);	
 }
 
-void rtw_btcoex_Switch(PADAPTER padapter, u8 enable)
+void tlw_btcoex_Switch(PADAPTER padapter, u8 enable)
 {
 	hal_btcoex_SetBTCoexist(padapter, enable);
 }
 
-u8 rtw_btcoex_IsBtDisabled(PADAPTER padapter)
+u8 tlw_btcoex_IsBtDisabled(PADAPTER padapter)
 {
 	return hal_btcoex_IsBtDisabled(padapter);
 }
 
-void rtw_btcoex_Handler(PADAPTER padapter)
+void tlw_btcoex_Handler(PADAPTER padapter)
 {
 	PHAL_DATA_TYPE	pHalData;
 
@@ -263,7 +263,7 @@ void rtw_btcoex_Handler(PADAPTER padapter)
 	hal_btcoex_Hanlder(padapter);
 }
 
-s32 rtw_btcoex_IsBTCoexRejectAMPDU(PADAPTER padapter)
+s32 tlw_btcoex_IsBTCoexRejectAMPDU(PADAPTER padapter)
 {
 	s32 coexctrl;
 
@@ -272,7 +272,7 @@ s32 rtw_btcoex_IsBTCoexRejectAMPDU(PADAPTER padapter)
 	return coexctrl;
 }
 
-s32 rtw_btcoex_IsBTCoexCtrlAMPDUSize(PADAPTER padapter)
+s32 tlw_btcoex_IsBTCoexCtrlAMPDUSize(PADAPTER padapter)
 {
 	s32 coexctrl;
 
@@ -281,7 +281,7 @@ s32 rtw_btcoex_IsBTCoexCtrlAMPDUSize(PADAPTER padapter)
 	return coexctrl;
 }
 
-u32 rtw_btcoex_GetAMPDUSize(PADAPTER padapter)
+u32 tlw_btcoex_GetAMPDUSize(PADAPTER padapter)
 {
 	u32 size;
 
@@ -290,7 +290,7 @@ u32 rtw_btcoex_GetAMPDUSize(PADAPTER padapter)
 	return size;
 }
 
-void rtw_btcoex_SetManualControl(PADAPTER padapter, u8 manual)
+void tlw_btcoex_SetManualControl(PADAPTER padapter, u8 manual)
 {
 	if (_TRUE == manual)
 	{
@@ -302,107 +302,107 @@ void rtw_btcoex_SetManualControl(PADAPTER padapter, u8 manual)
 	}
 }
 
-u8 rtw_btcoex_1Ant(PADAPTER padapter)
+u8 tlw_btcoex_1Ant(PADAPTER padapter)
 {
 	return hal_btcoex_1Ant(padapter);
 }
 
-u8 rtw_btcoex_IsBtControlLps(PADAPTER padapter)
+u8 tlw_btcoex_IsBtControlLps(PADAPTER padapter)
 {
 	return hal_btcoex_IsBtControlLps(padapter);
 }
 
-u8 rtw_btcoex_IsLpsOn(PADAPTER padapter)
+u8 tlw_btcoex_IsLpsOn(PADAPTER padapter)
 {
 	return hal_btcoex_IsLpsOn(padapter);
 }
 
-u8 rtw_btcoex_RpwmVal(PADAPTER padapter)
+u8 tlw_btcoex_RpwmVal(PADAPTER padapter)
 {
 	return hal_btcoex_RpwmVal(padapter);
 }
 
-u8 rtw_btcoex_LpsVal(PADAPTER padapter)
+u8 tlw_btcoex_LpsVal(PADAPTER padapter)
 {
 	return hal_btcoex_LpsVal(padapter);
 }
 
-void rtw_btcoex_SetBTCoexist(PADAPTER padapter, u8 bBtExist)
+void tlw_btcoex_SetBTCoexist(PADAPTER padapter, u8 bBtExist)
 {
 	hal_btcoex_SetBTCoexist(padapter, bBtExist);
 }
 
-void rtw_btcoex_SetChipType(PADAPTER padapter, u8 chipType)
+void tlw_btcoex_SetChipType(PADAPTER padapter, u8 chipType)
 {
 	hal_btcoex_SetChipType(padapter, chipType);
 }
 
-void rtw_btcoex_SetPGAntNum(PADAPTER padapter, u8 antNum)
+void tlw_btcoex_SetPGAntNum(PADAPTER padapter, u8 antNum)
 {
 	hal_btcoex_SetPgAntNum(padapter, antNum);
 }
 
-u8 rtw_btcoex_GetPGAntNum(PADAPTER padapter)
+u8 tlw_btcoex_GetPGAntNum(PADAPTER padapter)
 {
 	return hal_btcoex_GetPgAntNum(padapter);
 }
 
-void rtw_btcoex_SetSingleAntPath(PADAPTER padapter, u8 singleAntPath)
+void tlw_btcoex_SetSingleAntPath(PADAPTER padapter, u8 singleAntPath)
 {
 	hal_btcoex_SetSingleAntPath(padapter, singleAntPath);
 }
 
-u32 rtw_btcoex_GetRaMask(PADAPTER padapter)
+u32 tlw_btcoex_GetRaMask(PADAPTER padapter)
 {
 	return hal_btcoex_GetRaMask(padapter);
 }
 
-void rtw_btcoex_RecordPwrMode(PADAPTER padapter, u8 *pCmdBuf, u8 cmdLen)
+void tlw_btcoex_RecordPwrMode(PADAPTER padapter, u8 *pCmdBuf, u8 cmdLen)
 {
 	hal_btcoex_RecordPwrMode(padapter, pCmdBuf, cmdLen);
 }
 
-void rtw_btcoex_DisplayBtCoexInfo(PADAPTER padapter, u8 *pbuf, u32 bufsize)
+void tlw_btcoex_DisplayBtCoexInfo(PADAPTER padapter, u8 *pbuf, u32 bufsize)
 {
 	hal_btcoex_DisplayBtCoexInfo(padapter, pbuf, bufsize);
 }
 
-void rtw_btcoex_SetDBG(PADAPTER padapter, u32 *pDbgModule)
+void tlw_btcoex_SetDBG(PADAPTER padapter, u32 *pDbgModule)
 {
 	hal_btcoex_SetDBG(padapter, pDbgModule);
 }
 
-u32 rtw_btcoex_GetDBG(PADAPTER padapter, u8 *pStrBuf, u32 bufSize)
+u32 tlw_btcoex_GetDBG(PADAPTER padapter, u8 *pStrBuf, u32 bufSize)
 {
 	return hal_btcoex_GetDBG(padapter, pStrBuf, bufSize);
 }
 
-u8 rtw_btcoex_IncreaseScanDeviceNum(PADAPTER padapter)
+u8 tlw_btcoex_IncreaseScanDeviceNum(PADAPTER padapter)
 {
 	return hal_btcoex_IncreaseScanDeviceNum(padapter);
 }
 
-u8 rtw_btcoex_IsBtLinkExist(PADAPTER padapter)
+u8 tlw_btcoex_IsBtLinkExist(PADAPTER padapter)
 {
 	return hal_btcoex_IsBtLinkExist(padapter);
 }
 
-void rtw_btcoex_SetBtPatchVersion(PADAPTER padapter,u16 btHciVer, u16 btPatchVer)
+void tlw_btcoex_SetBtPatchVersion(PADAPTER padapter,u16 btHciVer, u16 btPatchVer)
 {
 	hal_btcoex_SetBtPatchVersion(padapter,btHciVer,btPatchVer);
 }
 
-void rtw_btcoex_SetHciVersion(PADAPTER  padapter, u16 hciVersion)
+void tlw_btcoex_SetHciVersion(PADAPTER  padapter, u16 hciVersion)
 {
 	hal_btcoex_SetHciVersion(padapter, hciVersion);
 }
 
-void rtw_btcoex_StackUpdateProfileInfo(void) 
+void tlw_btcoex_StackUpdateProfileInfo(void) 
 {
 	hal_btcoex_StackUpdateProfileInfo();
 }
 
-void rtw_btcoex_BTOffOnNotify(PADAPTER padapter, u8 bBTON)
+void tlw_btcoex_BTOffOnNotify(PADAPTER padapter, u8 bBTON)
 {
 	hal_btcoex_BTOffOnNotify(padapter, bBTON);
 }
@@ -410,12 +410,12 @@ void rtw_btcoex_BTOffOnNotify(PADAPTER padapter, u8 bBTON)
 // ==================================================
 // Below Functions are called by BT-Coex
 // ==================================================
-void rtw_btcoex_rx_ampdu_apply(PADAPTER padapter)
+void tlw_btcoex_rx_ampdu_apply(PADAPTER padapter)
 {
-	rtw_rx_ampdu_apply(padapter);
+	tlw_rx_ampdu_apply(padapter);
 }
 
-void rtw_btcoex_LPS_Enter(PADAPTER padapter)
+void tlw_btcoex_LPS_Enter(PADAPTER padapter)
 {
 	struct pwrctrl_priv *pwrpriv;
 	u8 lpsVal;
@@ -424,11 +424,11 @@ void rtw_btcoex_LPS_Enter(PADAPTER padapter)
 	pwrpriv = adapter_to_pwrctl(padapter);
 
 	pwrpriv->bpower_saving = _TRUE;
-	lpsVal = rtw_btcoex_LpsVal(padapter);
-	rtw_set_ps_mode(padapter, PS_MODE_MIN, 0, lpsVal, "BTCOEX");
+	lpsVal = tlw_btcoex_LpsVal(padapter);
+	tlw_set_ps_mode(padapter, PS_MODE_MIN, 0, lpsVal, "BTCOEX");
 }
 
-void rtw_btcoex_LPS_Leave(PADAPTER padapter)
+void tlw_btcoex_LPS_Leave(PADAPTER padapter)
 {
 	struct pwrctrl_priv *pwrpriv;
 
@@ -437,7 +437,7 @@ void rtw_btcoex_LPS_Leave(PADAPTER padapter)
 
 	if (pwrpriv->pwr_mode != PS_MODE_ACTIVE)
 	{
-		rtw_set_ps_mode(padapter, PS_MODE_ACTIVE, 0, 0, "BTCOEX");
+		tlw_set_ps_mode(padapter, PS_MODE_ACTIVE, 0, 0, "BTCOEX");
 		LPS_RF_ON_check(padapter, 100);
 		pwrpriv->bpower_saving = _FALSE;
 	}
@@ -450,7 +450,7 @@ void rtw_btcoex_LPS_Leave(PADAPTER padapter)
 
 #ifdef CONFIG_BT_COEXIST_SOCKET_TRX
 _adapter *pbtcoexadapter = NULL;
-u8 rtw_btcoex_btinfo_cmd(_adapter *adapter, u8 *buf, u16 len)
+u8 tlw_btcoex_btinfo_cmd(_adapter *adapter, u8 *buf, u16 len)
 {
 	struct cmd_obj *ph2c;
 	struct drvextra_cmd_parm *pdrvextra_cmd_parm;
@@ -458,23 +458,23 @@ u8 rtw_btcoex_btinfo_cmd(_adapter *adapter, u8 *buf, u16 len)
 	struct cmd_priv *pcmdpriv = &adapter->cmdpriv;
 	u8	res = _SUCCESS;
 
-	ph2c = (struct cmd_obj*)rtw_zmalloc(sizeof(struct cmd_obj));
+	ph2c = (struct cmd_obj*)tlw_zmalloc(sizeof(struct cmd_obj));
 	if (ph2c == NULL) {
 		res = _FAIL;
 		goto exit;
 	}
 
-	pdrvextra_cmd_parm = (struct drvextra_cmd_parm*)rtw_zmalloc(sizeof(struct drvextra_cmd_parm));
+	pdrvextra_cmd_parm = (struct drvextra_cmd_parm*)tlw_zmalloc(sizeof(struct drvextra_cmd_parm));
 	if (pdrvextra_cmd_parm == NULL) {
-		rtw_mfree((u8*)ph2c, sizeof(struct cmd_obj));
+		tlw_mfree((u8*)ph2c, sizeof(struct cmd_obj));
 		res = _FAIL;
 		goto exit;
 	}
 
-	btinfo = rtw_zmalloc(len);
+	btinfo = tlw_zmalloc(len);
 	if (btinfo == NULL) {
-		rtw_mfree((u8*)ph2c, sizeof(struct cmd_obj));
-		rtw_mfree((u8*)pdrvextra_cmd_parm, sizeof(struct drvextra_cmd_parm));
+		tlw_mfree((u8*)ph2c, sizeof(struct cmd_obj));
+		tlw_mfree((u8*)pdrvextra_cmd_parm, sizeof(struct drvextra_cmd_parm));
 		res = _FAIL;
 		goto exit;
 	}
@@ -484,24 +484,24 @@ u8 rtw_btcoex_btinfo_cmd(_adapter *adapter, u8 *buf, u16 len)
 	pdrvextra_cmd_parm->size = len;
 	pdrvextra_cmd_parm->pbuf = btinfo;
 
-	_rtw_memcpy(btinfo, buf, len);
+	_tlw_memcpy(btinfo, buf, len);
 
 	init_h2fwcmd_w_parm_no_rsp(ph2c, pdrvextra_cmd_parm, GEN_CMD_CODE(_Set_Drv_Extra));
 
-	res = rtw_enqueue_cmd(pcmdpriv, ph2c);
+	res = tlw_enqueue_cmd(pcmdpriv, ph2c);
 
 exit:
 	return res;
 }
 
-u8 rtw_btcoex_send_event_to_BT(_adapter *padapter, u8 status,  u8 event_code, u8 opcode_low, u8 opcode_high,u8 *dbg_msg)
+u8 tlw_btcoex_send_event_to_BT(_adapter *padapter, u8 status,  u8 event_code, u8 opcode_low, u8 opcode_high,u8 *dbg_msg)
 {
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0,tx_event_length = 0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	
-	pEvent = (rtw_HCI_event*)(&localBuf[0]);
+	pEvent = (tlw_HCI_event*)(&localBuf[0]);
 
 	pEvent->EventCode = event_code;
 	pEvent->Data[0] = 0x1;	//packet #
@@ -519,9 +519,9 @@ u8 rtw_btcoex_send_event_to_BT(_adapter *padapter, u8 status,  u8 event_code, u8
 	//total tx event length + EventCode length + sizeof(length)
 	tx_event_length = pEvent->Length + 2;
 #if 0
-	rtw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, dbg_msg);
+	tlw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, dbg_msg);
 #endif		
-	status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+	status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		
 	return status;
 }
@@ -536,7 +536,7 @@ Window team code & BT team code
  */
 
 
-u8 rtw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	#define BT_INFO_LENGTH 8
 	
@@ -550,7 +550,7 @@ u8 rtw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	u8 *pRetPar;
 	u8	len=0,tx_event_length = 0;
 	RTW_HCI_STATUS status = HCI_STATUS_SUCCESS;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 
 	DBG_871X("%s\n",__func__);
 	DBG_871X("current Poll Enable: %d, currrent Poll Time: %d\n",curPollEnable,curPollTime);
@@ -558,7 +558,7 @@ u8 rtw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	/*DBG_871X("%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x\n"
 		,pcmd[4],pcmd[5],pcmd[6],pcmd[7],pcmd[8],pcmd[9],pcmd[10],pcmd[11]);*/
 
-	_rtw_memset(btinfo, 0, BT_INFO_LENGTH);
+	_tlw_memset(btinfo, 0, BT_INFO_LENGTH);
 	
 #if 1
 	if(BT_INFO_LENGTH != btInfoLen)
@@ -572,9 +572,9 @@ u8 rtw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	{
 		if(0x1 == btInfoReason || 0x2 == btInfoReason)
 		{
-			_rtw_memcpy(btinfo, &pcmd[4], btInfoLen);
+			_tlw_memcpy(btinfo, &pcmd[4], btInfoLen);
 			btinfo[0] = btInfoReason;
-			rtw_btcoex_btinfo_cmd(padapter,btinfo,btInfoLen);
+			tlw_btcoex_btinfo_cmd(padapter,btinfo,btInfoLen);
 		}
 		else
 		{
@@ -585,7 +585,7 @@ u8 rtw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	//send complete event to BT
 	{
 
-		pEvent = (rtw_HCI_event*)(&localBuf[0]);
+		pEvent = (tlw_HCI_event*)(&localBuf[0]);
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
 		pEvent->Data[0] = 0x1;	//packet #
@@ -603,16 +603,16 @@ u8 rtw_btcoex_parse_BT_info_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 			//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 #if 0
-		rtw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length,"BT_info_event");
+		tlw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length,"BT_info_event");
 #endif		
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		
 		return status;
 			//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	RTW_HCI_STATUS status=HCI_STATUS_SUCCESS;
 	u16		btPatchVer=0x0, btHciVer=0x0;
@@ -621,7 +621,7 @@ u8 rtw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdl
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 
 	btHciVer = pcmd[0] | pcmd[1]<<8;
 	btPatchVer = pcmd[2] | pcmd[3]<<8;
@@ -630,12 +630,12 @@ u8 rtw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdl
 	DBG_871X("%s, cmd:%02x %02x %02x %02x\n",__func__, pcmd[0] ,pcmd[1] ,pcmd[2] ,pcmd[3]);
 	DBG_871X("%s, HCI Ver:%d, Patch Ver:%d\n",__func__, btHciVer,btPatchVer);
 	
-	rtw_btcoex_SetBtPatchVersion(padapter,btHciVer,btPatchVer);
+	tlw_btcoex_SetBtPatchVersion(padapter,btHciVer,btPatchVer);
 
 
 	//send complete event to BT
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -654,15 +654,15 @@ u8 rtw_btcoex_parse_BT_patch_ver_info_cmd(_adapter *padapter, u8 *pcmd, u16 cmdl
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 #if 0
-		rtw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length,"BT_patch_event");
+		tlw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length,"BT_patch_event");
 #endif
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	RTW_HCI_STATUS status=HCI_STATUS_SUCCESS;
 	u16 hciver = pcmd[0] | pcmd[1] <<8;
@@ -670,7 +670,7 @@ u8 rtw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	
 	struct bt_coex_info *pcoex_info = &padapter->coex_info;
 	PBT_MGNT	pBtMgnt=&pcoex_info->BtMgnt;
@@ -683,11 +683,11 @@ u8 rtw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 	}
 	else
 	{
-		rtw_btcoex_SetHciVersion(padapter,hciver);
+		tlw_btcoex_SetHciVersion(padapter,hciver);
 	}
 	//send complete event to BT
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -706,21 +706,21 @@ u8 rtw_btcoex_parse_HCI_Ver_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 	
 }
 
-u8 rtw_btcoex_parse_WIFI_scan_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_WIFI_scan_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	RTW_HCI_STATUS status=HCI_STATUS_SUCCESS;
 
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	
 	struct bt_coex_info *pcoex_info = &padapter->coex_info;
 	PBT_MGNT	pBtMgnt=&pcoex_info->BtMgnt;
@@ -729,7 +729,7 @@ u8 rtw_btcoex_parse_WIFI_scan_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdle
 	
 	//send complete event to BT
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -748,13 +748,13 @@ u8 rtw_btcoex_parse_WIFI_scan_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdle
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 	struct bt_coex_info	*pcoex_info=&padapter->coex_info;
@@ -768,7 +768,7 @@ u8 rtw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	
 	//pBtDbg->dbgHciInfo.hciCmdCntLinkStatusNotify++;
 	//RT_DISP_DATA(FIOCTL, IOCTL_BT_HCICMD_EXT, "LinkStatusNotify, Hex Data :\n", 
@@ -838,11 +838,11 @@ u8 rtw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 			pTriple += 5;
 		}	
 	}
-	rtw_btcoex_StackUpdateProfileInfo();
+	tlw_btcoex_StackUpdateProfileInfo();
 
 		//send complete event to BT
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -861,7 +861,7 @@ u8 rtw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
@@ -869,16 +869,16 @@ u8 rtw_btcoex_parse_HCI_link_status_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 	
 }
 
-u8 rtw_btcoex_parse_HCI_BT_coex_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_HCI_BT_coex_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -897,18 +897,18 @@ u8 rtw_btcoex_parse_HCI_BT_coex_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmd
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_HCI_BT_operation_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_HCI_BT_operation_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	DBG_871X("%s, OP code: %d\n",__func__,pcmd[0]);
@@ -952,7 +952,7 @@ u8 rtw_btcoex_parse_HCI_BT_operation_notify_cmd(_adapter *padapter, u8 *pcmd, u1
 
 			//send complete event to BT
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -971,22 +971,22 @@ u8 rtw_btcoex_parse_HCI_BT_operation_notify_cmd(_adapter *padapter, u8 *pcmd, u1
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_BT_AFH_MAP_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_BT_AFH_MAP_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -1005,23 +1005,23 @@ u8 rtw_btcoex_parse_BT_AFH_MAP_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdl
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_BT_register_val_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_BT_register_val_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -1040,22 +1040,22 @@ u8 rtw_btcoex_parse_BT_register_val_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_HCI_BT_abnormal_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_HCI_BT_abnormal_notify_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -1074,22 +1074,22 @@ u8 rtw_btcoex_parse_HCI_BT_abnormal_notify_cmd(_adapter *padapter, u8 *pcmd, u16
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
 }
 
-u8 rtw_btcoex_parse_HCI_query_RF_status_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
+u8 tlw_btcoex_parse_HCI_query_RF_status_cmd(_adapter *padapter, u8 *pcmd, u16 cmdlen)
 {
 	u8 localBuf[6] = "";
 	u8 *pRetPar;
 	u8	len=0, tx_event_length =0;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	RTW_HCI_STATUS	status=HCI_STATUS_SUCCESS;
 
 	{
-		pEvent = (rtw_HCI_event *)(&localBuf[0]);
+		pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 
 		pEvent->EventCode = HCI_EVENT_COMMAND_COMPLETE;
@@ -1108,7 +1108,7 @@ u8 rtw_btcoex_parse_HCI_query_RF_status_cmd(_adapter *padapter, u8 *pcmd, u16 cm
 		//total tx event length + EventCode length + sizeof(length)
 		tx_event_length = pEvent->Length + 2;
 
-		status = rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+		status = tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 		return status;
 		//bthci_IndicateEvent(Adapter, PPacketIrpEvent, len+2);
 	}
@@ -1125,7 +1125,7 @@ u8 rtw_btcoex_parse_HCI_query_RF_status_cmd(_adapter *padapter, u8 *pcmd, u16 cm
 
 //bit 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 //	 |	OCF			             |	   OGF       |
-void rtw_btcoex_parse_hci_extend_cmd(_adapter *padapter, u8 *pcmd, u16 len,const u16 hci_OCF)
+void tlw_btcoex_parse_hci_extend_cmd(_adapter *padapter, u8 *pcmd, u16 len,const u16 hci_OCF)
 {
 
 	DBG_871X("%s: OCF: %x\n",__func__,hci_OCF);
@@ -1133,50 +1133,50 @@ void rtw_btcoex_parse_hci_extend_cmd(_adapter *padapter, u8 *pcmd, u16 len,const
 	{
 		case HCI_EXTENSION_VERSION_NOTIFY:
 			DBG_871X("HCI_EXTENSION_VERSION_NOTIFY\n");
-			rtw_btcoex_parse_HCI_Ver_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_HCI_Ver_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_LINK_STATUS_NOTIFY:
 			DBG_871X("HCI_LINK_STATUS_NOTIFY\n");
-			rtw_btcoex_parse_HCI_link_status_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_HCI_link_status_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_OPERATION_NOTIFY:
 			// only for 8723a 2ant
 			DBG_871X("HCI_BT_OPERATION_NOTIFY\n");
-			rtw_btcoex_parse_HCI_BT_operation_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_HCI_BT_operation_notify_cmd(padapter,pcmd, len);
 			//
 			break;
 		case HCI_ENABLE_WIFI_SCAN_NOTIFY:
 			DBG_871X("HCI_ENABLE_WIFI_SCAN_NOTIFY\n");
-			rtw_btcoex_parse_WIFI_scan_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_WIFI_scan_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_QUERY_RF_STATUS:
 			// only for 8723b 2ant
 			DBG_871X("HCI_QUERY_RF_STATUS\n");
-			rtw_btcoex_parse_HCI_query_RF_status_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_HCI_query_RF_status_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_ABNORMAL_NOTIFY:
 			DBG_871X("HCI_BT_ABNORMAL_NOTIFY\n");
-			rtw_btcoex_parse_HCI_BT_abnormal_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_HCI_BT_abnormal_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_INFO_NOTIFY:
 			DBG_871X("HCI_BT_INFO_NOTIFY\n");
-			rtw_btcoex_parse_BT_info_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_BT_info_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_COEX_NOTIFY:
 			DBG_871X("HCI_BT_COEX_NOTIFY\n");
-			rtw_btcoex_parse_HCI_BT_coex_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_HCI_BT_coex_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_PATCH_VERSION_NOTIFY:
 			DBG_871X("HCI_BT_PATCH_VERSION_NOTIFY\n");
-			rtw_btcoex_parse_BT_patch_ver_info_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_BT_patch_ver_info_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_AFH_MAP_NOTIFY:
 			DBG_871X("HCI_BT_AFH_MAP_NOTIFY\n");
-			rtw_btcoex_parse_BT_AFH_MAP_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_BT_AFH_MAP_notify_cmd(padapter,pcmd, len);
 			break;
 		case HCI_BT_REGISTER_VALUE_NOTIFY:
 			DBG_871X("HCI_BT_REGISTER_VALUE_NOTIFY\n");
-			rtw_btcoex_parse_BT_register_val_notify_cmd(padapter,pcmd, len);
+			tlw_btcoex_parse_BT_register_val_notify_cmd(padapter,pcmd, len);
 			break;
 		default:
 			DBG_871X("ERROR!!! Unknown OCF: %x\n",hci_OCF);
@@ -1185,7 +1185,7 @@ void rtw_btcoex_parse_hci_extend_cmd(_adapter *padapter, u8 *pcmd, u16 len,const
 	}
 }
 
-void rtw_btcoex_parse_hci_cmd(_adapter *padapter, u8 *pcmd, u16 len)
+void tlw_btcoex_parse_hci_cmd(_adapter *padapter, u8 *pcmd, u16 len)
 {
 	u16 opcode = pcmd[0] | pcmd[1]<<8;
 	u16 hci_OGF = HCI_OGF(opcode);
@@ -1199,7 +1199,7 @@ void rtw_btcoex_parse_hci_cmd(_adapter *padapter, u8 *pcmd, u16 len)
 	{
 		case OGF_EXTENSION:
 			DBG_871X("HCI_EXTENSION_CMD_OGF\n");
-			rtw_btcoex_parse_hci_extend_cmd(padapter, &pcmd[3], cmdlen, hci_OCF);
+			tlw_btcoex_parse_hci_extend_cmd(padapter, &pcmd[3], cmdlen, hci_OCF);
 			break;
 		default:
 			DBG_871X("Other OGF: %x\n",hci_OGF);
@@ -1207,7 +1207,7 @@ void rtw_btcoex_parse_hci_cmd(_adapter *padapter, u8 *pcmd, u16 len)
 	}
 }
 
-u16 rtw_btcoex_parse_recv_data(u8 *msg, u8 msg_size)
+u16 tlw_btcoex_parse_recv_data(u8 *msg, u8 msg_size)
 {
 	u8 cmp_msg1[32] = attend_ack;
 	u8 cmp_msg2[32] = leave_ack;
@@ -1217,21 +1217,21 @@ u16 rtw_btcoex_parse_recv_data(u8 *msg, u8 msg_size)
 	u8 cmp_msg6[32] = invite_rsp;
 	u8 res = OTHER;
 	
-	if (_rtw_memcmp(cmp_msg1, msg, msg_size) == _TRUE) {
+	if (_tlw_memcmp(cmp_msg1, msg, msg_size) == _TRUE) {
 		/*DBG_871X("%s, msg:%s\n",__func__,msg);*/
 		res = RX_ATTEND_ACK;
-	} else if (_rtw_memcmp(cmp_msg2, msg, msg_size) == _TRUE) {
+	} else if (_tlw_memcmp(cmp_msg2, msg, msg_size) == _TRUE) {
 		/*DBG_871X("%s, msg:%s\n",__func__,msg);*/
 		res = RX_LEAVE_ACK;
-	} else if (_rtw_memcmp(cmp_msg3, msg, msg_size) == _TRUE) {
+	} else if (_tlw_memcmp(cmp_msg3, msg, msg_size) == _TRUE) {
 		/*DBG_871X("%s, msg:%s\n",__func__,msg);*/
 		res = RX_BT_LEAVE;
-	} else if (_rtw_memcmp(cmp_msg4, msg, msg_size) == _TRUE) {
+	} else if (_tlw_memcmp(cmp_msg4, msg, msg_size) == _TRUE) {
 		/*DBG_871X("%s, msg:%s\n",__func__,msg);*/
 		res = RX_INVITE_REQ;
-	} else if (_rtw_memcmp(cmp_msg5, msg, msg_size) == _TRUE) {
+	} else if (_tlw_memcmp(cmp_msg5, msg, msg_size) == _TRUE) {
 		res = RX_ATTEND_REQ;
-	} else if (_rtw_memcmp(cmp_msg6, msg, msg_size) == _TRUE) {
+	} else if (_tlw_memcmp(cmp_msg6, msg, msg_size) == _TRUE) {
 		res = RX_INVITE_RSP;
 	} else {
 		DBG_871X("%s, %s\n", __func__, msg);
@@ -1243,7 +1243,7 @@ u16 rtw_btcoex_parse_recv_data(u8 *msg, u8 msg_size)
 	return res;
 }
 
-void rtw_btcoex_recvmsgbysocket(void *data)
+void tlw_btcoex_recvmsgbysocket(void *data)
 {
 	u8 recv_data[255];
 	u8 tx_msg[255] = leave_ack;
@@ -1280,10 +1280,10 @@ void rtw_btcoex_recvmsgbysocket(void *data)
 
 		/*important: cut the udp header from skb->data! header length is 8 byte*/
 		recv_length = skb->len-8;
-		_rtw_memset(recv_data, 0, sizeof(recv_data));
-		_rtw_memcpy(recv_data, skb->data+8, recv_length);
+		_tlw_memset(recv_data, 0, sizeof(recv_data));
+		_tlw_memcpy(recv_data, skb->data+8, recv_length);
 		
-		parse_res = rtw_btcoex_parse_recv_data(recv_data, recv_length);
+		parse_res = tlw_btcoex_parse_recv_data(recv_data, recv_length);
 /*
 		if (RX_ATTEND_ACK == parse_res) {
 			//attend ack 
@@ -1293,12 +1293,12 @@ void rtw_btcoex_recvmsgbysocket(void *data)
 			//attend req from BT 
 			pcoex_info->BT_attend = _TRUE;
 			DBG_871X("RX_BT_ATTEND_REQ!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_sendmsgbysocket(pbtcoexadapter, attend_ack, sizeof(attend_ack), _FALSE);
+			tlw_btcoex_sendmsgbysocket(pbtcoexadapter, attend_ack, sizeof(attend_ack), _FALSE);
 		} else if (RX_INVITE_REQ == parse_res) {
 			//invite req from BT
 			pcoex_info->BT_attend = _TRUE;
 			DBG_871X("RX_INVITE_REQ!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_sendmsgbysocket(pbtcoexadapter, invite_rsp, sizeof(invite_rsp), _FALSE);
+			tlw_btcoex_sendmsgbysocket(pbtcoexadapter, invite_rsp, sizeof(invite_rsp), _FALSE);
 		} else if (RX_INVITE_RSP == parse_res) {
 			//invite rsp
 			pcoex_info->BT_attend = _TRUE;
@@ -1309,13 +1309,13 @@ void rtw_btcoex_recvmsgbysocket(void *data)
 			DBG_871X("RX_LEAVE_ACK!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);			
 		} else if (RX_BT_LEAVE == parse_res) {
 			//BT leave
-			rtw_btcoex_sendmsgbysocket(pbtcoexadapter, leave_ack, sizeof(leave_ack), _FALSE); // no ack
+			tlw_btcoex_sendmsgbysocket(pbtcoexadapter, leave_ack, sizeof(leave_ack), _FALSE); // no ack
 			pcoex_info->BT_attend = _FALSE;
 			DBG_871X("RX_BT_LEAVE!sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);			
 		} else {
 			//todo: check if recv data are really hci cmds
 			if (_TRUE == pcoex_info->BT_attend)
-				rtw_btcoex_parse_hci_cmd(pbtcoexadapter, recv_data, recv_length);
+				tlw_btcoex_parse_hci_cmd(pbtcoexadapter, recv_data, recv_length);
 		}
 */
 		switch (parse_res) {
@@ -1323,49 +1323,49 @@ void rtw_btcoex_recvmsgbysocket(void *data)
 			/* attend ack */
 			pcoex_info->BT_attend = _TRUE;
 			DBG_871X("RX_ATTEND_ACK!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
+			tlw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
 			break;
 
 		case RX_ATTEND_REQ:
 			pcoex_info->BT_attend = _TRUE;
 			DBG_871X("RX_BT_ATTEND_REQ!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_sendmsgbysocket(pbtcoexadapter, attend_ack, sizeof(attend_ack), _FALSE);
-			rtw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
+			tlw_btcoex_sendmsgbysocket(pbtcoexadapter, attend_ack, sizeof(attend_ack), _FALSE);
+			tlw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
 			break;
 
 		case RX_INVITE_REQ:
 			/* invite req from BT */
 			pcoex_info->BT_attend = _TRUE;
 			DBG_871X("RX_INVITE_REQ!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_sendmsgbysocket(pbtcoexadapter, invite_rsp, sizeof(invite_rsp), _FALSE);
-			rtw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
+			tlw_btcoex_sendmsgbysocket(pbtcoexadapter, invite_rsp, sizeof(invite_rsp), _FALSE);
+			tlw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
 			break;
 
 		case RX_INVITE_RSP:
 			 /*invite rsp*/
 			pcoex_info->BT_attend = _TRUE;
 			DBG_871X("RX_INVITE_RSP!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
+			tlw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
 			break;
 
 		case RX_LEAVE_ACK:
 			/* mean BT know wifi  will leave */
 			pcoex_info->BT_attend = _FALSE;
 			DBG_871X("RX_LEAVE_ACK!,sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);
-			rtw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
+			tlw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
 			break;
 
 		case RX_BT_LEAVE:
 			/* BT leave */
-			rtw_btcoex_sendmsgbysocket(pbtcoexadapter, leave_ack, sizeof(leave_ack), _FALSE); /* no ack */
+			tlw_btcoex_sendmsgbysocket(pbtcoexadapter, leave_ack, sizeof(leave_ack), _FALSE); /* no ack */
 			pcoex_info->BT_attend = _FALSE;
 			DBG_871X("RX_BT_LEAVE!sock_open:%d, BT_attend:%d\n", pcoex_info->sock_open, pcoex_info->BT_attend);	
-			rtw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
+			tlw_btcoex_BTOffOnNotify(pbtcoexadapter, pcoex_info->BT_attend);
 			break;
 
 		default:
 			if (_TRUE == pcoex_info->BT_attend)
-				rtw_btcoex_parse_hci_cmd(pbtcoexadapter, recv_data, recv_length);
+				tlw_btcoex_parse_hci_cmd(pbtcoexadapter, recv_data, recv_length);
 			else
 				DBG_871X("ERROR!! BT is UP\n");
 			break;
@@ -1378,9 +1378,9 @@ void rtw_btcoex_recvmsgbysocket(void *data)
 }
 
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 15, 0))
-void rtw_btcoex_recvmsg_init(struct sock *sk_in, s32 bytes)
+void tlw_btcoex_recvmsg_init(struct sock *sk_in, s32 bytes)
 #else
-void rtw_btcoex_recvmsg_init(struct sock *sk_in)
+void tlw_btcoex_recvmsg_init(struct sock *sk_in)
 #endif
 {
 	struct bt_coex_info *pcoex_info = NULL;
@@ -1397,7 +1397,7 @@ void rtw_btcoex_recvmsg_init(struct sock *sk_in)
 		DBG_871X("%s: BTCOEX workqueue NULL\n", __func__);
 }
 
-u8 rtw_btcoex_sendmsgbysocket(_adapter *padapter, u8 *msg, u8 msg_size, bool force)
+u8 tlw_btcoex_sendmsgbysocket(_adapter *padapter, u8 *msg, u8 msg_size, bool force)
 {
 	u8 error; 
 	struct msghdr	udpmsg; 
@@ -1433,7 +1433,7 @@ u8 rtw_btcoex_sendmsgbysocket(_adapter *padapter, u8 *msg, u8 msg_size, bool for
 		return _SUCCESS;
 }
 
-u8 rtw_btcoex_create_kernel_socket(_adapter *padapter)
+u8 tlw_btcoex_create_kernel_socket(_adapter *padapter)
 {
 	s8 kernel_socket_err; 
 	u8 tx_msg[255] = attend_req;
@@ -1454,12 +1454,12 @@ u8 rtw_btcoex_create_kernel_socket(_adapter *padapter)
 		DBG_871X("Error during creation of socket error:%d\n", kernel_socket_err); 
 		status = _FAIL;	
 	} else {
-		_rtw_memset(&(pcoex_info->wifi_sockaddr), 0, sizeof(pcoex_info->wifi_sockaddr)); 
+		_tlw_memset(&(pcoex_info->wifi_sockaddr), 0, sizeof(pcoex_info->wifi_sockaddr)); 
 		pcoex_info->wifi_sockaddr.sin_family = AF_INET; 
 		pcoex_info->wifi_sockaddr.sin_port = htons(CONNECT_PORT); 
 		pcoex_info->wifi_sockaddr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
 
-		_rtw_memset(&(pcoex_info->bt_sockaddr), 0, sizeof(pcoex_info->bt_sockaddr)); 
+		_tlw_memset(&(pcoex_info->bt_sockaddr), 0, sizeof(pcoex_info->bt_sockaddr)); 
 		pcoex_info->bt_sockaddr.sin_family = AF_INET; 
 		pcoex_info->bt_sockaddr.sin_port = htons(CONNECT_PORT_BT); 
 		pcoex_info->bt_sockaddr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
@@ -1469,11 +1469,11 @@ u8 rtw_btcoex_create_kernel_socket(_adapter *padapter)
 			sizeof(pcoex_info->wifi_sockaddr)); 
 		if (kernel_socket_err == 0) {	
 			DBG_871X("binding socket success\n"); 
-			pcoex_info->udpsock->sk->sk_data_ready = rtw_btcoex_recvmsg_init;
+			pcoex_info->udpsock->sk->sk_data_ready = tlw_btcoex_recvmsg_init;
 			pcoex_info->sock_open |=  KERNEL_SOCKET_OK;
 			pcoex_info->BT_attend = _FALSE;
 			DBG_871X("WIFI sending attend_req\n"); 
-			rtw_btcoex_sendmsgbysocket(padapter, attend_req, sizeof(attend_req), _TRUE);
+			tlw_btcoex_sendmsgbysocket(padapter, attend_req, sizeof(attend_req), _TRUE);
 			status = _SUCCESS;
 		} else { 
 			pcoex_info->BT_attend = _FALSE;
@@ -1487,7 +1487,7 @@ u8 rtw_btcoex_create_kernel_socket(_adapter *padapter)
 	return status;
 }
 
-void rtw_btcoex_close_kernel_socket(_adapter *padapter)
+void tlw_btcoex_close_kernel_socket(_adapter *padapter)
 {
 	struct bt_coex_info *pcoex_info = &padapter->coex_info;
 	if (pcoex_info->sock_open & KERNEL_SOCKET_OK) {
@@ -1501,22 +1501,22 @@ void rtw_btcoex_close_kernel_socket(_adapter *padapter)
 	}
 }
 
-void rtw_btcoex_init_socket(_adapter *padapter)
+void tlw_btcoex_init_socket(_adapter *padapter)
 {
 		
 	u8 is_invite = _FALSE;
 	struct bt_coex_info *pcoex_info = &padapter->coex_info;
 	DBG_871X("%s\n", __func__);
 	if (_FALSE == pcoex_info->is_exist) {
-		_rtw_memset(pcoex_info,0,sizeof(struct bt_coex_info));
+		_tlw_memset(pcoex_info,0,sizeof(struct bt_coex_info));
 		pcoex_info->btcoex_wq = create_workqueue("BTCOEX");
 		INIT_DELAYED_WORK(&pcoex_info->recvmsg_work,
-			  (void *)rtw_btcoex_recvmsgbysocket);
+			  (void *)tlw_btcoex_recvmsgbysocket);
 		pbtcoexadapter = padapter;
 		/* We expect BT is off if BT don't send ack to wifi */
 		DBG_871X("We expect BT is off if BT send ack to wifi\n");
-		rtw_btcoex_BTOffOnNotify(pbtcoexadapter, _FALSE);
-		if (rtw_btcoex_create_kernel_socket(padapter) == _SUCCESS) {
+		tlw_btcoex_BTOffOnNotify(pbtcoexadapter, _FALSE);
+		if (tlw_btcoex_create_kernel_socket(padapter) == _SUCCESS) {
 			pcoex_info->is_exist = _TRUE;
 		} else {
 			pcoex_info->is_exist = _FALSE;
@@ -1528,7 +1528,7 @@ void rtw_btcoex_init_socket(_adapter *padapter)
 	}
 }
 
-void rtw_btcoex_close_socket(_adapter *padapter)
+void tlw_btcoex_close_socket(_adapter *padapter)
 {
 	struct bt_coex_info *pcoex_info = &padapter->coex_info;
 
@@ -1538,10 +1538,10 @@ void rtw_btcoex_close_socket(_adapter *padapter)
 	if (_TRUE == pcoex_info->is_exist) {
 		if (_TRUE == pcoex_info->BT_attend) {
 			/*inform BT wifi leave*/
-			rtw_btcoex_sendmsgbysocket(padapter, wifi_leave, sizeof(wifi_leave), _FALSE);
+			tlw_btcoex_sendmsgbysocket(padapter, wifi_leave, sizeof(wifi_leave), _FALSE);
 			msleep(50);
 		}
-		rtw_btcoex_close_kernel_socket(padapter);
+		tlw_btcoex_close_kernel_socket(padapter);
 		pbtcoexadapter = NULL;
 		pcoex_info->is_exist = _FALSE;
 	}
@@ -1551,7 +1551,7 @@ void rtw_btcoex_close_socket(_adapter *padapter)
 	}
 }
 
-void rtw_btcoex_dump_tx_msg(u8 *tx_msg, u8 len, u8 *msg_name)
+void tlw_btcoex_dump_tx_msg(u8 *tx_msg, u8 len, u8 *msg_name)
 {
 	u8 	i = 0;
 	DBG_871X("======> Msg name: %s\n", msg_name);
@@ -1564,7 +1564,7 @@ void rtw_btcoex_dump_tx_msg(u8 *tx_msg, u8 len, u8 *msg_name)
 }
 
 /* Porting from Windows team */
-void rtw_btcoex_SendEventExtBtCoexControl(PADAPTER padapter, u8 bNeedDbgRsp, u8 dataLen, void *pData)
+void tlw_btcoex_SendEventExtBtCoexControl(PADAPTER padapter, u8 bNeedDbgRsp, u8 dataLen, void *pData)
 {
 	u8			len=0, tx_event_length = 0;
 	u8 			localBuf[32] = "";
@@ -1572,13 +1572,13 @@ void rtw_btcoex_SendEventExtBtCoexControl(PADAPTER padapter, u8 bNeedDbgRsp, u8 
 	u8			opCode=0;
 	u8			*pInBuf=(pu1Byte)pData;
 	u8			*pOpCodeContent;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 
 	opCode = pInBuf[0];	
 
 	DBG_871X("%s, OPCode:%02x\n",__func__,opCode);
 
-	pEvent = (rtw_HCI_event*)(&localBuf[0]);
+	pEvent = (tlw_HCI_event*)(&localBuf[0]);
 
 	//len += bthci_ExtensionEventHeaderRtk(&localBuf[0], 
 	//	HCI_EVENT_EXT_BT_COEX_CONTROL);
@@ -1588,7 +1588,7 @@ void rtw_btcoex_SendEventExtBtCoexControl(PADAPTER padapter, u8 bNeedDbgRsp, u8 
 	
 	// Return parameters starts from here
 	pRetPar = &pEvent->Data[len];
-	_rtw_memcpy(&pRetPar[0], pData, dataLen);
+	_tlw_memcpy(&pRetPar[0], pData, dataLen);
 
 	len += dataLen;
 
@@ -1597,16 +1597,16 @@ void rtw_btcoex_SendEventExtBtCoexControl(PADAPTER padapter, u8 bNeedDbgRsp, u8 
 	//total tx event length + EventCode length + sizeof(length)
 	tx_event_length = pEvent->Length + 2;
 #if 0
-	rtw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, "BT COEX CONTROL", _FALSE);
+	tlw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, "BT COEX CONTROL", _FALSE);
 #endif
-	rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+	tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 
 }
 
 /* Porting from Windows team */
-void rtw_btcoex_SendEventExtBtInfoControl(PADAPTER padapter, u8 dataLen, void *pData)
+void tlw_btcoex_SendEventExtBtInfoControl(PADAPTER padapter, u8 dataLen, void *pData)
 {
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	u8			*pRetPar;
 	u8			len=0, tx_event_length = 0;
 	u8 			localBuf[32] = "";
@@ -1621,7 +1621,7 @@ void rtw_btcoex_SendEventExtBtInfoControl(PADAPTER padapter, u8 dataLen, void *p
 		return;
 	}
 
-	pEvent = (rtw_HCI_event *)(&localBuf[0]);
+	pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 	//len += bthci_ExtensionEventHeaderRtk(&localBuf[0], 
 	//		HCI_EVENT_EXT_BT_INFO_CONTROL);
@@ -1631,7 +1631,7 @@ void rtw_btcoex_SendEventExtBtInfoControl(PADAPTER padapter, u8 dataLen, void *p
 
 	// Return parameters starts from here
 	pRetPar = &pEvent->Data[len];
-	_rtw_memcpy(&pRetPar[0], pData, dataLen);
+	_tlw_memcpy(&pRetPar[0], pData, dataLen);
 
 	len += dataLen;
 
@@ -1640,26 +1640,26 @@ void rtw_btcoex_SendEventExtBtInfoControl(PADAPTER padapter, u8 dataLen, void *p
 	//total tx event length + EventCode length + sizeof(length)
 	tx_event_length = pEvent->Length + 2;
 #if 0
-	rtw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, "BT INFO CONTROL");
+	tlw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, "BT INFO CONTROL");
 #endif
-	rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+	tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 	
 }
 
-void rtw_btcoex_SendScanNotify(PADAPTER padapter, u8 scanType)
+void tlw_btcoex_SendScanNotify(PADAPTER padapter, u8 scanType)
 {
 	u8	len=0, tx_event_length=0;
 	u8 	localBuf[7] = "";
 	u8	*pRetPar;
 	u8	*pu1Temp;
-	rtw_HCI_event *pEvent;
+	tlw_HCI_event *pEvent;
 	struct bt_coex_info *pcoex_info = &padapter->coex_info;
 	PBT_MGNT		pBtMgnt = &pcoex_info->BtMgnt;
 
 //	if(!pBtMgnt->BtOperationOn)
 //		return;
 		
-	pEvent = (rtw_HCI_event *)(&localBuf[0]);
+	pEvent = (tlw_HCI_event *)(&localBuf[0]);
 
 //	len += bthci_ExtensionEventHeaderRtk(&localBuf[0], 
 //			HCI_EVENT_EXT_WIFI_SCAN_NOTIFY);
@@ -1680,9 +1680,9 @@ void rtw_btcoex_SendScanNotify(PADAPTER padapter, u8 scanType)
 	//total tx event length + EventCode length + sizeof(length)
 	tx_event_length = pEvent->Length + 2;
 #if 0
-	rtw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, "WIFI SCAN OPERATION");
+	tlw_btcoex_dump_tx_msg((u8 *)pEvent, tx_event_length, "WIFI SCAN OPERATION");
 #endif	
-	rtw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
+	tlw_btcoex_sendmsgbysocket(padapter, (u8 *)pEvent, tx_event_length, _FALSE);
 }
 #endif //CONFIG_BT_COEXIST_SOCKET_TRX
 #endif // CONFIG_BT_COEXIST

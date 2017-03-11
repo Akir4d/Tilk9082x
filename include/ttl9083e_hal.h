@@ -251,7 +251,7 @@ Total page numbers : 176(0xB0) / 256(0x100)
 //#define RT_IS_FUNC_DISABLED(__pAdapter, __FuncBits) ( (__pAdapter)->DisabledFunctions & (__FuncBits) )
 
 #ifdef CONFIG_PCI_HCI
- /* according to the define in the rtw_xmit.h, rtw_recv.h */
+ /* according to the define in the tlw_xmit.h, tlw_recv.h */
 #define TX_DESC_NUM_9083EE  TXDESC_NUM   /* 128 */
 #ifdef CONFIG_CONCURRENT_MODE
 /*#define BE_QUEUE_TX_DESC_NUM_9083EE  (TXDESC_NUM<<1)*/    		/* 256 */
@@ -311,7 +311,7 @@ void SetBcnCtrlReg(PADAPTER padapter, u8 SetBits, u8 ClearBits);
 void ttl9083e_start_thread(_adapter *padapter);
 void ttl9083e_stop_thread(_adapter *padapter);
 
-void rtw_IOL_cmd_tx_pkt_buf_dump(ADAPTER *Adapter,int data_len);
+void tlw_IOL_cmd_tx_pkt_buf_dump(ADAPTER *Adapter,int data_len);
 #ifdef CONFIG_IOL_EFUSE_PATCH
 s32 ttl9083e_iol_efuse_patch(PADAPTER padapter);
 #endif//CONFIG_IOL_EFUSE_PATCH

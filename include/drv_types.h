@@ -30,7 +30,7 @@
 #include <drv_conf.h>
 #include <basic_types.h>
 #include <osdep_service.h>
-#include <rtw_byteorder.h>
+#include <tlw_byteorder.h>
 #include <wlan_bssdef.h>
 #include <wifi.h>
 #include <ieee80211.h>
@@ -62,72 +62,72 @@ enum _NIC_VERSION {
 
 typedef struct _ADAPTER _adapter, ADAPTER,*PADAPTER;
 
-#include <rtw_debug.h>
-#include <rtw_rf.h>
+#include <tlw_debug.h>
+#include <tlw_rf.h>
 
 #ifdef CONFIG_80211N_HT
-#include <rtw_ht.h>
+#include <tlw_ht.h>
 #endif
 
 #ifdef CONFIG_80211AC_VHT
-#include <rtw_vht.h>
+#include <tlw_vht.h>
 #endif
 
 #ifdef CONFIG_INTEL_WIDI
-#include <rtw_intel_widi.h>
+#include <tlw_intel_widi.h>
 #endif
 
-#include <rtw_cmd.h>
+#include <tlw_cmd.h>
 #include <cmd_osdep.h>
-#include <rtw_security.h>
-#include <rtw_xmit.h>
+#include <tlw_security.h>
+#include <tlw_xmit.h>
 #include <xmit_osdep.h>
-#include <rtw_recv.h>
+#include <tlw_recv.h>
 
 #ifdef CONFIG_BEAMFORMING
-#include <rtw_beamforming.h>
+#include <tlw_beamforming.h>
 #endif
 
 #include <recv_osdep.h>
-#include <rtw_efuse.h>
-#include <rtw_sreset.h>
+#include <tlw_efuse.h>
+#include <tlw_sreset.h>
 #include <hal_intf.h>
 #include <hal_com.h>
 #include <hal_com_led.h>
 #include "../hal/hal_dm.h"
-#include <rtw_qos.h>
-#include <rtw_pwrctrl.h>
-#include <rtw_mlme.h>
+#include <tlw_qos.h>
+#include <tlw_pwrctrl.h>
+#include <tlw_mlme.h>
 #include <mlme_osdep.h>
-#include <rtw_io.h>
-#include <rtw_ioctl.h>
-#include <rtw_ioctl_set.h>
-#include <rtw_ioctl_query.h>
-#include <rtw_ioctl_ttl.h>
+#include <tlw_io.h>
+#include <tlw_ioctl.h>
+#include <tlw_ioctl_set.h>
+#include <tlw_ioctl_query.h>
+#include <tlw_ioctl_ttl.h>
 #include <osdep_intf.h>
-#include <rtw_eeprom.h>
+#include <tlw_eeprom.h>
 #include <sta_info.h>
-#include <rtw_event.h>
-#include <rtw_mlme_ext.h>
-#include <rtw_ap.h>
-#include <rtw_efuse.h>
-#include <rtw_version.h>
-#include <rtw_odm.h>
+#include <tlw_event.h>
+#include <tlw_mlme_ext.h>
+#include <tlw_ap.h>
+#include <tlw_efuse.h>
+#include <tlw_version.h>
+#include <tlw_odm.h>
 
 #ifdef CONFIG_PREALLOC_RX_SKB_BUFFER
-#include <rtw_mem.h>
+#include <tlw_mem.h>
 #endif
 
 #ifdef CONFIG_P2P
-#include <rtw_p2p.h>
+#include <tlw_p2p.h>
 #endif // CONFIG_P2P
 
 #ifdef CONFIG_TDLS
-#include <rtw_tdls.h>
+#include <tlw_tdls.h>
 #endif // CONFIG_TDLS
 
 #ifdef CONFIG_WAPI_SUPPORT
-#include <rtw_wapi.h>
+#include <tlw_wapi.h>
 #endif // CONFIG_WAPI_SUPPORT
 
 #ifdef CONFIG_DRVEXT_MODULE
@@ -135,15 +135,15 @@ typedef struct _ADAPTER _adapter, ADAPTER,*PADAPTER;
 #endif // CONFIG_DRVEXT_MODULE
 
 #ifdef CONFIG_MP_INCLUDED
-#include <rtw_mp.h>
+#include <tlw_mp.h>
 #endif // CONFIG_MP_INCLUDED
 
 #ifdef CONFIG_BR_EXT
-#include <rtw_br_ext.h>
+#include <tlw_br_ext.h>
 #endif // CONFIG_BR_EXT
 
 #ifdef CONFIG_IOL
-#include <rtw_iol.h>
+#include <tlw_iol.h>
 #endif // CONFIG_IOL
 
 #include <ip.h>
@@ -151,10 +151,10 @@ typedef struct _ADAPTER _adapter, ADAPTER,*PADAPTER;
 #include <ethernet.h>
 #include <circ_buf.h>
 
-#include <rtw_android.h>
+#include <tlw_android.h>
 
 #ifdef CONFIG_BT_COEXIST
-#include <rtw_btcoex.h>
+#include <tlw_btcoex.h>
 #endif // CONFIG_BT_COEXIST
 
 #define SPEC_DEV_ID_NONE BIT(0)
@@ -562,7 +562,7 @@ struct debug_priv {
 	u64 dbg_rx_conflic_mac_addr_cnt;
 };
 
-struct rtw_traffic_statistics {
+struct tlw_traffic_statistics {
 	// tx statistics
 	u64	tx_bytes;
 	u64	tx_pkts;
@@ -646,7 +646,7 @@ struct rf_ctl_t {
 };
 
 #define RTW_CAC_STOPPED 0
-#define IS_UNDER_CAC(rfctl) ((rfctl)->cac_end_time > rtw_get_current_time())
+#define IS_UNDER_CAC(rfctl) ((rfctl)->cac_end_time > tlw_get_current_time())
 #define IS_CAC_STOPPED(rfctl) ((rfctl)->cac_end_time == RTW_CAC_STOPPED)
 
 struct dvobj_priv
@@ -705,7 +705,7 @@ struct dvobj_priv
 
 	struct pwrctrl_priv pwrctl_priv;
 
-	struct rtw_traffic_statistics	traffic_stat;
+	struct tlw_traffic_statistics	traffic_stat;
 
 #if defined(CONFIG_IOCTL_CFG80211) && defined(RTW_SINGLE_WIPHY)
 	struct wiphy *wiphy;
@@ -1014,7 +1014,7 @@ struct _ADAPTER{
 	_nic_hdl pnetdev;
 	char old_ifname[IFNAMSIZ];
 
-	// used by rtw_rereg_nd_name related function
+	// used by tlw_rereg_nd_name related function
 	struct rereg_nd_name_data {
 		_nic_hdl old_pnetdev;
 		char old_ifname[IFNAMSIZ];
@@ -1030,8 +1030,8 @@ struct _ADAPTER{
 	struct proc_dir_entry *dir_odm;
 
 #ifdef CONFIG_IOCTL_CFG80211
-	struct wireless_dev *rtw_wdev;
-	struct rtw_wdev_priv wdev_data;
+	struct wireless_dev *tlw_wdev;
+	struct tlw_wdev_priv wdev_data;
 
 	#if !defined(RTW_SINGLE_WIPHY)
 	struct wiphy *wiphy;
@@ -1154,28 +1154,28 @@ struct _ADAPTER{
 
 #define adapter_mac_addr(adapter) (adapter->mac_addr)
 
-#define rtw_get_chip_type(adapter) (((PADAPTER)adapter)->dvobj->chip_type)
-#define rtw_get_hw_type(adapter) (((PADAPTER)adapter)->dvobj->HardwareType)
-#define rtw_get_intf_type(adapter) (((PADAPTER)adapter)->dvobj->interface_type)
+#define tlw_get_chip_type(adapter) (((PADAPTER)adapter)->dvobj->chip_type)
+#define tlw_get_hw_type(adapter) (((PADAPTER)adapter)->dvobj->HardwareType)
+#define tlw_get_intf_type(adapter) (((PADAPTER)adapter)->dvobj->interface_type)
 
-static inline void rtw_set_surprise_removed(_adapter *padapter)
+static inline void tlw_set_surprise_removed(_adapter *padapter)
 {
 	ATOMIC_SET(&adapter_to_dvobj(padapter)->bSurpriseRemoved, _TRUE);
 }
-static inline void rtw_clr_surprise_removed(_adapter *padapter)
+static inline void tlw_clr_surprise_removed(_adapter *padapter)
 {
 	ATOMIC_SET(&adapter_to_dvobj(padapter)->bSurpriseRemoved, _FALSE);
 }
-static inline void rtw_set_drv_stopped(_adapter *padapter)
+static inline void tlw_set_drv_stopped(_adapter *padapter)
 {
 	ATOMIC_SET(&adapter_to_dvobj(padapter)->bDriverStopped, _TRUE);
 }
-static inline void rtw_clr_drv_stopped(_adapter *padapter)
+static inline void tlw_clr_drv_stopped(_adapter *padapter)
 {
 	ATOMIC_SET(&adapter_to_dvobj(padapter)->bDriverStopped, _FALSE);
 }
-#define rtw_is_surprise_removed(padapter)	(ATOMIC_READ(&adapter_to_dvobj(padapter)->bSurpriseRemoved) == _TRUE)
-#define rtw_is_drv_stopped(padapter)		(ATOMIC_READ(&adapter_to_dvobj(padapter)->bDriverStopped) == _TRUE)
+#define tlw_is_surprise_removed(padapter)	(ATOMIC_READ(&adapter_to_dvobj(padapter)->bSurpriseRemoved) == _TRUE)
+#define tlw_is_drv_stopped(padapter)		(ATOMIC_READ(&adapter_to_dvobj(padapter)->bDriverStopped) == _TRUE)
 
 //
 // Function disabled.
@@ -1201,13 +1201,13 @@ __inline static void RTW_ENABLE_FUNC(_adapter*padapter, int func_bit)
 }
 
 #define RTW_CANNOT_RUN(padapter) \
-			(rtw_is_surprise_removed(padapter) || \
-				rtw_is_drv_stopped(padapter))
+			(tlw_is_surprise_removed(padapter) || \
+				tlw_is_drv_stopped(padapter))
 
 #define RTW_IS_FUNC_DISABLED(padapter, func_bit) (ATOMIC_READ(&adapter_to_dvobj(padapter)->disable_func) & (func_bit))
 
 #define RTW_CANNOT_IO(padapter) \
-			(rtw_is_surprise_removed(padapter) || \
+			(tlw_is_surprise_removed(padapter) || \
 				RTW_IS_FUNC_DISABLED((padapter), DF_IO_BIT))
 
 #define RTW_CANNOT_RX(padapter) \
@@ -1219,17 +1219,17 @@ __inline static void RTW_ENABLE_FUNC(_adapter*padapter, int func_bit)
 			 RTW_IS_FUNC_DISABLED((padapter), DF_TX_BIT))
 
 #ifdef CONFIG_PNO_SUPPORT
-int rtw_parse_ssid_list_tlv(char** list_str, pno_ssid_t* ssid, int max, int *bytes_left);
-int rtw_dev_pno_set(struct net_device *net, pno_ssid_t* ssid, int num, 
+int tlw_parse_ssid_list_tlv(char** list_str, pno_ssid_t* ssid, int max, int *bytes_left);
+int tlw_dev_pno_set(struct net_device *net, pno_ssid_t* ssid, int num, 
 					int pno_time, int pno_repeat, int pno_freq_expo_max);
 #ifdef CONFIG_PNO_SET_DEBUG
-void rtw_dev_pno_debug(struct net_device *net);
+void tlw_dev_pno_debug(struct net_device *net);
 #endif //CONFIG_PNO_SET_DEBUG
 #endif //CONFIG_PNO_SUPPORT
 
 #ifdef CONFIG_WOWLAN
-int rtw_suspend_wow(_adapter *padapter);
-int rtw_resume_process_wow(_adapter *padapter);
+int tlw_suspend_wow(_adapter *padapter);
+int tlw_resume_process_wow(_adapter *padapter);
 #endif
 
 // HCI Related header file

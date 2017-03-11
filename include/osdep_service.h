@@ -49,10 +49,10 @@
 #include <osdep_service_ce.h>
 #endif
 
-#define RTW_TIMER_HDL_NAME(name) rtw_##name##_timer_hdl
+#define RTW_TIMER_HDL_NAME(name) tlw_##name##_timer_hdl
 #define RTW_DECLARE_TIMER_HDL(name) void RTW_TIMER_HDL_NAME(name)(RTW_TIMER_HDL_ARGS)
 
-//#include <rtw_byteorder.h>
+//#include <tlw_byteorder.h>
 
 #ifndef BIT
 	#define BIT(x)	( 1 << (x))
@@ -102,7 +102,7 @@ extern int RTW_STATUS_CODE(int error_code);
 #define CONFIG_USE_VMALLOC
 #endif
 
-/* flags used for rtw_mstat_update() */
+/* flags used for tlw_mstat_update() */
 enum mstat_f {
 	/* type: 0x00ff */
 	MSTAT_TYPE_VIR = 0x00,
@@ -132,188 +132,188 @@ typedef enum mstat_status{
 } MSTAT_STATUS;
 
 #ifdef DBG_MEM_ALLOC
-void rtw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 sz);
-void rtw_mstat_dump (void *sel);
-u8* dbg_rtw_vmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
-u8* dbg_rtw_zvmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
-void dbg_rtw_vmfree(u8 *pbuf, const enum mstat_f flags, u32 sz, const char *func, const int line);
-u8* dbg_rtw_malloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
-u8* dbg_rtw_zmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
-void dbg_rtw_mfree(u8 *pbuf, const enum mstat_f flags, u32 sz, const char *func, const int line);
+void tlw_mstat_update(const enum mstat_f flags, const MSTAT_STATUS status, u32 sz);
+void tlw_mstat_dump (void *sel);
+u8* dbg_tlw_vmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
+u8* dbg_tlw_zvmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
+void dbg_tlw_vmfree(u8 *pbuf, const enum mstat_f flags, u32 sz, const char *func, const int line);
+u8* dbg_tlw_malloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
+u8* dbg_tlw_zmalloc(u32 sz, const enum mstat_f flags, const char *func, const int line);
+void dbg_tlw_mfree(u8 *pbuf, const enum mstat_f flags, u32 sz, const char *func, const int line);
 
-struct sk_buff * dbg_rtw_skb_alloc(unsigned int size, const enum mstat_f flags, const char *func, const int line);
-void dbg_rtw_skb_free(struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line);
-struct sk_buff *dbg_rtw_skb_copy(const struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line);
-struct sk_buff *dbg_rtw_skb_clone(struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line);
-int dbg_rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb, const enum mstat_f flags, const char *func, int line);
-void dbg_rtw_skb_queue_purge(struct sk_buff_head *list, enum mstat_f flags, const char *func, int line);
+struct sk_buff * dbg_tlw_skb_alloc(unsigned int size, const enum mstat_f flags, const char *func, const int line);
+void dbg_tlw_skb_free(struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line);
+struct sk_buff *dbg_tlw_skb_copy(const struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line);
+struct sk_buff *dbg_tlw_skb_clone(struct sk_buff *skb, const enum mstat_f flags, const char *func, const int line);
+int dbg_tlw_netif_rx(_nic_hdl ndev, struct sk_buff *skb, const enum mstat_f flags, const char *func, int line);
+void dbg_tlw_skb_queue_purge(struct sk_buff_head *list, enum mstat_f flags, const char *func, int line);
 #ifdef CONFIG_USB_HCI
-void *dbg_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma, const enum mstat_f flags, const char *func, const int line);
-void dbg_rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma, const enum mstat_f flags, const char *func, const int line);
+void *dbg_tlw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma, const enum mstat_f flags, const char *func, const int line);
+void dbg_tlw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma, const enum mstat_f flags, const char *func, const int line);
 #endif /* CONFIG_USB_HCI */
 
 #ifdef CONFIG_USE_VMALLOC
-#define rtw_vmalloc(sz)			dbg_rtw_vmalloc((sz), MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
-#define rtw_zvmalloc(sz)			dbg_rtw_zvmalloc((sz), MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
-#define rtw_vmfree(pbuf, sz)		dbg_rtw_vmfree((pbuf), (sz), MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
-#define rtw_vmalloc_f(sz, mstat_f)			dbg_rtw_vmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
-#define rtw_zvmalloc_f(sz, mstat_f)		dbg_rtw_zvmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
-#define rtw_vmfree_f(pbuf, sz, mstat_f)	dbg_rtw_vmfree((pbuf), (sz), ((mstat_f)&0xff00)|MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
+#define tlw_vmalloc(sz)			dbg_tlw_vmalloc((sz), MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
+#define tlw_zvmalloc(sz)			dbg_tlw_zvmalloc((sz), MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
+#define tlw_vmfree(pbuf, sz)		dbg_tlw_vmfree((pbuf), (sz), MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
+#define tlw_vmalloc_f(sz, mstat_f)			dbg_tlw_vmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
+#define tlw_zvmalloc_f(sz, mstat_f)		dbg_tlw_zvmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
+#define tlw_vmfree_f(pbuf, sz, mstat_f)	dbg_tlw_vmfree((pbuf), (sz), ((mstat_f)&0xff00)|MSTAT_TYPE_VIR, __FUNCTION__, __LINE__)
 #else /* CONFIG_USE_VMALLOC */
-#define rtw_vmalloc(sz)			dbg_rtw_malloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_zvmalloc(sz)			dbg_rtw_zmalloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_vmfree(pbuf, sz)		dbg_rtw_mfree((pbuf), (sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_vmalloc_f(sz, mstat_f)			dbg_rtw_malloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_zvmalloc_f(sz, mstat_f)		dbg_rtw_zmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_vmfree_f(pbuf, sz, mstat_f)	dbg_rtw_mfree((pbuf), (sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_vmalloc(sz)			dbg_tlw_malloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_zvmalloc(sz)			dbg_tlw_zmalloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_vmfree(pbuf, sz)		dbg_tlw_mfree((pbuf), (sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_vmalloc_f(sz, mstat_f)			dbg_tlw_malloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_zvmalloc_f(sz, mstat_f)		dbg_tlw_zmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_vmfree_f(pbuf, sz, mstat_f)	dbg_tlw_mfree((pbuf), (sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
 #endif /* CONFIG_USE_VMALLOC */
-#define rtw_malloc(sz)			dbg_rtw_malloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_zmalloc(sz)			dbg_rtw_zmalloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_mfree(pbuf, sz)		dbg_rtw_mfree((pbuf), (sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_malloc_f(sz, mstat_f)			dbg_rtw_malloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_zmalloc_f(sz, mstat_f)			dbg_rtw_zmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
-#define rtw_mfree_f(pbuf, sz, mstat_f)		dbg_rtw_mfree((pbuf), (sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_malloc(sz)			dbg_tlw_malloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_zmalloc(sz)			dbg_tlw_zmalloc((sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_mfree(pbuf, sz)		dbg_tlw_mfree((pbuf), (sz), MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_malloc_f(sz, mstat_f)			dbg_tlw_malloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_zmalloc_f(sz, mstat_f)			dbg_tlw_zmalloc((sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
+#define tlw_mfree_f(pbuf, sz, mstat_f)		dbg_tlw_mfree((pbuf), (sz), ((mstat_f)&0xff00)|MSTAT_TYPE_PHY, __FUNCTION__, __LINE__)
 
-#define rtw_skb_alloc(size)	dbg_rtw_skb_alloc((size), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_free(skb)	dbg_rtw_skb_free((skb), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_alloc_f(size, mstat_f)	dbg_rtw_skb_alloc((size), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_free_f(skb, mstat_f)	dbg_rtw_skb_free((skb), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_copy(skb)	dbg_rtw_skb_copy((skb), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_clone(skb)	dbg_rtw_skb_clone((skb), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_copy_f(skb, mstat_f)	dbg_rtw_skb_copy((skb), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_clone_f(skb, mstat_f)	dbg_rtw_skb_clone((skb), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_netif_rx(ndev, skb)	dbg_rtw_netif_rx(ndev, skb, MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
-#define rtw_skb_queue_purge(sk_buff_head) dbg_rtw_skb_queue_purge(sk_buff_head, MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_alloc(size)	dbg_tlw_skb_alloc((size), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_free(skb)	dbg_tlw_skb_free((skb), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_alloc_f(size, mstat_f)	dbg_tlw_skb_alloc((size), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_free_f(skb, mstat_f)	dbg_tlw_skb_free((skb), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_copy(skb)	dbg_tlw_skb_copy((skb), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_clone(skb)	dbg_tlw_skb_clone((skb), MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_copy_f(skb, mstat_f)	dbg_tlw_skb_copy((skb), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_clone_f(skb, mstat_f)	dbg_tlw_skb_clone((skb), ((mstat_f)&0xff00)|MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_netif_rx(ndev, skb)	dbg_tlw_netif_rx(ndev, skb, MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
+#define tlw_skb_queue_purge(sk_buff_head) dbg_tlw_skb_queue_purge(sk_buff_head, MSTAT_TYPE_SKB, __FUNCTION__, __LINE__)
 #ifdef CONFIG_USB_HCI
-#define rtw_usb_buffer_alloc(dev, size, dma)		dbg_rtw_usb_buffer_alloc((dev), (size), (dma), MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
-#define rtw_usb_buffer_free(dev, size, addr, dma)	dbg_rtw_usb_buffer_free((dev), (size), (addr), (dma), MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
-#define rtw_usb_buffer_alloc_f(dev, size, dma, mstat_f)			dbg_rtw_usb_buffer_alloc((dev), (size), (dma), ((mstat_f)&0xff00)|MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
-#define rtw_usb_buffer_free_f(dev, size, addr, dma, mstat_f)	dbg_rtw_usb_buffer_free((dev), (size), (addr), (dma), ((mstat_f)&0xff00)|MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
+#define tlw_usb_buffer_alloc(dev, size, dma)		dbg_tlw_usb_buffer_alloc((dev), (size), (dma), MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
+#define tlw_usb_buffer_free(dev, size, addr, dma)	dbg_tlw_usb_buffer_free((dev), (size), (addr), (dma), MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
+#define tlw_usb_buffer_alloc_f(dev, size, dma, mstat_f)			dbg_tlw_usb_buffer_alloc((dev), (size), (dma), ((mstat_f)&0xff00)|MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
+#define tlw_usb_buffer_free_f(dev, size, addr, dma, mstat_f)	dbg_tlw_usb_buffer_free((dev), (size), (addr), (dma), ((mstat_f)&0xff00)|MSTAT_TYPE_USB, __FUNCTION__, __LINE__)
 #endif /* CONFIG_USB_HCI */
 
 #else /* DBG_MEM_ALLOC */
-#define rtw_mstat_update(flag, status, sz) do {} while(0)
-#define rtw_mstat_dump(sel) do {} while(0)
-u8*	_rtw_vmalloc(u32 sz);
-u8*	_rtw_zvmalloc(u32 sz);
-void	_rtw_vmfree(u8 *pbuf, u32 sz);
-u8*	_rtw_zmalloc(u32 sz);
-u8*	_rtw_malloc(u32 sz);
-void	_rtw_mfree(u8 *pbuf, u32 sz);
+#define tlw_mstat_update(flag, status, sz) do {} while(0)
+#define tlw_mstat_dump(sel) do {} while(0)
+u8*	_tlw_vmalloc(u32 sz);
+u8*	_tlw_zvmalloc(u32 sz);
+void	_tlw_vmfree(u8 *pbuf, u32 sz);
+u8*	_tlw_zmalloc(u32 sz);
+u8*	_tlw_malloc(u32 sz);
+void	_tlw_mfree(u8 *pbuf, u32 sz);
 
-struct sk_buff *_rtw_skb_alloc(u32 sz);
-void _rtw_skb_free(struct sk_buff *skb);
-struct sk_buff *_rtw_skb_copy(const struct sk_buff *skb);
-struct sk_buff *_rtw_skb_clone(struct sk_buff *skb);
-int _rtw_netif_rx(_nic_hdl ndev, struct sk_buff *skb);
-void _rtw_skb_queue_purge(struct sk_buff_head *list);
+struct sk_buff *_tlw_skb_alloc(u32 sz);
+void _tlw_skb_free(struct sk_buff *skb);
+struct sk_buff *_tlw_skb_copy(const struct sk_buff *skb);
+struct sk_buff *_tlw_skb_clone(struct sk_buff *skb);
+int _tlw_netif_rx(_nic_hdl ndev, struct sk_buff *skb);
+void _tlw_skb_queue_purge(struct sk_buff_head *list);
 
 #ifdef CONFIG_USB_HCI
-void *_rtw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma);
-void _rtw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma);
+void *_tlw_usb_buffer_alloc(struct usb_device *dev, size_t size, dma_addr_t *dma);
+void _tlw_usb_buffer_free(struct usb_device *dev, size_t size, void *addr, dma_addr_t dma);
 #endif /* CONFIG_USB_HCI */
 
 #ifdef CONFIG_USE_VMALLOC
-#define rtw_vmalloc(sz)			_rtw_vmalloc((sz))
-#define rtw_zvmalloc(sz)			_rtw_zvmalloc((sz))
-#define rtw_vmfree(pbuf, sz)		_rtw_vmfree((pbuf), (sz))
-#define rtw_vmalloc_f(sz, mstat_f)			_rtw_vmalloc((sz))
-#define rtw_zvmalloc_f(sz, mstat_f)		_rtw_zvmalloc((sz))
-#define rtw_vmfree_f(pbuf, sz, mstat_f)	_rtw_vmfree((pbuf), (sz))
+#define tlw_vmalloc(sz)			_tlw_vmalloc((sz))
+#define tlw_zvmalloc(sz)			_tlw_zvmalloc((sz))
+#define tlw_vmfree(pbuf, sz)		_tlw_vmfree((pbuf), (sz))
+#define tlw_vmalloc_f(sz, mstat_f)			_tlw_vmalloc((sz))
+#define tlw_zvmalloc_f(sz, mstat_f)		_tlw_zvmalloc((sz))
+#define tlw_vmfree_f(pbuf, sz, mstat_f)	_tlw_vmfree((pbuf), (sz))
 #else /* CONFIG_USE_VMALLOC */
-#define rtw_vmalloc(sz)			_rtw_malloc((sz))
-#define rtw_zvmalloc(sz)			_rtw_zmalloc((sz))
-#define rtw_vmfree(pbuf, sz)		_rtw_mfree((pbuf), (sz))
-#define rtw_vmalloc_f(sz, mstat_f)			_rtw_malloc((sz))
-#define rtw_zvmalloc_f(sz, mstat_f)		_rtw_zmalloc((sz))
-#define rtw_vmfree_f(pbuf, sz, mstat_f)	_rtw_mfree((pbuf), (sz))
+#define tlw_vmalloc(sz)			_tlw_malloc((sz))
+#define tlw_zvmalloc(sz)			_tlw_zmalloc((sz))
+#define tlw_vmfree(pbuf, sz)		_tlw_mfree((pbuf), (sz))
+#define tlw_vmalloc_f(sz, mstat_f)			_tlw_malloc((sz))
+#define tlw_zvmalloc_f(sz, mstat_f)		_tlw_zmalloc((sz))
+#define tlw_vmfree_f(pbuf, sz, mstat_f)	_tlw_mfree((pbuf), (sz))
 #endif /* CONFIG_USE_VMALLOC */
-#define rtw_malloc(sz)			_rtw_malloc((sz))
-#define rtw_zmalloc(sz)			_rtw_zmalloc((sz))
-#define rtw_mfree(pbuf, sz)		_rtw_mfree((pbuf), (sz))
-#define rtw_malloc_f(sz, mstat_f)			_rtw_malloc((sz))
-#define rtw_zmalloc_f(sz, mstat_f)			_rtw_zmalloc((sz))
-#define rtw_mfree_f(pbuf, sz, mstat_f)		_rtw_mfree((pbuf), (sz))
+#define tlw_malloc(sz)			_tlw_malloc((sz))
+#define tlw_zmalloc(sz)			_tlw_zmalloc((sz))
+#define tlw_mfree(pbuf, sz)		_tlw_mfree((pbuf), (sz))
+#define tlw_malloc_f(sz, mstat_f)			_tlw_malloc((sz))
+#define tlw_zmalloc_f(sz, mstat_f)			_tlw_zmalloc((sz))
+#define tlw_mfree_f(pbuf, sz, mstat_f)		_tlw_mfree((pbuf), (sz))
 
-#define rtw_skb_alloc(size) _rtw_skb_alloc((size))
-#define rtw_skb_free(skb) _rtw_skb_free((skb))
-#define rtw_skb_alloc_f(size, mstat_f)	_rtw_skb_alloc((size))
-#define rtw_skb_free_f(skb, mstat_f)	_rtw_skb_free((skb))
-#define rtw_skb_copy(skb)	_rtw_skb_copy((skb))
-#define rtw_skb_clone(skb)	_rtw_skb_clone((skb))
-#define rtw_skb_copy_f(skb, mstat_f)	_rtw_skb_copy((skb))
-#define rtw_skb_clone_f(skb, mstat_f)	_rtw_skb_clone((skb))
-#define rtw_netif_rx(ndev, skb) _rtw_netif_rx(ndev, skb)
-#define rtw_skb_queue_purge(sk_buff_head) _rtw_skb_queue_purge(sk_buff_head)
+#define tlw_skb_alloc(size) _tlw_skb_alloc((size))
+#define tlw_skb_free(skb) _tlw_skb_free((skb))
+#define tlw_skb_alloc_f(size, mstat_f)	_tlw_skb_alloc((size))
+#define tlw_skb_free_f(skb, mstat_f)	_tlw_skb_free((skb))
+#define tlw_skb_copy(skb)	_tlw_skb_copy((skb))
+#define tlw_skb_clone(skb)	_tlw_skb_clone((skb))
+#define tlw_skb_copy_f(skb, mstat_f)	_tlw_skb_copy((skb))
+#define tlw_skb_clone_f(skb, mstat_f)	_tlw_skb_clone((skb))
+#define tlw_netif_rx(ndev, skb) _tlw_netif_rx(ndev, skb)
+#define tlw_skb_queue_purge(sk_buff_head) _tlw_skb_queue_purge(sk_buff_head)
 #ifdef CONFIG_USB_HCI
-#define rtw_usb_buffer_alloc(dev, size, dma) _rtw_usb_buffer_alloc((dev), (size), (dma))
-#define rtw_usb_buffer_free(dev, size, addr, dma) _rtw_usb_buffer_free((dev), (size), (addr), (dma))
-#define rtw_usb_buffer_alloc_f(dev, size, dma, mstat_f) _rtw_usb_buffer_alloc((dev), (size), (dma))
-#define rtw_usb_buffer_free_f(dev, size, addr, dma, mstat_f) _rtw_usb_buffer_free((dev), (size), (addr), (dma))
+#define tlw_usb_buffer_alloc(dev, size, dma) _tlw_usb_buffer_alloc((dev), (size), (dma))
+#define tlw_usb_buffer_free(dev, size, addr, dma) _tlw_usb_buffer_free((dev), (size), (addr), (dma))
+#define tlw_usb_buffer_alloc_f(dev, size, dma, mstat_f) _tlw_usb_buffer_alloc((dev), (size), (dma))
+#define tlw_usb_buffer_free_f(dev, size, addr, dma, mstat_f) _tlw_usb_buffer_free((dev), (size), (addr), (dma))
 #endif /* CONFIG_USB_HCI */
 #endif /* DBG_MEM_ALLOC */
 
-extern void*	rtw_malloc2d(int h, int w, size_t size);
-extern void	rtw_mfree2d(void *pbuf, int h, int w, int size);
+extern void*	tlw_malloc2d(int h, int w, size_t size);
+extern void	tlw_mfree2d(void *pbuf, int h, int w, int size);
 
-extern void	_rtw_memcpy(void *dec, const void *sour, u32 sz);
-extern int	_rtw_memcmp(void *dst, void *src, u32 sz);
-extern void	_rtw_memset(void *pbuf, int c, u32 sz);
+extern void	_tlw_memcpy(void *dec, const void *sour, u32 sz);
+extern int	_tlw_memcmp(void *dst, void *src, u32 sz);
+extern void	_tlw_memset(void *pbuf, int c, u32 sz);
 
-extern void	_rtw_init_listhead(_list *list);
-extern u32	rtw_is_list_empty(_list *phead);
-extern void	rtw_list_insert_head(_list *plist, _list *phead);
-extern void	rtw_list_insert_tail(_list *plist, _list *phead);
+extern void	_tlw_init_listhead(_list *list);
+extern u32	tlw_is_list_empty(_list *phead);
+extern void	tlw_list_insert_head(_list *plist, _list *phead);
+extern void	tlw_list_insert_tail(_list *plist, _list *phead);
 #ifndef PLATFORM_FREEBSD
-extern void	rtw_list_delete(_list *plist);
+extern void	tlw_list_delete(_list *plist);
 #endif //PLATFORM_FREEBSD
 
-extern void	_rtw_init_sema(_sema *sema, int init_val);
-extern void	_rtw_free_sema(_sema	*sema);
-extern void	_rtw_up_sema(_sema	*sema);
-extern u32	_rtw_down_sema(_sema *sema);
-extern void	_rtw_mutex_init(_mutex *pmutex);
-extern void	_rtw_mutex_free(_mutex *pmutex);
+extern void	_tlw_init_sema(_sema *sema, int init_val);
+extern void	_tlw_free_sema(_sema	*sema);
+extern void	_tlw_up_sema(_sema	*sema);
+extern u32	_tlw_down_sema(_sema *sema);
+extern void	_tlw_mutex_init(_mutex *pmutex);
+extern void	_tlw_mutex_free(_mutex *pmutex);
 #ifndef PLATFORM_FREEBSD
-extern void	_rtw_spinlock_init(_lock *plock);
+extern void	_tlw_spinlock_init(_lock *plock);
 #endif //PLATFORM_FREEBSD
-extern void	_rtw_spinlock_free(_lock *plock);
-extern void	_rtw_spinlock(_lock	*plock);
-extern void	_rtw_spinunlock(_lock	*plock);
-extern void	_rtw_spinlock_ex(_lock	*plock);
-extern void	_rtw_spinunlock_ex(_lock	*plock);
+extern void	_tlw_spinlock_free(_lock *plock);
+extern void	_tlw_spinlock(_lock	*plock);
+extern void	_tlw_spinunlock(_lock	*plock);
+extern void	_tlw_spinlock_ex(_lock	*plock);
+extern void	_tlw_spinunlock_ex(_lock	*plock);
 
-extern void	_rtw_init_queue(_queue	*pqueue);
-extern u32	_rtw_queue_empty(_queue	*pqueue);
-extern u32	rtw_end_of_queue_search(_list *queue, _list *pelement);
+extern void	_tlw_init_queue(_queue	*pqueue);
+extern u32	_tlw_queue_empty(_queue	*pqueue);
+extern u32	tlw_end_of_queue_search(_list *queue, _list *pelement);
 
-extern u32	rtw_get_current_time(void);
-extern u32	rtw_systime_to_ms(u32 systime);
-extern u32	rtw_ms_to_systime(u32 ms);
-extern s32	rtw_get_passing_time_ms(u32 start);
-extern s32	rtw_get_time_interval_ms(u32 start, u32 end);
+extern u32	tlw_get_current_time(void);
+extern u32	tlw_systime_to_ms(u32 systime);
+extern u32	tlw_ms_to_systime(u32 ms);
+extern s32	tlw_get_passing_time_ms(u32 start);
+extern s32	tlw_get_time_interval_ms(u32 start, u32 end);
 
-extern void	rtw_sleep_schedulable(int ms);
+extern void	tlw_sleep_schedulable(int ms);
 
-extern void	rtw_msleep_os(int ms);
-extern void	rtw_usleep_os(int us);
+extern void	tlw_msleep_os(int ms);
+extern void	tlw_usleep_os(int us);
 
-extern u32 	rtw_atoi(u8* s);
+extern u32 	tlw_atoi(u8* s);
 
 #ifdef DBG_DELAY_OS
-#define rtw_mdelay_os(ms) _rtw_mdelay_os((ms), __FUNCTION__, __LINE__)
-#define rtw_udelay_os(ms) _rtw_udelay_os((ms), __FUNCTION__, __LINE__)
-extern void _rtw_mdelay_os(int ms, const char *func, const int line);
-extern void _rtw_udelay_os(int us, const char *func, const int line);
+#define tlw_mdelay_os(ms) _tlw_mdelay_os((ms), __FUNCTION__, __LINE__)
+#define tlw_udelay_os(ms) _tlw_udelay_os((ms), __FUNCTION__, __LINE__)
+extern void _tlw_mdelay_os(int ms, const char *func, const int line);
+extern void _tlw_udelay_os(int us, const char *func, const int line);
 #else
-extern void	rtw_mdelay_os(int ms);
-extern void	rtw_udelay_os(int us);
+extern void	tlw_mdelay_os(int ms);
+extern void	tlw_udelay_os(int us);
 #endif
 
-extern void rtw_yield_os(void);
+extern void tlw_yield_os(void);
 
 
-extern void rtw_init_timer(_timer *ptimer, void *padapter, void *pfunc);
+extern void tlw_init_timer(_timer *ptimer, void *padapter, void *pfunc);
 
 
 __inline static unsigned char _cancel_timer_ex(_timer *ptimer)
@@ -375,7 +375,7 @@ __inline static _OS_STATUS res_to_status(sint res)
 	
 }
 
-__inline static void rtw_dump_stack(void)
+__inline static void tlw_dump_stack(void)
 {
 #ifdef PLATFORM_LINUX
 	dump_stack();
@@ -383,12 +383,12 @@ __inline static void rtw_dump_stack(void)
 }
 
 #ifdef PLATFORM_LINUX
-#define rtw_warn_on(condition) WARN_ON(condition)
+#define tlw_warn_on(condition) WARN_ON(condition)
 #else
-#define rtw_warn_on(condition) do {} while (0)
+#define tlw_warn_on(condition) do {} while (0)
 #endif
 
-__inline static int rtw_bug_check(void *parg1, void *parg2, void *parg3, void *parg4)
+__inline static int tlw_bug_check(void *parg1, void *parg2, void *parg3, void *parg4)
 {
 	int ret = _TRUE;
 
@@ -475,9 +475,9 @@ __inline static u32 bitshift(u32 bitmask)
 	return i;
 }
 
-#define rtw_min(a, b) ((a>b)?b:a)
-#define rtw_is_range_a_in_b(hi_a, lo_a, hi_b, lo_b) (((hi_a) <= (hi_b)) && ((lo_a) >= (lo_b)))
-#define rtw_is_range_overlap(hi_a, lo_a, hi_b, lo_b) (((hi_a) > (lo_b)) && ((lo_a) < (hi_b)))
+#define tlw_min(a, b) ((a>b)?b:a)
+#define tlw_is_range_a_in_b(hi_a, lo_a, hi_b, lo_b) (((hi_a) <= (hi_b)) && ((lo_a) >= (lo_b)))
+#define tlw_is_range_overlap(hi_a, lo_a, hi_b, lo_b) (((hi_a) > (lo_b)) && ((lo_a) < (hi_b)))
 
 #ifndef MAC_FMT
 #define MAC_FMT "%02x:%02x:%02x:%02x:%02x:%02x"
@@ -487,20 +487,20 @@ __inline static u32 bitshift(u32 bitmask)
 #endif
 
 
-extern void rtw_suspend_lock_init(void);
-extern void rtw_suspend_lock_uninit(void);
-extern void rtw_lock_suspend(void);
-extern void rtw_unlock_suspend(void);
-extern void rtw_lock_suspend_timeout(u32 timeout_ms);
-extern void rtw_lock_ext_suspend_timeout(u32 timeout_ms);
-extern void rtw_lock_rx_suspend_timeout(u32 timeout_ms);
-extern void rtw_lock_traffic_suspend_timeout(u32 timeout_ms);
-extern void rtw_lock_resume_scan_timeout(u32 timeout_ms);
-extern void rtw_resume_lock_suspend(void);
-extern void rtw_resume_unlock_suspend(void);
+extern void tlw_suspend_lock_init(void);
+extern void tlw_suspend_lock_uninit(void);
+extern void tlw_lock_suspend(void);
+extern void tlw_unlock_suspend(void);
+extern void tlw_lock_suspend_timeout(u32 timeout_ms);
+extern void tlw_lock_ext_suspend_timeout(u32 timeout_ms);
+extern void tlw_lock_rx_suspend_timeout(u32 timeout_ms);
+extern void tlw_lock_traffic_suspend_timeout(u32 timeout_ms);
+extern void tlw_lock_resume_scan_timeout(u32 timeout_ms);
+extern void tlw_resume_lock_suspend(void);
+extern void tlw_resume_unlock_suspend(void);
 #ifdef CONFIG_AP_WOWLAN
-extern void rtw_softap_lock_suspend(void);
-extern void rtw_softap_unlock_suspend(void);
+extern void tlw_softap_lock_suspend(void);
+extern void tlw_softap_unlock_suspend(void);
 #endif
 
 extern void ATOMIC_SET(ATOMIC_T *v, int i);
@@ -515,19 +515,19 @@ extern int ATOMIC_INC_RETURN(ATOMIC_T *v);
 extern int ATOMIC_DEC_RETURN(ATOMIC_T *v);
 
 //File operation APIs, just for linux now
-extern int rtw_is_file_readable(char *path);
-extern int rtw_retrieve_from_file(char *path, u8 *buf, u32 sz);
-extern int rtw_store_to_file(char *path, u8* buf, u32 sz);
+extern int tlw_is_file_readable(char *path);
+extern int tlw_retrieve_from_file(char *path, u8 *buf, u32 sz);
+extern int tlw_store_to_file(char *path, u8* buf, u32 sz);
 
 
 #ifndef PLATFORM_FREEBSD
-extern void rtw_free_netdev(struct net_device * netdev);
+extern void tlw_free_netdev(struct net_device * netdev);
 #endif //PLATFORM_FREEBSD
 
 
-extern u64 rtw_modular64(u64 x, u64 y);
-extern u64 rtw_division64(u64 x, u64 y);
-extern u32 rtw_random32(void);
+extern u64 tlw_modular64(u64 x, u64 y);
+extern u64 tlw_division64(u64 x, u64 y);
+extern u32 tlw_random32(void);
 
 /* Macros for handling unaligned memory accesses */
 
@@ -595,31 +595,31 @@ extern u32 rtw_random32(void);
 			 (((u64) (a)[3]) << 24) | (((u64) (a)[2]) << 16) | \
 			 (((u64) (a)[1]) << 8) | ((u64) (a)[0]))
 
-void rtw_buf_free(u8 **buf, u32 *buf_len);
-void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len);
+void tlw_buf_free(u8 **buf, u32 *buf_len);
+void tlw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len);
 
-struct rtw_cbuf {
+struct tlw_cbuf {
 	u32 write;
 	u32 read;
 	u32 size;
 	void *bufs[0];
 };
 
-bool rtw_cbuf_full(struct rtw_cbuf *cbuf);
-bool rtw_cbuf_empty(struct rtw_cbuf *cbuf);
-bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf);
-void *rtw_cbuf_pop(struct rtw_cbuf *cbuf);
-struct rtw_cbuf *rtw_cbuf_alloc(u32 size);
-void rtw_cbuf_free(struct rtw_cbuf *cbuf);
+bool tlw_cbuf_full(struct tlw_cbuf *cbuf);
+bool tlw_cbuf_empty(struct tlw_cbuf *cbuf);
+bool tlw_cbuf_push(struct tlw_cbuf *cbuf, void *buf);
+void *tlw_cbuf_pop(struct tlw_cbuf *cbuf);
+struct tlw_cbuf *tlw_cbuf_alloc(u32 size);
+void tlw_cbuf_free(struct tlw_cbuf *cbuf);
 
 // String handler
 /*
  * Write formatted output to sized buffer
  */
 #ifdef PLATFORM_LINUX
-#define rtw_sprintf(buf, size, format, arg...)	snprintf(buf, size, format, ##arg)
+#define tlw_sprintf(buf, size, format, arg...)	snprintf(buf, size, format, ##arg)
 #else // !PLATFORM_LINUX
-#error "NOT DEFINE \"rtw_sprintf\"!!"
+#error "NOT DEFINE \"tlw_sprintf\"!!"
 #endif // !PLATFORM_LINUX
 
 #endif

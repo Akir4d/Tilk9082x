@@ -115,7 +115,7 @@ struct beamforming_info {
 	struct sounding_info		sounding_info;
 };
 
-struct rtw_ndpa_sta_info {
+struct tlw_ndpa_sta_info {
 	u16	aid:12;	
 	u16	feedback_type:1;
 	u16	nc_index:3;	

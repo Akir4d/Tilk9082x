@@ -580,7 +580,7 @@ typedef struct _WLAN_PHY_INFO
 
 typedef struct _WLAN_BCN_INFO
 {
-	/* these infor get from rtw_get_encrypt_info when
+	/* these infor get from tlw_get_encrypt_info when
 	 * 	 * translate scan to UI */
 	u8 encryp_protocol;//ENCRYP_PROTOCOL_E: OPEN/WEP/WPA/WPA2/WAPI
 	int group_cipher; //WPA/WPA2 group cipher

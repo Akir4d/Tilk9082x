@@ -231,7 +231,7 @@ typedef enum _RT_CHANNEL_DOMAIN_5G
 	RT_CHANNEL_DOMAIN_5G_MAX,
 }RT_CHANNEL_DOMAIN_5G, *PRT_CHANNEL_DOMAIN_5G;
 
-#define rtw_is_channel_plan_valid(chplan) (chplan<RT_CHANNEL_DOMAIN_MAX || chplan == RT_CHANNEL_DOMAIN_REALTEK_DEFINE)
+#define tlw_is_channel_plan_valid(chplan) (chplan<RT_CHANNEL_DOMAIN_MAX || chplan == RT_CHANNEL_DOMAIN_REALTEK_DEFINE)
 
 typedef struct _RT_CHANNEL_PLAN
 {
@@ -364,7 +364,7 @@ struct ss_res {
 	u8 ssid_num;
 	u8 ch_num;
 	NDIS_802_11_SSID ssid[RTW_SSID_SCAN_AMOUNT];
-	struct rtw_ieee80211_channel ch[RTW_CHANNEL_SCAN_AMOUNT];
+	struct tlw_ieee80211_channel ch[RTW_CHANNEL_SCAN_AMOUNT];
 };
 
 //#define AP_MODE				0x0C
@@ -506,19 +506,19 @@ typedef struct _RT_CHANNEL_INFO
 
 #ifdef CONFIG_DFS_MASTER
 struct rf_ctl_t;
-#define CH_IS_NON_OCP(rt_ch_info) ((rt_ch_info)->non_ocp_end_time > rtw_get_current_time())
-void rtw_rfctl_reset_cac(struct rf_ctl_t *rfctl);
-bool rtw_is_cac_reset_needed(_adapter *adapter);
-bool _rtw_rfctl_overlap_radar_detect_ch(struct rf_ctl_t *rfctl, u8 ch, u8 bw, u8 offset);
-bool rtw_rfctl_overlap_radar_detect_ch(struct rf_ctl_t *rfctl);
-bool rtw_rfctl_is_tx_blocked_by_cac(struct rf_ctl_t *rfctl);
-bool rtw_chset_is_ch_non_ocp(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offset);
-void rtw_chset_update_non_ocp(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offset);
-void rtw_chset_update_non_ocp_ms(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offset, int ms);
+#define CH_IS_NON_OCP(rt_ch_info) ((rt_ch_info)->non_ocp_end_time > tlw_get_current_time())
+void tlw_rfctl_reset_cac(struct rf_ctl_t *rfctl);
+bool tlw_is_cac_reset_needed(_adapter *adapter);
+bool _tlw_rfctl_overlap_radar_detect_ch(struct rf_ctl_t *rfctl, u8 ch, u8 bw, u8 offset);
+bool tlw_rfctl_overlap_radar_detect_ch(struct rf_ctl_t *rfctl);
+bool tlw_rfctl_is_tx_blocked_by_cac(struct rf_ctl_t *rfctl);
+bool tlw_chset_is_ch_non_ocp(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offset);
+void tlw_chset_update_non_ocp(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offset);
+void tlw_chset_update_non_ocp_ms(RT_CHANNEL_INFO *ch_set, u8 ch, u8 bw, u8 offset, int ms);
 #else
 #define CH_IS_NON_OCP(rt_ch_info) 0
-#define rtw_chset_is_ch_non_ocp(ch_set, ch, bw, offset) _FALSE
-#define rtw_rfctl_is_tx_blocked_by_cac(rfctl) _FALSE
+#define tlw_chset_is_ch_non_ocp(ch_set, ch, bw, offset) _FALSE
+#define tlw_rfctl_is_tx_blocked_by_cac(rfctl) _FALSE
 #endif
 
 enum {
@@ -529,12 +529,12 @@ enum {
 	RTW_CHF_NON_DFS = BIT4,
 	RTW_CHF_NON_LONG_CAC = BIT5,
 };
-bool rtw_choose_available_chbw(_adapter *adapter, u8 req_bw, u8 *dec_ch, u8 *dec_bw, u8 *dec_offset, u8 d_flags);
+bool tlw_choose_available_chbw(_adapter *adapter, u8 req_bw, u8 *dec_ch, u8 *dec_bw, u8 *dec_offset, u8 d_flags);
 void dump_chset(void *sel, RT_CHANNEL_INFO *ch_set);
 void dump_ch_plan_test(void *sel);
 
-int rtw_ch_set_search_ch(RT_CHANNEL_INFO *ch_set, const u32 ch);
-bool rtw_mlme_band_check(_adapter *adapter, const u32 ch);
+int tlw_ch_set_search_ch(RT_CHANNEL_INFO *ch_set, const u32 ch);
+bool tlw_mlme_band_check(_adapter *adapter, const u32 ch);
 
 // P2P_MAX_REG_CLASSES - Maximum number of regulatory classes
 #define P2P_MAX_REG_CLASSES 10
@@ -718,17 +718,17 @@ void change_band_update_ie(_adapter *padapter, WLAN_BSSID_EX *pnetwork, u8 ch);
 //void Set_NETYPE0_MSR(_adapter *padapter, u8 type);
 void Set_MSR(_adapter *padapter, u8 type);
 
-u8 rtw_get_oper_ch(_adapter *adapter);
-void rtw_set_oper_ch(_adapter *adapter, u8 ch);
-u8 rtw_get_oper_bw(_adapter *adapter);
-void rtw_set_oper_bw(_adapter *adapter, u8 bw);
-u8 rtw_get_oper_choffset(_adapter *adapter);
-void rtw_set_oper_choffset(_adapter *adapter, u8 offset);
-u8	rtw_get_center_ch(u8 channel, u8 chnl_bw, u8 chnl_offset);
-u32 rtw_get_on_oper_ch_time(_adapter *adapter);
-u32 rtw_get_on_cur_ch_time(_adapter *adapter);
+u8 tlw_get_oper_ch(_adapter *adapter);
+void tlw_set_oper_ch(_adapter *adapter, u8 ch);
+u8 tlw_get_oper_bw(_adapter *adapter);
+void tlw_set_oper_bw(_adapter *adapter, u8 bw);
+u8 tlw_get_oper_choffset(_adapter *adapter);
+void tlw_set_oper_choffset(_adapter *adapter, u8 offset);
+u8	tlw_get_center_ch(u8 channel, u8 chnl_bw, u8 chnl_offset);
+u32 tlw_get_on_oper_ch_time(_adapter *adapter);
+u32 tlw_get_on_cur_ch_time(_adapter *adapter);
 
-u8 rtw_get_offset_by_ch(u8 channel);
+u8 tlw_get_offset_by_ch(u8 channel);
 
 void set_channel_bwmode(_adapter *padapter, unsigned char channel, unsigned char channel_offset, unsigned short bwmode);
 void SelectChannel(_adapter *padapter, unsigned char channel);
@@ -789,10 +789,10 @@ void ERP_IE_handler(_adapter *padapter, PNDIS_802_11_VARIABLE_IEs pIE);
 void VCS_update(_adapter *padapter, struct sta_info *psta);
 void	update_ldpc_stbc_cap(struct sta_info *psta);
 
-int rtw_get_bcn_keys(ADAPTER *Adapter, u8 *pframe, u32 packet_len,
+int tlw_get_bcn_keys(ADAPTER *Adapter, u8 *pframe, u32 packet_len,
 		struct beacon_keys *recv_beacon);
-void rtw_dump_bcn_keys(struct beacon_keys *recv_beacon);
-int rtw_check_bcn_info(ADAPTER *Adapter, u8 *pframe, u32 packet_len);
+void tlw_dump_bcn_keys(struct beacon_keys *recv_beacon);
+int tlw_check_bcn_info(ADAPTER *Adapter, u8 *pframe, u32 packet_len);
 void update_beacon_info(_adapter *padapter, u8 *pframe, uint len, struct sta_info *psta);
 #ifdef CONFIG_DFS
 void process_csa_ie(_adapter *padapter, u8 *pframe, uint len);
@@ -819,40 +819,40 @@ unsigned int is_ap_in_tkip(_adapter *padapter);
 unsigned int is_ap_in_wep(_adapter *padapter);
 unsigned int should_forbid_n_rate(_adapter * padapter);
 
-s16 rtw_get_camid(_adapter *adapter, struct sta_info* sta, s16 kid);
-bool _rtw_camctl_chk_cap(_adapter *adapter, u8 cap);
-void _rtw_camctl_set_flags(_adapter *adapter, u32 flags);
-void rtw_camctl_set_flags(_adapter *adapter, u32 flags);
-void _rtw_camctl_clr_flags(_adapter *adapter, u32 flags);
-void rtw_camctl_clr_flags(_adapter *adapter, u32 flags);
-bool _rtw_camctl_chk_flags(_adapter *adapter, u32 flags);
-bool _rtw_camid_is_gk(_adapter *adapter, u8 cam_id);
-bool rtw_camid_is_gk(_adapter *adapter, u8 cam_id);
-s16 rtw_camid_search(_adapter *adapter, u8 *addr, s16 kid, s8 gk);
-s16 rtw_camid_alloc(_adapter *adapter, struct sta_info *sta, u8 kid, bool *used);
-void rtw_camid_free(_adapter *adapter, u8 cam_id);
+s16 tlw_get_camid(_adapter *adapter, struct sta_info* sta, s16 kid);
+bool _tlw_camctl_chk_cap(_adapter *adapter, u8 cap);
+void _tlw_camctl_set_flags(_adapter *adapter, u32 flags);
+void tlw_camctl_set_flags(_adapter *adapter, u32 flags);
+void _tlw_camctl_clr_flags(_adapter *adapter, u32 flags);
+void tlw_camctl_clr_flags(_adapter *adapter, u32 flags);
+bool _tlw_camctl_chk_flags(_adapter *adapter, u32 flags);
+bool _tlw_camid_is_gk(_adapter *adapter, u8 cam_id);
+bool tlw_camid_is_gk(_adapter *adapter, u8 cam_id);
+s16 tlw_camid_search(_adapter *adapter, u8 *addr, s16 kid, s8 gk);
+s16 tlw_camid_alloc(_adapter *adapter, struct sta_info *sta, u8 kid, bool *used);
+void tlw_camid_free(_adapter *adapter, u8 cam_id);
 bool read_phy_cam_is_gtk(_adapter *padapter, u8 entry);
 
 struct macid_bmp;
 struct macid_ctl_t;
 void dump_macid_map(void *sel, struct macid_bmp *map, u8 max_num);
-bool rtw_macid_is_set(struct macid_bmp *map, u8 id);
-bool rtw_macid_is_used(struct macid_ctl_t *macid_ctl, u8 id);
-bool rtw_macid_is_bmc(struct macid_ctl_t *macid_ctl, u8 id);
-s8 rtw_macid_get_if_g(struct macid_ctl_t *macid_ctl, u8 id);
-s8 rtw_macid_get_ch_g(struct macid_ctl_t *macid_ctl, u8 id);
-void rtw_alloc_macid(_adapter *padapter, struct sta_info *psta);
-void rtw_release_macid(_adapter *padapter, struct sta_info *psta);
-u8 rtw_search_max_mac_id(_adapter *padapter);
-void rtw_macid_ctl_init(struct macid_ctl_t *macid_ctl);
-void rtw_macid_ctl_deinit(struct macid_ctl_t *macid_ctl);
+bool tlw_macid_is_set(struct macid_bmp *map, u8 id);
+bool tlw_macid_is_used(struct macid_ctl_t *macid_ctl, u8 id);
+bool tlw_macid_is_bmc(struct macid_ctl_t *macid_ctl, u8 id);
+s8 tlw_macid_get_if_g(struct macid_ctl_t *macid_ctl, u8 id);
+s8 tlw_macid_get_ch_g(struct macid_ctl_t *macid_ctl, u8 id);
+void tlw_alloc_macid(_adapter *padapter, struct sta_info *psta);
+void tlw_release_macid(_adapter *padapter, struct sta_info *psta);
+u8 tlw_search_max_mac_id(_adapter *padapter);
+void tlw_macid_ctl_init(struct macid_ctl_t *macid_ctl);
+void tlw_macid_ctl_deinit(struct macid_ctl_t *macid_ctl);
 
 void report_join_res(_adapter *padapter, int res);
 void report_survey_event(_adapter *padapter, union recv_frame *precv_frame);
 void report_surveydone_event(_adapter *padapter);
 void report_del_sta_event(_adapter *padapter, unsigned char *MacAddr, unsigned short reason, bool enqueue);
 void report_add_sta_event(_adapter *padapter, unsigned char* MacAddr, int cam_idx);
-bool rtw_port_switch_chk(_adapter *adapter);
+bool tlw_port_switch_chk(_adapter *adapter);
 void report_wmm_edca_update(_adapter *padapter);
 
 void beacon_timing_control(_adapter *padapter);
@@ -937,13 +937,13 @@ enum rx_ampdu_reason {
 	RX_AMPDU_BTCOEX = 2, /* not used, because BTCOEX has its own variable management */
 	RX_AMPDU_DRV_SCAN = 3,
 };
-u8 rtw_rx_ampdu_size(_adapter *adapter);
-bool rtw_rx_ampdu_is_accept(_adapter *adapter);
-bool rtw_rx_ampdu_set_size(_adapter *adapter, u8 size, u8 reason);
-bool rtw_rx_ampdu_set_accept(_adapter *adapter, u8 accept, u8 reason);
+u8 tlw_rx_ampdu_size(_adapter *adapter);
+bool tlw_rx_ampdu_is_accept(_adapter *adapter);
+bool tlw_rx_ampdu_set_size(_adapter *adapter, u8 size, u8 reason);
+bool tlw_rx_ampdu_set_accept(_adapter *adapter, u8 accept, u8 reason);
 u8 rx_ampdu_apply_sta_tid(_adapter *adapter, struct sta_info *sta, u8 tid, u8 accept, u8 size);
 u8 rx_ampdu_apply_sta(_adapter *adapter, struct sta_info *sta, u8 accept, u8 size);
-u16 rtw_rx_ampdu_apply(_adapter *adapter);
+u16 tlw_rx_ampdu_apply(_adapter *adapter);
 
 unsigned int OnAction_back(_adapter *padapter, union recv_frame *precv_frame);
 unsigned int on_action_public(_adapter *padapter, union recv_frame *precv_frame);
@@ -1000,15 +1000,15 @@ extern u8 traffic_status_watchdog(_adapter *padapter, u8 from_timer);
 sint check_buddy_mlmeinfo_state(_adapter *padapter, u32 state);
 #endif
 
-void rtw_join_done_chk_ch(_adapter *padapter, int join_res);
+void tlw_join_done_chk_ch(_adapter *padapter, int join_res);
 
-int rtw_chk_start_clnt_join(_adapter *padapter, u8 *ch, u8 *bw, u8 *offset);
-int rtw_get_ch_setting_union(_adapter *adapter, u8 *ch, u8 *bw, u8 *offset);
-int rtw_get_ch_setting_union_no_self(_adapter *adapter, u8 *ch, u8 *bw, u8 *offset);
+int tlw_chk_start_clnt_join(_adapter *padapter, u8 *ch, u8 *bw, u8 *offset);
+int tlw_get_ch_setting_union(_adapter *adapter, u8 *ch, u8 *bw, u8 *offset);
+int tlw_get_ch_setting_union_no_self(_adapter *adapter, u8 *ch, u8 *bw, u8 *offset);
 
-void rtw_dev_iface_status(_adapter *adapter, u8 *sta_num, u8 *ld_sta_num, u8 *lg_sta_num
+void tlw_dev_iface_status(_adapter *adapter, u8 *sta_num, u8 *ld_sta_num, u8 *lg_sta_num
 	, u8 *ap_num, u8 *ld_ap_num);
-void rtw_dev_iface_status_no_self(_adapter *adapter, u8 *sta_num, u8 *ld_sta_num, u8 *lg_sta_num
+void tlw_dev_iface_status_no_self(_adapter *adapter, u8 *sta_num, u8 *ld_sta_num, u8 *lg_sta_num
 	, u8 *ap_num, u8 *ld_ap_num);
 
 struct cmd_hdl {
@@ -1115,7 +1115,7 @@ struct cmd_hdl wlancmds[] =
 	GEN_MLME_EXT_HANDLER(sizeof(struct Tx_Beacon_param), tx_beacon_hdl) /*55*/
 
 	GEN_MLME_EXT_HANDLER(0, mlme_evt_hdl) /*56*/
-	GEN_MLME_EXT_HANDLER(0, rtw_drvextra_cmd_hdl) /*57*/
+	GEN_MLME_EXT_HANDLER(0, tlw_drvextra_cmd_hdl) /*57*/
 
 	GEN_MLME_EXT_HANDLER(0, h2c_msg_hdl) /*58*/
 	GEN_MLME_EXT_HANDLER(sizeof(struct SetChannelPlan_param), set_chplan_hdl) /*59*/
@@ -1154,10 +1154,10 @@ struct C2HEvent_Header
 
 };
 
-void rtw_dummy_event_callback(_adapter *adapter , u8 *pbuf);
-void rtw_fwdbg_event_callback(_adapter *adapter , u8 *pbuf);
+void tlw_dummy_event_callback(_adapter *adapter , u8 *pbuf);
+void tlw_fwdbg_event_callback(_adapter *adapter , u8 *pbuf);
 
-enum rtw_c2h_event
+enum tlw_c2h_event
 {
 	GEN_EVT_CODE(_Read_MACREG)=0, /*0*/
 	GEN_EVT_CODE(_Read_BBREG),
@@ -1197,7 +1197,7 @@ enum rtw_c2h_event
 
 static struct fwevent wlanevents[] = 
 {
-	{0, rtw_dummy_event_callback}, 	/*0*/
+	{0, tlw_dummy_event_callback}, 	/*0*/
 	{0, NULL},
 	{0, NULL},
 	{0, NULL},
@@ -1205,27 +1205,27 @@ static struct fwevent wlanevents[] =
 	{0, NULL},
 	{0, NULL},
 	{0, NULL},
-	{0, &rtw_survey_event_callback},		/*8*/
-	{sizeof (struct surveydone_event), &rtw_surveydone_event_callback},	/*9*/
+	{0, &tlw_survey_event_callback},		/*8*/
+	{sizeof (struct surveydone_event), &tlw_surveydone_event_callback},	/*9*/
 		
-	{0, &rtw_joinbss_event_callback},		/*10*/
-	{sizeof(struct stassoc_event), &rtw_stassoc_event_callback},
-	{sizeof(struct stadel_event), &rtw_stadel_event_callback},	
-	{0, &rtw_atimdone_event_callback},
-	{0, rtw_dummy_event_callback},
+	{0, &tlw_joinbss_event_callback},		/*10*/
+	{sizeof(struct stassoc_event), &tlw_stassoc_event_callback},
+	{sizeof(struct stadel_event), &tlw_stadel_event_callback},	
+	{0, &tlw_atimdone_event_callback},
+	{0, tlw_dummy_event_callback},
 	{0, NULL},	/*15*/
 	{0, NULL},
 	{0, NULL},
 	{0, NULL},
-	{0, rtw_fwdbg_event_callback},
+	{0, tlw_fwdbg_event_callback},
 	{0, NULL},	 /*20*/
 	{0, NULL},
 	{0, NULL},
-	{0, &rtw_cpwm_event_callback},
+	{0, &tlw_cpwm_event_callback},
 	{0, NULL},
-	{0, &rtw_wmm_event_callback}, /*25*/
+	{0, &tlw_wmm_event_callback}, /*25*/
 #ifdef CONFIG_IEEE80211W
-	{sizeof(struct stadel_event), &rtw_sta_timeout_event_callback},
+	{sizeof(struct stadel_event), &tlw_sta_timeout_event_callback},
 #endif /* CONFIG_IEEE80211W */
 
 };

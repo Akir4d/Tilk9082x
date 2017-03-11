@@ -1,6 +1,6 @@
 
 #include <drv_types.h>
-#include <rtw_mem.h>
+#include <tlw_mem.h>
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Realtek Wireless Lan Driver");
@@ -10,25 +10,25 @@ MODULE_VERSION("DRIVERVERSION");
 struct sk_buff_head rtk_skb_mem_q;
 struct u8* rtk_buf_mem[NR_RECVBUFF];
 
-struct u8	* rtw_get_buf_premem(int index)
+struct u8	* tlw_get_buf_premem(int index)
 {
 	printk("%s, rtk_buf_mem index : %d\n", __func__, index);
 	return rtk_buf_mem[index];
 }
 
-u16 rtw_rtkm_get_buff_size(void)
+u16 tlw_rtkm_get_buff_size(void)
 {
 	return MAX_RTKM_RECVBUF_SZ;
 }
-EXPORT_SYMBOL(rtw_rtkm_get_buff_size);
+EXPORT_SYMBOL(tlw_rtkm_get_buff_size);
 
-u8 rtw_rtkm_get_nr_recv_skb(void)
+u8 tlw_rtkm_get_nr_recv_skb(void)
 {
 	return MAX_RTKM_NR_PREALLOC_RECV_SKB;
 }
-EXPORT_SYMBOL(rtw_rtkm_get_nr_recv_skb);
+EXPORT_SYMBOL(tlw_rtkm_get_nr_recv_skb);
 
-struct sk_buff *rtw_alloc_skb_premem(u16 in_size)
+struct sk_buff *tlw_alloc_skb_premem(u16 in_size)
 {
 	struct sk_buff *skb = NULL;
 
@@ -44,9 +44,9 @@ struct sk_buff *rtw_alloc_skb_premem(u16 in_size)
 
 	return skb;	
 }
-EXPORT_SYMBOL(rtw_alloc_skb_premem);
+EXPORT_SYMBOL(tlw_alloc_skb_premem);
 
-int rtw_free_skb_premem(struct sk_buff *pskb)
+int tlw_free_skb_premem(struct sk_buff *pskb)
 {
 	if(!pskb)
 		return -1;
@@ -60,9 +60,9 @@ int rtw_free_skb_premem(struct sk_buff *pskb)
 
 	return 0;
 }
-EXPORT_SYMBOL(rtw_free_skb_premem);
+EXPORT_SYMBOL(tlw_free_skb_premem);
 
-static int __init rtw_mem_init(void)
+static int __init tlw_mem_init(void)
 {
 	int i;
 	SIZE_PTR tmpaddr=0;
@@ -107,7 +107,7 @@ static int __init rtw_mem_init(void)
 	
 }
 
-static void __exit rtw_mem_exit(void)
+static void __exit tlw_mem_exit(void)
 {
 	if (skb_queue_len(&rtk_skb_mem_q)) {
 		printk("%s, rtk_skb_mem_q len : %d\n", __func__, skb_queue_len(&rtk_skb_mem_q));
@@ -118,5 +118,5 @@ static void __exit rtw_mem_exit(void)
 	printk("%s\n", __func__);
 }
 
-module_init(rtw_mem_init);
-module_exit(rtw_mem_exit);
+module_init(tlw_mem_init);
+module_exit(tlw_mem_exit);

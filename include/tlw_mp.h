@@ -745,119 +745,119 @@ void MP_PHY_SetRFPathSwitch(PADAPTER pAdapter , BOOLEAN bMain);
 ULONG mpt_ProQueryCalTxPower(PADAPTER	pAdapter, u8 RfPath);
 void MPT_PwrCtlDM(PADAPTER padapter, u32 bstart);
 u8 MptToMgntRate(u32	MptRateIdx);
-u8 rtw_mpRateParseFunc(PADAPTER pAdapter, u8 *targetStr);
+u8 tlw_mpRateParseFunc(PADAPTER pAdapter, u8 *targetStr);
 u32 mp_join(PADAPTER padapter, u8 mode);
 
-int rtw_mp_write_reg(struct net_device *dev,
+int tlw_mp_write_reg(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_read_reg(struct net_device *dev,
+int tlw_mp_read_reg(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_write_rf(struct net_device *dev,
+int tlw_mp_write_rf(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_read_rf(struct net_device *dev,
+int tlw_mp_read_rf(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_start(struct net_device *dev,
+int tlw_mp_start(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_stop(struct net_device *dev,
+int tlw_mp_stop(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_rate(struct net_device *dev,
+int tlw_mp_rate(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_channel(struct net_device *dev,
+int tlw_mp_channel(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_bandwidth(struct net_device *dev,
+int tlw_mp_bandwidth(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_txpower_index(struct net_device *dev,
+int tlw_mp_txpower_index(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_txpower(struct net_device *dev,
+int tlw_mp_txpower(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_txpower(struct net_device *dev,
+int tlw_mp_txpower(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_ant_tx(struct net_device *dev,
+int tlw_mp_ant_tx(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_ant_rx(struct net_device *dev,
+int tlw_mp_ant_rx(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_set_ctx_destAddr(struct net_device *dev,
+int tlw_set_ctx_destAddr(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_ctx(struct net_device *dev,
+int tlw_mp_ctx(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_disable_bt_coexist(struct net_device *dev,
+int tlw_mp_disable_bt_coexist(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_disable_bt_coexist(struct net_device *dev,
+int tlw_mp_disable_bt_coexist(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_arx(struct net_device *dev,
+int tlw_mp_arx(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_trx_query(struct net_device *dev,
+int tlw_mp_trx_query(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_pwrtrk(struct net_device *dev,
+int tlw_mp_pwrtrk(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_psd(struct net_device *dev,
+int tlw_mp_psd(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_thermal(struct net_device *dev,
+int tlw_mp_thermal(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_reset_stats(struct net_device *dev,
+int tlw_mp_reset_stats(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_dump(struct net_device *dev,
+int tlw_mp_dump(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_phypara(struct net_device *dev,
+int tlw_mp_phypara(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_SetRFPath(struct net_device *dev,
+int tlw_mp_SetRFPath(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_QueryDrv(struct net_device *dev,
+int tlw_mp_QueryDrv(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_PwrCtlDM(struct net_device *dev,
+int tlw_mp_PwrCtlDM(struct net_device *dev,
 			struct iw_request_info *info,
 			struct iw_point *wrqu, char *extra);
-int rtw_mp_getver(struct net_device *dev,
+int tlw_mp_getver(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_mon(struct net_device *dev,
+int tlw_mp_mon(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_efuse_mask_file(struct net_device *dev,
+int tlw_efuse_mask_file(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_efuse_file_map(struct net_device *dev,
+int tlw_efuse_file_map(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_SetBT(struct net_device *dev,
+int tlw_mp_SetBT(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_pretx_proc(PADAPTER padapter, u8 bStartTest, char *extra);
-int rtw_mp_tx(struct net_device *dev,
+int tlw_mp_pretx_proc(PADAPTER padapter, u8 bStartTest, char *extra);
+int tlw_mp_tx(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_rx(struct net_device *dev,
+int tlw_mp_rx(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
-int rtw_mp_hwtx(struct net_device *dev,
+int tlw_mp_hwtx(struct net_device *dev,
 			struct iw_request_info *info,
 			union iwreq_data *wrqu, char *extra);
 #endif //_RTW_MP_H_
